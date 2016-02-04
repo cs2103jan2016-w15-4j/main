@@ -3,6 +3,7 @@ public class Task {
 	public String taskName;
 	public String time;
 	public String day;
+	public int taskId;
 	
 	public Task(){
 		

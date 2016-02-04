@@ -1,5 +1,5 @@
 
-public class Command {
+public abstract class Command {
 	public String command;
 	public String data;
 	public String time;
@@ -9,7 +9,5 @@ public class Command {
 	public Command(){
 	}
 	
-	public void execute(TaskManager taskManager){
-		
-	}
+	public abstract void execute(TaskManager taskManager);
 }

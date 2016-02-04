@@ -1,0 +1,29 @@
+clear
+display
+add hello
+add you
+delete 0
+add here
+add are
+display
+delete 2
+display
+delete 1
+add home
+display
+clear
+display
+add hello
+add haha
+display
+delete 3
+add i
+add am
+add going
+add home
+display
+delete 3
+display
+a
+clear
+exit

@@ -1,0 +1,75 @@
+Welcome to TextBuddy mytextfile.txt is ready for use.
+command: 
+All content deleted from mytextfile.txt
+command: 
+mytextfile.txt is empty
+command: 
+added to mytextfile.txt: "hello"
+command: 
+added to mytextfile.txt: "you"
+command: 
+Unable to delete text in line No. 0
+command: 
+added to mytextfile.txt: "here"
+command: 
+added to mytextfile.txt: "are"
+command: 
+1. hello
+2. you
+3. here
+4. are
+command: 
+Deleted from mytextfile.txt: "you"
+command: 
+1. hello
+2. here
+3. are
+command: 
+Deleted from mytextfile.txt: "hello"
+command: 
+added to mytextfile.txt: "home"
+command: 
+1. here
+2. are
+3. home
+command: 
+All content deleted from mytextfile.txt
+command: 
+mytextfile.txt is empty
+command: 
+added to mytextfile.txt: "hello"
+command: 
+added to mytextfile.txt: "haha"
+command: 
+1. hello
+2. haha
+command: 
+Unable to delete text in line No. 3
+command: 
+added to mytextfile.txt: "i"
+command: 
+added to mytextfile.txt: "am"
+command: 
+added to mytextfile.txt: "going"
+command: 
+added to mytextfile.txt: "home"
+command: 
+1. hello
+2. haha
+3. i
+4. am
+5. going
+6. home
+command: 
+Deleted from mytextfile.txt: "i"
+command: 
+1. hello
+2. haha
+3. am
+4. going
+5. home
+command: 
+Invalid command: a
+command: 
+All content deleted from mytextfile.txt
+command: 

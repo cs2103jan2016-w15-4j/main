@@ -28,7 +28,9 @@ public class Parser {
 		switch (commandString.toLowerCase()) {
 		case Main.COMMAND_ADD:
 			//executeAddCommand(data);
-			command = CommandUtils.createAddCommand(data);
+			AddParser addParser = new AddParser(input);
+			command = addParser.getCommand();
+			//command = CommandUtils.createAddCommand(data);
 			break;
 
 		case Main.COMMAND_DELETE:
@@ -45,6 +47,6 @@ public class Parser {
 		
 		return command;
 	}
-	
-	
 }
+
+

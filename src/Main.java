@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -35,19 +36,19 @@ public class Main {
 	public Main() {
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		launchDooyit(args);
 	}
 
 
 
-	private static void launchDooyit(String[] args) {
+	private static void launchDooyit(String[] args) throws IOException {
 		Main textBuddy = new Main();
 		textBuddy.init(new Scanner(System.in));
 	}
 
 
-	public void init(Scanner sc) {
+	public void init(Scanner sc) throws IOException {
 		this.sc = sc;
 		logic = new Logic();
 		UI(logic);
@@ -55,7 +56,7 @@ public class Main {
 
 
 	
-	private void UI(Logic logic){
+	private void UI(Logic logic) throws IOException{
 		while (true) {
 			showToUser(MESAGE_COMMAND);
 			String userInput = sc.nextLine();

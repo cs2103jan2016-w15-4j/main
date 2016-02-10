@@ -1,3 +1,4 @@
+import java.io.IOException;
 
 public class Logic {
 
@@ -10,7 +11,7 @@ public class Logic {
 	}
 	
 	
-	public void processCommand(String input){
+	public void processCommand(String input) throws IOException{
 		Command command = parser.getCommand(input);
 		command.execute(taskManager);
 		save();
@@ -19,7 +20,7 @@ public class Logic {
 		taskManager.display();
 	}
 	
-	private void save(){
+	private void save() throws IOException{
 		storage.saveTasks(taskManager.getTasks());
 	}
 	

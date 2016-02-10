@@ -2,12 +2,15 @@ import java.io.IOException;
 
 public class Logic {
 
-	Parser parser = new Parser();
-	TaskManager taskManager = new TaskManager();
-	Storage storage = new Storage();
+	Parser parser;
+	TaskManager taskManager;
+	Storage storage;
 	
 	public Logic(){
-		
+		parser = new Parser();
+		taskManager = new TaskManager();
+		storage = new Storage();
+		taskManager.tasks = storage.loadTasks();
 	}
 	
 	

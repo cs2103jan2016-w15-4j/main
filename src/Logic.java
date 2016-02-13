@@ -6,7 +6,7 @@ public class Logic {
 	TaskManager taskManager;
 	Storage storage;
 	
-	public Logic(){
+	public Logic() throws IOException{
 		parser = new Parser();
 		taskManager = new TaskManager();
 		storage = new Storage();

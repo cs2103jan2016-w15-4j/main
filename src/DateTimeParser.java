@@ -3,7 +3,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Scanner;
-import java.lang.Object;
 
 public class DateTimeParser {
 	private static final int TWELVE_HOURS = 1200;
@@ -40,9 +39,10 @@ public class DateTimeParser {
 	String currDayInWeek;
 	int currTime;
 	boolean isLeapYear;
+	private static Scanner sc;
 	
 	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
+		sc = new Scanner(System.in);
 		
 		while(true) {
 			System.out.print("command: ");
@@ -72,6 +72,10 @@ public class DateTimeParser {
 		currDay = Integer.parseInt(splitCurrDate[0]);
 		currMonth = Integer.parseInt(splitCurrDate[1]);
 		currYear = Integer.parseInt(splitCurrDate[2]);
+		
+		if(isLeapYear(currYear)) {
+			daysInMonth[2] = LEAP_YEAR_FEB;
+		}
 	}
 
 	private boolean isLeapYear(int currYear) {
@@ -101,9 +105,6 @@ public class DateTimeParser {
 		for(int i = 0; i < splitInput.length; i++) {
 			String currWord = splitInput[i].toLowerCase();
 			
-			// System.out.println("isDate(splitInput, i) is " + isDate(splitInput, i));
-			// System.out.println("isNumber(currWord) is " + isNumber(currWord));
-			
 			if(currWord.equals(THIS) &&  i != splitInput.length - 1) { 
 				System.out.println("Part E");
 				day = convertDayStrToInt(splitInput[i + 1]);
@@ -118,11 +119,13 @@ public class DateTimeParser {
 					fastForward = getFastForward(day) + NUM_DAYS_IN_WEEK;
 					date = getDate(fastForward);
 					i += 1;				// To skip the next word
+					
 				} else if(nextWordIsValidDay(splitInput, i)) {
 					day = convertDayStrToInt(splitInput[i + 1]);
 					fastForward = getFastForward(day) + NUM_DAYS_IN_WEEK;
 					date = getDate(fastForward);
 					i += 1;				// To skip the next word
+					
 				} else {
 					System.out.println("Invalid Cmd!");
 				}
@@ -170,33 +173,51 @@ public class DateTimeParser {
 					date = getDate(fastForward);
 					i += 1;				// To skip the next word
 				}
-			} else {		//Mon, Tue etc
+			} else if(isValidDay(currWord)){		//Mon, Tue etc
 				System.out.println("Part C");
 				day = convertDayStrToInt(currWord);
 				fastForward = getFastForward(day);
 				date = getDate(fastForward);
+				
+			} else {
+				//do nothing cuz invalid command
 			}
 		}
+		
+		
+		// These if else statements fix the correct dates into the DateTime object
+		DateTime ans;
 		if(day != -1) {
-			DateTime ans = new DateTime(date, daysInWeek[day], time);
+			ans = new DateTime(date, daysInWeek[day], time);
 			System.out.println(ans.toString());
-			return ans;
 		} else {	// Only time was given
 			if(hasPassed(currTime, time)) {
 				System.out.println("part Z");
 				date = getDate(NEXT_DAY);
-				DateTime ans = new DateTime(date, daysInWeek[getNextDayInt()], time);
+				ans = new DateTime(date, daysInWeek[getNextDayInt()], time);
 				System.out.println("the ans is " + ans.toString());
-				return ans;
 			} else {
 				System.out.println("part Y");
-				DateTime ans = new DateTime(currDate.split("/"), currDayInWeek, time);
+				ans = new DateTime(currDate.split("/"), currDayInWeek, time);
 				System.out.println("the ans is " + ans.toString());
-				return ans;
 			}
 		}
+		
+		if(hasPassed(ans)) {
+			System.out.println("You can't go back in time!!");
+		}
+		
+		return ans;
 	}
 	
+	private boolean hasPassed(DateTime ans) {
+		return ans.getDD() < currDay || ans.getMM() < currMonth || ans.getYY() < currYear || ans.getTimeInt() < currTime;
+	}
+
+	private boolean isValidDay(String currWord) {
+		return convertDayStrToInt(currWord) != -1;
+	}
+
 	private int getAdvanceInt(String[] splitInput, int i) {
 		int[] temp = getDateAndAdvanceInt(splitInput, i);		
 		return temp[3];
@@ -262,7 +283,6 @@ public class DateTimeParser {
 							
 						} else if(currInt >= 2000 && ans[2] == -1){
 							//yy = currInt;
-							boolean a = ans[2] == -1;
 							if(ans[2] == -1) {
 								ans[2] = currInt;
 								numEntries++;
@@ -275,11 +295,8 @@ public class DateTimeParser {
 						
 					}
 				}
-				System.out.println("ans[1] is " + ans[1] + " ans[2] here is " + ans[2]);
-				System.out.println("numEntries is " + numEntries);
 				counter++;
 			}
-			ans[3] = counter;
 		}
 		
 		if(ans[2] == -1) {
@@ -344,7 +361,7 @@ public class DateTimeParser {
 
 	private boolean nextWordIsValidDay(String[] splitInput, int i) {
 		String nextWord = splitInput[i + 1];
-		return convertDayStrToInt(nextWord) != -1;
+		return isValidDay(nextWord);
 	}
 
 	private boolean nextWordIsWeek(String[] splitInput, int i) {
@@ -396,8 +413,12 @@ public class DateTimeParser {
 	// Input number of days to fastforward from today
 	// Output the day of the week
 	private int get_Int_Day_From(int daysLater) {
-		int dayOfWeek = daysLater % 8 + today;
-		dayOfWeek %= 8;
+		System.out.println("today is " + today);
+		int dayOfWeek = daysLater + today;
+		dayOfWeek %= 7;
+		if(dayOfWeek == 0) {
+			dayOfWeek = 7;
+		}
 		return dayOfWeek;
 	}
 	
@@ -420,9 +441,9 @@ public class DateTimeParser {
 		int newMonth = currMonth;
 		int newYear = currYear;
 		
-		if(newDay > daysInMonth[currMonth]) {
-			newDay = newDay - daysInMonth[currMonth];
-			newMonth = newMonth + 1;
+		while(newDay > daysInMonth[newMonth]) {
+			newDay -= daysInMonth[newMonth];
+			newMonth += 1;
 		}
 		
 		if(newMonth > 12) {
@@ -466,6 +487,7 @@ public class DateTimeParser {
 		} else if(timeInt < 100) { 	// this is for the 12h format
 			timeInt = timeInt*100;
 		}
+		
 		if(isPm) {
 			timeInt = timeInt + TWELVE_HOURS;
 		}
@@ -475,6 +497,9 @@ public class DateTimeParser {
 			if(indicator.equals("pm")) {
 				timeInt = timeInt + TWELVE_HOURS;
 			}	
+			if(timeInt == 1200 && indicator.equals("am")) {
+				timeInt = 0;
+			}
 		}
 		if(timeInt >= 2400) {
 			System.out.println("InvalidTime");

@@ -1,10 +1,43 @@
 import java.util.Scanner;
+import java.util.ArrayList;
+
+import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.stage.Popup;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ContentDisplay;
+import javafx.scene.control.Label;
+import javafx.scene.control.Labeled;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.control.Toggle;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.TextAlignment;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.geometry.Pos;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+
+import dooyit.ui.*;
+import dooyit.ui.Task;
 
 /**
  * 
  * @author Lim Ta Eu
  */
-public class Main {
+
+public class Main extends Application{
 	static final String COMMAND_EXIT = "exit";
 	static final String COMMAND_CLEAR = "clear";
 	static final String COMMAND_DISPLAY = "display";
@@ -29,21 +62,15 @@ public class Main {
 
 	// scanner for receiving user input
 	private Scanner sc;
-
+	private UIController ui;
 	Logic logic;
 
 	public Main() {
 	}
 
-	public static void main(String[] args) {
-		launchDooyit(args);
-	}
-
-
-
 	private static void launchDooyit(String[] args) {
 		Main textBuddy = new Main();
-		textBuddy.init(new Scanner(System.in));
+		// textBuddy.init(new Scanner(System.in));
 	}
 
 
@@ -54,6 +81,17 @@ public class Main {
 	}
 
 
+	@Override
+	public void start(Stage primaryStage) {
+		try {
+			this.ui = new UIController();
+			Scene scene = this.ui.getScene();
+			primaryStage.setScene(scene);
+			primaryStage.show();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
 	
 	private void UI(Logic logic){
 		while (true) {
@@ -61,6 +99,11 @@ public class Main {
 			String userInput = sc.nextLine();
 			logic.processCommand(userInput);
 		}
+	}
+	
+	public static void main(String[] args) {
+		launchDooyit(args);
+		launch(args);
 	}
 
 

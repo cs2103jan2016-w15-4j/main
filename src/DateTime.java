@@ -68,7 +68,7 @@ public class DateTime {
 	}
 	
 	public String toString() {
-		String ans = this.date + " " + this.time;
+		String ans = this.date + " " + this.day + " " + this.time;
 		return ans;
 	}
 }

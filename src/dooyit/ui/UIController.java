@@ -14,6 +14,13 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Popup;
 
 public class UIController {
+	static final String URL_CSS_COMMON = "common.css";
+	static final String URL_CSS_THEME_LIGHT = "theme_light.css";
+	static final String URL_CSS_THEME_DARK = "theme_dark.css";
+	
+	private String urlCssCommon;
+	private String urlCssThemeLight;
+	private String urlCssThemeDark;
 
 	private Scene scene;
 	private BorderPane root;
@@ -24,14 +31,10 @@ public class UIController {
 	private ScrollPane mainView;
 	private UICommandBox commandBox;
 	
-	private String urlCssCommon;
-	private String urlCssThemeLight;
-	private String urlCssThemeDark;
-	
 	public UIController(){
-		this.urlCssCommon = getClass().getResource("common.css").toExternalForm();
-		this.urlCssThemeLight = getClass().getResource("default.css").toExternalForm();
-	    this.urlCssThemeDark = getClass().getResource("dark.css").toExternalForm();
+		this.urlCssCommon = getClass().getResource(URL_CSS_COMMON).toExternalForm();
+		this.urlCssThemeLight = getClass().getResource(URL_CSS_THEME_LIGHT).toExternalForm();
+	    this.urlCssThemeDark = getClass().getResource(URL_CSS_THEME_DARK).toExternalForm();
 		
 	    // Root view
 		this.root = new BorderPane();
@@ -70,7 +73,7 @@ public class UIController {
 			public void changed(ObservableValue<? extends Toggle> ov,
 		        Toggle toggle, Toggle new_toggle) {
 		            if (new_toggle == null){
-		            	//
+		            	// do nothing
 		            } else {
 		                String selected = sideMenu.getMainViewToggleGroup().getSelectedToggle().getUserData().toString();
                         switch(selected){
@@ -91,7 +94,7 @@ public class UIController {
 			System.out.println(commandString);
 			commandBox.getCommandTextField().setText("");
 			switch(commandString){
-				// Create string
+				// CHANGE: Pass commandString to parser.
 				case "change theme dark":
 					// change to dark theme
 					scene.getStylesheets().clear();
@@ -109,6 +112,28 @@ public class UIController {
 	
 	public Scene getScene(){
 		return this.scene;
+	}
+	
+	/**
+	 * Use this to refresh day view with updated tasks
+	 */
+	public void refreshDayView(ArrayList<Task> taskList, String dateString){
+		this.dayBox = new UIDayBox(taskList);
+	}
+	
+	/**
+	 * Use this to refresh extended (next 7 days) view with updated tasks
+	 * Parameter will be [DateString,[Task]]
+	 */
+	public void refreshExtendedView(){
+		this.dayBoxContainer = new UIDayBoxContainer(new ArrayList<UIDayBox>());
+	}
+	
+	/**
+	 * Refreshes categories
+	 */
+	public void refreshCategoryMenuView(){
+		
 	}
 	
 }

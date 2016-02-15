@@ -1,19 +1,22 @@
 public class AddParser {
-	String userInput;
-	int START_INDEX_ARGS = 4;
-	String MARKER_START_EVENT = "from";
-	String MARKER_END_EVENT = "to";
-	String MARKER_WORK = "by";
-	String data;
-	DateTime start;
-	DateTime end;
-	DateTime deadline;
+	
+	private static final int START_INDEX_ARGS = 4;
+	private static final String MARKER_START_EVENT = "from";
+	private static final String MARKER_END_EVENT = "to";
+	private static final String MARKER_WORK = "by";
+	
+	private static String userInput;
+	private static String taskName;
+	private static DateTime start;
+	private static DateTime end;
+	private static DateTime deadline;
 	
 	enum TASK_TYPE {
 		FLOATING, WORK, EVENT
 	};
 	
 	public AddParser(String input) {
+		//userInput ignore the word "add"
 		userInput = input.trim().toLowerCase().substring(START_INDEX_ARGS);
 	}
 	
@@ -21,15 +24,15 @@ public class AddParser {
 		switch(getTaskType()) {
 		case FLOATING :
 			parseFloat();
-			return CommandUtils.createAddCommandFloat(data);
+			return CommandUtils.createAddCommandFloat(taskName);
 		
 		case WORK :
 			parseWork();
-			return CommandUtils.createAddCommandWork(data, deadline);
+			return CommandUtils.createAddCommandWork(taskName, deadline);
 			
 		case EVENT : 
 			parseEvent();
-			return CommandUtils.createAddCommandEvent(data, start, end);
+			return CommandUtils.createAddCommandEvent(taskName, start, end);
 		}
 		return null;
 	}
@@ -38,20 +41,20 @@ public class AddParser {
 		DateTimeParser dateTimeParser = new DateTimeParser();
 		int indexFrom = userInput.indexOf(MARKER_START_EVENT);
 		int indexTo = userInput.indexOf(MARKER_END_EVENT);
-		data = userInput.substring(0, indexFrom);
-		start = dateTimeParser.parse((userInput.substring(indexFrom, indexTo)));
+		taskName = userInput.substring(0, indexFrom);
+		start = dateTimeParser.parse((userInput.substring(indexFrom, indexTo).trim()));
 		end = dateTimeParser.parse((userInput.substring(indexTo)));
 	}
 
 	private void parseWork() {
 		DateTimeParser dateTimeParser = new DateTimeParser();
 		int indexBy = userInput.indexOf(MARKER_WORK);
-		data = userInput.substring(0, indexBy);
+		taskName = userInput.substring(0, indexBy);
 		deadline = dateTimeParser.parse((userInput.substring(indexBy).trim()));
 	}
 
 	private void parseFloat() {
-		data = userInput;
+		taskName = userInput;
 	}
 
 	private TASK_TYPE getTaskType() {

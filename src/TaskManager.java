@@ -31,8 +31,40 @@ public class TaskManager {
 		tasks.add(task);
 	}
 	
-	public Task deleteTask(int index){
-		return tasks.remove(index - 1);
+	public Task deleteTask(int id){
+		for(int i=0; i<tasks.size(); i++){
+			if(tasks.get(i).getId() == id){
+				return tasks.remove(i);
+			}
+		}
+		return null;
+	}
+	
+	public boolean containsTask(int id){
+		for(int i=0; i<tasks.size(); i++){
+			if(tasks.get(i).getId() == id){
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean containsTask(String taskName){
+		for(int i=0; i<tasks.size(); i++){
+			if(tasks.get(i).getName().equals(taskName)){
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public Task findTask(int id){
+		for(int i=0; i<tasks.size(); i++){
+			if(tasks.get(i).getId() == id){
+				return tasks.get(i);
+			}
+		}
+		return null;
 	}
 	
 	public ArrayList<Task> getTasks(){
@@ -42,10 +74,9 @@ public class TaskManager {
 	public void display(){
 		System.out.println();
 		System.out.println("Task List");
-		
-		int i = 1;
+
 		for (Task task : tasks){
-			System.out.println(i++ + ": " + task);
+			System.out.println(task.getId() + ": " + task.getName());
 		}
 		
 		System.out.println();

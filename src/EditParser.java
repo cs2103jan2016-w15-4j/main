@@ -22,43 +22,43 @@ public class EditParser {
 	}
 	
 	public Command getCommand() {
-		switch(getEditType()) {
-		case NAME :
-			parseName();
-			return CommandUtils.createEditCommandName(taskId, taskName);
-		
-		case DEADLINE :
-			parseDeadline();
-			return CommandUtils.createEditCommandDeadline(taskId, deadline);
-			
-		case TIME_START_END : 
-			parseTimeStartEnd();
-			return CommandUtils.createEditCommandEvent(taskId, start, end);
-		
-		case TIME_START : 
-			parseTimeStart();
-			return CommandUtils.createEditCommandEvent(taskId, start, end);
-	
-		case TIME_END : 
-			parseTimeEnd();
-			return CommandUtils.createEditCommandEvent(taskId, start, end);
-		
-		case NAME_TIME_START_END : 
-			parseNameTimeStartEnd();
-			return CommandUtils.createEditCommandNameEvent(taskId, taskName, start, end);
-		
-		case NAME_TIME_START : 
-			parseNameTimeStart();
-			return CommandUtils.createEditCommandNameEvent(taskId, taskName, start, end);
-		
-		case NAME_TIME_END : 
-			parseNameTimeEnd();
-			return CommandUtils.createEditCommandNameEvent(taskId, taskName, start, end);
-		
-		case NAME_DEADLINE : 
-			parseNameDeadline();
-			return CommandUtils.createEditCommandNameDeadline(taskId, taskName, deadline);
-		}
+//		switch(getEditType()) {
+//		case NAME :
+//			parseName();
+//			return CommandUtils.createEditCommandName(taskId, taskName);
+//		
+//		case DEADLINE :
+//			parseDeadline();
+//			return CommandUtils.createEditCommandDeadline(taskId, deadline);
+//			
+//		case TIME_START_END : 
+//			parseTimeStartEnd();
+//			return CommandUtils.createEditCommandEvent(taskId, start, end);
+//		
+//		case TIME_START : 
+//			parseTimeStart();
+//			return CommandUtils.createEditCommandEvent(taskId, start, end);
+//	
+//		case TIME_END : 
+//			parseTimeEnd();
+//			return CommandUtils.createEditCommandEvent(taskId, start, end);
+//		
+//		case NAME_TIME_START_END : 
+//			parseNameTimeStartEnd();
+//			return CommandUtils.createEditCommandNameEvent(taskId, taskName, start, end);
+//		
+//		case NAME_TIME_START : 
+//			parseNameTimeStart();
+//			return CommandUtils.createEditCommandNameEvent(taskId, taskName, start, end);
+//		
+//		case NAME_TIME_END : 
+//			parseNameTimeEnd();
+//			return CommandUtils.createEditCommandNameEvent(taskId, taskName, start, end);
+//		
+//		case NAME_DEADLINE : 
+//			parseNameDeadline();
+//			return CommandUtils.createEditCommandNameDeadline(taskId, taskName, deadline);
+//		}
 		return null;
 	}
 	

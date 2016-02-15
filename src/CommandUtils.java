@@ -1,4 +1,5 @@
 
+
 public class CommandUtils {
 	
 	public static Command createAddCommandFloat(String data){
@@ -30,6 +31,36 @@ public class CommandUtils {
 		DeleteCommand deleteCommand = new DeleteCommand();
 		deleteCommand.initDeleteCommand(id);
 		return deleteCommand;
+	}
+	
+	public static Command createShowTodayCommand(){
+		ShowCommand showCommand = new ShowCommand(Command.CommandShowType.TODAY);
+		
+		return showCommand;
+	}
+	
+	public static Command createShowNext7DaysCommand(){
+		ShowCommand showCommand = new ShowCommand(Command.CommandShowType.NEXT7DAYS);
+		
+		return showCommand;
+	}
+	
+	public static Command createShowAllCommand(){
+		ShowCommand showCommand = new ShowCommand(Command.CommandShowType.ALL);
+		
+		return showCommand;
+	}
+	
+	public static Command createShowDoneCommand(){
+		ShowCommand showCommand = new ShowCommand(Command.CommandShowType.DONE);
+		
+		return showCommand;
+	}
+	
+	public static Command createShowCategoryCommand(String categoryName){
+		ShowCommand showCommand = new ShowCommand(Command.CommandShowType.CATEGORY, categoryName);
+		
+		return showCommand;
 	}
 	
 	public static Command createExitCommand(){

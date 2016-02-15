@@ -21,26 +21,28 @@ public class ShowParser {
 	public Command getCommand() {
 		switch(getDisplayType()) {
 		case TODAY :
-			return CommandUtils.createShowCommand(COMMAND_TODAY);
+			return CommandUtils.createShowTodayCommand();
 		
 		case NEXT_SEVEN :
-			return CommandUtils.createShowCommand(COMMAND_NEXT_SEVEN);
+			return CommandUtils.createShowNext7DaysCommand();
 			
 		case DONE : 
-			return CommandUtils.createShowCommand(COMMAND_DONE);
+			return CommandUtils.createShowDoneCommand();
 			
 		case ALL : 
-			return CommandUtils.createShowCommand(COMMAND_ALL);
+			return CommandUtils.createShowAllCommand();
 			
-		case DATE : 
-			DateTimeParser dateTimeParser = new DateTimeParser();
-			DateTime date = dateTimeParser.parse(userInput);
-			return CommandUtils.createShowCommand(COMMAND_DATE, date);		
+//		case DATE : 
+//			DateTimeParser dateTimeParser = new DateTimeParser();
+//			DateTime date = dateTimeParser.parse(userInput);
+//			return CommandUtils.createShowCommand(COMMAND_DATE, date);		
 			
 		case CATERGORY : 
-			return CommandUtils.createShowCommand(COMMAND_CATERGORY);
+			return CommandUtils.createShowCategoryCommand("cat name");
+			
+		default:
+			return null;
 		}
-		return null;
 	}
 
 	private DISPLAY_TYPE getDisplayType() {

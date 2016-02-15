@@ -1,13 +1,13 @@
 
 public class DeleteParser {
-
+	private static String userInput;
+	
 	public DeleteParser(String input) {
-		// TODO Auto-generated constructor stub
+		userInput = input.split(" ")[1];
 	}
 
 	public Command getCommand() {
-		// TODO Auto-generated method stub
-		return null;
+		int taskId = Integer.parseInt(userInput);
+		return CommandUtils.createDeleteCommand(taskId);
 	}
-
 }

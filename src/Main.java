@@ -7,8 +7,9 @@ import java.util.Scanner;
 public class Main {
 	static final String COMMAND_EXIT = "exit";
 	static final String COMMAND_CLEAR = "clear";
-	static final String COMMAND_DISPLAY = "display";
+	static final String COMMAND_SHOW = "show";
 	static final String COMMAND_DELETE = "delete";
+	static final String COMMAND_EDIT = "edit";
 	static final String COMMAND_ADD = "add";
 	static final String MESSAGE_WELCOME = "Welcome to TextBuddy %1$s is ready for use.";
 	static final String MESSAGE_TEXT_NO = "%1$d. %2$s";

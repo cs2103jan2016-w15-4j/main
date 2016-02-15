@@ -32,9 +32,19 @@ public class Parser {
 			command = addParser.getCommand();
 			//command = CommandUtils.createAddCommand(data);
 			break;
+			
+		case Main.COMMAND_SHOW:
+			ShowParser showParser = new ShowParser(input);
+			command = showParser.getCommand();
+			
+		case Main.COMMAND_EDIT:
+			EditParser editParser = new EditParser(input);
+			command = editParser.getCommand();
 
 		case Main.COMMAND_DELETE:
-			command = CommandUtils.createDeleteCommand(data);
+			DeleteParser deleteParser = new DeleteParser(input);
+			command = deleteParser.getCommand();
+			//command = CommandUtils.createDeleteCommand(data);
 			break;
 
 		case Main.COMMAND_EXIT:

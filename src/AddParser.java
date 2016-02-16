@@ -28,7 +28,7 @@ public class AddParser {
 		
 		case WORK :
 			parseWork();
-			return CommandUtils.createAddCommandWork(taskName, deadline);
+			return CommandUtils.createAddCommandDeadline(taskName, deadline);
 			
 		case EVENT : 
 			parseEvent();

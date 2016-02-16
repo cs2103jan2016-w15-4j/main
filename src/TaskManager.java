@@ -2,32 +2,26 @@ import java.util.ArrayList;
 
 public class TaskManager {
 	ArrayList<Task> tasks;
-
+	
 	public TaskManager(){
 		tasks = new ArrayList<Task>();
 	}
 	
-	public void AddTask(String data){
+	public void AddTaskFloat(String data){
 		Task task = new Task();
-		task.initTask(data);
+		task.initTaskFloat(data);
 		tasks.add(task);
 	}
 	
-	public void AddTaskWithTime(String data, String time){
+	public void AddTaskDeadline(String data, DateTime dateTime){
 		Task task = new Task();
-		task.initTaskWithTime(data, time);
+		task.initTaskDeadline(data, dateTime);
 		tasks.add(task);
 	}
-	
-	public void AddTaskWithDay(String data, String day){
+
+	public void AddTaskEvent(String data, DateTime start, DateTime end){
 		Task task = new Task();
-		task.initTaskWithDay(data, day);
-		tasks.add(task);
-	}
-	
-	public void AddTaskDayAndTime(String data, String day, String time){
-		Task task = new Task();
-		task.initTaskDayAndTime(data, day, time);
+		task.initTaskEvent(data, start, end);
 		tasks.add(task);
 	}
 	

@@ -8,9 +8,9 @@ public class CommandUtils {
 		return addCommand;
 	}
 	
-	public static Command createAddCommandWork(String data, DateTime deadline){
+	public static Command createAddCommandDeadline(String data, DateTime deadline){
 		AddCommand addCommand = new AddCommand();
-		addCommand.initAddCommandWork(data, deadline);
+		addCommand.initAddCommandDeadline(data, deadline);
 		return addCommand;
 	}
 	
@@ -19,6 +19,9 @@ public class CommandUtils {
 		addCommand.initAddCommandEvent(data, start, end);
 		return addCommand;
 	}
+	
+	
+	
 	
 	public static Command createDeleteCommand(int id){
 		DeleteCommand deleteCommand = new DeleteCommand();
@@ -33,35 +36,54 @@ public class CommandUtils {
 		return deleteCommand;
 	}
 	
+	
+	
+	
 	public static Command createShowTodayCommand(){
-		ShowCommand showCommand = new ShowCommand(Command.CommandShowType.TODAY);
+		ShowCommand showCommand = new ShowCommand(Command.ShowCommandType.TODAY);
 		
 		return showCommand;
 	}
 	
 	public static Command createShowNext7DaysCommand(){
-		ShowCommand showCommand = new ShowCommand(Command.CommandShowType.NEXT7DAYS);
+		ShowCommand showCommand = new ShowCommand(Command.ShowCommandType.NEXT7DAYS);
 		
 		return showCommand;
 	}
 	
 	public static Command createShowAllCommand(){
-		ShowCommand showCommand = new ShowCommand(Command.CommandShowType.ALL);
+		ShowCommand showCommand = new ShowCommand(Command.ShowCommandType.ALL);
 		
 		return showCommand;
 	}
 	
 	public static Command createShowDoneCommand(){
-		ShowCommand showCommand = new ShowCommand(Command.CommandShowType.DONE);
+		ShowCommand showCommand = new ShowCommand(Command.ShowCommandType.DONE);
 		
 		return showCommand;
 	}
 	
 	public static Command createShowCategoryCommand(String categoryName){
-		ShowCommand showCommand = new ShowCommand(Command.CommandShowType.CATEGORY, categoryName);
+		ShowCommand showCommand = new ShowCommand(Command.ShowCommandType.CATEGORY, categoryName);
 		
 		return showCommand;
 	}
+	
+	
+	
+	
+	
+	public static Command createEditCommandName(int taskId, String taskName){
+		EditCommand editCommand = new EditCommand();
+		
+		
+		return null;
+	}
+	
+	
+	
+	
+	
 	
 	public static Command createExitCommand(){
 		ExitCommand exitCommand = new ExitCommand();

@@ -1,12 +1,14 @@
 
 public class Task {
-	public String taskName;
-	public String time;
-	public String day;
-	public int taskId;
+	private String taskName;
+	private String time;
+	private String day;
+	private int taskId;
+	
+	private static int curTaskId = 0;
 	
 	public Task(){
-		
+		taskId = curTaskId++;
 	}
 	
 	
@@ -27,8 +29,25 @@ public class Task {
 		this.taskName = taskName;
 	}
 	
+	public String getName(){
+		return taskName;
+	}
+	
+	public int getId(){
+		return taskId;
+	}
+	
 	@Override
 	public String toString(){
 		return taskName;
+	}
+	
+	@Override
+	public boolean equals(Object o){
+		if(o instanceof Task){
+			Task task = (Task)o;
+			return task.getId() == taskId;
+		}
+		else return false;
 	}
 }

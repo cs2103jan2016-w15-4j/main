@@ -1,19 +1,19 @@
-
+ 
 public class AddCommand extends Command {
 
 	public AddCommand(){
 		command = "add";
 	}
 	
-	public void initAddCommand(String data){
+	public void initAddCommandFloat(String data){
 		this.data = data;
 	}
 	
-	public void initAddCommandWithTime(String data, String time){
+	public void initAddCommandWork(String data, DateTime deadline){
 		this.data = data;
 	}
 	
-	public void initAddCommandWithDay(String data, String day){
+	public void initAddCommandEvent(String data, DateTime start, DateTime end){
 		this.data = data;
 	}
 	

@@ -1,5 +1,11 @@
 
 public abstract class Command {
+	
+	public static enum CommandShowType{
+		ALL, TODAY, NEXT7DAYS, DONE, CATEGORY
+	}
+	
+	
 	public String command;
 	public String data;
 	public String time;

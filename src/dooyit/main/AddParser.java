@@ -35,7 +35,8 @@ public class AddParser {
 			parseEvent();
 			return CommandUtils.createAddCommandEvent(taskName, start, end);
 		}
-		return null;
+		
+		return CommandUtils.createInvalidCommand("Invalid Command at addParser: ");
 	}
 	
 	private void parseEvent() {

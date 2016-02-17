@@ -61,6 +61,7 @@ public class Parser {
 
 		default:
 			//handlesInvalidCommand(command);
+			command = CommandUtils.createInvalidCommand("Invalid Command: " + input);
 		}
 
 		return command;

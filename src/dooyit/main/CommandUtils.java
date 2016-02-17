@@ -83,7 +83,10 @@ public class CommandUtils {
 	
 	
 	
-	
+	public static Command createInvalidCommand(String errorMessage){
+		InvalidCommand invalidCommand = new InvalidCommand(errorMessage);
+		return invalidCommand;
+	}
 	
 	
 	public static Command createExitCommand(){

@@ -18,12 +18,14 @@ public class TaskManager {
 		Task task = new Task();
 		task.initTaskDeadline(data, dateTime);
 		tasks.add(task);
+		//task.convertToSavableString();
 	}
 
 	public void AddTaskEvent(String data, DateTime start, DateTime end){
 		Task task = new Task();
 		task.initTaskEvent(data, start, end);
 		tasks.add(task);
+		task.convertToSavableString();
 	}
 	
 	public Task deleteTask(int id){

@@ -1,3 +1,4 @@
+package dooyit.main;
 
 public class Task {
 	
@@ -21,12 +22,14 @@ public class Task {
 	public void initTaskFloat(String taskName){
 		taskType = TaskType.FLOAT;
 		this.taskName = taskName;
+		System.out.println("float");
 	}
 	
 	public void initTaskDeadline(String taskName, DateTime deadline){
 		taskType = TaskType.DEADLINE;
 		this.taskName = taskName;
 		this.dateTimeDeadline = deadline;
+		System.out.println("deadline");
 	}
 	
 	public void initTaskEvent(String taskName, DateTime start, DateTime end){

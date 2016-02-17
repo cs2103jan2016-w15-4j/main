@@ -12,6 +12,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Popup;
+import dooyit.main.*;;
 
 public class UIController {
 	static final String URL_CSS_COMMON = "common.css";
@@ -30,12 +31,14 @@ public class UIController {
 	private UIDayBoxContainer dayBoxContainer;
 	private ScrollPane mainView;
 	private UICommandBox commandBox;
+	private Logic logic;
 	
-	public UIController(){
+	public UIController(Logic logic){
 		this.urlCssCommon = getClass().getResource(URL_CSS_COMMON).toExternalForm();
 		this.urlCssThemeLight = getClass().getResource(URL_CSS_THEME_LIGHT).toExternalForm();
 	    this.urlCssThemeDark = getClass().getResource(URL_CSS_THEME_DARK).toExternalForm();
-		
+		this.logic = logic;
+	    
 	    // Root view
 		this.root = new BorderPane();
 		
@@ -93,6 +96,9 @@ public class UIController {
 			String commandString = commandBox.getCommandTextField().getText();
 			System.out.println(commandString);
 			commandBox.getCommandTextField().setText("");
+			
+			this.logic.processCommand(commandString);
+			
 			switch(commandString){
 				// CHANGE: Pass commandString to parser.
 				case "change theme dark":

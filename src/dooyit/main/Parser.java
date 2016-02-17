@@ -1,6 +1,14 @@
+package dooyit.main;
 
 public class Parser {
 
+	static final String COMMAND_EXIT = "exit";
+	static final String COMMAND_CLEAR = "clear";
+	static final String COMMAND_SHOW = "show";
+	static final String COMMAND_DELETE = "delete";
+	static final String COMMAND_EDIT = "edit";
+	static final String COMMAND_ADD = "add";
+	
 	
 	public Parser(){
 		
@@ -24,37 +32,37 @@ public class Parser {
 		}
 		
 		Command command = null;
-		
+
 		switch (commandString.toLowerCase()) {
-		case Main.COMMAND_ADD:
+		case COMMAND_ADD:
 			//executeAddCommand(data);
 			AddParser addParser = new AddParser(input);
 			command = addParser.getCommand();
 			//command = CommandUtils.createAddCommand(data);
 			break;
 			
-		case Main.COMMAND_SHOW:
+		case COMMAND_SHOW:
 			ShowParser showParser = new ShowParser(input);
 			command = showParser.getCommand();
 			
-		case Main.COMMAND_EDIT:
+		case COMMAND_EDIT:
 			EditParser editParser = new EditParser(input);
 			command = editParser.getCommand();
 
-		case Main.COMMAND_DELETE:
+		case COMMAND_DELETE:
 			DeleteParser deleteParser = new DeleteParser(input);
 			command = deleteParser.getCommand();
 			//command = CommandUtils.createDeleteCommand(data);
 			break;
 
-		case Main.COMMAND_EXIT:
+		case COMMAND_EXIT:
 			command = CommandUtils.createExitCommand();
 			break;
 
 		default:
 			//handlesInvalidCommand(command);
 		}
-		
+
 		return command;
 	}
 }

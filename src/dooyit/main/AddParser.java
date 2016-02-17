@@ -1,3 +1,4 @@
+package dooyit.main;
 public class AddParser {
 	
 	private static final int START_INDEX_ARGS = 4;

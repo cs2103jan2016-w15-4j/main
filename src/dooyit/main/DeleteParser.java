@@ -1,3 +1,4 @@
+package dooyit.main;
 
 public class DeleteParser {
 	private static String userInput;

@@ -1,3 +1,4 @@
+package dooyit.main;
 
 public class ShowParser {
 	private static String userInput;

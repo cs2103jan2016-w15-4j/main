@@ -1,3 +1,4 @@
+package dooyit.main;
 
 public class ExitCommand extends Command {
 

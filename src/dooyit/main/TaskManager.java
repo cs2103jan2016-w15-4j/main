@@ -1,3 +1,4 @@
+package dooyit.main;
 import java.util.ArrayList;
 
 public class TaskManager {
@@ -70,7 +71,7 @@ public class TaskManager {
 		System.out.println("Task List");
 
 		for (Task task : tasks){
-			System.out.println(task.getId() + ": " + task.getName());
+			System.out.println(task.getId() + ": " + task);
 		}
 		
 		System.out.println();

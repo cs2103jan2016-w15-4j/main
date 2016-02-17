@@ -1,3 +1,4 @@
+package dooyit.main;
 
 public class ShowCommand extends Command {
 	

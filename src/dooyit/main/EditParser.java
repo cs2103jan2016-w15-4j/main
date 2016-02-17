@@ -1,3 +1,4 @@
+package dooyit.main;
 public class EditParser {
 	private static final int START_INDEX_ARGS = 5;
 	private static final String MARKER_TIME_START = "from";

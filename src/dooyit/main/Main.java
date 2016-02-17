@@ -84,11 +84,10 @@ public class Main extends Application{
 		
 		try {
 			this.ui = new UIController(primaryStage, logic);
-			// ui.refreshDayView(tasklist, dateString);
-			logic.setUIController(this.ui);
 			Scene scene = this.ui.getScene();
 			primaryStage.setScene(scene);
 			primaryStage.show();
+			logic.setUIController(this.ui);
 		} catch(Exception e) {
 			e.printStackTrace();
 		}

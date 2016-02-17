@@ -2,6 +2,9 @@ package dooyit.storage;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import dooyit.logic.TaskManager;
+import dooyit.logic.Task;
+
 public class TaskController {
 	TaskSaver saver;
 	TaskLoader loader;
@@ -11,16 +14,16 @@ public class TaskController {
 		saver = new TaskSaver(filePath);
 	}
 	
-	protected void setFileDestination(String newFilePath) {
+	public void setFileDestination(String newFilePath) {
 		saver.setFileDestination(newFilePath);
 		loader.setFileDestination(newFilePath);
 	}
 	
-	protected boolean save(ArrayList<Task> tasks) throws IOException {
+	public boolean save(ArrayList<Task> tasks) throws IOException {
 		return saver.saveTasks(tasks);
 	}
 	
-	protected boolean load(TaskManager taskManager) throws IOException {
+	public boolean load(TaskManager taskManager) throws IOException {
 		return loader.loadTasks(taskManager);
 	}
 }

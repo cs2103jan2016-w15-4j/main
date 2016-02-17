@@ -1,3 +1,9 @@
+package dooyit.logic;
+
+import dooyit.main.Storage;
+import dooyit.parser.Command;
+import dooyit.parser.Parser;
+
 import java.io.IOException;
 
 public class Logic {

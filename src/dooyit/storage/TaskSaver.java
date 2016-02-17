@@ -5,6 +5,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import dooyit.logic.Task;
+
 public class TaskSaver extends StorageOperations{
 	
 	TaskSaver(String filePath_) {

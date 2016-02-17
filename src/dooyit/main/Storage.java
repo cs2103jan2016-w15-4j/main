@@ -1,4 +1,5 @@
 package dooyit.main;
+
 import java.util.ArrayList;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -7,15 +8,19 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import dooyit.storage.TaskController;
+import dooyit.storage.CategoryController;
+import dooyit.storage.Category;
+import dooyit.logic.TaskManager;
 import dooyit.logic.Task;
 
-public class Storage {
+public class Storage{
 	
 	String currentPath;
 	String configFilePath;
 	String filePath;
-	TaskSaver saver;
-	TaskLoader loader;
+	CategoryController catControl;
+	TaskController taskControl;
 	
 	static final String DEFAULT_FOLDER_STORAGE = "data\\";
 	static final String NAME_FILE_CONFIG = "config.txt";
@@ -24,8 +29,8 @@ public class Storage {
 		currentPath = System.getProperty("user.dir");
 		configFilePath = getConfigPath(currentPath);
 		filePath = getFileDestination(configFilePath);
-		loader = new TaskLoader(filePath);
-		saver = new TaskSaver(filePath);
+		catControl = new CategoryController(currentPath);
+		taskControl = new TaskController(filePath);
 	}
 	
 	private String getConfigPath(String currentPath) {
@@ -34,19 +39,26 @@ public class Storage {
 	
 	public boolean setFileDestination(String newFilePath) throws IOException {
 		modifyConfig(newFilePath);
-		saver.setFileDestination(newFilePath);
-		loader.setFileDestination(newFilePath);
+		taskControl.setFileDestination(newFilePath);
 		
 		return true;
 	}
 
 	public boolean saveTasks(ArrayList<Task> tasks) throws IOException{
-		return saver.saveTasks(tasks);
+		return taskControl.save(tasks);
 
 	}
 
-	public ArrayList<Task> loadTasks() throws IOException{
-		return loader.loadTasks();
+	public boolean loadTasks(TaskManager taskManager) throws IOException{
+		return taskControl.load(taskManager);
+	}
+	
+	public boolean saveCategory(ArrayList<Category> categories) throws IOException {
+		return catControl.saveCategory(categories);
+	}
+	
+	public ArrayList<Category> loadCategory() throws IOException {
+		return catControl.loadCategory();
 	}
 	
 	private String getFileDestination(String configFilePath) throws IOException {

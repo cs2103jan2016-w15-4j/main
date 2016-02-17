@@ -1,5 +1,7 @@
 package dooyit.storage;
-import java.util.ArrayList;
+
+import dooyit.logic.TaskManager;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.BufferedReader;
@@ -59,7 +61,7 @@ public class TaskLoader extends StorageOperations{
 	
 	private void loadToMemory(TaskManager taskManager, String taskFormat) {
 		String[] taskInfo = taskFormat.split(", ");
-		taskManager.loadTasks(taskInfo);
+		taskManager.LoadTask(taskInfo);
 	}
 	
 	private void readFromFile(FileReader fReader, TaskManager taskManager) throws IOException {

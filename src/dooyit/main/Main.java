@@ -1,5 +1,6 @@
 package dooyit.main;
 import java.util.Scanner;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javafx.application.Application;
@@ -31,7 +32,6 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import dooyit.logic.Logic;
 import dooyit.ui.*;
-import dooyit.ui.Task;
 
 /**
  * 
@@ -70,7 +70,7 @@ public class Main extends Application{
 	}
 
 
-	public void init(Scanner sc) {
+	public void init(Scanner sc) throws IOException {
 		this.sc = sc;
 		logic = new Logic();
 		UI(logic);
@@ -78,7 +78,7 @@ public class Main extends Application{
 
 
 	@Override
-	public void start(Stage primaryStage) {
+	public void start(Stage primaryStage) throws IOException {
 		
 		logic = new Logic();
 		
@@ -92,7 +92,7 @@ public class Main extends Application{
 		}
 	}
 	
-	private void UI(Logic logic){
+	private void UI(Logic logic) throws IOException{
 		while (true) {
 			showToUser(MESAGE_COMMAND);
 			String userInput = sc.nextLine();

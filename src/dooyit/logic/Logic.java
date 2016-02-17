@@ -4,20 +4,23 @@ import dooyit.main.Storage;
 import dooyit.parser.Parser;
 import dooyit.logic.commands.*;
 
+import java.io.IOException;
+
 public class Logic {
 
 	Parser parser;
 	TaskManager taskManager;
 	Storage storage;
 	
-	public Logic(){
-		 parser = new Parser();
-		 taskManager = new TaskManager();
-		 storage = new Storage();
+	public Logic() throws IOException{
+		parser = new Parser();
+		taskManager = new TaskManager();
+		storage = new Storage();
+		storage.loadTasks(taskManager);
 	}
 	
 	
-	public void processCommand(String input){
+	public void processCommand(String input) throws IOException{
 		Command command = parser.getCommand(input);
 		
 //		EditCommand a = ((EditCommand)command);
@@ -31,7 +34,7 @@ public class Logic {
 		taskManager.display();
 	}
 	
-	private void save(){
+	private void save() throws IOException{
 		storage.saveTasks(taskManager.getTasks());
 	}
 	

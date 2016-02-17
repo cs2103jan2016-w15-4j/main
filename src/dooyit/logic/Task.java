@@ -15,7 +15,7 @@ public class Task {
 	private DateTime dateTimeStart;
 	private DateTime dateTimeEnd;
 	
-	public static int curTaskId = 0;
+	public static int curTaskId = 1;
 	
 	public Task(){
 		taskId = curTaskId++;

@@ -33,12 +33,9 @@ public class TaskManager {
 	// return false if length is incorrect
 	public boolean LoadTask(String[] strings){
 		
-		
 		if(strings.length == 1){
 			
-			Task task = new Task();
-			task.initTaskFloat(strings[0]);
-			tasks.add(task);
+			AddTaskFloat(strings[0]);
 			return true;
 			
 		}else if(strings.length == 6){

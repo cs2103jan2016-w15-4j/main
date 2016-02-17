@@ -84,6 +84,7 @@ public class Main extends Application{
 		
 		try {
 			this.ui = new UIController(primaryStage, logic);
+			logic.setUIController(this.ui);
 			Scene scene = this.ui.getScene();
 			primaryStage.setScene(scene);
 			primaryStage.show();

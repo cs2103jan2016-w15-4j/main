@@ -1,7 +1,9 @@
 package dooyit.logic;
 
 import dooyit.storage.Storage;
+import dooyit.ui.UIController;
 import dooyit.parser.Parser;
+import dooyit.exception.IncorrectInputException;
 import dooyit.logic.commands.*;
 
 import java.io.IOException;
@@ -11,6 +13,7 @@ public class Logic {
 	Parser parser;
 	TaskManager taskManager;
 	Storage storage;
+	UIController ui;
 	
 	public Logic() throws IOException{
 		parser = new Parser();
@@ -23,10 +26,20 @@ public class Logic {
 	public void processCommand(String input){
 		Command command = parser.getCommand(input);
 		
-		command.execute(taskManager);
+		try{
+			
+			command.execute(taskManager);
+			
+		}catch(IncorrectInputException e){
+			System.out.println(e.getMessage());
+		}
+		
+		ui.refreshDayView(taskManager.getTasks(), "today");
 		
 		try{
+			
 			save();
+			
 		} catch(IOException e){
 			System.out.println("ERROR: SAVING" );
 		}
@@ -40,4 +53,8 @@ public class Logic {
 		storage.saveTasks(taskManager.getTasks());
 	}
 	
+	
+	public void setUIController(UIController ui){
+		this.ui = ui;
+	}
 }

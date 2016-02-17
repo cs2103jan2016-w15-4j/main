@@ -1,5 +1,6 @@
 package dooyit.logic.commands;
 
+import dooyit.exception.IncorrectInputException;
 import dooyit.logic.TaskManager;
 
 public abstract class Command {
@@ -24,5 +25,5 @@ public abstract class Command {
 		
 	}
 	
-	public abstract void execute(TaskManager taskManager);
+	public abstract void execute(TaskManager taskManager) throws IncorrectInputException;
 }

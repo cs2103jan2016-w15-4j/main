@@ -11,10 +11,12 @@ import dooyit.logic.*;
 
 public class UIDayBox {
 	
+	private Logic logic;
 	private VBox dayBox;
 	private Label dayTitle;
 	
-	public UIDayBox(ArrayList<Task> taskList){
+	public UIDayBox(ArrayList<Task> taskList, Logic logic){
+		this.logic = logic;
 		this.dayBox = new VBox();
 		this.dayBox.getStyleClass().add("day-box");
 		
@@ -25,7 +27,7 @@ public class UIDayBox {
         this.dayBox.getChildren().add(dayTitle);
         
 		for (int i = 0; i < taskList.size(); i++){
-			UITaskBox taskBoxView = new UITaskBox(taskList.get(i));
+			UITaskBox taskBoxView = new UITaskBox(taskList.get(i), this.logic);
 	        HBox dayTaskBox = taskBoxView.getView();
 	        this.dayBox.getChildren().add(dayTaskBox);
 		}

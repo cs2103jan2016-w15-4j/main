@@ -63,7 +63,7 @@ public class UIController {
 		this.sideMenu = new UISideMenu();
 		
 		// Day box
-		this.dayBox = new UIDayBox(new ArrayList<Task>());
+		this.dayBox = new UIDayBox(new ArrayList<Task>(), this.logic);
 		
 		// Extended view
 		this.dayBoxContainer = new UIDayBoxContainer(new ArrayList<UIDayBox>());
@@ -174,7 +174,7 @@ public class UIController {
 	 * Use this to refresh day view with updated tasks
 	 */
 	public void refreshDayView(ArrayList<Task> taskList, String dateString){
-		this.dayBox = new UIDayBox(taskList);
+		this.dayBox = new UIDayBox(taskList, this.logic);
 		this.mainView.setContent(this.dayBox.getView());
 	}
 	

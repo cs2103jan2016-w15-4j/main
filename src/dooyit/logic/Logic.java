@@ -15,11 +15,23 @@ public class Logic {
 	Storage storage;
 	UIController ui;
 	
-	public Logic() throws IOException{
+	public Logic(){
 		parser = new Parser();
 		taskManager = new TaskManager();
-		storage = new Storage();
-		storage.loadTasks(taskManager);
+		
+		
+		try{
+			storage = new Storage();
+		}catch(IOException e){
+			System.out.println("ERROR: CREATING STORAGE");
+		}
+		
+		try{
+			storage.loadTasks(taskManager);
+		}catch(IOException e){
+			System.out.println("ERROR: LOAD TASK");
+		}
+		
 	}
 	
 	

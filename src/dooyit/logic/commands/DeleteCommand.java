@@ -1,7 +1,6 @@
 package dooyit.logic.commands;
 
 import dooyit.logic.TaskManager;
-import dooyit.parser.Command;
 
 public class DeleteCommand extends Command {
 
@@ -15,6 +14,7 @@ public class DeleteCommand extends Command {
 	
 	@Override
 	public void execute(TaskManager taskManager){
+		
 		taskManager.deleteTask(deleteId);
 	}
 }

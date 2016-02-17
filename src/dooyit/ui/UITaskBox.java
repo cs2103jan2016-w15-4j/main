@@ -8,6 +8,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 
+import dooyit.logic.*;
+
 public class UITaskBox {
 	private CheckBox taskCheckBox;
 	private Label taskName;

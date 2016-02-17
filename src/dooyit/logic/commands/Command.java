@@ -1,4 +1,4 @@
-package dooyit.parser;
+package dooyit.logic.commands;
 
 import dooyit.logic.TaskManager;
 

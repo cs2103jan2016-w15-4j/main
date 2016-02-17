@@ -14,7 +14,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
 import dooyit.logic.Logic;
-import dooyit.main.*;;
+import dooyit.main.*;
+import dooyit.logic.Task;
 
 public class UIController {
 	static final String URL_CSS_COMMON = "common.css";
@@ -33,6 +34,7 @@ public class UIController {
 	private UIDayBoxContainer dayBoxContainer;
 	private ScrollPane mainView;
 	private UICommandBox commandBox;
+	private UICommandHelper commandHelper;
 	
 	private Logic logic;
 	private Stage primaryStage;
@@ -68,6 +70,9 @@ public class UIController {
 		// Command view
 		this.commandBox = new UICommandBox();
 		
+		// Command helper
+		this.commandHelper = new UICommandHelper(this.primaryStage);
+		
 		// Add views to root
 		this.root.setTop(this.header.getView());
 		this.root.setLeft(this.sideMenu.getView());
@@ -89,6 +94,7 @@ public class UIController {
                         switch(selected){
 		                    case "day":
 		                        mainView.setContent(dayBox.getView());
+		                        commandHelper.show();
 		                        break;
 		                    case "next7days":
 		                        mainView.setContent(dayBoxContainer.getView());

@@ -27,8 +27,32 @@ public class TaskManager {
 		Task task = new Task();
 		task.initTaskEvent(data, start, end);
 		tasks.add(task);
-		task.convertToSavableString();
+		//task.convertToSavableString();
 	}
+	
+	// return false if length is incorrect
+	public boolean LoadTask(String[] strings){
+		
+		
+		if(strings.length == 1){
+			
+			Task task = new Task();
+			task.initTaskFloat(strings[0]);
+			tasks.add(task);
+			
+		}else if(strings.length == 6){
+			
+			AddTaskDeadline(strings[0], 
+							new DateTime(Integer.valueOf(strings[1]), Integer.valueOf(strings[2]), Integer.valueOf(strings[3]), strings[4], strings[5]));
+			
+		}else if(strings.length == 11){
+			AddTaskEvent(strings[0], 
+							new DateTime(Integer.valueOf(strings[1]), Integer.valueOf(strings[2]), Integer.valueOf(strings[3]), strings[4], strings[5]), 
+							new DateTime(Integer.valueOf(strings[6]), Integer.valueOf(strings[7]), Integer.valueOf(strings[8]), strings[9], strings[10]));
+		}
+		return false;
+	}
+	
 	
 	public Task deleteTask(int id){
 		for(int i=0; i<tasks.size(); i++){

@@ -82,7 +82,6 @@ public class Main extends Application{
 		
 		logic = new Logic();
 		
-		
 		try {
 			this.ui = new UIController(logic);
 			Scene scene = this.ui.getScene();

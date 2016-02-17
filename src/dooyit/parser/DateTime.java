@@ -44,6 +44,14 @@ public class DateTime {
 		this.date = this.dd + " " + months[this.mm - 1] + " " + this.yy;
 	}
 	
+	public DateTime(int dd, int mm, int yy, String day, String time) {		
+		this.dd = dd;
+		this.mm = mm;
+		this.yy = yy;
+		this.timeStr = time;
+		this.day = day;
+		this.date = this.dd + " " + months[this.mm - 1] + " " + this.yy;
+	}
 	
 	public DateTime(String[] split, String day, int time2) {
 		// System.out.println("hello");

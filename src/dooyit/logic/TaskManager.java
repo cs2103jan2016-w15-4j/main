@@ -39,16 +39,19 @@ public class TaskManager {
 			Task task = new Task();
 			task.initTaskFloat(strings[0]);
 			tasks.add(task);
+			return true;
 			
 		}else if(strings.length == 6){
 			
 			AddTaskDeadline(strings[0], 
 							new DateTime(Integer.valueOf(strings[1]), Integer.valueOf(strings[2]), Integer.valueOf(strings[3]), strings[4], strings[5]));
+			return true;
 			
 		}else if(strings.length == 11){
 			AddTaskEvent(strings[0], 
 							new DateTime(Integer.valueOf(strings[1]), Integer.valueOf(strings[2]), Integer.valueOf(strings[3]), strings[4], strings[5]), 
 							new DateTime(Integer.valueOf(strings[6]), Integer.valueOf(strings[7]), Integer.valueOf(strings[8]), strings[9], strings[10]));
+			return true;
 		}
 		return false;
 	}

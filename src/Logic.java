@@ -10,7 +10,7 @@ public class Logic {
 		parser = new Parser();
 		taskManager = new TaskManager();
 		storage = new Storage();
-		taskManager.tasks = storage.loadTasks();
+		storage.loadTasks(taskManager);
 	}
 	
 	

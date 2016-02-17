@@ -42,8 +42,8 @@ public class Storage{
 
 	}
 
-	public ArrayList<Task> loadTasks() throws IOException{
-		return taskControl.load();
+	public boolean loadTasks(TaskManager taskManager) throws IOException{
+		return taskControl.load(taskManager);
 	}
 	
 	public boolean saveCategory(ArrayList<Category> categories) throws IOException {

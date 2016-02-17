@@ -12,37 +12,36 @@ public class TaskLoader extends StorageOperations{
 		this.filePath = filePath_;
 	}
 	
-	public ArrayList<Task> loadTasks() throws IOException{
+	public boolean loadTasks(TaskManager taskManager) throws IOException{
 		File directory = new File(filePath);
-		ArrayList<Task> taskList = new ArrayList<Task>();
+		//ArrayList<Task> taskList = new ArrayList<Task>();
 
 		if(directory.exists()) {
 			String path = filePath + File.separatorChar + NAME_FILE_STORAGE;
-			taskList = loadFromFile(path);
+			loadFromFile(path, taskManager);
 		}
 		else {
 			createDirectory(directory);
 		}
 
-		return taskList;
+		return true;
 	}
 	
 	private void createDirectory(File directory) {
 		directory.mkdirs();
 	}
 	
-	public ArrayList<Task> loadFromFile(String filePath) throws IOException {
+	public void loadFromFile(String filePath, TaskManager taskManager) throws IOException {
 		File file = new File(filePath);
-		ArrayList<Task> taskList = new ArrayList<Task>();
 		FileReader fReader = tryToOpen(file);
 		if(fReader == null) {
-			return taskList;
+			return;
 		}
 		else {
-			readFromFile(fReader, taskList);
+			readFromFile(fReader, taskManager);
 		}
 		
-		return taskList;
+		return;
 	}
 	
 	private FileReader tryToOpen(File file) {
@@ -58,17 +57,16 @@ public class TaskLoader extends StorageOperations{
 		return fReader;
 	}
 	
-	private void loadToMemory(ArrayList<Task> taskList, String taskFormat) {
+	private void loadToMemory(TaskManager taskManager, String taskFormat) {
 		String[] taskInfo = taskFormat.split(", ");
-		Task existingTask = setTaskType(taskInfo);
-		taskList.add(existingTask);
+		taskManager.loadTasks(taskInfo);
 	}
 	
-	private void readFromFile(FileReader fReader, ArrayList<Task> taskList) throws IOException {
+	private void readFromFile(FileReader fReader, TaskManager taskManager) throws IOException {
 		BufferedReader bReader = new BufferedReader(fReader);
 		String taskInfo = bReader.readLine();
 		while(taskInfo != null) {
-			loadToMemory(taskList, taskInfo);
+			loadToMemory(taskManager, taskInfo);
 			taskInfo = bReader.readLine();
 		}
 		bReader.close();

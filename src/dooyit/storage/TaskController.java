@@ -20,7 +20,7 @@ public class TaskController {
 		return saver.saveTasks(tasks);
 	}
 	
-	protected ArrayList<Task> load() throws IOException {
-		return loader.loadTasks();
+	protected boolean load(TaskManager taskManager) throws IOException {
+		return loader.loadTasks(taskManager);
 	}
 }

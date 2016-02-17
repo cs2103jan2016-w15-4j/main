@@ -14,7 +14,7 @@ public class AddCommand extends Command {
 	private DateTime dateTimeEnd;
 	
 	public AddCommand(){
-		command = "add";
+	
 	}
 	
 	public void initAddCommandFloat(String taskName){
@@ -34,11 +34,6 @@ public class AddCommand extends Command {
 		this.dateTimeEnd = end;
 		taskType = Task.TaskType.EVENT;
 	}
-	
-//	public void initAddCommandWithDayAndTime(String data, String day, String time){
-//		this.data = data;
-//		taskType = Task.TaskType.FLOAT;
-//	}
 	
 	@Override
 	public void execute(TaskManager taskManager){

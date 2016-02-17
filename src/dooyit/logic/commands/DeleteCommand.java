@@ -1,11 +1,12 @@
 package dooyit.logic.commands;
 
+import dooyit.exception.IncorrectInputException;
 import dooyit.logic.TaskManager;
 
 public class DeleteCommand extends Command {
 
 	public DeleteCommand(){
-		command = "delete";
+
 	}
 	
 	public void initDeleteCommand(int id){
@@ -15,6 +16,11 @@ public class DeleteCommand extends Command {
 	@Override
 	public void execute(TaskManager taskManager){
 		
-		taskManager.deleteTask(deleteId);
+		
+		if(taskManager.deleteTask(deleteId) == null){
+			
+			throw new IncorrectInputException("Index" + deleteId + "doesn't exists");
+			
+		}
 	}
 }

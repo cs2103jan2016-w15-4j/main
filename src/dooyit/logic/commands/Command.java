@@ -16,7 +16,6 @@ public abstract class Command {
 		
 	}
 	
-	public String command;
 	public String time;
 	public String day;
 	public int deleteId;

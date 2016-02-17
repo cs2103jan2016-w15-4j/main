@@ -5,7 +5,7 @@ import dooyit.logic.TaskManager;
 public class DeleteCommand extends Command {
 
 	public DeleteCommand(){
-		command = "delete";
+
 	}
 	
 	public void initDeleteCommand(int id){

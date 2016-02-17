@@ -1,0 +1,88 @@
+/* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+.main-view > .viewport {
+	-fx-background-color: white;
+}
+
+.main-view {
+	-fx-background-color: transparent;
+}
+
+.header-view {
+	-fx-background-color: #ff6c57;
+	-fx-padding: 10; 
+}
+
+.header-title {
+	-fx-text-fill: white;
+}
+
+.btn-select-view{
+	-fx-background-color: none;
+	-fx-background-radius: 0;
+	-fx-alignment: center-left;
+	-fx-padding: 7 20 7 20;
+}
+
+.btn-select-view:selected {
+	-fx-background-color: linear-gradient(from 15% 15% to 75% 75%, #fdeeea, #fdd5d5);
+}
+
+.category-title {
+	-fx-text-fill: #ff6c57;
+	-fx-padding: 50 20 7 20;
+}
+
+.category-box {
+	-fx-alignment: center-left;
+	-fx-padding: 5 20 5 20;
+}
+
+.menu-view {
+	-fx-background-color: linear-gradient(from 25% 25% to 75% 75%, #ffffff, #fdeeea);
+	-fx-padding: 20 0 20 0;
+}
+
+.command-box {
+	-fx-background-color: #f7f7f7;
+	-fx-padding: 15;
+}
+
+.command-textfield {
+	-fx-pref-height: 34px;
+}
+
+.day-box {
+	-fx-background-color: white;
+}
+
+.day-title {
+	-fx-text-fill: #ff6c57;
+}
+
+.day-box {
+	-fx-padding: 20;
+}
+
+.day-task-box {
+	-fx-alignment: center-left; 
+	-fx-padding: 7 0 0 0;
+}
+
+.day-title {
+	-fx-padding: 0 0 10 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

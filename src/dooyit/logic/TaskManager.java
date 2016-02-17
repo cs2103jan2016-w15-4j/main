@@ -1,5 +1,7 @@
-package dooyit.main;
+package dooyit.logic;
 import java.util.ArrayList;
+
+import dooyit.parser.DateTime;
 
 public class TaskManager {
 	ArrayList<Task> tasks;

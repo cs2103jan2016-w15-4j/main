@@ -1,4 +1,4 @@
-package dooyit.main;
+package dooyit.parser;
 import java.util.TimeZone;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

@@ -1,6 +1,8 @@
 package dooyit.main;
 import java.util.ArrayList;
 
+import dooyit.logic.Task;
+
 public class Storage {
 	
 	public Storage(){

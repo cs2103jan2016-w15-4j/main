@@ -1,4 +1,6 @@
-package dooyit.main;
+package dooyit.logic;
+
+import dooyit.parser.DateTime;
 
 public class Task {
 	

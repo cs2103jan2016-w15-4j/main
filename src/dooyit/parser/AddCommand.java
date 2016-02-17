@@ -1,5 +1,9 @@
-package dooyit.main;
- 
+package dooyit.parser;
+
+import dooyit.logic.Task;
+import dooyit.logic.TaskManager;
+import dooyit.logic.Task.TaskType;
+
 public class AddCommand extends Command {
 
 	private String taskName;

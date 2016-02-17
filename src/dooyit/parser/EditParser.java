@@ -1,4 +1,7 @@
-package dooyit.main;
+package dooyit.parser;
+
+import dooyit.logic.commands.CommandUtils;
+
 public class EditParser {
 	private static final int START_INDEX_ARGS = 5;
 	private static final String MARKER_TIME_START = "from";

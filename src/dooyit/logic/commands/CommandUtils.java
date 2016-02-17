@@ -1,5 +1,8 @@
-package dooyit.main;
+package dooyit.logic.commands;
 
+import dooyit.parser.AddCommand;
+import dooyit.parser.Command;
+import dooyit.parser.DateTime;
 
 public class CommandUtils {
 	

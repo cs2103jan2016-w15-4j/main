@@ -1,4 +1,8 @@
-package dooyit.main;
+package dooyit.logic;
+
+import dooyit.main.Storage;
+import dooyit.parser.Command;
+import dooyit.parser.Parser;
 
 public class Logic {
 

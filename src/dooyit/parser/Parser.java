@@ -1,4 +1,8 @@
-package dooyit.main;
+package dooyit.parser;
+
+import dooyit.logic.commands.CommandUtils;
+import dooyit.main.Main;
+import dooyit.main.ShowParser;
 
 public class Parser {
 

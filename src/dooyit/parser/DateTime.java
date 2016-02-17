@@ -1,4 +1,4 @@
-package dooyit.main;
+package dooyit.parser;
 
 public class DateTime {
 	String date;	// 08/02/2016

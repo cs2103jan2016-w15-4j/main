@@ -1,4 +1,7 @@
-package dooyit.main;
+package dooyit.parser;
+
+import dooyit.logic.commands.CommandUtils;
+
 public class AddParser {
 	
 	private static final int START_INDEX_ARGS = 4;

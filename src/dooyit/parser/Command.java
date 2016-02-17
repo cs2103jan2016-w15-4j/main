@@ -1,4 +1,6 @@
-package dooyit.main;
+package dooyit.parser;
+
+import dooyit.logic.TaskManager;
 
 public abstract class Command {
 	

@@ -1,4 +1,6 @@
-package dooyit.main;
+package dooyit.parser;
+
+import dooyit.logic.commands.CommandUtils;
 
 public class DeleteParser {
 	private static String userInput;

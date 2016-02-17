@@ -12,6 +12,7 @@ import dooyit.logic.*;
 
 public class UITaskBox {
 	private CheckBox taskCheckBox;
+	private Label taskId;
 	private Label taskName;
 	private Label taskPeriod;
 	private VBox taskDescBox;
@@ -20,6 +21,10 @@ public class UITaskBox {
 	
 	public UITaskBox(Task task){
 		this.taskCheckBox = new CheckBox();
+		
+		this.taskId = new Label(Integer.toString(task.getId()));
+		this.taskId.setFont(Font.font("Tahoma", 15));
+	    this.taskId.getStyleClass().add("task-id");
 		
 		this.taskName = new Label(task.getName());
 		this.taskName.setFont(Font.font("Tahoma", 15));
@@ -37,7 +42,7 @@ public class UITaskBox {
 	    this.taskBox = new HBox();
 	    this.taskBox.setSpacing(60);
 	    this.taskBox.getStyleClass().add("day-task-box");
-	    this.taskBox.getChildren().addAll(this.taskCheckBox, this.taskDescBox, this.taskCategoryCircle);
+	    this.taskBox.getChildren().addAll(this.taskCheckBox, this.taskId, this.taskDescBox, this.taskCategoryCircle);
 	
 	    // Checkbox action
 	    this.taskCheckBox.setOnAction((event) -> {

@@ -26,3 +26,4 @@ local.properties
 # Locally stored "Eclipse launch configurations"
 *.launch
 config.txt
+data/tasks.txt

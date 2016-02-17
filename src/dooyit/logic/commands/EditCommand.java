@@ -2,18 +2,17 @@ package dooyit.logic.commands;
 
 import dooyit.logic.Task;
 import dooyit.logic.TaskManager;
-import dooyit.parser.Command;
 import dooyit.parser.DateTime;
 
 public class EditCommand extends Command {
 	
-	EditCommandType editCommandType;
-	int taskId;
-	String taskName;
+	private EditCommandType editCommandType;
+	private int taskId;
+	public String taskName;
 	private DateTime dateTimeDeadline;
 	private DateTime dateTimeStart;
 	private DateTime dateTimeEnd;
-
+	
 	
 	public EditCommand(){
 	}

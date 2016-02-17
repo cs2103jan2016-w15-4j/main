@@ -14,7 +14,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
 import dooyit.logic.Logic;
-import dooyit.main.*;;
+import dooyit.main.*;
+import dooyit.logic.Task;
 
 public class UIController {
 	static final String URL_CSS_COMMON = "common.css";

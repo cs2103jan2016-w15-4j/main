@@ -31,7 +31,6 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import dooyit.logic.Logic;
 import dooyit.ui.*;
-import dooyit.ui.Task;
 
 /**
  * 

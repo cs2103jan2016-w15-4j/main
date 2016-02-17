@@ -21,7 +21,7 @@ public class UITaskBox {
 	public UITaskBox(Task task){
 		this.taskCheckBox = new CheckBox();
 		
-		this.taskName = new Label("Buy oranges");
+		this.taskName = new Label(task.getName());
 		this.taskName.setFont(Font.font("Tahoma", 15));
 	    this.taskName.getStyleClass().add("task-name");
 	    

@@ -105,7 +105,18 @@ public class UIController {
 		    });
 		
 		// Command text field listener
-		commandBox.getCommandTextField().setOnAction((event)->{
+		// When value changes, command helper will be displayed
+		this.commandBox.getCommandTextField().textProperty().addListener(new ChangeListener<String>() {
+		    @Override
+		    public void changed(ObservableValue<? extends String> observable,
+		            String oldValue, String newValue) {
+
+		        System.out.println("TextField Text Changed (newValue: " + newValue + ")\n");
+		    }
+		});
+		
+		// Command text field listener
+		this.commandBox.getCommandTextField().setOnAction((event)->{
 			String commandString = commandBox.getCommandTextField().getText();
 			System.out.println(commandString);
 			commandBox.getCommandTextField().setText("");

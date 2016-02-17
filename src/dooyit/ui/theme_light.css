@@ -72,15 +72,23 @@
 	-fx-padding: 0 0 10 0;
 }
 
+.command-helper-list-view:focused, .command-helper-list-view:selected {
+	-fx-background-color: #ff6c57;
+	-fx-text-fill: white;
+}
 
+.command-helper-list-view {
+	-fx-text-fill: #262626;
+}
 
+.command-helper-list-view:odd, .command-helper-list-view:even {
+	-fx-background-color: white;
+}
 
-
-
-
-
-
-
+.command-helper-list-view:selected:focused, .command-helper-list-view:filled:selected {
+	-fx-background-color: #ff6c57;
+	-fx-text-fill: white;
+}
 
 
 

@@ -11,6 +11,8 @@ import javafx.scene.control.Toggle;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
 import dooyit.logic.Logic;
@@ -21,7 +23,7 @@ public class UIController {
 	static final String URL_CSS_COMMON = "common.css";
 	static final String URL_CSS_THEME_LIGHT = "theme_light.css";
 	static final String URL_CSS_THEME_DARK = "theme_dark.css";
-	
+
 	private String urlCssCommon;
 	private String urlCssThemeLight;
 	private String urlCssThemeDark;
@@ -36,6 +38,10 @@ public class UIController {
 	private UICommandBox commandBox;
 	private UICommandHelper commandHelper;
 	
+	private WebView webView;
+	private WebEngine webEngine;
+	private Stage secWindow;
+
 	private Logic logic;
 	private Stage primaryStage;
 	
@@ -47,7 +53,7 @@ public class UIController {
 	    this.logic = logic;
 	    this.primaryStage = primaryStage;
 	    
-	    // Root view
+	    // Root views
 		this.root = new BorderPane();
 		
 		// Header
@@ -94,7 +100,6 @@ public class UIController {
                         switch(selected){
 		                    case "day":
 		                        mainView.setContent(dayBox.getView());
-		                        commandHelper.show();
 		                        break;
 		                    case "next7days":
 		                        mainView.setContent(dayBoxContainer.getView());
@@ -110,8 +115,11 @@ public class UIController {
 		    @Override
 		    public void changed(ObservableValue<? extends String> observable,
 		            String oldValue, String newValue) {
-
-		        System.out.println("TextField Text Changed (newValue: " + newValue + ")\n");
+		    	if (newValue.equals("") && commandHelper.isShowing()){
+		    		//commandHelper.hide();
+		    	} else if (!newValue.equals(oldValue) && !commandHelper.isShowing()){
+		    		//commandHelper.show();
+		    	}
 		    }
 		});
 		
@@ -136,8 +144,26 @@ public class UIController {
 					scene.getStylesheets().addAll(urlCssCommon, urlCssThemeLight);
 					System.out.println("changed to light");
 					break;
+				case "help":
+					this.webView = new WebView();
+					this.webEngine = webView.getEngine();
+					this.webEngine.load(getClass().getResource("user_guide.html").toExternalForm());
+					this.secWindow = new Stage();
+		            this.secWindow.setTitle("User Guide");
+		            this.secWindow.setScene(new Scene(this.webView, 600, 600));
+		            this.secWindow.show();
+					break;
 			}
 		}); 
+		
+		// Command helper listener
+		this.commandHelper.getListView().getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+		    @Override
+		    public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+		        commandBox.getCommandTextField().setText(newValue);
+		        commandBox.getCommandTextField().positionCaret(100);
+		    }
+		});
 	}
 	
 	public Scene getScene(){

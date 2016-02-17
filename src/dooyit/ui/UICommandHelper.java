@@ -16,8 +16,17 @@ public class UICommandHelper {
 	public UICommandHelper(Stage primaryStage){
 		this.primaryStage = primaryStage;
 		this.listView = new ListView<String>();
+		this.listView.getStyleClass().add("command-helper-list-view");
 		this.commandHelperView = new Popup();
 		this.commandHelperView.getContent().addAll(this.listView);
+	}
+	
+	public boolean isShowing(){
+		return this.commandHelperView.isShowing();
+	}
+	
+	public ListView<String> getListView(){
+		return this.listView;
 	}
 	
 	public void show(){
@@ -25,12 +34,13 @@ public class UICommandHelper {
 		    "add", "edit", "sleep");
 		this.listView.setItems(commands);
 		this.listView.setPrefHeight(commands.size() * 50 + 2);
-		this.commandHelperView.setX(this.primaryStage.getX() + 10);
+		this.commandHelperView.setX(this.primaryStage.getX() + 14);
 		this.commandHelperView.setY(this.primaryStage.getY() + this.primaryStage.getHeight() - 200);
 		this.commandHelperView.show(this.primaryStage);
 	}
 	
 	public void hide(){
+		this.listView.getSelectionModel().clearSelection();
 		this.commandHelperView.hide();
 	}
 }

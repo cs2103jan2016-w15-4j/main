@@ -20,15 +20,17 @@ public class Logic {
 	}
 	
 	
-	public void processCommand(String input) throws IOException{
+	public void processCommand(String input){
 		Command command = parser.getCommand(input);
 		
-//		EditCommand a = ((EditCommand)command);
-//		if( a != null)
-//		System.out.println("String: " + a.taskName);
-		
 		command.execute(taskManager);
-		save();
+		
+		try{
+			save();
+		} catch(IOException e){
+			System.out.println("ERROR: SAVING" );
+		}
+		
 		
 		//update UI - UI.update();
 		taskManager.display();

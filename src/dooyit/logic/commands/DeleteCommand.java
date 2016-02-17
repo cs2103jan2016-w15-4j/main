@@ -15,6 +15,10 @@ public class DeleteCommand extends Command {
 	@Override
 	public void execute(TaskManager taskManager){
 		
-		taskManager.deleteTask(deleteId);
+		
+		if(taskManager.deleteTask(deleteId) == null){
+			
+			
+		}
 	}
 }

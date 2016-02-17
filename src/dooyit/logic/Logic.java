@@ -1,6 +1,6 @@
 package dooyit.logic;
 
-import dooyit.main.Storage;
+import dooyit.storage.Storage;
 import dooyit.parser.Parser;
 import dooyit.logic.commands.*;
 

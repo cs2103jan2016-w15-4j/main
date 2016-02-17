@@ -90,4 +90,17 @@ public class DateTime {
 		String ans = this.date + " " + this.day + " " + this.timeStr;
 		return ans;
 	}
+	
+	public String[] convertToSavableStrings(){
+		String[] strings = new String[5];
+		
+		strings[0] = String.valueOf(dd);
+		strings[1] = String.valueOf(mm);
+		strings[2] = String.valueOf(yy);
+		strings[3] = day;
+		strings[4] = timeStr;
+		
+		return strings;
+	}
+	
 }

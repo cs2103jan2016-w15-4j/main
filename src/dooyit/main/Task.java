@@ -76,6 +76,28 @@ public class Task {
 		return dateTimeEnd;
 	}
 	
+	public String[] convertToSavableString(){
+		String [] strings = null;
+		
+		switch(taskType){
+			case FLOAT:
+					strings = new String[1];
+					strings[0] = taskName;
+				break;
+				
+			case DEADLINE:
+					//String[] dateStrings = dateTime.
+				break;
+				
+			case EVENT:
+				break;
+		}
+		
+		
+		return strings;
+	}
+	
+	
 	@Override
 	public String toString(){
 		String str = "";

@@ -1,8 +1,8 @@
 package dooyit.logic;
 
 import dooyit.main.Storage;
-import dooyit.parser.Command;
 import dooyit.parser.Parser;
+import dooyit.logic.commands.*;
 
 public class Logic {
 
@@ -19,6 +19,11 @@ public class Logic {
 	
 	public void processCommand(String input){
 		Command command = parser.getCommand(input);
+		
+//		EditCommand a = ((EditCommand)command);
+//		if( a != null)
+//		System.out.println("String: " + a.taskName);
+		
 		command.execute(taskManager);
 		save();
 		

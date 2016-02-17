@@ -1,7 +1,7 @@
 package dooyit.main;
 
+import dooyit.logic.commands.Command;
 import dooyit.logic.commands.CommandUtils;
-import dooyit.parser.Command;
 
 public class ShowParser {
 	private static String userInput;

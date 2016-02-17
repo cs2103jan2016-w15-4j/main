@@ -1,5 +1,6 @@
 package dooyit.parser;
 
+import dooyit.logic.commands.Command;
 import dooyit.logic.commands.CommandUtils;
 import dooyit.main.Main;
 import dooyit.main.ShowParser;
@@ -48,15 +49,18 @@ public class Parser {
 		case COMMAND_SHOW:
 			ShowParser showParser = new ShowParser(input);
 			command = showParser.getCommand();
+			break;
 			
 		case COMMAND_EDIT:
 			EditParser editParser = new EditParser(input);
 			command = editParser.getCommand();
-
+			break;
+			
 		case COMMAND_DELETE:
 			DeleteParser deleteParser = new DeleteParser(input);
 			command = deleteParser.getCommand();
 			//command = CommandUtils.createDeleteCommand(data);
+			
 			break;
 
 		case COMMAND_EXIT:

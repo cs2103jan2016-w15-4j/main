@@ -57,6 +57,7 @@ public class UIController {
 	
 		// Main view
 		this.mainView = new ScrollPane();
+		this.mainView.getStyleClass().add("main-view");
 		this.mainView.setContent(this.dayBox.getView());
 		
 		// Command view

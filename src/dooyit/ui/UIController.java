@@ -175,6 +175,7 @@ public class UIController {
 	 */
 	public void refreshDayView(ArrayList<Task> taskList, String dateString){
 		this.dayBox = new UIDayBox(taskList);
+		this.mainView.setContent(this.dayBox.getView());
 	}
 	
 	/**

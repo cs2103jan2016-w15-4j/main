@@ -14,7 +14,7 @@ public class UIDayBox {
 	private VBox dayBox;
 	private Label dayTitle;
 	
-	public UIDayBox(ArrayList<Task> task){
+	public UIDayBox(ArrayList<Task> taskList){
 		this.dayBox = new VBox();
 		this.dayBox.getStyleClass().add("day-box");
 		
@@ -24,8 +24,8 @@ public class UIDayBox {
 		
         this.dayBox.getChildren().add(dayTitle);
         
-		for (int i = 0; i < 3; i++){
-			UITaskBox taskBoxView = new UITaskBox(new Task());
+		for (int i = 0; i < taskList.size(); i++){
+			UITaskBox taskBoxView = new UITaskBox(taskList.get(i));
 	        HBox dayTaskBox = taskBoxView.getView();
 	        this.dayBox.getChildren().add(dayTaskBox);
 		}

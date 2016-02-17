@@ -12,6 +12,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Popup;
+import javafx.stage.Stage;
 import dooyit.logic.Logic;
 import dooyit.main.*;;
 
@@ -32,13 +33,17 @@ public class UIController {
 	private UIDayBoxContainer dayBoxContainer;
 	private ScrollPane mainView;
 	private UICommandBox commandBox;
-	private Logic logic;
 	
-	public UIController(Logic logic){
+	private Logic logic;
+	private Stage primaryStage;
+	
+	public UIController(Stage primaryStage, Logic logic){
 		this.urlCssCommon = getClass().getResource(URL_CSS_COMMON).toExternalForm();
 		this.urlCssThemeLight = getClass().getResource(URL_CSS_THEME_LIGHT).toExternalForm();
 	    this.urlCssThemeDark = getClass().getResource(URL_CSS_THEME_DARK).toExternalForm();
-		this.logic = logic;
+		
+	    this.logic = logic;
+	    this.primaryStage = primaryStage;
 	    
 	    // Root view
 		this.root = new BorderPane();

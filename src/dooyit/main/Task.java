@@ -4,7 +4,7 @@ public class Task {
 	
 	public enum TaskType{
 		DEADLINE, EVENT, FLOAT
-	}
+	};
 	
 	private String taskName;
 	private int taskId;

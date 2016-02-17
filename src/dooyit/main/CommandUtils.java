@@ -76,8 +76,31 @@ public class CommandUtils {
 	
 	public static Command createEditCommandName(int taskId, String taskName){
 		EditCommand editCommand = new EditCommand();
-		
-		
+		editCommand.initEditCommandName(taskId, taskName);
+		return null;
+	}
+	
+	public static Command createEditCommandDeadline(int taskId, DateTime deadline){
+		EditCommand editCommand = new EditCommand();
+		editCommand.initEditCommandDeadline(taskId, deadline);
+		return null;
+	}
+	
+	public static Command createEditCommandEvent(int taskId, DateTime start, DateTime end){
+		EditCommand editCommand = new EditCommand();
+		editCommand.initEditCommandEvent(taskId, start, end);
+		return null;
+	}
+	
+	public static Command createEditCommandNameAndDeadline(int taskId, String taskName, DateTime deadline){
+		EditCommand editCommand = new EditCommand();
+		editCommand.initEditCommandNameAndDeadline(taskId, taskName, deadline);
+		return null;
+	}
+	
+	public static Command createEditCommandNameAndEvent(int taskId, String taskName, DateTime start, DateTime end){
+		EditCommand editCommand = new EditCommand();
+		editCommand.initEditCommandNameAndEvent(taskId, taskName, start, end);
 		return null;
 	}
 	

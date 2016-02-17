@@ -83,7 +83,7 @@ public class Main extends Application{
 		logic = new Logic();
 		
 		try {
-			this.ui = new UIController(logic);
+			this.ui = new UIController(primaryStage, logic);
 			Scene scene = this.ui.getScene();
 			primaryStage.setScene(scene);
 			primaryStage.show();

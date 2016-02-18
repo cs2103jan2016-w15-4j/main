@@ -18,6 +18,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Toggle;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -85,8 +86,11 @@ public class Main extends Application{
 		try {
 			this.ui = new UIController(primaryStage, logic);
 			Scene scene = this.ui.getScene();
+			
 			primaryStage.setScene(scene);
-			primaryStage.show();
+			primaryStage.getIcons().add(new Image("icon.png"));
+	        primaryStage.setTitle("Dooyit");
+	        primaryStage.show();
 			logic.setUIController(this.ui);
 		} catch(Exception e) {
 			e.printStackTrace();

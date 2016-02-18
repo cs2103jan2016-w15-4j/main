@@ -1,5 +1,7 @@
 package dooyit.ui;
 
+import java.util.ArrayList;
+
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
@@ -8,6 +10,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
+import dooyit.logic.*;
+
 public class UISideMenu {
 	
 	private VBox menu;
@@ -15,6 +19,8 @@ public class UISideMenu {
 	private ToggleButton todayBtn;
 	private ToggleButton next7DaysBtn;
 	private Label categoryTitle;
+	
+	private UICategoryBoxContainer categoryBoxContainer;
 	
 	public UISideMenu(){
 		this.menu = new VBox();
@@ -42,13 +48,10 @@ public class UISideMenu {
         this.categoryTitle.setFont(Font.font("Tahoma", 12));
         this.categoryTitle.getStyleClass().add("category-title");
 		
-		this.menu.getChildren().addAll(todayBtn, next7DaysBtn, categoryTitle);
-		
-		for (int i = 0; i < 3; i++){
-			UICategoryBox categoryBoxView = new UICategoryBox();
-			HBox categoryBox = categoryBoxView.getView();
-			this.menu.getChildren().add(categoryBox);
-		}
+        this.categoryBoxContainer = new UICategoryBoxContainer(new ArrayList<Category>());
+        
+		this.menu.getChildren().addAll(this.todayBtn, this.next7DaysBtn, this.categoryTitle, this.categoryBoxContainer.getView());
+
 	}
 	
 	public VBox getView(){
@@ -65,6 +68,10 @@ public class UISideMenu {
 	
 	public ToggleGroup getMainViewToggleGroup(){
 		return this.mainViewToggleGroup;
+	}
+	
+	public void refreshCategoryMenuView(ArrayList<Category> categoryList){
+		this.categoryBoxContainer.refresh(categoryList);
 	}
 	
 }

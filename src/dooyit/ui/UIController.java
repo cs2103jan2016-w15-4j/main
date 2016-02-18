@@ -17,7 +17,7 @@ import javafx.stage.Popup;
 import javafx.stage.Stage;
 import dooyit.logic.Logic;
 import dooyit.main.*;
-import dooyit.logic.Task;
+import dooyit.logic.*;
 
 public class UIController {
 	static final String URL_CSS_COMMON = "common.css";
@@ -147,7 +147,7 @@ public class UIController {
 				case "help":
 					this.webView = new WebView();
 					this.webEngine = webView.getEngine();
-					this.webEngine.load(getClass().getResource("user_guide.html").toExternalForm());
+					this.webEngine.load(getClass().getResource("htdocs/user_guide.html").toExternalForm());
 					this.secWindow = new Stage();
 		            this.secWindow.setTitle("User Guide");
 		            this.secWindow.setScene(new Scene(this.webView, 600, 600));
@@ -189,8 +189,8 @@ public class UIController {
 	/**
 	 * Refreshes categories
 	 */
-	public void refreshCategoryMenuView(){
-		
+	public void refreshCategoryMenuView(ArrayList<Category> categoryList){
+		this.sideMenu.refreshCategoryMenuView(categoryList);
 	}
 	
 }

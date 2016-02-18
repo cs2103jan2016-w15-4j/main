@@ -8,7 +8,7 @@ public class EditParser {
 	private static final String MARKER_TIME_START = "from";
 	private static final String MARKER_TIME_END = "to";
 	private static final String MARKER_DEADLINE = "by";
-	private static final String MARKER_NAME = "name";
+	private static final String MARKER_NAME = " ";
 	
 	private static String userInput;
 	private static String taskName;

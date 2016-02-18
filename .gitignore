@@ -11,7 +11,6 @@
 bin/**
 tmp/**
 tmp/**/*
-data\\/**
 *.tmp
 *.bak
 *.swp
@@ -26,5 +25,9 @@ local.properties
 
 # Locally stored "Eclipse launch configurations"
 *.launch
+
+# application generated files
 config.txt
-data/tasks.txt
+data\\/**
+data\/**
+data/**

@@ -11,6 +11,8 @@ import javafx.scene.text.Font;
 import dooyit.logic.*;
 
 public class UITaskBox {
+	private Task task;
+	
 	private CheckBox taskCheckBox;
 	private Label taskId;
 	private Label taskName;
@@ -19,14 +21,18 @@ public class UITaskBox {
 	private Circle taskCategoryCircle;
 	private HBox taskBox;
 	
-	public UITaskBox(Task task){
+	private Logic logic;
+	
+	public UITaskBox(Task task, Logic logic){
+		this.task = task;
 		this.taskCheckBox = new CheckBox();
+		this.logic = logic;
 		
-		this.taskId = new Label(Integer.toString(task.getId()));
+		this.taskId = new Label(Integer.toString(this.task.getId()));
 		this.taskId.setFont(Font.font("Tahoma", 15));
 	    this.taskId.getStyleClass().add("task-id");
 		
-		this.taskName = new Label(task.getName());
+		this.taskName = new Label(this.task.getName());
 		this.taskName.setFont(Font.font("Tahoma", 15));
 	    this.taskName.getStyleClass().add("task-name");
 	    
@@ -48,6 +54,7 @@ public class UITaskBox {
 	    this.taskCheckBox.setOnAction((event) -> {
 	    	boolean isChecked = this.taskCheckBox.isSelected();
 	    	System.out.println(isChecked);
+	    	this.logic.processCommand("delete " + Integer.toString(this.task.getId()));
 	    });
 	}
 	

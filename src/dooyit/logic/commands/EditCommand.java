@@ -15,28 +15,33 @@ public class EditCommand extends Command {
 	
 	
 	public EditCommand(){
+		
 	}
 	
 	public void initEditCommandName(int taskId, String taskName){
 		editCommandType = EditCommandType.NAME;
 		this.taskName = taskName;
+		this.taskId = taskId;
 	}
 	
 	public void initEditCommandDeadline(int taskId, DateTime deadline){
 		editCommandType = EditCommandType.DEADLINE;
 		this.dateTimeDeadline = deadline;
+		this.taskId = taskId;
 	}
 
 	public void initEditCommandEvent(int taskId, DateTime start, DateTime end){
 		editCommandType = EditCommandType.EVENT;
 		this.dateTimeStart = start;
 		this.dateTimeEnd = end;
+		this.taskId = taskId;
 	}
 	
 	public void initEditCommandNameAndDeadline(int taskId, String taskName, DateTime deadline){
 		editCommandType = EditCommandType.NAME_N_DEADLINE;
 		this.taskName = taskName;
 		this.dateTimeDeadline = deadline;
+		this.taskId = taskId;
 	}
 
 	public void initEditCommandNameAndEvent(int taskId, String taskName, DateTime start, DateTime end){
@@ -44,6 +49,7 @@ public class EditCommand extends Command {
 		this.taskName = taskName;
 		this.dateTimeStart = start;
 		this.dateTimeEnd = end;
+		this.taskId = taskId;
 	}
 	
 	@Override

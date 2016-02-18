@@ -14,6 +14,7 @@ public class Task {
 	private DateTime dateTimeDeadline;
 	private DateTime dateTimeStart;
 	private DateTime dateTimeEnd;
+	private boolean isOverdue;
 	
 	public static int curTaskId = 1;
 	

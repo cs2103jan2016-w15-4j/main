@@ -46,7 +46,7 @@ public class Logic {
 			System.out.println(e.getMessage());
 		}
 		
-		ui.refreshDayView(taskManager.getTasks(), "today");
+		ui.refreshDayView(taskManager.getAllTasks(), "today");
 		
 		try{
 			
@@ -62,12 +62,12 @@ public class Logic {
 	}
 	
 	private void save() throws IOException{
-		storage.saveTasks(taskManager.getTasks());
+		storage.saveTasks(taskManager.getAllTasks());
 	}
 	
 	
 	public void setUIController(UIController ui){
 		this.ui = ui;
-		ui.refreshDayView(taskManager.getTasks(), "today");
+		ui.refreshDayView(taskManager.getAllTasks(), "today");
 	}
 }

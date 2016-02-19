@@ -12,8 +12,19 @@ public class TaskGroup {
 		tasks = new ArrayList<Task>();
 	}
 	
+	public TaskGroup(String title, ArrayList<Task> tasks){
+		this.title = title;
+		this.tasks = tasks;
+	}
+	
 	public void addTask(Task task){
 		this.tasks.add(task);
+	}
+	
+	public void addTasks(ArrayList<Task> tasks){
+		for(Task task : tasks){
+			this.tasks.add(task);
+		}
 	}
 	
 	public void setTitle(String title){

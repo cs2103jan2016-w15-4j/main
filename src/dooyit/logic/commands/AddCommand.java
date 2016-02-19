@@ -19,7 +19,7 @@ public class AddCommand extends Command {
 	
 	public void initAddCommandFloat(String taskName){
 		this.taskName = taskName;
-		taskType = Task.TaskType.FLOAT;
+		taskType = Task.TaskType.FLOATING;
 	}
 	
 	public void initAddCommandDeadline(String data, DateTime deadline){
@@ -38,7 +38,7 @@ public class AddCommand extends Command {
 	@Override
 	public void execute(TaskManager taskManager){
 		switch(taskType){
-			case FLOAT:
+			case FLOATING:
 					taskManager.AddTaskFloat(taskName);
 				break;
 			

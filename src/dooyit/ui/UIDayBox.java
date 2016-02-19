@@ -14,20 +14,23 @@ public class UIDayBox {
 	private Logic logic;
 	private VBox dayBox;
 	private Label dayTitle;
+	private ArrayList<Task> taskList;
 	
-	public UIDayBox(ArrayList<Task> taskList, Logic logic){
+	public UIDayBox(TaskGroup taskGroup, Logic logic){
 		this.logic = logic;
+		this.taskList = taskGroup.getTasks();
+		
 		this.dayBox = new VBox();
 		this.dayBox.getStyleClass().add("day-box");
 		
-        this.dayTitle = new Label("Today, 1 February 2016");
+        this.dayTitle = new Label(taskGroup.getTitle());
         this.dayTitle.setFont(Font.font("Tahoma", 18));
         this.dayTitle.getStyleClass().add("day-title");
 		
         this.dayBox.getChildren().add(dayTitle);
         
-		for (int i = 0; i < taskList.size(); i++){
-			UITaskBox taskBoxView = new UITaskBox(taskList.get(i), this.logic);
+		for (int i = 0; i < this.taskList.size(); i++){
+			UITaskBox taskBoxView = new UITaskBox(this.taskList.get(i), this.logic);
 	        HBox dayTaskBox = taskBoxView.getView();
 	        this.dayBox.getChildren().add(dayTaskBox);
 		}

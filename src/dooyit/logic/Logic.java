@@ -46,7 +46,8 @@ public class Logic {
 			System.out.println(e.getMessage());
 		}
 		
-		ui.refreshDayView(taskManager.getAllTasks(), "today");
+		// ui.refreshDayView(taskManager.getAllTasks(), "today");
+		ui.refreshMainView(taskManager.getTodayTaskGroups());
 		
 		try{
 			
@@ -68,6 +69,6 @@ public class Logic {
 	
 	public void setUIController(UIController ui){
 		this.ui = ui;
-		ui.refreshDayView(taskManager.getAllTasks(), "today");
+		ui.refreshMainView(taskManager.getAllTaskGroups());
 	}
 }

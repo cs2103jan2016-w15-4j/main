@@ -4,13 +4,21 @@ import java.util.ArrayList;
 
 import javafx.scene.layout.VBox;
 
+import dooyit.logic.*;
+
 public class UIDayBoxContainer {
 	private VBox dayBoxContainer;
+	private Logic logic;
 	
-	public UIDayBoxContainer(ArrayList<UIDayBox> dayBoxList){
+	public UIDayBoxContainer(Logic logic){
 		this.dayBoxContainer = new VBox();
-		
-		dayBoxList.forEach((dayBox)->{
+		this.logic = logic;
+	}
+	
+	public void refresh(ArrayList<TaskGroup> taskGroupList){
+		this.dayBoxContainer.getChildren().clear();
+		taskGroupList.forEach((taskGroup)->{
+			UIDayBox dayBox = new UIDayBox(taskGroup, logic);
 			this.dayBoxContainer.getChildren().add(dayBox.getView());
 		});
 	}

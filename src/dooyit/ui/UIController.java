@@ -62,16 +62,13 @@ public class UIController {
 		// Side menu
 		this.sideMenu = new UISideMenu();
 		
-		// Day box
-		this.dayBox = new UIDayBox(new ArrayList<Task>(), this.logic);
-		
-		// Extended view
-		this.dayBoxContainer = new UIDayBoxContainer(new ArrayList<UIDayBox>());
+		// Day box container
+		this.dayBoxContainer = new UIDayBoxContainer(this.logic);
 	
 		// Main view
 		this.mainView = new ScrollPane();
 		this.mainView.getStyleClass().add("main-view");
-		this.mainView.setContent(this.dayBox.getView());
+		this.mainView.setContent(this.dayBoxContainer.getView());
 		
 		// Command view
 		this.commandBox = new UICommandBox();
@@ -99,7 +96,7 @@ public class UIController {
 		                String selected = sideMenu.getMainViewToggleGroup().getSelectedToggle().getUserData().toString();
                         switch(selected){
 		                    case "day":
-		                        mainView.setContent(dayBox.getView());
+		                        mainView.setContent(dayBoxContainer.getView());
 		                        break;
 		                    case "next7days":
 		                        mainView.setContent(dayBoxContainer.getView());
@@ -171,19 +168,12 @@ public class UIController {
 	}
 	
 	/**
-	 * Use this to refresh day view with updated tasks
+	 * Use this to refresh main view with updated tasks
 	 */
-	public void refreshDayView(ArrayList<Task> taskList, String dateString){
-		this.dayBox = new UIDayBox(taskList, this.logic);
-		this.mainView.setContent(this.dayBox.getView());
-	}
 	
-	/**
-	 * Use this to refresh extended (next 7 days) view with updated tasks
-	 * Parameter will be [DateString,[Task]]
-	 */
-	public void refreshExtendedView(){
-		this.dayBoxContainer = new UIDayBoxContainer(new ArrayList<UIDayBox>());
+	public void refreshMainView(ArrayList<TaskGroup> taskGroupList){
+		this.dayBoxContainer.refresh(taskGroupList);
+		this.mainView.setContent(this.dayBoxContainer.getView());
 	}
 	
 	/**

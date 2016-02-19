@@ -22,3 +22,12 @@
 	-fx-border-radius: 50%;
 	-fx-border-color: #d0d0d0;
 }
+
+.message-box-label {
+	-fx-background-color: rgba(10, 10, 10, 0.6);
+	-fx-background-radius: 10;
+	-fx-text-fill: #f0f0f0;
+	-fx-padding: 0 20 0 20;
+	-fx-border-color: transparent;
+	-fx-border-radius: 10;
+}

@@ -32,11 +32,11 @@ public class UIController {
 	private BorderPane root;
 	private UIHeader header;
 	private UISideMenu sideMenu;
-	private UIDayBox dayBox;
 	private UIDayBoxContainer dayBoxContainer;
 	private ScrollPane mainView;
 	private UICommandBox commandBox;
 	private UICommandHelper commandHelper;
+	private UIMessageBox messageBox;
 	
 	private WebView webView;
 	private WebEngine webEngine;
@@ -75,6 +75,9 @@ public class UIController {
 		
 		// Command helper
 		this.commandHelper = new UICommandHelper(this.primaryStage);
+		
+		// Message box
+		this.messageBox = new UIMessageBox(this.primaryStage);
 		
 		// Add views to root
 		this.root.setTop(this.header.getView());
@@ -150,6 +153,12 @@ public class UIController {
 		            this.secWindow.setScene(new Scene(this.webView, 600, 600));
 		            this.secWindow.show();
 					break;
+				case "mb":
+					displayMessage("hello world");
+					break;
+				case "hmb":
+					this.messageBox.hide();
+					break;
 			}
 		}); 
 		
@@ -165,6 +174,10 @@ public class UIController {
 	
 	public Scene getScene(){
 		return this.scene;
+	}
+	
+	public void displayMessage(String msg){
+		this.messageBox.show(msg);
 	}
 	
 	/**

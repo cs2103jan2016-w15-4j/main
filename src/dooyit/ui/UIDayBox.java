@@ -24,7 +24,7 @@ public class UIDayBox {
 		this.dayBox.getStyleClass().add("day-box");
 		
         this.dayTitle = new Label(taskGroup.getTitle());
-        this.dayTitle.setFont(Font.font("Tahoma", 18));
+        this.dayTitle.setFont(Font.font("Euphemia", 18));
         this.dayTitle.getStyleClass().add("day-title");
 		
         this.dayBox.getChildren().add(dayTitle);

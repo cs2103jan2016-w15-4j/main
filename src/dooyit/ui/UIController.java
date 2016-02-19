@@ -98,7 +98,7 @@ public class UIController {
 		                    case "day":
 		                        mainView.setContent(dayBoxContainer.getView());
 		                        break;
-		                    case "next7days":
+		                    case "extended":
 		                        mainView.setContent(dayBoxContainer.getView());
 		                        break;
 		                }

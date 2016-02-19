@@ -17,7 +17,10 @@ public class UISideMenu {
 	private VBox menu;
 	private ToggleGroup mainViewToggleGroup;
 	private ToggleButton todayBtn;
-	private ToggleButton next7DaysBtn;
+	private ToggleButton extendedBtn;
+	private ToggleButton allBtn;
+	private ToggleButton completedBtn;
+	
 	private Label categoryTitle;
 	
 	private UICategoryBoxContainer categoryBoxContainer;
@@ -37,12 +40,26 @@ public class UISideMenu {
 		this.todayBtn.setSelected(true);
 		this.todayBtn.setUserData("day");
 		
-		this.next7DaysBtn = new ToggleButton("Next 7 days");
-		this.next7DaysBtn.setFont(Font.font("Tahoma", 14));
-		this.next7DaysBtn.setPrefWidth(180);
-		this.next7DaysBtn.getStyleClass().add("btn-select-view");
-		this.next7DaysBtn.setToggleGroup(mainViewToggleGroup);
-		this.next7DaysBtn.setUserData("next7days");
+		this.extendedBtn = new ToggleButton("Next 7 days");
+		this.extendedBtn.setFont(Font.font("Tahoma", 14));
+		this.extendedBtn.setPrefWidth(180);
+		this.extendedBtn.getStyleClass().add("btn-select-view");
+		this.extendedBtn.setToggleGroup(mainViewToggleGroup);
+		this.extendedBtn.setUserData("extended");
+		
+		this.allBtn = new ToggleButton("All");
+		this.allBtn.setFont(Font.font("Tahoma", 14));
+		this.allBtn.setPrefWidth(180);
+		this.allBtn.getStyleClass().add("btn-select-view");
+		this.allBtn.setToggleGroup(mainViewToggleGroup);
+		this.allBtn.setUserData("all");
+		
+		this.completedBtn = new ToggleButton("Completed");
+		this.completedBtn.setFont(Font.font("Tahoma", 14));
+		this.completedBtn.setPrefWidth(180);
+		this.completedBtn.getStyleClass().add("btn-select-view");
+		this.completedBtn.setToggleGroup(mainViewToggleGroup);
+		this.completedBtn.setUserData("completed");
 		
         this.categoryTitle = new Label("CATEGORIES");
         this.categoryTitle.setFont(Font.font("Tahoma", 12));
@@ -50,7 +67,7 @@ public class UISideMenu {
 		
         this.categoryBoxContainer = new UICategoryBoxContainer(new ArrayList<Category>());
         
-		this.menu.getChildren().addAll(this.todayBtn, this.next7DaysBtn, this.categoryTitle, this.categoryBoxContainer.getView());
+		this.menu.getChildren().addAll(this.todayBtn, this.extendedBtn, this.allBtn, this.completedBtn, this.categoryTitle, this.categoryBoxContainer.getView());
 
 	}
 	
@@ -62,8 +79,8 @@ public class UISideMenu {
 		return this.todayBtn;
 	}
 	
-	public ToggleButton getNext7DaysBtn(){
-		return this.next7DaysBtn;
+	public ToggleButton getExtendedBtn(){
+		return this.extendedBtn;
 	}
 	
 	public ToggleGroup getMainViewToggleGroup(){

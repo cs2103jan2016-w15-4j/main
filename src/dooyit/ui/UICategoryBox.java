@@ -15,15 +15,15 @@ public class UICategoryBox {
 		this.categoryBox = new HBox();
 		
 		this.categoryName = new Label("Chores");
-		this.categoryName.setFont(Font.font("Tahoma", 13));
+		this.categoryName.setFont(Font.font("Euphemia", 14));
 		this.categoryName.getStyleClass().add("category-name");
 		
-		this.categoryCircle = new Circle(3, Color.web("#007AFF"));
+		this.categoryCircle = new Circle(4, Color.web("#007AFF"));
 		this.categoryCircle.getStyleClass().add("category-circle");
 		
 		this.categoryBox.getChildren().addAll(categoryCircle, categoryName);
 		this.categoryBox.getStyleClass().add("category-box");
-		this.categoryBox.setSpacing(10);
+		this.categoryBox.setSpacing(14);
 	}
 	
 	public HBox getView(){

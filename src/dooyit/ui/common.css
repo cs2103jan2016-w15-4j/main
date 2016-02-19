@@ -10,3 +10,15 @@
 .scroll-pane .corner {
     -fx-background-insets: 0;
 }
+
+.day-task-box {
+	-fx-padding: 13 0 13 0;
+	-fx-border-color: transparent transparent #f0f0f0 transparent;
+}
+
+.task-checkbox .box {
+	-fx-background-color: white;
+	-fx-background-radius: 50%;
+	-fx-border-radius: 50%;
+	-fx-border-color: #d0d0d0;
+}

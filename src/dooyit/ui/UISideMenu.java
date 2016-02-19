@@ -33,7 +33,7 @@ public class UISideMenu {
 		this.mainViewToggleGroup = new ToggleGroup();
 		
 		this.todayBtn = new ToggleButton("Today");
-		this.todayBtn.setFont(Font.font("Tahoma", 14));
+		this.todayBtn.setFont(Font.font("Euphemia", 14));
 		this.todayBtn.setPrefWidth(180);
 		this.todayBtn.getStyleClass().add("btn-select-view");
 		this.todayBtn.setToggleGroup(mainViewToggleGroup);
@@ -41,21 +41,21 @@ public class UISideMenu {
 		this.todayBtn.setUserData("day");
 		
 		this.extendedBtn = new ToggleButton("Next 7 days");
-		this.extendedBtn.setFont(Font.font("Tahoma", 14));
+		this.extendedBtn.setFont(Font.font("Euphemia", 14));
 		this.extendedBtn.setPrefWidth(180);
 		this.extendedBtn.getStyleClass().add("btn-select-view");
 		this.extendedBtn.setToggleGroup(mainViewToggleGroup);
 		this.extendedBtn.setUserData("extended");
 		
 		this.allBtn = new ToggleButton("All");
-		this.allBtn.setFont(Font.font("Tahoma", 14));
+		this.allBtn.setFont(Font.font("Euphemia", 14));
 		this.allBtn.setPrefWidth(180);
 		this.allBtn.getStyleClass().add("btn-select-view");
 		this.allBtn.setToggleGroup(mainViewToggleGroup);
 		this.allBtn.setUserData("all");
 		
 		this.completedBtn = new ToggleButton("Completed");
-		this.completedBtn.setFont(Font.font("Tahoma", 14));
+		this.completedBtn.setFont(Font.font("Euphemia", 14));
 		this.completedBtn.setPrefWidth(180);
 		this.completedBtn.getStyleClass().add("btn-select-view");
 		this.completedBtn.setToggleGroup(mainViewToggleGroup);

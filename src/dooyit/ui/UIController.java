@@ -170,8 +170,19 @@ public class UIController {
 	/**
 	 * Use this to refresh main view with updated tasks
 	 */
+	public void refreshDayView(ArrayList<TaskGroup> taskGroupList){
+		refreshMainView(taskGroupList);
+	}
 	
-	public void refreshMainView(ArrayList<TaskGroup> taskGroupList){
+	public void refreshExtendedView(ArrayList<TaskGroup> taskGroupList){
+		refreshMainView(taskGroupList);
+	}
+	
+	public void refreshAllView(ArrayList<TaskGroup> taskGroupList){
+		refreshMainView(taskGroupList);
+	}
+	
+	private void refreshMainView(ArrayList<TaskGroup> taskGroupList){
 		this.dayBoxContainer.refresh(taskGroupList);
 		this.mainView.setContent(this.dayBoxContainer.getView());
 	}

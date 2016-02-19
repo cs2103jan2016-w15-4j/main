@@ -181,6 +181,7 @@ public class DateTimeParser {
 				date = getDate(fastForward);
 				
 			} else {
+				System.out.println("DANGER");
 				//do nothing cuz invalid command
 			}
 		}
@@ -204,9 +205,9 @@ public class DateTimeParser {
 			}
 		}
 		
-		if(hasPassed(ans)) {
+		/*if(hasPassed(ans)) {
 			System.out.println("You can't go back in time!!");
-		}
+		}*/
 		
 		return ans;
 	}
@@ -397,7 +398,7 @@ public class DateTimeParser {
 		String currWord = splitInput[i];
 		boolean ans = false;
 		
-		if(currWord.contains("pm") || currWord.contains("am")) {			// what if its 25am??
+		if(currWord.contains("pm") || currWord.contains("am") || currWord.contains(":")) {			// what if its 25am??
 			ans = true;
 		} else {
 			if(isNumber(currWord) && i + 1 < splitInput.length) {
@@ -457,8 +458,10 @@ public class DateTimeParser {
 	}
 
 	private int getTime(String[] splitInput, int i) {
-		String timeString = splitInput[i].replace(":", "").replace(".", "");
-		System.out.println("timeString is " + timeString);
+		String timeString = splitInput[i].replace(".", "").replace(":", "");
+		//boolean is24Hours = timeString.contains(":");
+		//timeString = timeString.replace(":", "");
+		System.out.println("timeString here is " + timeString);
 		boolean isAm = timeString.contains("am");
 		boolean isPm = timeString.contains("pm");
 		int timeInt = -1;

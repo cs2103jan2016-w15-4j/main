@@ -24,12 +24,14 @@ public class Logic {
 			storage = new Storage();
 		}catch(IOException e){
 			System.out.println("ERROR: CREATING STORAGE");
+			ui.displayMessage("ERROR: CREATING STORAGE");
 		}
 		
 		try{
 			storage.loadTasks(taskManager);
 		}catch(IOException e){
 			System.out.println("ERROR: LOAD TASK");
+			ui.displayMessage("ERROR: LOAD TASK");
 		}
 		
 	}
@@ -44,6 +46,7 @@ public class Logic {
 			
 		}catch(IncorrectInputException e){
 			System.out.println(e.getMessage());
+			ui.displayMessage(e.getMessage());
 		}
 		
 		ui.refreshDayView(taskManager.getTodayTaskGroups());
@@ -53,7 +56,8 @@ public class Logic {
 			save();
 			
 		} catch(IOException e){
-			System.out.println("ERROR: SAVING" );
+			System.out.println("ERROR: SAVING");
+			ui.displayMessage("ERROR: SAVING");
 		}
 		
 		

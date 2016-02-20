@@ -24,14 +24,12 @@ public class TaskManager {
 		Task task = new Task();
 		task.initTaskDeadline(data, dateTime);
 		tasks.add(task);
-		//task.convertToSavableString();
 	}
 
 	public void AddTaskEvent(String data, DateTime start, DateTime end){
 		Task task = new Task();
 		task.initTaskEvent(data, start, end);
 		tasks.add(task);
-		//task.convertToSavableString();
 	}
 	
 	// return false if length is incorrect
@@ -113,7 +111,7 @@ public class TaskManager {
 		ArrayList<Task> deadlineFloat = new ArrayList<Task>();
 		
 		for(Task task : tasks){
-			if(task.getTaskType() == TaskType.FLOATING){
+			if(task.getTaskType() == TaskType.DEADLINE){
 				deadlineFloat.add(task);
 			}
 		}

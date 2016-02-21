@@ -14,8 +14,8 @@ public class UICategoryBoxContainer {
 		this.categoryBoxContainerView = new VBox();
 		this.categoryBoxContainerView.setSpacing(4);
 		
-		for (int i = 0; i < 3; i++){
-			UICategoryBox categoryBoxView = new UICategoryBox();
+		for (int i = 0; i < categoryList.size(); i++){
+			UICategoryBox categoryBoxView = new UICategoryBox(categoryList.get(i));
 			HBox categoryBox = categoryBoxView.getView();
 			this.categoryBoxContainerView.getChildren().add(categoryBox);
 		}
@@ -28,7 +28,7 @@ public class UICategoryBoxContainer {
 	public void refresh(ArrayList<Category> categoryList){
 		this.categoryBoxContainerView.getChildren().clear();
 		for (int i = 0; i < categoryList.size(); i++){
-			UICategoryBox categoryBoxView = new UICategoryBox();
+			UICategoryBox categoryBoxView = new UICategoryBox(categoryList.get(i));
 			HBox categoryBox = categoryBoxView.getView();
 			this.categoryBoxContainerView.getChildren().add(categoryBox);
 		}

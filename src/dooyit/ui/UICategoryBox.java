@@ -6,12 +6,14 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 
+import dooyit.logic.*;
+
 public class UICategoryBox {
 	private HBox categoryBox;
 	private Label categoryName;
 	private Circle categoryCircle;
 	
-	public UICategoryBox(){		
+	public UICategoryBox(Category category){		
 		this.categoryBox = new HBox();
 		
 		this.categoryName = new Label("Chores");

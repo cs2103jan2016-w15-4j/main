@@ -185,7 +185,7 @@ public class DateTimeParser {
 		//[dayOfWeek, time, DD, MM, YY, indexInArray]
 		int[] combined = new int[] {convertDayStrToInt(currDayInWeek), DUMMY_INT, currDay, currMonth, currYear, 1}; 	
 		
-		for(int i = 0; i < splitInput.length; i++) {			
+		for(int i = 1; i < splitInput.length; i++) {			
 			String currWord = splitInput[i];
 			switch(getDateTimeType(currWord, splitInput, i)) {
 			case TYPE_THIS_DAY_OF_WEEK :
@@ -252,6 +252,7 @@ public class DateTimeParser {
 			case TYPE_INVALID :
 				System.out.println("part 11");
 				System.out.println("input is "+ input);
+				i += combined[COMBINED_INDEX_COUNTER];
 				break;
 			
 			}
@@ -259,6 +260,11 @@ public class DateTimeParser {
 			printArray(combined);
 			i = combined[COMBINED_INDEX_COUNTER];
 			System.out.println("i is " + i);
+			
+			/*if(i == splitInput.length - 1) {
+				System.out.println("$$$$$$$$$$$$$$$$$$$$$$$");
+				break;
+			}*/
 			//i++;
 		}
 		//System.out.println("--------------------------------------");
@@ -371,7 +377,9 @@ public class DateTimeParser {
 	}
 	
 	private int getAdvanceInt(int[] newDate, int index) {
-		return newDate[3] + index;
+		System.out.println("newDate[3] is " + newDate[3] + " and index " + index);
+		int ans = newDate[3] + index;
+		return ans;
 	}
 
 	private int getDay(int[] date) {
@@ -406,7 +414,6 @@ public class DateTimeParser {
 			String[] temp = currWord.split("/");
 			for(int j = 0; j < temp.length; j++) {
 				ans[j] = Integer.parseInt(temp[j]);
-				System.out.println("numEntries is " + numEntries);
 				
 			}
 			numEntries = 1;
@@ -435,6 +442,7 @@ public class DateTimeParser {
 						numEntries++;
 					}
 				}
+				System.out.println("numEntries is " + numEntries);
 				counter++;
 			}
 		}
@@ -689,9 +697,10 @@ public class DateTimeParser {
 			System.exit(0);
 		}
 		
-		if(i != splitInput.length - 1) {
+		if(i < splitInput.length - 1) {
 			if(splitInput[i + 1].equals("pm") || splitInput[i + 1].equals("am")) {
 				i += 1;		// To skip the next word
+				System.out.println("BOOOOOOOOOOOO");
 			}
 		}
 		

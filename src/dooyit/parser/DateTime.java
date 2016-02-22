@@ -137,7 +137,9 @@ public class DateTime {
 		return this.getTimeInt() != UNINITIALIZED;
 	}
 	
-	//public
+	public boolean isTheSameDateAs(DateTime obj) {
+		return this.getDD() == obj.getDD() && this.getMM() == obj.getMM() && this.getYY() == obj.getYY();
+	}
 	
 	public String[] convertToSavableStrings(){
 		String[] strings = new String[5];

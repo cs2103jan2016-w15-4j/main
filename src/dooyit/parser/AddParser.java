@@ -6,15 +6,16 @@ import dooyit.logic.commands.CommandUtils;
 public class AddParser {
 	
 	private static final int START_INDEX_ARGS = 4;
-	private static final String MARKER_START_EVENT = "from";
-	private static final String MARKER_END_EVENT = "to";
-	private static final String MARKER_WORK = "by";
+	private static final String MARKER_START_EVENT = " from ";
+	private static final String MARKER_END_EVENT = " to ";
+	private static final String MARKER_WORK = " by ";
 	
 	private static String userInput;
 	private static String taskName;
 	private static DateTime start;
 	private static DateTime end;
 	private static DateTime deadline;
+	private static Command cmd;
 	
 	enum TASK_TYPE {
 		FLOATING, WORK, EVENT
@@ -29,18 +30,33 @@ public class AddParser {
 		switch(getTaskType()) {
 		case FLOATING :
 			parseFloat();
-			return CommandUtils.createAddCommandFloat(taskName);
+			setToFloatCmd();
+			break;
 		
 		case WORK :
 			parseWork();
-			return CommandUtils.createAddCommandDeadline(taskName, deadline);
+			setToWorkCmd();
+			break;
 			
 		case EVENT : 
 			parseEvent();
-			return CommandUtils.createAddCommandEvent(taskName, start, end);
+			setToEventCmd();
+			break;
 		}
-		
-		return CommandUtils.createInvalidCommand("Invalid Command at addParser: ");
+		return cmd;
+		//return CommandUtils.createInvalidCommand("Invalid Command at addParser: ");
+	}
+
+	private void setToEventCmd() {
+		cmd = CommandUtils.createAddCommandEvent(taskName, start, end);
+	}
+
+	private void setToWorkCmd() {
+		cmd = CommandUtils.createAddCommandDeadline(taskName, deadline);
+	}
+
+	private void setToFloatCmd() {
+		cmd = CommandUtils.createAddCommandFloat(taskName);
 	}
 	
 	private void parseEvent() {

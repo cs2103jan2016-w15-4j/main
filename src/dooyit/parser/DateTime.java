@@ -1,6 +1,8 @@
 package dooyit.parser;
 
 public class DateTime {
+	private static final int UNINITIALIZED = -1;
+	
 	private String date;	// 08/02/2016
 	private String timeStr24H;		// 1300
 	private String timeStr12H;		// 1 pm, 2 am, 3.30 am
@@ -130,6 +132,12 @@ public class DateTime {
 		String ans = this.date + " " + this.day + " " + this.timeStr24H + " " + this.timeStr12H;
 		return ans;
 	}
+	
+	public boolean hasTime() {
+		return this.getTimeInt() != UNINITIALIZED;
+	}
+	
+	//public
 	
 	public String[] convertToSavableStrings(){
 		String[] strings = new String[5];

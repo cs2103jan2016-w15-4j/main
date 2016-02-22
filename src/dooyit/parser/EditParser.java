@@ -90,7 +90,7 @@ public class EditParser {
 
 	private void parseTimeEnd() {
 		DateTimeParser dateTimeParser = new DateTimeParser();
-		int indexTo = userInput.indexOf(MARKER_TIME_END);
+		int indexTo = userInput.lastIndexOf(MARKER_TIME_END);
 		if(taskId == -1) {
 			taskId = Integer.parseInt(userInput.substring(0, indexTo).trim());
 		}
@@ -99,7 +99,7 @@ public class EditParser {
 	
 	private void parseTimeStart() {
 		DateTimeParser dateTimeParser = new DateTimeParser();
-		int indexFrom = userInput.indexOf(MARKER_TIME_START);
+		int indexFrom = userInput.lastIndexOf(MARKER_TIME_START);
 		if(taskId == -1) {
 			taskId = Integer.parseInt(userInput.substring(0, indexFrom).trim());
 		}
@@ -114,7 +114,7 @@ public class EditParser {
 
 	private void parseDeadline() {
 		DateTimeParser dateTimeParser = new DateTimeParser();
-		int indexDeadline = userInput.indexOf(MARKER_DEADLINE);
+		int indexDeadline = userInput.lastIndexOf(MARKER_DEADLINE);
 		if(taskId == -1) {
 			taskId = Integer.parseInt(userInput.substring(0, indexDeadline).trim());
 		}
@@ -122,7 +122,7 @@ public class EditParser {
 	}
 
 	private void parseName() {
-		int indexName = userInput.indexOf(MARKER_NAME);
+		int indexName = userInput.lastIndexOf(MARKER_NAME);
 		if(taskId == -1) {
 			taskId = Integer.parseInt(userInput.substring(0, indexName).trim());
 		}
@@ -163,19 +163,19 @@ public class EditParser {
 	
 	
 	private static boolean hasName() {
-		return userInput.indexOf(MARKER_NAME) != -1;
+		return userInput.lastIndexOf(MARKER_NAME) != -1;
 	}
 	
 	private static boolean hasStart() {
-		return userInput.indexOf(MARKER_TIME_START) != -1;
+		return userInput.lastIndexOf(MARKER_TIME_START) != -1;
 	}
 	
 	private static boolean hasEnd() {
-		return userInput.indexOf(MARKER_TIME_END) != -1;
+		return userInput.lastIndexOf(MARKER_TIME_END) != -1;
 	}
 	
 	private static boolean hasDeadline() {
-		return userInput.indexOf(MARKER_DEADLINE) != -1;
+		return userInput.lastIndexOf(MARKER_DEADLINE) != -1;
 	}
 
 }

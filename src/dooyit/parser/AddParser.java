@@ -61,8 +61,8 @@ public class AddParser {
 	
 	private void parseEvent() {
 		DateTimeParser dateTimeParser = new DateTimeParser();
-		int indexFrom = userInput.indexOf(MARKER_START_EVENT);
-		int indexTo = userInput.indexOf(MARKER_END_EVENT);
+		int indexFrom = userInput.lastIndexOf(MARKER_START_EVENT);
+		int indexTo = userInput.lastIndexOf(MARKER_END_EVENT);			//what if indexTo < indexFrom
 		taskName = userInput.substring(0, indexFrom);
 		start = dateTimeParser.parse((userInput.substring(indexFrom, indexTo).trim()));
 		end = dateTimeParser.parse((userInput.substring(indexTo)));
@@ -70,7 +70,7 @@ public class AddParser {
 
 	private void parseWork() {
 		DateTimeParser dateTimeParser = new DateTimeParser();
-		int indexBy = userInput.indexOf(MARKER_WORK);
+		int indexBy = userInput.lastIndexOf(MARKER_WORK);
 		taskName = userInput.substring(0, indexBy);
 		deadline = dateTimeParser.parse((userInput.substring(indexBy).trim()));
 	}
@@ -90,11 +90,11 @@ public class AddParser {
 	}
 	
 	private boolean isEvent() {
-		return userInput.indexOf(MARKER_START_EVENT) != -1 &&
-				userInput.indexOf(MARKER_END_EVENT) != -1;
+		return userInput.lastIndexOf(MARKER_START_EVENT) != -1 &&
+				userInput.lastIndexOf(MARKER_END_EVENT) != -1;
 	}
 	
 	private boolean isWork() {
-		return userInput.indexOf(MARKER_WORK) != -1;
+		return userInput.lastIndexOf(MARKER_WORK) != -1;
 	}
 }

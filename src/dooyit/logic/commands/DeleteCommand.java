@@ -16,10 +16,9 @@ public class DeleteCommand extends Command {
 	@Override
 	public void execute(TaskManager taskManager){
 		
-		
 		if(taskManager.deleteTask(deleteId) == null){
 			
-			throw new IncorrectInputException("Index" + deleteId + "doesn't exists");
+			throw new IncorrectInputException("Index " + deleteId + " doesn't exists");
 			
 		}
 	}

@@ -10,7 +10,7 @@ import java.io.IOException;
 
 import dooyit.storage.TaskController;
 import dooyit.storage.CategoryController;
-import dooyit.storage.Category;
+import dooyit.logic.Category;
 import dooyit.logic.TaskManager;
 import dooyit.logic.Task;
 

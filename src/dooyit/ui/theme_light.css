@@ -63,13 +63,20 @@
 	-fx-padding: 20;
 }
 
-.day-task-box {
-	-fx-alignment: center-left; 
-	-fx-padding: 7 0 0 0;
-}
-
 .day-title {
 	-fx-padding: 0 0 10 0;
+}
+
+.task-id {
+	-fx-text-fill: #c0c0c0;
+}
+
+.task-name {
+	-fx-text-fill: #393939;
+}
+
+.task-period {
+	-fx-text-fill: black;
 }
 
 .command-helper-list-view:focused, .command-helper-list-view:selected {

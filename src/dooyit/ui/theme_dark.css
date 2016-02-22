@@ -67,13 +67,24 @@
 	-fx-text-fill: #deebf7;
 }
 
-.day-task-box {
-	-fx-alignment: center-left; 
-	-fx-padding: 7 0 0 0;
-}
-
 .day-title {
 	-fx-padding: 0 0 10 0;
+}
+
+.day-task-box {
+	-fx-padding: 13 0 13 0;
+	-fx-border-color: transparent transparent #505050 transparent;
+}
+
+.task-checkbox .box {
+	-fx-background-color: #404040;
+	-fx-background-radius: 50%;
+	-fx-border-radius: 50%;
+	-fx-border-color: #606060;
+}
+
+.task-id {
+	-fx-text-fill: #585858;
 }
 
 .task-name {

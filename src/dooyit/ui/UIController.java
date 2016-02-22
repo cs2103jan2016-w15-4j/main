@@ -32,11 +32,11 @@ public class UIController {
 	private BorderPane root;
 	private UIHeader header;
 	private UISideMenu sideMenu;
-	private UIDayBox dayBox;
 	private UIDayBoxContainer dayBoxContainer;
 	private ScrollPane mainView;
 	private UICommandBox commandBox;
 	private UICommandHelper commandHelper;
+	private UIMessageBox messageBox;
 	
 	private WebView webView;
 	private WebEngine webEngine;
@@ -62,22 +62,22 @@ public class UIController {
 		// Side menu
 		this.sideMenu = new UISideMenu();
 		
-		// Day box
-		this.dayBox = new UIDayBox(new ArrayList<Task>(), this.logic);
-		
-		// Extended view
-		this.dayBoxContainer = new UIDayBoxContainer(new ArrayList<UIDayBox>());
+		// Day box container
+		this.dayBoxContainer = new UIDayBoxContainer(this.logic);
 	
 		// Main view
 		this.mainView = new ScrollPane();
 		this.mainView.getStyleClass().add("main-view");
-		this.mainView.setContent(this.dayBox.getView());
+		this.mainView.setContent(this.dayBoxContainer.getView());
 		
 		// Command view
 		this.commandBox = new UICommandBox();
 		
 		// Command helper
 		this.commandHelper = new UICommandHelper(this.primaryStage);
+		
+		// Message box
+		this.messageBox = new UIMessageBox(this.primaryStage);
 		
 		// Add views to root
 		this.root.setTop(this.header.getView());
@@ -99,9 +99,9 @@ public class UIController {
 		                String selected = sideMenu.getMainViewToggleGroup().getSelectedToggle().getUserData().toString();
                         switch(selected){
 		                    case "day":
-		                        mainView.setContent(dayBox.getView());
+		                        mainView.setContent(dayBoxContainer.getView());
 		                        break;
-		                    case "next7days":
+		                    case "extended":
 		                        mainView.setContent(dayBoxContainer.getView());
 		                        break;
 		                }
@@ -153,6 +153,12 @@ public class UIController {
 		            this.secWindow.setScene(new Scene(this.webView, 600, 600));
 		            this.secWindow.show();
 					break;
+				case "mb":
+					displayMessage("hello world");
+					break;
+				case "hmb":
+					this.messageBox.hide();
+					break;
 			}
 		}); 
 		
@@ -170,20 +176,32 @@ public class UIController {
 		return this.scene;
 	}
 	
-	/**
-	 * Use this to refresh day view with updated tasks
-	 */
-	public void refreshDayView(ArrayList<Task> taskList, String dateString){
-		this.dayBox = new UIDayBox(taskList, this.logic);
-		this.mainView.setContent(this.dayBox.getView());
+	public void displayMessage(String msg){
+		this.messageBox.show(msg);
 	}
 	
 	/**
-	 * Use this to refresh extended (next 7 days) view with updated tasks
-	 * Parameter will be [DateString,[Task]]
+	 * Use this to refresh main view with updated tasks
 	 */
-	public void refreshExtendedView(){
-		this.dayBoxContainer = new UIDayBoxContainer(new ArrayList<UIDayBox>());
+	public void refreshDayView(ArrayList<TaskGroup> taskGroupList){
+		refreshMainView(taskGroupList);
+	}
+	
+	public void refreshExtendedView(ArrayList<TaskGroup> taskGroupList){
+		refreshMainView(taskGroupList);
+	}
+	
+	public void refreshAllView(ArrayList<TaskGroup> taskGroupList){
+		refreshMainView(taskGroupList);
+	}
+	
+	public void refreshCompletedView(ArrayList<TaskGroup> taskGroupList){
+		refreshMainView(taskGroupList);
+	}
+	
+	private void refreshMainView(ArrayList<TaskGroup> taskGroupList){
+		this.dayBoxContainer.refresh(taskGroupList);
+		this.mainView.setContent(this.dayBoxContainer.getView());
 	}
 	
 	/**

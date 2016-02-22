@@ -6,24 +6,26 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 
+import dooyit.logic.*;
+
 public class UICategoryBox {
 	private HBox categoryBox;
 	private Label categoryName;
 	private Circle categoryCircle;
 	
-	public UICategoryBox(){		
+	public UICategoryBox(Category category){		
 		this.categoryBox = new HBox();
 		
 		this.categoryName = new Label("Chores");
-		this.categoryName.setFont(Font.font("Tahoma", 13));
+		this.categoryName.setFont(Font.font("Euphemia", 14));
 		this.categoryName.getStyleClass().add("category-name");
 		
-		this.categoryCircle = new Circle(3, Color.web("#007AFF"));
+		this.categoryCircle = new Circle(4, Color.web("#007AFF"));
 		this.categoryCircle.getStyleClass().add("category-circle");
 		
 		this.categoryBox.getChildren().addAll(categoryCircle, categoryName);
 		this.categoryBox.getStyleClass().add("category-box");
-		this.categoryBox.setSpacing(10);
+		this.categoryBox.setSpacing(14);
 	}
 	
 	public HBox getView(){

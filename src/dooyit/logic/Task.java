@@ -5,7 +5,7 @@ import dooyit.parser.DateTime;
 public class Task {
 	
 	public enum TaskType{
-		DEADLINE, EVENT, FLOAT
+		DEADLINE, EVENT, FLOATING
 	};
 	
 	private String taskName;
@@ -23,7 +23,7 @@ public class Task {
 	}
 	
 	public void initTaskFloat(String taskName){
-		taskType = TaskType.FLOAT;
+		taskType = TaskType.FLOATING;
 		this.taskName = taskName;
 	}
 	
@@ -67,7 +67,7 @@ public class Task {
 		return taskType;
 	}
 	
-	public DateTime getDeadline(){
+	public DateTime getDeadlineTime(){
 		return dateTimeDeadline;
 	}
 	
@@ -83,7 +83,7 @@ public class Task {
 		String [] strings = null;
 		
 		switch(taskType){
-			case FLOAT:
+			case FLOATING:
 					strings = new String[1];
 					strings[0] = taskName;
 				break;
@@ -142,7 +142,7 @@ public class Task {
 		String str = "";
 		
 		switch(taskType){
-			case FLOAT:
+			case FLOATING:
 				str = taskName;
 				break;
 				

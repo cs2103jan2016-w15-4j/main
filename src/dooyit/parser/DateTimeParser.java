@@ -100,7 +100,7 @@ public class DateTimeParser {
 		return ans;
 	}
 	
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		sc = new Scanner(System.in);
 		
 		while(true) {
@@ -109,7 +109,7 @@ public class DateTimeParser {
 			dt.parse(sc.nextLine());
 		}
 		
-	}
+	}*/
 	
 	private DATE_TIME_FORMAT getDateTimeType(String currWord, String[] arr, int index) {
 		if(isThisMonday(currWord, arr, index)) {

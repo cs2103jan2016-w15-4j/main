@@ -207,6 +207,7 @@ public class DateTimeParser {
 				
 			case TYPE_NUM_DAYS : 
 				combined = getNumDays(splitInput, i, combined);
+				printArray(combined);
 				break;
 				
 			case TYPE_NUM_WEEKS :
@@ -230,9 +231,15 @@ public class DateTimeParser {
 				break;
 				
 			case TYPE_INVALID :
+				break;
 			
 			}
+			System.out.println("********************************");
+			printArray(combined);
+			i = combined[COMBINED_INDEX_COUNTER];
 		}
+		System.out.println("--------------------------------------");
+		printArray(combined);
 		return getDateTimeObject(combined);
 	}
 	
@@ -241,8 +248,8 @@ public class DateTimeParser {
 		int time = combined[COMBINED_INDEX_TIME];
 		int day = combined[COMBINED_INDEX_DAY_OF_WEEK];
 		DateTime dt;
-		if(hasPassed(currTime, time)) {
-			date = getDate(NEXT_DAY);
+		if(hasPassed(currTime, time, date)) {
+			date = getDate(NEXT_DAY); 
 			dt = new DateTime(date, daysInWeek[getNextDayInt()], time);
 		} else {
 			dt = new DateTime(date, daysInWeek[day], time);			
@@ -286,6 +293,7 @@ public class DateTimeParser {
 		int numDaysLater = Integer.parseInt(splitInput[i]);
 		int day = get_Int_Day_From(numDaysLater);
 		int[] date = getDate(numDaysLater);
+		printArray(date);
 		int[] ans = new int[] {day, combined[COMBINED_INDEX_TIME], date[DATE_INDEX_DD], date[DATE_INDEX_MM], date[DATE_INDEX_YY], i + 1};
 		return ans;
 	}
@@ -395,7 +403,6 @@ public class DateTimeParser {
 							}
 						}
 					} else if(isMonth(currWord2) && ans[1] == -1) {
-						//mm = convertMonthStrToInt(currWord2);
 						ans[1] = convertMonthStrToInt(currWord2);
 						numEntries++;
 						
@@ -556,8 +563,8 @@ public class DateTimeParser {
 		return today + NEXT_DAY - 1;
 	}
 
-	private boolean hasPassed(int currTime2, int time) {
-		return currTime2 > time;			
+	private boolean hasPassed(int currTime2, int time, int[] date) {
+		return currTime2 > time && date[DATE_INDEX_DD] == currDay && date[DATE_INDEX_MM] == currMonth && date[DATE_INDEX_YY] == currYear;			
 	}
 
 	// Input number of days to fastforward from today

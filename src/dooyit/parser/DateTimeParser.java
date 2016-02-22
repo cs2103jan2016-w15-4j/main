@@ -129,6 +129,10 @@ public class DateTimeParser {
 			System.out.println("isValidDay");
 			return DATE_TIME_FORMAT.TYPE_DAY_OF_WEEK;
 			
+		} else if(isValidTime(currWord,arr, index)) {
+			System.out.println("isValidTime");
+			return DATE_TIME_FORMAT.TYPE_TIME;
+			
 		} else if(isValidDate(currWord, arr, index)) {
 			System.out.println("isValidDate");
 			return DATE_TIME_FORMAT.TYPE_DATE;
@@ -148,10 +152,7 @@ public class DateTimeParser {
 		} else if(isNumWeeks(currWord, arr, index)) {
 			System.out.println("isNumWeeks");
 			return DATE_TIME_FORMAT.TYPE_NUM_WEEKS;
-			
-		} else if(isValidTime(currWord,arr, index)) {
-			System.out.println("isValidTime");
-			return DATE_TIME_FORMAT.TYPE_TIME;
+
 			
 		} else {
 			System.out.println("isInvalidType");
@@ -159,7 +160,6 @@ public class DateTimeParser {
 		}
 	}
 	
-
 	private boolean isNumDays(String currWord, String[] arr, int index) {
 		boolean ans = false;
 		//System.out.println("isNumber(" + currWord + ") is " + isNumber(currWord));
@@ -180,66 +180,89 @@ public class DateTimeParser {
 	}
 
 	public DateTime parse(String input) {
-		System.out.println("input is "+ input);
+		
 		String[] splitInput = input.toLowerCase().split("\\s+");
 		//[dayOfWeek, time, DD, MM, YY, indexInArray]
-		int[] combined = new int[] {convertDayStrToInt(currDayInWeek), DUMMY_INT, currDay, currMonth, currYear, -1}; 	
-		System.out.println("combined[0] is " + combined[0]);
+		int[] combined = new int[] {convertDayStrToInt(currDayInWeek), DUMMY_INT, currDay, currMonth, currYear, 1}; 	
 		
-		for(int i = 1; i < splitInput.length; i++) {			//start from 1 to ignore by
+		for(int i = 0; i < splitInput.length; i++) {			
 			String currWord = splitInput[i];
 			switch(getDateTimeType(currWord, splitInput, i)) {
 			case TYPE_THIS_DAY_OF_WEEK :
+				System.out.println("part 1");
+				System.out.println("currWord is " + currWord);
 				combined = getThisDayOfWeek(splitInput, i, combined);
 				break;
 				
 			case TYPE_NEXT_DAY_OF_WEEK : 
+				System.out.println("part 2");
+				System.out.println("currWord is " + currWord);
 				combined = getNextDayOfWeek(splitInput, i, combined);
 				break;
 				
 			case TYPE_DAY_OF_WEEK :
+				System.out.println("part 3");
+				System.out.println("currWord is " + currWord);
 				combined = getDayOfWeek(splitInput, i, combined);
 				break;
 				
 			case TYPE_NEXT_WEEK :
+				System.out.println("part 4");
+				System.out.println("currWord is " + currWord);
 				combined = getNextWeek(splitInput, i, combined);
 				break;
 				
 			case TYPE_NUM_DAYS : 
+				System.out.println("part 5");
+				System.out.println("currWord is " + currWord);
 				combined = getNumDays(splitInput, i, combined);
 				printArray(combined);
 				break;
 				
 			case TYPE_NUM_WEEKS :
+				System.out.println("part 6");
+				System.out.println("currWord is " + currWord);
 				combined = getNumWeeks(splitInput, i, combined);
 				break;
 				
 			case TYPE_TODAY :
+				System.out.println("part 7");
+				System.out.println("currWord is " + currWord);
 				combined = getToday(combined);
 				break;
 				
 			case TYPE_TOMORROW :
+				System.out.println("part 8");
+				System.out.println("currWord is " + currWord);
 				combined = getTomorrow(combined);
 				break;
 				
 			case TYPE_DATE :
+				System.out.println("part 9");
+				System.out.println("currWord is " + currWord);
 				combined = getDate(splitInput, i, combined);
 				break;
 				
 			case TYPE_TIME :
+				System.out.println("part 10");
+				System.out.println("currWord is " + currWord);
 				combined = getTime(splitInput, i, combined);
 				break;
 				
 			case TYPE_INVALID :
+				System.out.println("part 11");
+				System.out.println("input is "+ input);
 				break;
 			
 			}
 			System.out.println("********************************");
 			printArray(combined);
 			i = combined[COMBINED_INDEX_COUNTER];
+			System.out.println("i is " + i);
+			//i++;
 		}
-		System.out.println("--------------------------------------");
-		printArray(combined);
+		//System.out.println("--------------------------------------");
+		//printArray(combined);
 		return getDateTimeObject(combined);
 	}
 	
@@ -336,14 +359,19 @@ public class DateTimeParser {
 	}
 	
 	private int[] getDate(String[] splitInput, int i, int[] combined) {
+		System.out.println("IT REACHED HERE!! and splitInput[i] is " + splitInput[i]);
+		
 		int[] newDate = getDateAndAdvanceInt(splitInput, i);			//[dd, mm, yy, advanceInt]
 		int[] ans = new int[]{getDay(newDate), combined[COMBINED_INDEX_TIME], newDate[DATE_INDEX_DD], 
-							  newDate[DATE_INDEX_MM], newDate[DATE_INDEX_YY], getAdvanceInt(combined)};
+							  newDate[DATE_INDEX_MM], newDate[DATE_INDEX_YY], getAdvanceInt(newDate, combined[COMBINED_INDEX_COUNTER])};
+		System.out.println("index is " + combined[COMBINED_INDEX_COUNTER]);
+		System.out.println("LOOKIE HERE ans is ");
+		printArray(ans);
 		return ans;
 	}
 	
-	private int getAdvanceInt(int[] combined) {
-		return combined[3];
+	private int getAdvanceInt(int[] newDate, int index) {
+		return newDate[3] + index;
 	}
 
 	private int getDay(int[] date) {
@@ -405,7 +433,6 @@ public class DateTimeParser {
 					} else if(isMonth(currWord2) && ans[1] == -1) {
 						ans[1] = convertMonthStrToInt(currWord2);
 						numEntries++;
-						
 					}
 				}
 				counter++;
@@ -420,7 +447,7 @@ public class DateTimeParser {
 			ans[0] = currDay;
 		}
 		
-		ans[3] = numEntries - 1;
+		ans[3] = numEntries;
 		return ans;
 	}
 
@@ -516,23 +543,23 @@ public class DateTimeParser {
 					break;
 				} else {
 					String splitWord = splitInput[j];	//splitWord is "feb" of "feb 2015"
+					System.out.println("splitWord is " + splitWord);
 					if(!isNumber(splitWord) && isMonth(splitWord)) {
-						//hasMM = true;
 						ans = true;
 						break;
 					}
 				}
 				numEntries++;
 			}
-			//ans = hasMM;
 		}
+		System.out.println("isValidDate is " + ans);
 		return ans;
 	}
 
 	private boolean isMonth(String nextWord) {
 		boolean ans = false;
 		for(int i = 1; i < monthsInYear.length; i++) {
-			if(nextWord.equals(monthsInYear[i])) {
+			if(nextWord.contains(monthsInYear[i])) {
 				ans = true;
 				break;
 			}

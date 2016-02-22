@@ -13,8 +13,9 @@ public class DateTimeParser {
 	private static final int INDEX_DAY = 2;
 	private static final int INDEX_DAY_OF_WEEK = 3;
 	private static final int NEXT_DAY = 1;
-
-	private static final String DEFAULT_TIME_ZONE = "UTC+08:00"; // Singapore Time Zone
+	
+	private static final String CALENDAR_DATE_FORMAT = "dd/MM/yyyy HH:mm E u";
+	private static final String CALENDAR_DEFAULT_TIME_ZONE = "UTC+08:00"; // Singapore Time Zone
 	private static final String DUMMY_STR = "Dummy_Str";
 	private static final int DUMMY_INT = 100;
 	
@@ -26,7 +27,6 @@ public class DateTimeParser {
 
 	int LEAP_YEAR_FEB = 29;
 	int[] daysInMonth = new int[]{DUMMY_INT, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-
 	
 	String THIS = "this";
 	String NEXT = "next";
@@ -42,6 +42,17 @@ public class DateTimeParser {
 	boolean isLeapYear;
 	private static Scanner sc;
 	
+	enum DATE_TIME_FORMAT {
+		TYPE_THIS_MONDAY, TYPE_NEXT_MONDAY, TYPE_MONDAY, 
+		TYPE_NEXT_WEEK, TYPE_NUM_DAYS, TYPE_NUM_WEEKS,
+		TYPE_TODAY, TYPE_TOMORROW, TYPE_DATE, TYPE_TIME,
+		TYPE_INVALID
+	};
+	
+	enum TIME_TYPE {
+		TYPE_24_HOURS, TYPE_12_HOURS
+	}
+	
 	public static void main(String[] args) {
 		sc = new Scanner(System.in);
 		
@@ -53,9 +64,160 @@ public class DateTimeParser {
 		
 	}
 	
+	private DATE_TIME_FORMAT getDateTimeType(String currWord, String[] arr, int index) {
+		if(isThisMonday(currWord, arr, index)) {
+			return DATE_TIME_FORMAT.TYPE_THIS_MONDAY;
+		} else if(isNextWeek(currWord, arr, index)) {
+			return DATE_TIME_FORMAT.TYPE_NEXT_WEEK;
+		} else if(isNextWeekday(currWord, arr, index)) {
+			return DATE_TIME_FORMAT.TYPE_NEXT_MONDAY;
+		} else if(isValidDay(currWord)) {
+			return DATE_TIME_FORMAT.TYPE_MONDAY;
+		} else if(isValidDate(currWord, arr, index)) {
+			return DATE_TIME_FORMAT.TYPE_DATE;
+		} else if(isToday(currWord)) {
+			return DATE_TIME_FORMAT.TYPE_TODAY;
+		} else if(isTomorrow(currWord)) {
+			return DATE_TIME_FORMAT.TYPE_TOMORROW;
+		} else if(isNumber(currWord)) {
+			return DATE_TIME_FORMAT.TYPE_NUM_DAYS;
+		} else if(isNumber(currWord)) {
+			return DATE_TIME_FORMAT.TYPE_NUM_WEEKS;
+		} else if(isValidTime(currWord,arr, index)) {
+			return DATE_TIME_FORMAT.TYPE_TIME;
+		} else {
+			return DATE_TIME_FORMAT.TYPE_INVALID;
+		}
+	}
+	
+	private boolean isValidTime(String currWord, String[] arr, int index) {
+		boolean ans = false;
+		
+		if(currWord.contains("pm") || currWord.contains("am")) {			
+			currWord = currWord.replace("am", "").replace("pm", "");
+			
+			if(currWord.contains(":") || currWord.contains(".")) {								//Eg: 12pm, 12.30pm, 12:50am
+				currWord.replace(":", "").replace(".", "");
+				ans = isValidTimeRange(currWord);
+			}
+
+		} else if(currWord.contains(":")) {														//24Hour formats eg: 23:30		
+			currWord.replace(":", "");
+			if(isNumber(currWord)) {
+				int currInt = Integer.parseInt(currWord);
+				ans = currInt <= 2359 && currInt >= 0;
+			}
+		} else if(isNumber(currWord) && index < arr.length - 1) {
+				String nextWord = arr[index + 1];
+				if(nextWord.equals("am") || nextWord.equals("pm")) {
+					ans = isValidTimeRange(currWord);
+				}
+		} else {
+			//Invalid command here
+		}
+		return ans;
+	}
+
+	private boolean isValidTimeRange(String currWord) {
+		boolean ans = false;
+		if(isNumber(currWord)) {														//Checks that it isnt eg. hello.world, hello:world
+			int currInt = Integer.parseInt(currWord);
+			boolean isTwelvePm = currInt <= 12;											//Eg: 12pm, 8am, 10pm
+			boolean isFourThirtyPm = currInt / 100 <= 12 && currInt % 100 <= 60;		//Eg: 12.30pm, 8.30am, 9.30pm
+			ans = isTwelvePm || isFourThirtyPm;
+		}
+		return ans;
+	}
+	
+	private boolean isTomorrow(String currWord) {
+		return currWord.equals("tomorrow") || currWord.equals("tmr");
+	}
+
+	private boolean isNextWeekday(String currWord, String[] arr, int index) {
+		boolean ans = false;
+		if(currWord.equals(NEXT) && index != arr.length -1) {	//Check if there is a word that follow "this"
+			ans = isValidDay(arr[index + 1]);
+		}
+		return ans;
+	}
+
+	private boolean isNextWeek(String currWord, String[] arr, int index) {
+		boolean ans = false;
+		if(currWord.equals(NEXT) && index != arr.length - 1) {
+			ans = arr[index + 1].equals("week") || arr[index + 1].equals("weeks") || arr[index + 1].equals("wk");
+		}
+		return ans;
+	}
+
+	private boolean isThisMonday(String currWord, String[] arr, int index) {
+		boolean ans = false;
+		if(currWord.equals(THIS) && index != arr.length -1) {	//Check if there is a word that follow "this"
+			ans = isValidDay(arr[index + 1]);
+		}
+		return ans;
+	}
+	
+	private boolean isValidDay(String currWord) {
+		return convertDayStrToInt(currWord) != -1;
+	}
+
+	private boolean isValidDate(String currWord, String[] splitInput, int i) {
+		boolean ans = false;
+		
+		if(currWord.contains("/")) {		//Date is 11/2/2016
+			ans = true;
+		} else {
+			int numEntries = 0;
+			//boolean hasMM = false;
+			for(int j = i; j < splitInput.length; j++) {
+				if(numEntries > 2) {
+					break;
+				} else {
+					String splitWord = splitInput[j];	//splitWord is "feb" of "feb 2015"
+					if(!isNumber(splitWord) && isMonth(splitWord)) {
+						//hasMM = true;
+						ans = true;
+						break;
+					}
+				}
+				numEntries++;
+			}
+			//ans = hasMM;
+		}
+		return ans;
+	}
+
+	private boolean isMonth(String nextWord) {
+		boolean ans = false;
+		for(int i = 1; i < monthsInYear.length; i++) {
+			if(nextWord.equals(monthsInYear[i])) {
+				ans = true;
+				break;
+			}
+		}
+		return ans;
+	}
+
+	private boolean nextWordIsValidDay(String[] splitInput, int i) {
+		String nextWord = splitInput[i + 1];
+		return isValidDay(nextWord);
+	}
+
+	private boolean nextWordIsWeek(String[] splitInput, int i) {
+		return splitInput[i + 1].equals("week") || splitInput[i + 1].equals("weeks") || splitInput[i + 1].equals("wk");
+	}
+
+	private boolean isNumber(String currWord) {
+		return currWord.matches("[0-9]+");
+	}
+
+	private boolean isToday(String currWord) {
+		return currWord.equals("today") || currWord.equals("tdy");
+	}
+	
 	public DateTimeParser() {
-		Calendar cal = Calendar.getInstance(TimeZone.getTimeZone(DEFAULT_TIME_ZONE));
-		dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm E u");
+		Calendar cal = Calendar.getInstance(TimeZone.getTimeZone(CALENDAR_DEFAULT_TIME_ZONE));
+		dateFormat = new SimpleDateFormat(CALENDAR_DATE_FORMAT);
 		
 		setCurrVariables(dateFormat.format(cal.getTime()));
 	}
@@ -64,8 +226,6 @@ public class DateTimeParser {
 		String[] splitDate = date.split("\\s+");
 		currDate = splitDate[INDEX_DATE];
 		currTime = Integer.parseInt(splitDate[INDEX_TIME].replace(":", ""));
-		// currTime = splitDate[INDEX_TIME];
-		// System.out.println("currTime is " + currTime);
 		currDayInWeek = splitDate[INDEX_DAY];
 		today = Integer.parseInt(splitDate[INDEX_DAY_OF_WEEK]);
 		
@@ -141,7 +301,7 @@ public class DateTimeParser {
 					date = getDate(NEXT_DAY);
 				}
 				
-			} else if(isDate(splitInput, i) && !isValidTime(splitInput, i)) {
+			} else if(isValidDate(splitInput, i) && !isValidTime(splitInput, i)) {
 				System.out.println("part P");
 				date = getDate(splitInput, i);
 				day = getDay(date);
@@ -214,10 +374,6 @@ public class DateTimeParser {
 	
 	private boolean hasPassed(DateTime ans) {
 		return ans.getDD() < currDay || ans.getMM() < currMonth || ans.getYY() < currYear || ans.getTimeInt() < currTime;
-	}
-
-	private boolean isValidDay(String currWord) {
-		return convertDayStrToInt(currWord) != -1;
 	}
 
 	private int getAdvanceInt(String[] splitInput, int i) {
@@ -325,66 +481,7 @@ public class DateTimeParser {
 		return ans;
 	}
 
-	private boolean isDate(String[] splitInput, int i) {
-		String currWord = splitInput[i];
-		boolean ans = false;
-		
-		if(currWord.contains("/")) {		//Date is 11/2/2016
-			ans = true;
-		} else {
-			int numEntries = 0;
-			boolean hasMM = false;
-			for(int j = i; j < splitInput.length; j++) {
-				if(numEntries > 3) {
-					break;
-				} else {
-					String currWord2 = splitInput[j];
-					if(!isNumber(currWord2) && isMonth(currWord2)) {
-						hasMM = true;
-					}
-				}
-				numEntries++;
-			}
-			ans = hasMM;
-		}
-		return ans;
-	}
 
-	private boolean isMonth(String nextWord) {
-		boolean ans = false;
-		for(int i = 1; i < monthsInYear.length; i++) {
-			if(nextWord.equals(monthsInYear[i])) {
-				ans = true;
-				break;
-			}
-		}
-		return ans;
-	}
-
-	private boolean nextWordIsValidDay(String[] splitInput, int i) {
-		String nextWord = splitInput[i + 1];
-		return isValidDay(nextWord);
-	}
-
-	private boolean nextWordIsWeek(String[] splitInput, int i) {
-		return splitInput[i + 1].equals("week") || splitInput[i + 1].equals("weeks") || splitInput[i + 1].equals("wk");
-	}
-
-	private boolean isNumber(String currWord) {
-		return currWord.matches("[0-9]+");
-	}
-
-	private boolean isTodayOrTmr(String currWord) {
-		return isToday(currWord) || isTmr(currWord);
-	}
-	
-	private boolean isToday(String currWord) {
-		return currWord.equals("today") || currWord.equals("tdy");
-	}
-	
-	private boolean isTmr(String currWord) {
-		return currWord.equals("tomorrow") || currWord.equals("tmr");
-	}
 
 	private int getNextDayInt() {
 		return today + NEXT_DAY - 1;
@@ -394,24 +491,6 @@ public class DateTimeParser {
 		return currTime2 > time;			
 	}
 
-	private boolean isValidTime(String[] splitInput, int i) {
-		String currWord = splitInput[i];
-		boolean ans = false;
-		
-		if(currWord.contains("pm") || currWord.contains("am") || currWord.contains(":")) {			// what if its 25am??
-			ans = true;
-		} else {
-			if(isNumber(currWord) && i + 1 < splitInput.length) {
-				String nextWord = splitInput[i + 1];
-				System.out.println("nextWord is " + nextWord);
-				if(nextWord.equals("am") || nextWord.equals("pm")) {
-					ans = true;
-				}
-			}
-		}
-		return ans;
-	}
-	
 	// Input number of days to fastforward from today
 	// Output the day of the week
 	private int get_Int_Day_From(int daysLater) {

@@ -59,10 +59,6 @@ public class DateTimeParser {
 		TYPE_INVALID
 	};
 	
-	enum TIME_TYPE {
-		TYPE_24_HOURS, TYPE_12_HOURS
-	}
-	
 	public DateTimeParser() {
 		Calendar cal = Calendar.getInstance(TimeZone.getTimeZone(CALENDAR_DEFAULT_TIME_ZONE));
 		dateFormat = new SimpleDateFormat(CALENDAR_DATE_FORMAT);
@@ -118,29 +114,58 @@ public class DateTimeParser {
 	private DATE_TIME_FORMAT getDateTimeType(String currWord, String[] arr, int index) {
 		if(isThisMonday(currWord, arr, index)) {
 			return DATE_TIME_FORMAT.TYPE_THIS_DAY_OF_WEEK;
+			
 		} else if(isNextWeek(currWord, arr, index)) {
 			return DATE_TIME_FORMAT.TYPE_NEXT_WEEK;
+			
 		} else if(isNextWeekday(currWord, arr, index)) {
 			return DATE_TIME_FORMAT.TYPE_NEXT_DAY_OF_WEEK;
+			
 		} else if(isValidDay(currWord)) {
 			return DATE_TIME_FORMAT.TYPE_DAY_OF_WEEK;
+			
 		} else if(isValidDate(currWord, arr, index)) {
 			return DATE_TIME_FORMAT.TYPE_DATE;
+			
 		} else if(isToday(currWord)) {
 			return DATE_TIME_FORMAT.TYPE_TODAY;
+			
 		} else if(isTomorrow(currWord)) {
 			return DATE_TIME_FORMAT.TYPE_TOMORROW;
-		} else if(isNumber(currWord)) {
+			
+		} else if(isNumDays(currWord, arr, index)) {
 			return DATE_TIME_FORMAT.TYPE_NUM_DAYS;
-		} else if(isNumber(currWord)) {
+			
+		} else if(isNumWeeks(currWord, arr, index)) {
 			return DATE_TIME_FORMAT.TYPE_NUM_WEEKS;
+			
 		} else if(isValidTime(currWord,arr, index)) {
 			return DATE_TIME_FORMAT.TYPE_TIME;
+			
 		} else {
 			return DATE_TIME_FORMAT.TYPE_INVALID;
 		}
 	}
 	
+
+	private boolean isNumDays(String currWord, String[] arr, int index) {
+		boolean ans = false;
+		if(isNumber(currWord) && index < arr.length -1) {
+			String nextWord = arr[index + 1];
+			ans = nextWord.equals("days") || nextWord.equals("day") || nextWord.equals("dd");
+		}
+		return ans;
+	}
+
+	private boolean isNumWeeks(String currWord, String[] arr, int index) {
+		boolean ans = false;
+		if(isNumber(currWord) && index < arr.length -1) {
+			String nextWord = arr[index + 1];
+			ans = nextWord.equals("weeks") || nextWord.equals("week") || nextWord.equals("wk");
+		}
+		return ans;
+	}
+
 	public DateTime parse(String input) {
 		String[] splitInput = input.toLowerCase().split("\\s+");
 		//[dayOfWeek, time, DD, MM, YY, indexInArray]
@@ -454,15 +479,6 @@ public class DateTimeParser {
 			}
 		}
 		return ans;
-	}
-
-	private boolean nextWordIsValidDay(String[] splitInput, int i) {
-		String nextWord = splitInput[i + 1];
-		return isValidDay(nextWord);
-	}
-
-	private boolean nextWordIsWeek(String[] splitInput, int i) {
-		return splitInput[i + 1].equals("week") || splitInput[i + 1].equals("weeks") || splitInput[i + 1].equals("wk");
 	}
 
 	private boolean isNumber(String currWord) {

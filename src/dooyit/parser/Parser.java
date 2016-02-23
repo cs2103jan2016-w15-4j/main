@@ -13,6 +13,7 @@ public class Parser {
 	static final String COMMAND_DELETE = "delete";
 	static final String COMMAND_EDIT = "edit";
 	static final String COMMAND_ADD = "add";
+	static final String COMMAND_ADD_CAT = "addcat";
 	
 	
 	public Parser(){
@@ -40,10 +41,8 @@ public class Parser {
 
 		switch (commandString.toLowerCase()) {
 		case COMMAND_ADD:
-			//executeAddCommand(data);
 			AddParser addParser = new AddParser(input);
 			command = addParser.getCommand();
-			//command = CommandUtils.createAddCommand(data);
 			break;
 			
 		case COMMAND_SHOW:
@@ -59,8 +58,11 @@ public class Parser {
 		case COMMAND_DELETE:
 			DeleteParser deleteParser = new DeleteParser(input);
 			command = deleteParser.getCommand();
-			//command = CommandUtils.createDeleteCommand(data);
-			
+			break;
+		
+		case COMMAND_ADD_CAT:
+			AddCatParser addCatParser = new AddCatParser(input);
+			command = addCatParser.getCommand();
 			break;
 
 		case COMMAND_EXIT:
@@ -68,7 +70,6 @@ public class Parser {
 			break;
 
 		default:
-			//handlesInvalidCommand(command);
 			command = CommandUtils.createInvalidCommand("Invalid Command: " + input);
 		}
 

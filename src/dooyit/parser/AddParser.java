@@ -19,7 +19,7 @@ public class AddParser {
 	private static Command cmd;
 	
 	enum TASK_TYPE {
-		FLOATING, WORK, EVENT
+		FLOATING, WORK, EVENT, INVALID
 	};
 	
 	public AddParser(String input) {
@@ -58,7 +58,11 @@ public class AddParser {
 			}
 			setToEventCmd();
 			break;
+			
+		case INVALID :
+			setToInvalidCmd("Invalid input!");
 		}
+		
 		return cmd;
 	}
 
@@ -105,11 +109,17 @@ public class AddParser {
 			return TASK_TYPE.EVENT;
 		} else if(isWork()) {
 			return TASK_TYPE.WORK;
-		} else {
+		} else if(isFloating()){
 			return TASK_TYPE.FLOATING; 
+		} else {
+			return TASK_TYPE.INVALID;
 		}
 	}
 	
+	private boolean isFloating() {
+		return !userInput.equals("");
+	}
+
 	private boolean isEvent() {
 		return userInput.lastIndexOf(MARKER_START_EVENT) != -1 &&
 				userInput.lastIndexOf(MARKER_END_EVENT) != -1;

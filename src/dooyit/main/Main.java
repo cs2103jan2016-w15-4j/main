@@ -91,6 +91,8 @@ public class Main extends Application{
 			primaryStage.getIcons().add(new Image("icon.png"));
 	        primaryStage.setTitle("Dooyit");
 	        primaryStage.setMaxWidth(720);
+	        primaryStage.setMinWidth(720);
+	        primaryStage.setMinHeight(520);
 	        primaryStage.show();
 			logic.setUIController(this.ui);
 		} catch(Exception e) {

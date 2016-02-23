@@ -1,8 +1,10 @@
 package dooyit.ui;
 
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.text.Font;
 import javafx.stage.Popup;
+import javafx.stage.PopupWindow.AnchorLocation;
 import javafx.stage.Stage;
 
 public class UIMessageBox {
@@ -28,8 +30,13 @@ public class UIMessageBox {
 		this.messageLabel.setPrefSize(this.primaryStage.getWidth() - 30, 50);
 		this.messageLabel.setText(msg);
 		this.messageBox.setX(this.primaryStage.getX() + 15);
-		this.messageBox.setY(this.primaryStage.getY() + this.primaryStage.getHeight() - 110);
+		this.messageBox.setY(this.primaryStage.getY() + this.primaryStage.getHeight() - 130);
 		this.messageBox.show(this.primaryStage);
+	}
+	
+	public void updatePosition(){
+		this.messageBox.setX(this.primaryStage.getX() + 15);
+		this.messageBox.setY(this.primaryStage.getY() + this.primaryStage.getHeight() - 130);
 	}
 	
 	public void hide(){

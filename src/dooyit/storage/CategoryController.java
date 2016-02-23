@@ -8,6 +8,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import dooyit.logic.Category;
+
 public class CategoryController {
 	private String filePath;
 

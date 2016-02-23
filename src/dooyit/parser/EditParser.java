@@ -18,7 +18,7 @@ public class EditParser {
 	private static DateTime deadline = null;
 	
 	enum EDIT_TYPE {
-		NAME, DEADLINE, TIME_START_END, TIME_START, TIME_END, NAME_TIME_START_END, NAME_TIME_START, NAME_TIME_END, NAME_DEADLINE
+		NAME, DEADLINE, TIME_START_END, TIME_START, TIME_END, NAME_TIME_START_END, NAME_TIME_START, NAME_TIME_END, NAME_DEADLINE, INVALID
 	};
 	
 	public EditParser(String input) {
@@ -63,6 +63,9 @@ public class EditParser {
 		case NAME_DEADLINE : 
 			parseNameDeadline();
 			return CommandUtils.createEditCommandNameAndDeadline(taskId, taskName, deadline);
+			
+		case INVALID :
+			return CommandUtils.createInvalidCommand("Invalid Edit Command!");
 		}
 		return null;
 	}

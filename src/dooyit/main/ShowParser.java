@@ -45,7 +45,7 @@ public class ShowParser {
 			return CommandUtils.createShowCategoryCommand("cat name");
 			
 		default:
-			return null;
+			return CommandUtils.createInvalidCommand("Invalid Show command");
 		}
 	}
 

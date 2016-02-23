@@ -37,9 +37,11 @@ public class CategoryController {
 	}
 	
 	private String setFormat(Category category) {
-		int[] rgb = category.getRGB();
-		String format = String.format(CATEGORY_FORMAT, category.getName(), rgb[0], rgb[1], rgb[2]);
-		return format;
+		// causes error
+		//int[] rgb = category.getRGB();
+		//String format = String.format(CATEGORY_FORMAT, category.getName(), rgb[0], rgb[1], rgb[2]);
+		//return format;
+		return null;
 	}
 
 	public ArrayList<Category> loadCategory() throws IOException {
@@ -74,8 +76,9 @@ public class CategoryController {
 	
 	private void loadToMemory(ArrayList<Category> categories, String catFormat) {
 		String[] catInfo = catFormat.split(", ");
-		Category existingCategory = new Category(catInfo);
-		categories.add(existingCategory);
+		// causes error
+		//Category existingCategory = new Category(catInfo);
+		//categories.add(existingCategory);
 	}
 	
 	private void readFromFile(FileReader fReader, ArrayList<Category> categories) throws IOException {

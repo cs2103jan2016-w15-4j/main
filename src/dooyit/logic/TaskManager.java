@@ -58,9 +58,30 @@ public class TaskManager {
 	public Task deleteTask(int id){
 		for(int i=0; i<tasks.size(); i++){
 			if(tasks.get(i).getId() == id){
-				return tasks.remove(i);
+				return  tasks.remove(i);
 			}
 		}
+		
+		for(int i=0; i<doneTasks.size(); i++){
+			if(tasks.get(i).getId() == id){
+				return  tasks.remove(i);
+			}
+		}
+		
+		return null;
+	}
+	
+	public Task markTask(int id){
+		Task task;
+		
+		for(int i=0; i<tasks.size(); i++){
+			if(tasks.get(i).getId() == id){
+				task =  tasks.remove(i);
+				doneTasks.add(task);
+				return task;
+			}
+		}
+		// tell user if task is already marked.
 		return null;
 	}
 	

@@ -60,7 +60,6 @@ public class Logic {
 			ui.displayMessage("ERROR: SAVING");
 		}
 		
-		
 		//update UI - UI.update();
 		taskManager.display();
 	}

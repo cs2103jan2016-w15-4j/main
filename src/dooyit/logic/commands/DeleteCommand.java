@@ -14,7 +14,7 @@ public class DeleteCommand extends Command {
 	}
 	
 	@Override
-	public void execute(TaskManager taskManager){
+	public void execute(TaskManager taskManager) throws IncorrectInputException{
 		
 		if(taskManager.deleteTask(deleteId) == null){
 			

@@ -79,6 +79,10 @@ public class Task {
 		return dateTimeEnd;
 	}
 	
+	public boolean hasDeadlineTime(){
+		return dateTimeDeadline.hasTime();
+	}
+	
 	public String[] convertToSavableString(){
 		String [] strings = null;
 		

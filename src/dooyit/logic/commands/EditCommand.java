@@ -1,5 +1,6 @@
 package dooyit.logic.commands;
 
+import dooyit.exception.IncorrectInputException;
 import dooyit.logic.Task;
 import dooyit.logic.TaskManager;
 import dooyit.parser.DateTime;
@@ -53,7 +54,7 @@ public class EditCommand extends Command {
 	}
 	
 	@Override
-	public void execute(TaskManager taskManager) {
+	public void execute(TaskManager taskManager) throws IncorrectInputException{
 		
 		Task task = taskManager.findTask(taskId);
 		

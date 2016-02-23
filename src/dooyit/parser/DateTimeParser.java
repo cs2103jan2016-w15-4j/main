@@ -481,10 +481,13 @@ public class DateTimeParser {
 			if(currWord.contains(":") || currWord.contains(".")) {								//Eg: 12pm, 12.30pm, 12:50am
 				currWord = currWord.replace(":", "").replace(".", "");
 				ans = true;
-				//ans = isValidTimeRange(currWord);
-			//} else {
-				//ans = isValidTimeRange(currWord);
+			} else {
+				ans = true;
 			}
+			//ans = isValidTimeRange(currWord);
+			//} else {
+			//ans = isValidTimeRange(currWord);
+			//}
 
 		} else if(isNumber(currWord.replace(":", "").replace(".", "")) && index < arr.length - 1) {								//Eg. 9.30 pm, 9
 				String nextWord = arr[index + 1];

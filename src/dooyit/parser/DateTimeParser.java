@@ -428,7 +428,7 @@ public class DateTimeParser {
 					break;
 				} else {
 					String currWord2 = splitInput[j];
-					if(isNumber(currWord2)) { //word is dd or yy
+					if(isNumber(currWord2)) { 
 						int currInt = Integer.parseInt(currWord2);
 						if(currInt <= 31 && ans[0] == -1) {
 							ans[0] = currInt;
@@ -458,7 +458,6 @@ public class DateTimeParser {
 		}
 		
 		if(isInvalidDate(ans)) {
-			System.out.println("Invalid Date!");
 			throw new IncorrectInputException("Invalid date!");
 		}
 		
@@ -503,7 +502,7 @@ public class DateTimeParser {
 		} else {
 			//Invalid command here
 		}
-		System.out.println("isValidTime(" + currWord + ") is " + ans);
+		//System.out.println("isValidTime(" + currWord + ") is " + ans);
 		return ans;
 	}
 
@@ -662,7 +661,7 @@ public class DateTimeParser {
 		boolean isAm = timeString.contains("am");
 		boolean isPm = timeString.contains("pm");
 		int timeInt = -1;
-		boolean isExactlyMidnight = timeString.equals("12am"); 		// What about "12 am"???
+		boolean isExactlyMidnight = timeString.equals("12am"); 		
 		
 		if(isAm && isPm) {
 			throw new IncorrectInputException("\"" + timeString + "\"" + " cannot be am and pm!");
@@ -676,7 +675,6 @@ public class DateTimeParser {
 		timeInt = Integer.parseInt(timeString);
 		
 		if(timeInt % 100 > 59) {
-			System.out.println("Invalid time! Minutes must be greater than 0 and smaller than 60");
 			throw new IncorrectInputException("Invalid time! Minutes must be greater than 0 and smaller than 60");
 		}
 		
@@ -706,7 +704,6 @@ public class DateTimeParser {
 		}
 		System.out.println("timeInt is " + timeInt);
 		if(timeInt >= 2400) {
-			System.out.println("Invalid Time! Time must not exceed 24 hours!");
 			throw new IncorrectInputException("Invalid Time! Time must not exceed 24 hours!");
 		}
 		
@@ -715,7 +712,6 @@ public class DateTimeParser {
 				i += 1;		// To skip the next word
 			}
 		}
-		System.out.println("TIME INT HERE IS " + timeInt);
 		combined[COMBINED_INDEX_TIME] = timeInt;
 		combined[COMBINED_INDEX_COUNTER] = i;
 		return combined;

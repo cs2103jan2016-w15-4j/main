@@ -1,5 +1,8 @@
 package dooyit.parser;
 import java.util.TimeZone;
+
+import dooyit.exception.IncorrectInputException;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -29,7 +32,9 @@ public class DateTimeParser {
 	private static final String CALENDAR_DEFAULT_TIME_ZONE = "UTC+08:00"; // Singapore Time Zone
 	private static final String DUMMY_STR = "Dummy_Str";
 	private static final int DUMMY_INT = -1;
+	private static final int DEFAULT_DD_IN_MONTH = 15;
 	
+	private static boolean isInvalidDateTime;
 	DateFormat dateFormat;
 	
 	// Can just look for substrings
@@ -50,7 +55,7 @@ public class DateTimeParser {
 	String currDate;
 	String currDayInWeek;
 	int currTime;
-	private static Scanner sc;
+	//private static Scanner sc;
 	
 	enum DATE_TIME_FORMAT {
 		TYPE_THIS_DAY_OF_WEEK, TYPE_NEXT_DAY_OF_WEEK, TYPE_DAY_OF_WEEK, 
@@ -112,49 +117,49 @@ public class DateTimeParser {
 	}*/
 	
 	private DATE_TIME_FORMAT getDateTimeType(String currWord, String[] arr, int index) {
+		System.out.println("currWord is " + currWord);
 		if(isThisMonday(currWord, arr, index)) {
-			//System.out.println("isThisMonday");
+			System.out.println("isThisMonday");
 			return DATE_TIME_FORMAT.TYPE_THIS_DAY_OF_WEEK;
 			
 		} else if(isNextWeek(currWord, arr, index)) {
-			//System.out.println("isNextWeek");
+			System.out.println("isNextWeek");
 			return DATE_TIME_FORMAT.TYPE_NEXT_WEEK;
 			
 		} else if(isNextWeekday(currWord, arr, index)) {
-			//System.out.println("isNextWeekday");
+			System.out.println("isNextWeekday");
 			return DATE_TIME_FORMAT.TYPE_NEXT_DAY_OF_WEEK;
 			
 		} else if(isValidDay(currWord)) {
-			//System.out.println("isValidDay");
+			System.out.println("isValidDay");
 			return DATE_TIME_FORMAT.TYPE_DAY_OF_WEEK;
 			
 		} else if(isValidTime(currWord,arr, index)) {
-			//System.out.println("isValidTime");
+			System.out.println("isValidTime");
 			return DATE_TIME_FORMAT.TYPE_TIME;
 			
 		} else if(isValidDate(currWord, arr, index)) {
-			//System.out.println("isValidDate");
+			System.out.println("isValidDate");
 			return DATE_TIME_FORMAT.TYPE_DATE;
 			
 		} else if(isToday(currWord)) {
-			//System.out.println("isToday");
+			System.out.println("isToday");
 			return DATE_TIME_FORMAT.TYPE_TODAY;
 			
 		} else if(isTomorrow(currWord)) {
-			//System.out.println("isTomorrow");
+			System.out.println("isTomorrow");
 			return DATE_TIME_FORMAT.TYPE_TOMORROW;
 			
 		} else if(isNumDays(currWord, arr, index)) {
-			//System.out.println("isNumDays");
+			System.out.println("isNumDays");
 			return DATE_TIME_FORMAT.TYPE_NUM_DAYS;
 			
 		} else if(isNumWeeks(currWord, arr, index)) {
-			//System.out.println("isNumWeeks");
+			System.out.println("isNumWeeks");
 			return DATE_TIME_FORMAT.TYPE_NUM_WEEKS;
-
 			
 		} else {
-			//System.out.println("isInvalidType");
+			System.out.println("isInvalidType");
 			return DATE_TIME_FORMAT.TYPE_INVALID;
 		}
 	}
@@ -179,12 +184,12 @@ public class DateTimeParser {
 	}
 
 	public DateTime parse(String input) {
-		
+		//input = input.replace("by", "").trim();
 		String[] splitInput = input.toLowerCase().split("\\s+");
 		//[dayOfWeek, time, DD, MM, YY, indexInArray]
-		int[] combined = new int[] {convertDayStrToInt(currDayInWeek), DUMMY_INT, currDay, currMonth, currYear, 1}; 	
+		int[] combined = new int[] {convertDayStrToInt(currDayInWeek), DUMMY_INT, currDay, currMonth, currYear, 0}; 	
 		
-		for(int i = 1; i < splitInput.length; i++) {			
+		for(int i = 0; i < splitInput.length; i++) {			
 			String currWord = splitInput[i];
 			switch(getDateTimeType(currWord, splitInput, i)) {
 			case TYPE_THIS_DAY_OF_WEEK :
@@ -215,7 +220,6 @@ public class DateTimeParser {
 				//System.out.println("part 5");
 				//System.out.println("currWord is " + currWord);
 				combined = getNumDays(splitInput, i, combined);
-				printArray(combined);
 				break;
 				
 			case TYPE_NUM_WEEKS :
@@ -239,37 +243,53 @@ public class DateTimeParser {
 			case TYPE_DATE :
 				//System.out.println("part 9");
 				//System.out.println("currWord is " + currWord);
-				combined = getDate(splitInput, i, combined);
+				try {
+					combined = getDate(splitInput, i, combined);
+				} catch(IncorrectInputException e) {
+					throw e;
+				}
 				break;
 				
 			case TYPE_TIME :
 				//System.out.println("part 10");
 				//System.out.println("currWord is " + currWord);
-				combined = getTime(splitInput, i, combined);
+				try {
+					combined = getTime(splitInput, i, combined);
+				} catch(IncorrectInputException e) {
+					throw e;
+				}
 				break;
 				
 			case TYPE_INVALID :
 				//System.out.println("part 11");
 				//System.out.println("input is "+ input);
-				i += combined[COMBINED_INDEX_COUNTER];
-				break;
+				combined[COMBINED_INDEX_COUNTER] += 1;
+				throw new IncorrectInputException("\"" + input + "\"" + " is an invalid date time input");
 			
 			}
+			//System.out.println("combined[] is ");
+			//printArray(combined);
 			i = combined[COMBINED_INDEX_COUNTER];
 		}
 		return getDateTimeObject(combined);
 	}
 	
+	//This method converts the array into a DateTime object
 	private DateTime getDateTimeObject(int[] combined) {
-		int[] date = new int[]{combined[COMBINED_INDEX_DD], combined[COMBINED_INDEX_MM], combined[COMBINED_INDEX_YY]}; 
-		int time = combined[COMBINED_INDEX_TIME];
-		int day = combined[COMBINED_INDEX_DAY_OF_WEEK];
 		DateTime dt;
-		if(hasPassed(currTime, time, date)) {
-			date = getDate(NEXT_DAY); 
-			dt = new DateTime(date, daysInWeek[getNextDayInt()], time);
+		if(!isInvalidDateTime) {
+			int[] date = new int[]{combined[COMBINED_INDEX_DD], combined[COMBINED_INDEX_MM], combined[COMBINED_INDEX_YY]}; 
+			int time = combined[COMBINED_INDEX_TIME];
+			int day = combined[COMBINED_INDEX_DAY_OF_WEEK];
+			
+			if(hasPassed(currTime, time, date)) {
+				date = getDate(NEXT_DAY); 
+				dt = new DateTime(date, daysInWeek[getNextDayInt()], time);
+			} else {
+				dt = new DateTime(date, daysInWeek[day], time);			
+			}
 		} else {
-			dt = new DateTime(date, daysInWeek[day], time);			
+			dt = null;
 		}
 		return dt;
 	}
@@ -283,8 +303,6 @@ public class DateTimeParser {
 	}
 
 	private int[] getToday(int[] combined) {
-		combined[COMBINED_INDEX_COUNTER] += 1;
-		printArray(combined);
 		return combined;
 	}
 	
@@ -365,7 +383,8 @@ public class DateTimeParser {
 		int ans = newDate[3] + index;
 		return ans;
 	}
-
+	
+	//Given a date, this method will calculate which day of the week the date falls on
 	private int getDay(int[] date) {
 		int[] monthTable = new int[]{-1, 6, 3, 3, 6, 1, 4, 6, 2, 5, 0, 3, 5};
 		int[] dayTable = new int[]{6, 7, 1, 2, 3, 4, 5};
@@ -435,39 +454,56 @@ public class DateTimeParser {
 		}
 		
 		if(ans[0] == -1) {
-			ans[0] = currDay;
+			ans[0] = DEFAULT_DD_IN_MONTH;			//Default
+		}
+		
+		if(isInvalidDate(ans)) {
+			System.out.println("Invalid Date!");
+			throw new IncorrectInputException("Invalid date!");
 		}
 		
 		ans[3] = numEntries;
 		return ans;
+	}
+	
+	//Checks that the num of months does not exceed the max num of days in that month, 
+	//Eg. 30 Feb will return an error
+	private boolean isInvalidDate(int[] ans) {
+		int mm = ans[1];
+		return ans[0] > daysInMonth[mm];
 	}
 
 	private boolean isValidTime(String currWord, String[] arr, int index) {
 		boolean ans = false;
 		
 		if(currWord.contains("pm") || currWord.contains("am")) {
+			System.out.println("reached here in isValidTime");
 			currWord = currWord.replace("pm", "").replace("am", "");
 			if(currWord.contains(":") || currWord.contains(".")) {								//Eg: 12pm, 12.30pm, 12:50am
 				currWord = currWord.replace(":", "").replace(".", "");
-				ans = isValidTimeRange(currWord);
-			} else {
-				ans = isValidTimeRange(currWord);
+				ans = true;
+				//ans = isValidTimeRange(currWord);
+			//} else {
+				//ans = isValidTimeRange(currWord);
 			}
 
 		} else if(isNumber(currWord.replace(":", "").replace(".", "")) && index < arr.length - 1) {								//Eg. 9.30 pm, 9
 				String nextWord = arr[index + 1];
-				if(nextWord.equals("am") || nextWord.equals("pm")) {
-					ans = isValidTimeRange(currWord.replace(":", "").replace(".", ""));
+				if(nextWord.equals("am") ^ nextWord.equals("pm")) {
+					ans = true;
+					//ans = isValidTimeRange(currWord.replace(":", "").replace(".", ""));
 				}
 		} else if(currWord.contains(":")) {														//24Hour formats eg: 23:30		
 			currWord.replace(":", "");
 			if(isNumber(currWord)) {
-				int currInt = Integer.parseInt(currWord);
-				ans = currInt <= 2359 && currInt >= 0;
+				//int currInt = Integer.parseInt(currWord);
+				ans = true;
+				//ans = currInt <= 2359 && currInt >= 0;
 			}
 		} else {
 			//Invalid command here
 		}
+		System.out.println("isValidTime(" + currWord + ") is " + ans);
 		return ans;
 	}
 
@@ -628,19 +664,20 @@ public class DateTimeParser {
 		int timeInt = -1;
 		boolean isExactlyMidnight = timeString.equals("12am"); 		// What about "12 am"???
 		
-		if(isAm || isPm) {
+		if(isAm && isPm) {
+			throw new IncorrectInputException("\"" + timeString + "\"" + " cannot be am and pm!");
+		}
+		
+		if(isAm ^ isPm) {
 			timeString = timeString.replace("am", "");
 			timeString = timeString.replace("pm", "");
 		}
 		
-		if(isAm && isPm) {
-			System.out.println("Invalid Time!");
-		}
 		timeInt = Integer.parseInt(timeString);
 		
 		if(timeInt % 100 > 59) {
-			System.out.println("Invalid Time");
-			System.exit(0);
+			System.out.println("Invalid time! Minutes must be greater than 0 and smaller than 60");
+			throw new IncorrectInputException("Invalid time! Minutes must be greater than 0 and smaller than 60");
 		}
 		
 		if(isMidnight(timeInt, timeString, isAm) || isExactlyMidnight)  {
@@ -665,10 +702,12 @@ public class DateTimeParser {
 			if(timeInt == 1200 && indicator.equals("am")) {
 				timeInt = 0;
 			}
+			System.out.println("timeInt here is " + timeInt);
 		}
+		System.out.println("timeInt is " + timeInt);
 		if(timeInt >= 2400) {
-			System.out.println("InvalidTime");
-			System.exit(0);
+			System.out.println("Invalid Time! Time must not exceed 24 hours!");
+			throw new IncorrectInputException("Invalid Time! Time must not exceed 24 hours!");
 		}
 		
 		if(i < splitInput.length - 1) {
@@ -676,7 +715,7 @@ public class DateTimeParser {
 				i += 1;		// To skip the next word
 			}
 		}
-		
+		System.out.println("TIME INT HERE IS " + timeInt);
 		combined[COMBINED_INDEX_TIME] = timeInt;
 		combined[COMBINED_INDEX_COUNTER] = i;
 		return combined;

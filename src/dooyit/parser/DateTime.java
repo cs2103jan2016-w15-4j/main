@@ -141,6 +141,18 @@ public class DateTime {
 		return this.getDD() == obj.getDD() && this.getMM() == obj.getMM() && this.getYY() == obj.getYY();
 	}
 	
+	public void increaseByOne() {
+		this.dd += 1;
+		if(this.dd > DateTimeParser.daysInMonth[this.mm]) {
+			this.dd = 1;
+			this.mm += 1;
+		}
+		if(this.mm > 12) {
+			this.mm = 1;
+			this.yy += 1;
+		}
+	}
+	
 	public String[] convertToSavableStrings(){
 		String[] strings = new String[5];
 		

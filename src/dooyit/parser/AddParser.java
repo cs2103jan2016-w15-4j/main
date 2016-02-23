@@ -1,5 +1,6 @@
 package dooyit.parser;
 
+import dooyit.exception.IncorrectInputException;
 import dooyit.logic.commands.Command;
 import dooyit.logic.commands.CommandUtils;
 
@@ -29,22 +30,40 @@ public class AddParser {
 	public Command getCommand() {
 		switch(getTaskType()) {
 		case FLOATING :
-			parseFloat();
+			try {
+				parseFloat();
+			} catch (IncorrectInputException e) {
+				setToInvalidCmd(e.getMessage());
+				break;
+			}
 			setToFloatCmd();
 			break;
 		
 		case WORK :
-			parseWork();
+			try {
+				parseWork();
+			}  catch (IncorrectInputException e) {
+				setToInvalidCmd(e.getMessage());
+				break;
+			}
 			setToWorkCmd();
 			break;
 			
 		case EVENT : 
-			parseEvent();
+			try {
+				parseEvent();
+			} catch (IncorrectInputException e) {
+				setToInvalidCmd(e.getMessage());
+				break;
+			}
 			setToEventCmd();
 			break;
 		}
 		return cmd;
-		//return CommandUtils.createInvalidCommand("Invalid Command at addParser: ");
+	}
+
+	private void setToInvalidCmd(String message) {
+		cmd = CommandUtils.createInvalidCommand(message);
 	}
 
 	private void setToEventCmd() {
@@ -64,15 +83,17 @@ public class AddParser {
 		int indexFrom = userInput.lastIndexOf(MARKER_START_EVENT);
 		int indexTo = userInput.lastIndexOf(MARKER_END_EVENT);			//what if indexTo < indexFrom
 		taskName = userInput.substring(0, indexFrom);
-		start = dateTimeParser.parse((userInput.substring(indexFrom, indexTo).trim()));
-		end = dateTimeParser.parse((userInput.substring(indexTo)));
+		start = dateTimeParser.parse((userInput.substring(indexFrom, indexTo).replace(MARKER_START_EVENT, "").trim()));
+		end = dateTimeParser.parse((userInput.substring(indexTo).replace(MARKER_END_EVENT, "").trim()));
 	}
 
 	private void parseWork() {
 		DateTimeParser dateTimeParser = new DateTimeParser();
 		int indexBy = userInput.lastIndexOf(MARKER_WORK);
 		taskName = userInput.substring(0, indexBy);
-		deadline = dateTimeParser.parse((userInput.substring(indexBy).trim()));
+		System.out.println("deadline is " + (userInput.substring(indexBy).replace(MARKER_WORK, "").trim()));
+		deadline = dateTimeParser.parse((userInput.substring(indexBy).replace(MARKER_WORK, "").trim()));
+		System.out.println("parsed deadline is " + deadline);
 	}
 
 	private void parseFloat() {

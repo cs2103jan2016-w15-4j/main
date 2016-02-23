@@ -37,12 +37,12 @@ public class UITaskBox {
 	    this.taskId.setPrefWidth(30);
 		
 		this.taskName = new Label(this.task.getName());
-		this.taskName.setFont(Font.font("Euphemia", 16));
+		this.taskName.setFont(Font.font("Euphemia", 14));
 	    this.taskName.getStyleClass().add("task-name");
 	    this.taskName.setPrefWidth(250);
 	    
 	    this.taskPeriod = new Label("9 pm");
-	    this.taskPeriod.setFont(Font.font("Verdana", 14));
+	    this.taskPeriod.setFont(Font.font("Verdana", 12));
 	    this.taskPeriod.getStyleClass().add("task-period");
 	    this.taskPeriod.setPrefWidth(120);
 	    

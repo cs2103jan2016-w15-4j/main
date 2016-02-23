@@ -86,7 +86,7 @@ public class UIController {
 		this.root.setBottom(this.commandBox.getView());
 		
 		// Add style to scene
-		this.scene = new Scene(root,720,520);
+		this.scene = new Scene(root,720,580);
 		this.scene.getStylesheets().addAll(this.urlCssCommon, this.urlCssThemeLight);
 		
 		// Side menu listeners
@@ -168,6 +168,13 @@ public class UIController {
 		    public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 		        commandBox.getCommandTextField().setText(newValue);
 		        commandBox.getCommandTextField().positionCaret(100);
+		    }
+		});
+		
+		// Scene resize listener
+		this.scene.heightProperty().addListener(new ChangeListener<Number>() {
+		    @Override public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneHeight, Number newSceneHeight) {
+		    	messageBox.updatePosition();
 		    }
 		});
 	}

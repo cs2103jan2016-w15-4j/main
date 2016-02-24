@@ -10,10 +10,10 @@ import java.io.IOException;
 
 public class Logic {
 
-	Parser parser;
-	TaskManager taskManager;
-	Storage storage;
-	UIController ui;
+	private Parser parser;
+	private TaskManager taskManager;
+	private Storage storage;
+	private UIController ui;
 	
 	public Logic(){
 		parser = new Parser();
@@ -42,7 +42,7 @@ public class Logic {
 		
 		try{
 			
-			command.execute(taskManager);
+			command.execute(this);
 			
 		}catch(IncorrectInputException e){
 			System.out.println(e.getMessage());
@@ -73,4 +73,9 @@ public class Logic {
 		this.ui = ui;
 		ui.refreshMainView(taskManager.getAllTaskGroups());
 	}
+	
+	public TaskManager getTaskManager(){
+		return taskManager;
+	}
+	
 }

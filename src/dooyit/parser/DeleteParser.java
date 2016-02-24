@@ -7,7 +7,7 @@ import dooyit.logic.commands.Command;
 import dooyit.logic.commands.CommandUtils;
 
 public class DeleteParser {
-	private static final int INDEX_SINGLE = 1;
+	private static final int INDEX_SINGLE = 0;
 	private static String userInput;
 	private static String[] splitInput;
 	private static ArrayList<Integer> taskIdsForDeletion;
@@ -20,7 +20,9 @@ public class DeleteParser {
 	
 	public DeleteParser(String input) {
 		userInput = input;
-		splitInput = input.split("\\s+");
+		splitInput = userInput.split("\\s+");
+		taskIdsForDeletion = new ArrayList<Integer>();
+		cmd = null;
 	}
 
 	public Command getCommand() {
@@ -70,7 +72,7 @@ public class DeleteParser {
 	private void parseIntervalType() {
 		for(int i = INDEX_SINGLE; i < splitInput.length; i++) {
 			if(splitInput[i].equals("-")) {
-				if(!isNumber(splitInput[i - 1]) || isNumber(splitInput[i + 1])) {
+				if(!isNumber(splitInput[i - 1]) || !isNumber(splitInput[i + 1])) {
 					throw new IncorrectInputException("Invalid Number!");
 				} else {
 					setInterval(splitInput, i);
@@ -90,8 +92,7 @@ public class DeleteParser {
 	//Eg. delete 5 6 8
 	//Eg. mark 2 4 0 9
 	private Command getMultipleTypeDeleteCmd() {
-		return null;
-		//return CommandUtils.createDeleteCommand(taskIdsForDeletion);
+		return CommandUtils.createDeleteCommand(taskIdsForDeletion);
 	}
 
 	private void parseMultipleType() {
@@ -118,6 +119,7 @@ public class DeleteParser {
 	}
 
 	private void parseSingleType() {
+		//System.out.println("currWord at parseSingleType() is " + splitInput[INDEX_SINGLE]);
 		if(isNumber(splitInput[INDEX_SINGLE])) {
 			taskIdForDeletion = Integer.parseInt(splitInput[INDEX_SINGLE]);
 		} else {
@@ -128,9 +130,9 @@ public class DeleteParser {
 	private DELETE_TYPE getDeleteType() {
 		if(userInput.contains("-")) {
 			return DELETE_TYPE.INTERVAL;
-		} else if(splitInput.length == 2) {
+		} else if(splitInput.length == 1) {
 			return DELETE_TYPE.SINGLE;
-		} else if(splitInput.length > 2) {
+		} else if(splitInput.length > 1) {
 			return DELETE_TYPE.MULTIPLE;
 		} else {
 			return DELETE_TYPE.INVALID;

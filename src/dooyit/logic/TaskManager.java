@@ -5,31 +5,34 @@ import dooyit.logic.Task.TaskType;
 import dooyit.parser.DateTime;
 
 public class TaskManager {
-	ArrayList<Task> tasks;
-	ArrayList<Task> doneTasks;
-	DateTime dateTime;
+	private ArrayList<Task> tasks;
+	private ArrayList<Task> doneTasks;
+	private DateTime dateTime;
 	
 	public TaskManager(){
 		tasks = new ArrayList<Task>();
 		doneTasks = new ArrayList<Task>();
 	}
 	
-	public void AddTaskFloat(String data){
+	public Task AddTaskFloat(String data){
 		Task task = new Task();
 		task.initTaskFloat(data);
 		tasks.add(task);
+		return task;
 	}
 	
-	public void AddTaskDeadline(String data, DateTime dateTime){
+	public Task AddTaskDeadline(String data, DateTime dateTime){
 		Task task = new Task();
 		task.initTaskDeadline(data, dateTime);
 		tasks.add(task);
+		return task;
 	}
 
-	public void AddTaskEvent(String data, DateTime start, DateTime end){
+	public Task AddTaskEvent(String data, DateTime start, DateTime end){
 		Task task = new Task();
 		task.initTaskEvent(data, start, end);
 		tasks.add(task);
+		return task;
 	}
 	
 	// return false if length is incorrect
@@ -129,39 +132,65 @@ public class TaskManager {
 	
 	public ArrayList<Task> getDeadlineTasks(){
 		
-		ArrayList<Task> deadlineFloat = new ArrayList<Task>();
+		ArrayList<Task> deadlineTasks = new ArrayList<Task>();
 		
 		for(Task task : tasks){
 			if(task.getTaskType() == TaskType.DEADLINE){
-				deadlineFloat.add(task);
+				deadlineTasks.add(task);
 			}
 		}
-		return deadlineFloat;
+		return deadlineTasks;
 	}
 	
-	public ArrayList<Task> getDeadlineTasks(int dd, int mm, int yy){
+	public ArrayList<Task> getDeadlineTasks(DateTime dateTime){
 		
-		return null;
-	}
-	
-	public ArrayList<Task> getEventTasks(int dd, int mm, int yy){
+		ArrayList<Task> deadlineTasks = new ArrayList<Task>();
 		
-		return null;
+		for(Task task : tasks){
+			if(task.getTaskType() == TaskType.DEADLINE && task.getDeadlineTime().isTheSameDateAs(dateTime)){
+				deadlineTasks.add(task);
+			}
+		}
+		return deadlineTasks;
 	}
 	
-	public ArrayList<TaskGroup> getAllTaskGroups(){
+	public ArrayList<Task> getEventTasks(){
+		
+		ArrayList<Task> eventTasks = new ArrayList<Task>();
+		
+		for(Task task : tasks){
+			if(task.getTaskType() == TaskType.EVENT){
+				eventTasks.add(task);
+			}
+		}
+		return eventTasks;
+	}
+
+	public ArrayList<Task> getEventTasks(DateTime dateTime){
+		
+		ArrayList<Task> eventTasks = new ArrayList<Task>();
+		
+		for(Task task : tasks){
+			if(task.getTaskType() == TaskType.EVENT && task.getDateTimeStart().isTheSameDateAs(dateTime)){
+				eventTasks.add(task);
+			}
+		}
+		return eventTasks;
+	}
+	
+	public ArrayList<TaskGroup> getTaskGroupsAll(){
 		ArrayList<TaskGroup> taskGroups = new ArrayList<TaskGroup>();
 		taskGroups.add(new TaskGroup("All", getAllTasks()));
 		return taskGroups;
 	}
 	
-	public ArrayList<TaskGroup> getTodayTaskGroups(){
+	public ArrayList<TaskGroup> getTaskGroupsToday(){
 		ArrayList<TaskGroup> taskGroups = new ArrayList<TaskGroup>();
 		taskGroups.add(new TaskGroup("Today", getAllTasks()));
 		return taskGroups;
 	}
 
-	public ArrayList<TaskGroup> getNext7DaysTaskGroups(){
+	public ArrayList<TaskGroup> getTaskGroupsNext7Days(){
 		
 		return null;
 	}

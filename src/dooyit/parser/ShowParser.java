@@ -1,25 +1,18 @@
-package dooyit.main;
+package dooyit.parser;
 
 import dooyit.logic.commands.Command;
 import dooyit.logic.commands.CommandUtils;
 
 public class ShowParser {
 	private static String userInput;
-	private static final int START_INDEX_ARGS = 5;
-	private static final int COMMAND_TODAY = 1;
-	private static final int COMMAND_NEXT_SEVEN = 2;
-	private static final int COMMAND_DONE = 3;
-	private static final int COMMAND_ALL = 4;
-	private static final int COMMAND_DATE = 5;
-	private static final int COMMAND_CATERGORY = 6;
-	private static final String TODAY = null;
 	
 	enum DISPLAY_TYPE {
 		TODAY, NEXT_SEVEN, DONE, ALL, DATE, CATERGORY
 	};
 	
 	public ShowParser(String input) {
-		userInput = input.trim().toLowerCase().substring(START_INDEX_ARGS);
+		userInput = input.toLowerCase();
+		System.out.println("userInput is " + userInput);
 	}
 
 	public Command getCommand() {
@@ -31,7 +24,7 @@ public class ShowParser {
 			return CommandUtils.createShowNext7DaysCommand();
 			
 		case DONE : 
-			return CommandUtils.createShowDoneCommand();
+			return CommandUtils.createShowCompletedCommand();
 			
 		case ALL : 
 			return CommandUtils.createShowAllCommand();
@@ -42,11 +35,17 @@ public class ShowParser {
 //			return CommandUtils.createShowCommand(COMMAND_DATE, date);		
 			
 		case CATERGORY : 
-			return CommandUtils.createShowCategoryCommand("cat name");
+			return CommandUtils.createShowCategoryCommand(getCatName(userInput));
 			
 		default:
 			return CommandUtils.createInvalidCommand("Invalid Show command");
 		}
+	}
+
+	private String getCatName(String userInput2) {
+		int index = userInput.indexOf(" ");
+		String ans = userInput.substring(index).trim();
+		return ans;
 	}
 
 	private DISPLAY_TYPE getDisplayType() {

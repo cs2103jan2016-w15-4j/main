@@ -1,7 +1,7 @@
 package dooyit.logic.commands;
 
 import dooyit.exception.IncorrectInputException;
-import dooyit.logic.TaskManager;
+import dooyit.logic.Logic;
 
 public abstract class Command {
 	
@@ -19,11 +19,11 @@ public abstract class Command {
 	
 	public String time;
 	public String day;
-	public int deleteId;
+	
 	
 	public Command(){
 		
 	}
 	
-	public abstract void execute(TaskManager taskManager) throws IncorrectInputException;
+	public abstract void execute(Logic logic) throws IncorrectInputException;
 }

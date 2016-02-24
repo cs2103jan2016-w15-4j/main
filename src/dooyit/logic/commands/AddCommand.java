@@ -1,9 +1,9 @@
 package dooyit.logic.commands;
 
 import dooyit.exception.IncorrectInputException;
+import dooyit.logic.Logic;
 import dooyit.logic.Task;
 import dooyit.logic.TaskManager;
-import dooyit.logic.Task.TaskType;
 import dooyit.parser.DateTime;
 
 public class AddCommand extends Command {
@@ -37,7 +37,9 @@ public class AddCommand extends Command {
 	}
 	
 	@Override
-	public void execute(TaskManager taskManager) throws IncorrectInputException{
+	public void execute(Logic logic) throws IncorrectInputException{
+		TaskManager taskManager = logic.getTaskManager();
+		
 		switch(taskType){
 			case FLOATING:
 					taskManager.AddTaskFloat(taskName);

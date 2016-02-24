@@ -1,0 +1,105 @@
+
+-----------------------------------------------------  Valid Commands for date and time ----------------------------------------------------------------------------
+
+8pm
+8 pm
+8:00am
+8:00 am
+8.30am
+8.30 am
+8:00		//This is 8am
+20:00		//This is 8pm
+
+this sun
+sun
+next sun
+next week
+2 days
+2 weeks
+2 week
+2 wk
+
+today 
+tdy
+tmr
+tomorrow
+
+17 feb 2016
+17 feb
+feb 17 2016
+feb 17 
+feb
+17/02/2016
+17/2/2016
+17/2
+17/02
+
+8pm	<date/ day>
+8 pm	<date/ day>
+8:00am	<date/ day>
+8:00 am	<date/ day>
+8.30pm	<date/ day>
+8.30 pm	<date/ day>
+
+
+<date/ day> 8pm
+<date/ day> 8 pm
+<date/ day> 8:00am
+<date/ day> 8:00 am
+<date/ day> 8.00pm
+<date/ day> 12.00am
+
+
+----------------------------------------------------- Valid Commands for add parser --------------------------------------------------------------------------------
+
+add <task name>								//Floating task
+add <task name>	@ <category name>					//Floating task with Category
+add <task name>	@ <category id>						//Floating task with Category
+add <task name> by <DateTime>						//Work with deadline with Category
+add <task name> by <DateTime> @ <category name>				//Work with deadline with Category
+add <task name> by <DateTime> @ <category id>				//Work with deadline
+add <task name> from <DateTime> to <DateTime>				//Event
+add <task name> from <DateTime> to <DateTime> @ <category name>		//Event with Category
+add <task name> from <DateTime> to <DateTime> @ <category id>		//Event with Category
+
+----------------------------------------------------- Valid Commands for delete parser -----------------------------------------------------------------------------
+
+delete <task id>
+delete <task id> - <task id>
+delete <task id> <task id> <task id> <task id>
+mark <task id>
+mark <task id> - <task id>
+mark <task id> <task id> <task id> <task id>
+
+----------------------------------------------------- Valid Commands for edit parser --------------------------------------------------------------------------------
+
+edit <task id> name <new name>								//NAME
+edit <task id> by <new DateTime>							//DEADLINE
+edit <task id> from <DateTime> to <new DateTime>					//TIME_START_END
+edit <task id> from <DateTime>								//TIME_START
+edit <task id> to <new DateTime>							//TIME_END
+edit <task id> name <new name> from <new DateTime> to <new DateTime>			//NAME_TIME_START_END
+edit <task id> name <new name> from <new DateTime>					//NAME_TIME_START
+edit <task id> name <new name> to <new DateTime>					//NAME_TIME_END
+edit <task id> name <new name> by <new DateTime>					//NAME_DEADLINE
+
+----------------------------------------------------- Valid Commands for display parser -----------------------------------------------------------------------------
+
+show today				//Show tasks due today				//TODAY
+show next7				//Show tasks over the next 7			//NEXT_SEVEN
+show done				//Show ALL the tasks which are done		//TASKS_DONE
+show all				//Show all tasks that are not finished		//TASKS_ALL
+show <date>				//Show the tasks that are done on that day	//DATE
+show cat <Catergory Name>		//Show all the tasks in that catergory		//CAT
+
+----------------------------------------------------- Valid Commands for addCat parser --------------------------------------------------------------------------------
+
+addcat <cat name>						
+addcat <cat name>, <colour>					
+
+-----------------------------------------------------------------Other Commands-------------------------------------------------------------------------------------
+
+skin <skin colour>
+storage <file path>
+undo
+[pg dn]/ [pg up]

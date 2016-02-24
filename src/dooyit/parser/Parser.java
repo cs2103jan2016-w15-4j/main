@@ -3,7 +3,6 @@ package dooyit.parser;
 import dooyit.logic.commands.Command;
 import dooyit.logic.commands.CommandUtils;
 import dooyit.main.Main;
-import dooyit.main.ShowParser;
 
 public class Parser {
 
@@ -11,6 +10,7 @@ public class Parser {
 	static final String COMMAND_CLEAR = "clear";
 	static final String COMMAND_SHOW = "show";
 	static final String COMMAND_DELETE = "delete";
+	static final String COMMAND_MARK = "mark";
 	static final String COMMAND_EDIT = "edit";
 	static final String COMMAND_ADD = "add";
 	static final String COMMAND_ADD_CAT = "addcat";
@@ -33,46 +33,46 @@ public class Parser {
 		String[] splittedInput = input.split("\\s+", 2);
 		String commandString = splittedInput[0];
 
-		String data = "";
-		if (splittedInput.length > 1) {
-			data = splittedInput[1];
-		}
-		
 		Command command = null;
 
 		switch (commandString.toLowerCase()) {
 		case COMMAND_ADD:
-			AddParser addParser = new AddParser(input);
+			AddParser addParser = new AddParser(getInputWithoutCommand(input, COMMAND_ADD));
 			command = addParser.getCommand();
 			break;
 			
 		case COMMAND_SHOW:
-			ShowParser showParser = new ShowParser(input);
+			ShowParser showParser = new ShowParser(getInputWithoutCommand(input, COMMAND_SHOW));
 			command = showParser.getCommand();
 			break;
 			
 		case COMMAND_EDIT:
-			EditParser editParser = new EditParser(input);
+			EditParser editParser = new EditParser(getInputWithoutCommand(input, COMMAND_EDIT));
 			command = editParser.getCommand();
 			break;
 			
 		case COMMAND_DELETE:
-			DeleteParser deleteParser = new DeleteParser(input);
+			DeleteParser deleteParser = new DeleteParser(getInputWithoutCommand(input, COMMAND_DELETE));
 			command = deleteParser.getCommand();
 			break;
 		
+		case COMMAND_MARK :
+			DeleteParser markParser = new DeleteParser(getInputWithoutCommand(input, COMMAND_MARK));
+			command = markParser.getCommand();
+			break;
+		
 		case COMMAND_ADD_CAT:
-			AddCatParser addCatParser = new AddCatParser(input);
+			AddCatParser addCatParser = new AddCatParser(getInputWithoutCommand(input, COMMAND_ADD_CAT));
 			command = addCatParser.getCommand();
 			break;
 			
 		case COMMAND_SKIN :
-			String colour = parseSkinChange(input);
+			String colour = getInputWithoutCommand(input, COMMAND_SKIN);
 			//command = CommandUtils.createSkinChangeCommand(colour);
 			break;
 		
 		case COMMAND_STORAGE :
-			String filePath = parseStorage(input);
+			String filePath = getInputWithoutCommand(input, COMMAND_STORAGE);
 			//command = CommandUtils.createStorageCommand(colour);
 			break;
 			
@@ -89,13 +89,8 @@ public class Parser {
 	}
 
 
-	private String parseStorage(String input) {
-		return input.split("//s+")[1].trim();
-	}
-
-
-	private String parseSkinChange(String input) {
-		return input.split("//s+")[1].trim();
+	private String getInputWithoutCommand(String input, String command) {
+		return input.replace(command, "").trim();
 	}
 }
 

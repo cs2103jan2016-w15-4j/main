@@ -19,8 +19,8 @@ public class DeleteParser {
 	};
 	
 	public DeleteParser(String input) {
-		userInput = input;
-		splitInput = input.split("\\s+");
+		userInput = input.trim();
+		splitInput = userInput.split("\\s+");
 	}
 
 	public Command getCommand() {
@@ -97,6 +97,7 @@ public class DeleteParser {
 	private void parseMultipleType() {
 		for(int i = INDEX_SINGLE; i < splitInput.length; i++) {
 			String currWord = splitInput[i];
+			//System.out.println("currWord at parseMultipleType is " + currWord);
 			if(!isNumber(currWord)) {
 				throw new IncorrectInputException("Invalid Number!");
 			} else {
@@ -118,9 +119,9 @@ public class DeleteParser {
 	}
 
 	private void parseSingleType() {
-		System.out.println(splitInput[INDEX_SINGLE]);
+		//System.out.println("currWord at parseSingleType() is " + splitInput[INDEX_SINGLE]);
 		if(isNumber(splitInput[INDEX_SINGLE])) {
-			taskIdForDeletion = Integer.parseInt(splitInput[INDEX_SINGLE]);
+			taskIdForDeletion = Integer.parseInt(splitInput[INDEX_SINGLE].trim());
 			
 		} else {
 			throw new IncorrectInputException("Invalid Task ID!");
@@ -128,11 +129,12 @@ public class DeleteParser {
 	}
 
 	private DELETE_TYPE getDeleteType() {
+		System.out.println("splitInput.length is " + splitInput.length);
 		if(userInput.contains("-")) {
 			return DELETE_TYPE.INTERVAL;
-		} else if(splitInput.length == 2) {
+		} else if(splitInput.length == 1) {
 			return DELETE_TYPE.SINGLE;
-		} else if(splitInput.length > 2) {
+		} else if(splitInput.length > 1) {
 			return DELETE_TYPE.MULTIPLE;
 		} else {
 			return DELETE_TYPE.INVALID;

@@ -44,6 +44,7 @@ public class UIController {
 
 	private Logic logic;
 	private Stage primaryStage;
+	private UIMainViewType activeMainView;
 	
 	public UIController(Stage primaryStage, Logic logic){
 		this.urlCssCommon = getClass().getResource(URL_CSS_COMMON).toExternalForm();
@@ -53,7 +54,7 @@ public class UIController {
 	    this.logic = logic;
 	    this.primaryStage = primaryStage;
 	    
-	    // Root views
+	    // Root view
 		this.root = new BorderPane();
 		
 		// Header
@@ -69,6 +70,7 @@ public class UIController {
 		this.mainView = new ScrollPane();
 		this.mainView.getStyleClass().add("main-view");
 		this.mainView.setContent(this.dayBoxContainer.getView());
+		this.activeMainView = UIMainViewType.TODAY;
 		
 		// Command view
 		this.commandBox = new UICommandBox();
@@ -99,12 +101,24 @@ public class UIController {
 		                String selected = sideMenu.getMainViewToggleGroup().getSelectedToggle().getUserData().toString();
                         switch(selected){
 		                    case "day":
-		                        mainView.setContent(dayBoxContainer.getView());
+		                    	activeMainView = UIMainViewType.TODAY;
+		                    	// logic.processCommand("");
 		                        break;
 		                    case "extended":
-		                        mainView.setContent(dayBoxContainer.getView());
+		                    	activeMainView = UIMainViewType.EXTENDED;
+		                    	// logic.processCommand("");
 		                        break;
+		                    case "all":
+		                    	activeMainView = UIMainViewType.ALL;
+		                    	// logic.processCommand("");
+		                    	break;
+		                    case "completed":
+		                    	activeMainView = UIMainViewType.COMPLETED;
+		                    	// logic.processCommand("");
+		                    	break;
 		                }
+                        mainView.setContent(dayBoxContainer.getView());
+                        System.out.println(getActiveViewType());
 		            }
 		        }
 		    });
@@ -134,15 +148,10 @@ public class UIController {
 			switch(commandString){
 				// CHANGE: Pass commandString to parser.
 				case "change theme dark":
-					// change to dark theme
-					scene.getStylesheets().clear();
-					scene.getStylesheets().addAll(urlCssCommon, urlCssThemeDark);
-					System.out.println("changed to dark");
+					changeTheme(UITheme.DARK);
 					break;
 				case "change theme light":
-					scene.getStylesheets().clear();
-					scene.getStylesheets().addAll(urlCssCommon, urlCssThemeLight);
-					System.out.println("changed to light");
+					changeTheme(UITheme.LIGHT);
 					break;
 				case "help":
 					this.webView = new WebView();
@@ -187,28 +196,29 @@ public class UIController {
 		this.messageBox.show(msg);
 	}
 	
+	public void changeTheme(UITheme theme){
+		this.scene.getStylesheets().clear();
+		this.scene.getStylesheets().add(urlCssCommon);
+		switch(theme){
+			case DARK:
+				this.scene.getStylesheets().addAll(urlCssThemeDark);
+				break;
+			default:
+				this.scene.getStylesheets().addAll(urlCssThemeLight);
+				break;
+		}
+	}
+	
 	/**
 	 * Use this to refresh main view with updated tasks
 	 */
-	public void refreshDayView(ArrayList<TaskGroup> taskGroupList){
-		refreshMainView(taskGroupList);
-	}
-	
-	public void refreshExtendedView(ArrayList<TaskGroup> taskGroupList){
-		refreshMainView(taskGroupList);
-	}
-	
-	public void refreshAllView(ArrayList<TaskGroup> taskGroupList){
-		refreshMainView(taskGroupList);
-	}
-	
-	public void refreshCompletedView(ArrayList<TaskGroup> taskGroupList){
-		refreshMainView(taskGroupList);
-	}
-	
-	private void refreshMainView(ArrayList<TaskGroup> taskGroupList){
+	public void refreshMainView(ArrayList<TaskGroup> taskGroupList){
 		this.dayBoxContainer.refresh(taskGroupList);
 		this.mainView.setContent(this.dayBoxContainer.getView());
+	}
+	
+	public UIMainViewType getActiveViewType(){
+		return this.activeMainView;
 	}
 	
 	/**
@@ -217,5 +227,7 @@ public class UIController {
 	public void refreshCategoryMenuView(ArrayList<Category> categoryList){
 		this.sideMenu.refreshCategoryMenuView(categoryList);
 	}
+	
+	
 	
 }

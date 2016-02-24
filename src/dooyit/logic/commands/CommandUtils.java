@@ -3,6 +3,7 @@ package dooyit.logic.commands;
 import java.util.ArrayList;
 
 import dooyit.parser.DateTime;
+import dooyit.ui.UIMainViewType;
 
 public class CommandUtils {
 	
@@ -65,33 +66,33 @@ public class CommandUtils {
 	
 	
 	public static Command createShowTodayCommand(){
-		ShowCommand showCommand = new ShowCommand(Command.ShowCommandType.TODAY);
+		ShowCommand showCommand = new ShowCommand(UIMainViewType.TODAY);
 		
 		return showCommand;
 	}
 	
 	public static Command createShowNext7DaysCommand(){
-		ShowCommand showCommand = new ShowCommand(Command.ShowCommandType.NEXT7DAYS);
+		ShowCommand showCommand = new ShowCommand(UIMainViewType.EXTENDED);
 		
 		return showCommand;
 	}
 	
 	public static Command createShowAllCommand(){
-		ShowCommand showCommand = new ShowCommand(Command.ShowCommandType.ALL);
+		ShowCommand showCommand = new ShowCommand(UIMainViewType.ALL);
 		
 		return showCommand;
 	}
 	
-	public static Command createShowDoneCommand(){
-		ShowCommand showCommand = new ShowCommand(Command.ShowCommandType.DONE);
+	public static Command createShowCompletedCommand(){
+		ShowCommand showCommand = new ShowCommand(UIMainViewType.COMPLETED);
 		
 		return showCommand;
 	}
 	
 	public static Command createShowCategoryCommand(String categoryName){
-		ShowCommand showCommand = new ShowCommand(Command.ShowCommandType.CATEGORY, categoryName);
+		//ShowCommand showCommand = new ShowCommand(Command.ShowCommandType.CATEGORY, categoryName);
 		
-		return showCommand;
+		return null;
 	}
 	
 	

@@ -13,7 +13,7 @@ public class Logic {
 	private Parser parser;
 	private TaskManager taskManager;
 	private Storage storage;
-	private UIController ui;
+	private UIController uiController;
 	
 	public Logic(){
 		parser = new Parser();
@@ -24,14 +24,14 @@ public class Logic {
 			storage = new Storage();
 		}catch(IOException e){
 			System.out.println("ERROR: CREATING STORAGE");
-			ui.displayMessage("ERROR: CREATING STORAGE");
+			uiController.displayMessage("ERROR: CREATING STORAGE");
 		}
 		
 		try{
 			storage.loadTasks(taskManager);
 		}catch(IOException e){
 			System.out.println("ERROR: LOAD TASK");
-			ui.displayMessage("ERROR: LOAD TASK");
+			uiController.displayMessage("ERROR: LOAD TASK");
 		}
 		
 	}
@@ -46,10 +46,10 @@ public class Logic {
 			
 		}catch(IncorrectInputException e){
 			System.out.println(e.getMessage());
-			ui.displayMessage(e.getMessage());
+			uiController.displayMessage(e.getMessage());
 		}
 		
-		ui.refreshMainView(taskManager.getTodayTaskGroups());
+		uiController.refreshMainView(taskManager.getTodayTaskGroups());
 		
 		try{
 			
@@ -57,7 +57,7 @@ public class Logic {
 			
 		} catch(IOException e){
 			System.out.println("ERROR: SAVING");
-			ui.displayMessage("ERROR: SAVING");
+			uiController.displayMessage("ERROR: SAVING");
 		}
 		
 		//update UI - UI.update();
@@ -70,7 +70,7 @@ public class Logic {
 	
 	
 	public void setUIController(UIController ui){
-		this.ui = ui;
+		this.uiController = ui;
 		ui.refreshMainView(taskManager.getAllTaskGroups());
 	}
 	
@@ -78,4 +78,7 @@ public class Logic {
 		return taskManager;
 	}
 	
+	public UIController getUIController(){
+		return uiController;
+	}
 }

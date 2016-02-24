@@ -70,7 +70,7 @@ public class Logic {
 	}
 	
 	public void refreshUIController(){
-		uiController.refreshMainView(taskManager.getTodayTaskGroups());
+		uiController.refreshMainView(taskManager.getTaskGroupsToday());
 		uiController.refreshCategoryMenuView(categoryManager.getCategoryList());
 	}
 	

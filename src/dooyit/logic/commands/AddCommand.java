@@ -4,7 +4,6 @@ import dooyit.exception.IncorrectInputException;
 import dooyit.logic.Logic;
 import dooyit.logic.Task;
 import dooyit.logic.TaskManager;
-import dooyit.logic.Task.TaskType;
 import dooyit.parser.DateTime;
 
 public class AddCommand extends Command {

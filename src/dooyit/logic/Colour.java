@@ -20,6 +20,7 @@ public class Colour {
 	public static final Colour RED = new Colour(1, 0, 0); 
 	public static final Colour WHITE = new Colour(1, 1, 1); 
 	public static final Colour YELLOW = new Colour(1.f, 0.92f, 0.016f); 
+	public static final Colour BLUE = new Colour(0, 0, 1); 
 	
 	@Override
 	public boolean equals(Object o){

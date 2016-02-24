@@ -15,6 +15,7 @@ public class AddCatParser {
 	private static Command cmd;
 	
 	private static final String BLACK = "black"; 
+	private static final String BLUE = "blue"; 
 	private static final String CYAN = "cyan"; 
 	private static final String GREY = "grey"; 
 	private static final String GRAY = "gray"; 
@@ -41,57 +42,50 @@ public class AddCatParser {
 	private void setCmd() {
 		switch(colour) {
 		case BLACK :
-			System.out.println("colour is " + colour + " and catName is " + catName);
 			cmd = CommandUtils.createAddCategoryCommand(catName, Colour.BLACK);
+			break;
+		
+		case BLUE :
+			//cmd = CommandUtils.createAddCategoryCommand(catName, Colour.BLUE);
 			break;
 			
 		case CYAN :
-			System.out.println("colour is " + colour + " and catName is " + catName);
 			cmd = CommandUtils.createAddCategoryCommand(catName, Colour.CYAN);
 			break;
 			
 		case GREY :
-			System.out.println("colour is " + colour + " and catName is " + catName);
 			cmd = CommandUtils.createAddCategoryCommand(catName, Colour.GREY);
 			break;
 			
 		case GRAY :
-			System.out.println("colour is " + colour + " and catName is " + catName);
 			cmd = CommandUtils.createAddCategoryCommand(catName, Colour.GREY);
 			break;
 		
 		case GREEN :
-			System.out.println("colour is " + colour + " and catName is " + catName);
 			cmd = CommandUtils.createAddCategoryCommand(catName, Colour.GREEN);
 			break;
 			
 		case MAGENTA :
-			System.out.println("colour is " + colour + " and catName is " + catName);
 			cmd = CommandUtils.createAddCategoryCommand(catName, Colour.MAGENTA);
 			break;
 			
 		case PINK :
-			System.out.println("colour is " + colour + " and catName is " + catName);
 			cmd = CommandUtils.createAddCategoryCommand(catName, Colour.PINK);
 			break;
 			
 		case RED :
-			System.out.println("colour is " + colour + " and catName is " + catName);
 			cmd = CommandUtils.createAddCategoryCommand(catName, Colour.RED);
 			break;
 			
 		case WHITE :
-			System.out.println("colour is " + colour + " and catName is " + catName);
 			cmd = CommandUtils.createAddCategoryCommand(catName, Colour.WHITE);
 			break;
 			
 		case YELLOW :
-			System.out.println("colour is " + colour + " and catName is " + catName);
 			cmd = CommandUtils.createAddCategoryCommand(catName, Colour.YELLOW);
 			break;
 			
 		case DEFAULT_COLOUR :
-			System.out.println("colour is " + colour + " and catName is " + catName);
 			cmd = CommandUtils.createAddCategoryCommand(catName, Colour.CYAN);
 			break;
 			

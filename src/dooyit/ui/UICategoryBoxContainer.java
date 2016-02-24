@@ -11,10 +11,13 @@ public class UICategoryBoxContainer {
 	
 	private VBox categoryBoxContainerView;
 	private ArrayList<UICategoryBox> categoryBoxList;
+	private Logic logic;
 	
-	public UICategoryBoxContainer(ArrayList<Category> categoryList){
+	public UICategoryBoxContainer(ArrayList<Category> categoryList, Logic logic){
+		this.logic = logic;
+		
 		this.categoryBoxContainerView = new VBox();
-		this.categoryBoxContainerView.setSpacing(4);
+		this.categoryBoxContainerView.setSpacing(6);
 		this.categoryBoxList = new ArrayList<UICategoryBox>();
 		
 		for (int i = 0; i < categoryList.size(); i++){
@@ -22,6 +25,10 @@ public class UICategoryBoxContainer {
 			this.categoryBoxList.add(categoryBox);
 			this.categoryBoxContainerView.getChildren().add(categoryBox.getView());
 		}
+	}
+	
+	public Logic getLogic(){
+		return this.logic;
 	}
 	
 	public VBox getView(){

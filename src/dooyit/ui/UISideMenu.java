@@ -24,8 +24,11 @@ public class UISideMenu {
 	private Label categoryTitle;
 	
 	private UICategoryBoxContainer categoryBoxContainer;
+	private Logic logic;
 	
-	public UISideMenu(){
+	public UISideMenu(Logic logic){
+		this.logic = logic;
+		
 		this.menu = new VBox();
 		this.menu.setSpacing(5);
 		this.menu.getStyleClass().add("menu-view");
@@ -65,7 +68,7 @@ public class UISideMenu {
         this.categoryTitle.setFont(Font.font("Tahoma", 12));
         this.categoryTitle.getStyleClass().add("category-title");
 		
-        this.categoryBoxContainer = new UICategoryBoxContainer(new ArrayList<Category>());
+        this.categoryBoxContainer = new UICategoryBoxContainer(new ArrayList<Category>(), this.logic);
         
 		this.menu.getChildren().addAll(this.todayBtn, this.extendedBtn, this.allBtn, this.completedBtn, this.categoryTitle, this.categoryBoxContainer.getView());
 

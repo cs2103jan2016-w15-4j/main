@@ -8,7 +8,6 @@ public class EditParser {
 	private static final String MARKER_TIME_START = "from";
 	private static final String MARKER_TIME_END = "to";
 	private static final String MARKER_DEADLINE = "by";
-	private static final String MARKER_NAME = " ";
 	
 	private static String userInput;
 	private static String taskName;
@@ -22,8 +21,7 @@ public class EditParser {
 	};
 	
 	public EditParser(String input) {
-		//userInput ignore the word "edit"
-		userInput = input.trim().toLowerCase().substring(START_INDEX_ARGS);
+		userInput = input.trim().toLowerCase();
 	}
 	
 	public Command getCommand() {
@@ -125,11 +123,7 @@ public class EditParser {
 	}
 
 	private void parseName() {
-		int indexName = userInput.lastIndexOf(MARKER_NAME);
-		if(taskId == -1) {
-			taskId = Integer.parseInt(userInput.substring(0, indexName).trim());
-		}
-		taskName = userInput.substring(indexName);
+		taskName = userInput.split("\\s+")[1].trim();
 	}
 
 	private EDIT_TYPE getEditType() {
@@ -166,7 +160,8 @@ public class EditParser {
 	
 	
 	private static boolean hasName() {
-		return userInput.lastIndexOf(MARKER_NAME) != -1;
+		String mayBeName = userInput.split("\\s+")[1];
+		return !mayBeName.equals(MARKER_DEADLINE) && !mayBeName.equals(MARKER_TIME_END) && !mayBeName.equals(MARKER_TIME_START);
 	}
 	
 	private static boolean hasStart() {

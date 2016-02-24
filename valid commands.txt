@@ -52,13 +52,13 @@ feb
 
 ----------------------------------------------------- Valid Commands for add parser --------------------------------------------------------------------------------
 
-add <task name>						//Floating task
-add <task name>	@ <category name>			//Floating task with Category
-add <task name>	@ <category id>				//Floating task with Category
-add <task name> by <DateTime>				//Work with deadline with Category
-add <task name> by <DateTime> @ <category name>		//Work with deadline with Category
-add <task name> by <DateTime> @ <category id>		//Work with deadline
-add <task name> from <DateTime> to <DateTime>		//Event
+add <task name>								//Floating task
+add <task name>	@ <category name>					//Floating task with Category
+add <task name>	@ <category id>						//Floating task with Category
+add <task name> by <DateTime>						//Work with deadline with Category
+add <task name> by <DateTime> @ <category name>				//Work with deadline with Category
+add <task name> by <DateTime> @ <category id>				//Work with deadline
+add <task name> from <DateTime> to <DateTime>				//Event
 add <task name> from <DateTime> to <DateTime> @ <category name>		//Event with Category
 add <task name> from <DateTime> to <DateTime> @ <category id>		//Event with Category
 

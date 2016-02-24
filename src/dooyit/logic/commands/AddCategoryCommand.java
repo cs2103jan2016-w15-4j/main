@@ -1,6 +1,7 @@
 package dooyit.logic.commands;
 
 import dooyit.exception.IncorrectInputException;
+import dooyit.logic.Category;
 import dooyit.logic.CategoryManager;
 import dooyit.logic.Colour;
 import dooyit.logic.Logic;
@@ -23,13 +24,17 @@ public class AddCategoryCommand extends Command {
 	@Override
 	public void execute(Logic logic) throws IncorrectInputException {
 		CategoryManager categoryManager = logic.getCategoryManager();
+		Category category;
 		
 		if(colour == null){
-			categoryManager.addCategory(categoryName);
+			category = categoryManager.addCategory(categoryName);
 		}else{
-			categoryManager.addCategory(categoryName, colour);
+			category = categoryManager.addCategory(categoryName, colour);
 		}
 		
+		if(category == null){
+			throw new IncorrectInputException("Category: " + categoryName + "already exists.");
+		}
 	}
 
 }

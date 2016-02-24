@@ -17,14 +17,22 @@ public class CategoryManager {
 		addCategory("Entertainment");
 	}
 	
-	public Category addCategory(String name){
-		Category category = new Category(name, colourManager.pickRandomColour());
+	public Category addCategory(String categoryName){
+		if(findTask(categoryName) != null){
+			return null;
+		}
+		
+		Category category = new Category(categoryName, colourManager.pickRandomColour());
 		categories.add(category);
 		return category;
 	}
 	
-	public Category addCategory(String name, Colour colour){
-		Category category = new Category(name, colour);
+	public Category addCategory(String categoryName, Colour colour){
+		if(findTask(categoryName) != null){
+			return null;
+		}
+		
+		Category category = new Category(categoryName, colour);
 		categories.add(category);
 		return category;
 	}

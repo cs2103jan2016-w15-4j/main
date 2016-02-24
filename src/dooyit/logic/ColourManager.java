@@ -9,7 +9,7 @@ public class ColourManager {
 	
 	public ColourManager(){
 		random = new Random();
-		availableColours = new Colour[9];
+		availableColours = new Colour[10];
 		
 		availableColours[0] = Colour.BLACK;
 		availableColours[1] = Colour.CYAN;

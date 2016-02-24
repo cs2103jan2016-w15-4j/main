@@ -2,6 +2,7 @@ package dooyit.logic.commands;
 
 import java.util.ArrayList;
 
+import dooyit.logic.Colour;
 import dooyit.parser.DateTime;
 import dooyit.ui.UIMainViewType;
 
@@ -62,8 +63,16 @@ public class CommandUtils {
 	}
 	
 	
+	public static Command createAddCategoryCommand(String catName){
+		AddCategoryCommand addCategoryCommand = new AddCategoryCommand();
+		return addCategoryCommand;
+	}
 	
-	
+	public static Command createAddCategoryCommand(String catName, Colour colour){
+		AddCategoryCommand addCategoryCommand = new AddCategoryCommand();
+		return addCategoryCommand;
+	}
+
 	
 	public static Command createShowTodayCommand(){
 		ShowCommand showCommand = new ShowCommand(UIMainViewType.TODAY);

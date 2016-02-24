@@ -12,13 +12,14 @@ public class Logic {
 
 	private Parser parser;
 	private TaskManager taskManager;
+	private CategoryManager categoryManager;
 	private Storage storage;
 	private UIController uiController;
 	
 	public Logic(){
 		parser = new Parser();
 		taskManager = new TaskManager();
-		
+		categoryManager = new CategoryManager();
 		
 		try{
 			storage = new Storage();

@@ -1,4 +1,4 @@
-package dooyit.main;
+package dooyit.parser;
 
 import dooyit.logic.commands.Command;
 import dooyit.logic.commands.CommandUtils;

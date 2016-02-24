@@ -224,6 +224,17 @@ public class UIController {
 		this.mainView.setContent(this.dayBoxContainer.getView());
 	}
 	
+	public void refreshMainView(ArrayList<TaskGroup> taskGroupList, UIMainViewType mainViewType){
+		this.activeMainView = mainViewType;
+		refreshMainView(taskGroupList);
+	}
+	
+	public void refreshMainView(ArrayList<TaskGroup> taskGroupList, Category category){
+		this.activeMainView = UIMainViewType.CATEGORY;
+		// set category button to active
+		refreshMainView(taskGroupList);
+	}
+	
 	public UIMainViewType getActiveViewType(){
 		return this.activeMainView;
 	}

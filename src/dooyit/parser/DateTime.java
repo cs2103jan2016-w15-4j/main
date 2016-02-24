@@ -2,6 +2,7 @@ package dooyit.parser;
 
 public class DateTime {
 	private static final int UNINITIALIZED = -1;
+	private static final String NO_TIME_INDICATED = "NIL";
 	
 	private String date;	// 08/02/2016
 	private String timeStr24H;		// 1300
@@ -28,7 +29,9 @@ public class DateTime {
 	//Converts the 24h time int to 12h String format
 	private String convertTimeIntTo12hString(int time2) {
 		String temp;
-		if(time2 == 0) {
+		if(time2 == -1) {
+			temp = NO_TIME_INDICATED;
+		} else if(time2 == 0) {
 			temp = "12 am";
 		} else if(time2 < 100 && time2 > 0) {
 			temp = "12." + time2 + " am";
@@ -51,7 +54,9 @@ public class DateTime {
 	//Converts the 24h time int to 24h String format
 	private String convertTimeIntTo24hString(int time2) {
 		String temp;
-		if(time2 == 0) {
+		if(time2 == -1) {
+			temp = NO_TIME_INDICATED;
+		} else if(time2 == 0) {
 			temp = "0000";
 		} else if(time2 < 100 && time2 > 0) {
 			temp = "00" + time2;
@@ -67,8 +72,8 @@ public class DateTime {
 		this.dd = date[0];
 		this.mm = date[1];
 		this.yy = date[2];
-		this.timeStr24H = String.valueOf(-1);
-		this.timeStr12H = String.valueOf(-1);
+		this.timeStr24H = String.valueOf(UNINITIALIZED);
+		this.timeStr12H = String.valueOf(UNINITIALIZED);
 		this.day = day;
 		this.date = this.dd + " " + months[this.mm - 1] + " " + this.yy;
 	}

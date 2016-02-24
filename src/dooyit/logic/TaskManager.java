@@ -5,9 +5,9 @@ import dooyit.logic.Task.TaskType;
 import dooyit.parser.DateTime;
 
 public class TaskManager {
-	ArrayList<Task> tasks;
-	ArrayList<Task> doneTasks;
-	DateTime dateTime;
+	private ArrayList<Task> tasks;
+	private ArrayList<Task> doneTasks;
+	private DateTime dateTime;
 	
 	public TaskManager(){
 		tasks = new ArrayList<Task>();
@@ -132,19 +132,26 @@ public class TaskManager {
 	
 	public ArrayList<Task> getDeadlineTasks(){
 		
-		ArrayList<Task> deadlineFloat = new ArrayList<Task>();
+		ArrayList<Task> deadlineTasks = new ArrayList<Task>();
 		
 		for(Task task : tasks){
 			if(task.getTaskType() == TaskType.DEADLINE){
-				deadlineFloat.add(task);
+				deadlineTasks.add(task);
 			}
 		}
-		return deadlineFloat;
+		return deadlineTasks;
 	}
 	
-	public ArrayList<Task> getDeadlineTasks(int dd, int mm, int yy){
+	public ArrayList<Task> getDeadlineTasks(DateTime dateTime){
 		
-		return null;
+		ArrayList<Task> deadlineTasks = new ArrayList<Task>();
+		
+		for(Task task : tasks){
+			if(task.getTaskType() == TaskType.DEADLINE && task.getDeadlineTime().isTheSameDateAs(dateTime)){
+				deadlineTasks.add(task);
+			}
+		}
+		return deadlineTasks;
 	}
 	
 	public ArrayList<Task> getEventTasks(int dd, int mm, int yy){

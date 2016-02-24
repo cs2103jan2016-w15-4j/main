@@ -99,9 +99,10 @@ public class CommandUtils {
 	}
 	
 	public static Command createShowCategoryCommand(String categoryName){
-		//ShowCommand showCommand = new ShowCommand(Command.ShowCommandType.CATEGORY, categoryName);
+		// temp
+		ShowCommand showCommand = new ShowCommand(UIMainViewType.COMPLETED, categoryName);
 		
-		return null;
+		return showCommand;
 	}
 	
 	

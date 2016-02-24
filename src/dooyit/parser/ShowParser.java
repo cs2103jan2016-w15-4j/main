@@ -1,4 +1,4 @@
-package dooyit.main;
+package dooyit.parser;
 
 import dooyit.logic.commands.Command;
 import dooyit.logic.commands.CommandUtils;
@@ -31,7 +31,7 @@ public class ShowParser {
 			return CommandUtils.createShowNext7DaysCommand();
 			
 		case DONE : 
-			return CommandUtils.createShowDoneCommand();
+			return CommandUtils.createShowCompletedCommand();
 			
 		case ALL : 
 			return CommandUtils.createShowAllCommand();

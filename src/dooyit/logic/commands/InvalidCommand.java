@@ -1,6 +1,7 @@
 package dooyit.logic.commands;
 
 import dooyit.exception.IncorrectInputException;
+import dooyit.logic.Logic;
 import dooyit.logic.TaskManager;
 
 public class InvalidCommand extends Command {
@@ -11,7 +12,7 @@ public class InvalidCommand extends Command {
 	}
 	
 	@Override
-	public void execute(TaskManager taskManager) throws IncorrectInputException{
+	public void execute(Logic logic) throws IncorrectInputException{
 		throw new IncorrectInputException(errorMessage);
 	}
 

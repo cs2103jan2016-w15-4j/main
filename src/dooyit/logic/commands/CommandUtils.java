@@ -1,6 +1,10 @@
 package dooyit.logic.commands;
 
+import java.util.ArrayList;
+
+import dooyit.logic.Colour;
 import dooyit.parser.DateTime;
+import dooyit.ui.UIMainViewType;
 
 public class CommandUtils {
 	
@@ -25,50 +29,79 @@ public class CommandUtils {
 	
 	
 	
-	public static Command createDeleteCommand(int id){
+	public static Command createDeleteCommand(int deleteId){
 		DeleteCommand deleteCommand = new DeleteCommand();
-		deleteCommand.initDeleteCommand(id);
+		deleteCommand.initDeleteCommand(deleteId);
 		return deleteCommand;
 	}
 	
-	public static Command createDeleteCommand(String stringId){
-		int id = Integer.parseInt(stringId);
+//	public static Command createDeleteCommand(String stringId){
+//		int id = Integer.parseInt(stringId);
+//		DeleteCommand deleteCommand = new DeleteCommand();
+//		deleteCommand.initDeleteCommand(id);
+//		return deleteCommand;
+//	}
+	
+	public static Command createDeleteCommand(ArrayList<Integer> deleteIds){
 		DeleteCommand deleteCommand = new DeleteCommand();
-		deleteCommand.initDeleteCommand(id);
+		deleteCommand.initDeleteCommand(deleteIds);
 		return deleteCommand;
 	}
 	
 	
 	
+	public static Command createMarkCommand(int markId){
+		MarkCommand deleteCommand = new MarkCommand();
+		deleteCommand.initMarkCommand(markId);
+		return deleteCommand;
+	}
+
+	public static Command createMarkCommand(ArrayList<Integer> markIds){
+		MarkCommand deleteCommand = new MarkCommand();
+		deleteCommand.initMarkCommand(markIds);
+		return deleteCommand;
+	}
+	
+	
+	public static Command createAddCategoryCommand(String categoryName){
+		AddCategoryCommand addCategoryCommand = new AddCategoryCommand(categoryName);
+		return addCategoryCommand;
+	}
+	
+	public static Command createAddCategoryCommand(String categoryName, Colour colour){
+		AddCategoryCommand addCategoryCommand = new AddCategoryCommand(categoryName, colour);
+		return addCategoryCommand;
+	}
+
 	
 	public static Command createShowTodayCommand(){
-		ShowCommand showCommand = new ShowCommand(Command.ShowCommandType.TODAY);
+		ShowCommand showCommand = new ShowCommand(UIMainViewType.TODAY);
 		
 		return showCommand;
 	}
 	
 	public static Command createShowNext7DaysCommand(){
-		ShowCommand showCommand = new ShowCommand(Command.ShowCommandType.NEXT7DAYS);
+		ShowCommand showCommand = new ShowCommand(UIMainViewType.EXTENDED);
 		
 		return showCommand;
 	}
 	
 	public static Command createShowAllCommand(){
-		ShowCommand showCommand = new ShowCommand(Command.ShowCommandType.ALL);
+		ShowCommand showCommand = new ShowCommand(UIMainViewType.ALL);
 		
 		return showCommand;
 	}
 	
-	public static Command createShowDoneCommand(){
-		ShowCommand showCommand = new ShowCommand(Command.ShowCommandType.DONE);
+	public static Command createShowCompletedCommand(){
+		ShowCommand showCommand = new ShowCommand(UIMainViewType.COMPLETED);
 		
 		return showCommand;
 	}
 	
 	public static Command createShowCategoryCommand(String categoryName){
-		ShowCommand showCommand = new ShowCommand(Command.ShowCommandType.CATEGORY, categoryName);
+		//ShowCommand showCommand = new ShowCommand(Command.ShowCommandType.CATEGORY, categoryName);
 		
-		return showCommand;
+		return null;
 	}
 	
 	
@@ -105,7 +138,10 @@ public class CommandUtils {
 		return editCommand;
 	}
 	
-	
+	public static Command createStorageCommand(String path){
+		StorageCommand storageCommand = new StorageCommand(path);
+		return storageCommand;
+	}
 	
 	public static Command createInvalidCommand(String errorMessage){
 		InvalidCommand invalidCommand = new InvalidCommand(errorMessage);

@@ -10,28 +10,29 @@ import java.io.IOException;
 
 public class Logic {
 
-	Parser parser;
-	TaskManager taskManager;
-	Storage storage;
-	UIController ui;
+	private Parser parser;
+	private TaskManager taskManager;
+	private CategoryManager categoryManager;
+	private Storage storage;
+	private UIController uiController;
 	
 	public Logic(){
 		parser = new Parser();
 		taskManager = new TaskManager();
-		
+		categoryManager = new CategoryManager();
 		
 		try{
 			storage = new Storage();
 		}catch(IOException e){
 			System.out.println("ERROR: CREATING STORAGE");
-			ui.displayMessage("ERROR: CREATING STORAGE");
+			uiController.displayMessage("ERROR: CREATING STORAGE");
 		}
 		
 		try{
 			storage.loadTasks(taskManager);
 		}catch(IOException e){
 			System.out.println("ERROR: LOAD TASK");
-			ui.displayMessage("ERROR: LOAD TASK");
+			uiController.displayMessage("ERROR: LOAD TASK");
 		}
 		
 	}
@@ -42,14 +43,14 @@ public class Logic {
 		
 		try{
 			
-			command.execute(taskManager);
+			command.execute(this);
 			
 		}catch(IncorrectInputException e){
 			System.out.println(e.getMessage());
-			ui.displayMessage(e.getMessage());
+			uiController.displayMessage(e.getMessage());
 		}
 		
-		ui.refreshMainView(taskManager.getTodayTaskGroups());
+		refreshUIController();
 		
 		try{
 			
@@ -57,7 +58,7 @@ public class Logic {
 			
 		} catch(IOException e){
 			System.out.println("ERROR: SAVING");
-			ui.displayMessage("ERROR: SAVING");
+			uiController.displayMessage("ERROR: SAVING");
 		}
 		
 		//update UI - UI.update();
@@ -68,9 +69,30 @@ public class Logic {
 		storage.saveTasks(taskManager.getAllTasks());
 	}
 	
+	public void refreshUIController(){
+		uiController.refreshMainView(taskManager.getTodayTaskGroups());
+		uiController.refreshCategoryMenuView(categoryManager.getCategoryList());
+	}
 	
 	public void setUIController(UIController ui){
-		this.ui = ui;
-		ui.refreshMainView(taskManager.getAllTaskGroups());
+		this.uiController = ui;
+		refreshUIController();
 	}
+	
+	public TaskManager getTaskManager(){
+		return taskManager;
+	}
+	
+	public UIController getUIController(){
+		return uiController;
+	}
+	
+	public Storage getStorage(){
+		return storage;
+	}
+	
+	public CategoryManager getCategoryManager(){
+		return categoryManager;
+	}
+	
 }

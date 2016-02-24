@@ -15,6 +15,7 @@ public class Task {
 	private DateTime dateTimeStart;
 	private DateTime dateTimeEnd;
 	private boolean isOverdue;
+	private Category category;
 	
 	public static int curTaskId = 1;
 	
@@ -55,6 +56,10 @@ public class Task {
 		this.dateTimeEnd = end;
 	}
 	
+	public void setCategory(Category category){
+		this.category = category;
+	}
+	
 	public String getName(){
 		return taskName;
 	}
@@ -77,6 +82,10 @@ public class Task {
 	
 	public DateTime getDateTimeEnd(){
 		return dateTimeEnd;
+	}
+	
+	public boolean hasCategory(){
+		return category != null;
 	}
 	
 	public boolean hasDeadlineTime(){

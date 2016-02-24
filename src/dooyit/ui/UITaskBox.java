@@ -41,7 +41,11 @@ public class UITaskBox {
 	    this.taskName.getStyleClass().add("task-name");
 	    this.taskName.setPrefWidth(250);
 	    
-	    this.taskPeriod = new Label("9 pm");
+	    if (this.task.getDeadlineTime() != null){
+	    	this.taskPeriod = new Label(this.task.getDeadlineTime().getTime12hStr());
+	    } else {
+	    	this.taskPeriod = new Label("");
+	    }
 	    this.taskPeriod.setFont(Font.font("Verdana", 12));
 	    this.taskPeriod.getStyleClass().add("task-period");
 	    this.taskPeriod.setPrefWidth(120);

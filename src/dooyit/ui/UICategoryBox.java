@@ -22,11 +22,12 @@ public class UICategoryBox {
 		
 		this.categoryBox = new HBox();
 		
-		this.categoryName = new Label("Chores");
+		this.categoryName = new Label(category.getName());
 		this.categoryName.setFont(Font.font("Euphemia", 14));
 		this.categoryName.getStyleClass().add("category-name");
 		
-		this.categoryCircle = new Circle(4, Color.web("#007AFF"));
+		Colour colour = category.getColour();
+		this.categoryCircle = new Circle(4, Color.color(colour.r, colour.g, colour.b));
 		this.categoryCircle.getStyleClass().add("category-circle");
 		
 		this.categoryBox.getChildren().addAll(categoryCircle, categoryName);
@@ -38,7 +39,7 @@ public class UICategoryBox {
 		     public void handle(MouseEvent event) {
 		         categoryBoxContainer.setAllCategoryBoxesInactive();
 		    	 setActive();
-		    	 // Pass command to parser here
+		    	 categoryBoxContainer.getLogic().processCommand("showcat " + categoryName.getText());
 		         event.consume();
 		     }
 		});

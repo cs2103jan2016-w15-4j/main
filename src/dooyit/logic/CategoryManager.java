@@ -13,7 +13,7 @@ public class CategoryManager {
 	}
 	
 	private void setDefaultCategories(){
-		addCategory("school");
+		addCategory("School");
 		addCategory("Entertainment");
 	}
 	

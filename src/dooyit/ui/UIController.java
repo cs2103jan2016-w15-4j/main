@@ -61,7 +61,7 @@ public class UIController {
 		this.header = new UIHeader();
 		
 		// Side menu
-		this.sideMenu = new UISideMenu();
+		this.sideMenu = new UISideMenu(this.logic);
 		
 		// Day box container
 		this.dayBoxContainer = new UIDayBoxContainer(this.logic);
@@ -201,6 +201,7 @@ public class UIController {
 	
 	public void displayMessage(String msg){
 		this.messageBox.show(msg);
+		this.messageBox.hide();
 	}
 	
 	public void changeTheme(UITheme theme){

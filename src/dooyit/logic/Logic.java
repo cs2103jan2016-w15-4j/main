@@ -87,4 +87,8 @@ public class Logic {
 		return storage;
 	}
 	
+	public CategoryManager getCategoryManager(){
+		return categoryManager;
+	}
+	
 }

@@ -63,13 +63,13 @@ public class CommandUtils {
 	}
 	
 	
-	public static Command createAddCategoryCommand(String catName){
-		AddCategoryCommand addCategoryCommand = new AddCategoryCommand();
+	public static Command createAddCategoryCommand(String categoryName){
+		AddCategoryCommand addCategoryCommand = new AddCategoryCommand(categoryName);
 		return addCategoryCommand;
 	}
 	
-	public static Command createAddCategoryCommand(String catName, Colour colour){
-		AddCategoryCommand addCategoryCommand = new AddCategoryCommand();
+	public static Command createAddCategoryCommand(String categoryName, Colour colour){
+		AddCategoryCommand addCategoryCommand = new AddCategoryCommand(categoryName, colour);
 		return addCategoryCommand;
 	}
 

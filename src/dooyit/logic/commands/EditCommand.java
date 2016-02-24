@@ -60,6 +60,7 @@ public class EditCommand extends Command {
 		
 		switch(editCommandType){
 			case NAME:
+				System.out.println("taskName is " + taskName);
 				task.changeName(taskName);
 				break;
 			

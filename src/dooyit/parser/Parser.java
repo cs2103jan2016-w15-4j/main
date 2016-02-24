@@ -33,36 +33,36 @@ public class Parser {
 		String[] splittedInput = input.split("\\s+", 2);
 		String commandString = splittedInput[0];
 
-		String data = "";
-		if (splittedInput.length > 1) {
-			data = splittedInput[1];
-		}
+		//String data = "";
+		//if (splittedInput.length > 1) {
+		//	data = splittedInput[1];
+		//}
 		
 		Command command = null;
 
 		switch (commandString.toLowerCase()) {
 		case COMMAND_ADD:
-			AddParser addParser = new AddParser(input);
+			AddParser addParser = new AddParser(input.replace(COMMAND_ADD, ""));
 			command = addParser.getCommand();
 			break;
 			
 		case COMMAND_SHOW:
-			ShowParser showParser = new ShowParser(input);
+			ShowParser showParser = new ShowParser(input.replace(COMMAND_SHOW, ""));
 			command = showParser.getCommand();
 			break;
 			
 		case COMMAND_EDIT:
-			EditParser editParser = new EditParser(input);
+			EditParser editParser = new EditParser(input.replace(COMMAND_EDIT, ""));
 			command = editParser.getCommand();
 			break;
 			
 		case COMMAND_DELETE:
-			DeleteParser deleteParser = new DeleteParser(input);
+			DeleteParser deleteParser = new DeleteParser(input.replace(COMMAND_DELETE, ""));
 			command = deleteParser.getCommand();
 			break;
 		
 		case COMMAND_ADD_CAT:
-			AddCatParser addCatParser = new AddCatParser(input);
+			AddCatParser addCatParser = new AddCatParser(input.replace(COMMAND_ADD_CAT, ""));
 			command = addCatParser.getCommand();
 			break;
 			

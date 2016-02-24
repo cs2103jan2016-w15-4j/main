@@ -7,7 +7,7 @@ import dooyit.logic.commands.Command;
 import dooyit.logic.commands.CommandUtils;
 
 public class DeleteParser {
-	private static final int INDEX_SINGLE = 1;
+	private static final int INDEX_SINGLE = 0;
 	private static String userInput;
 	private static String[] splitInput;
 	private static ArrayList<Integer> taskIdsForDeletion;
@@ -118,8 +118,10 @@ public class DeleteParser {
 	}
 
 	private void parseSingleType() {
+		System.out.println(splitInput[INDEX_SINGLE]);
 		if(isNumber(splitInput[INDEX_SINGLE])) {
 			taskIdForDeletion = Integer.parseInt(splitInput[INDEX_SINGLE]);
+			
 		} else {
 			throw new IncorrectInputException("Invalid Task ID!");
 		}

@@ -15,7 +15,7 @@ public class AddCatParser {
 	
 	public AddCatParser(String input) {
 		//userInput ignore the word "addcat"
-		userInput = input.trim().toLowerCase().substring(START_INDEX_ARGS).trim();
+		userInput = input.trim().toLowerCase();
 	}
 	
 	public Command getCommand() {

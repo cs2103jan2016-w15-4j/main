@@ -154,24 +154,43 @@ public class TaskManager {
 		return deadlineTasks;
 	}
 	
-	public ArrayList<Task> getEventTasks(int dd, int mm, int yy){
+	public ArrayList<Task> getEventTasks(){
 		
-		return null;
+		ArrayList<Task> eventTasks = new ArrayList<Task>();
+		
+		for(Task task : tasks){
+			if(task.getTaskType() == TaskType.EVENT){
+				eventTasks.add(task);
+			}
+		}
+		return eventTasks;
+	}
+
+	public ArrayList<Task> getEventTasks(DateTime dateTime){
+		
+		ArrayList<Task> eventTasks = new ArrayList<Task>();
+		
+		for(Task task : tasks){
+			if(task.getTaskType() == TaskType.EVENT && task.getDateTimeStart().isTheSameDateAs(dateTime)){
+				eventTasks.add(task);
+			}
+		}
+		return eventTasks;
 	}
 	
-	public ArrayList<TaskGroup> getAllTaskGroups(){
+	public ArrayList<TaskGroup> getTaskGroupsAll(){
 		ArrayList<TaskGroup> taskGroups = new ArrayList<TaskGroup>();
 		taskGroups.add(new TaskGroup("All", getAllTasks()));
 		return taskGroups;
 	}
 	
-	public ArrayList<TaskGroup> getTodayTaskGroups(){
+	public ArrayList<TaskGroup> getTaskGroupsToday(){
 		ArrayList<TaskGroup> taskGroups = new ArrayList<TaskGroup>();
 		taskGroups.add(new TaskGroup("Today", getAllTasks()));
 		return taskGroups;
 	}
 
-	public ArrayList<TaskGroup> getNext7DaysTaskGroups(){
+	public ArrayList<TaskGroup> getTaskGroupsNext7Days(){
 		
 		return null;
 	}

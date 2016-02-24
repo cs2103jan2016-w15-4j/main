@@ -67,12 +67,12 @@ public class Parser {
 			break;
 			
 		case COMMAND_SKIN :
-			String colour = parseSkinChange(input);
+			String colour = getInputWithoutCommand(input, COMMAND_SKIN);
 			//command = CommandUtils.createSkinChangeCommand(colour);
 			break;
 		
 		case COMMAND_STORAGE :
-			String filePath = parseStorage(input);
+			String filePath = getInputWithoutCommand(input, COMMAND_STORAGE);
 			//command = CommandUtils.createStorageCommand(colour);
 			break;
 			
@@ -91,16 +91,6 @@ public class Parser {
 
 	private String getInputWithoutCommand(String input, String command) {
 		return input.replace(command, "").trim();
-	}
-
-
-	private String parseStorage(String input) {
-		return input.split("//s+")[1].trim();
-	}
-
-
-	private String parseSkinChange(String input) {
-		return input.split("//s+")[1].trim();
 	}
 }
 

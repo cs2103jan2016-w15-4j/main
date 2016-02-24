@@ -154,13 +154,7 @@ public class UIController {
 					changeTheme(UITheme.LIGHT);
 					break;
 				case "help":
-					this.webView = new WebView();
-					this.webEngine = webView.getEngine();
-					this.webEngine.load(getClass().getResource("htdocs/user_guide.html").toExternalForm());
-					this.secWindow = new Stage();
-		            this.secWindow.setTitle("User Guide");
-		            this.secWindow.setScene(new Scene(this.webView, 600, 600));
-		            this.secWindow.show();
+					showUserGuide();
 					break;
 				case "mb":
 					displayMessage("hello world");
@@ -228,6 +222,14 @@ public class UIController {
 		this.sideMenu.refreshCategoryMenuView(categoryList);
 	}
 	
-	
+	public void showUserGuide(){
+		this.webView = new WebView();
+		this.webEngine = webView.getEngine();
+		this.webEngine.load(getClass().getResource("htdocs/user_guide.html").toExternalForm());
+		this.secWindow = new Stage();
+        this.secWindow.setTitle("User Guide");
+        this.secWindow.setScene(new Scene(this.webView, 600, 600));
+        this.secWindow.show();
+	}
 	
 }

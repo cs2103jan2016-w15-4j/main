@@ -2,6 +2,7 @@ package dooyit.logic;
 
 import dooyit.storage.Storage;
 import dooyit.ui.UIController;
+import dooyit.ui.UIMainViewType;
 import dooyit.parser.Parser;
 import dooyit.exception.IncorrectInputException;
 import dooyit.logic.commands.*;
@@ -28,12 +29,12 @@ public class Logic {
 			uiController.displayMessage("ERROR: CREATING STORAGE");
 		}
 		
-		try{
-			storage.loadTasks(taskManager);
-		}catch(IOException e){
-			System.out.println("ERROR: LOAD TASK");
-			uiController.displayMessage("ERROR: LOAD TASK");
-		}
+//		try{
+//			storage.loadTasks(taskManager);
+//		}catch(IOException e){
+//			System.out.println("ERROR: LOAD TASK");
+//			uiController.displayMessage("ERROR: LOAD TASK");
+//		}
 		
 	}
 	
@@ -70,7 +71,32 @@ public class Logic {
 	}
 	
 	public void refreshUIController(){
-		uiController.refreshMainView(taskManager.getTaskGroupsToday());
+		//uiController.refreshMainView(taskManager.getTaskGroupsToday());
+		UIMainViewType uiMainViewType = uiController.getActiveViewType();
+		
+		switch (uiMainViewType) {
+
+			case TODAY:
+				uiController.refreshMainView(taskManager.getTaskGroupsToday());
+				break;
+	
+			case EXTENDED:
+				uiController.refreshMainView(taskManager.getTaskGroupsNext7Days());
+				break;
+	
+			case ALL:
+				uiController.refreshMainView(taskManager.getTaskGroupsAll());
+				break;
+	
+			case COMPLETED:
+				uiController.refreshMainView(taskManager.getTaskGroupsCompleted());
+				break;
+	
+			case CATEGORY:
+	
+				break;
+		}
+			
 		uiController.refreshCategoryMenuView(categoryManager.getCategoryList());
 	}
 	

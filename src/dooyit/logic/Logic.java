@@ -82,4 +82,9 @@ public class Logic {
 	public UIController getUIController(){
 		return uiController;
 	}
+	
+	public Storage getStorage(){
+		return storage;
+	}
+	
 }

@@ -1,7 +1,10 @@
 package dooyit.logic.commands;
 
+import java.io.IOException;
+
 import dooyit.exception.IncorrectInputException;
 import dooyit.logic.Logic;
+import dooyit.storage.Storage;
 
 public class StorageCommand extends Command {
 
@@ -13,7 +16,14 @@ public class StorageCommand extends Command {
 	
 	@Override
 	public void execute(Logic logic) throws IncorrectInputException {
-
+		Storage storage = logic.getStorage();
+		
+		try{
+			storage.setFileDestination(path);
+		}
+		catch(IOException e){
+			throw new IncorrectInputException("Invalid path: " + path);
+		}
 	}
 
 }

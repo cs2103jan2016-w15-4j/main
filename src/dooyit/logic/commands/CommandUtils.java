@@ -138,7 +138,10 @@ public class CommandUtils {
 		return editCommand;
 	}
 	
-	
+	public static Command createStorageCommand(String path){
+		StorageCommand storageCommand = new StorageCommand(path);
+		return storageCommand;
+	}
 	
 	public static Command createInvalidCommand(String errorMessage){
 		InvalidCommand invalidCommand = new InvalidCommand(errorMessage);

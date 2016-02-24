@@ -7,7 +7,7 @@ public class Category {
 	
 	public Category(String name) {
 		this.name = name;
-		
+		this.colour = Colour.GREY;
 	}
 	
 	public Category(String name, Colour colour) {
@@ -28,6 +28,16 @@ public class Category {
 		return colour;
 	}
 	
+	@Override
+	public boolean equals(Object o){
+		if(o instanceof Category){
+			Category category = (Category)o;
+			return getName().equals(category.getName()) ;
+		}
+		return false;
+	}
+	
+	@Override
 	public String toString() {
 		return name + " " + colour.toString();
 	}

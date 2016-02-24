@@ -14,22 +14,25 @@ public class TaskManager {
 		doneTasks = new ArrayList<Task>();
 	}
 	
-	public void AddTaskFloat(String data){
+	public Task AddTaskFloat(String data){
 		Task task = new Task();
 		task.initTaskFloat(data);
 		tasks.add(task);
+		return task;
 	}
 	
-	public void AddTaskDeadline(String data, DateTime dateTime){
+	public Task AddTaskDeadline(String data, DateTime dateTime){
 		Task task = new Task();
 		task.initTaskDeadline(data, dateTime);
 		tasks.add(task);
+		return task;
 	}
 
-	public void AddTaskEvent(String data, DateTime start, DateTime end){
+	public Task AddTaskEvent(String data, DateTime start, DateTime end){
 		Task task = new Task();
 		task.initTaskEvent(data, start, end);
 		tasks.add(task);
+		return task;
 	}
 	
 	// return false if length is incorrect

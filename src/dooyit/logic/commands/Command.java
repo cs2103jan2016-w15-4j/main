@@ -19,7 +19,7 @@ public abstract class Command {
 	
 	public String time;
 	public String day;
-	public int deleteId;
+	
 	
 	public Command(){
 		

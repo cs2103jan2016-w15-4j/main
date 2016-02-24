@@ -1,5 +1,7 @@
 package dooyit.logic.commands;
 
+import java.util.ArrayList;
+
 import dooyit.parser.DateTime;
 
 public class CommandUtils {
@@ -25,18 +27,39 @@ public class CommandUtils {
 	
 	
 	
-	public static Command createDeleteCommand(int id){
+	public static Command createDeleteCommand(int deleteId){
 		DeleteCommand deleteCommand = new DeleteCommand();
-		deleteCommand.initDeleteCommand(id);
+		deleteCommand.initDeleteCommand(deleteId);
 		return deleteCommand;
 	}
 	
-	public static Command createDeleteCommand(String stringId){
-		int id = Integer.parseInt(stringId);
+//	public static Command createDeleteCommand(String stringId){
+//		int id = Integer.parseInt(stringId);
+//		DeleteCommand deleteCommand = new DeleteCommand();
+//		deleteCommand.initDeleteCommand(id);
+//		return deleteCommand;
+//	}
+	
+	public static Command createDeleteCommand(ArrayList<Integer> deleteIds){
 		DeleteCommand deleteCommand = new DeleteCommand();
-		deleteCommand.initDeleteCommand(id);
+		deleteCommand.initDeleteCommand(deleteIds);
 		return deleteCommand;
 	}
+	
+	
+	
+	public static Command createMarkCommand(int markId){
+		DeleteCommand deleteCommand = new DeleteCommand();
+		deleteCommand.initDeleteCommand(markId);
+		return deleteCommand;
+	}
+
+	public static Command createMarkCommand(ArrayList<Integer> markIds){
+		DeleteCommand deleteCommand = new DeleteCommand();
+		deleteCommand.initDeleteCommand(markIds);
+		return deleteCommand;
+	}
+	
 	
 	
 	

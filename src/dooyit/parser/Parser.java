@@ -10,6 +10,7 @@ public class Parser {
 	static final String COMMAND_CLEAR = "clear";
 	static final String COMMAND_SHOW = "show";
 	static final String COMMAND_DELETE = "delete";
+	static final String COMMAND_MARK = "mark";
 	static final String COMMAND_EDIT = "edit";
 	static final String COMMAND_ADD = "add";
 	static final String COMMAND_ADD_CAT = "addcat";
@@ -32,11 +33,6 @@ public class Parser {
 		String[] splittedInput = input.split("\\s+", 2);
 		String commandString = splittedInput[0];
 
-		//String data = "";
-		//if (splittedInput.length > 1) {
-		//	data = splittedInput[1];
-		//}
-		
 		Command command = null;
 
 		switch (commandString.toLowerCase()) {
@@ -58,6 +54,11 @@ public class Parser {
 		case COMMAND_DELETE:
 			DeleteParser deleteParser = new DeleteParser(getInputWithoutCommand(input, COMMAND_DELETE));
 			command = deleteParser.getCommand();
+			break;
+		
+		case COMMAND_MARK :
+			DeleteParser markParser = new DeleteParser(getInputWithoutCommand(input, COMMAND_MARK));
+			command = markParser.getCommand();
 			break;
 		
 		case COMMAND_ADD_CAT:

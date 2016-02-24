@@ -201,8 +201,14 @@ public class TaskManager {
 	}
 	
 	public ArrayList<TaskGroup> getTaskGroupsNext7Days(){
-		
-		return null;
+		//
+		//
+		// not done
+		//
+		//
+		ArrayList<TaskGroup> taskGroups = new ArrayList<TaskGroup>();
+		taskGroups.add(new TaskGroup("Next 7 days", getDeadlineTasks()));
+		return taskGroups;
 	}
 	
 	public void display(){

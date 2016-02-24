@@ -3,6 +3,8 @@ package dooyit.ui;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
@@ -13,14 +15,16 @@ import dooyit.logic.*;
 
 public class UICategoryBox {
 	private UICategoryBoxContainer categoryBoxContainer;
-	private HBox categoryBox;
+	private HBox categoryBoxWrapper;
 	private Label categoryName;
 	private Circle categoryCircle;
+	private ToggleButton categoryBox;
+	private ToggleGroup mainViewToggleGroup;
 	
-	public UICategoryBox(UICategoryBoxContainer categoryBoxContainer, Category category){		
+	public UICategoryBox(UICategoryBoxContainer categoryBoxContainer, Category category, ToggleGroup mainViewToggleGroup){		
+		this.mainViewToggleGroup = mainViewToggleGroup;
 		this.categoryBoxContainer = categoryBoxContainer;
-		
-		this.categoryBox = new HBox();
+		this.categoryBoxWrapper = new HBox();
 		
 		this.categoryName = new Label(category.getName());
 		this.categoryName.setFont(Font.font("Euphemia", 14));
@@ -30,31 +34,34 @@ public class UICategoryBox {
 		this.categoryCircle = new Circle(4, Color.color(colour.r, colour.g, colour.b));
 		this.categoryCircle.getStyleClass().add("category-circle");
 		
-		this.categoryBox.getChildren().addAll(categoryCircle, categoryName);
-		this.categoryBox.getStyleClass().add("category-box");
-		this.categoryBox.setSpacing(14);
+		this.categoryBoxWrapper.getChildren().addAll(categoryCircle, categoryName);
+		this.categoryBoxWrapper.getStyleClass().add("category-box-wrapper");
+		this.categoryBoxWrapper.setSpacing(14);
+		
+		this.categoryBox = new ToggleButton();
+		this.categoryBox.setGraphic(this.categoryBoxWrapper);
+		this.categoryBox.getStyleClass().add("btn-select-view");
+		this.categoryBox.setPrefWidth(180);
+		this.categoryBox.setToggleGroup(this.mainViewToggleGroup);
+		this.categoryBox.setSelected(false);
+		this.categoryBox.setUserData("category");
 		
 		this.categoryBox.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
 		     @Override
 		     public void handle(MouseEvent event) {
 		         categoryBoxContainer.setAllCategoryBoxesInactive();
-		    	 setActive();
-		    	 categoryBoxContainer.getLogic().processCommand("showcat " + categoryName.getText());
+		    	 // categoryBoxContainer.getLogic().processCommand("show " + categoryName.getText());
 		         event.consume();
 		     }
 		});
 
 	}
 	
-	public void setActive(){
-		this.categoryName.setFont(Font.font("Euphemia", FontWeight.BOLD, 14));
-	}
-	
 	public void setInactive(){
 		this.categoryName.setFont(Font.font("Euphemia", 14));
 	}
 	
-	public HBox getView(){
+	public ToggleButton getView(){
 		return this.categoryBox;
 	}
 }

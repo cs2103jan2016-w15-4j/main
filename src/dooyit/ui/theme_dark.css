@@ -33,9 +33,9 @@
 	-fx-padding: 50 20 7 20;
 }
 
-.category-box {
+.category-box-wrapper {
 	-fx-alignment: center-left;
-	-fx-padding: 5 20 5 20;
+	-fx-padding: 0;
 }
 
 .category-name {

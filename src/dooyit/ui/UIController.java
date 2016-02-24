@@ -116,6 +116,8 @@ public class UIController {
 		                    	activeMainView = UIMainViewType.COMPLETED;
 		                    	// logic.processCommand("");
 		                    	break;
+		                    case "category":
+		                    	activeMainView = UIMainViewType.CATEGORY;
 		                }
                         mainView.setContent(dayBoxContainer.getView());
                         System.out.println(getActiveViewType());

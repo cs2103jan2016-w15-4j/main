@@ -90,7 +90,7 @@ public class AddCatParser {
 			break;
 			
 		default :
-			cmd = CommandUtils.createInvalidCommand("Invalid Colour!");
+			cmd = CommandUtils.createInvalidCommand(colour + "is an invalid colour!");
 			break;
 			
 		}

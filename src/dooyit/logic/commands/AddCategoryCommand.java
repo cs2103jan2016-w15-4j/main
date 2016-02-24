@@ -33,7 +33,7 @@ public class AddCategoryCommand extends Command {
 		}
 		
 		if(category == null){
-			throw new IncorrectInputException("Category: " + categoryName + "already exists.");
+			throw new IncorrectInputException("Category: " + categoryName + " already exists.");
 		}
 	}
 

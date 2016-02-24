@@ -35,13 +35,6 @@ public class CommandUtils {
 		return deleteCommand;
 	}
 	
-//	public static Command createDeleteCommand(String stringId){
-//		int id = Integer.parseInt(stringId);
-//		DeleteCommand deleteCommand = new DeleteCommand();
-//		deleteCommand.initDeleteCommand(id);
-//		return deleteCommand;
-//	}
-	
 	public static Command createDeleteCommand(ArrayList<Integer> deleteIds){
 		DeleteCommand deleteCommand = new DeleteCommand();
 		deleteCommand.initDeleteCommand(deleteIds);

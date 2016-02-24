@@ -14,7 +14,8 @@ public class Parser {
 	static final String COMMAND_EDIT = "edit";
 	static final String COMMAND_ADD = "add";
 	static final String COMMAND_ADD_CAT = "addcat";
-	
+	static final String COMMAND_SKIN = "skin";
+	static final String COMMAND_STORAGE = "storage";
 	
 	public Parser(){
 		
@@ -64,7 +65,18 @@ public class Parser {
 			AddCatParser addCatParser = new AddCatParser(input);
 			command = addCatParser.getCommand();
 			break;
-
+			
+		case COMMAND_SKIN :
+			String colour = parseSkinChange(input);
+			//command = CommandUtils.createSkinChangeCommand(colour);
+			break;
+		
+		case COMMAND_STORAGE :
+			String filePath = parseStorage(input);
+			//command = CommandUtils.createStorageCommand(colour);
+			break;
+			
+			
 		case COMMAND_EXIT:
 			command = CommandUtils.createExitCommand();
 			break;
@@ -74,6 +86,16 @@ public class Parser {
 		}
 
 		return command;
+	}
+
+
+	private String parseStorage(String input) {
+		return input.split("//s+")[1].trim();
+	}
+
+
+	private String parseSkinChange(String input) {
+		return input.split("//s+")[1].trim();
 	}
 }
 

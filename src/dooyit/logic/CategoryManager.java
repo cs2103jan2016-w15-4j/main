@@ -9,6 +9,12 @@ public class CategoryManager {
 	public CategoryManager(){
 		colourManager = new ColourManager();
 		categories = new ArrayList<Category>();
+		setDefaultCategories();
+	}
+	
+	private void setDefaultCategories(){
+		addCategory("school");
+		addCategory("Entertainment");
 	}
 	
 	public Category addCategory(String name){
@@ -39,6 +45,10 @@ public class CategoryManager {
 			}
 		}
 		return null;
+	}
+	
+	public ArrayList<Category> getCategoryList(){
+		return categories;
 	}
 	
 }

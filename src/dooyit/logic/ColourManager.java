@@ -24,7 +24,7 @@ public class ColourManager {
 	}
 	
 	public Colour pickRandomColour(){
-		return availableColours[random.nextInt() % availableColours.length];
+		return availableColours[random.nextInt(availableColours.length)];
 	}
 	
 }

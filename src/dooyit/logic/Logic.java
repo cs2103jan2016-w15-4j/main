@@ -50,7 +50,7 @@ public class Logic {
 			uiController.displayMessage(e.getMessage());
 		}
 		
-		uiController.refreshMainView(taskManager.getTodayTaskGroups());
+		refreshUIController();
 		
 		try{
 			
@@ -69,10 +69,14 @@ public class Logic {
 		storage.saveTasks(taskManager.getAllTasks());
 	}
 	
+	public void refreshUIController(){
+		uiController.refreshMainView(taskManager.getTodayTaskGroups());
+		uiController.refreshCategoryMenuView(categoryManager.getCategoryList());
+	}
 	
 	public void setUIController(UIController ui){
 		this.uiController = ui;
-		ui.refreshMainView(taskManager.getAllTaskGroups());
+		refreshUIController();
 	}
 	
 	public TaskManager getTaskManager(){

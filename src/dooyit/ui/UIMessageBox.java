@@ -11,6 +11,7 @@ public class UIMessageBox {
 	private Stage primaryStage;
 	private Popup messageBox;
 	private Label messageLabel;
+	private boolean isOn;
 	
 	public UIMessageBox(Stage primaryStage){
 		this.primaryStage = primaryStage;
@@ -27,11 +28,9 @@ public class UIMessageBox {
 	}
 	
 	public void show(String msg){
-		this.messageLabel.setPrefSize(this.primaryStage.getWidth() - 30, 50);
+		this.isOn = true;
 		this.messageLabel.setText(msg);
-		this.messageBox.setX(this.primaryStage.getX() + 15);
-		this.messageBox.setY(this.primaryStage.getY() + this.primaryStage.getHeight() - 130);
-		this.messageBox.show(this.primaryStage);
+		display();
 	}
 	
 	public void updatePosition(){
@@ -39,7 +38,23 @@ public class UIMessageBox {
 		this.messageBox.setY(this.primaryStage.getY() + this.primaryStage.getHeight() - 130);
 	}
 	
-	public void hide(){
+	public void display(){
+		this.messageLabel.setPrefSize(this.primaryStage.getWidth() - 30, 50);
+		this.messageBox.setX(this.primaryStage.getX() + 15);
+		this.messageBox.setY(this.primaryStage.getY() + this.primaryStage.getHeight() - 130);
+		this.messageBox.show(this.primaryStage);
+	}
+	
+	public void tempHide(){
 		this.messageBox.hide();
+	}
+	
+	public void hide(){
+		this.isOn = false;
+		this.messageBox.hide();
+	}
+	
+	public boolean isOn(){
+		return this.isOn;
 	}
 }

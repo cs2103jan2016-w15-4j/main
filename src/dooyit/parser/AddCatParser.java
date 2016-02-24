@@ -1,5 +1,6 @@
 package dooyit.parser;
 
+import dooyit.logic.Colour;
 import dooyit.logic.Logic;
 import dooyit.logic.commands.Command;
 import dooyit.logic.commands.CommandUtils;
@@ -41,57 +42,57 @@ public class AddCatParser {
 		switch(colour) {
 		case BLACK :
 			System.out.println("colour is " + colour + " and catName is " + catName);
-			//cmd = CommandUtils.createAddCatCommand(catName, Colour.BLACK);
+			cmd = CommandUtils.createAddCategoryCommand(catName, Colour.BLACK);
 			break;
 			
 		case CYAN :
 			System.out.println("colour is " + colour + " and catName is " + catName);
-			//cmd = CommandUtils.createAddCatCommand(catName, Colour.CYAN);
+			cmd = CommandUtils.createAddCategoryCommand(catName, Colour.CYAN);
 			break;
 			
 		case GREY :
 			System.out.println("colour is " + colour + " and catName is " + catName);
-			//cmd = CommandUtils.createAddCatCommand(catName, Colour.GREY);
+			cmd = CommandUtils.createAddCategoryCommand(catName, Colour.GREY);
 			break;
 			
 		case GRAY :
 			System.out.println("colour is " + colour + " and catName is " + catName);
-			//cmd = CommandUtils.createAddCatCommand(catName, Colour.GREY);
+			cmd = CommandUtils.createAddCategoryCommand(catName, Colour.GREY);
 			break;
 		
 		case GREEN :
 			System.out.println("colour is " + colour + " and catName is " + catName);
-			//cmd = CommandUtils.createAddCatCommand(catName, Colour.GREEN);
+			cmd = CommandUtils.createAddCategoryCommand(catName, Colour.GREEN);
 			break;
 			
 		case MAGENTA :
 			System.out.println("colour is " + colour + " and catName is " + catName);
-			//cmd = CommandUtils.createAddCatCommand(catName, Colour.MAGENTA);
+			cmd = CommandUtils.createAddCategoryCommand(catName, Colour.MAGENTA);
 			break;
 			
 		case PINK :
 			System.out.println("colour is " + colour + " and catName is " + catName);
-			//cmd = CommandUtils.createAddCatCommand(catName, Colour.PINK);
+			cmd = CommandUtils.createAddCategoryCommand(catName, Colour.PINK);
 			break;
 			
 		case RED :
 			System.out.println("colour is " + colour + " and catName is " + catName);
-			//cmd = CommandUtils.createAddCatCommand(catName, Colour.RED);
+			cmd = CommandUtils.createAddCategoryCommand(catName, Colour.RED);
 			break;
 			
 		case WHITE :
 			System.out.println("colour is " + colour + " and catName is " + catName);
-			//cmd = CommandUtils.createAddCatCommand(catName, Colour.WHITE);
+			cmd = CommandUtils.createAddCategoryCommand(catName, Colour.WHITE);
 			break;
 			
 		case YELLOW :
 			System.out.println("colour is " + colour + " and catName is " + catName);
-			//cmd = CommandUtils.createAddCatCommand(catName, Colour.YELLOW);
+			cmd = CommandUtils.createAddCategoryCommand(catName, Colour.YELLOW);
 			break;
 			
 		case DEFAULT_COLOUR :
 			System.out.println("colour is " + colour + " and catName is " + catName);
-			//cmd = CommandUtils.createAddCatCommand(catName, Colour.CYAN);
+			cmd = CommandUtils.createAddCategoryCommand(catName, Colour.CYAN);
 			break;
 			
 		default :
@@ -104,9 +105,11 @@ public class AddCatParser {
 
 	private void parse() {
 		int lastOccurrenceOfMarker = userInput.lastIndexOf(MARKER);
-		catName = userInput.substring(0, lastOccurrenceOfMarker).trim();
 		if(lastOccurrenceOfMarker != -1) {
+			catName = userInput.substring(0, lastOccurrenceOfMarker).trim();
 			colour = userInput.substring(lastOccurrenceOfMarker).replace(MARKER, "").trim();
+		} else {
+			catName = userInput.trim();
 		}
 	}
 }

@@ -176,9 +176,22 @@ public class UIController {
 		
 		// Scene resize listener
 		this.scene.heightProperty().addListener(new ChangeListener<Number>() {
-		    @Override public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneHeight, Number newSceneHeight) {
+		    @Override 
+		    public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneHeight, Number newSceneHeight) {
 		    	messageBox.updatePosition();
 		    }
+		});
+		
+		// Primary stage listener
+		this.primaryStage.focusedProperty().addListener(new ChangeListener<Boolean>(){
+			@Override 
+			public void changed(ObservableValue<? extends Boolean> observableValue, Boolean oldValue, Boolean newValue){
+				if (!newValue && messageBox.isOn()){
+					messageBox.tempHide();
+				} else if (newValue && messageBox.isOn()) {
+					messageBox.display();
+				}
+			}
 		});
 	}
 	

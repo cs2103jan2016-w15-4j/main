@@ -102,7 +102,7 @@ public class UIController {
                         switch(selected){
 		                    case "day":
 		                    	activeMainView = UIMainViewType.TODAY;
-		                    	// logic.processCommand("");
+		                    	logic.processCommand("show today");
 		                        break;
 		                    case "extended":
 		                    	activeMainView = UIMainViewType.EXTENDED;
@@ -110,7 +110,7 @@ public class UIController {
 		                        break;
 		                    case "all":
 		                    	activeMainView = UIMainViewType.ALL;
-		                    	// logic.processCommand("");
+		                    	logic.processCommand("show all");
 		                    	break;
 		                    case "completed":
 		                    	activeMainView = UIMainViewType.COMPLETED;
@@ -118,6 +118,7 @@ public class UIController {
 		                    	break;
 		                    case "category":
 		                    	activeMainView = UIMainViewType.CATEGORY;
+		                    	// call logic processCommand from category box listener
 		                }
                         mainView.setContent(dayBoxContainer.getView());
                         System.out.println(getActiveViewType());
@@ -236,6 +237,10 @@ public class UIController {
 		this.activeMainView = UIMainViewType.CATEGORY;
 		// set category button to active
 		refreshMainView(taskGroupList);
+	}
+	
+	public void setActiveViewType(UIMainViewType activeMainView){
+		this.activeMainView = activeMainView;
 	}
 	
 	public UIMainViewType getActiveViewType(){

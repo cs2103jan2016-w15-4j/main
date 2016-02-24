@@ -49,16 +49,11 @@ public class UICategoryBox {
 		this.categoryBox.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
 		     @Override
 		     public void handle(MouseEvent event) {
-		         categoryBoxContainer.setAllCategoryBoxesInactive();
 		    	 // categoryBoxContainer.getLogic().processCommand("show " + categoryName.getText());
 		         event.consume();
 		     }
 		});
 
-	}
-	
-	public void setInactive(){
-		this.categoryName.setFont(Font.font("Euphemia", 14));
 	}
 	
 	public ToggleButton getView(){

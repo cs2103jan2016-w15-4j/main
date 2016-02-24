@@ -46,10 +46,4 @@ public class UICategoryBoxContainer {
 			this.categoryBoxContainerView.getChildren().add(categoryBox.getView());
 		}
 	}
-	
-	public void setAllCategoryBoxesInactive(){
-		for (UICategoryBox categoryBox: this.categoryBoxList){
-			categoryBox.setInactive();
-		}
-	}
 }

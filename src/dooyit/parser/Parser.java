@@ -41,27 +41,27 @@ public class Parser {
 
 		switch (commandString.toLowerCase()) {
 		case COMMAND_ADD:
-			AddParser addParser = new AddParser(input.replace(COMMAND_ADD, ""));
+			AddParser addParser = new AddParser(getInputWithoutCommand(input, COMMAND_ADD));
 			command = addParser.getCommand();
 			break;
 			
 		case COMMAND_SHOW:
-			ShowParser showParser = new ShowParser(input.replace(COMMAND_SHOW, ""));
+			ShowParser showParser = new ShowParser(getInputWithoutCommand(input, COMMAND_SHOW));
 			command = showParser.getCommand();
 			break;
 			
 		case COMMAND_EDIT:
-			EditParser editParser = new EditParser(input.replace(COMMAND_EDIT, ""));
+			EditParser editParser = new EditParser(getInputWithoutCommand(input, COMMAND_EDIT));
 			command = editParser.getCommand();
 			break;
 			
 		case COMMAND_DELETE:
-			DeleteParser deleteParser = new DeleteParser(input.replace(COMMAND_DELETE, ""));
+			DeleteParser deleteParser = new DeleteParser(getInputWithoutCommand(input, COMMAND_DELETE));
 			command = deleteParser.getCommand();
 			break;
 		
 		case COMMAND_ADD_CAT:
-			AddCatParser addCatParser = new AddCatParser(input.replace(COMMAND_ADD_CAT, ""));
+			AddCatParser addCatParser = new AddCatParser(getInputWithoutCommand(input, COMMAND_ADD_CAT));
 			command = addCatParser.getCommand();
 			break;
 			
@@ -85,6 +85,11 @@ public class Parser {
 		}
 
 		return command;
+	}
+
+
+	private String getInputWithoutCommand(String input, String command) {
+		return input.replace(command, "").trim();
 	}
 
 

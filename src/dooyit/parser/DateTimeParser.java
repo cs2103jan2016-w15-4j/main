@@ -671,8 +671,8 @@ public class DateTimeParser {
 		}
 		
 		if(isAm ^ isPm) {
-			timeString = timeString.replace("am", "");
-			timeString = timeString.replace("pm", "");
+			timeString = timeString.replace("am", "").trim();
+			timeString = timeString.replace("pm", "").trim();
 		}
 		
 		timeInt = Integer.parseInt(timeString);

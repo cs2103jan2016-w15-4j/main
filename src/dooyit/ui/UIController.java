@@ -107,7 +107,7 @@ public class UIController {
 		                        break;
 		                    case "extended":
 		                    	activeMainView = UIMainViewType.EXTENDED;
-		                    	// logic.processCommand("");
+		                    	logic.processCommand("show next7");
 		                        break;
 		                    case "all":
 		                    	activeMainView = UIMainViewType.ALL;
@@ -115,7 +115,7 @@ public class UIController {
 		                    	break;
 		                    case "completed":
 		                    	activeMainView = UIMainViewType.COMPLETED;
-		                    	// logic.processCommand("");
+		                    	 logic.processCommand("show completed");
 		                    	break;
 		                    case "category":
 		                    	activeMainView = UIMainViewType.CATEGORY;

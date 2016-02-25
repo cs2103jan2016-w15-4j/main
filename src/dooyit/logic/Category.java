@@ -32,7 +32,7 @@ public class Category {
 	public boolean equals(Object o){
 		if(o instanceof Category){
 			Category category = (Category)o;
-			return getName().equals(category.getName()) ;
+			return getName().toLowerCase().equals(category.getName().toLowerCase()) ;
 		}
 		return false;
 	}

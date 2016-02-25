@@ -75,7 +75,7 @@ public class Logic {
 		UIMainViewType uiMainViewType = uiController.getActiveViewType();
 		
 		switch (uiMainViewType) {
-
+		
 			case TODAY:
 				uiController.refreshMainView(taskManager.getTaskGroupsToday());
 				break;

@@ -207,7 +207,7 @@ public class TaskManager {
 		//
 		//
 		ArrayList<TaskGroup> taskGroups = new ArrayList<TaskGroup>();
-		taskGroups.add(new TaskGroup("Next 7 days", getDeadlineTasks()));
+		taskGroups.add(new TaskGroup("Next 7 days", getAllTasks()));
 		return taskGroups;
 	}
 	

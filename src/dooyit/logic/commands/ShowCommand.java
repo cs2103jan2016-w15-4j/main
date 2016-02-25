@@ -27,7 +27,6 @@ public class ShowCommand extends Command {
 	public void execute(Logic logic) throws IncorrectInputException{
 		UIController uiController = logic.getUIController();
 		uiController.setActiveViewType(uiMainViewtype);
-		//uiController.refreshMainView(new ArrayList<TaskGroup>(), uiMainViewtype);
 	}
 
 }

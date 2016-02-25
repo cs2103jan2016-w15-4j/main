@@ -92,6 +92,14 @@ public class Task {
 		return dateTimeDeadline.hasTime();
 	}
 	
+	public boolean hasStartTime(){
+		return dateTimeStart.hasTime();
+	}
+	
+	public boolean hasEndTime(){
+		return dateTimeEnd.hasTime();
+	}
+	
 	public String[] convertToSavableString(){
 		String [] strings = null;
 		

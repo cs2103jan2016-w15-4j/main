@@ -32,7 +32,7 @@ public class AddCatParser {
 	private static final String DEFAULT_COLOUR = ""; 
 	
 	enum ADD_CATEGORY_TYPE {
-		CREATE_NEW_CATEGORY, ADD_TO_EXISTING_CATEGORY, CREATE_AND_ADD_TO_EXISTING_CATEGORY
+		CREATE_NEW_CATEGORY_WITH_COLOUR, ADD_TO_EXISTING_CATEGORY, CREATE_AND_ADD_TO_EXISTING_CATEGORY, CREATE_NEW_CATEGORY_WITHOUT_COLOUR
 	};
 	
 	public AddCatParser(String input) {
@@ -44,13 +44,17 @@ public class AddCatParser {
 	public Command getCommand() {
 		parse();
 		switch(getCommandType()) {
-		case CREATE_NEW_CATEGORY :
+		case CREATE_NEW_CATEGORY_WITH_COLOUR :
 			setCreateNewCategoryCommand();
 			break;
 			
 		case ADD_TO_EXISTING_CATEGORY :
 			parseTaskIds();
 			setAddToExistingCategoryCommand();
+			break;
+			
+		case CREATE_NEW_CATEGORY_WITHOUT_COLOUR :
+			setCreateNewCategoryCommand();
 			break;
 			
 		/*case CREATE_AND_ADD_TO_EXISTING_CATEGORY :
@@ -92,7 +96,9 @@ public class AddCatParser {
 		} else if(indexMarkerColour == -1 && indexMarkerIndices != -1) {
 			return ADD_CATEGORY_TYPE.ADD_TO_EXISTING_CATEGORY;
 		} else if(indexMarkerColour != -1 && indexMarkerIndices == -1) {
-			return ADD_CATEGORY_TYPE.CREATE_NEW_CATEGORY;
+			return ADD_CATEGORY_TYPE.CREATE_NEW_CATEGORY_WITH_COLOUR;
+		} else if(indexMarkerColour == -1 && indexMarkerIndices == -1) {
+			return ADD_CATEGORY_TYPE.CREATE_NEW_CATEGORY_WITHOUT_COLOUR;
 		} else {
 			return null;
 		}

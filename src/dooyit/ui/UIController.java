@@ -220,6 +220,29 @@ public class UIController {
 		}
 	}
 	
+	private void setActiveMenuButton(UIMainViewType mainViewType){
+		switch(mainViewType){
+			case TODAY:
+				this.sideMenu.getMainViewToggleGroup().selectToggle(this.sideMenu.getTodayBtn());
+				break;
+			case EXTENDED:
+				this.sideMenu.getMainViewToggleGroup().selectToggle(this.sideMenu.getExtendedBtn());
+				break;
+			case ALL:
+				this.sideMenu.getMainViewToggleGroup().selectToggle(this.sideMenu.getAllBtn());
+				break;
+			case COMPLETED:
+				this.sideMenu.getMainViewToggleGroup().selectToggle(this.sideMenu.getCompletedBtn());
+				break;
+			default:
+				break;
+		}
+	}
+	
+//	private void setActiveMenuButton(Category category){
+//		
+//	}
+	
 	/**
 	 * Use this to refresh main view with updated tasks
 	 */
@@ -230,6 +253,7 @@ public class UIController {
 	
 	public void refreshMainView(ArrayList<TaskGroup> taskGroupList, UIMainViewType mainViewType){
 		this.activeMainView = mainViewType;
+		setActiveMenuButton(mainViewType);
 		refreshMainView(taskGroupList);
 	}
 	

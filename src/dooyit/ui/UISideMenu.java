@@ -86,6 +86,14 @@ public class UISideMenu {
 		return this.extendedBtn;
 	}
 	
+	public ToggleButton getAllBtn(){
+		return this.allBtn;
+	}
+	
+	public ToggleButton getCompletedBtn(){
+		return this.completedBtn;
+	}
+	
 	public ToggleGroup getMainViewToggleGroup(){
 		return this.mainViewToggleGroup;
 	}

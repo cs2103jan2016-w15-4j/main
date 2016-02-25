@@ -89,7 +89,6 @@ public class DeleteParser {
 	}
 
 	//Eg. delete 5 6 8
-	//Eg. mark 2 4 0 9
 	private Command getMultipleTypeDeleteCmd() {
 		return CommandUtils.createDeleteCommand(taskIdsForDeletion);
 	}

@@ -79,7 +79,7 @@ public class Parser {
 			
 		case COMMAND_UNMARK :
 			UnmarkParser unmarkParser = new UnmarkParser(getInputWithoutCommand(input, COMMAND_MARK));
-			//command = markParser.getCommand();
+			//command = unmarkParser.getCommand();
 			break;
 			
 		case COMMAND_EXIT:

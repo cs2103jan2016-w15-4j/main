@@ -88,7 +88,6 @@ public class MarkParser {
 		}
 	}
 
-	//Eg. delete 5 6 8
 	//Eg. mark 2 4 0 9
 	private Command getMultipleTypeMarkCmd() {
 		return CommandUtils.createMarkCommand(taskIdsCompleted);
@@ -110,7 +109,7 @@ public class MarkParser {
 	}
 
 	private Command getInvalidCmd() {
-		return CommandUtils.createInvalidCommand("Invalid Delete Command!");
+		return CommandUtils.createInvalidCommand("Invalid Mark Command!");
 	}
 
 	private Command getInvalidCommand(String message) {

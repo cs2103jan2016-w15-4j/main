@@ -28,6 +28,7 @@ public class MarkParser {
 	public Command getCommand() {
 		switch(getMarkType()) {
 		case SINGLE :
+			System.out.println("is SIngle");
 			try {
 				parseSingleType();
 			} catch(IncorrectInputException e) {
@@ -38,6 +39,7 @@ public class MarkParser {
 			break;
 			
 		case MULTIPLE :
+			System.out.println("is multiple");
 			try {
 				parseMultipleType();
 			} catch(IncorrectInputException e) {
@@ -48,6 +50,7 @@ public class MarkParser {
 			break;
 			
 		case INTERVAL :
+			System.out.println("is Interval");
 			try {
 				parseIntervalType();
 			} catch(IncorrectInputException e) {
@@ -57,7 +60,8 @@ public class MarkParser {
 			cmd = getIntervalTypeMarkCmd();
 			break;
 		
-		case INVALID :
+		default :
+			System.out.println("is Invalid");
 			cmd = getInvalidCmd();
 			break;
 		}

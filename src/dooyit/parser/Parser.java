@@ -58,7 +58,7 @@ public class Parser {
 			break;
 		
 		case COMMAND_MARK :
-			UnmarkParser markParser = new UnmarkParser(getInputWithoutCommand(input, COMMAND_MARK));
+			MarkParser markParser = new MarkParser(getInputWithoutCommand(input, COMMAND_MARK));
 			command = markParser.getCommand();
 			break;
 		

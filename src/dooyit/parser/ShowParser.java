@@ -7,7 +7,7 @@ public class ShowParser {
 	private static String userInput;
 	
 	enum DISPLAY_TYPE {
-		TODAY, NEXT_SEVEN, DONE, ALL, DATE, CATERGORY
+		TODAY, NEXT_SEVEN, DONE, ALL, DATE, CATERGORY, COMPLETED
 	};
 	
 	public ShowParser(String input) {
@@ -28,6 +28,9 @@ public class ShowParser {
 			
 		case ALL : 
 			return CommandUtils.createShowAllCommand();
+			
+		case COMPLETED : 
+			return CommandUtils.createShowCompletedCommand();
 			
 //		case DATE : 
 //			DateTimeParser dateTimeParser = new DateTimeParser();
@@ -59,6 +62,8 @@ public class ShowParser {
 			return DISPLAY_TYPE.DONE;
 		} else if (userInput.equals("all")) {
 			return DISPLAY_TYPE.ALL;
+		} else if (userInput.equals("completed")) {
+			return DISPLAY_TYPE.COMPLETED;
 		} else { //useInput is a date
 			return DISPLAY_TYPE.DATE;
 		}

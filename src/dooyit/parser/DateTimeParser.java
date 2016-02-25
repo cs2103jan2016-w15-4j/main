@@ -1,20 +1,11 @@
 package dooyit.parser;
-import java.util.TimeZone;
-
 import dooyit.exception.IncorrectInputException;
 
 import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Scanner;
 
 public class DateTimeParser {
 	private static final int TWELVE_HOURS = 1200;
 	private static final int NUM_DAYS_IN_WEEK = 7;
-	private static final int INDEX_DATE = 0;
-	private static final int INDEX_TIME = 1;
-	private static final int INDEX_DAY = 2;
-	private static final int INDEX_DAY_OF_WEEK = 3;
 	private static final int NEXT_DAY = 1;
 	
 	private static final int COMBINED_INDEX_DAY_OF_WEEK = 0;
@@ -28,8 +19,6 @@ public class DateTimeParser {
 	private static final int DATE_INDEX_MM = 1;
 	private static final int DATE_INDEX_YY = 2;
 	
-	private static final String CALENDAR_DATE_FORMAT = "dd/MM/yyyy HH:mm E u";
-	private static final String CALENDAR_DEFAULT_TIME_ZONE = "UTC+08:00"; // Singapore Time Zone
 	private static final String DUMMY_STR = "Dummy_Str";
 	private static final int DUMMY_INT = -1;
 	private static final int DEFAULT_DD_IN_MONTH = 15;
@@ -47,12 +36,12 @@ public class DateTimeParser {
 	String THIS = "this";
 	String NEXT = "next";
 	
-	int currMonth;
-	int currYear;
-	int currDay;
+	int currMM;
+	int currYY;
+	int currDD;
 	int currDayInWeekInt;
 	
-	String currDate;
+	//String currDate;
 	String currDayInWeekString;
 	int currTime;
 	//private static Scanner sc;
@@ -65,25 +54,15 @@ public class DateTimeParser {
 	};
 	
 	public DateTimeParser() {
-		Calendar cal = Calendar.getInstance(TimeZone.getTimeZone(CALENDAR_DEFAULT_TIME_ZONE));
-		dateFormat = new SimpleDateFormat(CALENDAR_DATE_FORMAT);
+		DateTime dt = new DateTime();
+		currTime = dt.getTimeInt();
+		currDayInWeekString = dt.getDayStr();
+		currDayInWeekInt = dt.getDayInt();
+		currDD = dt.getDD();
+		currMM = dt.getMM();
+		currYY = dt.getYY();
 		
-		setCurrVariables(dateFormat.format(cal.getTime()));
-	}
-
-	private void setCurrVariables(String date) {
-		String[] splitDate = date.split("\\s+");
-		currDate = splitDate[INDEX_DATE];
-		currTime = Integer.parseInt(splitDate[INDEX_TIME].replace(":", ""));
-		currDayInWeekString = splitDate[INDEX_DAY].toLowerCase();
-		currDayInWeekInt = Integer.parseInt(splitDate[INDEX_DAY_OF_WEEK]);
-		
-		String[] splitCurrDate = currDate.split("/");
-		currDay = Integer.parseInt(splitCurrDate[0]);
-		currMonth = Integer.parseInt(splitCurrDate[1]);
-		currYear = Integer.parseInt(splitCurrDate[2]);
-		
-		if(isLeapYear(currYear)) {
+		if(isLeapYear(currYY)) {
 			daysInMonth[2] = LEAP_YEAR_FEB;
 		}
 	}
@@ -104,17 +83,6 @@ public class DateTimeParser {
 		}
 		return ans;
 	}
-	
-	/*public static void main(String[] args) {
-		sc = new Scanner(System.in);
-		
-		while(true) {
-			System.out.print("command: ");
-			DateTimeParser dt = new DateTimeParser();
-			dt.parse(sc.nextLine());
-		}
-		
-	}*/
 	
 	private DATE_TIME_FORMAT getDateTimeType(String currWord, String[] arr, int index) {
 		System.out.println("currWord is " + currWord);
@@ -187,7 +155,7 @@ public class DateTimeParser {
 		//input = input.replace("by", "").trim();
 		String[] splitInput = input.toLowerCase().split("\\s+");
 		//[dayOfWeek, time, DD, MM, YY, indexInArray]
-		int[] combined = new int[] {convertDayStrToInt(currDayInWeekString), DUMMY_INT, currDay, currMonth, currYear, 0}; 	
+		int[] combined = new int[] {convertDayStrToInt(currDayInWeekString), DUMMY_INT, currDD, currMM, currYY, 0}; 	
 		
 		for(int i = 0; i < splitInput.length; i++) {			
 			String currWord = splitInput[i];
@@ -450,7 +418,7 @@ public class DateTimeParser {
 		}
 		
 		if(ans[2] == -1) {
-			ans[2] = currYear;
+			ans[2] = currYY;
 		}
 		
 		if(ans[0] == -1) {
@@ -505,7 +473,6 @@ public class DateTimeParser {
 		} else {
 			//Invalid command here
 		}
-		//System.out.println("isValidTime(" + currWord + ") is " + ans);
 		return ans;
 	}
 
@@ -612,7 +579,7 @@ public class DateTimeParser {
 	}
 
 	private boolean hasPassed(int currTime2, int time, int[] date) {
-		return currTime2 > time && date[DATE_INDEX_DD] == currDay && date[DATE_INDEX_MM] == currMonth && date[DATE_INDEX_YY] == currYear;			
+		return currTime2 > time && date[DATE_INDEX_DD] == currDD && date[DATE_INDEX_MM] == currMM && date[DATE_INDEX_YY] == currYY;			
 	}
 
 	// Input number of days to fastforward from today
@@ -641,9 +608,9 @@ public class DateTimeParser {
 	}
 
 	private int[] getDate(int fastForward) {
-		int newDay = currDay + fastForward;
-		int newMonth = currMonth;
-		int newYear = currYear;
+		int newDay = currDD + fastForward;
+		int newMonth = currMM;
+		int newYear = currYY;
 		
 		while(newDay > daysInMonth[newMonth]) {
 			newDay -= daysInMonth[newMonth];

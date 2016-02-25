@@ -95,7 +95,9 @@ show cat <Catergory Name>		//Show all the tasks in that catergory		//CAT
 ----------------------------------------------------- Valid Commands for addCat parser --------------------------------------------------------------------------------
 
 addcat <cat name>						
-addcat <cat name>, <colour>					
+addcat <cat name>, <colour>				
+addcat <cat name>, <colour>	- 1 2 3 4 5 6 		//To be done
+addcat <cat name> - 1 2 3 4 5
 
 -----------------------------------------------------------------Other Commands-------------------------------------------------------------------------------------
 

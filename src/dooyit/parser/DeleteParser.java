@@ -65,8 +65,7 @@ public class DeleteParser {
 	}
 	
 	private Command getIntervalTypeDeleteCmd() {
-		return null;
-		//return CommandUtils.createDeleteCommand(taskIdsForDeletion);
+		return CommandUtils.createDeleteCommand(taskIdsForDeletion);
 	}
 
 	private void parseIntervalType() {

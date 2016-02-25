@@ -1,5 +1,7 @@
 package dooyit.parser;
 
+import java.util.ArrayList;
+
 import dooyit.logic.Colour;
 import dooyit.logic.Logic;
 import dooyit.logic.commands.Command;
@@ -7,11 +9,13 @@ import dooyit.logic.commands.CommandUtils;
 
 public class AddCatParser {
 	
-	private static final String MARKER = ",";
+	private static final String MARKER_COLOUR = ",";
+	private static final String MARKER_ID = "-";
 	
 	private static String userInput;
 	private static String catName;
 	private static String colour;
+	private static ArrayList<Integer> taskIds;
 	private static Command cmd;
 	
 	private static final String BLACK = "black"; 
@@ -27,26 +31,81 @@ public class AddCatParser {
 	private static final String YELLOW = "yellow"; 
 	private static final String DEFAULT_COLOUR = ""; 
 	
+	enum ADD_CATEGORY_TYPE {
+		CREATE_NEW_CATEGORY, ADD_TO_EXISTING_CATEGORY, CREATE_AND_ADD_TO_EXISTING_CATEGORY
+	};
+	
 	public AddCatParser(String input) {
 		userInput = input.toLowerCase();
 		colour = DEFAULT_COLOUR;
-		System.out.println("userInput is " + userInput);
+		taskIds = new ArrayList<Integer>();
 	}
 	
 	public Command getCommand() {
 		parse();
-		setCmd();
+		switch(getCommandType()) {
+		case CREATE_NEW_CATEGORY :
+			setCreateNewCategoryCommand();
+			break;
+			
+		case ADD_TO_EXISTING_CATEGORY :
+			parseTaskIds();
+			setAddToExistingCategoryCommand();
+			break;
+			
+		/*case CREATE_AND_ADD_TO_EXISTING_CATEGORY :
+			parseTaskIds();
+			setCreateAndAddToExistingCategoryCommand();*/
+			
+		default :
+			cmd = CommandUtils.createInvalidCommand(userInput + " is an invalid addcat command!");
+			break;
+		}
+		
 		return cmd;
 	}
 
-	private void setCmd() {
+	private void parseTaskIds() {
+		int indexMarkerIds = userInput.lastIndexOf(MARKER_ID);
+		String ids = userInput.substring(indexMarkerIds).replace(MARKER_ID, "").trim();
+		String[] splitIds = ids.split("\\s+");
+		
+		for(int i = 0; i < splitIds.length; i++) {
+			taskIds.add(Integer.parseInt(splitIds[i]));
+		}
+	}
+
+	private void setCreateAndAddToExistingCategoryCommand() {
+		//cmd = CommandUtils.createAddCategoryCommand(catName, colour, taskIds);
+	}
+
+	private void setAddToExistingCategoryCommand() {
+		//cmd = CommandUtils.createAddCategoryCommand(catName, taskIds);
+	}
+
+	private ADD_CATEGORY_TYPE getCommandType() {
+		int indexMarkerColour = userInput.lastIndexOf(MARKER_COLOUR);
+		int indexMarkerIndices = userInput.lastIndexOf(MARKER_ID);
+		
+		if(indexMarkerColour != -1 && indexMarkerIndices != -1) {
+			return ADD_CATEGORY_TYPE.CREATE_AND_ADD_TO_EXISTING_CATEGORY;
+		} else if(indexMarkerColour == -1 && indexMarkerIndices != -1) {
+			return ADD_CATEGORY_TYPE.ADD_TO_EXISTING_CATEGORY;
+		} else if(indexMarkerColour != -1 && indexMarkerIndices == -1) {
+			return ADD_CATEGORY_TYPE.CREATE_NEW_CATEGORY;
+		} else {
+			return null;
+		}
+	}
+
+	private void setCreateNewCategoryCommand() {
 		switch(colour) {
 		case BLACK :
 			cmd = CommandUtils.createAddCategoryCommand(catName, Colour.BLACK);
 			break;
 		
 		case BLUE :
-			//cmd = CommandUtils.createAddCategoryCommand(catName, Colour.BLUE);
+			cmd = CommandUtils.createAddCategoryCommand(catName, Colour.BLUE);
 			break;
 			
 		case CYAN :
@@ -94,14 +153,13 @@ public class AddCatParser {
 			break;
 			
 		}
-		//cmd = CommandUtils.createAddCatCommand(catName, colour);
 	}
 
 	private void parse() {
-		int lastOccurrenceOfMarker = userInput.lastIndexOf(MARKER);
+		int lastOccurrenceOfMarker = userInput.lastIndexOf(MARKER_COLOUR);
 		if(lastOccurrenceOfMarker != -1) {
 			catName = userInput.substring(0, lastOccurrenceOfMarker).trim();
-			colour = userInput.substring(lastOccurrenceOfMarker).replace(MARKER, "").trim();
+			colour = userInput.substring(lastOccurrenceOfMarker).replace(MARKER_COLOUR, "").trim();
 		} else {
 			catName = userInput.trim();
 		}

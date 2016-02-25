@@ -77,19 +77,19 @@ public class Logic {
 		switch (uiMainViewType) {
 		
 			case TODAY:
-				uiController.refreshMainView(taskManager.getTaskGroupsToday());
+				uiController.refreshMainView(taskManager.getTaskGroupsToday(), uiMainViewType);
 				break;
 	
 			case EXTENDED:
-				uiController.refreshMainView(taskManager.getTaskGroupsNext7Days());
+				uiController.refreshMainView(taskManager.getTaskGroupsNext7Days(), uiMainViewType);
 				break;
 	
 			case ALL:
-				uiController.refreshMainView(taskManager.getTaskGroupsAll());
+				uiController.refreshMainView(taskManager.getTaskGroupsAll(), uiMainViewType);
 				break;
 	
 			case COMPLETED:
-				uiController.refreshMainView(taskManager.getTaskGroupsCompleted());
+				uiController.refreshMainView(taskManager.getTaskGroupsCompleted(), uiMainViewType);
 				break;
 	
 			case CATEGORY:

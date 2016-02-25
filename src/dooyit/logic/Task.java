@@ -100,64 +100,6 @@ public class Task {
 		return dateTimeEnd.hasTime();
 	}
 	
-	public String[] convertToSavableString(){
-		String [] strings = null;
-		
-		switch(taskType){
-			case FLOATING:
-					strings = new String[1];
-					strings[0] = taskName;
-				break;
-				
-			case DEADLINE:
-				int length = 1;
-			
-				String[] dateStrings = dateTimeDeadline.convertToSavableStrings();
-				strings = new String[dateStrings.length + length];
-				
-				int i = 0;
-				
-				strings[i++] = taskName;
-				
-				while(i < strings.length){
-					strings[i] = dateStrings[i - length];
-					
-					i++;
-				}
-				break;
-				
-			case EVENT:
-				
-				int length2 = 1;
-				
-				String[] dateStringsStart = dateTimeStart.convertToSavableStrings();
-				String[] dateStringsEnd = dateTimeEnd.convertToSavableStrings();
-				
-				strings = new String[dateStringsStart.length + dateStringsEnd.length + length2];
-				
-				int i2 = 0;
-				
-				strings[i2++] = taskName;
-				
-				while(i2 < (strings.length - dateStringsStart.length)){
-					strings[i2] = dateStringsStart[i2 - length2];
-					
-					i2++;
-				}
-				
-				while(i2 < strings.length){
-					strings[i2] = dateStringsEnd[i2 - length2 - dateStringsStart.length];
-					
-					i2++;
-				}
-				
-				break;
-		}
-		
-		return strings;
-	}
-	
-	
 	@Override
 	public String toString(){
 		String str = "";

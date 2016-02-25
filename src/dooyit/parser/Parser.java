@@ -16,6 +16,7 @@ public class Parser {
 	static final String COMMAND_ADD_CAT = "addcat";
 	static final String COMMAND_SKIN = "skin";
 	static final String COMMAND_STORAGE = "storage";
+	private static final String COMMAND_UNMARK = "unmark";
 	
 	public Parser(){
 		
@@ -57,7 +58,7 @@ public class Parser {
 			break;
 		
 		case COMMAND_MARK :
-			DeleteParser markParser = new DeleteParser(getInputWithoutCommand(input, COMMAND_MARK));
+			UnmarkParser markParser = new UnmarkParser(getInputWithoutCommand(input, COMMAND_MARK));
 			command = markParser.getCommand();
 			break;
 		
@@ -73,9 +74,13 @@ public class Parser {
 		
 		case COMMAND_STORAGE :
 			String filePath = getInputWithoutCommand(input, COMMAND_STORAGE);
-			//command = CommandUtils.createStorageCommand(colour);
+			//command = CommandUtils.createStorageCommand(filePath);
 			break;
 			
+		case COMMAND_UNMARK :
+			UnmarkParser unmarkParser = new UnmarkParser(getInputWithoutCommand(input, COMMAND_MARK));
+			//command = markParser.getCommand();
+			break;
 			
 		case COMMAND_EXIT:
 			command = CommandUtils.createExitCommand();

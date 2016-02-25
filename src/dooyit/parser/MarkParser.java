@@ -26,7 +26,7 @@ public class MarkParser {
 	}
 
 	public Command getCommand() {
-		switch(getDeleteType()) {
+		switch(getMarkType()) {
 		case SINGLE :
 			try {
 				parseSingleType();
@@ -125,7 +125,7 @@ public class MarkParser {
 		}
 	}
 
-	private MARK_TYPE getDeleteType() {
+	private MARK_TYPE getMarkType() {
 		if(userInput.contains("-")) {
 			return MARK_TYPE.INTERVAL;
 		} else if(splitInput.length == 1) {

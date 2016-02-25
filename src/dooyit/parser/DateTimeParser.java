@@ -152,65 +152,46 @@ public class DateTimeParser {
 	}
 
 	public DateTime parse(String input) {
-		//input = input.replace("by", "").trim();
 		String[] splitInput = input.toLowerCase().split("\\s+");
 		//[dayOfWeek, time, DD, MM, YY, indexInArray]
-		int[] combined = new int[] {convertDayStrToInt(currDayInWeekString), DUMMY_INT, currDD, currMM, currYY, 0}; 	
+		int[] combined = new int[] {currDayInWeekInt, DUMMY_INT, currDD, currMM, currYY, 0}; 	
 		
 		for(int i = 0; i < splitInput.length; i++) {			
 			String currWord = splitInput[i];
 			switch(getDateTimeType(currWord, splitInput, i)) {
 			case TYPE_THIS_DAY_OF_WEEK :
-				//System.out.println("part 1");
-				//System.out.println("currWord is " + currWord);
 				combined = getThisDayOfWeek(splitInput, i, combined);
 				break;
 				
 			case TYPE_NEXT_DAY_OF_WEEK : 
-				//System.out.println("part 2");
-				//System.out.println("currWord is " + currWord);
 				combined = getNextDayOfWeek(splitInput, i, combined);
 				break;
 				
 			case TYPE_DAY_OF_WEEK :
-				//System.out.println("part 3");
-				//System.out.println("currWord is " + currWord);
 				combined = getDayOfWeek(splitInput, i, combined);
 				break;
 				
 			case TYPE_NEXT_WEEK :
-				//System.out.println("part 4");
-				//System.out.println("currWord is " + currWord);
 				combined = getNextWeek(splitInput, i, combined);
 				break;
 				
 			case TYPE_NUM_DAYS : 
-				//System.out.println("part 5");
-				//System.out.println("currWord is " + currWord);
 				combined = getNumDays(splitInput, i, combined);
 				break;
 				
 			case TYPE_NUM_WEEKS :
-				//System.out.println("part 6");
-				//System.out.println("currWord is " + currWord);
 				combined = getNumWeeks(splitInput, i, combined);
 				break;
 				
 			case TYPE_TODAY :
-				//System.out.println("part 7");
-				//System.out.println("currWord is " + currWord);
 				combined = getToday(combined);
 				break;
 				
 			case TYPE_TOMORROW :
-				//System.out.println("part 8");
-				//System.out.println("currWord is " + currWord);
 				combined = getTomorrow(combined);
 				break;
 				
 			case TYPE_DATE :
-				//System.out.println("part 9");
-				//System.out.println("currWord is " + currWord);
 				try {
 					combined = getDate(splitInput, i, combined);
 				} catch(IncorrectInputException e) {
@@ -219,8 +200,6 @@ public class DateTimeParser {
 				break;
 				
 			case TYPE_TIME :
-				//System.out.println("part 10");
-				//System.out.println("currWord is " + currWord);
 				try {
 					combined = getTime(splitInput, i, combined);
 				} catch(IncorrectInputException e) {
@@ -229,14 +208,10 @@ public class DateTimeParser {
 				break;
 				
 			case TYPE_INVALID :
-				//System.out.println("part 11");
-				//System.out.println("input is "+ input);
 				combined[COMBINED_INDEX_COUNTER] += 1;
 				throw new IncorrectInputException("\"" + input + "\"" + " is an invalid date time input");
 			
 			}
-			//System.out.println("combined[] is ");
-			//printArray(combined);
 			i = combined[COMBINED_INDEX_COUNTER];
 		}
 		return getDateTimeObject(combined);

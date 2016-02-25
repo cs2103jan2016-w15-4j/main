@@ -22,6 +22,9 @@ public class EditParser {
 	
 	public EditParser(String input) {
 		userInput = input.trim().toLowerCase();
+		taskId = Integer.parseInt(userInput.split("\\s+")[0].trim());
+		System.out.println("userInput is " + userInput);
+		System.out.println("taskId is " + taskId);
 	}
 	
 	public Command getCommand() {
@@ -69,61 +72,80 @@ public class EditParser {
 	}
 	
 	private void parseNameDeadline() {
-		parseName();
+		parseNameForDeadlineType();
 		parseDeadline();
 	}
 
+	private void parseNameForDeadlineType() {
+		int indexDeadline = userInput.lastIndexOf(MARKER_DEADLINE);
+		int startOfName = userInput.indexOf(" ") + 1;
+		taskName = userInput.substring(startOfName, indexDeadline);
+	}
+
 	private void parseNameTimeEnd() {
-		parseName();
+		parseNameForTimeEndType();
 		parseTimeEnd();
+	}
+
+	private void parseNameForTimeEndType() {
+		int indexTo = userInput.lastIndexOf(MARKER_TIME_END);
+		int startOfName = userInput.indexOf(" ") + 1;
+		taskName = userInput.substring(startOfName, indexTo);
 	}
 
 	private void parseNameTimeStart() {
-		parseName();
+		parseNameForTimeStartType();
 		parseTimeStart();
 	}
 
+	private void parseNameForTimeStartType() {
+		int indexFrom = userInput.lastIndexOf(MARKER_TIME_START);
+		int startOfName = userInput.indexOf(" ") + 1;
+		taskName = userInput.substring(startOfName, indexFrom);
+	}
+
 	private void parseNameTimeStartEnd() {
-		parseName();
+		parseNameForTimeStartEndType();
 		parseTimeStart();
 		parseTimeEnd();
+	}
+
+	private void parseNameForTimeStartEndType() {
+		parseNameForTimeStartType();
 	}
 
 	private void parseTimeEnd() {
 		DateTimeParser dateTimeParser = new DateTimeParser();
 		int indexTo = userInput.lastIndexOf(MARKER_TIME_END);
-		if(taskId == -1) {
-			taskId = Integer.parseInt(userInput.substring(0, indexTo).trim());
-		}
-		end = dateTimeParser.parse((userInput.substring(indexTo)));
+		end = dateTimeParser.parse(userInput.substring(indexTo).replace(MARKER_TIME_END, "").trim());
 	}
 	
 	private void parseTimeStart() {
 		DateTimeParser dateTimeParser = new DateTimeParser();
 		int indexFrom = userInput.lastIndexOf(MARKER_TIME_START);
-		if(taskId == -1) {
-			taskId = Integer.parseInt(userInput.substring(0, indexFrom).trim());
+		int indexTo = userInput.lastIndexOf(MARKER_TIME_END);
+		if(indexTo != -1) {
+			start = dateTimeParser.parse(userInput.substring(indexFrom, indexTo).replace(MARKER_TIME_START, "").trim());
+		} else {
+			start = dateTimeParser.parse(userInput.substring(indexFrom).replace(MARKER_TIME_START, "").trim());
 		}
-		start = dateTimeParser.parse((userInput.substring(indexFrom)));
 	}
 
 	private void parseTimeStartEnd() {
 		parseName();
-		parseTimeStart();
 		parseTimeEnd();
+		parseTimeStart();
 	}
 
 	private void parseDeadline() {
 		DateTimeParser dateTimeParser = new DateTimeParser();
 		int indexDeadline = userInput.lastIndexOf(MARKER_DEADLINE);
-		if(taskId == -1) {
-			taskId = Integer.parseInt(userInput.substring(0, indexDeadline).trim());
-		}
-		deadline = dateTimeParser.parse((userInput.substring(indexDeadline)));
+		deadline = dateTimeParser.parse(userInput.substring(indexDeadline).replace(MARKER_DEADLINE, "").trim());
 	}
 
 	private void parseName() {
-		taskName = userInput.split("\\s+")[1].trim();
+		int startOfName = userInput.indexOf(" ") + 1;
+		taskName = userInput.substring(startOfName);
 	}
 
 	private EDIT_TYPE getEditType() {

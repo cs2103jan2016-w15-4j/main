@@ -119,6 +119,10 @@ public class TaskManager {
 		return tasks;
 	}
 	
+	public ArrayList<Task> getCompletedTasks(){
+		return doneTasks;
+	}
+	
 	public ArrayList<Task> getFloatingTasks(){
 		ArrayList<Task> floatingTasks = new ArrayList<Task>();
 		
@@ -186,13 +190,25 @@ public class TaskManager {
 	
 	public ArrayList<TaskGroup> getTaskGroupsToday(){
 		ArrayList<TaskGroup> taskGroups = new ArrayList<TaskGroup>();
-		taskGroups.add(new TaskGroup("Today", getAllTasks()));
+		taskGroups.add(new TaskGroup("Today", getDeadlineTasks()));
 		return taskGroups;
 	}
 
+	public ArrayList<TaskGroup> getTaskGroupsCompleted(){
+		ArrayList<TaskGroup> taskGroups = new ArrayList<TaskGroup>();
+		taskGroups.add(new TaskGroup("Completed", getCompletedTasks()));
+		return taskGroups;
+	}
+	
 	public ArrayList<TaskGroup> getTaskGroupsNext7Days(){
-		
-		return null;
+		//
+		//
+		// not done
+		//
+		//
+		ArrayList<TaskGroup> taskGroups = new ArrayList<TaskGroup>();
+		taskGroups.add(new TaskGroup("Next 7 days", getDeadlineTasks()));
+		return taskGroups;
 	}
 	
 	public void display(){

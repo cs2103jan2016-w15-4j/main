@@ -61,7 +61,7 @@ public class UIController {
 		this.header = new UIHeader();
 		
 		// Side menu
-		this.sideMenu = new UISideMenu();
+		this.sideMenu = new UISideMenu(this.logic);
 		
 		// Day box container
 		this.dayBoxContainer = new UIDayBoxContainer(this.logic);
@@ -102,7 +102,7 @@ public class UIController {
                         switch(selected){
 		                    case "day":
 		                    	activeMainView = UIMainViewType.TODAY;
-		                    	// logic.processCommand("");
+		                    	logic.processCommand("show today");
 		                        break;
 		                    case "extended":
 		                    	activeMainView = UIMainViewType.EXTENDED;
@@ -110,12 +110,15 @@ public class UIController {
 		                        break;
 		                    case "all":
 		                    	activeMainView = UIMainViewType.ALL;
-		                    	// logic.processCommand("");
+		                    	logic.processCommand("show all");
 		                    	break;
 		                    case "completed":
 		                    	activeMainView = UIMainViewType.COMPLETED;
 		                    	// logic.processCommand("");
 		                    	break;
+		                    case "category":
+		                    	activeMainView = UIMainViewType.CATEGORY;
+		                    	// call logic processCommand from category box listener
 		                }
                         mainView.setContent(dayBoxContainer.getView());
                         System.out.println(getActiveViewType());
@@ -201,6 +204,7 @@ public class UIController {
 	
 	public void displayMessage(String msg){
 		this.messageBox.show(msg);
+		this.messageBox.hide();
 	}
 	
 	public void changeTheme(UITheme theme){
@@ -222,6 +226,21 @@ public class UIController {
 	public void refreshMainView(ArrayList<TaskGroup> taskGroupList){
 		this.dayBoxContainer.refresh(taskGroupList);
 		this.mainView.setContent(this.dayBoxContainer.getView());
+	}
+	
+	public void refreshMainView(ArrayList<TaskGroup> taskGroupList, UIMainViewType mainViewType){
+		this.activeMainView = mainViewType;
+		refreshMainView(taskGroupList);
+	}
+	
+	public void refreshMainView(ArrayList<TaskGroup> taskGroupList, Category category){
+		this.activeMainView = UIMainViewType.CATEGORY;
+		// set category button to active
+		refreshMainView(taskGroupList);
+	}
+	
+	public void setActiveViewType(UIMainViewType activeMainView){
+		this.activeMainView = activeMainView;
 	}
 	
 	public UIMainViewType getActiveViewType(){

@@ -1,17 +1,22 @@
 package dooyit.ui;
 
+import javafx.animation.FadeTransition;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.text.Font;
 import javafx.stage.Popup;
-import javafx.stage.PopupWindow.AnchorLocation;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 public class UIMessageBox {
 	private Stage primaryStage;
 	private Popup messageBox;
 	private Label messageLabel;
 	private boolean isOn;
+	private FadeTransition ft;
 	
 	public UIMessageBox(Stage primaryStage){
 		this.primaryStage = primaryStage;
@@ -21,16 +26,22 @@ public class UIMessageBox {
 		
 		this.messageBox = new Popup();
 		this.messageBox.getContent().addAll(this.messageLabel);
+		
+		this.ft = new FadeTransition(Duration.millis(6000), this.messageLabel);
+		this.ft.setFromValue(1.0);
+        this.ft.setToValue(0.0);
+        this.ft.setCycleCount(1);
+        this.ft.setAutoReverse(false);
+        this.ft.setOnFinished(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent t) {
+                messageBox.hide();
+                isOn = false;
+            }
+        });
 	}
 	
 	public boolean isShowing(){
 		return this.messageBox.isShowing();
-	}
-	
-	public void show(String msg){
-		this.isOn = true;
-		this.messageLabel.setText(msg);
-		display();
 	}
 	
 	public void updatePosition(){
@@ -45,13 +56,19 @@ public class UIMessageBox {
 		this.messageBox.show(this.primaryStage);
 	}
 	
+	public void show(String msg){
+		this.isOn = true;
+		this.messageLabel.setText(msg);
+		display();
+		this.ft.playFromStart();
+	}
+	
 	public void tempHide(){
 		this.messageBox.hide();
 	}
 	
 	public void hide(){
-		this.isOn = false;
-		this.messageBox.hide();
+		this.ft.play();
 	}
 	
 	public boolean isOn(){

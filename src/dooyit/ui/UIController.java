@@ -11,6 +11,7 @@ import javafx.scene.control.Toggle;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Popup;
@@ -50,7 +51,7 @@ public class UIController {
 		this.urlCssCommon = getClass().getResource(URL_CSS_COMMON).toExternalForm();
 		this.urlCssThemeLight = getClass().getResource(URL_CSS_THEME_LIGHT).toExternalForm();
 	    this.urlCssThemeDark = getClass().getResource(URL_CSS_THEME_DARK).toExternalForm();
-		
+	    
 	    this.logic = logic;
 	    this.primaryStage = primaryStage;
 	    

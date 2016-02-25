@@ -50,10 +50,10 @@ public class DateTimeParser {
 	int currMonth;
 	int currYear;
 	int currDay;
-	int today;
+	int currDayInWeekInt;
 	
 	String currDate;
-	String currDayInWeek;
+	String currDayInWeekString;
 	int currTime;
 	//private static Scanner sc;
 	
@@ -75,8 +75,8 @@ public class DateTimeParser {
 		String[] splitDate = date.split("\\s+");
 		currDate = splitDate[INDEX_DATE];
 		currTime = Integer.parseInt(splitDate[INDEX_TIME].replace(":", ""));
-		currDayInWeek = splitDate[INDEX_DAY].toLowerCase();
-		today = Integer.parseInt(splitDate[INDEX_DAY_OF_WEEK]);
+		currDayInWeekString = splitDate[INDEX_DAY].toLowerCase();
+		currDayInWeekInt = Integer.parseInt(splitDate[INDEX_DAY_OF_WEEK]);
 		
 		String[] splitCurrDate = currDate.split("/");
 		currDay = Integer.parseInt(splitCurrDate[0]);
@@ -187,7 +187,7 @@ public class DateTimeParser {
 		//input = input.replace("by", "").trim();
 		String[] splitInput = input.toLowerCase().split("\\s+");
 		//[dayOfWeek, time, DD, MM, YY, indexInArray]
-		int[] combined = new int[] {convertDayStrToInt(currDayInWeek), DUMMY_INT, currDay, currMonth, currYear, 0}; 	
+		int[] combined = new int[] {convertDayStrToInt(currDayInWeekString), DUMMY_INT, currDay, currMonth, currYear, 0}; 	
 		
 		for(int i = 0; i < splitInput.length; i++) {			
 			String currWord = splitInput[i];
@@ -318,7 +318,7 @@ public class DateTimeParser {
 	//Eg. 2 weeks later
 	private int[] getNumWeeks(String[] splitInput, int i, int[] combined) {
 		int numWeeksLater = Integer.parseInt(splitInput[i]);
-		int day = today;
+		int day = currDayInWeekInt;
 		int fastForward = getFastForward(day) + NUM_DAYS_IN_WEEK*numWeeksLater;
 		int[] date = getDate(fastForward);
 		int[] ans = new int[] {day, combined[COMBINED_INDEX_TIME], date[DATE_INDEX_DD], date[DATE_INDEX_MM], date[DATE_INDEX_YY], i + 1};
@@ -337,7 +337,7 @@ public class DateTimeParser {
 	
 	//Eg. next week
 	private int[] getNextWeek(String[] splitInput, int i, int[] combined) {
-		int day = today;
+		int day = currDayInWeekInt;
 		int fastForward = getFastForward(day) + NUM_DAYS_IN_WEEK;
 		int[] date = getDate(fastForward);
 		int[] ans = new int[] {day, combined[COMBINED_INDEX_TIME], date[DATE_INDEX_DD], date[DATE_INDEX_MM], date[DATE_INDEX_YY], i + 1};
@@ -608,7 +608,7 @@ public class DateTimeParser {
 	}
 
 	private int getNextDayInt() {
-		return today + NEXT_DAY - 1;
+		return currDayInWeekInt + NEXT_DAY - 1;
 	}
 
 	private boolean hasPassed(int currTime2, int time, int[] date) {
@@ -618,7 +618,7 @@ public class DateTimeParser {
 	// Input number of days to fastforward from today
 	// Output the day of the week
 	private int get_Int_Day_From(int daysLater) {
-		int dayOfWeek = daysLater + today;
+		int dayOfWeek = daysLater + currDayInWeekInt;
 		dayOfWeek %= 7;
 		if(dayOfWeek == 0) {
 			dayOfWeek = 7;
@@ -630,10 +630,10 @@ public class DateTimeParser {
 	// Output days to fastForward from today
 	private int getFastForward(int desiredDay) {
 		int fastForward = 0;
-		if(today > desiredDay) {
-			fastForward = NUM_DAYS_IN_WEEK - today + desiredDay;
-		} else if(today < desiredDay) {
-			fastForward =  desiredDay - today;
+		if(currDayInWeekInt > desiredDay) {
+			fastForward = NUM_DAYS_IN_WEEK - currDayInWeekInt + desiredDay;
+		} else if(currDayInWeekInt < desiredDay) {
+			fastForward =  desiredDay - currDayInWeekInt;
 		} else { // if(currDay == day)
 			fastForward = 0;
 		}

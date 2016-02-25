@@ -57,30 +57,37 @@ public class EditCommand extends Command {
 	@Override
 	public void execute(Logic logic) throws IncorrectInputException{
 		TaskManager taskManager = logic.getTaskManager();
+		
 		Task task = taskManager.findTask(taskId);
 		
-		switch(editCommandType){
-			case NAME:
-				task.changeName(taskName);
-				break;
-			
-			case DEADLINE:
-				task.changeDeadline(dateTimeDeadline);			
-				break;
-							
-			case EVENT:
-				task.changeEvent(dateTimeStart, dateTimeEnd);
-				break;
+		// if task is not found
+		if(task == null){
+			throw new IncorrectInputException("Cant find task ID: " + taskId);
+		}
+		else{
+			switch(editCommandType){
+				case NAME:
+					task.changeName(taskName);
+					break;
 				
-			case NAME_N_DEADLINE:
-				task.changeName(taskName);
-				task.changeDeadline(dateTimeDeadline);
-				break;
-				
-			case NAME_N_EVENT:
-				task.changeName(taskName);
-				task.changeEvent(dateTimeStart, dateTimeEnd);
-				break;
+				case DEADLINE:
+					task.changeDeadline(dateTimeDeadline);			
+					break;
+								
+				case EVENT:
+					task.changeEvent(dateTimeStart, dateTimeEnd);
+					break;
+					
+				case NAME_N_DEADLINE:
+					task.changeName(taskName);
+					task.changeDeadline(dateTimeDeadline);
+					break;
+					
+				case NAME_N_EVENT:
+					task.changeName(taskName);
+					task.changeEvent(dateTimeStart, dateTimeEnd);
+					break;
+			}
 		}
 	}
 

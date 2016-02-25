@@ -37,7 +37,7 @@ public class DeleteCommand extends Command {
 
 			case SINGLE:
 				if (taskManager.deleteTask(deleteId) == null) {
-					throw new IncorrectInputException("Index " + deleteId + " doesn't exists");
+					throw new IncorrectInputException("Task ID " + deleteId + " doesn't exists");
 				}
 				break;
 				

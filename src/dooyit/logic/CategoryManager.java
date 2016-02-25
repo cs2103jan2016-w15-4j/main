@@ -21,7 +21,7 @@ public class CategoryManager {
 		if(findTask(categoryName) != null){
 			return null;
 		}
-		
+		System.out.println("size: " + categories.size());
 		Category category = new Category(categoryName, colourManager.pickRandomColour());
 		categories.add(category);
 		return category;

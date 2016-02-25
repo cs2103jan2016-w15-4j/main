@@ -29,12 +29,12 @@ public class Logic {
 			uiController.displayMessage("ERROR: CREATING STORAGE");
 		}
 		
-		try {
-			categoryManager.categories = storage.loadCategory();
-		} catch (IOException e) {
-			System.out.println("ERROR: LOAD CATEGORY");
-			uiController.displayMessage("ERROR: LOAD CATEGORY");
-		}
+//		try {
+//			categoryManager.categories = storage.loadCategory();
+//		} catch (IOException e) {
+//			System.out.println("ERROR: LOAD CATEGORY");
+//			uiController.displayMessage("ERROR: LOAD CATEGORY");
+//		}
 		
 		try{
 			storage.loadTasks(taskManager);

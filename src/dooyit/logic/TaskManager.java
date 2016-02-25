@@ -223,6 +223,8 @@ public class TaskManager {
 		//
 		//
 		ArrayList<TaskGroup> taskGroups = new ArrayList<TaskGroup>();
+		taskGroups.add(new TaskGroup("Today", getAllTasks()));
+		taskGroups.add(new TaskGroup("tomorrow", getAllTasks()));
 		taskGroups.add(new TaskGroup("Next 7 days", getAllTasks()));
 		return taskGroups;
 	}

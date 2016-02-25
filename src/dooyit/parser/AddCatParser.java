@@ -145,7 +145,7 @@ public class AddCatParser {
 			break;
 			
 		case DEFAULT_COLOUR :
-			cmd = CommandUtils.createAddCategoryCommand(catName, Colour.CYAN);
+			cmd = CommandUtils.createAddCategoryCommand(catName);
 			break;
 			
 		default :

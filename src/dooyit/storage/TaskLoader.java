@@ -60,8 +60,7 @@ public class TaskLoader extends StorageOperations{
 	}
 	
 	private void loadToMemory(TaskManager taskManager, String taskFormat) {
-		String[] taskInfo = taskFormat.split(", ");
-		taskManager.LoadTask(taskInfo);
+		taskManager.LoadTask(taskFormat);
 	}
 	
 	private void readFromFile(FileReader fReader, TaskManager taskManager) throws IOException {

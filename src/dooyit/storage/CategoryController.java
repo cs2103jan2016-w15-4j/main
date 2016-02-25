@@ -8,14 +8,20 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 import dooyit.logic.Category;
+import dooyit.logic.Colour;
 
 public class CategoryController {
 	private String filePath;
 
 	static final String DEFAULT_FOLDER_STORAGE = "data\\";
 	static final String NAME_FILE_CATEGORY = "categories.txt";
-	static final String CATEGORY_FORMAT = "%1$s, %2$s, %3$s, %4$s";
+	static final String CATEGORY_NAME = "name";
+	static final String CATEGORY_COLOUR = "colour";
 
 	public CategoryController(String path) {
 		filePath = path + File.separatorChar + DEFAULT_FOLDER_STORAGE
@@ -37,11 +43,10 @@ public class CategoryController {
 	}
 	
 	private String setFormat(Category category) {
-		// causes error
-		//int[] rgb = category.getRGB();
-		//String format = String.format(CATEGORY_FORMAT, category.getName(), rgb[0], rgb[1], rgb[2]);
-		//return format;
-		return null;
+		CategoryStorageFormat catFormat = new CategoryStorageFormat(category);
+		Gson gson = new Gson();
+		String json = gson.toJson(catFormat);
+		return json;
 	}
 
 	public ArrayList<Category> loadCategory() throws IOException {
@@ -75,10 +80,19 @@ public class CategoryController {
 	}
 	
 	private void loadToMemory(ArrayList<Category> categories, String catFormat) {
-		String[] catInfo = catFormat.split(", ");
-		// causes error
-		//Category existingCategory = new Category(catInfo);
-		//categories.add(existingCategory);
+		JsonParser parser = new JsonParser();
+		JsonObject category = parser.parse(catFormat).getAsJsonObject();
+		String name = category.get(CATEGORY_NAME).getAsString();
+		Colour colour = resolveColour(category.get(CATEGORY_COLOUR).getAsString());
+		
+	}
+	
+	private Colour resolveColour(String colourFormat) {
+		String[] rgb = colourFormat.split(" ");
+		Colour colour = new Colour(Float.valueOf(rgb[0]), Float.valueOf(rgb[1]),
+				Float.valueOf(rgb[2]));
+		
+		return colour;
 	}
 	
 	private void readFromFile(FileReader fReader, ArrayList<Category> categories) throws IOException {

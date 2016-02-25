@@ -213,16 +213,15 @@ public class DateTime {
 		}
 	}
 	
-	public String[] convertToSavableStrings(){
-		String[] strings = new String[5];
+	public String convertToSavableString(){
+		String dateTimeString = "";
+		dateTimeString += String.valueOf(dd) + " ";
+		dateTimeString += String.valueOf(mm) + " ";
+		dateTimeString += String.valueOf(yy) + " ";
+		dateTimeString += dayStr + " ";
+		dateTimeString += timeStr24H;
 		
-		strings[0] = String.valueOf(dd);
-		strings[1] = String.valueOf(mm);
-		strings[2] = String.valueOf(yy);
-		strings[3] = dayStr;
-		strings[4] = timeStr24H;
-		
-		return strings;
+		return dateTimeString;
 	}
 	
 }

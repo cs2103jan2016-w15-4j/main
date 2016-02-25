@@ -36,4 +36,8 @@ public class Colour {
 	public String toString(){
 		return "Colour: " + r + "," + g +"," + b;
 	}
+	
+	public String toSavableString() {
+		return this.r + " " + this.g + " " + this.b;
+	}
 }

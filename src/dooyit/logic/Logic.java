@@ -51,10 +51,13 @@ public class Logic {
 		
 		try{
 			
-			command.execute(this);
+			if(command != null){
+				command.execute(this);
+			}else{
+				uiController.displayMessage("Command Object is null");
+			}
 			
 		}catch(IncorrectInputException e){
-			System.out.println(e.getMessage());
 			uiController.displayMessage(e.getMessage());
 		}
 		

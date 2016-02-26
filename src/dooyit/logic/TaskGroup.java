@@ -16,14 +16,24 @@ public class TaskGroup {
 	}
 	
 	public TaskGroup(String title, ArrayList<Task> tasks){
+		this.tasks = new ArrayList<Task>();
 		this.title = title;
-		this.tasks = tasks;
+		addTasks(tasks);
 	}
 	
 	public TaskGroup(String title, ArrayList<Task> tasks, DateTime dateTime){
+		this.tasks = new ArrayList<Task>();
 		this.title = title;
-		this.tasks = tasks;
 		this.dateTime = dateTime;
+		addTasks(tasks);
+	}
+	
+	public TaskGroup(String title, ArrayList<Task> tasks1, ArrayList<Task> tasks2, DateTime dateTime){
+		this.tasks = new ArrayList<Task>();
+		this.title = title;
+		this.dateTime = dateTime;
+		addTasks(tasks1);
+		addTasks(tasks2);
 	}
 	
 	public void addTask(Task task){

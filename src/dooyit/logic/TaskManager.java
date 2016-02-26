@@ -222,6 +222,16 @@ public class TaskManager {
 		// not done
 		//
 		//
+		
+		DateTime currDate = new DateTime();
+		System.out.println(currDate.getDayStr());
+		System.out.println(currDate.getDD());
+		currDate.increaseByOne();
+		System.out.println(currDate.getDD());
+		currDate.increaseByOne();
+		System.out.println(currDate.getDayStr());
+		currDate.increaseByOne();
+		System.out.println(currDate.getDayStr());
 		ArrayList<TaskGroup> taskGroups = new ArrayList<TaskGroup>();
 		taskGroups.add(new TaskGroup("Today", getAllTasks()));
 		taskGroups.add(new TaskGroup("tomorrow", getAllTasks()));

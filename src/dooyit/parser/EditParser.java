@@ -4,10 +4,9 @@ import dooyit.logic.commands.Command;
 import dooyit.logic.commands.CommandUtils;
 
 public class EditParser {
-	private static final int START_INDEX_ARGS = 5;
-	private static final String MARKER_TIME_START = "from";
-	private static final String MARKER_TIME_END = "to";
-	private static final String MARKER_DEADLINE = "by";
+	private static final String MARKER_TIME_START = " from ";
+	private static final String MARKER_TIME_END = " to ";
+	private static final String MARKER_DEADLINE = " by ";
 	
 	private static String userInput;
 	private static String taskName;
@@ -23,8 +22,6 @@ public class EditParser {
 	public EditParser(String input) {
 		userInput = input.trim().toLowerCase();
 		taskId = Integer.parseInt(userInput.split("\\s+")[0].trim());
-		System.out.println("userInput is " + userInput);
-		System.out.println("taskId is " + taskId);
 	}
 	
 	public Command getCommand() {
@@ -183,7 +180,8 @@ public class EditParser {
 	
 	private static boolean hasName() {
 		String mayBeName = userInput.split("\\s+")[1];
-		return !mayBeName.equals(MARKER_DEADLINE) && !mayBeName.equals(MARKER_TIME_END) && !mayBeName.equals(MARKER_TIME_START);
+		//This means that the names cannot be "by", "to" or "from"
+		return !mayBeName.equals(MARKER_DEADLINE.trim()) && !mayBeName.equals(MARKER_TIME_END.trim()) && !mayBeName.equals(MARKER_TIME_START.trim());
 	}
 	
 	private static boolean hasStart() {

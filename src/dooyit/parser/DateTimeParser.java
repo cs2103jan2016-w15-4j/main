@@ -213,6 +213,7 @@ public class DateTimeParser {
 			
 			}
 			i = combined[COMBINED_INDEX_COUNTER];
+			System.out.println("i is " + i);
 		}
 		return getDateTimeObject(combined);
 	}
@@ -248,8 +249,7 @@ public class DateTimeParser {
 	}
 
 	private int[] getToday(int[] combined) {
-		System.out.println("In getToday method");
-		printArray(combined);
+		combined[COMBINED_INDEX_COUNTER] += 1;
 		return combined;
 	}
 	

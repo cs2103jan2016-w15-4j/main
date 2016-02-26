@@ -206,7 +206,8 @@ public class TaskManager {
 	
 	public ArrayList<TaskGroup> getTaskGroupsToday(){
 		ArrayList<TaskGroup> taskGroups = new ArrayList<TaskGroup>();
-		taskGroups.add(new TaskGroup("Today", getDeadlineTasks()));
+		DateTime currDate = new DateTime();
+		taskGroups.add(new TaskGroup("Today", getDeadlineTasks(currDate), getEventTasks(currDate), currDate));
 		return taskGroups;
 	}
 

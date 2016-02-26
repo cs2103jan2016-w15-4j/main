@@ -129,7 +129,11 @@ public class DateTime {
 			if(time2 % 100 == 0) {		//12 pm etc
 				temp = (time2 - 1200) / 100 + " pm";
 			} else {					//12.30 pm etc
-				temp = (time2 - 1200) / 100 + "." + time2 % 100 + " pm";
+				if(time2 % 100 < 10) {
+					temp = (time2 - 1200) / 100 + ".0" + time2 % 100 + " pm";
+				} else {
+					temp = (time2 - 1200) / 100 + "." + time2 % 100 + " pm";
+				}
 			}
 		}
 		return temp;

@@ -223,6 +223,7 @@ public class DateTimeParser {
 		if(!isInvalidDateTime) {
 			int[] date = new int[]{combined[COMBINED_INDEX_DD], combined[COMBINED_INDEX_MM], combined[COMBINED_INDEX_YY]}; 
 			int time = combined[COMBINED_INDEX_TIME];
+			System.out.println("time is " + time);
 			int day = combined[COMBINED_INDEX_DAY_OF_WEEK];
 			
 			if(hasPassed(currTime, time, date)) {
@@ -234,6 +235,7 @@ public class DateTimeParser {
 		} else {
 			dt = null;
 		}
+		System.out.println("right before i return" + dt);
 		return dt;
 	}
 
@@ -246,6 +248,8 @@ public class DateTimeParser {
 	}
 
 	private int[] getToday(int[] combined) {
+		System.out.println("In getToday method");
+		printArray(combined);
 		return combined;
 	}
 	
@@ -550,11 +554,11 @@ public class DateTimeParser {
 	}
 
 	private int getNextDayInt() {
-		return currDayInWeekInt + NEXT_DAY - 1;
+		return currDayInWeekInt + NEXT_DAY;
 	}
 
 	private boolean hasPassed(int currTime2, int time, int[] date) {
-		return currTime2 > time && date[DATE_INDEX_DD] == currDD && date[DATE_INDEX_MM] == currMM && date[DATE_INDEX_YY] == currYY;			
+		return currTime2 > time && date[DATE_INDEX_DD] == currDD && date[DATE_INDEX_MM] == currMM && date[DATE_INDEX_YY] == currYY && time != -1;			
 	}
 
 	// Input number of days to fastforward from today
@@ -645,9 +649,7 @@ public class DateTimeParser {
 			if(timeInt == 1200 && indicator.equals("am")) {
 				timeInt = 0;
 			}
-			System.out.println("timeInt here is " + timeInt);
 		}
-		System.out.println("timeInt is " + timeInt);
 		if(timeInt >= 2400) {
 			throw new IncorrectInputException("Invalid Time! Time must not exceed 24 hours!");
 		}

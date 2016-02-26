@@ -211,8 +211,20 @@ public class DateTime {
 			this.mm = 1;
 			this.yy += 1;
 		}
+		this.dayInt = increaseDayIntByOne();
+		this.dayStr = daysInWeek[this.dayInt - 1];
+		this.date = this.dd + " " + months[this.mm - 1] + " " + this.yy;
 	}
 	
+	private int increaseDayIntByOne() {
+		if(this.dayInt == 7) {
+			return 1;
+		} else {
+			this.dayInt += 1;
+			return this.dayInt;
+		}
+	}
+
 	public String convertToSavableString(){
 		String dateTimeString = "";
 		dateTimeString += String.valueOf(dd) + " ";

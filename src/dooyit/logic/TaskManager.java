@@ -217,25 +217,21 @@ public class TaskManager {
 	}
 	
 	public ArrayList<TaskGroup> getTaskGroupsNext7Days(){
-		//
-		//
-		// not done
-		//
-		//
 		
 		DateTime currDate = new DateTime();
-		System.out.println(currDate.getDayStr());
-		System.out.println(currDate.getDD());
-		currDate.increaseByOne();
-		System.out.println(currDate.getDD());
-		currDate.increaseByOne();
-		System.out.println(currDate.getDayStr());
-		currDate.increaseByOne();
-		System.out.println(currDate.getDayStr());
 		ArrayList<TaskGroup> taskGroups = new ArrayList<TaskGroup>();
-		taskGroups.add(new TaskGroup("Today", getAllTasks()));
-		taskGroups.add(new TaskGroup("tomorrow", getAllTasks()));
-		taskGroups.add(new TaskGroup("Next 7 days", getAllTasks()));
+		
+		taskGroups.add(new TaskGroup("Today", getDeadlineTasks(currDate), getEventTasks(currDate), currDate));
+		currDate.increaseByOne();
+		
+		taskGroups.add(new TaskGroup("Tomorrow", getDeadlineTasks(currDate), getEventTasks(currDate), currDate));
+		currDate.increaseByOne();
+		
+		for(int i=0; i<5; i++){
+			taskGroups.add(new TaskGroup(currDate.getDayStr(), getDeadlineTasks(currDate), getEventTasks(currDate), currDate));
+			currDate.increaseByOne();
+		}
+		
 		return taskGroups;
 	}
 	

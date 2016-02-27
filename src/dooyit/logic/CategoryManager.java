@@ -15,13 +15,6 @@ public class CategoryManager {
 	private void setDefaultCategories(){
 		addCategory("School");
 		addCategory("Entertainment");
-		addCategory("a");
-		addCategory("b");
-		addCategory("c");
-		addCategory("d");
-		addCategory("e");
-		addCategory("f");
-		addCategory("g");
 	}
 	
 	public Category addCategory(String categoryName){

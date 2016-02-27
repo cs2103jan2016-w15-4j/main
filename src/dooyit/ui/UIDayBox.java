@@ -15,6 +15,7 @@ public class UIDayBox {
 	private VBox dayBox;
 	private Label dayTitle;
 	private ArrayList<Task> taskList;
+	private String dayBoxTitle;
 	
 	public UIDayBox(TaskGroup taskGroup, Logic logic){
 		this.logic = logic;
@@ -23,13 +24,14 @@ public class UIDayBox {
 		this.dayBox = new VBox();
 		this.dayBox.getStyleClass().add("day-box");
 		
-		String title = taskGroup.getTitle();
+		this.dayBoxTitle = taskGroup.getTitle();
 		if (taskGroup.hasDateTime()){
 			String date = taskGroup.getDateTime().getDate();
 			date = date.substring(0, date.length() - 5);
-			title += ", " + date;
+			this.dayBoxTitle += ", " + date;
 		}
-        this.dayTitle = new Label(title);
+		
+        this.dayTitle = new Label(this.dayBoxTitle);
         this.dayTitle.setFont(Font.font("Euphemia", 18));
         this.dayTitle.getStyleClass().add("day-title");
         

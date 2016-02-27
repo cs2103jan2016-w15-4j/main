@@ -6,31 +6,35 @@ public class ColourManager {
 	//Colour[] availableColours;
 	ArrayList<Colour> usedColours;
 	Random random;
-	ArrayList<Colour> availableColours;
-	
+	ArrayList<Colour> recommendedColour;
+	ArrayList<Colour> colourPool;
 	
 	public ColourManager(){
 		random = new Random();
 		//availableColours = new Colour[10];
 		
-		availableColours = new ArrayList<Colour>();
+		recommendedColour = new ArrayList<Colour>();
 		
-		availableColours.add(Colour.BLUE);
-		availableColours.add(Colour.CYAN);
-		availableColours.add(Colour.GREEN);
-		availableColours.add(Colour.MAGENTA);
-		availableColours.add(Colour.PINK);
-		availableColours.add(Colour.RED);
-		availableColours.add(Colour.YELLOW);
-		availableColours.add(Colour.GREY);
-		availableColours.add(Colour.BLUE);
+		recommendedColour.add(Colour.BLUE);
+		recommendedColour.add(Colour.CYAN);
+		recommendedColour.add(Colour.GREEN);
+		recommendedColour.add(Colour.MAGENTA);
+		recommendedColour.add(Colour.PINK);
+		recommendedColour.add(Colour.RED);
+		recommendedColour.add(Colour.YELLOW);
+		recommendedColour.add(Colour.GREY);
+		recommendedColour.add(Colour.BLUE);
 		
-
-
+		colourPool = new ArrayList<Colour>(recommendedColour);
 	}
 	
 	public Colour pickRandomColour(){
-		return availableColours.get(random.nextInt(availableColours.size()));
+		
+		if(colourPool.size() == 0){
+			colourPool = new ArrayList<Colour>(recommendedColour);
+		}
+		
+		return colourPool.remove(random.nextInt(recommendedColour.size()));
 	}
 	
 }

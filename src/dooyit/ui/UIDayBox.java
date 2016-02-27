@@ -23,9 +23,16 @@ public class UIDayBox {
 		this.dayBox = new VBox();
 		this.dayBox.getStyleClass().add("day-box");
 		
+		String date = taskGroup.getDateTime().getDate();
+		date = date.substring(0, date.length() - 5);
         this.dayTitle = new Label(taskGroup.getTitle());
         this.dayTitle.setFont(Font.font("Euphemia", 18));
-        this.dayTitle.getStyleClass().add("day-title");
+        
+        if (taskList.size() > 0 || taskGroup.getTitle().equals("Today")){
+        	this.dayTitle.getStyleClass().add("day-title");
+        } else {
+        	this.dayTitle.getStyleClass().add("day-title-faded");
+        }
 		
         this.dayBox.getChildren().add(dayTitle);
         

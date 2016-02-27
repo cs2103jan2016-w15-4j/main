@@ -59,6 +59,10 @@
 	-fx-text-fill: #ff6c57;
 }
 
+.day-title-faded {
+	-fx-text-fill: #ff9c87;
+}
+
 .day-box {
 	-fx-padding: 20;
 }

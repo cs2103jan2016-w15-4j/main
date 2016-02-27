@@ -11,17 +11,17 @@ public class ColourManager {
 		random = new Random();
 		availableColours = new Colour[11];
 		
-		availableColours[0] = Colour.BLACK;
+		availableColours[0] = Colour.BLUE;
 		availableColours[1] = Colour.CYAN;
-		availableColours[2] = Colour.GREY;
-		availableColours[3] = Colour.GREY;
-		availableColours[4] = Colour.GREEN;
-		availableColours[5] = Colour.MAGENTA;
-		availableColours[6] = Colour.PINK;
-		availableColours[7] = Colour.RED;
-		availableColours[8] = Colour.WHITE;
-		availableColours[9] = Colour.YELLOW;
-		availableColours[10] = Colour.BLUE;
+		availableColours[2] = Colour.GREEN;
+		availableColours[3] = Colour.MAGENTA;
+		availableColours[4] = Colour.PINK;
+		availableColours[5] = Colour.RED;
+		availableColours[6] = Colour.YELLOW;
+		availableColours[7] = Colour.BLACK;
+		availableColours[8] = Colour.GREY;
+		availableColours[9] = Colour.WHITE;
+
 	}
 	
 	public Colour pickRandomColour(){

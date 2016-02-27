@@ -7,7 +7,7 @@ public class Category {
 	
 	public Category(String name) {
 		this.name = name;
-		this.colour = Colour.GREY;
+		this.colour = Colour.BLUE;
 	}
 	
 	public Category(String name, Colour colour) {

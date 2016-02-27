@@ -23,7 +23,6 @@ public class ColourManager {
 		recommendedColour.add(Colour.RED);
 		recommendedColour.add(Colour.YELLOW);
 		recommendedColour.add(Colour.GREY);
-		recommendedColour.add(Colour.BLUE);
 		
 		colourPool = new ArrayList<Colour>(recommendedColour);
 	}

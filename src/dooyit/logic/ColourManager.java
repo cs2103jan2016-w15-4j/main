@@ -34,7 +34,7 @@ public class ColourManager {
 			colourPool = new ArrayList<Colour>(recommendedColour);
 		}
 		
-		return colourPool.remove(random.nextInt(recommendedColour.size()));
+		return colourPool.remove(random.nextInt(colourPool.size()));
 	}
 	
 }

@@ -28,7 +28,7 @@ public class DateTime {
 	private int yy;			// 2016 	
 	private int timeInt;
 	private String[] months = new String[] {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
-	private String[] daysInWeek = new String[] {"Mon", "Tue", "Wed", "Thur", "Fri", "Sat", "Sun"};
+	private String[] daysInWeek = new String[] {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
 	
 	public DateTime(int[] date, String day, int time) {
 		this.dd = date[INDEX_DD];

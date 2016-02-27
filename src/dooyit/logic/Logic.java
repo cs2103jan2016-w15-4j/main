@@ -54,7 +54,7 @@ public class Logic {
 			if(command != null){
 				command.execute(this);
 			}else{
-				uiController.displayMessage("Command Object is null");
+				System.out.println("ERROR: Comman Object is null");
 			}
 			
 		}catch(IncorrectInputException e){

@@ -62,4 +62,8 @@ public class TaskGroup {
 		
 		return tasks;
 	}
+	
+	public boolean hasDateTime(){
+		return dateTime != null;
+	}
 }

@@ -3,29 +3,34 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class ColourManager {
-	Colour[] availableColours;
+	//Colour[] availableColours;
 	ArrayList<Colour> usedColours;
 	Random random;
+	ArrayList<Colour> availableColours;
+	
 	
 	public ColourManager(){
 		random = new Random();
-		availableColours = new Colour[10];
+		//availableColours = new Colour[10];
 		
-		availableColours[0] = Colour.BLUE;
-		availableColours[1] = Colour.CYAN;
-		availableColours[2] = Colour.GREEN;
-		availableColours[3] = Colour.MAGENTA;
-		availableColours[4] = Colour.PINK;
-		availableColours[5] = Colour.RED;
-		availableColours[6] = Colour.YELLOW;
-		availableColours[7] = Colour.BLACK;
-		availableColours[8] = Colour.GREY;
-		availableColours[9] = Colour.WHITE;
+		availableColours = new ArrayList<Colour>();
+		
+		availableColours.add(Colour.BLUE);
+		availableColours.add(Colour.CYAN);
+		availableColours.add(Colour.GREEN);
+		availableColours.add(Colour.MAGENTA);
+		availableColours.add(Colour.PINK);
+		availableColours.add(Colour.RED);
+		availableColours.add(Colour.YELLOW);
+		availableColours.add(Colour.GREY);
+		availableColours.add(Colour.BLUE);
+		
+
 
 	}
 	
 	public Colour pickRandomColour(){
-		return availableColours[random.nextInt(availableColours.length)];
+		return availableColours.get(random.nextInt(availableColours.size()));
 	}
 	
 }

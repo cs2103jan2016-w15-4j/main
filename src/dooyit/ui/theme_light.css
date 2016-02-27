@@ -24,7 +24,8 @@
 }
 
 .btn-select-view:selected {
-	-fx-background-color: linear-gradient(from 15% 15% to 75% 75%, #fdeeea, #fdd5d5);
+	/*-fx-background-color: linear-gradient(from 15% 15% to 75% 75%, #fdeeea, #fdd5d5);*/
+	-fx-background-color: #D1EEFC;
 }
 
 .category-title {
@@ -38,7 +39,8 @@
 }
 
 .menu-view {
-	-fx-background-color: linear-gradient(from 25% 25% to 75% 75%, #ffffff, #fdeeea);
+	/*-fx-background-color: linear-gradient(from 25% 25% to 75% 75%, #ffffff, #fdeeea);*/
+	-fx-background-color: #f6f6f6;
 	-fx-padding: 20 0 20 0;
 }
 

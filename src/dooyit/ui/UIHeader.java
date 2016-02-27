@@ -3,6 +3,7 @@ package dooyit.ui;
 import com.pepperonas.fxiconics.FxIconicsLabel;
 import com.pepperonas.fxiconics.MaterialColor;
 import com.pepperonas.fxiconics.gmd.FxFontGoogleMaterial;
+import com.pepperonas.fxiconics.cmd.FxFontCommunity;
 
 import javafx.application.Platform;
 import javafx.geometry.Pos;
@@ -25,13 +26,7 @@ public class UIHeader {
 		this.title.setFont(Font.font("Helvetica", 19));
 		this.title.getStyleClass().add("header-title");
 		
-		FxIconicsLabel labelDefault =
-                (FxIconicsLabel) new FxIconicsLabel.Builder(FxFontGoogleMaterial.Icons.gmd_rate_review)
-                        .size(30)
-                        .color(MaterialColor.DEEP_ORANGE_100)
-                        .build();
-		
-		this.header.getChildren().addAll(labelDefault, this.title);
+		this.header.getChildren().addAll(this.title);
 		this.header.setAlignment(Pos.CENTER);
 	}
 	

@@ -23,14 +23,20 @@ public class UIDayBox {
 		this.dayBox = new VBox();
 		this.dayBox.getStyleClass().add("day-box");
 		
-		String date = taskGroup.getDateTime().getDate();
-		date = date.substring(0, date.length() - 5);
-        this.dayTitle = new Label(taskGroup.getTitle());
+		String title = taskGroup.getTitle();
+		if (taskGroup.hasDateTime()){
+			String date = taskGroup.getDateTime().getDate();
+			date = date.substring(0, date.length() - 5);
+			title += ", " + date;
+		}
+        this.dayTitle = new Label(title);
         this.dayTitle.setFont(Font.font("Euphemia", 18));
+        this.dayTitle.getStyleClass().add("day-title");
         
-        if (taskList.size() > 0 || taskGroup.getTitle().equals("Today")){
-        	this.dayTitle.getStyleClass().add("day-title");
-        } else {
+        if (taskList.size() == 0 
+        		&& !taskGroup.getTitle().equals("Today") 
+        		&& !taskGroup.getTitle().equals("All") 
+        		&& !taskGroup.getTitle().equals("Completed")){
         	this.dayTitle.getStyleClass().add("day-title-faded");
         }
 		

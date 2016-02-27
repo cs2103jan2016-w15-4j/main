@@ -11,6 +11,10 @@
     -fx-background-insets: 0;
 }
 
+.day-title-faded {
+	-fx-opacity: 0.4;
+}
+
 .day-task-box {
 	-fx-padding: 13 0 13 0;
 	-fx-border-color: transparent transparent #f0f0f0 transparent;

@@ -236,20 +236,19 @@ public class DateTimeParser {
 		} else {
 			dt = null;
 		}
-		System.out.println("right before i return" + dt);
 		return dt;
 	}
 
 	private int[] getTomorrow(int[] combined) {
 		int day = getNextDayInt();
 		int[] date = getDate(NEXT_DAY);
-		int[] ans = new int[] {day, combined[COMBINED_INDEX_TIME], date[DATE_INDEX_DD], date[DATE_INDEX_MM], date[DATE_INDEX_YY], combined[COMBINED_INDEX_COUNTER] + 1};
+		int[] ans = new int[] {day, combined[COMBINED_INDEX_TIME], date[DATE_INDEX_DD], date[DATE_INDEX_MM], date[DATE_INDEX_YY], combined[COMBINED_INDEX_COUNTER]};
 		printArray(ans);
 		return ans;
 	}
 
 	private int[] getToday(int[] combined) {
-		combined[COMBINED_INDEX_COUNTER] += 1;
+		//combined[COMBINED_INDEX_COUNTER] += 1;
 		return combined;
 	}
 	
@@ -358,7 +357,7 @@ public class DateTimeParser {
 	private int[] getDateAndAdvanceInt(String[] splitInput, int i) {
 		String currWord = splitInput[i];
 		int[] ans = new int[]{-1, -1, -1, -1};
-		int numEntries = 0;
+		int numEntries = -1;
 		
 		if(currWord.contains("/")) {
 			String[] temp = currWord.split("/");
@@ -366,7 +365,7 @@ public class DateTimeParser {
 				ans[j] = Integer.parseInt(temp[j]);
 				
 			}
-			numEntries = 1;
+			numEntries += 1;
 		} else {
 			
 			int counter = 0;

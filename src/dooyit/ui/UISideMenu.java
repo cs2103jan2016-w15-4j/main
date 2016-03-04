@@ -25,6 +25,11 @@ public class UISideMenu {
 	private ToggleButton allBtn;
 	private ToggleButton completedBtn;
 	
+	private HBox todayBtnContent;
+	private HBox extendedBtnContent;
+	private HBox allBtnContent;
+	private HBox completedBtnContent;
+	
 	private Label categoryTitle;
 	
 	private UICategoryBoxContainer categoryBoxContainer;
@@ -39,62 +44,86 @@ public class UISideMenu {
 		
 		this.mainViewToggleGroup = new ToggleGroup();
 		
-		FxIconicsLabel todayLabel =
+		FxIconicsLabel todayIcon =
                 (FxIconicsLabel) new FxIconicsLabel
                 .Builder(FxFontCommunity.Icons.cmd_calendar)
                 .size(18)
-                .text(" Today", 14)
                 .color(MaterialColor.DEEP_ORANGE_400).build();
 		
+		Label todayLabel = new Label("Today");
+		todayLabel.setFont(Font.font("Euphemia", 14));
+		todayLabel.getStyleClass().add("btn-select-label");
+		
+		this.todayBtnContent = new HBox();
+		this.todayBtnContent.setSpacing(8);
+		this.todayBtnContent.getChildren().addAll(todayIcon, todayLabel);
+		
 		this.todayBtn = new ToggleButton();
-//		this.todayBtn.setFont(Font.font("Euphemia", 14));
-		this.todayBtn.setGraphic(todayLabel);
+		this.todayBtn.setGraphic(this.todayBtnContent);
 		this.todayBtn.setPrefWidth(180);
 		this.todayBtn.getStyleClass().add("btn-select-view");
 		this.todayBtn.setToggleGroup(this.mainViewToggleGroup);
 		this.todayBtn.setSelected(true);
 		this.todayBtn.setUserData("day");
 		
-		FxIconicsLabel extendedLabel =
+		FxIconicsLabel extendedIcon =
                 (FxIconicsLabel) new FxIconicsLabel
                 .Builder(FxFontCommunity.Icons.cmd_numeric_7_box_multiple_outline)
                 .size(18)
-                .text(" Next 7 days", 14)
                 .color(MaterialColor.DEEP_ORANGE_400).build();
 		
+		Label extendedLabel = new Label("Next 7 days");
+		extendedLabel.setFont(Font.font("Euphemia", 14));
+		extendedLabel.getStyleClass().add("btn-select-label");
+		
+		this.extendedBtnContent = new HBox();
+		this.extendedBtnContent.setSpacing(8);
+		this.extendedBtnContent.getChildren().addAll(extendedIcon, extendedLabel);
+		
 		this.extendedBtn = new ToggleButton();
-		this.extendedBtn.setGraphic(extendedLabel);
-//		this.extendedBtn.setFont(Font.font("Euphemia", 14));
+		this.extendedBtn.setGraphic(this.extendedBtnContent);
 		this.extendedBtn.setPrefWidth(180);
 		this.extendedBtn.getStyleClass().add("btn-select-view");
 		this.extendedBtn.setToggleGroup(this.mainViewToggleGroup);
 		this.extendedBtn.setUserData("extended");
 		
-		FxIconicsLabel allLabel =
+		FxIconicsLabel allIcon =
                 (FxIconicsLabel) new FxIconicsLabel
                 .Builder(FxFontCommunity.Icons.cmd_calendar_multiple)
                 .size(18)
-                .text(" All", 14)
                 .color(MaterialColor.DEEP_ORANGE_400).build();
 		
+		Label allLabel = new Label("All");
+		allLabel.setFont(Font.font("Euphemia", 14));
+		allLabel.getStyleClass().add("btn-select-label");
+		
+		this.allBtnContent = new HBox();
+		this.allBtnContent.setSpacing(8);
+		this.allBtnContent.getChildren().addAll(allIcon, allLabel);
+		
 		this.allBtn = new ToggleButton();
-		this.allBtn.setGraphic(allLabel);
-//		this.allBtn.setFont(Font.font("Euphemia", 14));
+		this.allBtn.setGraphic(this.allBtnContent);
 		this.allBtn.setPrefWidth(180);
 		this.allBtn.getStyleClass().add("btn-select-view");
 		this.allBtn.setToggleGroup(this.mainViewToggleGroup);
 		this.allBtn.setUserData("all");
 		
-		FxIconicsLabel completedLabel =
+		FxIconicsLabel completedIcon =
                 (FxIconicsLabel) new FxIconicsLabel
                 .Builder(FxFontCommunity.Icons.cmd_comment_check)
                 .size(18)
-                .text(" Completed", 14)
                 .color(MaterialColor.DEEP_ORANGE_400).build();
 		
+		Label completedLabel = new Label("Completed");
+		completedLabel.setFont(Font.font("Euphemia", 14));
+		completedLabel.getStyleClass().add("btn-select-label");
+		
+		this.completedBtnContent = new HBox();
+		this.completedBtnContent.setSpacing(8);
+		this.completedBtnContent.getChildren().addAll(completedIcon, completedLabel);
+		
 		this.completedBtn = new ToggleButton();
-		this.completedBtn.setGraphic(completedLabel);
-//		this.completedBtn.setFont(Font.font("Euphemia", 14));
+		this.completedBtn.setGraphic(this.completedBtnContent);
 		this.completedBtn.setPrefWidth(180);
 		this.completedBtn.getStyleClass().add("btn-select-view");
 		this.completedBtn.setToggleGroup(this.mainViewToggleGroup);

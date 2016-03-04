@@ -19,7 +19,7 @@ public class UITaskBox {
 	private Label taskId;
 	private Label taskName;
 	private Label taskPeriod;
-	private Circle taskCategoryCircle;
+	private Label taskCategoryLabel;
 	private HBox taskBox;
 	
 	private Logic logic;
@@ -48,15 +48,19 @@ public class UITaskBox {
 	    }
 	    this.taskPeriod.setFont(Font.font("Verdana", 12));
 	    this.taskPeriod.getStyleClass().add("task-period");
-	    this.taskPeriod.setPrefWidth(120);
+	    this.taskPeriod.setPrefWidth(90);
 	    
-	    this.taskCategoryCircle = new Circle(4, Color.web("#007AFF"));
+	    this.taskCategoryLabel = new Label("Category");
+	    this.taskCategoryLabel.setFont(Font.font("Verdana", 10));
+	    this.taskCategoryLabel.getStyleClass().add("task-category-label");
+	    this.taskCategoryLabel.setStyle("-fx-text-fill: #007AFF;");
+	    this.taskCategoryLabel.setMaxWidth(60);
 	    
 	    this.taskBox = new HBox();
 	    this.taskBox.setAlignment(Pos.CENTER_LEFT);
 	    this.taskBox.setSpacing(10);
 	    this.taskBox.getStyleClass().add("day-task-box");
-	    this.taskBox.getChildren().addAll(this.taskCheckBox, this.taskId, this.taskName, this.taskPeriod, this.taskCategoryCircle);
+	    this.taskBox.getChildren().addAll(this.taskCheckBox, this.taskId, this.taskName, this.taskPeriod, this.taskCategoryLabel);
 	
 	    // Check box action
 	    this.taskCheckBox.setOnAction((event) -> {

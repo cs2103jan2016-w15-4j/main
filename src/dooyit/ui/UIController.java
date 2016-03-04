@@ -24,10 +24,12 @@ public class UIController {
 	static final String URL_CSS_COMMON = "common.css";
 	static final String URL_CSS_THEME_LIGHT = "theme_light.css";
 	static final String URL_CSS_THEME_DARK = "theme_dark.css";
+	static final String URL_CSS_THEME_AQUA = "theme_aqua.css";
 
 	private String urlCssCommon;
 	private String urlCssThemeLight;
 	private String urlCssThemeDark;
+	private String urlCssThemeAqua;
 
 	private Scene scene;
 	private BorderPane root;
@@ -51,6 +53,7 @@ public class UIController {
 		this.urlCssCommon = getClass().getResource(URL_CSS_COMMON).toExternalForm();
 		this.urlCssThemeLight = getClass().getResource(URL_CSS_THEME_LIGHT).toExternalForm();
 	    this.urlCssThemeDark = getClass().getResource(URL_CSS_THEME_DARK).toExternalForm();
+	    this.urlCssThemeAqua = getClass().getResource(URL_CSS_THEME_AQUA).toExternalForm();
 	    
 	    this.logic = logic;
 	    this.primaryStage = primaryStage;
@@ -157,6 +160,9 @@ public class UIController {
 				case "change theme light":
 					changeTheme(UITheme.LIGHT);
 					break;
+				case "change theme aqua":
+					changeTheme(UITheme.AQUA);
+					break;
 				case "help":
 					showUserGuide();
 					break;
@@ -214,6 +220,9 @@ public class UIController {
 		switch(theme){
 			case DARK:
 				this.scene.getStylesheets().addAll(urlCssThemeDark);
+				break;
+			case AQUA:
+				this.scene.getStylesheets().addAll(urlCssThemeAqua);
 				break;
 			default:
 				this.scene.getStylesheets().addAll(urlCssThemeLight);

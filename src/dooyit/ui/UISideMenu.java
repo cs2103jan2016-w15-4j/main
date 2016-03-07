@@ -48,7 +48,7 @@ public class UISideMenu {
                 (FxIconicsLabel) new FxIconicsLabel
                 .Builder(FxFontCommunity.Icons.cmd_calendar)
                 .size(18)
-                .color(MaterialColor.DEEP_ORANGE_400).build();
+                .color(MaterialColor.GREY_400).build();
 		
 		Label todayLabel = new Label("Today");
 		todayLabel.setFont(Font.font("Euphemia", 14));
@@ -70,7 +70,7 @@ public class UISideMenu {
                 (FxIconicsLabel) new FxIconicsLabel
                 .Builder(FxFontCommunity.Icons.cmd_numeric_7_box_multiple_outline)
                 .size(18)
-                .color(MaterialColor.DEEP_ORANGE_400).build();
+                .color(MaterialColor.GREY_400).build();
 		
 		Label extendedLabel = new Label("Next 7 days");
 		extendedLabel.setFont(Font.font("Euphemia", 14));
@@ -91,7 +91,7 @@ public class UISideMenu {
                 (FxIconicsLabel) new FxIconicsLabel
                 .Builder(FxFontCommunity.Icons.cmd_calendar_multiple)
                 .size(18)
-                .color(MaterialColor.DEEP_ORANGE_400).build();
+                .color(MaterialColor.GREY_400).build();
 		
 		Label allLabel = new Label("All");
 		allLabel.setFont(Font.font("Euphemia", 14));
@@ -112,7 +112,7 @@ public class UISideMenu {
                 (FxIconicsLabel) new FxIconicsLabel
                 .Builder(FxFontCommunity.Icons.cmd_comment_check)
                 .size(18)
-                .color(MaterialColor.DEEP_ORANGE_400).build();
+                .color(MaterialColor.GREY_400).build();
 		
 		Label completedLabel = new Label("Completed");
 		completedLabel.setFont(Font.font("Euphemia", 14));

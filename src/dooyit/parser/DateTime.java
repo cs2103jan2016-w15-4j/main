@@ -80,8 +80,11 @@ public class DateTime {
 			this.timeStr24H = time;
 			this.timeStr12H = convertTimeIntTo12hString(Integer.parseInt(time));
 		} catch (NumberFormatException e) {
-			System.out.println("time is " + time);
+			System.out.println("Error: time is " + time);
 			System.out.println(e.getMessage());
+			this.timeInt = UNINITIALIZED;
+			this.timeStr24H = NO_TIME_INDICATED;
+			this.timeStr12H = NO_TIME_INDICATED;
 		}
 		this.dayStr = day;
 		this.dayInt = setDayInt(dayStr);

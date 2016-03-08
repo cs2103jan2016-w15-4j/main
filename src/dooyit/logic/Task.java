@@ -89,15 +89,30 @@ public class Task {
 	}
 	
 	public boolean hasDeadlineTime(){
-		return dateTimeDeadline.hasTime();
+		if(dateTimeDeadline == null){
+			return false;
+		}
+		else{
+			return dateTimeDeadline.hasTime();
+		}
 	}
 	
 	public boolean hasStartTime(){
-		return dateTimeStart.hasTime();
+		if(dateTimeStart == null){
+			return false;
+		}
+		else{
+			return dateTimeStart.hasTime();
+		}
 	}
 	
 	public boolean hasEndTime(){
-		return dateTimeEnd.hasTime();
+		if(dateTimeEnd == null){
+			return false;
+		}
+		else{
+			return dateTimeEnd.hasTime();
+		}
 	}
 	
 	@Override

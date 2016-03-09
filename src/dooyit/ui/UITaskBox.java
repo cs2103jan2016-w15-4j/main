@@ -41,7 +41,7 @@ public class UITaskBox {
 	    this.taskName.getStyleClass().add("task-name");
 	    this.taskName.setPrefWidth(250);
 	    
-	    if (this.task.getDeadlineTime() != null){
+	    if (this.task.hasDeadlineTime()){
 	    	this.taskPeriod = new Label(this.task.getDeadlineTime().getTime12hStr());
 	    } else {
 	    	this.taskPeriod = new Label("");

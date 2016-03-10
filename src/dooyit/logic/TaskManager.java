@@ -222,15 +222,18 @@ public class TaskManager {
 		DateTime currDate = new DateTime();
 		ArrayList<TaskGroup> taskGroups = new ArrayList<TaskGroup>();
 		
+		
 		taskGroups.add(new TaskGroup("Today", getDeadlineTasks(currDate), getEventTasks(currDate), currDate));
 		currDate.increaseByOne();
 		
 		taskGroups.add(new TaskGroup("Tomorrow", getDeadlineTasks(currDate), getEventTasks(currDate), currDate));
 		currDate.increaseByOne();
 		
+		
 		for(int i=0; i<5; i++){
 			taskGroups.add(new TaskGroup(currDate.getDayStr(), getDeadlineTasks(currDate), getEventTasks(currDate), currDate));
 			currDate.increaseByOne();
+			
 		}
 		
 		return taskGroups;
@@ -242,6 +245,7 @@ public class TaskManager {
 
 		for (Task task : tasks){
 			System.out.println(task.getId() + ": " + task);
+			//System.out.println(task.convertToSavableString());
 		}
 		
 		System.out.println();

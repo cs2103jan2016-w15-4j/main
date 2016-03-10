@@ -223,15 +223,15 @@ public class TaskManager {
 		ArrayList<TaskGroup> taskGroups = new ArrayList<TaskGroup>();
 		
 		
-		taskGroups.add(new TaskGroup("Today", getDeadlineTasks(currDate), getEventTasks(currDate), currDate));
+		taskGroups.add(new TaskGroup("Today", getDeadlineTasks(currDate), getEventTasks(currDate), new DateTime(currDate)));
 		currDate.increaseByOne();
 		
-		taskGroups.add(new TaskGroup("Tomorrow", getDeadlineTasks(currDate), getEventTasks(currDate), currDate));
+		taskGroups.add(new TaskGroup("Tomorrow", getDeadlineTasks(currDate), getEventTasks(currDate), new DateTime(currDate)));
 		currDate.increaseByOne();
 		
 		
 		for(int i=0; i<5; i++){
-			taskGroups.add(new TaskGroup(currDate.getDayStr(), getDeadlineTasks(currDate), getEventTasks(currDate), currDate));
+			taskGroups.add(new TaskGroup(currDate.getDayStr(), getDeadlineTasks(currDate), getEventTasks(currDate), new DateTime(currDate)));
 			currDate.increaseByOne();
 			
 		}

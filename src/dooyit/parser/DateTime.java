@@ -30,6 +30,18 @@ public class DateTime {
 	private String[] months = new String[] {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
 	private String[] daysInWeek = new String[] {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
 	
+	public DateTime(DateTime dt) {
+		this.dd = dt.getDD();
+		this.mm = dt.getMM();
+		this.yy = dt.getYY();
+		this.timeInt = dt.getTimeInt();
+		this.timeStr12H = dt.getTime12hStr();
+		this.timeStr24H = dt.getTime24hStr();
+		this.dayStr = dt.getDayStr();
+		this.dayInt = setDayInt(this.dayStr);
+		this.date = this.dd + " " + months[this.mm - 1] + " " + this.yy;
+	}
+	
 	public DateTime(int[] date, String day, int time) {
 		this.dd = date[INDEX_DD];
 		this.mm = date[INDEX_MM];

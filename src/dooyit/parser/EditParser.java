@@ -20,7 +20,7 @@ public class EditParser {
 	};
 	
 	public EditParser(String input) {
-		userInput = input.trim().toLowerCase();
+		userInput = input.trim();
 		taskId = Integer.parseInt(userInput.split("\\s+")[0].trim());
 	}
 	

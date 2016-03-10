@@ -26,8 +26,7 @@ public class AddParser {
 	};
 	
 	public AddParser(String input) {
-		//userInput ignore the word "add"
-		userInput = input.trim().toLowerCase();
+		userInput = input.trim();
 	}
 	
 	public Command getCommand() {

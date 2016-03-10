@@ -1,5 +1,6 @@
 package dooyit.ui;
 
+import dooyit.logic.core.*;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -11,7 +12,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import dooyit.logic.*;
 
 public class UICategoryBox {
 	private UICategoryBoxContainer categoryBoxContainer;

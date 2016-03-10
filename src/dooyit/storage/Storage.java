@@ -9,10 +9,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 import dooyit.storage.TaskController;
+import dooyit.logic.core.Category;
+import dooyit.logic.core.Task;
+import dooyit.logic.core.TaskManager;
 import dooyit.storage.CategoryController;
-import dooyit.logic.Category;
-import dooyit.logic.TaskManager;
-import dooyit.logic.Task;
 
 public class Storage{
 	

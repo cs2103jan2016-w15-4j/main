@@ -2,9 +2,9 @@ package dooyit.logic.commands;
 
 import java.util.ArrayList;
 
-import dooyit.exception.IncorrectInputException;
-import dooyit.logic.Logic;
-import dooyit.logic.TaskManager;
+import dooyit.common.exception.IncorrectInputException;
+import dooyit.logic.core.Logic;
+import dooyit.logic.core.TaskManager;
 
 public class DeleteCommand extends Command {
 	public enum DeleteCommandType {

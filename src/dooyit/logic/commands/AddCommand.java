@@ -1,9 +1,9 @@
 package dooyit.logic.commands;
 
-import dooyit.exception.IncorrectInputException;
-import dooyit.logic.Logic;
-import dooyit.logic.Task;
-import dooyit.logic.TaskManager;
+import dooyit.common.exception.IncorrectInputException;
+import dooyit.logic.core.Logic;
+import dooyit.logic.core.Task;
+import dooyit.logic.core.TaskManager;
 import dooyit.parser.DateTime;
 
 public class AddCommand extends Command {

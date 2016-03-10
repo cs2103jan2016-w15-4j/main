@@ -1,7 +1,7 @@
 package dooyit.storage;
 
-import dooyit.logic.Category;
-import dooyit.logic.Colour;
+import dooyit.logic.core.Category;
+import dooyit.logic.core.Colour;
 
 public class CategoryStorageFormat {
 	private String name;

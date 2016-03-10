@@ -2,7 +2,7 @@ package dooyit.ui;
 
 import java.util.ArrayList;
 
-import dooyit.logic.*;
+import dooyit.logic.core.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.HBox;

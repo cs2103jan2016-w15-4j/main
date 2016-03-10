@@ -2,12 +2,11 @@ package dooyit.ui;
 
 import java.util.ArrayList;
 
+import dooyit.logic.core.*;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
-
-import dooyit.logic.*;
 
 public class UIDayBox {
 	

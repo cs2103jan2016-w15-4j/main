@@ -16,9 +16,8 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
-import dooyit.logic.Logic;
+import dooyit.logic.core.*;
 import dooyit.main.*;
-import dooyit.logic.*;
 
 public class UIController {
 	static final String URL_CSS_COMMON = "common.css";

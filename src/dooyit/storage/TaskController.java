@@ -2,8 +2,8 @@ package dooyit.storage;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import dooyit.logic.TaskManager;
-import dooyit.logic.Task;
+import dooyit.logic.core.Task;
+import dooyit.logic.core.TaskManager;
 
 public class TaskController {
 	TaskSaver saver;

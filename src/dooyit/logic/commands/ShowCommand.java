@@ -1,7 +1,7 @@
 package dooyit.logic.commands;
 
-import dooyit.exception.IncorrectInputException;
-import dooyit.logic.Logic;
+import dooyit.common.exception.IncorrectInputException;
+import dooyit.logic.core.Logic;
 import dooyit.ui.UIController;
 import dooyit.ui.UIMainViewType;
 

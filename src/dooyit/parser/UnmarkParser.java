@@ -2,7 +2,7 @@ package dooyit.parser;
 
 import java.util.ArrayList;
 
-import dooyit.exception.IncorrectInputException;
+import dooyit.common.exception.IncorrectInputException;
 import dooyit.logic.commands.Command;
 import dooyit.logic.commands.CommandUtils;
 

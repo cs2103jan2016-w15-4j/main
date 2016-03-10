@@ -1,10 +1,10 @@
-package dooyit.logic;
+package dooyit.logic.core;
 import java.util.ArrayList;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-import dooyit.logic.Task.TaskType;
+import dooyit.logic.core.Task.TaskType;
 import dooyit.parser.DateTime;
 
 public class TaskManager {

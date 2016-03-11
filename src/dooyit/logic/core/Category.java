@@ -1,4 +1,4 @@
-package dooyit.logic;
+package dooyit.logic.core;
 
 public class Category {
 	private String name;

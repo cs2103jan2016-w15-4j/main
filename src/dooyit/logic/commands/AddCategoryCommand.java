@@ -1,10 +1,10 @@
 package dooyit.logic.commands;
 
-import dooyit.exception.IncorrectInputException;
-import dooyit.logic.Category;
-import dooyit.logic.CategoryManager;
-import dooyit.logic.Colour;
-import dooyit.logic.Logic;
+import dooyit.common.exception.IncorrectInputException;
+import dooyit.logic.core.Category;
+import dooyit.logic.core.CategoryManager;
+import dooyit.logic.core.Colour;
+import dooyit.logic.core.Logic;
 
 public class AddCategoryCommand extends Command {
 

@@ -1,6 +1,6 @@
 package dooyit.storage;
 
-import dooyit.logic.Task;
+import dooyit.logic.core.Task;
 
 public class TaskStorageFormat {
 	private String taskName;

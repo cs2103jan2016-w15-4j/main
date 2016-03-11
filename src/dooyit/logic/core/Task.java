@@ -1,4 +1,4 @@
-package dooyit.logic;
+package dooyit.logic.core;
 
 import dooyit.parser.DateTime;
 

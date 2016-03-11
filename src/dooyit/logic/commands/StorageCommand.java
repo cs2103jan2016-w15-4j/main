@@ -2,8 +2,8 @@ package dooyit.logic.commands;
 
 import java.io.IOException;
 
-import dooyit.exception.IncorrectInputException;
-import dooyit.logic.Logic;
+import dooyit.common.exception.IncorrectInputException;
+import dooyit.logic.core.Logic;
 import dooyit.storage.Storage;
 
 public class StorageCommand extends Command {

@@ -2,10 +2,10 @@ package dooyit.parser;
 
 import java.util.ArrayList;
 
-import dooyit.logic.Colour;
-import dooyit.logic.Logic;
 import dooyit.logic.commands.Command;
 import dooyit.logic.commands.CommandUtils;
+import dooyit.logic.core.Colour;
+import dooyit.logic.core.Logic;
 
 public class AddCatParser {
 	

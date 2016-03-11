@@ -1,5 +1,6 @@
 package dooyit.ui;
 
+import dooyit.logic.core.*;
 import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.scene.control.CheckBox;
@@ -9,8 +10,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
-
-import dooyit.logic.*;
 
 public class UITaskBox {
 	private Task task;

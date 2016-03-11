@@ -1,4 +1,4 @@
-package dooyit.exception;
+package dooyit.common.exception;
 
 public class IncorrectInputException extends RuntimeException {
 

@@ -1,6 +1,6 @@
 package dooyit.parser;
 
-import dooyit.exception.IncorrectInputException;
+import dooyit.common.exception.IncorrectInputException;
 import dooyit.logic.commands.Command;
 import dooyit.logic.commands.CommandUtils;
 
@@ -26,8 +26,7 @@ public class AddParser {
 	};
 	
 	public AddParser(String input) {
-		//userInput ignore the word "add"
-		userInput = input.trim().toLowerCase();
+		userInput = input.trim();
 	}
 	
 	public Command getCommand() {

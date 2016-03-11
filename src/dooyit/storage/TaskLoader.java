@@ -1,12 +1,12 @@
 package dooyit.storage;
 
-import dooyit.logic.TaskManager;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+
+import dooyit.logic.core.TaskManager;
 
 public class TaskLoader extends StorageOperations{
 	

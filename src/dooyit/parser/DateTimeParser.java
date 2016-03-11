@@ -1,7 +1,7 @@
 package dooyit.parser;
-import dooyit.exception.IncorrectInputException;
-
 import java.text.DateFormat;
+
+import dooyit.common.exception.IncorrectInputException;
 
 public class DateTimeParser {
 	private static final int TWELVE_HOURS = 1200;

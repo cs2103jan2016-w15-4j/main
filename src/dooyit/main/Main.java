@@ -31,7 +31,7 @@ import javafx.scene.layout.Pane;
 import javafx.geometry.Pos;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import dooyit.logic.Logic;
+import dooyit.logic.core.Logic;
 import dooyit.ui.*;
 
 /**

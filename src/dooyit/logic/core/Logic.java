@@ -1,10 +1,10 @@
-package dooyit.logic;
+package dooyit.logic.core;
 
 import dooyit.storage.Storage;
 import dooyit.ui.UIController;
 import dooyit.ui.UIMainViewType;
 import dooyit.parser.Parser;
-import dooyit.exception.IncorrectInputException;
+import dooyit.common.exception.IncorrectInputException;
 import dooyit.logic.commands.*;
 
 import java.io.IOException;

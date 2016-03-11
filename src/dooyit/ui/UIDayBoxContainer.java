@@ -2,9 +2,8 @@ package dooyit.ui;
 
 import java.util.ArrayList;
 
+import dooyit.logic.core.*;
 import javafx.scene.layout.VBox;
-
-import dooyit.logic.*;
 
 public class UIDayBoxContainer {
 	private VBox dayBoxContainer;

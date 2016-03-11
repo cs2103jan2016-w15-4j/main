@@ -9,8 +9,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 import dooyit.storage.TaskController;
-import dooyit.logic.core.Category;
-import dooyit.logic.core.Task;
+import dooyit.common.datatype.Category;
+import dooyit.common.datatype.Task;
 import dooyit.logic.core.TaskManager;
 import dooyit.storage.CategoryController;
 

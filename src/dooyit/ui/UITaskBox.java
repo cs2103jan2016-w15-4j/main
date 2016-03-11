@@ -1,5 +1,6 @@
 package dooyit.ui;
 
+import dooyit.common.datatype.Task;
 import dooyit.logic.core.*;
 import javafx.geometry.HPos;
 import javafx.geometry.Pos;

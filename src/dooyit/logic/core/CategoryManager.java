@@ -2,6 +2,9 @@ package dooyit.logic.core;
 
 import java.util.ArrayList;
 
+import dooyit.common.datatype.Category;
+import dooyit.common.datatype.Colour;
+
 public class CategoryManager {
 	ArrayList<Category> categories;
 	ColourManager colourManager;

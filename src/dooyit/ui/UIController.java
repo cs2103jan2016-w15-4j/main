@@ -16,6 +16,8 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
+import dooyit.common.datatype.Category;
+import dooyit.common.datatype.TaskGroup;
 import dooyit.logic.core.*;
 import dooyit.main.*;
 

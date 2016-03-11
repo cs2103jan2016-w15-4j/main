@@ -1,8 +1,8 @@
 package dooyit.logic.commands;
 
+import dooyit.common.datatype.Task;
 import dooyit.common.exception.IncorrectInputException;
 import dooyit.logic.core.Logic;
-import dooyit.logic.core.Task;
 import dooyit.logic.core.TaskManager;
 import dooyit.parser.DateTime;
 

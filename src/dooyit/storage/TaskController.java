@@ -2,7 +2,7 @@ package dooyit.storage;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import dooyit.logic.core.Task;
+import dooyit.common.datatype.Task;
 import dooyit.logic.core.TaskManager;
 
 public class TaskController {

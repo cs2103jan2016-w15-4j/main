@@ -1,4 +1,4 @@
-package dooyit.logic.core;
+package dooyit.common.datatype;
 
 public class Colour {
 	public float r; // red

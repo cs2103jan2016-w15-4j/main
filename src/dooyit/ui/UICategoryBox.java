@@ -1,5 +1,7 @@
 package dooyit.ui;
 
+import dooyit.common.datatype.Category;
+import dooyit.common.datatype.Colour;
 import dooyit.logic.core.*;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;

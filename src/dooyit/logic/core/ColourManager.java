@@ -2,6 +2,8 @@ package dooyit.logic.core;
 import java.util.ArrayList;
 import java.util.Random;
 
+import dooyit.common.datatype.Colour;
+
 public class ColourManager {
 	//Colour[] availableColours;
 	ArrayList<Colour> usedColours;

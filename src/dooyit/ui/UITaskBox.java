@@ -42,7 +42,13 @@ public class UITaskBox {
 	    this.taskName.setPrefWidth(250);
 	    
 	    if (this.task.hasDeadlineTime()){
-	    	this.taskPeriod = new Label(this.task.getDeadlineTime().getTime12hStr());
+	    	this.taskPeriod = new Label(this.task.getDeadlineTime().getTime24hStr());
+	    } else if (this.task.hasStartTime() && this.task.hasEndTime()){
+	    	this.taskPeriod = new Label(this.task.getDateTimeStart().getTime24hStr() + " to " + this.task.getDateTimeEnd().getTime24hStr());
+	    } else if (this.task.hasStartTime()){
+	    	this.taskPeriod = new Label("Begins " + this.task.getDateTimeStart().getTime24hStr());
+	    } else if (this.task.hasEndTime()){
+	    	this.taskPeriod = new Label("Ends " + this.task.getDateTimeEnd().getTime24hStr());
 	    } else {
 	    	this.taskPeriod = new Label("");
 	    }

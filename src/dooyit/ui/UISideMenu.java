@@ -21,11 +21,13 @@ public class UISideMenu {
 	private ToggleGroup mainViewToggleGroup;
 	private ToggleButton todayBtn;
 	private ToggleButton extendedBtn;
+	private ToggleButton floatBtn;
 	private ToggleButton allBtn;
 	private ToggleButton completedBtn;
 	
 	private HBox todayBtnContent;
 	private HBox extendedBtnContent;
+	private HBox floatBtnContent;
 	private HBox allBtnContent;
 	private HBox completedBtnContent;
 	
@@ -86,6 +88,27 @@ public class UISideMenu {
 		this.extendedBtn.setToggleGroup(this.mainViewToggleGroup);
 		this.extendedBtn.setUserData("extended");
 		
+		FxIconicsLabel floatIcon =
+                (FxIconicsLabel) new FxIconicsLabel
+                .Builder(FxFontCommunity.Icons.cmd_image_filter_drama)
+                .size(18)
+                .color(MaterialColor.GREY_400).build();
+		
+		Label floatLabel = new Label("Float");
+		floatLabel.setFont(Font.font("Euphemia", 14));
+		floatLabel.getStyleClass().add("btn-select-label");
+		
+		this.floatBtnContent = new HBox();
+		this.floatBtnContent.setSpacing(8);
+		this.floatBtnContent.getChildren().addAll(floatIcon, floatLabel);
+		
+		this.floatBtn = new ToggleButton();
+		this.floatBtn.setGraphic(this.floatBtnContent);
+		this.floatBtn.setPrefWidth(180);
+		this.floatBtn.getStyleClass().add("btn-select-view");
+		this.floatBtn.setToggleGroup(this.mainViewToggleGroup);
+		this.floatBtn.setUserData("float");
+		
 		FxIconicsLabel allIcon =
                 (FxIconicsLabel) new FxIconicsLabel
                 .Builder(FxFontCommunity.Icons.cmd_calendar_multiple)
@@ -134,7 +157,7 @@ public class UISideMenu {
 		
         this.categoryBoxContainer = new UICategoryBoxContainer(new ArrayList<Category>(), this.logic, this.mainViewToggleGroup);
         
-		this.menu.getChildren().addAll(this.todayBtn, this.extendedBtn, this.allBtn, this.completedBtn, this.categoryTitle, this.categoryBoxContainer.getView());
+		this.menu.getChildren().addAll(this.todayBtn, this.extendedBtn, this.floatBtn, this.allBtn, this.completedBtn, this.categoryTitle, this.categoryBoxContainer.getView());
 
 	}
 	

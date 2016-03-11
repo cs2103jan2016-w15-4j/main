@@ -31,6 +31,7 @@ public class UITaskBox {
 		this.taskCheckBox = new CheckBox();
 		this.taskCheckBox.getStyleClass().add("task-checkbox");
 		
+		
 		this.taskId = new Label(Integer.toString(this.task.getId()));
 		this.taskId.setFont(Font.font("Tahoma", 12));
 	    this.taskId.getStyleClass().add("task-id");
@@ -42,7 +43,13 @@ public class UITaskBox {
 	    this.taskName.setPrefWidth(250);
 	    
 	    if (this.task.hasDeadlineTime()){
-	    	this.taskPeriod = new Label(this.task.getDeadlineTime().getTime12hStr());
+	    	this.taskPeriod = new Label(this.task.getDeadlineTime().getTime24hStr());
+	    } else if (this.task.hasStartTime() && this.task.hasEndTime()){
+	    	this.taskPeriod = new Label(this.task.getDateTimeStart().getTime24hStr() + " to " + this.task.getDateTimeEnd().getTime24hStr());
+	    } else if (this.task.hasStartTime()){
+	    	this.taskPeriod = new Label("Begins " + this.task.getDateTimeStart().getTime24hStr());
+	    } else if (this.task.hasEndTime()){
+	    	this.taskPeriod = new Label("Ends " + this.task.getDateTimeEnd().getTime24hStr());
 	    } else {
 	    	this.taskPeriod = new Label("");
 	    }
@@ -50,7 +57,7 @@ public class UITaskBox {
 	    this.taskPeriod.getStyleClass().add("task-period");
 	    this.taskPeriod.setPrefWidth(90);
 	    
-	    this.taskCategoryLabel = new Label("Category");
+	    this.taskCategoryLabel = new Label("School");
 	    this.taskCategoryLabel.setFont(Font.font("Verdana", 10));
 	    this.taskCategoryLabel.getStyleClass().add("task-category-label");
 	    this.taskCategoryLabel.setStyle("-fx-text-fill: #007AFF;");
@@ -65,8 +72,7 @@ public class UITaskBox {
 	    // Check box action
 	    this.taskCheckBox.setOnAction((event) -> {
 	    	boolean isChecked = this.taskCheckBox.isSelected();
-	    	System.out.println(isChecked);
-	    	this.logic.processCommand("delete " + Integer.toString(this.task.getId()));
+	    	this.logic.processCommand("mark " + Integer.toString(this.task.getId()));
 	    });
 	}
 	

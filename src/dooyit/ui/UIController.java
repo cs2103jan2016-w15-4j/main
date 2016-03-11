@@ -113,6 +113,10 @@ public class UIController {
 		                    	activeMainView = UIMainViewType.EXTENDED;
 		                    	logic.processCommand("show next7");
 		                        break;
+		                    case "float":
+		                    	activeMainView = UIMainViewType.FLOAT;
+		                    	logic.processCommand("show float");
+		                    	break;
 		                    case "all":
 		                    	activeMainView = UIMainViewType.ALL;
 		                    	logic.processCommand("show all");

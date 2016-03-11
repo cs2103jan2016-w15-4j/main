@@ -1,5 +1,5 @@
 package dooyit.ui;
 
 public enum UITheme {
-	LIGHT, DARK, AQUA
+	LIGHT, DARK, AQUA, CUSTOM
 }

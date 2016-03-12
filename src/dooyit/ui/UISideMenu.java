@@ -25,12 +25,6 @@ public class UISideMenu {
 	private ToggleButton allBtn;
 	private ToggleButton completedBtn;
 	
-	private HBox todayBtnContent;
-	private HBox extendedBtnContent;
-	private HBox floatBtnContent;
-	private HBox allBtnContent;
-	private HBox completedBtnContent;
-	
 	private Label categoryTitle;
 	
 	private UICategoryBoxContainer categoryBoxContainer;
@@ -45,111 +39,11 @@ public class UISideMenu {
 		
 		this.mainViewToggleGroup = new ToggleGroup();
 		
-		FxIconicsLabel todayIcon =
-                (FxIconicsLabel) new FxIconicsLabel
-                .Builder(FxFontCommunity.Icons.cmd_calendar)
-                .size(18)
-                .color(MaterialColor.GREY_400).build();
-		
-		Label todayLabel = new Label("Today");
-		todayLabel.setFont(Font.font("Euphemia", 14));
-		todayLabel.getStyleClass().add("btn-select-label");
-		
-		this.todayBtnContent = new HBox();
-		this.todayBtnContent.setSpacing(8);
-		this.todayBtnContent.getChildren().addAll(todayIcon, todayLabel);
-		
-		this.todayBtn = new ToggleButton();
-		this.todayBtn.setGraphic(this.todayBtnContent);
-		this.todayBtn.setPrefWidth(180);
-		this.todayBtn.getStyleClass().add("btn-select-view");
-		this.todayBtn.setToggleGroup(this.mainViewToggleGroup);
-		this.todayBtn.setSelected(true);
-		this.todayBtn.setUserData("day");
-		
-		FxIconicsLabel extendedIcon =
-                (FxIconicsLabel) new FxIconicsLabel
-                .Builder(FxFontCommunity.Icons.cmd_numeric_7_box_multiple_outline)
-                .size(18)
-                .color(MaterialColor.GREY_400).build();
-		
-		Label extendedLabel = new Label("Next 7 days");
-		extendedLabel.setFont(Font.font("Euphemia", 14));
-		extendedLabel.getStyleClass().add("btn-select-label");
-		
-		this.extendedBtnContent = new HBox();
-		this.extendedBtnContent.setSpacing(8);
-		this.extendedBtnContent.getChildren().addAll(extendedIcon, extendedLabel);
-		
-		this.extendedBtn = new ToggleButton();
-		this.extendedBtn.setGraphic(this.extendedBtnContent);
-		this.extendedBtn.setPrefWidth(180);
-		this.extendedBtn.getStyleClass().add("btn-select-view");
-		this.extendedBtn.setToggleGroup(this.mainViewToggleGroup);
-		this.extendedBtn.setUserData("extended");
-		
-		FxIconicsLabel floatIcon =
-                (FxIconicsLabel) new FxIconicsLabel
-                .Builder(FxFontCommunity.Icons.cmd_image_filter_drama)
-                .size(18)
-                .color(MaterialColor.GREY_400).build();
-		
-		Label floatLabel = new Label("Float");
-		floatLabel.setFont(Font.font("Euphemia", 14));
-		floatLabel.getStyleClass().add("btn-select-label");
-		
-		this.floatBtnContent = new HBox();
-		this.floatBtnContent.setSpacing(8);
-		this.floatBtnContent.getChildren().addAll(floatIcon, floatLabel);
-		
-		this.floatBtn = new ToggleButton();
-		this.floatBtn.setGraphic(this.floatBtnContent);
-		this.floatBtn.setPrefWidth(180);
-		this.floatBtn.getStyleClass().add("btn-select-view");
-		this.floatBtn.setToggleGroup(this.mainViewToggleGroup);
-		this.floatBtn.setUserData("float");
-		
-		FxIconicsLabel allIcon =
-                (FxIconicsLabel) new FxIconicsLabel
-                .Builder(FxFontCommunity.Icons.cmd_calendar_multiple)
-                .size(18)
-                .color(MaterialColor.GREY_400).build();
-		
-		Label allLabel = new Label("All");
-		allLabel.setFont(Font.font("Euphemia", 14));
-		allLabel.getStyleClass().add("btn-select-label");
-		
-		this.allBtnContent = new HBox();
-		this.allBtnContent.setSpacing(8);
-		this.allBtnContent.getChildren().addAll(allIcon, allLabel);
-		
-		this.allBtn = new ToggleButton();
-		this.allBtn.setGraphic(this.allBtnContent);
-		this.allBtn.setPrefWidth(180);
-		this.allBtn.getStyleClass().add("btn-select-view");
-		this.allBtn.setToggleGroup(this.mainViewToggleGroup);
-		this.allBtn.setUserData("all");
-		
-		FxIconicsLabel completedIcon =
-                (FxIconicsLabel) new FxIconicsLabel
-                .Builder(FxFontCommunity.Icons.cmd_comment_check)
-                .size(18)
-                .color(MaterialColor.GREY_400).build();
-		
-		Label completedLabel = new Label("Completed");
-		completedLabel.setFont(Font.font("Euphemia", 14));
-		completedLabel.getStyleClass().add("btn-select-label");
-		
-		this.completedBtnContent = new HBox();
-		this.completedBtnContent.setSpacing(8);
-		this.completedBtnContent.getChildren().addAll(completedIcon, completedLabel);
-		
-		this.completedBtn = new ToggleButton();
-		this.completedBtn.setGraphic(this.completedBtnContent);
-		this.completedBtn.setPrefWidth(180);
-		this.completedBtn.getStyleClass().add("btn-select-view");
-		this.completedBtn.setToggleGroup(this.mainViewToggleGroup);
-		this.completedBtn.setUserData("completed");
+		this.todayBtn = getMenuButton("Today", "day", FxFontCommunity.Icons.cmd_calendar);
+		this.extendedBtn = getMenuButton("Next 7 days", "extended", FxFontCommunity.Icons.cmd_numeric_7_box_multiple_outline);
+		this.floatBtn = getMenuButton("Float", "float", FxFontCommunity.Icons.cmd_image_filter_drama);
+		this.allBtn = getMenuButton("All", "all", FxFontCommunity.Icons.cmd_calendar_multiple);
+		this.completedBtn = getMenuButton("Completed", "completed", FxFontCommunity.Icons.cmd_comment_check);
 		
         this.categoryTitle = new Label("CATEGORIES");
         this.categoryTitle.setFont(Font.font("Tahoma", 12));
@@ -159,6 +53,31 @@ public class UISideMenu {
         
 		this.menu.getChildren().addAll(this.todayBtn, this.extendedBtn, this.floatBtn, this.allBtn, this.completedBtn, this.categoryTitle, this.categoryBoxContainer.getView());
 
+	}
+	
+	private ToggleButton getMenuButton(String title, String userData, FxFontCommunity.Icons icon){
+		FxIconicsLabel btnIcon =
+                (FxIconicsLabel) new FxIconicsLabel
+                .Builder(icon)
+                .size(18)
+                .color(MaterialColor.GREY_400).build();
+		
+		Label btnLabel = new Label(title);
+		btnLabel.setFont(Font.font("Euphemia", 14));
+		btnLabel.getStyleClass().add("btn-select-label");
+		
+		HBox btnContent = new HBox();
+		btnContent.setSpacing(8);
+		btnContent.getChildren().addAll(btnIcon, btnLabel);
+		
+		ToggleButton menuBtn = new ToggleButton();
+		menuBtn.setGraphic(btnContent);
+		menuBtn.setPrefWidth(180);
+		menuBtn.getStyleClass().add("btn-select-view");
+		menuBtn.setToggleGroup(this.mainViewToggleGroup);
+		menuBtn.setUserData(userData);
+		
+		return menuBtn;
 	}
 	
 	public VBox getView(){

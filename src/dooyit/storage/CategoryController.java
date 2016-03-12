@@ -12,8 +12,8 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-import dooyit.logic.core.Category;
-import dooyit.logic.core.Colour;
+import dooyit.common.datatype.Category;
+import dooyit.common.datatype.Colour;
 
 public class CategoryController {
 	private String filePath;

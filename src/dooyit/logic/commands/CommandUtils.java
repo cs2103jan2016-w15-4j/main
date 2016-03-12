@@ -2,7 +2,7 @@ package dooyit.logic.commands;
 
 import java.util.ArrayList;
 
-import dooyit.logic.core.Colour;
+import dooyit.common.datatype.Colour;
 import dooyit.parser.DateTime;
 import dooyit.ui.UIMainViewType;
 

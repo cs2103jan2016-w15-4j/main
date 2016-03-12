@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 import com.google.gson.Gson;
 
-import dooyit.logic.core.Task;
+import dooyit.common.datatype.Task;
 
 public class TaskSaver extends StorageOperations{
 	

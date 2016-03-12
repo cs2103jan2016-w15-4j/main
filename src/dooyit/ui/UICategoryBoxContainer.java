@@ -2,6 +2,7 @@ package dooyit.ui;
 
 import java.util.ArrayList;
 
+import dooyit.common.datatype.Category;
 import dooyit.logic.core.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToggleGroup;

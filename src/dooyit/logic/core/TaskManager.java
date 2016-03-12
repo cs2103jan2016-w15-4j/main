@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-import dooyit.logic.core.Task.TaskType;
+import dooyit.common.datatype.Task;
+import dooyit.common.datatype.TaskGroup;
+import dooyit.common.datatype.Task.TaskType;
 import dooyit.parser.DateTime;
 
 public class TaskManager {

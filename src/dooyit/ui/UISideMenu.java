@@ -6,6 +6,7 @@ import com.pepperonas.fxiconics.FxIconicsLabel;
 import com.pepperonas.fxiconics.MaterialColor;
 import com.pepperonas.fxiconics.cmd.FxFontCommunity;
 
+import dooyit.common.datatype.Category;
 import dooyit.logic.core.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;

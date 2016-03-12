@@ -1,4 +1,4 @@
-package dooyit.logic.core;
+package dooyit.common.datatype;
 
 import java.util.ArrayList;
 

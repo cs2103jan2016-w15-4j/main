@@ -1,5 +1,7 @@
 package dooyit.ui;
 
+import java.io.FileInputStream;
+
 import dooyit.common.datatype.Task;
 import dooyit.logic.core.*;
 import javafx.geometry.HPos;
@@ -13,6 +15,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 
 public class UITaskBox {
+	
 	private static final String STYLECLASS_TASK_CHECKBOX = "task-checkbox";
 	
 	private static final String FONT_TASK_ID = "Tahoma";
@@ -20,8 +23,8 @@ public class UITaskBox {
 	private static final String STYLECLASS_TASK_ID = "task-id";
 	private static final int PREFWIDTH_TASK_ID = 30;
 	
-	private static final String FONT_TASK_NAME = "Avenir";
-	private static final int FONTSIZE_TASK_NAME = 16;
+	private static final String FONT_TASK_NAME = "Euphemia";
+	private static final int FONTSIZE_TASK_NAME = 14;
 	private static final String STYLECLASS_TASK_NAME = "task-name";
 	private static final int TASK_NAME_WIDTH_TO_SUBTRACT = 240;
 	
@@ -48,6 +51,7 @@ public class UITaskBox {
 	private static final int WIDTH_MENU = 180;
 	private static final int PAD_X = 20;
 	
+	private Font Avenir_16;
 	private UIDayBox parent;
 	private Task task;
 	private CheckBox taskCheckBox;
@@ -95,7 +99,13 @@ public class UITaskBox {
 	    this.taskCategoryLabel.setPrefWidth(PREFWIDTH_TASK_CATEGORY_LABEL);
 	    
 	    this.taskName = new Label(this.task.getName());
-		this.taskName.setFont(Font.font(FONT_TASK_NAME, FONTSIZE_TASK_NAME));
+	    try {
+	    	this.Avenir_16 = Font.loadFont(getClass().getResourceAsStream("fonts/avenir-light.ttf"), 16);
+	    	this.taskName.setFont(this.Avenir_16);
+	    } catch(Exception e) {
+			this.taskName.setFont(Font.font(FONT_TASK_NAME, FONTSIZE_TASK_NAME));
+			System.out.println(e.getMessage());
+	    }
 	    this.taskName.getStyleClass().add(STYLECLASS_TASK_NAME);
 	    double width = this.parent.getStageWidth();
 	    updateTaskNameWidth(width - TASK_NAME_WIDTH_TO_SUBTRACT);

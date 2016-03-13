@@ -9,10 +9,10 @@ import com.google.gson.Gson;
 
 import dooyit.common.datatype.Task;
 
-public class TaskSaver extends StorageOperations{
+public class TaskSaver extends StorageConstants{
 	
-	TaskSaver(String filePath_) {
-		this.filePath = filePath_ + File.separatorChar + NAME_FILE_STORAGE;
+	TaskSaver(String filePath) {
+		this.filePath = filePath + File.separatorChar + NAME_FILE_STORAGE;
 	}
 	
 	public boolean saveTasks(ArrayList<Task> tasks) throws IOException{

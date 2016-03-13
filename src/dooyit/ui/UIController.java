@@ -27,6 +27,27 @@ public class UIController {
 	static final String URL_CSS_THEME_DARK = "theme_dark.css";
 	static final String URL_CSS_THEME_AQUA = "theme_aqua.css";
 
+	static final int WIDTH_SCENE = 720;
+	static final int HEIGHT_SCENE = 580;
+	
+	static final String USERDATA_TODAY = "day";
+	static final String USERDATA_EXTENDED = "extended";
+	static final String USERDATA_FLOAT = "float";
+	static final String USERDATA_ALL = "all";
+	static final String USERDATA_COMPLETED = "completed";
+	static final String USERDATA_CATEGORY = "category";
+	
+	static final String CMD_SHOW_TODAY = "show today";
+	static final String CMD_SHOW_EXTENDED = "show next7";
+	static final String CMD_SHOW_FLOAT = "show float";
+	static final String CMD_SHOW_ALL = "show all";
+	static final String CMD_SHOW_COMPLETED = "show completed";
+	static final String CMD_SHOW = "show ";
+	
+	static final String STYLECLASS_MAIN_VIEW = "main-view";
+	
+	static final String EMPTY_STR = "";
+	
 	private String urlCssCommon;
 	private String urlCssThemeLight;
 	private String urlCssThemeDark;
@@ -41,6 +62,9 @@ public class UIController {
 	private UICommandBox commandBox;
 	private UICommandHelper commandHelper;
 	private UIMessageBox messageBox;
+	private UIHelpBox helpBox;
+	private ChangeListener<Number> resizeListener;
+	private ChangeListener<Boolean> maximizeListener;
 	
 	private WebView webView;
 	private WebEngine webEngine;
@@ -69,11 +93,11 @@ public class UIController {
 		this.sideMenu = new UISideMenu(this.logic);
 		
 		// Day box container
-		this.dayBoxContainer = new UIDayBoxContainer(this.logic);
+		this.dayBoxContainer = new UIDayBoxContainer(this, this.logic);
 	
 		// Main view
 		this.mainView = new ScrollPane();
-		this.mainView.getStyleClass().add("main-view");
+		this.mainView.getStyleClass().add(STYLECLASS_MAIN_VIEW);
 		this.mainView.setContent(this.dayBoxContainer.getView());
 		this.activeMainView = UIMainViewType.TODAY;
 		
@@ -86,6 +110,9 @@ public class UIController {
 		// Message box
 		this.messageBox = new UIMessageBox(this.primaryStage);
 		
+		// Help box
+		this.helpBox = new UIHelpBox();
+		
 		// Add views to root
 		this.root.setTop(this.header.getView());
 		this.root.setLeft(this.sideMenu.getView());
@@ -93,7 +120,7 @@ public class UIController {
 		this.root.setBottom(this.commandBox.getView());
 		
 		// Add style to scene
-		this.scene = new Scene(root,720,580);
+		this.scene = new Scene(root, WIDTH_SCENE, HEIGHT_SCENE);
 		this.scene.getStylesheets().addAll(this.urlCssCommon, this.urlCssThemeLight);
 		
 		// Side menu listeners
@@ -105,27 +132,27 @@ public class UIController {
 		            } else {
 		                String selected = sideMenu.getMainViewToggleGroup().getSelectedToggle().getUserData().toString();
                         switch(selected){
-		                    case "day":
+		                    case USERDATA_TODAY:
 		                    	activeMainView = UIMainViewType.TODAY;
-		                    	logic.processCommand("show today");
+		                    	logic.processCommand(CMD_SHOW_TODAY);
 		                        break;
-		                    case "extended":
+		                    case USERDATA_EXTENDED:
 		                    	activeMainView = UIMainViewType.EXTENDED;
-		                    	logic.processCommand("show next7");
+		                    	logic.processCommand(CMD_SHOW_EXTENDED);
 		                        break;
-		                    case "float":
+		                    case USERDATA_FLOAT:
 		                    	activeMainView = UIMainViewType.FLOAT;
-		                    	logic.processCommand("show float");
+		                    	logic.processCommand(CMD_SHOW_FLOAT);
 		                    	break;
-		                    case "all":
+		                    case USERDATA_ALL:
 		                    	activeMainView = UIMainViewType.ALL;
-		                    	logic.processCommand("show all");
+		                    	logic.processCommand(CMD_SHOW_ALL);
 		                    	break;
-		                    case "completed":
+		                    case USERDATA_COMPLETED:
 		                    	activeMainView = UIMainViewType.COMPLETED;
-		                    	 logic.processCommand("show completed");
+		                    	 logic.processCommand(CMD_SHOW_COMPLETED);
 		                    	break;
-		                    case "category":
+		                    case USERDATA_CATEGORY:
 		                    	activeMainView = UIMainViewType.CATEGORY;
 		                    	// call logic processCommand from category box listener
 		                }
@@ -141,7 +168,7 @@ public class UIController {
 		    @Override
 		    public void changed(ObservableValue<? extends String> observable,
 		            String oldValue, String newValue) {
-		    	if (newValue.equals("") && commandHelper.isShowing()){
+		    	if (newValue.equals(EMPTY_STR) && commandHelper.isShowing()){
 		    		//commandHelper.hide();
 		    	} else if (!newValue.equals(oldValue) && !commandHelper.isShowing()){
 		    		//commandHelper.show();
@@ -153,7 +180,7 @@ public class UIController {
 		this.commandBox.getCommandTextField().setOnAction((event)->{
 			String commandString = commandBox.getCommandTextField().getText();
 			System.out.println(commandString);
-			commandBox.getCommandTextField().setText("");
+			commandBox.getCommandTextField().setText(EMPTY_STR);
 			
 			this.logic.processCommand(commandString);
 			
@@ -169,6 +196,13 @@ public class UIController {
 					changeTheme(UITheme.AQUA);
 					break;
 				case "help":
+					if (helpBox.isShowing()){
+						helpBox.hide();
+					} else {
+						helpBox.show(primaryStage);
+					}
+					break;
+				case "manual":
 					showUserGuide();
 					break;
 				case "mb":
@@ -189,13 +223,35 @@ public class UIController {
 		    }
 		});
 		
-		// Scene resize listener
-		this.scene.heightProperty().addListener(new ChangeListener<Number>() {
-		    @Override 
-		    public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneHeight, Number newSceneHeight) {
+		this.resizeListener = new ChangeListener<Number>(){
+			@Override
+			public void changed(ObservableValue<? extends Number> observableValue, Number oldValue, Number newValue) {
 		    	messageBox.updatePosition();
+		    	dayBoxContainer.updatePosition(primaryStage.getWidth());
+		    	if (helpBox.isShowing()){
+		    		helpBox.updatePosition(primaryStage.getX(), primaryStage.getY(), primaryStage.getWidth(), primaryStage.getHeight());
+		    	}
 		    }
-		});
+		};
+		
+		this.maximizeListener = new ChangeListener<Boolean>(){
+			@Override
+			public void changed(ObservableValue<? extends Boolean> observableValue, Boolean oldValue, Boolean newValue) {
+		    	System.out.println("MAX");
+				messageBox.updatePosition();
+		    	dayBoxContainer.updatePosition(primaryStage.getWidth());
+		    	if (helpBox.isShowing()){
+		    		helpBox.updatePosition(primaryStage.getX(), primaryStage.getY(), primaryStage.getWidth(), primaryStage.getHeight());
+		    	}
+		    }
+		};
+		
+		// Scene resize listener
+		this.scene.heightProperty().addListener(this.resizeListener);
+		this.scene.widthProperty().addListener(this.resizeListener);
+		
+		// Scene maximize listener
+		this.primaryStage.maximizedProperty().addListener(this.maximizeListener);
 		
 		// Primary stage listener
 		this.primaryStage.focusedProperty().addListener(new ChangeListener<Boolean>(){
@@ -301,6 +357,10 @@ public class UIController {
         this.secWindow.setTitle("User Guide");
         this.secWindow.setScene(new Scene(this.webView, 600, 600));
         this.secWindow.show();
+	}
+	
+	protected double getStageWidth(){
+		return this.primaryStage.getWidth();
 	}
 	
 }

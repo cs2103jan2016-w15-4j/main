@@ -15,11 +15,8 @@ import com.google.gson.JsonParser;
 import dooyit.common.datatype.Category;
 import dooyit.common.datatype.Colour;
 
-public class CategoryController {
-	private String filePath;
+public class CategoryController extends StorageConstants{
 
-	static final String DEFAULT_FOLDER_STORAGE = "data\\";
-	static final String NAME_FILE_CATEGORY = "categories.txt";
 	static final String CATEGORY_NAME = "name";
 	static final String CATEGORY_COLOUR = "colour";
 

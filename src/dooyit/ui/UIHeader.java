@@ -13,18 +13,23 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 
 public class UIHeader {
+	private static final String STYLECLASS_HEADER = "header-view";
+	
+	private static final String LABEL_TITLE = "Dooyit";
+	private static final Font FONT_TITLE = Font.font("Helvetica", 19);
+	private static final String STYLECLASS_TITLE = "header-title";
+	
 	private HBox header;
 	private Label title;
-	private HBox icon;
 	
 	public UIHeader(){
 		this.header = new HBox();
-		this.header.getStyleClass().add("header-view");
+		this.header.getStyleClass().add(STYLECLASS_HEADER);
 		this.header.setSpacing(590);
 		
-		this.title = new Label("Dooyit");
-		this.title.setFont(Font.font("Helvetica", 19));
-		this.title.getStyleClass().add("header-title");
+		this.title = new Label(LABEL_TITLE);
+		this.title.setFont(FONT_TITLE);
+		this.title.getStyleClass().add(STYLECLASS_TITLE);
 		
 		this.header.getChildren().addAll(this.title);
 		this.header.setAlignment(Pos.CENTER);

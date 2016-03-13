@@ -7,18 +7,23 @@ import dooyit.logic.core.*;
 import javafx.scene.layout.VBox;
 
 public class UIDayBoxContainer {
+	private UIController parent;
+	private ArrayList<UIDayBox> dayBoxList;
 	private VBox dayBoxContainer;
 	private Logic logic;
 	
-	public UIDayBoxContainer(Logic logic){
+	public UIDayBoxContainer(UIController parent, Logic logic){
+		this.parent = parent;
 		this.dayBoxContainer = new VBox();
 		this.logic = logic;
+		this.dayBoxList = new ArrayList<UIDayBox>();
 	}
 	
 	public void refresh(ArrayList<TaskGroup> taskGroupList){
 		this.dayBoxContainer.getChildren().clear();
 		taskGroupList.forEach((taskGroup)->{
-			UIDayBox dayBox = new UIDayBox(taskGroup, logic);
+			UIDayBox dayBox = new UIDayBox(this, taskGroup, logic);
+			this.dayBoxList.add(dayBox);
 			this.dayBoxContainer.getChildren().add(dayBox.getView());
 		});
 	}
@@ -27,4 +32,14 @@ public class UIDayBoxContainer {
 		return this.dayBoxContainer;
 	}
 	
+	public void updatePosition(double stageWidth){
+		this.dayBoxList.forEach((dayBox)->{
+			dayBox.updatePosition(stageWidth);
+		});
+	}
+	
+	protected double getStageWidth(){
+		double width = this.parent.getStageWidth();
+		return width;
+	}
 }

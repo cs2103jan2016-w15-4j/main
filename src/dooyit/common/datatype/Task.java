@@ -15,6 +15,7 @@ public class Task {
 	private DateTime dateTimeStart;
 	private DateTime dateTimeEnd;
 	private boolean isOverdue;
+	private boolean isCompleted;
 	private Category category;
 	
 	public static int curTaskId = 1;
@@ -57,6 +58,18 @@ public class Task {
 		this.dateTimeDeadline = null;
 		this.dateTimeStart = start;
 		this.dateTimeEnd = end;
+	}
+	
+	public void mark(){
+		isCompleted = true;
+	}
+	
+	public void unMark(){
+		isCompleted = false;
+	}
+	
+	public boolean isCompleted(){
+		return isCompleted;
 	}
 	
 	public void setCategory(Category category){

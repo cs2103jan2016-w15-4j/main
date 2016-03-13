@@ -3,13 +3,8 @@
 	-fx-background-color: white;
 }
 
-.main-view {
-	-fx-background-color: transparent;
-}
-
 .header-view {
 	-fx-background-color: #ff6c57;
-	-fx-padding: 10; 
 }
 
 .header-title {
@@ -17,40 +12,28 @@
 }
 
 .btn-select-view{
-	-fx-background-color: none;
-	-fx-background-radius: 0;
-	-fx-alignment: center-left;
-	-fx-padding: 7 20 7 20;
+	-fx-text-fill: #deebf7;
 }
 
 .btn-select-view:selected {
-	/*-fx-background-color: linear-gradient(from 15% 15% to 75% 75%, #fdeeea, #fdd5d5);*/
 	-fx-background-color: #FFD3E0;
 }
 
 .category-title {
 	-fx-text-fill: #ff6c57;
-	-fx-padding: 50 20 7 20;
-}
-
-.category-box-wrapper {
-	-fx-alignment: center-left;
-	-fx-padding: 0;
 }
 
 .menu-view {
-	/*-fx-background-color: linear-gradient(from 25% 25% to 75% 75%, #ffffff, #fdeeea);*/
 	-fx-background-color: #f6f6f6;
-	-fx-padding: 20 0 20 0;
 }
 
 .command-box {
 	-fx-background-color: #f7f7f7;
-	-fx-padding: 15;
 }
 
 .command-textfield {
-	-fx-pref-height: 34px;
+	-fx-background-color: white;
+	-fx-text-fill: #303030;
 }
 
 .day-box {
@@ -59,14 +42,6 @@
 
 .day-title {
 	-fx-text-fill: #ff6c57;
-}
-
-.day-box {
-	-fx-padding: 20;
-}
-
-.day-title {
-	-fx-padding: 0 0 10 0;
 }
 
 .task-id {
@@ -79,6 +54,11 @@
 
 .task-period {
 	-fx-text-fill: black;
+}
+
+.task-checkbox .box {
+	-fx-background-color: white;
+	-fx-border-color: #d0d0d0;
 }
 
 .command-helper-list-view:focused, .command-helper-list-view:selected {

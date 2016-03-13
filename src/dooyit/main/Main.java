@@ -57,6 +57,11 @@ public class Main extends Application{
 	public static final String ERROR_NUMBER_FORMAT_EXCEPTION = "ERROR: Number Format Exception";
 	public static final int NO_OF_ARG = 1;
 
+	private static final String APP_ICON = "icon.png";
+	private static final String APP_TITLE = "Dooyit";
+	private static final int MINWIDTH_STAGE = 720;
+	private static final int MINHEIGHT_STAGE = 520;
+	
 	// scanner for receiving user input
 	private Scanner sc;
 	private UIController ui;
@@ -88,11 +93,10 @@ public class Main extends Application{
 			Scene scene = this.ui.getScene();
 			
 			primaryStage.setScene(scene);
-			primaryStage.getIcons().add(new Image("icon.png"));
-	        primaryStage.setTitle("Dooyit");
-	        primaryStage.setMaxWidth(720);
-	        primaryStage.setMinWidth(720);
-	        primaryStage.setMinHeight(520);
+			primaryStage.getIcons().add(new Image(APP_ICON));
+	        primaryStage.setTitle(APP_TITLE);
+	        primaryStage.setMinWidth(MINWIDTH_STAGE);
+	        primaryStage.setMinHeight(MINHEIGHT_STAGE);
 	        primaryStage.show();
 			logic.setUIController(this.ui);
 		} catch(Exception e) {

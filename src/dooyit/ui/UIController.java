@@ -62,6 +62,7 @@ public class UIController {
 	private UICommandBox commandBox;
 	private UICommandHelper commandHelper;
 	private UIMessageBox messageBox;
+	private ChangeListener<Number> resizeListener;
 	
 	private WebView webView;
 	private WebEngine webEngine;
@@ -90,7 +91,7 @@ public class UIController {
 		this.sideMenu = new UISideMenu(this.logic);
 		
 		// Day box container
-		this.dayBoxContainer = new UIDayBoxContainer(this.logic);
+		this.dayBoxContainer = new UIDayBoxContainer(this, this.logic);
 	
 		// Main view
 		this.mainView = new ScrollPane();
@@ -210,13 +211,18 @@ public class UIController {
 		    }
 		});
 		
-		// Scene resize listener
-		this.scene.heightProperty().addListener(new ChangeListener<Number>() {
-		    @Override 
-		    public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneHeight, Number newSceneHeight) {
+		this.resizeListener = new ChangeListener<Number>(){
+			@Override
+			public void changed(ObservableValue<? extends Number> observableValue, Number oldValue, Number newValue) {
+				System.out.println("Resize!");
 		    	messageBox.updatePosition();
+		    	dayBoxContainer.updatePosition(primaryStage.getWidth());
 		    }
-		});
+		};
+		
+		// Scene resize listener
+		this.scene.heightProperty().addListener(this.resizeListener);
+		this.scene.widthProperty().addListener(this.resizeListener);
 		
 		// Primary stage listener
 		this.primaryStage.focusedProperty().addListener(new ChangeListener<Boolean>(){
@@ -322,6 +328,10 @@ public class UIController {
         this.secWindow.setTitle("User Guide");
         this.secWindow.setScene(new Scene(this.webView, 600, 600));
         this.secWindow.show();
+	}
+	
+	protected double getStageWidth(){
+		return this.primaryStage.getWidth();
 	}
 	
 }

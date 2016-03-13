@@ -20,16 +20,19 @@ public class UIDayBox {
 	
 	private static final String TASK_GROUP_TODAY = "Today";
 	
+	private UIDayBoxContainer parent;
 	private Logic logic;
 	private VBox dayBox;
 	private Label dayTitle;
 	private ArrayList<Task> taskList;
+	private ArrayList<UITaskBox> taskBoxList;
 	private String dayBoxTitle;
 	
-	public UIDayBox(TaskGroup taskGroup, Logic logic){
+	public UIDayBox(UIDayBoxContainer parent, TaskGroup taskGroup, Logic logic){
+		this.parent = parent;
 		this.logic = logic;
 		this.taskList = taskGroup.getTasks();
-		
+		this.taskBoxList = new ArrayList<UITaskBox>();
 		this.dayBox = new VBox();
 		this.dayBox.getStyleClass().add(STYLECLASS_DAY_BOX);
 		
@@ -51,13 +54,25 @@ public class UIDayBox {
         this.dayBox.getChildren().add(dayTitle);
         
 		for (int i = 0; i < this.taskList.size(); i++){
-			UITaskBox taskBoxView = new UITaskBox(this.taskList.get(i), this.logic);
-	        HBox dayTaskBox = taskBoxView.getView();
-	        this.dayBox.getChildren().add(dayTaskBox);
+			UITaskBox taskBox = new UITaskBox(this, this.taskList.get(i), this.logic);
+			this.taskBoxList.add(taskBox);
+	        HBox taskBoxView = taskBox.getView();
+	        this.dayBox.getChildren().add(taskBoxView);
 		}
 	}
 	
 	public VBox getView(){
 		return this.dayBox;
+	}
+	
+	public void updatePosition(double stageWidth){
+		this.taskBoxList.forEach((taskBox)->{
+			taskBox.updatePosition(stageWidth);
+		});
+	}
+	
+	protected double getStageWidth(){
+		double width = this.parent.getStageWidth();
+		return width;
 	}
 }

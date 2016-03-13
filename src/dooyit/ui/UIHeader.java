@@ -15,10 +15,11 @@ import javafx.scene.text.Font;
 public class UIHeader {
 	private static final String STYLECLASS_HEADER = "header-view";
 	
-	private static final String LABEL_TITLE = "Dooyit";
+	private static final String LABEL_TITLE = "DOOYIT";
 	private static final Font FONT_TITLE = Font.font("Helvetica", 19);
 	private static final String STYLECLASS_TITLE = "header-title";
 	
+	private Font customFont;
 	private HBox header;
 	private Label title;
 	
@@ -28,7 +29,12 @@ public class UIHeader {
 		this.header.setSpacing(590);
 		
 		this.title = new Label(LABEL_TITLE);
-		this.title.setFont(FONT_TITLE);
+		try {
+	    	this.customFont = Font.loadFont(getClass().getResourceAsStream("fonts/Gentona-Medium.ttf"), 19);
+	    	this.title.setFont(this.customFont);
+	    } catch(Exception e) {
+	    	this.title.setFont(FONT_TITLE);
+	    }
 		this.title.getStyleClass().add(STYLECLASS_TITLE);
 		
 		this.header.getChildren().addAll(this.title);

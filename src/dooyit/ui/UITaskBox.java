@@ -1,7 +1,5 @@
 package dooyit.ui;
 
-import java.io.FileInputStream;
-
 import dooyit.common.datatype.Task;
 import dooyit.logic.core.*;
 import javafx.geometry.HPos;
@@ -13,6 +11,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
+import javafx.scene.text.TextAlignment;
 
 public class UITaskBox {
 	

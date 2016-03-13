@@ -6,17 +6,25 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-import dooyit.logic.core.TaskManager;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
-public class TaskLoader extends StorageOperations{
+import dooyit.logic.core.TaskManager;
+import dooyit.parser.DateTime;
+
+public class TaskLoader extends StorageConstants{
 	
-	TaskLoader(String filePath_) {
-		this.filePath = filePath_;
+	private static final String DEADLINE = "dateTimeDeadline";
+	private static final String EVENT_START = "dateTimeStart";
+	private static final String EVENT_END = "dateTimeEnd";
+	private static final String NAME = "taskName";
+	
+	TaskLoader(String filePath) {
+		this.filePath = filePath;
 	}
 	
 	public boolean loadTasks(TaskManager taskManager) throws IOException{
 		File directory = new File(filePath);
-		//ArrayList<Task> taskList = new ArrayList<Task>();
 
 		if(directory.exists()) {
 			String path = filePath + File.separatorChar + NAME_FILE_STORAGE;
@@ -60,7 +68,37 @@ public class TaskLoader extends StorageOperations{
 	}
 	
 	private void loadToMemory(TaskManager taskManager, String taskFormat) {
-		taskManager.LoadTask(taskFormat);
+		loadTask(taskManager, taskFormat);
+	}
+	
+	public boolean loadTask(TaskManager taskManager, String taskFormat){
+		JsonParser parser = new JsonParser();
+		JsonObject taskInfo = parser.parse(taskFormat).getAsJsonObject();
+		String name = taskInfo.get(NAME).getAsString();
+		if(taskInfo.has(DEADLINE)) {
+			DateTime deadline = resolveDateTime(taskInfo, DEADLINE);
+			taskManager.AddTaskDeadline(name, deadline);
+			return true;
+		}
+		else if(taskInfo.has(EVENT_START) && taskInfo.has(EVENT_END)) {
+			DateTime eventStart = resolveDateTime(taskInfo, EVENT_START);
+			DateTime eventEnd= resolveDateTime(taskInfo, EVENT_END);
+			taskManager.AddTaskEvent(name, eventStart, eventEnd);
+			return true;
+		}
+		else {
+			taskManager.AddTaskFloat(name);
+			return true;
+		}
+	}
+	
+	private DateTime resolveDateTime(JsonObject taskInfo, String type) {
+		String dateTimeString = taskInfo.get(type).getAsString();
+		String[] parts = dateTimeString.split(" ");
+		DateTime dateTime = new DateTime(Integer.valueOf(parts[0]),Integer.valueOf(parts[1]),
+				Integer.valueOf(parts[2]), parts[3], parts[4]);
+		
+		return dateTime;
 	}
 	
 	private void readFromFile(FileReader fReader, TaskManager taskManager) throws IOException {

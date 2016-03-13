@@ -1,9 +1,6 @@
 package dooyit.logic.core;
 import java.util.ArrayList;
 
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-
 import dooyit.common.datatype.Task;
 import dooyit.common.datatype.TaskGroup;
 import dooyit.common.datatype.Task.TaskType;
@@ -11,17 +8,11 @@ import dooyit.parser.DateTime;
 
 public class TaskManager {
 	private ArrayList<Task> tasks;
-	private ArrayList<Task> doneTasks;
 	private DateTime dateTime;
 	
-	private static final String DEADLINE = "dateTimeDeadline";
-	private static final String EVENT_START = "dateTimeStart";
-	private static final String EVENT_END = "dateTimeEnd";
-	private static final String NAME = "taskName";
 	
 	public TaskManager(){
 		tasks = new ArrayList<Task>();
-		doneTasks = new ArrayList<Task>();
 	}
 	
 	public Task AddTaskFloat(String data){
@@ -45,35 +36,28 @@ public class TaskManager {
 		return task;
 	}
 	
-	// return false if length is incorrect
-	public boolean LoadTask(String taskFormat){
-		JsonParser parser = new JsonParser();
-		JsonObject taskInfo = parser.parse(taskFormat).getAsJsonObject();
-		String name = taskInfo.get(NAME).getAsString();
-		if(taskInfo.has(DEADLINE)) {
-			DateTime deadline = resolveDateTime(taskInfo, DEADLINE);
-			AddTaskDeadline(name, deadline);
-			return true;
-		}
-		else if(taskInfo.has(EVENT_START) && taskInfo.has(EVENT_END)) {
-			DateTime eventStart = resolveDateTime(taskInfo, EVENT_START);
-			DateTime eventEnd= resolveDateTime(taskInfo, EVENT_END);
-			AddTaskEvent(name, eventStart, eventEnd);
-			return true;
-		}
-		else {
-			AddTaskFloat(name);
-			return true;
-		}
+	public Task AddCompletedTaskFloat(String data){
+		Task task = new Task();
+		task.initTaskFloat(data);
+		task.mark();
+		tasks.add(task);
+		return task;
 	}
 	
-	private DateTime resolveDateTime(JsonObject taskInfo, String type) {
-		String dateTimeString = taskInfo.get(type).getAsString();
-		String[] parts = dateTimeString.split(" ");
-		DateTime dateTime = new DateTime(Integer.valueOf(parts[0]),Integer.valueOf(parts[1]),
-				Integer.valueOf(parts[2]), parts[3], parts[4]);
-		
-		return dateTime;
+	public Task AddCompletedTaskDeadline(String data, DateTime dateTime){
+		Task task = new Task();
+		task.initTaskDeadline(data, dateTime);
+		task.mark();
+		tasks.add(task);
+		return task;
+	}
+
+	public Task AddCompletedTaskEventDone(String data, DateTime start, DateTime end){
+		Task task = new Task();
+		task.initTaskEvent(data, start, end);
+		task.mark();
+		tasks.add(task);
+		return task;
 	}
 	
 	public Task deleteTask(int id){
@@ -83,27 +67,40 @@ public class TaskManager {
 			}
 		}
 		
-		for(int i=0; i<doneTasks.size(); i++){
-			if(tasks.get(i).getId() == id){
-				return  tasks.remove(i);
-			}
-		}
+//		for(int i=0; i<doneTasks.size(); i++){
+//			if(tasks.get(i).getId() == id){
+//				return  tasks.remove(i);
+//			}
+//		}
 		
 		return null;
 	}
 	
-	public Task markTask(int id){
-		Task task;
-		
+	public boolean markTask(int id){
 		for(int i=0; i<tasks.size(); i++){
-			if(tasks.get(i).getId() == id){
-				task =  tasks.remove(i);
-				doneTasks.add(task);
-				return task;
+			if(tasks.get(i).getId() == id ){
+				if(tasks.get(i).isCompleted()){
+					return false;
+				}
+				else{
+					tasks.get(i).mark();
+					return true;
+				}
 			}
 		}
 		// tell user if task is already marked.
-		return null;
+		return false;
+	}
+	
+	public boolean unMarkTask(int id){
+		for(int i=0; i<tasks.size(); i++){
+			if(tasks.get(i).getId() == id){
+				tasks.get(i).unMark();
+				return true;
+			}
+		}
+		// tell user if task is already marked.
+		return false;
 	}
 	
 	public boolean containsTask(int id){
@@ -137,8 +134,26 @@ public class TaskManager {
 		return tasks;
 	}
 	
+	public ArrayList<Task> getIncompletedTasks(){
+		ArrayList<Task> allIncompleteTask = new ArrayList<Task>();
+		
+		for(Task task : tasks){
+			if(!task.isCompleted()){
+				allIncompleteTask.add(task);
+			}
+		}
+		return allIncompleteTask;
+	}
+	
 	public ArrayList<Task> getCompletedTasks(){
-		return doneTasks;
+		ArrayList<Task> allCompletedTask = new ArrayList<Task>();
+		
+		for(Task task : tasks){
+			if(task.isCompleted()){
+				allCompletedTask.add(task);
+			}
+		}
+		return allCompletedTask;
 	}
 	
 	public ArrayList<Task> getFloatingTasks(){
@@ -202,7 +217,7 @@ public class TaskManager {
 	
 	public ArrayList<TaskGroup> getTaskGroupsAll(){
 		ArrayList<TaskGroup> taskGroups = new ArrayList<TaskGroup>();
-		taskGroups.add(new TaskGroup("All", getAllTasks()));
+		taskGroups.add(new TaskGroup("All", getIncompletedTasks()));
 		return taskGroups;
 	}
 	

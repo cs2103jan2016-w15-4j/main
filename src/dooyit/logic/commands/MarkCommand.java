@@ -36,8 +36,8 @@ public class MarkCommand extends Command {
 		switch (markCommandType) {
 
 			case SINGLE:
-				if (taskManager.markTask(markId) == null) {
-					throw new IncorrectInputException("Index " + markId + " doesn't exists");
+				if (taskManager.markTask(markId) == false) {
+					throw new IncorrectInputException("Index " + markId + " is already marked");
 				}
 				break;
 				
@@ -45,7 +45,7 @@ public class MarkCommand extends Command {
 				String errorMessageBody = null;
 				
 				for(int i=0; i<markIds.size(); i++){
-					if (taskManager.markTask(markIds.get(i)) == null) {
+					if (taskManager.markTask(markIds.get(i)) == false) {
 						errorMessageBody += " " + markIds.get(i);
 					}
 					

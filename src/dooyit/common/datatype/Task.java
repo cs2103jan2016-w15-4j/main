@@ -15,6 +15,7 @@ public class Task {
 	private DateTime dateTimeStart;
 	private DateTime dateTimeEnd;
 	private boolean isOverdue;
+	private boolean isCompleted;
 	private Category category;
 	
 	public static int curTaskId = 1;
@@ -48,12 +49,27 @@ public class Task {
 	public void changeDeadline(DateTime deadline){
 		taskType = TaskType.DEADLINE;
 		this.dateTimeDeadline = deadline;
+		this.dateTimeStart = null;
+		this.dateTimeEnd = null;
 	}
 	
 	public void changeEvent(DateTime start, DateTime end){
 		taskType = TaskType.EVENT;
+		this.dateTimeDeadline = null;
 		this.dateTimeStart = start;
 		this.dateTimeEnd = end;
+	}
+	
+	public void mark(){
+		isCompleted = true;
+	}
+	
+	public void unMark(){
+		isCompleted = false;
+	}
+	
+	public boolean isCompleted(){
+		return isCompleted;
 	}
 	
 	public void setCategory(Category category){

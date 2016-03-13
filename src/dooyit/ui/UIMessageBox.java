@@ -56,6 +56,7 @@ public class UIMessageBox {
 	public void updatePosition(){
 		this.messageBox.setX(this.primaryStage.getX() + PAD_X);
 		this.messageBox.setY(this.primaryStage.getY() + this.primaryStage.getHeight() - PAD_Y);
+		this.messageLabel.setPrefSize(this.primaryStage.getWidth() - 2*PAD_X, PREFHEIGHT);
 	}
 	
 	public void display(){

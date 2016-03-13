@@ -21,7 +21,6 @@
 
 .scroll-bar:horizontal .track,
 .scroll-bar:vertical .track{
-	-fx-background-color: transparent;
 	-fx-border-color: transparent;
 	-fx-background-radius: 0em;
 	-fx-border-radius: 2em;
@@ -121,3 +120,28 @@
 	-fx-border-color: transparent;
 	-fx-border-radius: 10;
 }
+
+.help-box-wrapper {
+	-fx-background-color: rgba(10, 10, 10, 0.8);
+	-fx-background-radius: 10;
+	-fx-text-fill: #f0f0f0;
+	-fx-padding: 30 30 30 30;
+	-fx-border-color: transparent;
+	-fx-border-radius: 10;
+}
+
+.help-box-title {
+	-fx-text-fill: #f0f0f0;
+}
+
+.help-box-content-label {
+	-fx-text-fill: #f0f0f0;	
+}
+
+
+
+
+
+
+
+

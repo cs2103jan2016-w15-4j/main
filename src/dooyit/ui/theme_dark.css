@@ -3,6 +3,11 @@
 	-fx-background-color: #262626;
 }
 
+.scroll-bar:horizontal .track,
+.scroll-bar:vertical .track{
+	-fx-background-color: #262626;
+}
+
 .header-view {
 	-fx-background-color: #333F50;
 }

@@ -60,7 +60,7 @@ public class Main extends Application{
 	private static final String APP_ICON = "icon.png";
 	private static final String APP_TITLE = "Dooyit";
 	private static final int MINWIDTH_STAGE = 720;
-	private static final int MINHEIGHT_STAGE = 520;
+	private static final int MINHEIGHT_STAGE = 620;
 	
 	// scanner for receiving user input
 	private Scanner sc;

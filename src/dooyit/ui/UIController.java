@@ -62,6 +62,7 @@ public class UIController {
 	private UICommandBox commandBox;
 	private UICommandHelper commandHelper;
 	private UIMessageBox messageBox;
+	private UIHelpBox helpBox;
 	private ChangeListener<Number> resizeListener;
 	
 	private WebView webView;
@@ -107,6 +108,9 @@ public class UIController {
 		
 		// Message box
 		this.messageBox = new UIMessageBox(this.primaryStage);
+		
+		// Help box
+		this.helpBox = new UIHelpBox();
 		
 		// Add views to root
 		this.root.setTop(this.header.getView());
@@ -191,6 +195,13 @@ public class UIController {
 					changeTheme(UITheme.AQUA);
 					break;
 				case "help":
+					if (helpBox.isShowing()){
+						helpBox.hide();
+					} else {
+						helpBox.show(primaryStage);
+					}
+					break;
+				case "manual":
 					showUserGuide();
 					break;
 				case "mb":
@@ -217,6 +228,9 @@ public class UIController {
 				System.out.println("Resize!");
 		    	messageBox.updatePosition();
 		    	dayBoxContainer.updatePosition(primaryStage.getWidth());
+		    	if (helpBox.isShowing()){
+		    		helpBox.updatePosition(primaryStage.getX(), primaryStage.getY(), primaryStage.getWidth(), primaryStage.getHeight());
+		    	}
 		    }
 		};
 		

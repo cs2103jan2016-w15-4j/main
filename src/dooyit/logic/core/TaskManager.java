@@ -36,26 +36,38 @@ public class TaskManager {
 		return task;
 	}
 	
-	public Task AddCompletedTaskFloat(String data){
+	public Task AddTaskFloat(String data, boolean isCompleted){
 		Task task = new Task();
 		task.initTaskFloat(data);
-		task.mark();
+		
+		if(isCompleted){
+			task.mark();
+		}
+		
 		tasks.add(task);
 		return task;
 	}
 	
-	public Task AddCompletedTaskDeadline(String data, DateTime dateTime){
+	public Task AddTaskDeadline(String data, DateTime dateTime, boolean isCompleted){
 		Task task = new Task();
 		task.initTaskDeadline(data, dateTime);
-		task.mark();
+
+		if(isCompleted){
+			task.mark();
+		}
+		
 		tasks.add(task);
 		return task;
 	}
 
-	public Task AddCompletedTaskEventDone(String data, DateTime start, DateTime end){
+	public Task AddTaskEventDone(String data, DateTime start, DateTime end, boolean isCompleted){
 		Task task = new Task();
 		task.initTaskEvent(data, start, end);
-		task.mark();
+
+		if(isCompleted){
+			task.mark();
+		}
+		
 		tasks.add(task);
 		return task;
 	}

@@ -18,6 +18,7 @@ public class TaskLoader extends StorageConstants{
 	private static final String EVENT_START = "dateTimeStart";
 	private static final String EVENT_END = "dateTimeEnd";
 	private static final String NAME = "taskName";
+	private static final String IS_COMPLETED = "isCompleted";
 	
 	TaskLoader(String filePath) {
 		this.filePath = filePath;
@@ -74,20 +75,23 @@ public class TaskLoader extends StorageConstants{
 	public boolean loadTask(TaskManager taskManager, String taskFormat){
 		JsonParser parser = new JsonParser();
 		JsonObject taskInfo = parser.parse(taskFormat).getAsJsonObject();
+		
 		String name = taskInfo.get(NAME).getAsString();
+		boolean isCompleted = taskInfo.get(IS_COMPLETED).getAsBoolean();
+		
 		if(taskInfo.has(DEADLINE)) {
 			DateTime deadline = resolveDateTime(taskInfo, DEADLINE);
-			taskManager.AddTaskDeadline(name, deadline);
+			taskManager.AddTaskDeadline(name, deadline, isCompleted);
 			return true;
 		}
 		else if(taskInfo.has(EVENT_START) && taskInfo.has(EVENT_END)) {
 			DateTime eventStart = resolveDateTime(taskInfo, EVENT_START);
 			DateTime eventEnd= resolveDateTime(taskInfo, EVENT_END);
-			taskManager.AddTaskEvent(name, eventStart, eventEnd);
+			taskManager.AddTaskEvent(name, eventStart, eventEnd, isCompleted);
 			return true;
 		}
 		else {
-			taskManager.AddTaskFloat(name);
+			taskManager.AddTaskFloat(name, isCompleted);
 			return true;
 		}
 	}

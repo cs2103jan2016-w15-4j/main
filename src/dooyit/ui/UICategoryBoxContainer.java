@@ -10,6 +10,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 public class UICategoryBoxContainer {
+	private static final int SPACING_CAT_BOX_CONTAINER_VIEW = 6;
 	
 	private VBox categoryBoxContainerView;
 	private ArrayList<UICategoryBox> categoryBoxList;
@@ -20,7 +21,7 @@ public class UICategoryBoxContainer {
 		this.logic = logic;
 		this.mainViewToggleGroup = mainViewToggleGroup;
 		this.categoryBoxContainerView = new VBox();
-		this.categoryBoxContainerView.setSpacing(6);
+		this.categoryBoxContainerView.setSpacing(SPACING_CAT_BOX_CONTAINER_VIEW);
 		this.categoryBoxList = new ArrayList<UICategoryBox>();
 		
 		for (int i = 0; i < categoryList.size(); i++){

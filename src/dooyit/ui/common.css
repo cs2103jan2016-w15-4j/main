@@ -1,3 +1,7 @@
+@font-face {
+	src: url("fonts/avenir-light.ttf");
+}
+
 .header-view {
 	-fx-padding: 10; 
 }
@@ -110,6 +114,10 @@
 .task-category-label {
 	-fx-text-fill: #f7f7f7;
 	-fx-padding: 3 5 3 5;
+}
+
+.task-name {
+	
 }
 
 .message-box-label {

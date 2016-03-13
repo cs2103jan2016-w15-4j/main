@@ -20,8 +20,8 @@ public class UITaskBox {
 	private static final String STYLECLASS_TASK_ID = "task-id";
 	private static final int PREFWIDTH_TASK_ID = 30;
 	
-	private static final String FONT_TASK_NAME = "Euphemia";
-	private static final int FONTSIZE_TASK_NAME = 14;
+	private static final String FONT_TASK_NAME = "Avenir";
+	private static final int FONTSIZE_TASK_NAME = 16;
 	private static final String STYLECLASS_TASK_NAME = "task-name";
 	private static final int TASK_NAME_WIDTH_TO_SUBTRACT = 240;
 	

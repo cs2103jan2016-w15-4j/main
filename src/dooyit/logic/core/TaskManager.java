@@ -16,24 +16,15 @@ public class TaskManager {
 	}
 	
 	public Task AddTaskFloat(String data){
-		Task task = new Task();
-		task.initTaskFloat(data);
-		tasks.add(task);
-		return task;
+		return AddTaskFloat(data, false);
 	}
 	
 	public Task AddTaskDeadline(String data, DateTime dateTime){
-		Task task = new Task();
-		task.initTaskDeadline(data, dateTime);
-		tasks.add(task);
-		return task;
+		return AddTaskDeadline(data, dateTime, false);
 	}
 
 	public Task AddTaskEvent(String data, DateTime start, DateTime end){
-		Task task = new Task();
-		task.initTaskEvent(data, start, end);
-		tasks.add(task);
-		return task;
+		return AddTaskEvent(data, start, end, false);
 	}
 	
 	public Task AddTaskFloat(String data, boolean isCompleted){
@@ -60,7 +51,7 @@ public class TaskManager {
 		return task;
 	}
 
-	public Task AddTaskEventDone(String data, DateTime start, DateTime end, boolean isCompleted){
+	public Task AddTaskEvent(String data, DateTime start, DateTime end, boolean isCompleted){
 		Task task = new Task();
 		task.initTaskEvent(data, start, end);
 

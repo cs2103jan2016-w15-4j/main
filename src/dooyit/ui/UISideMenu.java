@@ -45,6 +45,8 @@ public class UISideMenu {
 	private static final String STYLECLASS_MENU_BTN = "btn-select-view";
 	private static final int PREFWIDTH_MENU_BTN = 180;
 	
+	private Font customBtnLabelFont;
+	private boolean isLoadedCustomBtnLabelFont;
 	private VBox menu;
 	private ToggleGroup mainViewToggleGroup;
 	private ToggleButton todayBtn;
@@ -58,10 +60,16 @@ public class UISideMenu {
 	
 	public UISideMenu(Logic logic){
 		this.logic = logic;
-		
 		this.menu = new VBox();
 		this.menu.setSpacing(5);
 		this.menu.getStyleClass().add(STYLECLASS_MENU);
+		
+		try {
+			this.customBtnLabelFont = Font.loadFont(getClass().getResourceAsStream("fonts/SF-Regular.ttf"), 15);
+			this.isLoadedCustomBtnLabelFont = true;
+		} catch(Exception e){
+			this.isLoadedCustomBtnLabelFont = false;
+		}
 		
 		this.mainViewToggleGroup = new ToggleGroup();
 		
@@ -89,7 +97,11 @@ public class UISideMenu {
                 .color(COLOR_BTN_ICON).build();
 		
 		Label btnLabel = new Label(title);
-		btnLabel.setFont(Font.font(FONT_BTN_LABEL, FONTSIZE_BTN_LABEL));
+		if (this.isLoadedCustomBtnLabelFont){	
+	    	btnLabel.setFont(this.customBtnLabelFont);
+		} else {
+			btnLabel.setFont(Font.font(FONT_BTN_LABEL, FONTSIZE_BTN_LABEL));
+		}
 		btnLabel.getStyleClass().add(STYLECLASS_BTN_LABEL);
 		
 		HBox btnContent = new HBox();

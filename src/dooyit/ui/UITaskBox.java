@@ -51,6 +51,8 @@ public class UITaskBox {
 	private static final int PAD_X = 20;
 	
 	private Font Avenir_16;
+	private Font customTaskPeriodFont;
+	private Font customCategoryLabelFont;
 	private UIDayBox parent;
 	private Task task;
 	private CheckBox taskCheckBox;
@@ -87,19 +89,29 @@ public class UITaskBox {
 	    	this.taskPeriod = new Label(EMPTY_STR);
 	    }
 	    
-	    this.taskPeriod.setFont(Font.font(FONT_TASK_PERIOD, FONTSIZE_TASK_PERIOD));
+	    try {
+			this.customTaskPeriodFont = Font.loadFont(getClass().getResourceAsStream("fonts/Avenir-Medium.ttf"), 14);
+			this.taskPeriod.setFont(this.customTaskPeriodFont);
+		} catch(Exception e){
+			this.taskPeriod.setFont(Font.font(FONT_TASK_PERIOD, FONTSIZE_TASK_PERIOD));
+		}
 	    this.taskPeriod.getStyleClass().add(STYLECLASS_TASK_PERIOD);
 	    this.taskPeriod.setPrefWidth(PREFWIDTH_TASK_PERIOD);
 	    
 	    this.taskCategoryLabel = new Label("School");
-	    this.taskCategoryLabel.setFont(Font.font(FONT_TASK_CATEGORY_LABEL, FONTSIZE_TASK_CATEGORY_LABEL));
+	    try {
+			this.customCategoryLabelFont = Font.loadFont(getClass().getResourceAsStream("fonts/SF-Regular.ttf"), 13);
+			this.taskCategoryLabel.setFont(this.customCategoryLabelFont);
+		} catch(Exception e){
+			this.taskCategoryLabel.setFont(Font.font(FONT_TASK_CATEGORY_LABEL, FONTSIZE_TASK_CATEGORY_LABEL));
+		}
 	    this.taskCategoryLabel.getStyleClass().add(STYLECLASS_TASK_CATEGORY_LABEL);
 	    this.taskCategoryLabel.setStyle("-fx-text-fill: #007AFF;");
 	    this.taskCategoryLabel.setPrefWidth(PREFWIDTH_TASK_CATEGORY_LABEL);
 	    
 	    this.taskName = new Label(this.task.getName());
 	    try {
-	    	this.Avenir_16 = Font.loadFont(getClass().getResourceAsStream("fonts/avenir-light.ttf"), 16);
+	    	this.Avenir_16 = Font.loadFont(getClass().getResourceAsStream("fonts/Avenir-Light.ttf"), 16);
 	    	this.taskName.setFont(this.Avenir_16);
 	    } catch(Exception e) {
 			this.taskName.setFont(Font.font(FONT_TASK_NAME, FONTSIZE_TASK_NAME));

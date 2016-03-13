@@ -33,6 +33,7 @@ public class UICategoryBox {
 	private Circle categoryCircle;
 	private ToggleButton categoryBox;
 	private ToggleGroup mainViewToggleGroup;
+	private Font customCategoryLabelFont;
 	
 	public UICategoryBox(UICategoryBoxContainer categoryBoxContainer, Category category, ToggleGroup mainViewToggleGroup){		
 		this.mainViewToggleGroup = mainViewToggleGroup;
@@ -40,7 +41,13 @@ public class UICategoryBox {
 		this.categoryBoxWrapper = new HBox();
 		
 		this.categoryName = new Label(category.getName());
-		this.categoryName.setFont(FONT_CAT_NAME);
+		try {
+			this.customCategoryLabelFont = Font.loadFont(getClass().getResourceAsStream("fonts/SF-Regular.ttf"), 15);
+			this.categoryName.setFont(this.customCategoryLabelFont);
+		} catch(Exception e){
+			this.categoryName.setFont(FONT_CAT_NAME);
+		}
+		
 		this.categoryName.getStyleClass().add(STYLECLASS_CAT_NAME);
 		
 		Colour colour = category.getColour();

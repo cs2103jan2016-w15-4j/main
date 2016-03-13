@@ -1,9 +1,6 @@
 package dooyit.logic.core;
 import java.util.ArrayList;
 
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-
 import dooyit.common.datatype.Task;
 import dooyit.common.datatype.TaskGroup;
 import dooyit.common.datatype.Task.TaskType;
@@ -14,10 +11,6 @@ public class TaskManager {
 	private ArrayList<Task> doneTasks;
 	private DateTime dateTime;
 	
-	private static final String DEADLINE = "dateTimeDeadline";
-	private static final String EVENT_START = "dateTimeStart";
-	private static final String EVENT_END = "dateTimeEnd";
-	private static final String NAME = "taskName";
 	
 	public TaskManager(){
 		tasks = new ArrayList<Task>();
@@ -43,37 +36,6 @@ public class TaskManager {
 		task.initTaskEvent(data, start, end);
 		tasks.add(task);
 		return task;
-	}
-	
-	// return false if length is incorrect
-	public boolean LoadTask(String taskFormat){
-		JsonParser parser = new JsonParser();
-		JsonObject taskInfo = parser.parse(taskFormat).getAsJsonObject();
-		String name = taskInfo.get(NAME).getAsString();
-		if(taskInfo.has(DEADLINE)) {
-			DateTime deadline = resolveDateTime(taskInfo, DEADLINE);
-			AddTaskDeadline(name, deadline);
-			return true;
-		}
-		else if(taskInfo.has(EVENT_START) && taskInfo.has(EVENT_END)) {
-			DateTime eventStart = resolveDateTime(taskInfo, EVENT_START);
-			DateTime eventEnd= resolveDateTime(taskInfo, EVENT_END);
-			AddTaskEvent(name, eventStart, eventEnd);
-			return true;
-		}
-		else {
-			AddTaskFloat(name);
-			return true;
-		}
-	}
-	
-	private DateTime resolveDateTime(JsonObject taskInfo, String type) {
-		String dateTimeString = taskInfo.get(type).getAsString();
-		String[] parts = dateTimeString.split(" ");
-		DateTime dateTime = new DateTime(Integer.valueOf(parts[0]),Integer.valueOf(parts[1]),
-				Integer.valueOf(parts[2]), parts[3], parts[4]);
-		
-		return dateTime;
 	}
 	
 	public Task deleteTask(int id){

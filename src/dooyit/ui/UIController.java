@@ -64,6 +64,7 @@ public class UIController {
 	private UIMessageBox messageBox;
 	private UIHelpBox helpBox;
 	private ChangeListener<Number> resizeListener;
+	private ChangeListener<Boolean> maximizeListener;
 	
 	private WebView webView;
 	private WebEngine webEngine;
@@ -225,8 +226,19 @@ public class UIController {
 		this.resizeListener = new ChangeListener<Number>(){
 			@Override
 			public void changed(ObservableValue<? extends Number> observableValue, Number oldValue, Number newValue) {
-				System.out.println("Resize!");
 		    	messageBox.updatePosition();
+		    	dayBoxContainer.updatePosition(primaryStage.getWidth());
+		    	if (helpBox.isShowing()){
+		    		helpBox.updatePosition(primaryStage.getX(), primaryStage.getY(), primaryStage.getWidth(), primaryStage.getHeight());
+		    	}
+		    }
+		};
+		
+		this.maximizeListener = new ChangeListener<Boolean>(){
+			@Override
+			public void changed(ObservableValue<? extends Boolean> observableValue, Boolean oldValue, Boolean newValue) {
+		    	System.out.println("MAX");
+				messageBox.updatePosition();
 		    	dayBoxContainer.updatePosition(primaryStage.getWidth());
 		    	if (helpBox.isShowing()){
 		    		helpBox.updatePosition(primaryStage.getX(), primaryStage.getY(), primaryStage.getWidth(), primaryStage.getHeight());
@@ -237,6 +249,9 @@ public class UIController {
 		// Scene resize listener
 		this.scene.heightProperty().addListener(this.resizeListener);
 		this.scene.widthProperty().addListener(this.resizeListener);
+		
+		// Scene maximize listener
+		this.primaryStage.maximizedProperty().addListener(this.maximizeListener);
 		
 		// Primary stage listener
 		this.primaryStage.focusedProperty().addListener(new ChangeListener<Boolean>(){

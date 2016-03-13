@@ -48,10 +48,13 @@ public class Task {
 	public void changeDeadline(DateTime deadline){
 		taskType = TaskType.DEADLINE;
 		this.dateTimeDeadline = deadline;
+		this.dateTimeStart = null;
+		this.dateTimeEnd = null;
 	}
 	
 	public void changeEvent(DateTime start, DateTime end){
 		taskType = TaskType.EVENT;
+		this.dateTimeDeadline = null;
 		this.dateTimeStart = start;
 		this.dateTimeEnd = end;
 	}

@@ -1,9 +1,10 @@
-package dooyit.parser;
+package dooyit.common.datatype;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.TimeZone;
+import dooyit.parser.DateTimeParser;
 
 public class DateTime {
 	private static final int UNINITIALIZED = -1;

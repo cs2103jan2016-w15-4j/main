@@ -1,6 +1,7 @@
 package dooyit.parser;
 import java.text.DateFormat;
 
+import dooyit.common.datatype.DateTime;
 import dooyit.common.exception.IncorrectInputException;
 
 public class DateTimeParser {
@@ -31,7 +32,7 @@ public class DateTimeParser {
 	String[] monthsInYear = new String[]{DUMMY_STR, "jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"};
 
 	int LEAP_YEAR_FEB = 29;
-	static int[] daysInMonth = new int[]{DUMMY_INT, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+	public static int[] daysInMonth = new int[]{DUMMY_INT, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 	
 	String THIS = "this";
 	String NEXT = "next";
@@ -442,7 +443,7 @@ public class DateTimeParser {
 					//ans = isValidTimeRange(currWord.replace(":", "").replace(".", ""));
 				}
 		} else if(currWord.contains(":")) {														//24Hour formats eg: 23:30		
-			currWord.replace(":", "");
+			currWord = currWord.replace(":", "");
 			if(isNumber(currWord)) {
 				//int currInt = Integer.parseInt(currWord);
 				ans = true;
@@ -553,7 +554,9 @@ public class DateTimeParser {
 	}
 
 	private int getNextDayInt() {
-		return currDayInWeekInt + NEXT_DAY;
+		int temp = currDayInWeekInt + NEXT_DAY;
+		temp %= 7;
+		return temp;
 	}
 
 	private boolean hasPassed(int currTime2, int time, int[] date) {

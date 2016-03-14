@@ -1,7 +1,5 @@
 package dooyit.common.datatype;
 
-import dooyit.parser.DateTime;
-
 public class Task {
 	
 	public enum TaskType{

@@ -1,10 +1,10 @@
 package dooyit.logic.core;
 import java.util.ArrayList;
 
+import dooyit.common.datatype.DateTime;
 import dooyit.common.datatype.Task;
 import dooyit.common.datatype.TaskGroup;
 import dooyit.common.datatype.Task.TaskType;
-import dooyit.parser.DateTime;
 
 public class TaskManager {
 	private ArrayList<Task> tasks;

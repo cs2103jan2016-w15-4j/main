@@ -75,9 +75,13 @@ public class TaskLoader extends StorageConstants{
 	public boolean loadTask(TaskManager taskManager, String taskFormat){
 		JsonParser parser = new JsonParser();
 		JsonObject taskInfo = parser.parse(taskFormat).getAsJsonObject();
+		boolean isCompleted = false;
 		
 		String name = taskInfo.get(NAME).getAsString();
-		boolean isCompleted = taskInfo.get(IS_COMPLETED).getAsBoolean();
+		
+		if(taskInfo.has(IS_COMPLETED)) {
+		isCompleted = taskInfo.get(IS_COMPLETED).getAsBoolean();
+		}
 		
 		if(taskInfo.has(DEADLINE)) {
 			DateTime deadline = resolveDateTime(taskInfo, DEADLINE);

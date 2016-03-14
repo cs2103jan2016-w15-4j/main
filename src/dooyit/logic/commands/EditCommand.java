@@ -1,10 +1,10 @@
 package dooyit.logic.commands;
 
+import dooyit.common.datatype.DateTime;
 import dooyit.common.datatype.Task;
 import dooyit.common.exception.IncorrectInputException;
 import dooyit.logic.core.Logic;
 import dooyit.logic.core.TaskManager;
-import dooyit.parser.DateTime;
 
 public class EditCommand extends Command {
 	

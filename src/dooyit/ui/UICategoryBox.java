@@ -16,7 +16,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
 public class UICategoryBox {
-	private static final Font FONT_CAT_NAME = Font.font("Euphemia", 14);
+	private static final Font FONT_CAT_NAME = Font.font("Segoe UI", 14);
 	private static final String STYLECLASS_CAT_NAME = "category-name";
 	
 	private static final String STYLECLASS_CAT_CIRCLE = "category-circle";
@@ -43,7 +43,8 @@ public class UICategoryBox {
 		this.categoryName = new Label(category.getName());
 		try {
 			this.customCategoryLabelFont = Font.loadFont(getClass().getResourceAsStream("fonts/SF-Regular.ttf"), 15);
-			this.categoryName.setFont(this.customCategoryLabelFont);
+			//this.categoryName.setFont(this.customCategoryLabelFont);
+			this.categoryName.setFont(FONT_CAT_NAME);
 		} catch(Exception e){
 			this.categoryName.setFont(FONT_CAT_NAME);
 		}

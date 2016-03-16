@@ -37,7 +37,7 @@ public class UISideMenu {
 	private static final int FONTSIZE_CATEGORY_TITLE = 12;
 	private static final String STYLECLASS_CATEGORY_TITLE = "category-title";
 	
-	private static final String FONT_BTN_LABEL = "Euphemia";
+	private static final String FONT_BTN_LABEL = "Segoe UI";
 	private static final int FONTSIZE_BTN_LABEL = 14;
 	private static final String STYLECLASS_BTN_LABEL = "btn-select-label";
 	private static final String COLOR_BTN_ICON = MaterialColor.GREY_400;
@@ -98,7 +98,8 @@ public class UISideMenu {
 		
 		Label btnLabel = new Label(title);
 		if (this.isLoadedCustomBtnLabelFont){	
-	    	btnLabel.setFont(this.customBtnLabelFont);
+	    	//btnLabel.setFont(this.customBtnLabelFont);
+			btnLabel.setFont(Font.font(FONT_BTN_LABEL, FONTSIZE_BTN_LABEL));
 		} else {
 			btnLabel.setFont(Font.font(FONT_BTN_LABEL, FONTSIZE_BTN_LABEL));
 		}

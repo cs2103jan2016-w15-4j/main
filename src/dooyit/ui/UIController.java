@@ -22,8 +22,6 @@ public class UIController {
 	
 	static final String STYLECLASS_MAIN_VIEW = UIStyle.MAIN_VIEW;
 	
-	static final String EMPTY_STR = "";
-	
 	private String urlCssCommon;
 	private String urlCssThemeLight;
 	private String urlCssThemeDark;
@@ -66,10 +64,10 @@ public class UIController {
 		this.header = new UIHeader();
 		
 		// Side menu
-		this.sideMenu = new UISideMenu(this.logic);
+		this.sideMenu = new UISideMenu(this);
 		
 		// Day box container
-		this.dayBoxContainer = new UIDayBoxContainer(this, this.logic);
+		this.dayBoxContainer = new UIDayBoxContainer(this);
 	
 		// Main view
 		this.mainView = new ScrollPane();
@@ -143,7 +141,7 @@ public class UIController {
 		    @Override
 		    public void changed(ObservableValue<? extends String> observable,
 		            String oldValue, String newValue) {
-		    	if (newValue.equals(EMPTY_STR) && commandHelper.isShowing()){
+		    	if (newValue.equals(UIData.EMP_STR) && commandHelper.isShowing()){
 		    		//commandHelper.hide();
 		    	} else if (!newValue.equals(oldValue) && !commandHelper.isShowing()){
 		    		//commandHelper.show();
@@ -155,7 +153,7 @@ public class UIController {
 		this.commandBox.getCommandTextField().setOnAction((event)->{
 			String commandString = commandBox.getCommandTextField().getText();
 			System.out.println(commandString);
-			commandBox.getCommandTextField().setText(EMPTY_STR);
+			commandBox.getCommandTextField().setText(UIData.EMP_STR);
 			
 			this.logic.processCommand(commandString);
 			
@@ -334,8 +332,15 @@ public class UIController {
         this.secWindow.show();
 	}
 	
+	protected Stage getStage(){
+		return this.primaryStage;
+	}
+	
 	protected double getStageWidth(){
 		return this.primaryStage.getWidth();
 	}
 	
+	protected void markTask(int taskId){
+		this.logic.processCommand(UIData.CMD_MARK + Integer.toString(taskId));
+	}
 }

@@ -44,10 +44,10 @@ public class UISideMenu{
 	private ToggleButton completedBtn;
 	private Label categoryTitle;
 	private UICategoryBoxContainer categoryBoxContainer;
-	private Logic logic;
+	private UIController parent;
 	
-	public UISideMenu(Logic logic){
-		this.logic = logic;
+	public UISideMenu(UIController parent){
+		this.parent = parent;
 		this.menu = new VBox();
 		this.menu.setSpacing(5);
 		this.menu.getStyleClass().add(STYLECLASS_MENU);
@@ -64,7 +64,7 @@ public class UISideMenu{
         this.categoryTitle.setFont(FONT_CATEGORY_TITLE);
         this.categoryTitle.getStyleClass().add(STYLECLASS_CATEGORY_TITLE);
 		
-        this.categoryBoxContainer = new UICategoryBoxContainer(new ArrayList<Category>(), this.logic, this.mainViewToggleGroup);
+        this.categoryBoxContainer = new UICategoryBoxContainer(this, new ArrayList<Category>());
         
 		this.menu.getChildren().addAll(this.todayBtn, this.extendedBtn, this.floatBtn, this.allBtn, this.completedBtn, this.categoryTitle, this.categoryBoxContainer.getView());
 

@@ -86,8 +86,6 @@ public class UIHelpBox {
 		this.helpBoxWrapper.getChildren().addAll(this.title, this.contentWrapper);
 		this.helpBoxWrapper.getStyleClass().add(STYLECLASS_HELP_BOX_WRAPPER);
 		
-		//this.ft = new FillTransition();
-		
 		this.helpBox = new Popup();
 		this.helpBox.getContent().addAll(this.helpBoxWrapper);
 		

@@ -22,16 +22,14 @@ public class UICategoryBox{
 	private static final int SPACING_CAT_BOX_WRAPPER = 14;
 	private static final String STYLECLASS_CAT_BOX = UIStyle.BTN_SELECT_VIEW;
 	
-	private UICategoryBoxContainer categoryBoxContainer;
+	private UICategoryBoxContainer parent;
 	private HBox categoryBoxWrapper;
 	private Label categoryName;
 	private Circle categoryCircle;
 	private ToggleButton categoryBox;
-	private ToggleGroup mainViewToggleGroup;
 	
-	public UICategoryBox(UICategoryBoxContainer categoryBoxContainer, Category category, ToggleGroup mainViewToggleGroup){		
-		this.mainViewToggleGroup = mainViewToggleGroup;
-		this.categoryBoxContainer = categoryBoxContainer;
+	public UICategoryBox(UICategoryBoxContainer parent, Category category){		
+		this.parent = parent;
 		this.categoryBoxWrapper = new HBox();
 		
 		this.categoryName = new Label(category.getName());
@@ -51,7 +49,7 @@ public class UICategoryBox{
 		this.categoryBox.setGraphic(this.categoryBoxWrapper);
 		this.categoryBox.getStyleClass().add(STYLECLASS_CAT_BOX);
 		this.categoryBox.setPrefWidth(180);
-		this.categoryBox.setToggleGroup(this.mainViewToggleGroup);
+		this.categoryBox.setToggleGroup(this.parent.getMainViewToggleGroup());
 		this.categoryBox.setSelected(false);
 		this.categoryBox.setUserData(UIData.USERDATA_CATEGORY);
 		

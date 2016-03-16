@@ -14,4 +14,9 @@ public class UIData {
 	protected static final String CMD_SHOW_ALL = "show all";
 	protected static final String CMD_SHOW_COMPLETED = "show completed";
 	protected static final String CMD_SHOW = "show ";
+	protected static final String CMD_MARK = "mark ";
+	
+	
+	protected static final String EMP_STR = "";
+	protected static final String COMMA_SPLIT = ", ";
 }

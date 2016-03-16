@@ -38,15 +38,11 @@ public class UITaskBox{
 	private static final String STYLECLASS_TASK_BOX = UIStyle.DAY_TASK_BOX;
 	private static final int SPACING_TASK_BOX = 10;
 	
-	private static final String EMPTY_STR = "";
-	private static final String CMD_MARK = "mark ";
-	
 	private static final int WIDTH_MENU = 180;
 	private static final int PAD_X = 20;
 	
 	private Font Avenir_16;
 	private Font customTaskPeriodFont;
-	private Font customCategoryLabelFont;
 	private UIDayBox parent;
 	private Task task;
 	private CheckBox taskCheckBox;
@@ -55,16 +51,16 @@ public class UITaskBox{
 	private Label taskPeriod;
 	private Label taskCategoryLabel;
 	private HBox taskBox;
-	private Logic logic;
 	
-	public UITaskBox(UIDayBox parent, Task task, Logic logic){
+	public UITaskBox(UIDayBox parent, Task task){
 		this.task = task;
-		this.logic = logic;
 		this.parent = parent;
 		
 		this.taskCheckBox = new CheckBox();
 		this.taskCheckBox.getStyleClass().add(STYLECLASS_TASK_CHECKBOX);
-		
+		if (this.task.isCompleted()){
+			this.taskCheckBox.setSelected(true);
+		}
 		
 		this.taskId = new Label(Integer.toString(this.task.getId()));
 		this.taskId.setFont(FONT_TASK_ID);
@@ -80,7 +76,7 @@ public class UITaskBox{
 	    } else if (this.task.hasEndTime()){
 	    	this.taskPeriod = new Label(TASK_PERIOD_ENDS + this.task.getDateTimeEnd().getTime24hStr());
 	    } else {
-	    	this.taskPeriod = new Label(EMPTY_STR);
+	    	this.taskPeriod = new Label(UIData.EMP_STR);
 	    }
 	    
 	    try {
@@ -92,13 +88,8 @@ public class UITaskBox{
 	    this.taskPeriod.getStyleClass().add(STYLECLASS_TASK_PERIOD);
 	    this.taskPeriod.setPrefWidth(PREFWIDTH_TASK_PERIOD);
 	    
-	    this.taskCategoryLabel = new Label("School");
-	    try {
-			this.customCategoryLabelFont = Font.loadFont(getClass().getResourceAsStream("fonts/SF-Regular.ttf"), 13);
-			this.taskCategoryLabel.setFont(this.customCategoryLabelFont);
-		} catch(Exception e){
-			this.taskCategoryLabel.setFont(FONT_TASK_CATEGORY_LABEL);
-		}
+	    this.taskCategoryLabel = new Label("Category Name");
+	    this.taskCategoryLabel.setFont(FONT_TASK_CATEGORY_LABEL);
 	    this.taskCategoryLabel.getStyleClass().add(STYLECLASS_TASK_CATEGORY_LABEL);
 	    this.taskCategoryLabel.setStyle("-fx-text-fill: #007AFF;");
 	    this.taskCategoryLabel.setPrefWidth(PREFWIDTH_TASK_CATEGORY_LABEL);
@@ -123,8 +114,9 @@ public class UITaskBox{
 	    
 	    // Check box action
 	    this.taskCheckBox.setOnAction((event) -> {
-	    	boolean isChecked = this.taskCheckBox.isSelected();
-	    	this.logic.processCommand(CMD_MARK + Integer.toString(this.task.getId()));
+	    	if (!this.task.isCompleted()){
+	    		this.parent.markTask(this.task.getId());
+	    	}
 	    });
 	}
 	

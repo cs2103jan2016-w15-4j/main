@@ -1,5 +1,7 @@
 package dooyit.logic.commands;
 
+import com.sun.istack.internal.logging.Logger;
+
 import dooyit.common.exception.IncorrectInputException;
 import dooyit.logic.core.Logic;
 
@@ -16,9 +18,6 @@ public abstract class Command {
 	public static enum CommandType{
 		
 	}
-	
-	public String time;
-	public String day;
 	
 	
 	public Command(){

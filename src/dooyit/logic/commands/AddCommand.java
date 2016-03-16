@@ -40,6 +40,8 @@ public class AddCommand extends Command {
 	public void execute(Logic logic) throws IncorrectInputException{
 		TaskManager taskManager = logic.getTaskManager();
 		
+		assert(taskManager != null);
+		
 		switch(taskType){
 			case FLOATING:
 					taskManager.AddTaskFloat(taskName);

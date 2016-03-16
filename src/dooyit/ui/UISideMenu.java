@@ -81,27 +81,35 @@ public class UISideMenu{
 	}
 	
 	private ToggleButton getMenuButton(String title, String userData, FxFontCommunity.Icons icon){
-		FxIconicsLabel btnIcon =
-                (FxIconicsLabel) new FxIconicsLabel
-                .Builder(icon)
-                .size(18)
-                .color(COLOR_BTN_ICON).build();
-		
+		FxIconicsLabel btnIcon = getMenuBtnIcon(icon);
+		Label btnLabel = getMenuBtnLabel(title); 
+		return makeMenuButton(btnIcon, btnLabel, userData);
+	}
+	
+	private FxIconicsLabel getMenuBtnIcon(FxFontCommunity.Icons icon){
+		return (FxIconicsLabel) new FxIconicsLabel
+        .Builder(icon)
+        .size(18)
+        .color(COLOR_BTN_ICON).build();
+	}
+	
+	private Label getMenuBtnLabel(String title){
 		Label btnLabel = new Label(title);
 		btnLabel.setFont(FONT_BTN_LABEL);
 		btnLabel.getStyleClass().add(STYLECLASS_BTN_LABEL);
-		
+		return btnLabel;
+	}
+	
+	private ToggleButton makeMenuButton(FxIconicsLabel icon, Label btnLabel, String userData){
 		HBox btnContent = new HBox();
 		btnContent.setSpacing(SPACING_BTN_CONTENT);
-		btnContent.getChildren().addAll(btnIcon, btnLabel);
-		
+		btnContent.getChildren().addAll(icon, btnLabel);
 		ToggleButton menuBtn = new ToggleButton();
 		menuBtn.setGraphic(btnContent);
 		menuBtn.setPrefWidth(PREFWIDTH_MENU_BTN);
 		menuBtn.getStyleClass().add(STYLECLASS_MENU_BTN);
 		menuBtn.setToggleGroup(this.mainViewToggleGroup);
 		menuBtn.setUserData(userData);
-		
 		return menuBtn;
 	}
 	

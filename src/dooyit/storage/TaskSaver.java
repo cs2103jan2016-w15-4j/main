@@ -12,7 +12,7 @@ import dooyit.common.datatype.Task;
 public class TaskSaver extends StorageConstants{
 	
 	TaskSaver(String filePath) {
-		this.filePath = filePath + File.separatorChar + NAME_FILE_STORAGE;
+		this.filePath = filePath;
 	}
 	
 	public boolean saveTasks(ArrayList<Task> tasks) throws IOException{

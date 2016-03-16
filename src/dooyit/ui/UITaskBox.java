@@ -55,19 +55,36 @@ public class UITaskBox{
 	public UITaskBox(UIDayBox parent, Task task){
 		this.task = task;
 		this.parent = parent;
-		
+		initialize();
+	}
+	
+	private void initialize(){
+		initTaskCheckBox();
+		initTaskId();
+		initTaskPeriod();
+		initTaskCategoryLabel();
+		initTaskName();
+		initTaskBox();
+		initListeners();
+	}
+	
+	private void initTaskCheckBox(){
 		this.taskCheckBox = new CheckBox();
 		this.taskCheckBox.getStyleClass().add(STYLECLASS_TASK_CHECKBOX);
 		if (this.task.isCompleted()){
 			this.taskCheckBox.setSelected(true);
 		}
-		
+	}
+	
+	private void initTaskId(){
 		this.taskId = new Label(Integer.toString(this.task.getId()));
 		this.taskId.setFont(FONT_TASK_ID);
 	    this.taskId.getStyleClass().add(STYLECLASS_TASK_ID);
 	    this.taskId.setPrefWidth(PREFWIDTH_TASK_ID);
-	    
-	    if (this.task.hasDeadlineTime()){
+	}
+	
+	private void initTaskPeriod(){
+		if (this.task.hasDeadlineTime()){
 	    	this.taskPeriod = new Label(this.task.getDeadlineTime().getTime24hStr());
 	    } else if (this.task.hasStartTime() && this.task.hasEndTime()){
 	    	this.taskPeriod = new Label(this.task.getDateTimeStart().getTime24hStr() + TASK_PERIOD_TO + this.task.getDateTimeEnd().getTime24hStr());
@@ -87,14 +104,18 @@ public class UITaskBox{
 		}
 	    this.taskPeriod.getStyleClass().add(STYLECLASS_TASK_PERIOD);
 	    this.taskPeriod.setPrefWidth(PREFWIDTH_TASK_PERIOD);
-	    
-	    this.taskCategoryLabel = new Label("Category Name");
+	}
+	
+	private void initTaskCategoryLabel(){
+		this.taskCategoryLabel = new Label("Category Name");
 	    this.taskCategoryLabel.setFont(FONT_TASK_CATEGORY_LABEL);
 	    this.taskCategoryLabel.getStyleClass().add(STYLECLASS_TASK_CATEGORY_LABEL);
 	    this.taskCategoryLabel.setStyle("-fx-text-fill: #007AFF;");
 	    this.taskCategoryLabel.setPrefWidth(PREFWIDTH_TASK_CATEGORY_LABEL);
-	    
-	    this.taskName = new Label(this.task.getName());
+	}
+	
+	private void initTaskName(){
+		this.taskName = new Label(this.task.getName());
 	    try {
 	    	this.Avenir_16 = Font.loadFont(getClass().getResourceAsStream("fonts/Avenir-Light.ttf"), 16);
 	    	this.taskName.setFont(this.Avenir_16);
@@ -105,14 +126,17 @@ public class UITaskBox{
 	    this.taskName.getStyleClass().add(STYLECLASS_TASK_NAME);
 	    double width = this.parent.getStageWidth();
 	    updateTaskNameWidth(width - TASK_NAME_WIDTH_TO_SUBTRACT);
-	    
-	    this.taskBox = new HBox();
-	    this.taskBox.setAlignment(Pos.CENTER_LEFT);
-	    this.taskBox.setSpacing(SPACING_TASK_BOX);
-	    this.taskBox.getStyleClass().add(STYLECLASS_TASK_BOX);
-	    this.taskBox.getChildren().addAll(this.taskCheckBox, this.taskId, this.taskName, this.taskPeriod, this.taskCategoryLabel);
-	    
-	    // Check box action
+	}
+	
+	private void initTaskBox(){
+		 this.taskBox = new HBox();
+		 this.taskBox.setAlignment(Pos.CENTER_LEFT);
+		 this.taskBox.setSpacing(SPACING_TASK_BOX);
+		 this.taskBox.getStyleClass().add(STYLECLASS_TASK_BOX);
+		 this.taskBox.getChildren().addAll(this.taskCheckBox, this.taskId, this.taskName, this.taskPeriod, this.taskCategoryLabel);   
+	}
+	
+	private void initListeners(){
 	    this.taskCheckBox.setOnAction((event) -> {
 	    	if (!this.task.isCompleted()){
 	    		this.parent.markTask(this.task.getId());

@@ -9,7 +9,7 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-public class UICategoryBoxContainer {
+public class UICategoryBoxContainer{
 	private static final int SPACING_CAT_BOX_CONTAINER_VIEW = 6;
 	
 	private VBox categoryBoxContainerView;

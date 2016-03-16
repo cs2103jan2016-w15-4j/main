@@ -10,14 +10,11 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
-public class UIDayBox {
-	private static final String STYLECLASS_DAY_BOX = "day-box";
+public class UIDayBox{
+	private static final String STYLECLASS_DAY_BOX = UIStyle.DAY_BOX;
 	private static final String DAY_BOX_TITLE_COMMA = ", ";
-	
-	private static final Font FONT_DAY_TITLE = Font.font("Euphemia", 18);
-	private static final String STYLECLASS_DAY_TITLE = "day-title";
-	private static final String STYLECLASS_DAY_TITLE_FADED = "day-title-faded";
-	
+	private static final String STYLECLASS_DAY_TITLE = UIStyle.DAY_TITLE;
+	private static final String STYLECLASS_DAY_TITLE_FADED = UIStyle.DAY_TITLE_FADED;
 	private static final String TASK_GROUP_TODAY = "Today";
 	
 	private UIDayBoxContainer parent;
@@ -44,7 +41,7 @@ public class UIDayBox {
 		}
 		
         this.dayTitle = new Label(this.dayBoxTitle);
-        this.dayTitle.setFont(FONT_DAY_TITLE);
+        this.dayTitle.setFont(UIFont.EUPHEMIA_L);
         this.dayTitle.getStyleClass().add(STYLECLASS_DAY_TITLE);
         
         if (taskList.size() == 0 && !taskGroup.getTitle().equals(TASK_GROUP_TODAY)){

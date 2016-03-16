@@ -2,7 +2,7 @@ package dooyit.parser;
 
 import dooyit.logic.commands.Command;
 import dooyit.logic.commands.CommandUtils;
-import dooyit.main.Main;
+import dooyit.ui.Main;
 
 public class Parser {
 

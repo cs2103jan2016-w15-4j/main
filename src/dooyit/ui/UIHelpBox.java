@@ -16,17 +16,17 @@ public class UIHelpBox {
 	private static final int WIDTH = 500;
 	private static final int HEIGHT = 450;
 	
-	private static final String STYLECLASS_TITLE = "help-box-title";
+	private static final String STYLECLASS_TITLE = UIStyle.HELP_BOX_TITLE;
 	private static final String LABEL_TITLE = "Hola! Here are some tips to get you started.";
-	private static final Font FONT_TITLE = Font.font("Euphemia", 20);
+	private static final Font FONT_TITLE = UIFont.EUPHEMIA_L;
 	
-	private static final String STYLECLASS_CONTENT_LABEL = "help-box-content-label";
-	private static final Font FONT_CMD_NAME = Font.font("Euphemia", 13);
-	private static final Font FONT_CMD_DESC = Font.font("Consolas", 13);
+	private static final String STYLECLASS_CONTENT_LABEL = UIStyle.HELP_BOX_CONTENT_LABEL;
+	private static final Font FONT_CMD_NAME = UIFont.EUPHEMIA_M;
+	private static final Font FONT_CMD_DESC = UIFont.CONSOLAS_M;
 	private static final int SPACING_CONTENT_WRAPPER = 80;
 	private static final int SPACING_CONTENT = 10;
 	
-	private static final String STYLECLASS_HELP_BOX_WRAPPER = "help-box-wrapper";
+	private static final String STYLECLASS_HELP_BOX_WRAPPER = UIStyle.HELP_BOX_WRAPPER;
 	private static final int SPACING_HELP_BOX_WRAPPER = 100;
 	
 	private Popup helpBox;
@@ -36,8 +36,6 @@ public class UIHelpBox {
 	private HBox contentWrapper;
 	private VBox leftContent;
 	private VBox rightContent;
-
-	private FillTransition ft;
 	
 	public UIHelpBox(){
 		this.title = new Label(LABEL_TITLE);

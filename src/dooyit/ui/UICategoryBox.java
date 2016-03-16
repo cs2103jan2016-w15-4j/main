@@ -15,17 +15,12 @@ import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
-public class UICategoryBox {
-	private static final Font FONT_CAT_NAME = Font.font("Euphemia", 14);
-	private static final String STYLECLASS_CAT_NAME = "category-name";
-	
-	private static final String STYLECLASS_CAT_CIRCLE = "category-circle";
-	
-	private static final String STYLECLASS_CAT_BOX_WRAPPER = "category-box-wrapper";
+public class UICategoryBox{
+	private static final String STYLECLASS_CAT_NAME = UIStyle.CATEGORY_NAME;
+	private static final String STYLECLASS_CAT_CIRCLE = UIStyle.CATEGORY_CIRCLE;
+	private static final String STYLECLASS_CAT_BOX_WRAPPER = UIStyle.CATEGORY_BOX_WRAPPER;
 	private static final int SPACING_CAT_BOX_WRAPPER = 14;
-	
-	private static final String STYLECLASS_CAT_BOX = "btn-select-view";
-	private static final String USERDATA_CAT_BOX = "category";
+	private static final String STYLECLASS_CAT_BOX = UIStyle.BTN_SELECT_VIEW;
 	
 	private UICategoryBoxContainer categoryBoxContainer;
 	private HBox categoryBoxWrapper;
@@ -33,7 +28,6 @@ public class UICategoryBox {
 	private Circle categoryCircle;
 	private ToggleButton categoryBox;
 	private ToggleGroup mainViewToggleGroup;
-	private Font customCategoryLabelFont;
 	
 	public UICategoryBox(UICategoryBoxContainer categoryBoxContainer, Category category, ToggleGroup mainViewToggleGroup){		
 		this.mainViewToggleGroup = mainViewToggleGroup;
@@ -41,12 +35,7 @@ public class UICategoryBox {
 		this.categoryBoxWrapper = new HBox();
 		
 		this.categoryName = new Label(category.getName());
-		try {
-			this.customCategoryLabelFont = Font.loadFont(getClass().getResourceAsStream("fonts/SF-Regular.ttf"), 15);
-			this.categoryName.setFont(this.customCategoryLabelFont);
-		} catch(Exception e){
-			this.categoryName.setFont(FONT_CAT_NAME);
-		}
+		this.categoryName.setFont(UIFont.SEGOE_M);
 		
 		this.categoryName.getStyleClass().add(STYLECLASS_CAT_NAME);
 		
@@ -64,7 +53,7 @@ public class UICategoryBox {
 		this.categoryBox.setPrefWidth(180);
 		this.categoryBox.setToggleGroup(this.mainViewToggleGroup);
 		this.categoryBox.setSelected(false);
-		this.categoryBox.setUserData(USERDATA_CAT_BOX);
+		this.categoryBox.setUserData(UIData.USERDATA_CATEGORY);
 		
 		this.categoryBox.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
 		     @Override

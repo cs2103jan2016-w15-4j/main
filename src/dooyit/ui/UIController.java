@@ -19,7 +19,6 @@ import javafx.stage.Stage;
 import dooyit.common.datatype.Category;
 import dooyit.common.datatype.TaskGroup;
 import dooyit.logic.core.*;
-import dooyit.main.*;
 
 public class UIController {
 	static final String URL_CSS_COMMON = "common.css";

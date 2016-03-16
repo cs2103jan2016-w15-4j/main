@@ -25,7 +25,7 @@ public class DeleteParser {
 		cmd = null;
 	}
 
-	public Command getCommand() {
+	public Command getCommand() throws IncorrectInputException {
 		switch(getDeleteType()) {
 		case SINGLE :
 			try {
@@ -68,7 +68,7 @@ public class DeleteParser {
 		return CommandUtils.createDeleteCommand(taskIdsForDeletion);
 	}
 
-	private void parseIntervalType() {
+	private void parseIntervalType() throws IncorrectInputException {
 		for(int i = INDEX_SINGLE; i < splitInput.length; i++) {
 			if(splitInput[i].equals("-")) {
 				if(!isNumber(splitInput[i - 1]) || !isNumber(splitInput[i + 1])) {
@@ -93,7 +93,7 @@ public class DeleteParser {
 		return CommandUtils.createDeleteCommand(taskIdsForDeletion);
 	}
 
-	private void parseMultipleType() {
+	private void parseMultipleType() throws IncorrectInputException {
 		for(int i = INDEX_SINGLE; i < splitInput.length; i++) {
 			String currWord = splitInput[i];
 			if(!isNumber(currWord)) {
@@ -116,7 +116,7 @@ public class DeleteParser {
 		return CommandUtils.createInvalidCommand(message);
 	}
 
-	private void parseSingleType() {
+	private void parseSingleType() throws IncorrectInputException {
 		//System.out.println("currWord at parseSingleType() is " + splitInput[INDEX_SINGLE]);
 		if(isNumber(splitInput[INDEX_SINGLE])) {
 			taskIdForDeletion = Integer.parseInt(splitInput[INDEX_SINGLE]);

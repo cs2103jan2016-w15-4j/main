@@ -152,7 +152,7 @@ public class DateTimeParser {
 		return ans;
 	}
 
-	public DateTime parse(String input) {
+	public DateTime parse(String input) throws IncorrectInputException {
 		String[] splitInput = input.toLowerCase().split("\\s+");
 		//[dayOfWeek, time, DD, MM, YY, indexInArray]
 		int[] combined = new int[] {currDayInWeekInt, DUMMY_INT, currDD, currMM, currYY, 0}; 	
@@ -607,7 +607,7 @@ public class DateTimeParser {
 		return ans;
 	}
 
-	private int[] getTime(String[] splitInput, int i, int[] combined) {
+	private int[] getTime(String[] splitInput, int i, int[] combined) throws IncorrectInputException {
 		String timeString = splitInput[i].replace(".", "").replace(":", "");
 		boolean isAm = timeString.contains("am");
 		boolean isPm = timeString.contains("pm");

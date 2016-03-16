@@ -36,6 +36,8 @@ public class TaskManager {
 		}
 		
 		tasks.add(task);
+		
+		
 		return task;
 	}
 	
@@ -79,6 +81,11 @@ public class TaskManager {
 		return null;
 	}
 	
+	/**
+	 * Mark a task based on id
+	 * @param id task id
+	 * @return false if task is already marked
+	 */
 	public boolean markTask(int id){
 		for(int i=0; i<tasks.size(); i++){
 			if(tasks.get(i).getId() == id ){

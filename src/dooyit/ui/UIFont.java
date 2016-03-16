@@ -1,6 +1,5 @@
 package dooyit.ui;
 
-import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 
 public class UIFont {

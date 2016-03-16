@@ -49,194 +49,9 @@ public class UIController {
 	private UIMainViewType activeMainView;
 	
 	public UIController(Stage primaryStage, Logic logic){
-		this.urlCssCommon = getClass().getResource(UIStyle.URL_CSS_COMMON).toExternalForm();
-		this.urlCssThemeLight = getClass().getResource(UIStyle.URL_CSS_THEME_LIGHT).toExternalForm();
-	    this.urlCssThemeDark = getClass().getResource(UIStyle.URL_CSS_THEME_DARK).toExternalForm();
-	    this.urlCssThemeAqua = getClass().getResource(UIStyle.URL_CSS_THEME_AQUA).toExternalForm();
-	    
 	    this.logic = logic;
 	    this.primaryStage = primaryStage;
-	    
-	    // Root view
-		this.root = new BorderPane();
-		
-		// Header
-		this.header = new UIHeader();
-		
-		// Side menu
-		this.sideMenu = new UISideMenu(this);
-		
-		// Day box container
-		this.dayBoxContainer = new UIDayBoxContainer(this);
-	
-		// Main view
-		this.mainView = new ScrollPane();
-		this.mainView.getStyleClass().add(STYLECLASS_MAIN_VIEW);
-		this.mainView.setContent(this.dayBoxContainer.getView());
-		this.activeMainView = UIMainViewType.TODAY;
-		
-		// Command view
-		this.commandBox = new UICommandBox();
-		
-		// Command helper
-		this.commandHelper = new UICommandHelper(this.primaryStage);
-		
-		// Message box
-		this.messageBox = new UIMessageBox(this.primaryStage);
-		
-		// Help box
-		this.helpBox = new UIHelpBox();
-		
-		// Add views to root
-		this.root.setTop(this.header.getView());
-		this.root.setLeft(this.sideMenu.getView());
-		this.root.setCenter(this.mainView);
-		this.root.setBottom(this.commandBox.getView());
-		
-		// Add style to scene
-		this.scene = new Scene(root, WIDTH_SCENE, HEIGHT_SCENE);
-		this.scene.getStylesheets().addAll(this.urlCssCommon, this.urlCssThemeLight);
-		
-		// Side menu listeners
-		this.sideMenu.getMainViewToggleGroup().selectedToggleProperty().addListener(new ChangeListener<Toggle>(){
-			public void changed(ObservableValue<? extends Toggle> ov,
-		        Toggle toggle, Toggle new_toggle) {
-		            if (new_toggle == null){
-		            	// do nothing
-		            } else {
-		                String selected = sideMenu.getMainViewToggleGroup().getSelectedToggle().getUserData().toString();
-                        switch(selected){
-		                    case UIData.USERDATA_TODAY:
-		                    	activeMainView = UIMainViewType.TODAY;
-		                    	logic.processCommand(UIData.CMD_SHOW_TODAY);
-		                        break;
-		                    case UIData.USERDATA_EXTENDED:
-		                    	activeMainView = UIMainViewType.EXTENDED;
-		                    	logic.processCommand(UIData.CMD_SHOW_EXTENDED);
-		                        break;
-		                    case UIData.USERDATA_FLOAT:
-		                    	activeMainView = UIMainViewType.FLOAT;
-		                    	logic.processCommand(UIData.CMD_SHOW_FLOAT);
-		                    	break;
-		                    case UIData.USERDATA_ALL:
-		                    	activeMainView = UIMainViewType.ALL;
-		                    	logic.processCommand(UIData.CMD_SHOW_ALL);
-		                    	break;
-		                    case UIData.USERDATA_COMPLETED:
-		                    	activeMainView = UIMainViewType.COMPLETED;
-		                    	 logic.processCommand(UIData.CMD_SHOW_COMPLETED);
-		                    	break;
-		                    case UIData.USERDATA_CATEGORY:
-		                    	activeMainView = UIMainViewType.CATEGORY;
-		                    	// call logic processCommand from category box listener
-		                }
-                        mainView.setContent(dayBoxContainer.getView());
-		            }
-		        }
-		    });
-		
-		// Command text field listener
-		// When value changes, command helper will be displayed
-		this.commandBox.getCommandTextField().textProperty().addListener(new ChangeListener<String>() {
-		    @Override
-		    public void changed(ObservableValue<? extends String> observable,
-		            String oldValue, String newValue) {
-		    	if (newValue.equals(UIData.EMP_STR) && commandHelper.isShowing()){
-		    		//commandHelper.hide();
-		    	} else if (!newValue.equals(oldValue) && !commandHelper.isShowing()){
-		    		//commandHelper.show();
-		    	}
-		    }
-		});
-		
-		// Command text field listener
-		this.commandBox.getCommandTextField().setOnAction((event)->{
-			String commandString = commandBox.getCommandTextField().getText();
-			System.out.println(commandString);
-			commandBox.getCommandTextField().setText(UIData.EMP_STR);
-			
-			this.logic.processCommand(commandString);
-			
-			switch(commandString){
-				// CHANGE: Pass commandString to parser.
-				case "change theme dark":
-					changeTheme(UITheme.DARK);
-					break;
-				case "change theme light":
-					changeTheme(UITheme.LIGHT);
-					break;
-				case "change theme aqua":
-					changeTheme(UITheme.AQUA);
-					break;
-				case "help":
-					if (helpBox.isShowing()){
-						helpBox.hide();
-					} else {
-						helpBox.show(primaryStage);
-					}
-					break;
-				case "manual":
-					showUserGuide();
-					break;
-				case "mb":
-					displayMessage("hello world");
-					break;
-				case "hmb":
-					this.messageBox.hide();
-					break;
-			}
-		}); 
-		
-		// Command helper listener
-		this.commandHelper.getListView().getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-		    @Override
-		    public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-		        commandBox.getCommandTextField().setText(newValue);
-		        commandBox.getCommandTextField().positionCaret(100);
-		    }
-		});
-		
-		this.resizeListener = new ChangeListener<Number>(){
-			@Override
-			public void changed(ObservableValue<? extends Number> observableValue, Number oldValue, Number newValue) {
-		    	messageBox.updatePosition();
-		    	dayBoxContainer.updatePosition(primaryStage.getWidth());
-		    	if (helpBox.isShowing()){
-		    		helpBox.updatePosition(primaryStage.getX(), primaryStage.getY(), primaryStage.getWidth(), primaryStage.getHeight());
-		    	}
-		    }
-		};
-		
-		this.maximizeListener = new ChangeListener<Boolean>(){
-			@Override
-			public void changed(ObservableValue<? extends Boolean> observableValue, Boolean oldValue, Boolean newValue) {
-		    	System.out.println("MAX");
-				messageBox.updatePosition();
-		    	dayBoxContainer.updatePosition(primaryStage.getWidth());
-		    	if (helpBox.isShowing()){
-		    		helpBox.updatePosition(primaryStage.getX(), primaryStage.getY(), primaryStage.getWidth(), primaryStage.getHeight());
-		    	}
-		    }
-		};
-		
-		// Scene resize listener
-		this.scene.heightProperty().addListener(this.resizeListener);
-		this.scene.widthProperty().addListener(this.resizeListener);
-		
-		// Scene maximize listener
-		this.primaryStage.maximizedProperty().addListener(this.maximizeListener);
-		
-		// Primary stage listener
-		this.primaryStage.focusedProperty().addListener(new ChangeListener<Boolean>(){
-			@Override 
-			public void changed(ObservableValue<? extends Boolean> observableValue, Boolean oldValue, Boolean newValue){
-				if (!newValue && messageBox.isOn()){
-					messageBox.tempHide();
-				} else if (newValue && messageBox.isOn()) {
-					messageBox.display();
-				}
-			}
-		});
+	    initialize();
 	}
 	
 	public Scene getScene(){
@@ -343,4 +158,213 @@ public class UIController {
 	protected void markTask(int taskId){
 		this.logic.processCommand(UIData.CMD_MARK + Integer.toString(taskId));
 	}
+	
+	private void initialize(){
+		initCss();
+		initHeader();
+		initSideMenu();
+		initMainView();
+		initCommandBox();
+		initMessageBox();
+		initHelpBox();
+		initRoot();
+		initScene();
+		initListeners();
+	}
+	
+	private void initCss(){
+		this.urlCssCommon = getClass().getResource(UIStyle.URL_CSS_COMMON).toExternalForm();
+		this.urlCssThemeLight = getClass().getResource(UIStyle.URL_CSS_THEME_LIGHT).toExternalForm();
+	    this.urlCssThemeDark = getClass().getResource(UIStyle.URL_CSS_THEME_DARK).toExternalForm();
+	    this.urlCssThemeAqua = getClass().getResource(UIStyle.URL_CSS_THEME_AQUA).toExternalForm();
+	}
+	
+	private void initHeader(){
+		this.header = new UIHeader();
+	}
+	
+	private void initSideMenu(){
+		this.sideMenu = new UISideMenu(this);
+		this.sideMenu.getMainViewToggleGroup().selectedToggleProperty().addListener(new ChangeListener<Toggle>(){
+			public void changed(ObservableValue<? extends Toggle> ov, Toggle toggle, Toggle new_toggle) {
+				if (new_toggle == null){
+	            	// do nothing
+				} else {
+				    String selected = sideMenu.getMainViewToggleGroup().getSelectedToggle().getUserData().toString();
+		            switch(selected){
+				    	case UIData.USERDATA_TODAY:
+	                    	activeMainView = UIMainViewType.TODAY;
+	                    	logic.processCommand(UIData.CMD_SHOW_TODAY);
+	                        break;
+	                    case UIData.USERDATA_EXTENDED:
+	                    	activeMainView = UIMainViewType.EXTENDED;
+	                    	logic.processCommand(UIData.CMD_SHOW_EXTENDED);
+	                        break;
+	                    case UIData.USERDATA_FLOAT:
+	                    	activeMainView = UIMainViewType.FLOAT;
+	                    	logic.processCommand(UIData.CMD_SHOW_FLOAT);
+	                    	break;
+	                    case UIData.USERDATA_ALL:
+	                    	activeMainView = UIMainViewType.ALL;
+	                    	logic.processCommand(UIData.CMD_SHOW_ALL);
+	                    	break;
+	                    case UIData.USERDATA_COMPLETED:
+	                    	activeMainView = UIMainViewType.COMPLETED;
+	                    	 logic.processCommand(UIData.CMD_SHOW_COMPLETED);
+	                    	break;
+	                    case UIData.USERDATA_CATEGORY:
+	                    	activeMainView = UIMainViewType.CATEGORY;
+	                    	// call logic processCommand from category box listener
+	                }
+                    mainView.setContent(dayBoxContainer.getView());
+	            }
+	        }
+	    });
+	}
+	
+	private void initMainView(){
+		this.dayBoxContainer = new UIDayBoxContainer(this);
+		this.mainView = new ScrollPane();
+		this.mainView.getStyleClass().add(STYLECLASS_MAIN_VIEW);
+		this.mainView.setContent(this.dayBoxContainer.getView());
+		this.activeMainView = UIMainViewType.TODAY;
+	}
+	
+	private void initCommandBox(){
+		this.commandBox = new UICommandBox();
+		this.commandHelper = new UICommandHelper(this.primaryStage);
+	}
+	
+	private void initMessageBox(){
+		this.messageBox = new UIMessageBox(this.primaryStage);
+	}
+	
+	private void initHelpBox(){
+		this.helpBox = new UIHelpBox();
+	}
+	
+	private void initRoot(){
+		this.root = new BorderPane();
+		this.root.setTop(this.header.getView());
+		this.root.setLeft(this.sideMenu.getView());
+		this.root.setCenter(this.mainView);
+		this.root.setBottom(this.commandBox.getView());
+	}
+	
+	private void initScene(){
+		this.scene = new Scene(root, WIDTH_SCENE, HEIGHT_SCENE);
+		this.scene.getStylesheets().addAll(this.urlCssCommon, this.urlCssThemeLight);
+	}
+	
+	private void initListeners(){
+		initCommandBoxListeners();
+		initSceneListeners();
+		initStageListeners();
+	}
+	
+	private void initCommandBoxListeners(){
+		// Command text field listener
+		// When value changes, command helper will be displayed
+		this.commandBox.getCommandTextField().textProperty().addListener(new ChangeListener<String>() {
+		    @Override
+		    public void changed(ObservableValue<? extends String> observable,
+		            String oldValue, String newValue) {
+		    	if (newValue.equals(UIData.EMP_STR) && commandHelper.isShowing()){
+		    		//commandHelper.hide();
+		    	} else if (!newValue.equals(oldValue) && !commandHelper.isShowing()){
+		    		//commandHelper.show();
+		    	}
+		    }
+		});
+		
+		// Command text field listener
+		this.commandBox.getCommandTextField().setOnAction((event)->{
+			String commandString = commandBox.getCommandTextField().getText();
+			System.out.println(commandString);
+			commandBox.getCommandTextField().setText(UIData.EMP_STR);
+			
+			this.logic.processCommand(commandString);
+			
+			switch(commandString){
+				// CHANGE: Pass commandString to parser.
+				case "change theme dark":
+					changeTheme(UITheme.DARK);
+					break;
+				case "change theme light":
+					changeTheme(UITheme.LIGHT);
+					break;
+				case "change theme aqua":
+					changeTheme(UITheme.AQUA);
+					break;
+				case "help":
+					if (helpBox.isShowing()){
+						helpBox.hide();
+					} else {
+						helpBox.show(primaryStage);
+					}
+					break;
+				case "manual":
+					showUserGuide();
+					break;
+				case "mb":
+					displayMessage("hello world");
+					break;
+				case "hmb":
+					this.messageBox.hide();
+					break;
+			}
+		}); 
+		
+		// Command helper listener
+		this.commandHelper.getListView().getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+		    @Override
+		    public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+		        commandBox.getCommandTextField().setText(newValue);
+		        commandBox.getCommandTextField().positionCaret(100);
+		    }
+		});
+	}
+	
+	private void initSceneListeners(){
+		this.resizeListener = new ChangeListener<Number>(){
+			@Override
+			public void changed(ObservableValue<? extends Number> observableValue, Number oldValue, Number newValue) {
+		    	messageBox.updatePosition();
+		    	dayBoxContainer.updatePosition(primaryStage.getWidth());
+		    	if (helpBox.isShowing()){
+		    		helpBox.updatePosition(primaryStage.getX(), primaryStage.getY(), primaryStage.getWidth(), primaryStage.getHeight());
+		    	}
+		    }
+		};
+		
+		this.maximizeListener = new ChangeListener<Boolean>(){
+			@Override
+			public void changed(ObservableValue<? extends Boolean> observableValue, Boolean oldValue, Boolean newValue) {
+		    	System.out.println("MAX");
+				messageBox.updatePosition();
+		    	dayBoxContainer.updatePosition(primaryStage.getWidth());
+		    	if (helpBox.isShowing()){
+		    		helpBox.updatePosition(primaryStage.getX(), primaryStage.getY(), primaryStage.getWidth(), primaryStage.getHeight());
+		    	}
+		    }
+		};
+		
+		this.scene.heightProperty().addListener(this.resizeListener);
+		this.scene.widthProperty().addListener(this.resizeListener);
+		this.primaryStage.maximizedProperty().addListener(this.maximizeListener);
+	}
+	
+	private void initStageListeners(){
+		this.primaryStage.focusedProperty().addListener(new ChangeListener<Boolean>(){
+			@Override 
+			public void changed(ObservableValue<? extends Boolean> observableValue, Boolean oldValue, Boolean newValue){
+				if (!newValue && messageBox.isOn()){
+					messageBox.tempHide();
+				} else if (newValue && messageBox.isOn()) {
+					messageBox.display();
+				}
+			}
+		});
+	}
+	
 }

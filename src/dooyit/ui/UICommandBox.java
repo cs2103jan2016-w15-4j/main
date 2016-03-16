@@ -14,12 +14,23 @@ public class UICommandBox{
 	private TextField commandTextField;
 	
 	public UICommandBox(){
+		initialize();
+	}
+	
+	private void initialize(){
+		initCommandTextField();
+		initCommandBox();
+	}
+	
+	private void initCommandTextField(){
 		this.commandTextField = new TextField();
 		this.commandTextField.setPrefWidth(PREFWIDTH_CMD_TEXT_FIELD);
 		this.commandTextField.setFont(UIFont.CONSOLAS_M);
 		this.commandTextField.setPromptText(CMD_TEXT_FIELD_PROMPT);
 		this.commandTextField.getStyleClass().add(STYLECLASS_CMD_TEXT_FIELD);
-		
+	}
+	
+	private void initCommandBox(){
 		this.commandBox = new HBox();
 		this.commandBox.getStyleClass().add(STYLECLASS_CMD_BOX);
 		this.commandBox.getChildren().addAll(commandTextField);

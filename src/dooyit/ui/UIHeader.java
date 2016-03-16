@@ -15,10 +15,15 @@ public class UIHeader{
 	private Label title;
 	
 	public UIHeader(){
-		this.header = new HBox();
-		this.header.getStyleClass().add(STYLECLASS_HEADER);
-		this.header.setSpacing(590);
-		
+		initialize();
+	}
+	
+	private void initialize(){
+		initTitle();
+		initHeader();
+	}
+	
+	private void initTitle(){
 		this.title = new Label(LABEL_TITLE);
 		try {
 	    	this.customFont = Font.loadFont(getClass().getResourceAsStream("fonts/Gentona-Medium.ttf"), 19);
@@ -27,7 +32,12 @@ public class UIHeader{
 	    	this.title.setFont(UIFont.HELVETICA_L);
 	    }
 		this.title.getStyleClass().add(STYLECLASS_TITLE);
-		
+	}
+	
+	private void initHeader(){
+		this.header = new HBox();
+		this.header.getStyleClass().add(STYLECLASS_HEADER);
+		this.header.setSpacing(590);
 		this.header.getChildren().addAll(this.title);
 		this.header.setAlignment(Pos.CENTER);
 	}

@@ -48,26 +48,36 @@ public class UISideMenu{
 	
 	public UISideMenu(UIController parent){
 		this.parent = parent;
-		this.menu = new VBox();
-		this.menu.setSpacing(5);
-		this.menu.getStyleClass().add(STYLECLASS_MENU);
-		
+		initialize();
+	}
+	
+	private void initialize(){
 		this.mainViewToggleGroup = new ToggleGroup();
-		
+		initMenuButtons();
+		initCategoryButtons();
+		initMenu();
+	}
+	
+	private void initMenuButtons(){
 		this.todayBtn = getMenuButton(LABEL_TODAY, UIData.USERDATA_TODAY, FxFontCommunity.Icons.cmd_calendar);
 		this.extendedBtn = getMenuButton(LABEL_EXTENDED, UIData.USERDATA_EXTENDED, FxFontCommunity.Icons.cmd_numeric_7_box_multiple_outline);
 		this.floatBtn = getMenuButton(LABEL_FLOAT, UIData.USERDATA_FLOAT, FxFontCommunity.Icons.cmd_image_filter_drama);
 		this.allBtn = getMenuButton(LABEL_ALL, UIData.USERDATA_ALL, FxFontCommunity.Icons.cmd_calendar_multiple);
 		this.completedBtn = getMenuButton(LABEL_COMPLETED, UIData.USERDATA_COMPLETED, FxFontCommunity.Icons.cmd_comment_check);
-		
-        this.categoryTitle = new Label(LABEL_CATEGORY_TITLE);
-        this.categoryTitle.setFont(FONT_CATEGORY_TITLE);
-        this.categoryTitle.getStyleClass().add(STYLECLASS_CATEGORY_TITLE);
-		
-        this.categoryBoxContainer = new UICategoryBoxContainer(this, new ArrayList<Category>());
-        
+	}
+	
+	private void initCategoryButtons(){
+		 this.categoryTitle = new Label(LABEL_CATEGORY_TITLE);
+	     this.categoryTitle.setFont(FONT_CATEGORY_TITLE);
+	     this.categoryTitle.getStyleClass().add(STYLECLASS_CATEGORY_TITLE);	
+	     this.categoryBoxContainer = new UICategoryBoxContainer(this, new ArrayList<Category>());
+	}
+	
+	private void initMenu(){
+		this.menu = new VBox();
+		this.menu.setSpacing(5);
+		this.menu.getStyleClass().add(STYLECLASS_MENU);
 		this.menu.getChildren().addAll(this.todayBtn, this.extendedBtn, this.floatBtn, this.allBtn, this.completedBtn, this.categoryTitle, this.categoryBoxContainer.getView());
-
 	}
 	
 	private ToggleButton getMenuButton(String title, String userData, FxFontCommunity.Icons icon){

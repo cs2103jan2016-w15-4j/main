@@ -16,20 +16,26 @@ public class UICategoryBoxContainer{
 	private VBox categoryBoxContainerView;
 	private ArrayList<UICategoryBox> categoryBoxList;
 	private Logic logic;
-	private ToggleGroup mainViewToggleGroup;
 	
 	public UICategoryBoxContainer(UISideMenu parent, ArrayList<Category> categoryList){
 		this.parent = parent;
-		this.mainViewToggleGroup = this.parent.getMainViewToggleGroup();
-		this.categoryBoxContainerView = new VBox();
-		this.categoryBoxContainerView.setSpacing(SPACING_CAT_BOX_CONTAINER_VIEW);
+		initCategoryBoxContainerView();
 		this.categoryBoxList = new ArrayList<UICategoryBox>();
 		
 		for (int i = 0; i < categoryList.size(); i++){
-			UICategoryBox categoryBox = new UICategoryBox(this, categoryList.get(i));
-			this.categoryBoxList.add(categoryBox);
-			this.categoryBoxContainerView.getChildren().add(categoryBox.getView());
+			addCategory(categoryList.get(i));
 		}
+	}
+	
+	private void initCategoryBoxContainerView(){
+		this.categoryBoxContainerView = new VBox();
+		this.categoryBoxContainerView.setSpacing(SPACING_CAT_BOX_CONTAINER_VIEW);
+	}
+	
+	private void addCategory(Category category){
+		UICategoryBox categoryBox = new UICategoryBox(this, category);
+		this.categoryBoxList.add(categoryBox);
+		this.categoryBoxContainerView.getChildren().add(categoryBox.getView());
 	}
 	
 	public Logic getLogic(){
@@ -41,16 +47,14 @@ public class UICategoryBoxContainer{
 	}
 	
 	public ToggleGroup getMainViewToggleGroup(){
-		return this.mainViewToggleGroup;
+		return this.parent.getMainViewToggleGroup();
 	}
 	
 	public void refresh(ArrayList<Category> categoryList){
 		this.categoryBoxContainerView.getChildren().clear();
 		this.categoryBoxList.clear();
 		for (int i = 0; i < categoryList.size(); i++){
-			UICategoryBox categoryBox = new UICategoryBox(this, categoryList.get(i));
-			this.categoryBoxList.add(categoryBox);
-			this.categoryBoxContainerView.getChildren().add(categoryBox.getView());
+			addCategory(categoryList.get(i));
 		}
 	}
 }

@@ -22,6 +22,7 @@ public class UICategoryBox{
 	private static final int SPACING_CAT_BOX_WRAPPER = 14;
 	private static final String STYLECLASS_CAT_BOX = UIStyle.BTN_SELECT_VIEW;
 	
+	private Category category;
 	private UICategoryBoxContainer parent;
 	private HBox categoryBoxWrapper;
 	private Label categoryName;
@@ -30,21 +31,41 @@ public class UICategoryBox{
 	
 	public UICategoryBox(UICategoryBoxContainer parent, Category category){		
 		this.parent = parent;
-		this.categoryBoxWrapper = new HBox();
-		
-		this.categoryName = new Label(category.getName());
+		this.category = category;
+		initialize();
+	}
+	
+	public ToggleButton getView(){
+		return this.categoryBox;
+	}
+	
+	private void initialize(){
+		initCategoryName();
+		initCategoryCircle();
+		initCategoryBoxWrapper();
+		initCategoryBox();
+	}
+	
+	private void initCategoryName(){
+		this.categoryName = new Label(this.category.getName());
 		this.categoryName.setFont(UIFont.SEGOE_M);
-		
 		this.categoryName.getStyleClass().add(STYLECLASS_CAT_NAME);
-		
-		Colour colour = category.getColour();
+	}
+	
+	private void initCategoryCircle(){
+		Colour colour = this.category.getColour();
 		this.categoryCircle = new Circle(4, Color.color(colour.r, colour.g, colour.b));
 		this.categoryCircle.getStyleClass().add(STYLECLASS_CAT_CIRCLE);
-		
+	}
+	
+	private void initCategoryBoxWrapper(){
+		this.categoryBoxWrapper = new HBox();
 		this.categoryBoxWrapper.getChildren().addAll(this.categoryCircle, this.categoryName);
 		this.categoryBoxWrapper.getStyleClass().add(STYLECLASS_CAT_BOX_WRAPPER);
 		this.categoryBoxWrapper.setSpacing(SPACING_CAT_BOX_WRAPPER);
-		
+	}
+	
+	private void initCategoryBox(){
 		this.categoryBox = new ToggleButton();
 		this.categoryBox.setGraphic(this.categoryBoxWrapper);
 		this.categoryBox.getStyleClass().add(STYLECLASS_CAT_BOX);
@@ -60,10 +81,6 @@ public class UICategoryBox{
 		         event.consume();
 		     }
 		});
-
 	}
 	
-	public ToggleButton getView(){
-		return this.categoryBox;
-	}
 }

@@ -12,17 +12,16 @@ public class UIDayBoxContainer {
 	private VBox dayBoxContainer;
 	private Logic logic;
 	
-	public UIDayBoxContainer(UIController parent, Logic logic){
+	public UIDayBoxContainer(UIController parent){
 		this.parent = parent;
 		this.dayBoxContainer = new VBox();
-		this.logic = logic;
 		this.dayBoxList = new ArrayList<UIDayBox>();
 	}
 	
 	public void refresh(ArrayList<TaskGroup> taskGroupList){
 		this.dayBoxContainer.getChildren().clear();
 		taskGroupList.forEach((taskGroup)->{
-			UIDayBox dayBox = new UIDayBox(this, taskGroup, logic);
+			UIDayBox dayBox = new UIDayBox(this, taskGroup);
 			this.dayBoxList.add(dayBox);
 			this.dayBoxContainer.getChildren().add(dayBox.getView());
 		});
@@ -41,5 +40,9 @@ public class UIDayBoxContainer {
 	protected double getStageWidth(){
 		double width = this.parent.getStageWidth();
 		return width;
+	}
+	
+	protected void markTask(int taskId){
+		this.parent.markTask(taskId);
 	}
 }

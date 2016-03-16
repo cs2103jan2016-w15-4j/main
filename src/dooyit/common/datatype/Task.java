@@ -28,12 +28,16 @@ public class Task {
 	}
 	
 	public void initTaskDeadline(String taskName, DateTime deadline){
+		assert(deadline != null);
+		
 		taskType = TaskType.DEADLINE;
 		this.taskName = taskName;
 		this.dateTimeDeadline = deadline;
 	}
 	
 	public void initTaskEvent(String taskName, DateTime start, DateTime end){
+		assert(start != null && end != null);
+		
 		taskType = TaskType.EVENT;
 		this.taskName = taskName;
 		this.dateTimeStart = start;
@@ -45,6 +49,8 @@ public class Task {
 	}
 	
 	public void changeDeadline(DateTime deadline){
+		assert(deadline != null);
+		
 		taskType = TaskType.DEADLINE;
 		this.dateTimeDeadline = deadline;
 		this.dateTimeStart = null;
@@ -52,6 +58,8 @@ public class Task {
 	}
 	
 	public void changeEvent(DateTime start, DateTime end){
+		assert(start != null && end != null);
+		
 		taskType = TaskType.EVENT;
 		this.dateTimeDeadline = null;
 		this.dateTimeStart = start;
@@ -71,6 +79,8 @@ public class Task {
 	}
 	
 	public void setCategory(Category category){
+		assert(category != null);
+		
 		this.category = category;
 	}
 	

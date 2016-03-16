@@ -32,26 +32,36 @@ public class MarkCommand extends Command {
 	@Override
 	public void execute(Logic logic) throws IncorrectInputException {
 		TaskManager taskManager = logic.getTaskManager();
+		assert(taskManager != null);
 		
 		switch (markCommandType) {
 
 			case SINGLE:
-				if (taskManager.markTask(markId) == false) {
-					throw new IncorrectInputException("Index " + markId + " is already marked");
+				if(taskManager.containsTask(markId)){
+					boolean successfullyMarked = taskManager.markTask(markId);
+					
+					if(!successfullyMarked){
+						throw new IncorrectInputException("Task " + markId + "-" + taskManager.findTask(markId).getName() +" is already marked.");
+					}
+				}
+				else{
+					throw new IncorrectInputException("Index " + markId + " doesn't exists");
 				}
 				break;
 				
 			case MULTIPLE:
-				String errorMessageBody = null;
+				String errorMessageBody = "";
 				
 				for(int i=0; i<markIds.size(); i++){
-					if (taskManager.markTask(markIds.get(i)) == false) {
+					if(taskManager.containsTask(markIds.get(i))){
+						taskManager.markTask(markIds.get(i));
+					}
+					else{
 						errorMessageBody += " " + markIds.get(i);
 					}
-					
 				}
 				
-				if(errorMessageBody != null){
+				if(errorMessageBody != ""){
 					throw new IncorrectInputException("Index" + errorMessageBody + " doesn't exists");
 				}
 				

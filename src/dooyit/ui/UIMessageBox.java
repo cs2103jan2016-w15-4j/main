@@ -12,11 +12,10 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class UIMessageBox {
-	private static final Font FONT_MESSAGE_BOX_LABEL = Font.font("Euphemia", 15);
-	private static final String STYLECLASS_MESSAGE_BOX_LABEL = "message-box-label";
+	private static final Font FONT_MESSAGE_BOX_LABEL = UIFont.EUPHEMIA_M;
+	private static final String STYLECLASS_MESSAGE_BOX_LABEL = UIStyle.MESSAGE_BOX_LABEL;
 	
 	private static final int FADE_TIME = 6000;
-	
 	private static final int PREFHEIGHT = 50;
 	private static final int PAD_X = 15;
 	private static final int PAD_Y = 130;
@@ -29,7 +28,7 @@ public class UIMessageBox {
 	
 	public UIMessageBox(Stage primaryStage){
 		this.primaryStage = primaryStage;
-		this.messageLabel = new Label("Test label");
+		this.messageLabel = new Label();
 		this.messageLabel.setFont(FONT_MESSAGE_BOX_LABEL);
 		this.messageLabel.getStyleClass().add(STYLECLASS_MESSAGE_BOX_LABEL);
 		

@@ -13,46 +13,36 @@ import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 
-public class UITaskBox {
+public class UITaskBox{
 	
-	private static final String STYLECLASS_TASK_CHECKBOX = "task-checkbox";
-	
-	private static final String FONT_TASK_ID = "Tahoma";
-	private static final int FONTSIZE_TASK_ID = 12;
-	private static final String STYLECLASS_TASK_ID = "task-id";
+	private static final String STYLECLASS_TASK_CHECKBOX = UIStyle.TASK_CHECKBOX;
+	private static final Font FONT_TASK_ID = UIFont.TAHOMA_S;
+	private static final String STYLECLASS_TASK_ID = UIStyle.TASK_ID;
 	private static final int PREFWIDTH_TASK_ID = 30;
 	
-	private static final String FONT_TASK_NAME = "Euphemia";
-	private static final int FONTSIZE_TASK_NAME = 14;
-	private static final String STYLECLASS_TASK_NAME = "task-name";
+	private static final Font FONT_TASK_NAME = UIFont.EUPHEMIA_M;
+	private static final String STYLECLASS_TASK_NAME = UIStyle.TASK_NAME;
 	private static final int TASK_NAME_WIDTH_TO_SUBTRACT = 240;
 	
-	private static final String FONT_TASK_PERIOD = "Verdana";
-	private static final int FONTSIZE_TASK_PERIOD = 12;
-	private static final String STYLECLASS_TASK_PERIOD = "task-period";
+	private static final Font FONT_TASK_PERIOD = UIFont.VERDANA_S;
+	private static final String STYLECLASS_TASK_PERIOD = UIStyle.TASK_PERIOD;
 	private static final int PREFWIDTH_TASK_PERIOD = 100;
-	
-	private static final String FONT_TASK_CATEGORY_LABEL = "Verdana";
-	private static final int FONTSIZE_TASK_CATEGORY_LABEL = 10;
-	private static final String STYLECLASS_TASK_CATEGORY_LABEL = "task-category-label";
-	private static final int PREFWIDTH_TASK_CATEGORY_LABEL = 80;
-	
-	private static final String STYLECLASS_TASK_BOX = "day-task-box";
-	private static final int SPACING_TASK_BOX = 10;
-	
 	private static final String TASK_PERIOD_TO = " to ";
 	private static final String TASK_PERIOD_BEGINS = "Begins ";
 	private static final String TASK_PERIOD_ENDS = "Ends ";
 	
-	private static final String EMPTY_STR = "";
-	private static final String CMD_MARK = "mark ";
+	private static final Font FONT_TASK_CATEGORY_LABEL = UIFont.VERDANA_S;
+	private static final String STYLECLASS_TASK_CATEGORY_LABEL = UIStyle.TASK_CATEGORY_LABEL;
+	private static final int PREFWIDTH_TASK_CATEGORY_LABEL = 80;
+	
+	private static final String STYLECLASS_TASK_BOX = UIStyle.DAY_TASK_BOX;
+	private static final int SPACING_TASK_BOX = 10;
 	
 	private static final int WIDTH_MENU = 180;
 	private static final int PAD_X = 20;
 	
 	private Font Avenir_16;
 	private Font customTaskPeriodFont;
-	private Font customCategoryLabelFont;
 	private UIDayBox parent;
 	private Task task;
 	private CheckBox taskCheckBox;
@@ -61,19 +51,19 @@ public class UITaskBox {
 	private Label taskPeriod;
 	private Label taskCategoryLabel;
 	private HBox taskBox;
-	private Logic logic;
 	
-	public UITaskBox(UIDayBox parent, Task task, Logic logic){
+	public UITaskBox(UIDayBox parent, Task task){
 		this.task = task;
-		this.logic = logic;
 		this.parent = parent;
 		
 		this.taskCheckBox = new CheckBox();
 		this.taskCheckBox.getStyleClass().add(STYLECLASS_TASK_CHECKBOX);
-		
+		if (this.task.isCompleted()){
+			this.taskCheckBox.setSelected(true);
+		}
 		
 		this.taskId = new Label(Integer.toString(this.task.getId()));
-		this.taskId.setFont(Font.font(FONT_TASK_ID, FONTSIZE_TASK_ID));
+		this.taskId.setFont(FONT_TASK_ID);
 	    this.taskId.getStyleClass().add(STYLECLASS_TASK_ID);
 	    this.taskId.setPrefWidth(PREFWIDTH_TASK_ID);
 	    
@@ -86,25 +76,20 @@ public class UITaskBox {
 	    } else if (this.task.hasEndTime()){
 	    	this.taskPeriod = new Label(TASK_PERIOD_ENDS + this.task.getDateTimeEnd().getTime24hStr());
 	    } else {
-	    	this.taskPeriod = new Label(EMPTY_STR);
+	    	this.taskPeriod = new Label(UIData.EMP_STR);
 	    }
 	    
 	    try {
 			this.customTaskPeriodFont = Font.loadFont(getClass().getResourceAsStream("fonts/Avenir-Medium.ttf"), 14);
 			this.taskPeriod.setFont(this.customTaskPeriodFont);
 		} catch(Exception e){
-			this.taskPeriod.setFont(Font.font(FONT_TASK_PERIOD, FONTSIZE_TASK_PERIOD));
+			this.taskPeriod.setFont(FONT_TASK_PERIOD);
 		}
 	    this.taskPeriod.getStyleClass().add(STYLECLASS_TASK_PERIOD);
 	    this.taskPeriod.setPrefWidth(PREFWIDTH_TASK_PERIOD);
 	    
-	    this.taskCategoryLabel = new Label("School");
-	    try {
-			this.customCategoryLabelFont = Font.loadFont(getClass().getResourceAsStream("fonts/SF-Regular.ttf"), 13);
-			this.taskCategoryLabel.setFont(this.customCategoryLabelFont);
-		} catch(Exception e){
-			this.taskCategoryLabel.setFont(Font.font(FONT_TASK_CATEGORY_LABEL, FONTSIZE_TASK_CATEGORY_LABEL));
-		}
+	    this.taskCategoryLabel = new Label("Category Name");
+	    this.taskCategoryLabel.setFont(FONT_TASK_CATEGORY_LABEL);
 	    this.taskCategoryLabel.getStyleClass().add(STYLECLASS_TASK_CATEGORY_LABEL);
 	    this.taskCategoryLabel.setStyle("-fx-text-fill: #007AFF;");
 	    this.taskCategoryLabel.setPrefWidth(PREFWIDTH_TASK_CATEGORY_LABEL);
@@ -114,7 +99,7 @@ public class UITaskBox {
 	    	this.Avenir_16 = Font.loadFont(getClass().getResourceAsStream("fonts/Avenir-Light.ttf"), 16);
 	    	this.taskName.setFont(this.Avenir_16);
 	    } catch(Exception e) {
-			this.taskName.setFont(Font.font(FONT_TASK_NAME, FONTSIZE_TASK_NAME));
+			this.taskName.setFont(FONT_TASK_NAME);
 			System.out.println(e.getMessage());
 	    }
 	    this.taskName.getStyleClass().add(STYLECLASS_TASK_NAME);
@@ -129,8 +114,9 @@ public class UITaskBox {
 	    
 	    // Check box action
 	    this.taskCheckBox.setOnAction((event) -> {
-	    	boolean isChecked = this.taskCheckBox.isSelected();
-	    	this.logic.processCommand(CMD_MARK + Integer.toString(this.task.getId()));
+	    	if (!this.task.isCompleted()){
+	    		this.parent.markTask(this.task.getId());
+	    	}
 	    });
 	}
 	

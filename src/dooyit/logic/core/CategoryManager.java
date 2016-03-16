@@ -16,8 +16,10 @@ public class CategoryManager {
 	}
 	
 	private void setDefaultCategories(){
-		addCategory("School");
-		addCategory("Entertainment");
+		if(categories.size() == 0){
+			addCategory("School");
+			addCategory("Entertainment");
+		}
 	}
 	
 	public Category addCategory(String categoryName){

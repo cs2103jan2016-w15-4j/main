@@ -5,48 +5,22 @@ import java.util.ArrayList;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Toggle;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
-import javafx.stage.Popup;
 import javafx.stage.Stage;
 import dooyit.common.datatype.Category;
 import dooyit.common.datatype.TaskGroup;
 import dooyit.logic.core.*;
-import dooyit.main.*;
 
 public class UIController {
-	static final String URL_CSS_COMMON = "common.css";
-	static final String URL_CSS_THEME_LIGHT = "theme_light.css";
-	static final String URL_CSS_THEME_DARK = "theme_dark.css";
-	static final String URL_CSS_THEME_AQUA = "theme_aqua.css";
 
 	static final int WIDTH_SCENE = 720;
 	static final int HEIGHT_SCENE = 580;
 	
-	static final String USERDATA_TODAY = "day";
-	static final String USERDATA_EXTENDED = "extended";
-	static final String USERDATA_FLOAT = "float";
-	static final String USERDATA_ALL = "all";
-	static final String USERDATA_COMPLETED = "completed";
-	static final String USERDATA_CATEGORY = "category";
-	
-	static final String CMD_SHOW_TODAY = "show today";
-	static final String CMD_SHOW_EXTENDED = "show next7";
-	static final String CMD_SHOW_FLOAT = "show float";
-	static final String CMD_SHOW_ALL = "show all";
-	static final String CMD_SHOW_COMPLETED = "show completed";
-	static final String CMD_SHOW = "show ";
-	
-	static final String STYLECLASS_MAIN_VIEW = "main-view";
-	
-	static final String EMPTY_STR = "";
+	static final String STYLECLASS_MAIN_VIEW = UIStyle.MAIN_VIEW;
 	
 	private String urlCssCommon;
 	private String urlCssThemeLight;
@@ -75,10 +49,10 @@ public class UIController {
 	private UIMainViewType activeMainView;
 	
 	public UIController(Stage primaryStage, Logic logic){
-		this.urlCssCommon = getClass().getResource(URL_CSS_COMMON).toExternalForm();
-		this.urlCssThemeLight = getClass().getResource(URL_CSS_THEME_LIGHT).toExternalForm();
-	    this.urlCssThemeDark = getClass().getResource(URL_CSS_THEME_DARK).toExternalForm();
-	    this.urlCssThemeAqua = getClass().getResource(URL_CSS_THEME_AQUA).toExternalForm();
+		this.urlCssCommon = getClass().getResource(UIStyle.URL_CSS_COMMON).toExternalForm();
+		this.urlCssThemeLight = getClass().getResource(UIStyle.URL_CSS_THEME_LIGHT).toExternalForm();
+	    this.urlCssThemeDark = getClass().getResource(UIStyle.URL_CSS_THEME_DARK).toExternalForm();
+	    this.urlCssThemeAqua = getClass().getResource(UIStyle.URL_CSS_THEME_AQUA).toExternalForm();
 	    
 	    this.logic = logic;
 	    this.primaryStage = primaryStage;
@@ -90,10 +64,10 @@ public class UIController {
 		this.header = new UIHeader();
 		
 		// Side menu
-		this.sideMenu = new UISideMenu(this.logic);
+		this.sideMenu = new UISideMenu(this);
 		
 		// Day box container
-		this.dayBoxContainer = new UIDayBoxContainer(this, this.logic);
+		this.dayBoxContainer = new UIDayBoxContainer(this);
 	
 		// Main view
 		this.mainView = new ScrollPane();
@@ -132,32 +106,31 @@ public class UIController {
 		            } else {
 		                String selected = sideMenu.getMainViewToggleGroup().getSelectedToggle().getUserData().toString();
                         switch(selected){
-		                    case USERDATA_TODAY:
+		                    case UIData.USERDATA_TODAY:
 		                    	activeMainView = UIMainViewType.TODAY;
-		                    	logic.processCommand(CMD_SHOW_TODAY);
+		                    	logic.processCommand(UIData.CMD_SHOW_TODAY);
 		                        break;
-		                    case USERDATA_EXTENDED:
+		                    case UIData.USERDATA_EXTENDED:
 		                    	activeMainView = UIMainViewType.EXTENDED;
-		                    	logic.processCommand(CMD_SHOW_EXTENDED);
+		                    	logic.processCommand(UIData.CMD_SHOW_EXTENDED);
 		                        break;
-		                    case USERDATA_FLOAT:
+		                    case UIData.USERDATA_FLOAT:
 		                    	activeMainView = UIMainViewType.FLOAT;
-		                    	logic.processCommand(CMD_SHOW_FLOAT);
+		                    	logic.processCommand(UIData.CMD_SHOW_FLOAT);
 		                    	break;
-		                    case USERDATA_ALL:
+		                    case UIData.USERDATA_ALL:
 		                    	activeMainView = UIMainViewType.ALL;
-		                    	logic.processCommand(CMD_SHOW_ALL);
+		                    	logic.processCommand(UIData.CMD_SHOW_ALL);
 		                    	break;
-		                    case USERDATA_COMPLETED:
+		                    case UIData.USERDATA_COMPLETED:
 		                    	activeMainView = UIMainViewType.COMPLETED;
-		                    	 logic.processCommand(CMD_SHOW_COMPLETED);
+		                    	 logic.processCommand(UIData.CMD_SHOW_COMPLETED);
 		                    	break;
-		                    case USERDATA_CATEGORY:
+		                    case UIData.USERDATA_CATEGORY:
 		                    	activeMainView = UIMainViewType.CATEGORY;
 		                    	// call logic processCommand from category box listener
 		                }
                         mainView.setContent(dayBoxContainer.getView());
-                        System.out.println(getActiveViewType());
 		            }
 		        }
 		    });
@@ -168,7 +141,7 @@ public class UIController {
 		    @Override
 		    public void changed(ObservableValue<? extends String> observable,
 		            String oldValue, String newValue) {
-		    	if (newValue.equals(EMPTY_STR) && commandHelper.isShowing()){
+		    	if (newValue.equals(UIData.EMP_STR) && commandHelper.isShowing()){
 		    		//commandHelper.hide();
 		    	} else if (!newValue.equals(oldValue) && !commandHelper.isShowing()){
 		    		//commandHelper.show();
@@ -180,7 +153,7 @@ public class UIController {
 		this.commandBox.getCommandTextField().setOnAction((event)->{
 			String commandString = commandBox.getCommandTextField().getText();
 			System.out.println(commandString);
-			commandBox.getCommandTextField().setText(EMPTY_STR);
+			commandBox.getCommandTextField().setText(UIData.EMP_STR);
 			
 			this.logic.processCommand(commandString);
 			
@@ -359,8 +332,15 @@ public class UIController {
         this.secWindow.show();
 	}
 	
+	protected Stage getStage(){
+		return this.primaryStage;
+	}
+	
 	protected double getStageWidth(){
 		return this.primaryStage.getWidth();
 	}
 	
+	protected void markTask(int taskId){
+		this.logic.processCommand(UIData.CMD_MARK + Integer.toString(taskId));
+	}
 }

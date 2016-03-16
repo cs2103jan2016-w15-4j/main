@@ -1,6 +1,7 @@
 package dooyit.logic.core;
 
 import dooyit.storage.Storage;
+
 import dooyit.ui.UIController;
 import dooyit.ui.UIMainViewType;
 import dooyit.parser.Parser;
@@ -9,6 +10,11 @@ import dooyit.logic.commands.*;
 
 import java.io.IOException;
 
+
+import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class Logic {
 
 	private Parser parser;
@@ -16,8 +22,11 @@ public class Logic {
 	private CategoryManager categoryManager;
 	private Storage storage;
 	private UIController uiController;
+	private static Logger logger = Logger.getLogger("Logic");
 	
 	public Logic(){
+		logger.log(Level.INFO, "Initialising logic class");
+		
 		parser = new Parser();
 		taskManager = new TaskManager();
 		categoryManager = new CategoryManager();
@@ -25,7 +34,7 @@ public class Logic {
 		try{
 			storage = new Storage();
 		}catch(IOException e){
-			System.out.println("ERROR: CREATING STORAGE");
+			logger.log(Level.SEVERE, "ERROR: Fail to create storage");
 			uiController.displayMessage("ERROR: CREATING STORAGE");
 		}
 		
@@ -39,13 +48,17 @@ public class Logic {
 		try{
 			storage.loadTasks(taskManager);
 		}catch(IOException e){
-			System.out.println("ERROR: LOAD TASK");
+			logger.log(Level.SEVERE, "ERROR: Fail to load task from storage");
 			uiController.displayMessage("ERROR: LOAD TASK");
 		}
 		
+		logger.log(Level.INFO, "End of initialising logic class");
 	}
 	
-	
+	/*
+	 * process and execute command input from user
+	 * 
+	 */
 	public void processCommand(String input){
 		Command command = parser.getCommand(input);
 		
@@ -68,7 +81,7 @@ public class Logic {
 			save();
 			
 		} catch(IOException e){
-			System.out.println("ERROR: SAVING");
+			logger.log(Level.SEVERE, "ERROR: Fail to save");
 			uiController.displayMessage("ERROR: SAVING");
 		}
 		
@@ -80,7 +93,7 @@ public class Logic {
 		storage.saveTasks(taskManager.getAllTasks());
 	}
 	
-	public void refreshUIController(){
+	private void refreshUIController(){
 		//uiController.refreshMainView(taskManager.getTaskGroupsToday());
 		UIMainViewType uiMainViewType = uiController.getActiveViewType();
 		
@@ -110,23 +123,43 @@ public class Logic {
 		uiController.refreshCategoryMenuView(categoryManager.getCategoryList());
 	}
 	
+	/**
+	 * pass the uicontroller references to this class
+	 * @param ui
+	 */
 	public void setUIController(UIController ui){
 		this.uiController = ui;
 		refreshUIController();
 	}
 	
+	/**
+	 * Get the TaskManager object
+	 * @return TaskManager
+	 */
 	public TaskManager getTaskManager(){
 		return taskManager;
 	}
 	
+	/**
+	 * Get UIController object
+	 * @return UIController
+	 */
 	public UIController getUIController(){
 		return uiController;
 	}
 	
+	/**
+	 * Get Storage object
+	 * @return Storage
+	 */
 	public Storage getStorage(){
 		return storage;
 	}
 	
+	/**
+	 * Get CategoryManager object
+	 * @return CategoryManager
+	 */
 	public CategoryManager getCategoryManager(){
 		return categoryManager;
 	}

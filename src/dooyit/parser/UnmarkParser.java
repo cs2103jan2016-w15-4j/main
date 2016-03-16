@@ -25,7 +25,7 @@ public class UnmarkParser {
 		cmd = null;
 	}
 
-	public Command getCommand() {
+	public Command getCommand() throws IncorrectInputException {
 		switch(getUnmarkType()) {
 		case SINGLE :
 			try {
@@ -69,7 +69,7 @@ public class UnmarkParser {
 		//return CommandUtils.createUnmarkCommand(taskIdsCompleted);
 	}
 
-	private void parseIntervalType() {
+	private void parseIntervalType() throws IncorrectInputException {
 		for(int i = INDEX_SINGLE; i < splitInput.length; i++) {
 			if(splitInput[i].equals("-")) {
 				if(!isNumber(splitInput[i - 1]) || !isNumber(splitInput[i + 1])) {
@@ -95,7 +95,7 @@ public class UnmarkParser {
 		//return CommandUtils.createUnmarkCommand(taskIdsCompleted);
 	}
 
-	private void parseMultipleType() {
+	private void parseMultipleType() throws IncorrectInputException {
 		for(int i = INDEX_SINGLE; i < splitInput.length; i++) {
 			String currWord = splitInput[i];
 			if(!isNumber(currWord)) {

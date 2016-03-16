@@ -7,7 +7,6 @@ import dooyit.logic.commands.CommandUtils;
 
 public class AddParser {
 	
-	private static final int START_INDEX_ARGS = 4;
 	private static final String MARKER_START_EVENT = " from ";
 	private static final String MARKER_END_EVENT = " to ";
 	private static final String MARKER_WORK = " by ";
@@ -30,7 +29,7 @@ public class AddParser {
 		userInput = input.trim();
 	}
 	
-	public Command getCommand() {
+	public Command getCommand() throws IncorrectInputException {
 		switch(getTaskType()) {
 		case FLOATING :
 			try {

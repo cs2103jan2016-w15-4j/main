@@ -25,7 +25,7 @@ public class MarkParser {
 		cmd = null;
 	}
 
-	public Command getCommand() {
+	public Command getCommand() throws IncorrectInputException {
 		switch(getMarkType()) {
 		case SINGLE :
 			System.out.println("is SIngle");
@@ -72,7 +72,7 @@ public class MarkParser {
 		return CommandUtils.createMarkCommand(taskIdsCompleted);
 	}
 
-	private void parseIntervalType() {
+	private void parseIntervalType() throws IncorrectInputException {
 		for(int i = INDEX_SINGLE; i < splitInput.length; i++) {
 			if(splitInput[i].equals("-")) {
 				if(!isNumber(splitInput[i - 1]) || !isNumber(splitInput[i + 1])) {
@@ -97,7 +97,7 @@ public class MarkParser {
 		return CommandUtils.createMarkCommand(taskIdsCompleted);
 	}
 
-	private void parseMultipleType() {
+	private void parseMultipleType() throws IncorrectInputException {
 		for(int i = INDEX_SINGLE; i < splitInput.length; i++) {
 			String currWord = splitInput[i];
 			if(!isNumber(currWord)) {
@@ -120,7 +120,7 @@ public class MarkParser {
 		return CommandUtils.createInvalidCommand(message);
 	}
 
-	private void parseSingleType() {
+	private void parseSingleType() throws IncorrectInputException {
 		if(isNumber(splitInput[INDEX_SINGLE])) {
 			taskIdCompleted = Integer.parseInt(splitInput[INDEX_SINGLE]);
 		} else {

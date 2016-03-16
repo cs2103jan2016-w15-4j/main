@@ -10,6 +10,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import dooyit.common.datatype.DateTime;
+import dooyit.common.exception.MissingFileException;
 import dooyit.logic.core.TaskManager;
 
 public class TaskLoader extends StorageConstants{
@@ -25,47 +26,64 @@ public class TaskLoader extends StorageConstants{
 	}
 	
 	public boolean loadTasks(TaskManager taskManager) throws IOException{
-		File directory = new File(filePath);
-
+		File file = new File(filePath);
+		File directory = file.getParentFile();
+		
 		if(directory.exists()) {
-			String path = filePath + File.separatorChar + NAME_FILE_STORAGE;
+			String path = filePath;
 			loadFromFile(path, taskManager);
 		}
 		else {
-			createDirectory(directory);
+			createFile(directory, file);
 		}
 
 		return true;
 	}
 	
-	private void createDirectory(File directory) {
+	private void createFile(File directory, File file) throws IOException{
+		//creates the parent directories
 		directory.mkdirs();
-	}
-	
-	public void loadFromFile(String filePath, TaskManager taskManager) throws IOException {
-		File file = new File(filePath);
-		FileReader fReader = tryToOpen(file);
-		if(fReader == null) {
-			return;
-		}
-		else {
-			readFromFile(fReader, taskManager);
-		}
 		
-		return;
+		try {
+			file.createNewFile();
+		} catch (IOException e) {
+			throw new IOException("Failed to create " + file.getName());
+		}
 	}
 	
-	private FileReader tryToOpen(File file) {
+	public void loadFromFile(String path, TaskManager taskManager) throws IOException{
+		File file = new File(path);
+		FileReader fReader;
+		fReader = tryToOpen(file);
+
+		try {
+			readFromFile(fReader, taskManager);
+		} catch (IOException e) {
+			throw new IOException("Unable to read " + file.getName());
+		}
+	}
+	
+	private FileReader tryToOpen(File file) throws FileNotFoundException{
 		FileReader fReader = null;
 		if(file.exists()) {
 			try {
 				fReader = new FileReader(file);
-			} catch (FileNotFoundException fnfe) {
-				System.out.println("Unable to access file");
-				System.exit(2);
+			} catch (MissingFileException mfe) {
+				throw new MissingFileException(file.getName());
 			}
 		}
 		return fReader;
+	}
+	
+	private void readFromFile(FileReader fReader, TaskManager taskManager) throws IOException {
+		BufferedReader bReader = new BufferedReader(fReader);
+		String taskInfo = bReader.readLine();
+		while(taskInfo != null) {
+			loadToMemory(taskManager, taskInfo);
+			taskInfo = bReader.readLine();
+		}
+		bReader.close();
+		fReader.close();
 	}
 	
 	private void loadToMemory(TaskManager taskManager, String taskFormat) {
@@ -107,16 +125,5 @@ public class TaskLoader extends StorageConstants{
 				Integer.valueOf(parts[2]), parts[3], parts[4]);
 		
 		return dateTime;
-	}
-	
-	private void readFromFile(FileReader fReader, TaskManager taskManager) throws IOException {
-		BufferedReader bReader = new BufferedReader(fReader);
-		String taskInfo = bReader.readLine();
-		while(taskInfo != null) {
-			loadToMemory(taskManager, taskInfo);
-			taskInfo = bReader.readLine();
-		}
-		bReader.close();
-		fReader.close();
 	}
 }

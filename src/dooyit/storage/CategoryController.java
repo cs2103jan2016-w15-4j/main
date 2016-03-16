@@ -14,6 +14,8 @@ import com.google.gson.JsonParser;
 
 import dooyit.common.datatype.Category;
 import dooyit.common.datatype.Colour;
+import dooyit.common.exception.MissingFileException;
+import dooyit.logic.core.CategoryManager;
 
 public class CategoryController extends StorageConstants{
 
@@ -21,8 +23,7 @@ public class CategoryController extends StorageConstants{
 	static final String CATEGORY_COLOUR = "colour";
 
 	public CategoryController(String path) {
-		filePath = path + File.separatorChar + DEFAULT_FOLDER_STORAGE
-				+ NAME_FILE_CATEGORY;
+		filePath = path + DEFAULT_CATEGORIES_DESTINATION;
 	}
 
 	public boolean saveCategory(ArrayList<Category> categories) throws IOException {
@@ -46,42 +47,40 @@ public class CategoryController extends StorageConstants{
 		return json;
 	}
 
-	public ArrayList<Category> loadCategory() throws IOException {
-		ArrayList<Category> categories = new ArrayList<Category>();
+	public boolean loadCategory(CategoryManager categoryManager) throws IOException {
 		File catFile = new File(filePath);
 		FileReader fReader = null;
 		
 		if(catFile.exists()) {
 			fReader = tryToOpen(catFile);
 			if(fReader == null) {
-				return categories;
+				return false;
 			}
 			else {
-				readFromFile(fReader, categories);
+				readFromFile(fReader, categoryManager);
 			}
 		}
-		return categories;
+		return true;
 	}
 	
-	private FileReader tryToOpen(File file) {
+	private FileReader tryToOpen(File file) throws FileNotFoundException {
 		FileReader fReader = null;
 		if(file.exists()) {
 			try {
 				fReader = new FileReader(file);
-			} catch (FileNotFoundException fnfe) {
-				System.out.println("Unable to access file");
-				System.exit(2);
+			} catch (MissingFileException mfe) {
+				throw new MissingFileException(file.getName());
 			}
 		}
 		return fReader;
 	}
 	
-	private void loadToMemory(ArrayList<Category> categories, String catFormat) {
+	private void loadToMemory(CategoryManager categoryManager, String catFormat) {
 		JsonParser parser = new JsonParser();
 		JsonObject category = parser.parse(catFormat).getAsJsonObject();
 		String name = category.get(CATEGORY_NAME).getAsString();
 		Colour colour = resolveColour(category.get(CATEGORY_COLOUR).getAsString());
-		
+		categoryManager.addCategory(name, colour);
 	}
 	
 	private Colour resolveColour(String colourFormat) {
@@ -92,11 +91,11 @@ public class CategoryController extends StorageConstants{
 		return colour;
 	}
 	
-	private void readFromFile(FileReader fReader, ArrayList<Category> categories) throws IOException {
+	private void readFromFile(FileReader fReader, CategoryManager categoryManager) throws IOException {
 		BufferedReader bReader = new BufferedReader(fReader);
 		String catInfo = bReader.readLine();
 		while(catInfo != null) {
-			loadToMemory(categories, catInfo);
+			loadToMemory(categoryManager, catInfo);
 			catInfo = bReader.readLine();
 		}
 		bReader.close();

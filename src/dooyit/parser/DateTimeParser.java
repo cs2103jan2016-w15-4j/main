@@ -1,5 +1,7 @@
 package dooyit.parser;
 import java.text.DateFormat;
+import java.util.logging.*;
+
 
 import dooyit.common.datatype.DateTime;
 import dooyit.common.exception.IncorrectInputException;
@@ -42,10 +44,10 @@ public class DateTimeParser {
 	int currDD;
 	int currDayInWeekInt;
 	
-	//String currDate;
 	String currDayInWeekString;
 	int currTime;
-	//private static Scanner sc;
+	
+	private static Logger logger = Logger.getLogger("DateTimeParser");
 	
 	enum DATE_TIME_FORMAT {
 		TYPE_THIS_DAY_OF_WEEK, TYPE_NEXT_DAY_OF_WEEK, TYPE_DAY_OF_WEEK, 
@@ -88,47 +90,58 @@ public class DateTimeParser {
 	private DATE_TIME_FORMAT getDateTimeType(String currWord, String[] arr, int index) {
 		System.out.println("currWord is " + currWord);
 		if(isThisMonday(currWord, arr, index)) {
-			System.out.println("isThisMonday");
+			//System.out.println("isThisMonday");
+			logger.log(Level.INFO, "is this Monday");
 			return DATE_TIME_FORMAT.TYPE_THIS_DAY_OF_WEEK;
 			
 		} else if(isNextWeek(currWord, arr, index)) {
-			System.out.println("isNextWeek");
+			//System.out.println("isNextWeek");
+			logger.log(Level.INFO, "isNextWeek");
 			return DATE_TIME_FORMAT.TYPE_NEXT_WEEK;
 			
 		} else if(isNextWeekday(currWord, arr, index)) {
-			System.out.println("isNextWeekday");
+			//System.out.println("isNextWeekday");
+			logger.log(Level.INFO, "isNextWeekday");
 			return DATE_TIME_FORMAT.TYPE_NEXT_DAY_OF_WEEK;
 			
 		} else if(isValidDay(currWord)) {
-			System.out.println("isValidDay");
+			//System.out.println("isValidDay");
+			logger.log(Level.INFO, "isValidDay");
 			return DATE_TIME_FORMAT.TYPE_DAY_OF_WEEK;
 			
 		} else if(isValidTime(currWord,arr, index)) {
-			System.out.println("isValidTime");
+			//System.out.println("isValidTime");
+			logger.log(Level.INFO, "isValidTime");
 			return DATE_TIME_FORMAT.TYPE_TIME;
 			
 		} else if(isValidDate(currWord, arr, index)) {
-			System.out.println("isValidDate");
+			//System.out.println("isValidDate");
+			logger.log(Level.INFO, "isValidDate");
 			return DATE_TIME_FORMAT.TYPE_DATE;
 			
 		} else if(isToday(currWord)) {
-			System.out.println("isToday");
+			//System.out.println("isToday");
+			logger.log(Level.INFO, "isToday");
 			return DATE_TIME_FORMAT.TYPE_TODAY;
 			
 		} else if(isTomorrow(currWord)) {
-			System.out.println("isTomorrow");
+			//System.out.println("isTomorrow");
+			logger.log(Level.INFO, "isTomorrow");
 			return DATE_TIME_FORMAT.TYPE_TOMORROW;
 			
 		} else if(isNumDays(currWord, arr, index)) {
-			System.out.println("isNumDays");
+			//System.out.println("isNumDays");
+			logger.log(Level.INFO, "isNumDays");
 			return DATE_TIME_FORMAT.TYPE_NUM_DAYS;
 			
 		} else if(isNumWeeks(currWord, arr, index)) {
-			System.out.println("isNumWeeks");
+			//System.out.println("isNumWeeks");
+			logger.log(Level.INFO, "isNumWeeks");
 			return DATE_TIME_FORMAT.TYPE_NUM_WEEKS;
 			
 		} else {
-			System.out.println("isInvalidType");
+			//System.out.println("isInvalidType");
+			logger.log(Level.INFO, "isInvalidType");
 			return DATE_TIME_FORMAT.TYPE_INVALID;
 		}
 	}
@@ -154,7 +167,7 @@ public class DateTimeParser {
 
 	public DateTime parse(String input) throws IncorrectInputException {
 		String[] splitInput = input.toLowerCase().split("\\s+");
-		//[dayOfWeek, time, DD, MM, YY, indexInArray]
+									//[dayOfWeek, time, DD, MM, YY, indexInArray]
 		int[] combined = new int[] {currDayInWeekInt, DUMMY_INT, currDD, currMM, currYY, 0}; 	
 		
 		for(int i = 0; i < splitInput.length; i++) {			
@@ -423,7 +436,8 @@ public class DateTimeParser {
 		boolean ans = false;
 		
 		if(currWord.contains("pm") || currWord.contains("am")) {
-			System.out.println("reached here in isValidTime");
+			//System.out.println("reached here in isValidTime");
+			logger.log(Level.INFO, "reached here in isValidTime");
 			currWord = currWord.replace("pm", "").replace("am", "");
 			if(currWord.contains(":") || currWord.contains(".")) {								//Eg: 12pm, 12.30pm, 12:50am
 				currWord = currWord.replace(":", "").replace(".", "");
@@ -452,18 +466,6 @@ public class DateTimeParser {
 		} else {
 			//Invalid command here
 		}
-		return ans;
-	}
-
-	private boolean isValidTimeRange(String currWord) {
-		boolean ans = false;
-		if(isNumber(currWord)) {														//Checks that it isnt eg. hello.world, hello:world
-			int currInt = Integer.parseInt(currWord);
-			boolean isTwelvePm = currInt <= 12;											//Eg: 12pm, 8am, 10pm
-			boolean isFourThirtyPm = currInt / 100 <= 12 && currInt % 100 <= 60;		//Eg: 12.30pm, 8.30am, 9.30pm
-			ans = isTwelvePm || isFourThirtyPm;
-		}
-
 		return ans;
 	}
 	

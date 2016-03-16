@@ -35,7 +35,7 @@ public class Parser {
 		String commandString = splittedInput[0];
 
 		Command command = null;
-
+		//assert false;
 		switch (commandString.toLowerCase()) {
 		case COMMAND_ADD:
 			AddParser addParser = new AddParser(getInputWithoutCommand(input, COMMAND_ADD));

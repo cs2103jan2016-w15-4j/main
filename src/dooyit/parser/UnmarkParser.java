@@ -13,11 +13,11 @@ public class UnmarkParser {
 	private static ArrayList<Integer> taskIdsCompleted;
 	private static int taskIdCompleted;
 	private static Command cmd;
-	
+
 	enum UNMARK_TYPE {
 		SINGLE, MULTIPLE, INTERVAL, INVALID
 	};
-	
+
 	public UnmarkParser(String input) {
 		userInput = input;
 		splitInput = userInput.split("\\s+");
@@ -26,53 +26,53 @@ public class UnmarkParser {
 	}
 
 	public Command getCommand() throws IncorrectInputException {
-		switch(getUnmarkType()) {
-		case SINGLE :
+		switch (getUnmarkType()) {
+		case SINGLE:
 			try {
 				parseSingleType();
-			} catch(IncorrectInputException e) {
+			} catch (IncorrectInputException e) {
 				cmd = getInvalidCommand(e.getMessage());
 				break;
 			}
 			cmd = getSingleTypeUnmarkCmd();
 			break;
-			
-		case MULTIPLE :
+
+		case MULTIPLE:
 			try {
 				parseMultipleType();
-			} catch(IncorrectInputException e) {
+			} catch (IncorrectInputException e) {
 				cmd = getInvalidCommand(e.getMessage());
 				break;
 			}
 			cmd = getMultipleTypeUnmarkCmd();
 			break;
-			
-		case INTERVAL :
+
+		case INTERVAL:
 			try {
 				parseIntervalType();
-			} catch(IncorrectInputException e) {
+			} catch (IncorrectInputException e) {
 				cmd = getInvalidCommand(e.getMessage());
 				break;
 			}
 			cmd = getIntervalTypeUnmarkCmd();
 			break;
-		
-		case INVALID :
+
+		case INVALID:
 			cmd = getInvalidCmd();
 			break;
 		}
 		return cmd;
 	}
-	
+
 	private Command getIntervalTypeUnmarkCmd() {
 		return null;
-		//return CommandUtils.createUnmarkCommand(taskIdsCompleted);
+		// return CommandUtils.createUnmarkCommand(taskIdsCompleted);
 	}
 
 	private void parseIntervalType() throws IncorrectInputException {
-		for(int i = INDEX_SINGLE; i < splitInput.length; i++) {
-			if(splitInput[i].equals("-")) {
-				if(!isNumber(splitInput[i - 1]) || !isNumber(splitInput[i + 1])) {
+		for (int i = INDEX_SINGLE; i < splitInput.length; i++) {
+			if (splitInput[i].equals("-")) {
+				if (!isNumber(splitInput[i - 1]) || !isNumber(splitInput[i + 1])) {
 					throw new IncorrectInputException("Invalid Number!");
 				} else {
 					setInterval(splitInput, i);
@@ -84,21 +84,21 @@ public class UnmarkParser {
 	private void setInterval(String[] arr, int index) {
 		int start = Integer.parseInt(arr[index - 1]);
 		int end = Integer.parseInt(arr[index + 1]);
-		for(int i = start; i <= end; i++) {
+		for (int i = start; i <= end; i++) {
 			taskIdsCompleted.add(i);
 		}
 	}
 
-	//Eg. unmark 2 4 0 9
+	// Eg. unmark 2 4 0 9
 	private Command getMultipleTypeUnmarkCmd() {
 		return null;
-		//return CommandUtils.createUnmarkCommand(taskIdsCompleted);
+		// return CommandUtils.createUnmarkCommand(taskIdsCompleted);
 	}
 
 	private void parseMultipleType() throws IncorrectInputException {
-		for(int i = INDEX_SINGLE; i < splitInput.length; i++) {
+		for (int i = INDEX_SINGLE; i < splitInput.length; i++) {
 			String currWord = splitInput[i];
-			if(!isNumber(currWord)) {
+			if (!isNumber(currWord)) {
 				throw new IncorrectInputException("Invalid Number!");
 			} else {
 				taskIdsCompleted.add(Integer.parseInt(currWord));
@@ -108,7 +108,7 @@ public class UnmarkParser {
 
 	private Command getSingleTypeUnmarkCmd() {
 		return null;
-		//return CommandUtils.createUnmarkCommand(taskIdCompleted);
+		// return CommandUtils.createUnmarkCommand(taskIdCompleted);
 	}
 
 	private Command getInvalidCmd() {
@@ -120,7 +120,7 @@ public class UnmarkParser {
 	}
 
 	private void parseSingleType() {
-		if(isNumber(splitInput[INDEX_SINGLE])) {
+		if (isNumber(splitInput[INDEX_SINGLE])) {
 			taskIdCompleted = Integer.parseInt(splitInput[INDEX_SINGLE]);
 		} else {
 			throw new IncorrectInputException("Invalid Task ID!");
@@ -128,11 +128,11 @@ public class UnmarkParser {
 	}
 
 	private UNMARK_TYPE getUnmarkType() {
-		if(userInput.contains("-")) {
+		if (userInput.contains("-")) {
 			return UNMARK_TYPE.INTERVAL;
-		} else if(splitInput.length == 1) {
+		} else if (splitInput.length == 1) {
 			return UNMARK_TYPE.SINGLE;
-		} else if(splitInput.length > 1) {
+		} else if (splitInput.length > 1) {
 			return UNMARK_TYPE.MULTIPLE;
 		} else {
 			return UNMARK_TYPE.INVALID;

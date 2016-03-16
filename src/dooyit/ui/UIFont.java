@@ -11,5 +11,5 @@ public class UIFont {
 	protected static final Font HELVETICA_L = Font.font("Helvetica", 19);
 	protected static final Font TAHOMA_S = Font.font("Tahoma", 12);
 	protected static final Font VERDANA_S = Font.font("Verdana", 12);
-	
+
 }

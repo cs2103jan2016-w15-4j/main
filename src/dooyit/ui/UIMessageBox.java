@@ -14,73 +14,73 @@ import javafx.util.Duration;
 public class UIMessageBox {
 	private static final Font FONT_MESSAGE_BOX_LABEL = UIFont.EUPHEMIA_M;
 	private static final String STYLECLASS_MESSAGE_BOX_LABEL = UIStyle.MESSAGE_BOX_LABEL;
-	
+
 	private static final int FADE_TIME = 6000;
 	private static final int PREFHEIGHT = 50;
 	private static final int PAD_X = 15;
 	private static final int PAD_Y = 130;
-	
+
 	private Stage primaryStage;
 	private Popup messageBox;
 	private Label messageLabel;
 	private boolean isOn;
 	private FadeTransition ft;
-	
-	public UIMessageBox(Stage primaryStage){
+
+	public UIMessageBox(Stage primaryStage) {
 		this.primaryStage = primaryStage;
 		this.messageLabel = new Label();
 		this.messageLabel.setFont(FONT_MESSAGE_BOX_LABEL);
 		this.messageLabel.getStyleClass().add(STYLECLASS_MESSAGE_BOX_LABEL);
-		
+
 		this.messageBox = new Popup();
 		this.messageBox.getContent().addAll(this.messageLabel);
-		
+
 		this.ft = new FadeTransition(Duration.millis(FADE_TIME), this.messageLabel);
 		this.ft.setFromValue(1.0);
-        this.ft.setToValue(0.0);
-        this.ft.setCycleCount(1);
-        this.ft.setAutoReverse(false);
-        this.ft.setOnFinished(new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent t) {
-                messageBox.hide();
-                isOn = false;
-            }
-        });
+		this.ft.setToValue(0.0);
+		this.ft.setCycleCount(1);
+		this.ft.setAutoReverse(false);
+		this.ft.setOnFinished(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent t) {
+				messageBox.hide();
+				isOn = false;
+			}
+		});
 	}
-	
-	public boolean isShowing(){
+
+	public boolean isShowing() {
 		return this.messageBox.isShowing();
 	}
-	
-	public void updatePosition(){
+
+	public void updatePosition() {
 		this.messageBox.setX(this.primaryStage.getX() + PAD_X);
 		this.messageBox.setY(this.primaryStage.getY() + this.primaryStage.getHeight() - PAD_Y);
-		this.messageLabel.setPrefSize(this.primaryStage.getWidth() - 2*PAD_X, PREFHEIGHT);
+		this.messageLabel.setPrefSize(this.primaryStage.getWidth() - 2 * PAD_X, PREFHEIGHT);
 	}
-	
-	public void display(){
-		this.messageLabel.setPrefSize(this.primaryStage.getWidth() - 2*PAD_X, PREFHEIGHT);
+
+	public void display() {
+		this.messageLabel.setPrefSize(this.primaryStage.getWidth() - 2 * PAD_X, PREFHEIGHT);
 		this.messageBox.setX(this.primaryStage.getX() + PAD_X);
 		this.messageBox.setY(this.primaryStage.getY() + this.primaryStage.getHeight() - PAD_Y);
 		this.messageBox.show(this.primaryStage);
 	}
-	
-	public void show(String msg){
+
+	public void show(String msg) {
 		this.isOn = true;
 		this.messageLabel.setText(msg);
 		display();
 		this.ft.playFromStart();
 	}
-	
-	public void tempHide(){
+
+	public void tempHide() {
 		this.messageBox.hide();
 	}
-	
-	public void hide(){
+
+	public void hide() {
 		this.ft.play();
 	}
-	
-	public boolean isOn(){
+
+	public boolean isOn() {
 		return this.isOn;
 	}
 }

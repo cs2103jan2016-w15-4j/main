@@ -13,34 +13,34 @@ import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 
-public class UITaskBox{
-	
+public class UITaskBox {
+
 	private static final String STYLECLASS_TASK_CHECKBOX = UIStyle.TASK_CHECKBOX;
 	private static final Font FONT_TASK_ID = UIFont.TAHOMA_S;
 	private static final String STYLECLASS_TASK_ID = UIStyle.TASK_ID;
 	private static final int PREFWIDTH_TASK_ID = 30;
-	
+
 	private static final Font FONT_TASK_NAME = UIFont.EUPHEMIA_M;
 	private static final String STYLECLASS_TASK_NAME = UIStyle.TASK_NAME;
 	private static final int TASK_NAME_WIDTH_TO_SUBTRACT = 240;
-	
+
 	private static final Font FONT_TASK_PERIOD = UIFont.VERDANA_S;
 	private static final String STYLECLASS_TASK_PERIOD = UIStyle.TASK_PERIOD;
 	private static final int PREFWIDTH_TASK_PERIOD = 100;
 	private static final String TASK_PERIOD_TO = " to ";
 	private static final String TASK_PERIOD_BEGINS = "Begins ";
 	private static final String TASK_PERIOD_ENDS = "Ends ";
-	
+
 	private static final Font FONT_TASK_CATEGORY_LABEL = UIFont.VERDANA_S;
 	private static final String STYLECLASS_TASK_CATEGORY_LABEL = UIStyle.TASK_CATEGORY_LABEL;
 	private static final int PREFWIDTH_TASK_CATEGORY_LABEL = 80;
-	
+
 	private static final String STYLECLASS_TASK_BOX = UIStyle.DAY_TASK_BOX;
 	private static final int SPACING_TASK_BOX = 10;
-	
+
 	private static final int WIDTH_MENU = 180;
 	private static final int PAD_X = 20;
-	
+
 	private Font Avenir_16;
 	private Font customTaskPeriodFont;
 	private UIDayBox parent;
@@ -51,84 +51,86 @@ public class UITaskBox{
 	private Label taskPeriod;
 	private Label taskCategoryLabel;
 	private HBox taskBox;
-	
-	public UITaskBox(UIDayBox parent, Task task){
+
+	public UITaskBox(UIDayBox parent, Task task) {
 		this.task = task;
 		this.parent = parent;
-		
+
 		this.taskCheckBox = new CheckBox();
 		this.taskCheckBox.getStyleClass().add(STYLECLASS_TASK_CHECKBOX);
-		if (this.task.isCompleted()){
+		if (this.task.isCompleted()) {
 			this.taskCheckBox.setSelected(true);
 		}
-		
+
 		this.taskId = new Label(Integer.toString(this.task.getId()));
 		this.taskId.setFont(FONT_TASK_ID);
-	    this.taskId.getStyleClass().add(STYLECLASS_TASK_ID);
-	    this.taskId.setPrefWidth(PREFWIDTH_TASK_ID);
-	    
-	    if (this.task.hasDeadlineTime()){
-	    	this.taskPeriod = new Label(this.task.getDeadlineTime().getTime24hStr());
-	    } else if (this.task.hasStartTime() && this.task.hasEndTime()){
-	    	this.taskPeriod = new Label(this.task.getDateTimeStart().getTime24hStr() + TASK_PERIOD_TO + this.task.getDateTimeEnd().getTime24hStr());
-	    } else if (this.task.hasStartTime()){
-	    	this.taskPeriod = new Label(TASK_PERIOD_BEGINS + this.task.getDateTimeStart().getTime24hStr());
-	    } else if (this.task.hasEndTime()){
-	    	this.taskPeriod = new Label(TASK_PERIOD_ENDS + this.task.getDateTimeEnd().getTime24hStr());
-	    } else {
-	    	this.taskPeriod = new Label(UIData.EMP_STR);
-	    }
-	    
-	    try {
+		this.taskId.getStyleClass().add(STYLECLASS_TASK_ID);
+		this.taskId.setPrefWidth(PREFWIDTH_TASK_ID);
+
+		if (this.task.hasDeadlineTime()) {
+			this.taskPeriod = new Label(this.task.getDeadlineTime().getTime24hStr());
+		} else if (this.task.hasStartTime() && this.task.hasEndTime()) {
+			this.taskPeriod = new Label(this.task.getDateTimeStart().getTime24hStr() + TASK_PERIOD_TO
+					+ this.task.getDateTimeEnd().getTime24hStr());
+		} else if (this.task.hasStartTime()) {
+			this.taskPeriod = new Label(TASK_PERIOD_BEGINS + this.task.getDateTimeStart().getTime24hStr());
+		} else if (this.task.hasEndTime()) {
+			this.taskPeriod = new Label(TASK_PERIOD_ENDS + this.task.getDateTimeEnd().getTime24hStr());
+		} else {
+			this.taskPeriod = new Label(UIData.EMP_STR);
+		}
+
+		try {
 			this.customTaskPeriodFont = Font.loadFont(getClass().getResourceAsStream("fonts/Avenir-Medium.ttf"), 14);
 			this.taskPeriod.setFont(this.customTaskPeriodFont);
-		} catch(Exception e){
+		} catch (Exception e) {
 			this.taskPeriod.setFont(FONT_TASK_PERIOD);
 		}
-	    this.taskPeriod.getStyleClass().add(STYLECLASS_TASK_PERIOD);
-	    this.taskPeriod.setPrefWidth(PREFWIDTH_TASK_PERIOD);
-	    
-	    this.taskCategoryLabel = new Label("Category Name");
-	    this.taskCategoryLabel.setFont(FONT_TASK_CATEGORY_LABEL);
-	    this.taskCategoryLabel.getStyleClass().add(STYLECLASS_TASK_CATEGORY_LABEL);
-	    this.taskCategoryLabel.setStyle("-fx-text-fill: #007AFF;");
-	    this.taskCategoryLabel.setPrefWidth(PREFWIDTH_TASK_CATEGORY_LABEL);
-	    
-	    this.taskName = new Label(this.task.getName());
-	    try {
-	    	this.Avenir_16 = Font.loadFont(getClass().getResourceAsStream("fonts/Avenir-Light.ttf"), 16);
-	    	this.taskName.setFont(this.Avenir_16);
-	    } catch(Exception e) {
+		this.taskPeriod.getStyleClass().add(STYLECLASS_TASK_PERIOD);
+		this.taskPeriod.setPrefWidth(PREFWIDTH_TASK_PERIOD);
+
+		this.taskCategoryLabel = new Label("Category Name");
+		this.taskCategoryLabel.setFont(FONT_TASK_CATEGORY_LABEL);
+		this.taskCategoryLabel.getStyleClass().add(STYLECLASS_TASK_CATEGORY_LABEL);
+		this.taskCategoryLabel.setStyle("-fx-text-fill: #007AFF;");
+		this.taskCategoryLabel.setPrefWidth(PREFWIDTH_TASK_CATEGORY_LABEL);
+
+		this.taskName = new Label(this.task.getName());
+		try {
+			this.Avenir_16 = Font.loadFont(getClass().getResourceAsStream("fonts/Avenir-Light.ttf"), 16);
+			this.taskName.setFont(this.Avenir_16);
+		} catch (Exception e) {
 			this.taskName.setFont(FONT_TASK_NAME);
 			System.out.println(e.getMessage());
-	    }
-	    this.taskName.getStyleClass().add(STYLECLASS_TASK_NAME);
-	    double width = this.parent.getStageWidth();
-	    updateTaskNameWidth(width - TASK_NAME_WIDTH_TO_SUBTRACT);
-	    
-	    this.taskBox = new HBox();
-	    this.taskBox.setAlignment(Pos.CENTER_LEFT);
-	    this.taskBox.setSpacing(SPACING_TASK_BOX);
-	    this.taskBox.getStyleClass().add(STYLECLASS_TASK_BOX);
-	    this.taskBox.getChildren().addAll(this.taskCheckBox, this.taskId, this.taskName, this.taskPeriod, this.taskCategoryLabel);
-	    
-	    // Check box action
-	    this.taskCheckBox.setOnAction((event) -> {
-	    	if (!this.task.isCompleted()){
-	    		this.parent.markTask(this.task.getId());
-	    	}
-	    });
+		}
+		this.taskName.getStyleClass().add(STYLECLASS_TASK_NAME);
+		double width = this.parent.getStageWidth();
+		updateTaskNameWidth(width - TASK_NAME_WIDTH_TO_SUBTRACT);
+
+		this.taskBox = new HBox();
+		this.taskBox.setAlignment(Pos.CENTER_LEFT);
+		this.taskBox.setSpacing(SPACING_TASK_BOX);
+		this.taskBox.getStyleClass().add(STYLECLASS_TASK_BOX);
+		this.taskBox.getChildren().addAll(this.taskCheckBox, this.taskId, this.taskName, this.taskPeriod,
+				this.taskCategoryLabel);
+
+		// Check box action
+		this.taskCheckBox.setOnAction((event) -> {
+			if (!this.task.isCompleted()) {
+				this.parent.markTask(this.task.getId());
+			}
+		});
 	}
-	
-	public HBox getView(){
+
+	public HBox getView() {
 		return this.taskBox;
 	}
-	
-	public void updatePosition(double stageWidth){
+
+	public void updatePosition(double stageWidth) {
 		updateTaskNameWidth(stageWidth);
 	}
-	
-	private void updateTaskNameWidth(double stageWidth){
+
+	private void updateTaskNameWidth(double stageWidth) {
 		double widthToSubtract = 0;
 		widthToSubtract += WIDTH_MENU;
 		widthToSubtract += 2 * PAD_X;

@@ -16,14 +16,14 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
-public class UISideMenu{
-	
+public class UISideMenu {
+
 	private static final String LABEL_TODAY = "Today";
 	private static final String LABEL_EXTENDED = "Next 7 days";
 	private static final String LABEL_FLOAT = "Float";
 	private static final String LABEL_ALL = "All";
 	private static final String LABEL_COMPLETED = "Completed";
-	
+
 	private static final String STYLECLASS_MENU = UIStyle.MENU_VIEW;
 	private static final String LABEL_CATEGORY_TITLE = "CATEGORIES";
 	private static final Font FONT_CATEGORY_TITLE = UIFont.TAHOMA_S;
@@ -34,7 +34,7 @@ public class UISideMenu{
 	private static final int SPACING_BTN_CONTENT = 8;
 	private static final String STYLECLASS_MENU_BTN = UIStyle.BTN_SELECT_VIEW;
 	private static final int PREFWIDTH_MENU_BTN = 180;
-	
+
 	private VBox menu;
 	private ToggleGroup mainViewToggleGroup;
 	private ToggleButton todayBtn;
@@ -45,83 +45,82 @@ public class UISideMenu{
 	private Label categoryTitle;
 	private UICategoryBoxContainer categoryBoxContainer;
 	private UIController parent;
-	
-	public UISideMenu(UIController parent){
+
+	public UISideMenu(UIController parent) {
 		this.parent = parent;
 		this.menu = new VBox();
 		this.menu.setSpacing(5);
 		this.menu.getStyleClass().add(STYLECLASS_MENU);
-		
+
 		this.mainViewToggleGroup = new ToggleGroup();
-		
+
 		this.todayBtn = getMenuButton(LABEL_TODAY, UIData.USERDATA_TODAY, FxFontCommunity.Icons.cmd_calendar);
-		this.extendedBtn = getMenuButton(LABEL_EXTENDED, UIData.USERDATA_EXTENDED, FxFontCommunity.Icons.cmd_numeric_7_box_multiple_outline);
+		this.extendedBtn = getMenuButton(LABEL_EXTENDED, UIData.USERDATA_EXTENDED,
+				FxFontCommunity.Icons.cmd_numeric_7_box_multiple_outline);
 		this.floatBtn = getMenuButton(LABEL_FLOAT, UIData.USERDATA_FLOAT, FxFontCommunity.Icons.cmd_image_filter_drama);
 		this.allBtn = getMenuButton(LABEL_ALL, UIData.USERDATA_ALL, FxFontCommunity.Icons.cmd_calendar_multiple);
-		this.completedBtn = getMenuButton(LABEL_COMPLETED, UIData.USERDATA_COMPLETED, FxFontCommunity.Icons.cmd_comment_check);
-		
-        this.categoryTitle = new Label(LABEL_CATEGORY_TITLE);
-        this.categoryTitle.setFont(FONT_CATEGORY_TITLE);
-        this.categoryTitle.getStyleClass().add(STYLECLASS_CATEGORY_TITLE);
-		
-        this.categoryBoxContainer = new UICategoryBoxContainer(this, new ArrayList<Category>());
-        
-		this.menu.getChildren().addAll(this.todayBtn, this.extendedBtn, this.floatBtn, this.allBtn, this.completedBtn, this.categoryTitle, this.categoryBoxContainer.getView());
+		this.completedBtn = getMenuButton(LABEL_COMPLETED, UIData.USERDATA_COMPLETED,
+				FxFontCommunity.Icons.cmd_comment_check);
+
+		this.categoryTitle = new Label(LABEL_CATEGORY_TITLE);
+		this.categoryTitle.setFont(FONT_CATEGORY_TITLE);
+		this.categoryTitle.getStyleClass().add(STYLECLASS_CATEGORY_TITLE);
+
+		this.categoryBoxContainer = new UICategoryBoxContainer(this, new ArrayList<Category>());
+
+		this.menu.getChildren().addAll(this.todayBtn, this.extendedBtn, this.floatBtn, this.allBtn, this.completedBtn,
+				this.categoryTitle, this.categoryBoxContainer.getView());
 
 	}
-	
-	private ToggleButton getMenuButton(String title, String userData, FxFontCommunity.Icons icon){
-		FxIconicsLabel btnIcon =
-                (FxIconicsLabel) new FxIconicsLabel
-                .Builder(icon)
-                .size(18)
-                .color(COLOR_BTN_ICON).build();
-		
+
+	private ToggleButton getMenuButton(String title, String userData, FxFontCommunity.Icons icon) {
+		FxIconicsLabel btnIcon = (FxIconicsLabel) new FxIconicsLabel.Builder(icon).size(18).color(COLOR_BTN_ICON)
+				.build();
+
 		Label btnLabel = new Label(title);
 		btnLabel.setFont(FONT_BTN_LABEL);
 		btnLabel.getStyleClass().add(STYLECLASS_BTN_LABEL);
-		
+
 		HBox btnContent = new HBox();
 		btnContent.setSpacing(SPACING_BTN_CONTENT);
 		btnContent.getChildren().addAll(btnIcon, btnLabel);
-		
+
 		ToggleButton menuBtn = new ToggleButton();
 		menuBtn.setGraphic(btnContent);
 		menuBtn.setPrefWidth(PREFWIDTH_MENU_BTN);
 		menuBtn.getStyleClass().add(STYLECLASS_MENU_BTN);
 		menuBtn.setToggleGroup(this.mainViewToggleGroup);
 		menuBtn.setUserData(userData);
-		
+
 		return menuBtn;
 	}
-	
-	public VBox getView(){
+
+	public VBox getView() {
 		return this.menu;
 	}
-	
-	public ToggleButton getTodayBtn(){
+
+	public ToggleButton getTodayBtn() {
 		return this.todayBtn;
 	}
-	
-	public ToggleButton getExtendedBtn(){
+
+	public ToggleButton getExtendedBtn() {
 		return this.extendedBtn;
 	}
-	
-	public ToggleButton getAllBtn(){
+
+	public ToggleButton getAllBtn() {
 		return this.allBtn;
 	}
-	
-	public ToggleButton getCompletedBtn(){
+
+	public ToggleButton getCompletedBtn() {
 		return this.completedBtn;
 	}
-	
-	public ToggleGroup getMainViewToggleGroup(){
+
+	public ToggleGroup getMainViewToggleGroup() {
 		return this.mainViewToggleGroup;
 	}
-	
-	public void refreshCategoryMenuView(ArrayList<Category> categoryList){
+
+	public void refreshCategoryMenuView(ArrayList<Category> categoryList) {
 		this.categoryBoxContainer.refresh(categoryList);
 	}
-	
-}
 
+}

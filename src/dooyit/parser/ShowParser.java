@@ -5,41 +5,41 @@ import dooyit.logic.commands.CommandUtils;
 
 public class ShowParser {
 	private static String userInput;
-	
+
 	enum DISPLAY_TYPE {
 		TODAY, NEXT_SEVEN, DONE, ALL, DATE, CATERGORY, COMPLETED
 	};
-	
+
 	public ShowParser(String input) {
 		userInput = input.toLowerCase();
 		System.out.println("userInput is " + userInput);
 	}
 
 	public Command getCommand() {
-		switch(getDisplayType()) {
-		case TODAY :
+		switch (getDisplayType()) {
+		case TODAY:
 			return CommandUtils.createShowTodayCommand();
-		
-		case NEXT_SEVEN :
+
+		case NEXT_SEVEN:
 			return CommandUtils.createShowNext7DaysCommand();
-			
-		case DONE : 
+
+		case DONE:
 			return CommandUtils.createShowCompletedCommand();
-			
-		case ALL : 
+
+		case ALL:
 			return CommandUtils.createShowAllCommand();
-			
-		case COMPLETED : 
+
+		case COMPLETED:
 			return CommandUtils.createShowCompletedCommand();
-			
-//		case DATE : 
-//			DateTimeParser dateTimeParser = new DateTimeParser();
-//			DateTime date = dateTimeParser.parse(userInput);
-//			return CommandUtils.createShowCommand(COMMAND_DATE, date);		
-			
-		case CATERGORY : 
+
+		// case DATE :
+		// DateTimeParser dateTimeParser = new DateTimeParser();
+		// DateTime date = dateTimeParser.parse(userInput);
+		// return CommandUtils.createShowCommand(COMMAND_DATE, date);
+
+		case CATERGORY:
 			return CommandUtils.createShowCategoryCommand(getCatName(userInput));
-			
+
 		default:
 			return CommandUtils.createInvalidCommand("Invalid Show command");
 		}
@@ -52,11 +52,11 @@ public class ShowParser {
 	}
 
 	private DISPLAY_TYPE getDisplayType() {
-		if(userInput.contains("cat")) {
+		if (userInput.contains("cat")) {
 			return DISPLAY_TYPE.CATERGORY;
-		} else if(userInput.equals("today")) {
+		} else if (userInput.equals("today")) {
 			return DISPLAY_TYPE.TODAY;
-		} else if(userInput.equals("next7")) {
+		} else if (userInput.equals("next7")) {
 			return DISPLAY_TYPE.NEXT_SEVEN;
 		} else if (userInput.equals("done")) {
 			return DISPLAY_TYPE.DONE;
@@ -64,10 +64,9 @@ public class ShowParser {
 			return DISPLAY_TYPE.ALL;
 		} else if (userInput.equals("completed")) {
 			return DISPLAY_TYPE.COMPLETED;
-		} else { //useInput is a date
+		} else { // useInput is a date
 			return DISPLAY_TYPE.DATE;
 		}
 	}
-	
-	
+
 }

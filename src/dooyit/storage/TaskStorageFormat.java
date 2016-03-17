@@ -10,13 +10,13 @@ public class TaskStorageFormat {
 	private boolean isCompleted;
 
 	public TaskStorageFormat(Task task) {
-		switch(task.getTaskType()) {
-		case DEADLINE :
+		switch (task.getTaskType()) {
+		case DEADLINE:
 			this.taskName = task.getName();
 			this.dateTimeDeadline = task.getDeadlineTime().convertToSavableString();
 			break;
-			
-		case EVENT :
+
+		case EVENT:
 			this.taskName = task.getName();
 			this.dateTimeStart = task.getDateTimeStart().convertToSavableString();
 			this.dateTimeEnd = task.getDateTimeEnd().convertToSavableString();

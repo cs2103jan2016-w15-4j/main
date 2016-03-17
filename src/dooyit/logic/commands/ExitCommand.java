@@ -6,12 +6,12 @@ import dooyit.logic.core.TaskManager;
 
 public class ExitCommand extends Command {
 
-	public ExitCommand(){
-		
+	public ExitCommand() {
+
 	}
-	
+
 	@Override
-	public void execute(Logic logic) throws IncorrectInputException{
+	public void execute(Logic logic) throws IncorrectInputException {
 		System.exit(1);
 	}
 }

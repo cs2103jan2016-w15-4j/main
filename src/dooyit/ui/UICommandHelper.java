@@ -12,34 +12,33 @@ public class UICommandHelper {
 	private Stage primaryStage;
 	private Popup commandHelperView;
 	private ListView<String> listView;
-	
-	public UICommandHelper(Stage primaryStage){
+
+	public UICommandHelper(Stage primaryStage) {
 		this.primaryStage = primaryStage;
 		this.listView = new ListView<String>();
 		this.listView.getStyleClass().add("command-helper-list-view");
 		this.commandHelperView = new Popup();
 		this.commandHelperView.getContent().addAll(this.listView);
 	}
-	
-	public boolean isShowing(){
+
+	public boolean isShowing() {
 		return this.commandHelperView.isShowing();
 	}
-	
-	public ListView<String> getListView(){
+
+	public ListView<String> getListView() {
 		return this.listView;
 	}
-	
-	public void show(){
-		ObservableList<String> commands = FXCollections.observableArrayList (
-		    "add", "edit", "sleep");
+
+	public void show() {
+		ObservableList<String> commands = FXCollections.observableArrayList("add", "edit", "sleep");
 		this.listView.setItems(commands);
 		this.listView.setPrefHeight(commands.size() * 50 + 2);
 		this.commandHelperView.setX(this.primaryStage.getX() + 14);
 		this.commandHelperView.setY(this.primaryStage.getY() + this.primaryStage.getHeight() - 200);
 		this.commandHelperView.show(this.primaryStage);
 	}
-	
-	public void hide(){
+
+	public void hide() {
 		this.listView.getSelectionModel().clearSelection();
 		this.commandHelperView.hide();
 	}

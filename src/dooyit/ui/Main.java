@@ -1,4 +1,5 @@
 package dooyit.ui;
+
 import java.util.Scanner;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -39,7 +40,7 @@ import dooyit.ui.*;
  * @author Lim Ta Eu
  */
 
-public class Main extends Application{
+public class Main extends Application {
 	public static final String MESSAGE_WELCOME = "Welcome to TextBuddy %1$s is ready for use.";
 	public static final String MESSAGE_TEXT_NO = "%1$d. %2$s";
 	public static final String MESSAGE_FILE_IS_EMPTY = "%1$s is empty";
@@ -61,7 +62,7 @@ public class Main extends Application{
 	private static final String APP_TITLE = "Dooyit";
 	private static final int MINWIDTH_STAGE = 720;
 	private static final int MINHEIGHT_STAGE = 620;
-	
+
 	// scanner for receiving user input
 	private Scanner sc;
 	private UIController ui;
@@ -75,48 +76,45 @@ public class Main extends Application{
 		// textBuddy.init(new Scanner(System.in));
 	}
 
-
 	public void init(Scanner sc) throws IOException {
 		this.sc = sc;
 		logic = new Logic();
 		UI(logic);
 	}
 
-
 	@Override
 	public void start(Stage primaryStage) throws IOException {
-		
+
 		logic = new Logic();
-		
+
 		try {
 			this.ui = new UIController(primaryStage, logic);
 			Scene scene = this.ui.getScene();
-			
+
 			primaryStage.setScene(scene);
 			primaryStage.getIcons().add(new Image(APP_ICON));
-	        primaryStage.setTitle(APP_TITLE);
-	        primaryStage.setMinWidth(MINWIDTH_STAGE);
-	        primaryStage.setMinHeight(MINHEIGHT_STAGE);
-	        primaryStage.show();
+			primaryStage.setTitle(APP_TITLE);
+			primaryStage.setMinWidth(MINWIDTH_STAGE);
+			primaryStage.setMinHeight(MINHEIGHT_STAGE);
+			primaryStage.show();
 			logic.setUIController(this.ui);
-		} catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
-	private void UI(Logic logic) throws IOException{
+
+	private void UI(Logic logic) throws IOException {
 		while (true) {
 			showToUser(MESAGE_COMMAND);
 			String userInput = sc.nextLine();
 			logic.processCommand(userInput);
 		}
 	}
-	
+
 	public static void main(String[] args) {
 		launchDooyit(args);
 		launch(args);
 	}
-
 
 	/**
 	 * Display message to user

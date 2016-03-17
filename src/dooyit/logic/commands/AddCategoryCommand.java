@@ -10,13 +10,13 @@ public class AddCategoryCommand extends Command {
 
 	private String categoryName;
 	private Colour colour;
-	
-	public AddCategoryCommand(String categoryName){
+
+	public AddCategoryCommand(String categoryName) {
 		this.categoryName = categoryName;
 		this.colour = null;
 	}
-	
-	public AddCategoryCommand(String categoryName, Colour colour){
+
+	public AddCategoryCommand(String categoryName, Colour colour) {
 		this.categoryName = categoryName;
 		this.colour = colour;
 	}
@@ -25,14 +25,14 @@ public class AddCategoryCommand extends Command {
 	public void execute(Logic logic) throws IncorrectInputException {
 		CategoryManager categoryManager = logic.getCategoryManager();
 		Category category;
-		
-		if(colour == null){
+
+		if (colour == null) {
 			category = categoryManager.addCategory(categoryName);
-		}else{
+		} else {
 			category = categoryManager.addCategory(categoryName, colour);
 		}
-		
-		if(category == null){
+
+		if (category == null) {
 			throw new IncorrectInputException("Category: " + categoryName + " already exists.");
 		}
 	}

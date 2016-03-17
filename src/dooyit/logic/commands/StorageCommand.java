@@ -9,19 +9,18 @@ import dooyit.storage.Storage;
 public class StorageCommand extends Command {
 
 	private String path;
-	
-	public StorageCommand(String path){
+
+	public StorageCommand(String path) {
 		this.path = path;
 	}
-	
+
 	@Override
 	public void execute(Logic logic) throws IncorrectInputException {
 		Storage storage = logic.getStorage();
-		
-		try{
+
+		try {
 			storage.setFileDestination(path);
-		}
-		catch(IOException e){
+		} catch (IOException e) {
 			throw new IncorrectInputException("Invalid path: " + path);
 		}
 	}

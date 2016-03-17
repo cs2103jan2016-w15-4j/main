@@ -16,10 +16,20 @@ public class Parser {
 	static final String COMMAND_ADD_CAT = "addcat";
 	static final String COMMAND_SKIN = "skin";
 	static final String COMMAND_STORAGE = "storage";
-	private static final String COMMAND_UNMARK = "unmark";
+	static final String COMMAND_UNMARK = "unmark";
+	static final int TAG_DELETE = 1;
+	static final int TAG_MARK = 2;
+	static final int TAG_UNMARK = 3;
+	private static AddParser addParser;
+	private static ShowParser showParser;
+	private static EditParser editParser;
+	private static AddCatParser addCatParser;
 
 	public Parser() {
-
+		addParser = new AddParser();
+		showParser = new ShowParser();
+		editParser = new EditParser();
+		addCatParser = new AddCatParser();
 	}
 
 	public Command getCommand(String input) {
@@ -37,18 +47,15 @@ public class Parser {
 		// assert false;
 		switch (commandString) {
 		case COMMAND_ADD:
-			AddParser addParser = new AddParser(getInputWithoutCommand(input, COMMAND_ADD));
-			command = addParser.getCommand();
+			command = addParser.getCommand(getInputWithoutCommand(input, COMMAND_ADD));
 			break;
 
 		case COMMAND_SHOW:
-			ShowParser showParser = new ShowParser(getInputWithoutCommand(input, COMMAND_SHOW));
-			command = showParser.getCommand();
+			command = showParser.getCommand(getInputWithoutCommand(input, COMMAND_SHOW));
 			break;
 
 		case COMMAND_EDIT:
-			EditParser editParser = new EditParser(getInputWithoutCommand(input, COMMAND_EDIT));
-			command = editParser.getCommand();
+			command = editParser.getCommand(getInputWithoutCommand(input, COMMAND_EDIT));
 			break;
 
 		case COMMAND_DELETE:
@@ -62,8 +69,7 @@ public class Parser {
 			break;
 
 		case COMMAND_ADD_CAT:
-			AddCatParser addCatParser = new AddCatParser(getInputWithoutCommand(input, COMMAND_ADD_CAT));
-			command = addCatParser.getCommand();
+			command = addCatParser.getCommand(getInputWithoutCommand(input, COMMAND_ADD_CAT));
 			break;
 
 		case COMMAND_SKIN:
@@ -93,9 +99,6 @@ public class Parser {
 	}
 
 	private String getInputWithoutCommand(String input, String command) {
-		
-		String temp = input.substring(command.length()).trim();
-		System.out.println("input without command is " + temp);
-		return temp;
+		return input.substring(command.length()).trim();
 	}
 }

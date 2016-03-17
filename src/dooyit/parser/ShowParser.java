@@ -10,12 +10,12 @@ public class ShowParser {
 		TODAY, NEXT_SEVEN, DONE, ALL, DATE, CATERGORY, COMPLETED
 	};
 
-	public ShowParser(String input) {
-		userInput = input.toLowerCase();
-		System.out.println("userInput is " + userInput);
+	public ShowParser() {
+	
 	}
 
-	public Command getCommand() {
+	public Command getCommand(String input) {
+		userInput = input.toLowerCase();
 		switch (getDisplayType()) {
 		case TODAY:
 			return CommandUtils.createShowTodayCommand();

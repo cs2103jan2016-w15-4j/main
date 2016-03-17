@@ -31,11 +31,11 @@ public class Parser {
 		}
 
 		String[] splittedInput = input.split("\\s+", 2);
-		String commandString = splittedInput[0];
+		String commandString = splittedInput[0].toLowerCase();
 
 		Command command = null;
 		// assert false;
-		switch (commandString.toLowerCase()) {
+		switch (commandString) {
 		case COMMAND_ADD:
 			AddParser addParser = new AddParser(getInputWithoutCommand(input, COMMAND_ADD));
 			command = addParser.getCommand();
@@ -93,6 +93,9 @@ public class Parser {
 	}
 
 	private String getInputWithoutCommand(String input, String command) {
-		return input.replace(command, "").trim();
+		
+		String temp = input.substring(command.length()).trim();
+		System.out.println("input without command is " + temp);
+		return temp;
 	}
 }

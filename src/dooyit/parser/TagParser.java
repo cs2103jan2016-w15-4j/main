@@ -12,12 +12,17 @@ public class TagParser {
 	public static String[] splitInput;
 	public static ArrayList<Integer> taskIdsForTagging;
 	public static int taskIdForTagging;
-
+	public static int tagType;
+	
 	enum TAG_TYPE {
 		SINGLE, MULTIPLE, INTERVAL, INVALID
-	};
+	}
 
-	public TagParser(String input) {
+	public TagParser() {
+
+	}
+	
+	public void setVariables(String input) {
 		userInput = input;
 		splitInput = userInput.split("\\s+");
 		taskIdsForTagging = new ArrayList<Integer>();

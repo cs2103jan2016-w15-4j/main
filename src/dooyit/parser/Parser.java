@@ -17,19 +17,22 @@ public class Parser {
 	static final String COMMAND_SKIN = "skin";
 	static final String COMMAND_STORAGE = "storage";
 	static final String COMMAND_UNMARK = "unmark";
-	static final int TAG_DELETE = 1;
-	static final int TAG_MARK = 2;
-	static final int TAG_UNMARK = 3;
 	private static AddParser addParser;
 	private static ShowParser showParser;
 	private static EditParser editParser;
 	private static AddCatParser addCatParser;
+	private static DeleteParser deleteParser;
+	private static MarkParser markParser;
+	private static UnmarkParser unmarkParser;
 
 	public Parser() {
 		addParser = new AddParser();
 		showParser = new ShowParser();
 		editParser = new EditParser();
 		addCatParser = new AddCatParser();
+		deleteParser = new DeleteParser();
+		markParser = new MarkParser();
+		unmarkParser = new UnmarkParser();
 	}
 
 	public Command getCommand(String input) {
@@ -59,13 +62,11 @@ public class Parser {
 			break;
 
 		case COMMAND_DELETE:
-			DeleteParser deleteParser = new DeleteParser(getInputWithoutCommand(input, COMMAND_DELETE));
-			command = deleteParser.getCommand();
+			command = deleteParser.getCommand(getInputWithoutCommand(input, COMMAND_DELETE));
 			break;
 
 		case COMMAND_MARK:
-			MarkParser markParser = new MarkParser(getInputWithoutCommand(input, COMMAND_MARK));
-			command = markParser.getCommand();
+			command = markParser.getCommand(getInputWithoutCommand(input, COMMAND_MARK));
 			break;
 
 		case COMMAND_ADD_CAT:
@@ -83,8 +84,7 @@ public class Parser {
 			break;
 
 		case COMMAND_UNMARK:
-			UnmarkParser unmarkParser = new UnmarkParser(getInputWithoutCommand(input, COMMAND_MARK));
-			// command = unmarkParser.getCommand();
+			// command = unmarkParser.getCommand(getInputWithoutCommand(input, COMMAND_MARK));
 			break;
 
 		case COMMAND_EXIT:
@@ -99,6 +99,8 @@ public class Parser {
 	}
 
 	private String getInputWithoutCommand(String input, String command) {
-		return input.substring(command.length()).trim();
+		String temp = input.substring(command.length()).trim();
+		System.out.println("temp is " + temp);
+		return temp;
 	}
 }

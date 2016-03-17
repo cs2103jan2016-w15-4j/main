@@ -7,12 +7,13 @@ import dooyit.logic.commands.CommandUtils;
 public class UnmarkParser extends TagParser{
 	private static Command cmd = null;
 
-	public UnmarkParser(String input) {
-		super(input);
+	public UnmarkParser() {
+		super();
 		cmd = null;
 	}
 
-	public Command getCommand() throws IncorrectInputException {
+	public Command getCommand(String input) throws IncorrectInputException {
+		setVariables(input);
 		switch (getTagType()) {
 		case SINGLE:
 			try {

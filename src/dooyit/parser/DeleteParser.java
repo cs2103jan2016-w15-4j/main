@@ -7,12 +7,13 @@ import dooyit.logic.commands.CommandUtils;
 public class DeleteParser extends TagParser {
 	private static Command cmd = null;
 
-	public DeleteParser(String input) {
-		super(input);
+	public DeleteParser() {
+		super();
 		cmd = null;
 	}
 
-	public Command getCommand() throws IncorrectInputException {
+	public Command getCommand(String input) throws IncorrectInputException {
+		setVariables(input);
 		switch (getTagType()) {
 		case SINGLE:
 			try {

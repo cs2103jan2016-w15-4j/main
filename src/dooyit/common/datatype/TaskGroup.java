@@ -54,7 +54,9 @@ public class TaskGroup {
 	
 	public String getTitle() {
 		if(hasDateTime()){
-			return title + ", " + dateTime.getDate();
+			String dateString = dateTime.getDate();
+			dateString = dateString.substring(0, dateString.length() - 5);
+			return title + ", " + dateString;
 		}else{
 			return title;
 		}

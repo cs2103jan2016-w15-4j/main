@@ -52,7 +52,7 @@ public class UIDayBox {
 		}
 		
         this.dayTitle = new Label(this.title);
-        this.dayTitle.setFont(UIFont.EUPHEMIA_L);
+        this.dayTitle.setFont(UIFont.SEGOE_L);
         this.dayTitle.getStyleClass().add(STYLECLASS_DAY_TITLE);
         
         if (taskList.size() == 0 && !taskGroup.getTitle().equals(TASK_GROUP_TODAY)){

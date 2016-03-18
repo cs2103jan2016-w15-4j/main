@@ -9,16 +9,20 @@ import dooyit.logic.core.Logic;
 public class AddCategoryCommand extends Command {
 
 	private String categoryName;
-	private CustomColor colour;
+	private CustomColor customColor;
 
 	public AddCategoryCommand(String categoryName) {
 		this.categoryName = categoryName;
-		this.colour = null;
+		this.customColor = null;
 	}
 
 	public AddCategoryCommand(String categoryName, CustomColor colour) {
 		this.categoryName = categoryName;
-		this.colour = colour;
+		this.customColor = colour;
+	}
+	
+	private boolean hasCustomColor(){
+		return customColor != null;
 	}
 
 	@Override
@@ -26,10 +30,10 @@ public class AddCategoryCommand extends Command {
 		CategoryManager categoryManager = logic.getCategoryManager();
 		Category category;
 
-		if (colour == null) {
+		if(hasCustomColor()){
+			category = categoryManager.addCategory(categoryName, customColor);
+		}else{
 			category = categoryManager.addCategory(categoryName);
-		} else {
-			category = categoryManager.addCategory(categoryName, colour);
 		}
 
 		if (category == null) {

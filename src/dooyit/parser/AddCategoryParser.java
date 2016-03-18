@@ -1,6 +1,6 @@
 package dooyit.parser;
 
-import dooyit.common.datatype.Colour;
+import dooyit.common.datatype.CustomColor;
 import dooyit.common.exception.IncorrectInputException;
 import dooyit.logic.commands.Command;
 import dooyit.logic.commands.CommandUtils;
@@ -15,8 +15,8 @@ public class AddCategoryParser extends TagParser{
 	private static String userInput;
 	private static String catName;
 	private String[] colourStringArray;
-	private Colour[] colourObjectArray;
-	private Colour colourObject;
+	private CustomColor[] colourObjectArray;
+	private CustomColor colourObject;
 	private static String colourString;
 	
 	private static Command cmd;
@@ -49,9 +49,9 @@ public class AddCategoryParser extends TagParser{
 	public AddCategoryParser() {
 		super();
 		colourStringArray = new String[] {BLACK, BLUE, CYAN, GREY, GRAY, GREEN, MAGENTA, PINK, RED, WHITE, YELLOW};
-		colourObjectArray = new Colour[] {Colour.BLACK, Colour.BLUE, Colour.CYAN, Colour.GREY, Colour.GREY,
-										  Colour.GREEN, Colour.MAGENTA, Colour.PINK, Colour.RED, Colour.WHITE, 
-										  Colour.YELLOW};
+		colourObjectArray = new CustomColor[] {CustomColor.BLACK, CustomColor.BLUE, CustomColor.CYAN, CustomColor.GREY, 
+				CustomColor.GREY, CustomColor.GREEN, CustomColor.MAGENTA, CustomColor.PINK, 
+				CustomColor.RED, CustomColor.WHITE, CustomColor.YELLOW};
 	}
 
 	public Command getCommand(String input) {

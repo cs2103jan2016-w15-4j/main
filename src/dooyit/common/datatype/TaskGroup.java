@@ -51,9 +51,15 @@ public class TaskGroup {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-
+	
 	public String getTitle() {
-		return title;
+		if(hasDateTime()){
+			String dateString = dateTime.getDate();
+			dateString = dateString.substring(0, dateString.length() - 5);
+			return title + ", " + dateString;
+		}else{
+			return title;
+		}
 	}
 
 	public ArrayList<Task> getTasks() {

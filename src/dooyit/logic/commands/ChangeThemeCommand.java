@@ -18,9 +18,9 @@ public class ChangeThemeCommand extends Command {
 	public void execute(Logic logic) throws IncorrectInputException {
 		UIController uicontroller = logic.getUIController();
 		
-		themeString = themeString.toLowerCase();
+		String lowerThemeString = themeString.toLowerCase();
 		
-		switch(themeString){
+		switch(lowerThemeString){
 		case "light":
 			theme = UITheme.LIGHT;
 			break;
@@ -36,6 +36,9 @@ public class ChangeThemeCommand extends Command {
 		case "custom":
 			theme = UITheme.CUSTOM;
 			break;	
+			
+		default:
+			throw new IncorrectInputException(themeString + " is not available, try LIGHT, DARK, AQUA or CUSTOM");
 		}
 		
 		uicontroller.changeTheme(theme);

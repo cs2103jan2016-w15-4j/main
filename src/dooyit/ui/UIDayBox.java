@@ -31,8 +31,20 @@ public class UIDayBox {
 		this.taskBoxList = new ArrayList<UITaskBox>();
 		initDayBox(taskGroup);
         
-		for (int i = 0; i < this.taskList.size(); i++){
-			addTask(this.taskList.get(i));
+		if (taskList.size() > 0){
+			for (int i = 0; i < this.taskList.size(); i++){
+				addTask(this.taskList.get(i));
+			}
+		} else {
+			if (taskGroup.getTitle().equals(TASK_GROUP_TODAY)){
+				UIMainViewType activeView = getActiveMainView();
+				if (activeView == UIMainViewType.EXTENDED){
+					setNoTaskMessage();
+				} else if (activeView == UIMainViewType.TODAY){
+					//setNoTaskPane();
+					setNoTaskMessage();
+				}
+			}
 		}
 	}
 	
@@ -52,7 +64,7 @@ public class UIDayBox {
 		}
 		
         this.dayTitle = new Label(this.title);
-        this.dayTitle.setFont(UIFont.EUPHEMIA_L);
+        this.dayTitle.setFont(UIFont.SEGOE_L);
         this.dayTitle.getStyleClass().add(STYLECLASS_DAY_TITLE);
         
         if (taskList.size() == 0 && !taskGroup.getTitle().equals(TASK_GROUP_TODAY)){
@@ -65,6 +77,20 @@ public class UIDayBox {
 		this.taskBoxList.add(taskBox);
         HBox taskBoxView = taskBox.getView();
         this.dayBox.getChildren().add(taskBoxView);
+	}
+	
+	private void setNoTaskPane(){
+		VBox taskPaneView = new UITaskPane().getView();
+		this.dayBox.getChildren().add(taskPaneView);
+	}
+	
+	private void setNoTaskMessage(){
+		Label taskMessageView = new UITaskMessage("No tasks for today. Enjoy your day!").getView();
+		this.dayBox.getChildren().add(taskMessageView);
+	}
+	
+	private UIMainViewType getActiveMainView(){
+		return this.parent.getActiveMainView();
 	}
 
 	public VBox getView() {

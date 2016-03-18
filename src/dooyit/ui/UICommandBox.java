@@ -42,4 +42,16 @@ public class UICommandBox {
 	public TextField getCommandTextField() {
 		return this.commandTextField;
 	}
+	
+	public boolean isSelected(){
+		return this.commandTextField.isFocused();
+	}
+	
+	public void select(){
+		this.commandTextField.requestFocus();
+	}
+	
+	public void empty(){
+		this.commandTextField.clear();
+	}
 }

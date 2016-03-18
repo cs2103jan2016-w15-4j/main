@@ -16,18 +16,18 @@ public class UITaskBox {
 
 	private static final Font FONT_TASK_NAME = UIFont.EUPHEMIA_M;
 	private static final String STYLECLASS_TASK_NAME = UIStyle.TASK_NAME;
-	private static final int TASK_NAME_WIDTH_TO_SUBTRACT = 240;
+	private static final int TASK_NAME_WIDTH_TO_SUBTRACT = 280;
 
-	private static final Font FONT_TASK_PERIOD = UIFont.VERDANA_S;
+	private static final Font FONT_TASK_PERIOD = UIFont.SEGOE_M;
 	private static final String STYLECLASS_TASK_PERIOD = UIStyle.TASK_PERIOD;
 	private static final int PREFWIDTH_TASK_PERIOD = 100;
 	private static final String TASK_PERIOD_TO = " to ";
 	private static final String TASK_PERIOD_BEGINS = "Begins ";
 	private static final String TASK_PERIOD_ENDS = "Ends ";
 
-	private static final Font FONT_TASK_CATEGORY_LABEL = UIFont.VERDANA_S;
+	private static final Font FONT_TASK_CATEGORY_LABEL = UIFont.SEGOE_M;
 	private static final String STYLECLASS_TASK_CATEGORY_LABEL = UIStyle.TASK_CATEGORY_LABEL;
-	private static final int PREFWIDTH_TASK_CATEGORY_LABEL = 80;
+	private static final int PREFWIDTH_TASK_CATEGORY_LABEL = 120;
 
 	private static final String STYLECLASS_TASK_BOX = UIStyle.DAY_TASK_BOX;
 	private static final int SPACING_TASK_BOX = 10;
@@ -36,7 +36,6 @@ public class UITaskBox {
 	private static final int PAD_X = 20;
 
 	private Font Avenir_16;
-	private Font customTaskPeriodFont;
 	private UIDayBox parent;
 	private Task task;
 	private CheckBox taskCheckBox;
@@ -89,13 +88,14 @@ public class UITaskBox {
 	    } else {
 	    	this.taskPeriod = new Label(UIData.EMP_STR);
 	    }
-	    
-	    try {
-			this.customTaskPeriodFont = Font.loadFont(getClass().getResourceAsStream("fonts/Avenir-Medium.ttf"), 14);
-			this.taskPeriod.setFont(this.customTaskPeriodFont);
-		} catch (Exception e) {
-			this.taskPeriod.setFont(FONT_TASK_PERIOD);
-		}
+		
+//	    try {
+//			this.customTaskPeriodFont = Font.loadFont(getClass().getResourceAsStream("fonts/Avenir-Medium.ttf"), 14);
+//			this.taskPeriod.setFont(this.customTaskPeriodFont);
+//		} catch (Exception e) {
+//			this.taskPeriod.setFont(FONT_TASK_PERIOD);
+//		}
+		this.taskPeriod.setFont(FONT_TASK_PERIOD);
 	    this.taskPeriod.getStyleClass().add(STYLECLASS_TASK_PERIOD);
 	    this.taskPeriod.setPrefWidth(PREFWIDTH_TASK_PERIOD);
 	}

@@ -4,6 +4,7 @@ import javafx.scene.text.Font;
 
 public class UIFont {
 	protected static final Font SEGOE_M = Font.font("Segoe UI", 14);
+	protected static final Font SEGOE_L = Font.font("Segoe UI", 18);
 	protected static final Font CONSOLAS_M = Font.font("Consolas", 14);
 	protected static final Font EUPHEMIA_M = Font.font("Euphemia", 14);
 	protected static final Font EUPHEMIA_L = Font.font("Euphemia", 18);

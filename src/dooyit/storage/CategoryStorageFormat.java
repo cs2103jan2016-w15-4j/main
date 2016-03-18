@@ -1,7 +1,7 @@
 package dooyit.storage;
 
 import dooyit.common.datatype.Category;
-import dooyit.common.datatype.Colour;
+import dooyit.common.datatype.CustomColor;
 
 public class CategoryStorageFormat {
 	private String name;

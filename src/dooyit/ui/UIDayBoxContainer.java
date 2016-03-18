@@ -30,6 +30,10 @@ public class UIDayBoxContainer {
 		this.dayBoxContainer.getChildren().add(dayBox.getView());
 	}
 	
+	public UIMainViewType getActiveMainView(){
+		return this.parent.getActiveViewType();
+	}
+	
 	public VBox getView(){
 		return this.dayBoxContainer;
 	}

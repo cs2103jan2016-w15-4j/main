@@ -78,10 +78,19 @@ public class Task {
 		return isCompleted;
 	}
 
-	public void setCategory(Category category) {
+	public boolean setCategory(Category category) {
 		assert (category != null);
 
-		this.category = category;
+		if(hasCategory()){
+			return false;
+		}else{
+			this.category = category;
+			return true;
+		}
+	}
+	
+	public boolean hasCategory(){
+		return category != null;
 	}
 
 	public String getName() {
@@ -108,9 +117,7 @@ public class Task {
 		return dateTimeEnd;
 	}
 
-	public boolean hasCategory() {
-		return category != null;
-	}
+	
 
 	public boolean hasDeadlineTime() {
 		if (dateTimeDeadline == null) {

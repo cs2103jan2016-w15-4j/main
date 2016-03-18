@@ -14,7 +14,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import dooyit.common.datatype.Category;
-import dooyit.common.datatype.Colour;
+import dooyit.common.datatype.CustomColor;
 import dooyit.common.exception.MissingFileException;
 import dooyit.logic.core.CategoryManager;
 
@@ -79,13 +79,13 @@ public class CategoryController extends StorageConstants {
 		JsonParser parser = new JsonParser();
 		JsonObject category = parser.parse(catFormat).getAsJsonObject();
 		String name = category.get(CATEGORY_NAME).getAsString();
-		Colour colour = resolveColour(category.get(CATEGORY_COLOUR).getAsString());
+		CustomColor colour = resolveColour(category.get(CATEGORY_COLOUR).getAsString());
 		categoryManager.addCategory(name, colour);
 	}
 
-	private Colour resolveColour(String colourFormat) {
+	private CustomColor resolveColour(String colourFormat) {
 		String[] rgb = colourFormat.split(" ");
-		Colour colour = new Colour(Float.valueOf(rgb[0]), Float.valueOf(rgb[1]), Float.valueOf(rgb[2]));
+		CustomColor colour = new CustomColor(Float.valueOf(rgb[0]), Float.valueOf(rgb[1]), Float.valueOf(rgb[2]));
 
 		return colour;
 	}

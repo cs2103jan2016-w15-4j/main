@@ -50,7 +50,6 @@ public class UICategoryBox {
 	}
 	
 	private void initCategoryCircle(){
-		CustomColor colour = category.getColour();
 		this.categoryCircle = new Circle(4, Color.color(colour.r, colour.g, colour.b));
 		this.categoryCircle.getStyleClass().add(STYLECLASS_CAT_CIRCLE);
 	}

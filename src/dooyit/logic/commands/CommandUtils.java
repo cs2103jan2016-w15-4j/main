@@ -130,6 +130,11 @@ public class CommandUtils {
 		StorageCommand storageCommand = new StorageCommand(path);
 		return storageCommand;
 	}
+	
+	public static Command createChangeThemeCommand(String themeString){
+		ChangeThemeCommand changeThemeCommand = new ChangeThemeCommand(themeString);
+		return changeThemeCommand;
+	}
 
 	public static Command createInvalidCommand(String errorMessage) {
 		InvalidCommand invalidCommand = new InvalidCommand(errorMessage);
@@ -141,4 +146,6 @@ public class CommandUtils {
 		return exitCommand;
 	}
 
+	
+	
 }

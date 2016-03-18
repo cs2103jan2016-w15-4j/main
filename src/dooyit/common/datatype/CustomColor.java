@@ -1,6 +1,6 @@
 package dooyit.common.datatype;
 
-import java.awt.Color;
+import javafx.scene.paint.Color;
 
 public class CustomColor {
 	public float r; // red
@@ -25,7 +25,7 @@ public class CustomColor {
 	public static final CustomColor WHITE = new CustomColor(247, 247, 247);
 
 	public Color getColor(){
-		return new Color(r, g, b);
+		return Color.color(r, g, b);
 	}
 	
 	@Override

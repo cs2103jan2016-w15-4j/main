@@ -9,6 +9,6 @@ public class CategoryStorageFormat {
 
 	CategoryStorageFormat(Category category) {
 		this.name = category.getName();
-		this.colour = category.getColour().toSavableString();
+		this.colour = category.getCustomColour().toSavableString();
 	}
 }

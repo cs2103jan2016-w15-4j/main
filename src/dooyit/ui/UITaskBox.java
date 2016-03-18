@@ -1,5 +1,6 @@
 package dooyit.ui;
 
+import dooyit.common.datatype.Category;
 import dooyit.common.datatype.Task;
 import javafx.geometry.Pos;
 import javafx.scene.control.CheckBox;
@@ -103,12 +104,12 @@ public class UITaskBox {
 	private void initTaskCategoryLabel(){
 		this.taskCategoryLabel = new Label();
 		if (this.task.hasCategory()){
-			
+			Category category = this.task.getCategory();
+			this.taskCategoryLabel.setText(category.getName());
+			this.taskCategoryLabel.setTextFill(category.getColour());
 		}
-		this.taskCategoryLabel = new Label("Category Name");
 	    this.taskCategoryLabel.setFont(FONT_TASK_CATEGORY_LABEL);
 	    this.taskCategoryLabel.getStyleClass().add(STYLECLASS_TASK_CATEGORY_LABEL);
-	    this.taskCategoryLabel.setStyle("-fx-text-fill: #007AFF;");
 	    this.taskCategoryLabel.setPrefWidth(PREFWIDTH_TASK_CATEGORY_LABEL);
 	}
 	

@@ -77,6 +77,12 @@ public class CommandUtils {
 		return showCommand;
 	}
 
+	public static Command createShowFloatCommand() {
+		ShowCommand showCommand = new ShowCommand(UIMainViewType.FLOAT);
+
+		return showCommand;
+	}
+	
 	public static Command createShowAllCommand() {
 		ShowCommand showCommand = new ShowCommand(UIMainViewType.ALL);
 

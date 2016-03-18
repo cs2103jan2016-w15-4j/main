@@ -8,9 +8,9 @@ public class CustomColor {
 	public float b; // blue
 
 	public CustomColor(float r, float g, float b) {
-		this.r = r / 255;
-		this.g = g / 255;
-		this.b = b / 255;
+		this.r = r / 255.0f;
+		this.g = g / 255.0f;
+		this.b = b / 255.0f;
 	}
 
 	public static final CustomColor BLACK = new CustomColor(40, 40, 40);

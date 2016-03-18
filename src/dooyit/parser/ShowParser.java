@@ -5,10 +5,14 @@ import dooyit.logic.commands.CommandUtils;
 
 public class ShowParser {
 	private static String userInput;
-
-	enum DISPLAY_TYPE {
-		TODAY, NEXT_SEVEN, DONE, ALL, DATE, CATERGORY, COMPLETED
-	};
+	private static final String TODAY = "today";
+	private static final String NEXT_SEVEN = "next7";
+	private static final String DONE = "done";
+	private static final String ALL = "all";
+	private static final String DATE = "date";
+	private static final String CATEGORY = "category";
+	private static final String COMPLETED = "completed";
+	private static final String FLOAT = "float";
 
 	public ShowParser() {
 	
@@ -16,7 +20,7 @@ public class ShowParser {
 
 	public Command getCommand(String input) {
 		userInput = input.toLowerCase();
-		switch (getDisplayType()) {
+		switch (userInput) {
 		case TODAY:
 			return CommandUtils.createShowTodayCommand();
 
@@ -28,6 +32,9 @@ public class ShowParser {
 
 		case ALL:
 			return CommandUtils.createShowAllCommand();
+			
+		case FLOAT:
+			return CommandUtils.createShowFloatCommand();
 
 		case COMPLETED:
 			return CommandUtils.createShowCompletedCommand();
@@ -37,7 +44,7 @@ public class ShowParser {
 		// DateTime date = dateTimeParser.parse(userInput);
 		// return CommandUtils.createShowCommand(COMMAND_DATE, date);
 
-		case CATERGORY:
+		case CATEGORY:
 			return CommandUtils.createShowCategoryCommand(getCatName(userInput));
 
 		default:
@@ -50,23 +57,4 @@ public class ShowParser {
 		String ans = userInput.substring(index).trim();
 		return ans;
 	}
-
-	private DISPLAY_TYPE getDisplayType() {
-		if (userInput.contains("cat")) {
-			return DISPLAY_TYPE.CATERGORY;
-		} else if (userInput.equals("today")) {
-			return DISPLAY_TYPE.TODAY;
-		} else if (userInput.equals("next7")) {
-			return DISPLAY_TYPE.NEXT_SEVEN;
-		} else if (userInput.equals("done")) {
-			return DISPLAY_TYPE.DONE;
-		} else if (userInput.equals("all")) {
-			return DISPLAY_TYPE.ALL;
-		} else if (userInput.equals("completed")) {
-			return DISPLAY_TYPE.COMPLETED;
-		} else { // useInput is a date
-			return DISPLAY_TYPE.DATE;
-		}
-	}
-
 }

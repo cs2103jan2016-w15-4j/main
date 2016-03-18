@@ -2,20 +2,15 @@ package dooyit.ui;
 
 import dooyit.common.datatype.Category;
 import dooyit.common.datatype.Colour;
-import dooyit.logic.core.*;
 import javafx.event.EventHandler;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
-import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 
-public class UICategoryBox{
+public class UICategoryBox {
 	private static final String STYLECLASS_CAT_NAME = UIStyle.CATEGORY_NAME;
 	private static final String STYLECLASS_CAT_CIRCLE = UIStyle.CATEGORY_CIRCLE;
 	private static final String STYLECLASS_CAT_BOX_WRAPPER = UIStyle.CATEGORY_BOX_WRAPPER;
@@ -28,8 +23,8 @@ public class UICategoryBox{
 	private Label categoryName;
 	private Circle categoryCircle;
 	private ToggleButton categoryBox;
-	
-	public UICategoryBox(UICategoryBoxContainer parent, Category category){		
+
+	public UICategoryBox(UICategoryBoxContainer parent, Category category) {
 		this.parent = parent;
 		this.category = category;
 		initialize();
@@ -73,14 +68,14 @@ public class UICategoryBox{
 		this.categoryBox.setToggleGroup(this.parent.getMainViewToggleGroup());
 		this.categoryBox.setSelected(false);
 		this.categoryBox.setUserData(UIData.USERDATA_CATEGORY);
-		
+
 		this.categoryBox.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-		     @Override
-		     public void handle(MouseEvent event) {
-		    	 // categoryBoxContainer.getLogic().processCommand("show " + categoryName.getText());
-		         event.consume();
-		     }
+			@Override
+			public void handle(MouseEvent event) {
+				// categoryBoxContainer.getLogic().processCommand("show " +
+				// categoryName.getText());
+				event.consume();
+			}
 		});
 	}
-	
 }

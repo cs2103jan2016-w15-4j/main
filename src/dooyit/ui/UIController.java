@@ -20,9 +20,9 @@ public class UIController {
 
 	static final int WIDTH_SCENE = 720;
 	static final int HEIGHT_SCENE = 580;
-	
+
 	static final String STYLECLASS_MAIN_VIEW = UIStyle.MAIN_VIEW;
-	
+
 	private String urlCssCommon;
 	private String urlCssThemeLight;
 	private String urlCssThemeDark;
@@ -40,7 +40,7 @@ public class UIController {
 	private UIHelpBox helpBox;
 	private ChangeListener<Number> resizeListener;
 	private ChangeListener<Boolean> maximizeListener;
-	
+
 	private WebView webView;
 	private WebEngine webEngine;
 	private Stage secWindow;
@@ -267,62 +267,52 @@ public class UIController {
 		// Command text field listener
 		// When value changes, command helper will be displayed
 		this.commandBox.getCommandTextField().textProperty().addListener(new ChangeListener<String>() {
-		    @Override
-		    public void changed(ObservableValue<? extends String> observable,
-		            String oldValue, String newValue) {
-		    	if (newValue.equals(UIData.EMP_STR) && commandHelper.isShowing()){
-		    		//commandHelper.hide();
-		    	} else if (!newValue.equals(oldValue) && !commandHelper.isShowing()){
-		    		//commandHelper.show();
-		    	}
-		    }
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				if (newValue.equals(UIData.EMP_STR) && commandHelper.isShowing()) {
+					// commandHelper.hide();
+				} else if (!newValue.equals(oldValue) && !commandHelper.isShowing()) {
+					// commandHelper.show();
+				}
+			}
 		});
-		
+
 		// Command text field listener
-		this.commandBox.getCommandTextField().setOnAction((event)->{
+		this.commandBox.getCommandTextField().setOnAction((event) -> {
 			String commandString = commandBox.getCommandTextField().getText();
 			System.out.println(commandString);
 			commandBox.getCommandTextField().setText(UIData.EMP_STR);
-			
+
 			this.logic.processCommand(commandString);
-			
-			switch(commandString){
-				// CHANGE: Pass commandString to parser.
-				case "change theme dark":
-					changeTheme(UITheme.DARK);
-					break;
-				case "change theme light":
-					changeTheme(UITheme.LIGHT);
-					break;
-				case "change theme aqua":
-					changeTheme(UITheme.AQUA);
-					break;
-				case "help":
-					if (helpBox.isShowing()){
-						helpBox.hide();
-					} else {
-						helpBox.show(primaryStage);
-					}
-					break;
-				case "manual":
-					showUserGuide();
-					break;
-				case "mb":
-					displayMessage("hello world");
-					break;
-				case "hmb":
-					this.messageBox.hide();
-					break;
+
+			switch (commandString) {
+			// CHANGE: Pass commandString to parser.
+			case "change theme dark":
+				changeTheme(UITheme.DARK);
+				break;
+			case "change theme light":
+				changeTheme(UITheme.LIGHT);
+				break;
+			case "change theme aqua":
+				changeTheme(UITheme.AQUA);
+				break;
+			case "help":
+				if (helpBox.isShowing()) {
+					helpBox.hide();
+				} else {
+					helpBox.show(primaryStage);
+				}
+				break;
+			case "manual":
+				showUserGuide();
+				break;
+			case "mb":
+				displayMessage("hello world");
+				break;
+			case "hmb":
+				this.messageBox.hide();
+				break;
 			}
-		}); 
-		
-		// Command helper listener
-		this.commandHelper.getListView().getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-		    @Override
-		    public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-		        commandBox.getCommandTextField().setText(newValue);
-		        commandBox.getCommandTextField().positionCaret(100);
-		    }
 		});
 	}
 	
@@ -330,24 +320,27 @@ public class UIController {
 		this.resizeListener = new ChangeListener<Number>(){
 			@Override
 			public void changed(ObservableValue<? extends Number> observableValue, Number oldValue, Number newValue) {
-		    	messageBox.updatePosition();
-		    	dayBoxContainer.updatePosition(primaryStage.getWidth());
-		    	if (helpBox.isShowing()){
-		    		helpBox.updatePosition(primaryStage.getX(), primaryStage.getY(), primaryStage.getWidth(), primaryStage.getHeight());
-		    	}
-		    }
-		};
-		
-		this.maximizeListener = new ChangeListener<Boolean>(){
-			@Override
-			public void changed(ObservableValue<? extends Boolean> observableValue, Boolean oldValue, Boolean newValue) {
-		    	System.out.println("MAX");
 				messageBox.updatePosition();
-		    	dayBoxContainer.updatePosition(primaryStage.getWidth());
-		    	if (helpBox.isShowing()){
-		    		helpBox.updatePosition(primaryStage.getX(), primaryStage.getY(), primaryStage.getWidth(), primaryStage.getHeight());
-		    	}
-		    }
+				dayBoxContainer.updatePosition(primaryStage.getWidth());
+				if (helpBox.isShowing()) {
+					helpBox.updatePosition(primaryStage.getX(), primaryStage.getY(), primaryStage.getWidth(),
+							primaryStage.getHeight());
+				}
+			}
+		};
+
+		this.maximizeListener = new ChangeListener<Boolean>() {
+			@Override
+			public void changed(ObservableValue<? extends Boolean> observableValue, Boolean oldValue,
+					Boolean newValue) {
+				System.out.println("MAX");
+				messageBox.updatePosition();
+				dayBoxContainer.updatePosition(primaryStage.getWidth());
+				if (helpBox.isShowing()) {
+					helpBox.updatePosition(primaryStage.getX(), primaryStage.getY(), primaryStage.getWidth(),
+							primaryStage.getHeight());
+				}
+			}
 		};
 		
 		this.scene.heightProperty().addListener(this.resizeListener);
@@ -367,5 +360,4 @@ public class UIController {
 			}
 		});
 	}
-	
 }

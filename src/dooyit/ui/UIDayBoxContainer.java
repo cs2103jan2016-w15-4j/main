@@ -16,8 +16,8 @@ public class UIDayBoxContainer {
 		this.dayBoxContainer = new VBox();
 		this.dayBoxList = new ArrayList<UIDayBox>();
 	}
-	
-	public void refresh(ArrayList<TaskGroup> taskGroupList){
+
+	public void refresh(ArrayList<TaskGroup> taskGroupList) {
 		this.dayBoxContainer.getChildren().clear();
 		taskGroupList.forEach((taskGroup)->{
 			addDayBox(taskGroup);
@@ -33,19 +33,19 @@ public class UIDayBoxContainer {
 	public VBox getView(){
 		return this.dayBoxContainer;
 	}
-	
-	public void updatePosition(double stageWidth){
-		this.dayBoxList.forEach((dayBox)->{
+
+	public void updatePosition(double stageWidth) {
+		this.dayBoxList.forEach((dayBox) -> {
 			dayBox.updatePosition(stageWidth);
 		});
 	}
-	
-	protected double getStageWidth(){
+
+	protected double getStageWidth() {
 		double width = this.parent.getStageWidth();
 		return width;
 	}
-	
-	protected void markTask(int taskId){
+
+	protected void markTask(int taskId) {
 		this.parent.markTask(taskId);
 	}
 }

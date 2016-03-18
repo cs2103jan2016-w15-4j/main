@@ -32,37 +32,35 @@ public class DeleteCommand extends Command {
 	@Override
 	public void execute(Logic logic) throws IncorrectInputException {
 		TaskManager taskManager = logic.getTaskManager();
-		assert(taskManager != null);
-		
+		assert (taskManager != null);
+
 		switch (deleteCommandType) {
 
-			case SINGLE:
-				if(taskManager.containsTask(deleteId)){
-					taskManager.deleteTask(deleteId);
-				}
-				else{
-					throw new IncorrectInputException("Task ID " + deleteId + " doesn't exists");
-				}
-				break;
-				
-			case MULTIPLE:
-				String errorMessageBody = "";
-				
-				for(int i=0; i<deleteIds.size(); i++){
-					if(taskManager.containsTask(deleteIds.get(i))){
-						taskManager.deleteTask(deleteIds.get(i));
-					}
-					else{
-						errorMessageBody += " " + deleteIds.get(i);
-					}
-				}
-				
-				if(errorMessageBody != ""){
-					throw new IncorrectInputException("Index" + errorMessageBody + " doesn't exists");
-				}
-				
-				break;
+		case SINGLE:
+			if (taskManager.containsTask(deleteId)) {
+				taskManager.deleteTask(deleteId);
+			} else {
+				throw new IncorrectInputException("Task ID " + deleteId + " doesn't exists");
 			}
+			break;
+
+		case MULTIPLE:
+			String errorMessageBody = "";
+
+			for (int i = 0; i < deleteIds.size(); i++) {
+				if (taskManager.containsTask(deleteIds.get(i))) {
+					taskManager.deleteTask(deleteIds.get(i));
+				} else {
+					errorMessageBody += " " + deleteIds.get(i);
+				}
+			}
+
+			if (errorMessageBody != "") {
+				throw new IncorrectInputException("Index" + errorMessageBody + " doesn't exists");
+			}
+
+			break;
+		}
 
 	}
 }

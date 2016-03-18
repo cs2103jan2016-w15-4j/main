@@ -7,61 +7,61 @@ public class TaskGroup {
 	private String title;
 	private ArrayList<Task> tasks;
 	private DateTime dateTime;
-	
-	public TaskGroup(String title){
+
+	public TaskGroup(String title) {
 		this.title = title;
 		tasks = new ArrayList<Task>();
 	}
-	
-	public TaskGroup(String title, ArrayList<Task> tasks){
+
+	public TaskGroup(String title, ArrayList<Task> tasks) {
 		this.tasks = new ArrayList<Task>();
 		this.title = title;
 		addTasks(tasks);
 	}
-	
-	public TaskGroup(String title, ArrayList<Task> tasks, DateTime dateTime){
+
+	public TaskGroup(String title, ArrayList<Task> tasks, DateTime dateTime) {
 		this.tasks = new ArrayList<Task>();
 		this.title = title;
 		this.dateTime = dateTime;
 		addTasks(tasks);
 	}
-	
-	public TaskGroup(String title, ArrayList<Task> tasks1, ArrayList<Task> tasks2, DateTime dateTime){
+
+	public TaskGroup(String title, ArrayList<Task> tasks1, ArrayList<Task> tasks2, DateTime dateTime) {
 		this.tasks = new ArrayList<Task>();
 		this.title = title;
 		this.dateTime = dateTime;
 		addTasks(tasks1);
 		addTasks(tasks2);
 	}
-	
-	public void addTask(Task task){
+
+	public void addTask(Task task) {
 		this.tasks.add(task);
 	}
-	
-	public void addTasks(ArrayList<Task> tasks){
-		for(Task task : tasks){
+
+	public void addTasks(ArrayList<Task> tasks) {
+		for (Task task : tasks) {
 			this.tasks.add(task);
 		}
 	}
-	
-	public DateTime getDateTime(){
+
+	public DateTime getDateTime() {
 		return dateTime;
 	}
-	
-	public void setTitle(String title){
+
+	public void setTitle(String title) {
 		this.title = title;
 	}
-	
-	public String getTitle(){
+
+	public String getTitle() {
 		return title;
 	}
-	
-	public ArrayList<Task> getTasks(){
-		
+
+	public ArrayList<Task> getTasks() {
+
 		return tasks;
 	}
-	
-	public boolean hasDateTime(){
+
+	public boolean hasDateTime() {
 		return dateTime != null;
 	}
 }

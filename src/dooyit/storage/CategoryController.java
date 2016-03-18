@@ -1,4 +1,5 @@
 package dooyit.storage;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -14,31 +15,32 @@ import com.google.gson.JsonParser;
 
 import dooyit.common.datatype.Category;
 import dooyit.common.datatype.Colour;
+import dooyit.common.exception.MissingFileException;
+import dooyit.logic.core.CategoryManager;
 
-public class CategoryController extends StorageConstants{
+public class CategoryController extends StorageConstants {
 
 	static final String CATEGORY_NAME = "name";
 	static final String CATEGORY_COLOUR = "colour";
 
 	public CategoryController(String path) {
-		filePath = path + File.separatorChar + DEFAULT_FOLDER_STORAGE
-				+ NAME_FILE_CATEGORY;
+		filePath = path + DEFAULT_CATEGORIES_DESTINATION;
 	}
 
 	public boolean saveCategory(ArrayList<Category> categories) throws IOException {
 		File file = new File(filePath);
-		
+
 		BufferedWriter bWriter = new BufferedWriter(new FileWriter(file));
 
-		for(Category existingCategory: categories) {
+		for (Category existingCategory : categories) {
 			bWriter.append(setFormat(existingCategory));
 			bWriter.newLine();
 		}
 		bWriter.close();
-		
+
 		return true;
 	}
-	
+
 	private String setFormat(Category category) {
 		CategoryStorageFormat catFormat = new CategoryStorageFormat(category);
 		Gson gson = new Gson();
@@ -46,63 +48,59 @@ public class CategoryController extends StorageConstants{
 		return json;
 	}
 
-	public ArrayList<Category> loadCategory() throws IOException {
-		ArrayList<Category> categories = new ArrayList<Category>();
+	public boolean loadCategory(CategoryManager categoryManager) throws IOException {
 		File catFile = new File(filePath);
 		FileReader fReader = null;
-		
-		if(catFile.exists()) {
+
+		if (catFile.exists()) {
 			fReader = tryToOpen(catFile);
-			if(fReader == null) {
-				return categories;
-			}
-			else {
-				readFromFile(fReader, categories);
+			if (fReader == null) {
+				return false;
+			} else {
+				readFromFile(fReader, categoryManager);
 			}
 		}
-		return categories;
+		return true;
 	}
-	
-	private FileReader tryToOpen(File file) {
+
+	private FileReader tryToOpen(File file) throws FileNotFoundException {
 		FileReader fReader = null;
-		if(file.exists()) {
+		if (file.exists()) {
 			try {
 				fReader = new FileReader(file);
-			} catch (FileNotFoundException fnfe) {
-				System.out.println("Unable to access file");
-				System.exit(2);
+			} catch (MissingFileException mfe) {
+				throw new MissingFileException(file.getName());
 			}
 		}
 		return fReader;
 	}
-	
-	private void loadToMemory(ArrayList<Category> categories, String catFormat) {
+
+	private void loadToMemory(CategoryManager categoryManager, String catFormat) {
 		JsonParser parser = new JsonParser();
 		JsonObject category = parser.parse(catFormat).getAsJsonObject();
 		String name = category.get(CATEGORY_NAME).getAsString();
 		Colour colour = resolveColour(category.get(CATEGORY_COLOUR).getAsString());
-		
+		categoryManager.addCategory(name, colour);
 	}
-	
+
 	private Colour resolveColour(String colourFormat) {
 		String[] rgb = colourFormat.split(" ");
-		Colour colour = new Colour(Float.valueOf(rgb[0]), Float.valueOf(rgb[1]),
-				Float.valueOf(rgb[2]));
-		
+		Colour colour = new Colour(Float.valueOf(rgb[0]), Float.valueOf(rgb[1]), Float.valueOf(rgb[2]));
+
 		return colour;
 	}
-	
-	private void readFromFile(FileReader fReader, ArrayList<Category> categories) throws IOException {
+
+	private void readFromFile(FileReader fReader, CategoryManager categoryManager) throws IOException {
 		BufferedReader bReader = new BufferedReader(fReader);
 		String catInfo = bReader.readLine();
-		while(catInfo != null) {
-			loadToMemory(categories, catInfo);
+		while (catInfo != null) {
+			loadToMemory(categoryManager, catInfo);
 			catInfo = bReader.readLine();
 		}
 		bReader.close();
 		fReader.close();
 	}
-	
+
 	public String getFilePath() {
 		return this.filePath;
 	}

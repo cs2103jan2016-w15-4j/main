@@ -13,11 +13,11 @@ public class DeleteParser {
 	private static ArrayList<Integer> taskIdsForDeletion;
 	private static int taskIdForDeletion;
 	private static Command cmd;
-	
+
 	enum DELETE_TYPE {
 		SINGLE, MULTIPLE, INTERVAL, INVALID
 	};
-	
+
 	public DeleteParser(String input) {
 		userInput = input;
 		splitInput = userInput.split("\\s+");
@@ -26,52 +26,52 @@ public class DeleteParser {
 	}
 
 	public Command getCommand() throws IncorrectInputException {
-		switch(getDeleteType()) {
-		case SINGLE :
+		switch (getDeleteType()) {
+		case SINGLE:
 			try {
 				parseSingleType();
-			} catch(IncorrectInputException e) {
+			} catch (IncorrectInputException e) {
 				cmd = getInvalidCommand(e.getMessage());
 				break;
 			}
 			cmd = getSingleTypeDeleteCmd();
 			break;
-			
-		case MULTIPLE :
+
+		case MULTIPLE:
 			try {
 				parseMultipleType();
-			} catch(IncorrectInputException e) {
+			} catch (IncorrectInputException e) {
 				cmd = getInvalidCommand(e.getMessage());
 				break;
 			}
 			cmd = getMultipleTypeDeleteCmd();
 			break;
-			
-		case INTERVAL :
+
+		case INTERVAL:
 			try {
 				parseIntervalType();
-			} catch(IncorrectInputException e) {
+			} catch (IncorrectInputException e) {
 				cmd = getInvalidCommand(e.getMessage());
 				break;
 			}
 			cmd = getIntervalTypeDeleteCmd();
 			break;
-		
-		case INVALID :
+
+		case INVALID:
 			cmd = getInvalidCmd();
 			break;
 		}
 		return cmd;
 	}
-	
+
 	private Command getIntervalTypeDeleteCmd() {
 		return CommandUtils.createDeleteCommand(taskIdsForDeletion);
 	}
 
 	private void parseIntervalType() throws IncorrectInputException {
-		for(int i = INDEX_SINGLE; i < splitInput.length; i++) {
-			if(splitInput[i].equals("-")) {
-				if(!isNumber(splitInput[i - 1]) || !isNumber(splitInput[i + 1])) {
+		for (int i = INDEX_SINGLE; i < splitInput.length; i++) {
+			if (splitInput[i].equals("-")) {
+				if (!isNumber(splitInput[i - 1]) || !isNumber(splitInput[i + 1])) {
 					throw new IncorrectInputException("Invalid Number!");
 				} else {
 					setInterval(splitInput, i);
@@ -83,20 +83,20 @@ public class DeleteParser {
 	private void setInterval(String[] arr, int index) {
 		int start = Integer.parseInt(arr[index - 1]);
 		int end = Integer.parseInt(arr[index + 1]);
-		for(int i = start; i <= end; i++) {
+		for (int i = start; i <= end; i++) {
 			taskIdsForDeletion.add(i);
 		}
 	}
 
-	//Eg. delete 5 6 8
+	// Eg. delete 5 6 8
 	private Command getMultipleTypeDeleteCmd() {
 		return CommandUtils.createDeleteCommand(taskIdsForDeletion);
 	}
 
 	private void parseMultipleType() throws IncorrectInputException {
-		for(int i = INDEX_SINGLE; i < splitInput.length; i++) {
+		for (int i = INDEX_SINGLE; i < splitInput.length; i++) {
 			String currWord = splitInput[i];
-			if(!isNumber(currWord)) {
+			if (!isNumber(currWord)) {
 				throw new IncorrectInputException("Invalid Number!");
 			} else {
 				taskIdsForDeletion.add(Integer.parseInt(currWord));
@@ -117,8 +117,9 @@ public class DeleteParser {
 	}
 
 	private void parseSingleType() throws IncorrectInputException {
-		//System.out.println("currWord at parseSingleType() is " + splitInput[INDEX_SINGLE]);
-		if(isNumber(splitInput[INDEX_SINGLE])) {
+		// System.out.println("currWord at parseSingleType() is " +
+		// splitInput[INDEX_SINGLE]);
+		if (isNumber(splitInput[INDEX_SINGLE])) {
 			taskIdForDeletion = Integer.parseInt(splitInput[INDEX_SINGLE]);
 		} else {
 			throw new IncorrectInputException("Invalid Task ID!");
@@ -126,11 +127,11 @@ public class DeleteParser {
 	}
 
 	private DELETE_TYPE getDeleteType() {
-		if(userInput.contains("-")) {
+		if (userInput.contains("-")) {
 			return DELETE_TYPE.INTERVAL;
-		} else if(splitInput.length == 1) {
+		} else if (splitInput.length == 1) {
 			return DELETE_TYPE.SINGLE;
-		} else if(splitInput.length > 1) {
+		} else if (splitInput.length > 1) {
 			return DELETE_TYPE.MULTIPLE;
 		} else {
 			return DELETE_TYPE.INVALID;

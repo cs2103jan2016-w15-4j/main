@@ -4,18 +4,16 @@ import java.util.ArrayList;
 
 import dooyit.common.datatype.Task;
 import dooyit.common.datatype.TaskGroup;
-import dooyit.logic.core.*;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
 
-public class UIDayBox{
+public class UIDayBox {
 	private static final String STYLECLASS_DAY_BOX = UIStyle.DAY_BOX;
 	private static final String STYLECLASS_DAY_TITLE = UIStyle.DAY_TITLE;
 	private static final String STYLECLASS_DAY_TITLE_FADED = UIStyle.DAY_TITLE_FADED;
 	private static final String TASK_GROUP_TODAY = "Today";
-	
+
 	private UIDayBoxContainer parent;
 	private VBox dayBox;
 	private Label dayTitle;
@@ -68,23 +66,23 @@ public class UIDayBox{
         HBox taskBoxView = taskBox.getView();
         this.dayBox.getChildren().add(taskBoxView);
 	}
-	
-	public VBox getView(){
+
+	public VBox getView() {
 		return this.dayBox;
 	}
-	
-	public void updatePosition(double stageWidth){
-		this.taskBoxList.forEach((taskBox)->{
+
+	public void updatePosition(double stageWidth) {
+		this.taskBoxList.forEach((taskBox) -> {
 			taskBox.updatePosition(stageWidth);
 		});
 	}
-	
-	protected double getStageWidth(){
+
+	protected double getStageWidth() {
 		double width = this.parent.getStageWidth();
 		return width;
 	}
-	
-	protected void markTask(int taskId){
+
+	protected void markTask(int taskId) {
 		this.parent.markTask(taskId);
 	}
 }

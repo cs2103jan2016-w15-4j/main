@@ -6,12 +6,12 @@ import dooyit.logic.commands.Command;
 import dooyit.logic.commands.CommandUtils;
 
 public class AddParser {
-	
+
 	private static final String MARKER_START_EVENT = " from ";
 	private static final String MARKER_END_EVENT = " to ";
 	private static final String MARKER_WORK = " by ";
 	private static final String MARKER_CATEGORY = " @ ";
-	
+
 	private static String userInput;
 	private static String taskName;
 	private static String categoryName;
@@ -20,18 +20,18 @@ public class AddParser {
 	private static DateTime end;
 	private static DateTime deadline;
 	private static Command cmd;
-	
+
 	enum TASK_TYPE {
 		FLOATING, WORK, EVENT, INVALID, CATEGORY_AND_EVENT, CATEGORY_AND_WORK, CATEGORY_AND_FLOATING
 	};
-	
+
 	public AddParser(String input) {
 		userInput = input.trim();
 	}
-	
+
 	public Command getCommand() throws IncorrectInputException {
-		switch(getTaskType()) {
-		case FLOATING :
+		switch (getTaskType()) {
+		case FLOATING:
 			try {
 				parseFloat();
 			} catch (IncorrectInputException e) {
@@ -40,18 +40,18 @@ public class AddParser {
 			}
 			setToFloatCmd();
 			break;
-		
-		case WORK :
+
+		case WORK:
 			try {
 				parseWork();
-			}  catch (IncorrectInputException e) {
+			} catch (IncorrectInputException e) {
 				setToInvalidCmd(e.getMessage());
 				break;
 			}
 			setToWorkCmd();
 			break;
-			
-		case EVENT : 
+
+		case EVENT:
 			try {
 				parseEvent();
 			} catch (IncorrectInputException e) {
@@ -60,8 +60,8 @@ public class AddParser {
 			}
 			setToEventCmd();
 			break;
-		
-		case CATEGORY_AND_FLOATING :
+
+		case CATEGORY_AND_FLOATING:
 			try {
 				parseCategoryAndFloating();
 			} catch (IncorrectInputException e) {
@@ -70,8 +70,8 @@ public class AddParser {
 			}
 			setCategoryAndFloatingCmd();
 			break;
-			
-		case CATEGORY_AND_WORK :
+
+		case CATEGORY_AND_WORK:
 			try {
 				parseCategoryAndWork();
 			} catch (IncorrectInputException e) {
@@ -80,8 +80,8 @@ public class AddParser {
 			}
 			setCategoryAndWorkCmd();
 			break;
-		
-		case CATEGORY_AND_EVENT :
+
+		case CATEGORY_AND_EVENT:
 			try {
 				parseCategoryAndEvent();
 			} catch (IncorrectInputException e) {
@@ -89,11 +89,11 @@ public class AddParser {
 			}
 			setCategoryAndEventCmd();
 			break;
-			
-		case INVALID :
+
+		case INVALID:
 			setToInvalidCmd("Invalid input!");
 		}
-		
+
 		return cmd;
 	}
 
@@ -111,11 +111,11 @@ public class AddParser {
 		parseCategory();
 		parseEvent();
 	}
-	
+
 	private void parseCategory() {
 		int indexCategory = userInput.lastIndexOf(MARKER_CATEGORY);
 		String category = userInput.substring(indexCategory).replace(MARKER_CATEGORY, "").trim();
-		if(isNumber(category)) {
+		if (isNumber(category)) {
 			categoryId = Integer.parseInt(category);
 		} else {
 			categoryName = category;
@@ -125,17 +125,20 @@ public class AddParser {
 	private boolean isNumber(String currWord) {
 		return currWord.matches("[0-9]+");
 	}
-	
+
 	private void setCategoryAndEventCmd() {
-		//cmd = CommandUtils.createAddCommandCategory(taskName, start, end, categoryId, categoryName);
+		// cmd = CommandUtils.createAddCommandCategory(taskName, start, end,
+		// categoryId, categoryName);
 	}
 
 	private void setCategoryAndWorkCmd() {
-		//cmd = CommandUtils.createAddCommandCategory(taskName, deadline, categoryId, categoryName);
+		// cmd = CommandUtils.createAddCommandCategory(taskName, deadline,
+		// categoryId, categoryName);
 	}
 
 	private void setCategoryAndFloatingCmd() {
-		//cmd = CommandUtils.createAddCommandCategory(taskName, categoryId, categoryName);
+		// cmd = CommandUtils.createAddCommandCategory(taskName, categoryId,
+		// categoryName);
 	}
 
 	private void setToInvalidCmd(String message) {
@@ -153,11 +156,13 @@ public class AddParser {
 	private void setToFloatCmd() {
 		cmd = CommandUtils.createAddCommandFloat(taskName);
 	}
-	
+
 	private void parseEvent() {
 		DateTimeParser dateTimeParser = new DateTimeParser();
 		int indexFrom = userInput.lastIndexOf(MARKER_START_EVENT);
-		int indexTo = userInput.lastIndexOf(MARKER_END_EVENT);			//what if indexTo < indexFrom
+		int indexTo = userInput.lastIndexOf(MARKER_END_EVENT); // what if
+																// indexTo <
+																// indexFrom
 		taskName = userInput.substring(0, indexFrom);
 		start = dateTimeParser.parse((userInput.substring(indexFrom, indexTo).replace(MARKER_START_EVENT, "").trim()));
 		end = dateTimeParser.parse((userInput.substring(indexTo).replace(MARKER_END_EVENT, "").trim()));
@@ -175,27 +180,27 @@ public class AddParser {
 	}
 
 	private TASK_TYPE getTaskType() {
-		if(isEvent()) {
+		if (isEvent()) {
 			return TASK_TYPE.EVENT;
-		} else if(isWork()) {
+		} else if (isWork()) {
 			return TASK_TYPE.WORK;
-		} else if(isFloating()){
-			return TASK_TYPE.FLOATING; 
-		} else if(isCatAndEvent()){
+		} else if (isFloating()) {
+			return TASK_TYPE.FLOATING;
+		} else if (isCatAndEvent()) {
 			return TASK_TYPE.CATEGORY_AND_EVENT;
-		} else if(isCatAndWork()) {
+		} else if (isCatAndWork()) {
 			return TASK_TYPE.CATEGORY_AND_WORK;
-		} else if(isCatAndFloating()) {
+		} else if (isCatAndFloating()) {
 			return TASK_TYPE.CATEGORY_AND_FLOATING;
 		} else {
 			return TASK_TYPE.INVALID;
 		}
 	}
-	
+
 	private boolean isCat() {
 		return userInput.lastIndexOf(MARKER_CATEGORY) != -1;
 	}
-	
+
 	private boolean isCatAndFloating() {
 		return isCat() && isFloating();
 	}
@@ -213,10 +218,9 @@ public class AddParser {
 	}
 
 	private boolean isEvent() {
-		return userInput.lastIndexOf(MARKER_START_EVENT) != -1 &&
-				userInput.lastIndexOf(MARKER_END_EVENT) != -1;
+		return userInput.lastIndexOf(MARKER_START_EVENT) != -1 && userInput.lastIndexOf(MARKER_END_EVENT) != -1;
 	}
-	
+
 	private boolean isWork() {
 		return userInput.lastIndexOf(MARKER_WORK) != -1;
 	}

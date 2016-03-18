@@ -14,19 +14,19 @@ import javafx.util.Duration;
 public class UIMessageBox {
 	private static final Font FONT_MESSAGE_BOX_LABEL = UIFont.EUPHEMIA_M;
 	private static final String STYLECLASS_MESSAGE_BOX_LABEL = UIStyle.MESSAGE_BOX_LABEL;
-	
+
 	private static final int FADE_TIME = 6000;
 	private static final int PREFHEIGHT = 50;
 	private static final int PAD_X = 15;
 	private static final int PAD_Y = 130;
-	
+
 	private Stage primaryStage;
 	private Popup messageBox;
 	private Label messageLabel;
 	private boolean isOn;
 	private FadeTransition ft;
-	
-	public UIMessageBox(Stage primaryStage){
+
+	public UIMessageBox(Stage primaryStage) {
 		this.primaryStage = primaryStage;
 		initialize();
 	}
@@ -51,15 +51,15 @@ public class UIMessageBox {
 	private void initTransitions(){
 		this.ft = new FadeTransition(Duration.millis(FADE_TIME), this.messageLabel);
 		this.ft.setFromValue(1.0);
-        this.ft.setToValue(0.0);
-        this.ft.setCycleCount(1);
-        this.ft.setAutoReverse(false);
-        this.ft.setOnFinished(new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent t) {
-                messageBox.hide();
-                isOn = false;
-            }
-        });
+		this.ft.setToValue(0.0);
+		this.ft.setCycleCount(1);
+		this.ft.setAutoReverse(false);
+		this.ft.setOnFinished(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent t) {
+				messageBox.hide();
+				isOn = false;
+			}
+		});
 	}
 	
 	private void update(double x, double y, double width, double height){
@@ -94,16 +94,16 @@ public class UIMessageBox {
 		display();
 		this.ft.playFromStart();
 	}
-	
-	public void tempHide(){
+
+	public void tempHide() {
 		this.messageBox.hide();
 	}
-	
-	public void hide(){
+
+	public void hide() {
 		this.ft.play();
 	}
-	
-	public boolean isOn(){
+
+	public boolean isOn() {
 		return this.isOn;
 	}
 }

@@ -110,6 +110,7 @@ public class UISideMenu {
 		menuBtn.setUserData(userData);
 		return menuBtn;
 	}
+	
 
 	public VBox getView() {
 		return this.menu;

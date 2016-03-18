@@ -18,4 +18,6 @@ public class UIData {
 
 	protected static final String EMP_STR = "";
 	protected static final String COMMA_SPLIT = ", ";
+	
+	protected static final String TODAY = "Today";
 }

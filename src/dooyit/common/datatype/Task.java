@@ -89,6 +89,10 @@ public class Task {
 		}
 	}
 	
+	public Category getCategory(){
+		return category;
+	}
+	
 	public boolean hasCategory(){
 		return category != null;
 	}

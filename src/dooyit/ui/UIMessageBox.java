@@ -3,8 +3,6 @@ package dooyit.ui;
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.text.Font;
 import javafx.stage.Popup;

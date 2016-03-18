@@ -50,6 +50,7 @@ public class UIController {
 	    this.logic = logic;
 	    this.primaryStage = primaryStage;
 	    initialize();
+	    
 	}
 	
 	private void initialize(){

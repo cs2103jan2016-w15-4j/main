@@ -3,7 +3,6 @@ package dooyit.ui;
 import java.util.ArrayList;
 
 import dooyit.common.datatype.TaskGroup;
-import dooyit.logic.core.*;
 import javafx.scene.layout.VBox;
 
 public class UIDayBoxContainer {

@@ -1,8 +1,6 @@
 package dooyit.ui;
 
 import java.util.ArrayList;
-
-import javafx.animation.FillTransition;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;

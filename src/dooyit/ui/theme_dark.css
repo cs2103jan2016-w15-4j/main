@@ -59,7 +59,7 @@
 
 .day-task-box {
 	-fx-padding: 13 0 13 0;
-	-fx-border-color: transparent transparent #505050 transparent;
+	-fx-border-color: transparent transparent #404040 transparent;
 }
 
 .task-checkbox .box {

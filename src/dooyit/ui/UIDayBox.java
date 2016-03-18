@@ -19,7 +19,6 @@ public class UIDayBox {
 	private Label dayTitle;
 	private ArrayList<Task> taskList;
 	private ArrayList<UITaskBox> taskBoxList;
-	private String title;
 	private TaskGroup taskGroup;
 	
 	public UIDayBox(UIDayBoxContainer parent, TaskGroup taskGroup){
@@ -43,13 +42,7 @@ public class UIDayBox {
 	}
 	
 	private void initDayTitle(){
-		this.title = this.taskGroup.getTitle();
-		if (this.taskGroup.hasDateTime()){
-			String date = this.taskGroup.getDateTime().getDate();
-			date = date.substring(0, date.length() - 5);
-			this.title += UIData.COMMA_SPLIT + date;
-		}
-        this.dayTitle = new Label(this.title);
+        this.dayTitle = new Label(this.taskGroup.getTitle());
         this.dayTitle.setFont(UIFont.SEGOE_L);
         this.dayTitle.getStyleClass().add(STYLECLASS_DAY_TITLE);
         if (taskList.size() == 0 && !this.taskGroup.getTitle().equals(UIData.TODAY)){

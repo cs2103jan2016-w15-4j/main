@@ -1,19 +1,12 @@
 package dooyit.ui;
 
 import dooyit.common.datatype.Category;
-import dooyit.common.datatype.CustomColor;
-import dooyit.logic.core.*;
 import javafx.event.EventHandler;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
-import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 
 public class UICategoryBox {
 	private static final String STYLECLASS_CAT_NAME = UIStyle.CATEGORY_NAME;
@@ -50,7 +43,7 @@ public class UICategoryBox {
 	}
 	
 	private void initCategoryCircle(){
-		this.categoryCircle = new Circle(4, Color.color(colour.r, colour.g, colour.b));
+		this.categoryCircle = new Circle(4, this.category.getColour());
 		this.categoryCircle.getStyleClass().add(STYLECLASS_CAT_CIRCLE);
 	}
 	

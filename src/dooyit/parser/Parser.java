@@ -88,7 +88,7 @@ public class Parser {
 
 		case COMMAND_SKIN:
 			String colour = getInputWithoutCommand(input, COMMAND_SKIN);
-			// command = CommandUtils.createSkinChangeCommand(colour);
+			command = CommandUtils.createChangeThemeCommand(colour);
 			break;
 
 		case COMMAND_STORAGE:

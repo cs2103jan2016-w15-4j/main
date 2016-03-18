@@ -2,7 +2,7 @@ package dooyit.logic.commands;
 
 import java.util.ArrayList;
 
-import dooyit.common.datatype.Colour;
+import dooyit.common.datatype.CustomColor;
 import dooyit.common.datatype.DateTime;
 import dooyit.ui.UIMainViewType;
 
@@ -55,11 +55,16 @@ public class CommandUtils {
 		return addCategoryCommand;
 	}
 
-	public static Command createAddCategoryCommand(String categoryName, Colour colour) {
+	public static Command createAddCategoryCommand(String categoryName, CustomColor colour) {
 		AddCategoryCommand addCategoryCommand = new AddCategoryCommand(categoryName, colour);
 		return addCategoryCommand;
 	}
 
+	public static Command createSetCategoryCommand(int taskID, String categoryName) {
+		SetCategoryCommand addCategoryCommand = new SetCategoryCommand(taskID, categoryName);
+		return addCategoryCommand;
+	}
+	
 	public static Command createShowTodayCommand() {
 		ShowCommand showCommand = new ShowCommand(UIMainViewType.TODAY);
 

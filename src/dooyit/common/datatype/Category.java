@@ -3,28 +3,28 @@ package dooyit.common.datatype;
 public class Category {
 	private String name;
 
-	private Colour colour;
+	private CustomColor colour;
 
 	public Category(String name) {
 		this.name = name;
-		this.colour = Colour.BLUE;
+		this.colour = CustomColor.BLUE;
 	}
 
-	public Category(String name, Colour colour) {
+	public Category(String name, CustomColor colour) {
 		this.name = name;
 		this.colour = colour;
 	}
 
 	public Category(String name, float r, float g, float b) {
 		this.name = name;
-		this.colour = new Colour(r, g, b);
+		this.colour = new CustomColor(r, g, b);
 	}
 
 	public String getName() {
 		return this.name;
 	}
 
-	public Colour getColour() {
+	public CustomColor getColour() {
 		return colour;
 	}
 

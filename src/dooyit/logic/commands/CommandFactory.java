@@ -2,7 +2,7 @@ package dooyit.logic.commands;
 
 import java.util.ArrayList;
 
-import dooyit.common.datatype.Colour;
+import dooyit.common.datatype.CustomColor;
 import dooyit.common.datatype.DateTime;
 import dooyit.ui.UIMainViewType;
 
@@ -67,7 +67,7 @@ public class CommandFactory {
 		return addCategoryCommand;
 	}
 	
-	public Command createAddCategoryCommand(String categoryName, Colour colour){
+	public Command createAddCategoryCommand(String categoryName, CustomColor colour){
 		AddCategoryCommand addCategoryCommand = new AddCategoryCommand(categoryName, colour);
 		return addCategoryCommand;
 	}

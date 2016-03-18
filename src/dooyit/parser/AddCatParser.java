@@ -2,7 +2,7 @@ package dooyit.parser;
 
 import java.util.ArrayList;
 
-import dooyit.common.datatype.Colour;
+import dooyit.common.datatype.CustomColor;
 import dooyit.logic.commands.Command;
 import dooyit.logic.commands.CommandUtils;
 import dooyit.logic.core.Logic;
@@ -111,47 +111,47 @@ public class AddCatParser {
 	private void setCreateNewCategoryCommand() {
 		switch (colour) {
 		case BLACK:
-			cmd = CommandUtils.createAddCategoryCommand(catName, Colour.BLACK);
+			cmd = CommandUtils.createAddCategoryCommand(catName, CustomColor.BLACK);
 			break;
 
 		case BLUE:
-			cmd = CommandUtils.createAddCategoryCommand(catName, Colour.BLUE);
+			cmd = CommandUtils.createAddCategoryCommand(catName, CustomColor.BLUE);
 			break;
 
 		case CYAN:
-			cmd = CommandUtils.createAddCategoryCommand(catName, Colour.CYAN);
+			cmd = CommandUtils.createAddCategoryCommand(catName, CustomColor.CYAN);
 			break;
 
 		case GREY:
-			cmd = CommandUtils.createAddCategoryCommand(catName, Colour.GREY);
+			cmd = CommandUtils.createAddCategoryCommand(catName, CustomColor.GREY);
 			break;
 
 		case GRAY:
-			cmd = CommandUtils.createAddCategoryCommand(catName, Colour.GREY);
+			cmd = CommandUtils.createAddCategoryCommand(catName, CustomColor.GREY);
 			break;
 
 		case GREEN:
-			cmd = CommandUtils.createAddCategoryCommand(catName, Colour.GREEN);
+			cmd = CommandUtils.createAddCategoryCommand(catName, CustomColor.GREEN);
 			break;
 
 		case MAGENTA:
-			cmd = CommandUtils.createAddCategoryCommand(catName, Colour.MAGENTA);
+			cmd = CommandUtils.createAddCategoryCommand(catName, CustomColor.MAGENTA);
 			break;
 
 		case PINK:
-			cmd = CommandUtils.createAddCategoryCommand(catName, Colour.PINK);
+			cmd = CommandUtils.createAddCategoryCommand(catName, CustomColor.PINK);
 			break;
 
 		case RED:
-			cmd = CommandUtils.createAddCategoryCommand(catName, Colour.RED);
+			cmd = CommandUtils.createAddCategoryCommand(catName, CustomColor.RED);
 			break;
 
 		case WHITE:
-			cmd = CommandUtils.createAddCategoryCommand(catName, Colour.WHITE);
+			cmd = CommandUtils.createAddCategoryCommand(catName, CustomColor.WHITE);
 			break;
 
 		case YELLOW:
-			cmd = CommandUtils.createAddCategoryCommand(catName, Colour.YELLOW);
+			cmd = CommandUtils.createAddCategoryCommand(catName, CustomColor.YELLOW);
 			break;
 
 		case DEFAULT_COLOUR:

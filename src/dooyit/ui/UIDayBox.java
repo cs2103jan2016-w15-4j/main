@@ -12,7 +12,7 @@ public class UIDayBox {
 	private static final String STYLECLASS_DAY_BOX = UIStyle.DAY_BOX;
 	private static final String STYLECLASS_DAY_TITLE = UIStyle.DAY_TITLE;
 	private static final String STYLECLASS_DAY_TITLE_FADED = UIStyle.DAY_TITLE_FADED;
-	private static final String TASK_GROUP_TODAY = "Today";
+	private static final String MSG_TODAY_NO_TASKS = "No tasks for today. Enjoy your day!";
 
 	private UIDayBoxContainer parent;
 	private VBox dayBox;
@@ -20,53 +20,64 @@ public class UIDayBox {
 	private ArrayList<Task> taskList;
 	private ArrayList<UITaskBox> taskBoxList;
 	private String title;
+	private TaskGroup taskGroup;
 	
 	public UIDayBox(UIDayBoxContainer parent, TaskGroup taskGroup){
 		this.parent = parent;
-		initialize(taskGroup);
+		this.taskGroup = taskGroup;
+		initialize();
 	}
 	
-	private void initialize(TaskGroup taskGroup){
-		this.taskList = taskGroup.getTasks();
+	private void initialize(){
+		this.taskList = this.taskGroup.getTasks();
 		this.taskBoxList = new ArrayList<UITaskBox>();
-		initDayBox(taskGroup);
-        
-		if (taskList.size() > 0){
-			for (int i = 0; i < this.taskList.size(); i++){
-				addTask(this.taskList.get(i));
-			}
-		} else {
-			if (taskGroup.getTitle().equals(TASK_GROUP_TODAY)){
-				UIMainViewType activeView = getActiveMainView();
-				if (activeView == UIMainViewType.EXTENDED || activeView == UIMainViewType.TODAY){
-					setNoTaskMessage();
-				}
-			}
-		}
+		initDayBox();
+        initAllTasks();
 	}
 	
-	private void initDayBox(TaskGroup taskGroup){
-		initDayTitle(taskGroup);
+	private void initDayBox(){
+		initDayTitle();
         this.dayBox = new VBox();
 		this.dayBox.getStyleClass().add(STYLECLASS_DAY_BOX);
         this.dayBox.getChildren().add(this.dayTitle);
 	}
 	
-	private void initDayTitle(TaskGroup taskGroup){
-		this.title = taskGroup.getTitle();
-		if (taskGroup.hasDateTime()){
-			String date = taskGroup.getDateTime().getDate();
+	private void initDayTitle(){
+		this.title = this.taskGroup.getTitle();
+		if (this.taskGroup.hasDateTime()){
+			String date = this.taskGroup.getDateTime().getDate();
 			date = date.substring(0, date.length() - 5);
 			this.title += UIData.COMMA_SPLIT + date;
 		}
-		
         this.dayTitle = new Label(this.title);
         this.dayTitle.setFont(UIFont.SEGOE_L);
         this.dayTitle.getStyleClass().add(STYLECLASS_DAY_TITLE);
-        
-        if (taskList.size() == 0 && !taskGroup.getTitle().equals(TASK_GROUP_TODAY)){
+        if (taskList.size() == 0 && !this.taskGroup.getTitle().equals(UIData.TODAY)){
         	this.dayTitle.getStyleClass().add(STYLECLASS_DAY_TITLE_FADED);
         }
+	}
+	
+	private void initAllTasks(){
+		if (taskList.size() > 0){
+			addAllTasks();
+		} else {
+			displayNoTasks();
+		}
+	}
+	
+	private void addAllTasks(){
+		for (int i = 0; i < this.taskList.size(); i++){
+			addTask(this.taskList.get(i));
+		}
+	}
+	
+	private void displayNoTasks(){
+		if (this.taskGroup.getTitle().equals(UIData.TODAY)){
+			UIMainViewType activeView = getActiveMainView();
+			if (activeView == UIMainViewType.EXTENDED || activeView == UIMainViewType.TODAY){
+				setNoTaskMessage();
+			}
+		}
 	}
 	
 	private void addTask(Task task){
@@ -77,7 +88,7 @@ public class UIDayBox {
 	}
 	
 	private void setNoTaskMessage(){
-		Label taskMessageView = new UITaskMessage("No tasks for today. Enjoy your day!").getView();
+		Label taskMessageView = new UITaskMessage(MSG_TODAY_NO_TASKS).getView();
 		this.dayBox.getChildren().add(taskMessageView);
 	}
 	
@@ -85,6 +96,14 @@ public class UIDayBox {
 		return this.parent.getActiveMainView();
 	}
 
+	protected double getStageWidth() {
+		return this.parent.getStageWidth();
+	}
+
+	protected void markTask(int taskId) {
+		this.parent.markTask(taskId);
+	}
+	
 	public VBox getView() {
 		return this.dayBox;
 	}
@@ -93,14 +112,5 @@ public class UIDayBox {
 		this.taskBoxList.forEach((taskBox) -> {
 			taskBox.updatePosition(stageWidth);
 		});
-	}
-
-	protected double getStageWidth() {
-		double width = this.parent.getStageWidth();
-		return width;
-	}
-
-	protected void markTask(int taskId) {
-		this.parent.markTask(taskId);
 	}
 }

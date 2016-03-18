@@ -29,8 +29,17 @@ public class UIDayBoxContainer {
 		this.dayBoxList.add(dayBox);
 		this.dayBoxContainer.getChildren().add(dayBox.getView());
 	}
+
+	protected double getStageWidth() {
+		double width = this.parent.getStageWidth();
+		return width;
+	}
+
+	protected void markTask(int taskId) {
+		this.parent.markTask(taskId);
+	}
 	
-	public UIMainViewType getActiveMainView(){
+	protected UIMainViewType getActiveMainView(){
 		return this.parent.getActiveViewType();
 	}
 	
@@ -42,14 +51,5 @@ public class UIDayBoxContainer {
 		this.dayBoxList.forEach((dayBox) -> {
 			dayBox.updatePosition(stageWidth);
 		});
-	}
-
-	protected double getStageWidth() {
-		double width = this.parent.getStageWidth();
-		return width;
-	}
-
-	protected void markTask(int taskId) {
-		this.parent.markTask(taskId);
 	}
 }

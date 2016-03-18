@@ -14,7 +14,6 @@ import javafx.util.Duration;
 public class UIMessageBox {
 	private static final Font FONT_MESSAGE_BOX_LABEL = UIFont.EUPHEMIA_M;
 	private static final String STYLECLASS_MESSAGE_BOX_LABEL = UIStyle.MESSAGE_BOX_LABEL;
-
 	private static final int FADE_TIME = 6000;
 	private static final int PREFHEIGHT = 50;
 	private static final int PAD_X = 15;

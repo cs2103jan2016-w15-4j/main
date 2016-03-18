@@ -36,6 +36,9 @@ public class ChangeThemeCommand extends Command {
 		case "custom":
 			theme = UITheme.CUSTOM;
 			break;	
+			
+		default:
+			throw new IncorrectInputException("Incorrect theme, try LIGHT, DARK, AQUA or CUSTOM");
 		}
 		
 		uicontroller.changeTheme(theme);

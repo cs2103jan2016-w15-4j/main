@@ -17,22 +17,27 @@ public class Parser {
 	static final String COMMAND_SKIN = "skin";
 	static final String COMMAND_STORAGE = "storage";
 	static final String COMMAND_UNMARK = "unmark";
+	private static final String COMMAND_DELETE_CAT = "deletecat";
+	private static final String COMMAND_EDIT_CAT = "editcat";
 	private static AddParser addParser;
 	private static ShowParser showParser;
 	private static EditParser editParser;
-	private static AddCatParser addCatParser;
+	private static AddCategoryParser addCatParser;
 	private static DeleteParser deleteParser;
 	private static MarkParser markParser;
 	private static UnmarkParser unmarkParser;
+	private static DeleteCategoryParser deleteCatParser;
+	private static EditCategoryParser editCatParser;
 
 	public Parser() {
 		addParser = new AddParser();
 		showParser = new ShowParser();
 		editParser = new EditParser();
-		addCatParser = new AddCatParser();
+		addCatParser = new AddCategoryParser();
 		deleteParser = new DeleteParser();
 		markParser = new MarkParser();
 		unmarkParser = new UnmarkParser();
+		editCatParser = new EditCategoryParser();
 	}
 
 	public Command getCommand(String input) {
@@ -71,6 +76,14 @@ public class Parser {
 
 		case COMMAND_ADD_CAT:
 			command = addCatParser.getCommand(getInputWithoutCommand(input, COMMAND_ADD_CAT));
+			break;
+			
+		case COMMAND_DELETE_CAT:
+			command = deleteCatParser.getCommand(getInputWithoutCommand(input, COMMAND_DELETE_CAT));
+			break;
+			
+		case COMMAND_EDIT_CAT:
+			command = editCatParser.getCommand(getInputWithoutCommand(input, COMMAND_EDIT_CAT));
 			break;
 
 		case COMMAND_SKIN:

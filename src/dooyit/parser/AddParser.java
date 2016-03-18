@@ -25,11 +25,12 @@ public class AddParser {
 		FLOATING, WORK, EVENT, INVALID, CATEGORY_AND_EVENT, CATEGORY_AND_WORK, CATEGORY_AND_FLOATING
 	};
 
-	public AddParser(String input) {
-		userInput = input.trim();
+	public AddParser() {
+		
 	}
 
-	public Command getCommand() throws IncorrectInputException {
+	public Command getCommand(String input) throws IncorrectInputException {
+		userInput = input.trim();
 		switch (getTaskType()) {
 		case FLOATING:
 			try {

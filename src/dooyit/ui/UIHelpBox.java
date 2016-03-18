@@ -17,9 +17,9 @@ public class UIHelpBox {
 	private static final int HEIGHT = 450;
 
 	private static final String STYLECLASS_TITLE = UIStyle.HELP_BOX_TITLE;
-	private static final String LABEL_TITLE = "Hola! Here are some tips to get you started.";
 	private static final Font FONT_TITLE = UIFont.EUPHEMIA_L;
-
+	private static final String LABEL_TITLE = "Hola! Here are some tips to get you started.";
+	
 	private static final String STYLECLASS_CONTENT_LABEL = UIStyle.HELP_BOX_CONTENT_LABEL;
 	private static final Font FONT_CMD_NAME = UIFont.EUPHEMIA_M;
 	private static final Font FONT_CMD_DESC = UIFont.CONSOLAS_M;
@@ -111,4 +111,5 @@ public class UIHelpBox {
 	public void hide() {
 		this.helpBox.hide();
 	}
+
 }

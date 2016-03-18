@@ -28,13 +28,27 @@ public class UIMessageBox {
 
 	public UIMessageBox(Stage primaryStage) {
 		this.primaryStage = primaryStage;
+		initialize();
+	}
+	
+	private void initialize(){
+		initMessageLabel();
+		initMessageBox();
+		initTransitions();
+	}
+	
+	private void initMessageLabel(){
 		this.messageLabel = new Label();
 		this.messageLabel.setFont(FONT_MESSAGE_BOX_LABEL);
 		this.messageLabel.getStyleClass().add(STYLECLASS_MESSAGE_BOX_LABEL);
-
+	}
+	
+	private void initMessageBox(){
 		this.messageBox = new Popup();
 		this.messageBox.getContent().addAll(this.messageLabel);
-
+	}
+	
+	private void initTransitions(){
 		this.ft = new FadeTransition(Duration.millis(FADE_TIME), this.messageLabel);
 		this.ft.setFromValue(1.0);
 		this.ft.setToValue(0.0);
@@ -47,25 +61,34 @@ public class UIMessageBox {
 			}
 		});
 	}
-
-	public boolean isShowing() {
+	
+	private void update(double x, double y, double width, double height){
+		this.messageBox.setX(x);
+		this.messageBox.setY(y);
+		this.messageLabel.setPrefSize(width, height);
+	}
+	
+	public boolean isShowing(){
 		return this.messageBox.isShowing();
 	}
-
-	public void updatePosition() {
-		this.messageBox.setX(this.primaryStage.getX() + PAD_X);
-		this.messageBox.setY(this.primaryStage.getY() + this.primaryStage.getHeight() - PAD_Y);
-		this.messageLabel.setPrefSize(this.primaryStage.getWidth() - 2 * PAD_X, PREFHEIGHT);
+	
+	public void updatePosition(){
+		double x = this.primaryStage.getX() + PAD_X;
+		double y = this.primaryStage.getY() + this.primaryStage.getHeight() - PAD_Y;
+		double width = this.primaryStage.getWidth() - 2*PAD_X;
+		update(x, y, width, PREFHEIGHT);
 	}
-
-	public void display() {
-		this.messageLabel.setPrefSize(this.primaryStage.getWidth() - 2 * PAD_X, PREFHEIGHT);
-		this.messageBox.setX(this.primaryStage.getX() + PAD_X);
-		this.messageBox.setY(this.primaryStage.getY() + this.primaryStage.getHeight() - PAD_Y);
+	
+	public void display(){
+		double x = this.primaryStage.getX() + PAD_X;
+		double y = this.primaryStage.getY() + this.primaryStage.getHeight() - PAD_Y;
+		double width = this.primaryStage.getWidth() - 2*PAD_X;
+		update(x, y, width, PREFHEIGHT);
 		this.messageBox.show(this.primaryStage);
 	}
-
-	public void show(String msg) {
+	
+	
+	public void show(String msg){
 		this.isOn = true;
 		this.messageLabel.setText(msg);
 		display();

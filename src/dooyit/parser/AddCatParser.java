@@ -35,13 +35,15 @@ public class AddCatParser {
 		CREATE_NEW_CATEGORY_WITH_COLOUR, ADD_TO_EXISTING_CATEGORY, CREATE_AND_ADD_TO_EXISTING_CATEGORY, CREATE_NEW_CATEGORY_WITHOUT_COLOUR
 	};
 
-	public AddCatParser(String input) {
-		userInput = input.toLowerCase();
-		colour = DEFAULT_COLOUR;
-		taskIds = new ArrayList<Integer>();
+	public AddCatParser() {
+		
 	}
 
-	public Command getCommand() {
+	public Command getCommand(String input) {
+		userInput = input;
+		colour = DEFAULT_COLOUR;
+		taskIds = new ArrayList<Integer>();
+		
 		parse();
 		switch (getCommandType()) {
 		case CREATE_NEW_CATEGORY_WITH_COLOUR:

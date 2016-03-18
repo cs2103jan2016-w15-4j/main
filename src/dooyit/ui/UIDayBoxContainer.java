@@ -10,9 +10,8 @@ public class UIDayBoxContainer {
 	private UIController parent;
 	private ArrayList<UIDayBox> dayBoxList;
 	private VBox dayBoxContainer;
-	private Logic logic;
-
-	public UIDayBoxContainer(UIController parent) {
+	
+	public UIDayBoxContainer(UIController parent){
 		this.parent = parent;
 		this.dayBoxContainer = new VBox();
 		this.dayBoxList = new ArrayList<UIDayBox>();
@@ -20,14 +19,18 @@ public class UIDayBoxContainer {
 
 	public void refresh(ArrayList<TaskGroup> taskGroupList) {
 		this.dayBoxContainer.getChildren().clear();
-		taskGroupList.forEach((taskGroup) -> {
-			UIDayBox dayBox = new UIDayBox(this, taskGroup);
-			this.dayBoxList.add(dayBox);
-			this.dayBoxContainer.getChildren().add(dayBox.getView());
+		taskGroupList.forEach((taskGroup)->{
+			addDayBox(taskGroup);
 		});
 	}
-
-	public VBox getView() {
+	
+	private void addDayBox(TaskGroup taskGroup){
+		UIDayBox dayBox = new UIDayBox(this, taskGroup);
+		this.dayBoxList.add(dayBox);
+		this.dayBoxContainer.getChildren().add(dayBox.getView());
+	}
+	
+	public VBox getView(){
 		return this.dayBoxContainer;
 	}
 

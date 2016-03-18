@@ -2,7 +2,6 @@ package dooyit.ui;
 
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
-import javafx.scene.text.Font;
 
 public class UICommandBox {
 	private static final String CMD_TEXT_FIELD_PROMPT = "Enter command here. Type 'help' for manual.";
@@ -12,14 +11,25 @@ public class UICommandBox {
 
 	private HBox commandBox;
 	private TextField commandTextField;
-
-	public UICommandBox() {
+	
+	public UICommandBox(){
+		initialize();
+	}
+	
+	private void initialize(){
+		initCommandTextField();
+		initCommandBox();
+	}
+	
+	private void initCommandTextField(){
 		this.commandTextField = new TextField();
 		this.commandTextField.setPrefWidth(PREFWIDTH_CMD_TEXT_FIELD);
 		this.commandTextField.setFont(UIFont.CONSOLAS_M);
 		this.commandTextField.setPromptText(CMD_TEXT_FIELD_PROMPT);
 		this.commandTextField.getStyleClass().add(STYLECLASS_CMD_TEXT_FIELD);
-
+	}
+	
+	private void initCommandBox(){
 		this.commandBox = new HBox();
 		this.commandBox.getStyleClass().add(STYLECLASS_CMD_BOX);
 		this.commandBox.getChildren().addAll(commandTextField);
@@ -31,5 +41,17 @@ public class UICommandBox {
 
 	public TextField getCommandTextField() {
 		return this.commandTextField;
+	}
+	
+	public boolean isSelected(){
+		return this.commandTextField.isFocused();
+	}
+	
+	public void select(){
+		this.commandTextField.requestFocus();
+	}
+	
+	public void empty(){
+		this.commandTextField.clear();
 	}
 }

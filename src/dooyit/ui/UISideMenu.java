@@ -22,6 +22,7 @@ public class UISideMenu {
 	private static final String LABEL_COMPLETED = "Completed";
 
 	private static final String STYLECLASS_MENU = UIStyle.MENU_VIEW;
+	private static final int SPACING_MENU = 8;
 	private static final String LABEL_CATEGORY_TITLE = "CATEGORIES";
 	private static final Font FONT_CATEGORY_TITLE = UIFont.TAHOMA_S;
 	private static final String STYLECLASS_CATEGORY_TITLE = UIStyle.CATEGORY_TITLE;
@@ -30,7 +31,7 @@ public class UISideMenu {
 	private static final String COLOR_BTN_ICON = MaterialColor.GREY_400;
 	private static final int SPACING_BTN_CONTENT = 8;
 	private static final String STYLECLASS_MENU_BTN = UIStyle.BTN_SELECT_VIEW;
-	private static final int PREFWIDTH_MENU_BTN = 180;
+	private static final int PREFWIDTH_MENU_BTN = 200;
 
 	private VBox menu;
 	private ToggleGroup mainViewToggleGroup;
@@ -73,7 +74,7 @@ public class UISideMenu {
 	
 	private void initMenu(){
 		this.menu = new VBox();
-		this.menu.setSpacing(5);
+		this.menu.setSpacing(SPACING_MENU);
 		this.menu.getStyleClass().add(STYLECLASS_MENU);
 		this.menu.getChildren().addAll(this.todayBtn, this.extendedBtn, this.floatBtn, this.allBtn, this.completedBtn, this.categoryTitle, this.categoryBoxContainer.getView());
 	}

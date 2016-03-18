@@ -14,6 +14,7 @@ public class UICategoryBox {
 	private static final String STYLECLASS_CAT_BOX = UIStyle.BTN_SELECT_VIEW;
 	private static final String STYLECLASS_CAT_BOX_WRAPPER = UIStyle.CATEGORY_BOX_WRAPPER;
 	private static final int SPACING_CAT_BOX_WRAPPER = 14;
+	private static final int PREFWIDTH_CAT_BOX = 200;
 
 	private Category category;
 	private UICategoryBoxContainer parent;
@@ -58,7 +59,7 @@ public class UICategoryBox {
 		this.categoryBox = new ToggleButton();
 		this.categoryBox.setGraphic(this.categoryBoxWrapper);
 		this.categoryBox.getStyleClass().add(STYLECLASS_CAT_BOX);
-		this.categoryBox.setPrefWidth(180);
+		this.categoryBox.setPrefWidth(PREFWIDTH_CAT_BOX);
 		this.categoryBox.setToggleGroup(this.parent.getMainViewToggleGroup());
 		this.categoryBox.setSelected(false);
 		this.categoryBox.setUserData(UIData.USERDATA_CATEGORY);

@@ -26,7 +26,7 @@ public class UIHeader {
 	private void initTitle(){
 		this.title = new Label(LABEL_TITLE);
 		try {
-			this.customFont = Font.loadFont(getClass().getResourceAsStream("fonts/Gentona-Medium.ttf"), 19);
+			this.customFont = Font.loadFont(getClass().getResourceAsStream("fonts/Avenir-Medium.ttf"), 19);
 			this.title.setFont(this.customFont);
 		} catch (Exception e) {
 			this.title.setFont(UIFont.HELVETICA_L);

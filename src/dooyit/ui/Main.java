@@ -70,12 +70,7 @@ public class Main extends Application {
 
 	public Main() {
 	}
-
-	private static void launchDooyit(String[] args) {
-		Main textBuddy = new Main();
-		// textBuddy.init(new Scanner(System.in));
-	}
-
+	
 	public void init(Scanner sc) throws IOException {
 		this.sc = sc;
 		logic = new Logic();
@@ -90,7 +85,6 @@ public class Main extends Application {
 		try {
 			this.ui = new UIController(primaryStage, logic);
 			Scene scene = this.ui.getScene();
-
 			primaryStage.setScene(scene);
 			primaryStage.getIcons().add(new Image(APP_ICON));
 			primaryStage.setTitle(APP_TITLE);
@@ -112,7 +106,6 @@ public class Main extends Application {
 	}
 
 	public static void main(String[] args) {
-		launchDooyit(args);
 		launch(args);
 	}
 

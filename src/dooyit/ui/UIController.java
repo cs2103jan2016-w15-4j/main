@@ -1,13 +1,19 @@
 package dooyit.ui;
 
+// import java.beans.EventHandler;
 import java.util.ArrayList;
 import java.util.Observable;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Toggle;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
@@ -346,6 +352,31 @@ public class UIController {
 		this.scene.heightProperty().addListener(this.resizeListener);
 		this.scene.widthProperty().addListener(this.resizeListener);
 		this.primaryStage.maximizedProperty().addListener(this.maximizeListener);
+		
+		
+		this.scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+			public void handle(final KeyEvent keyEvent) {
+				if (keyEvent.isControlDown()) {
+					KeyCode key = keyEvent.getCode();
+					if (key == KeyCode.T){
+						logic.processCommand(UIData.CMD_SHOW_TODAY);
+					} else if (key == KeyCode.E){
+						logic.processCommand(UIData.CMD_SHOW_EXTENDED);
+					} else if (key == KeyCode.F){
+						logic.processCommand(UIData.CMD_SHOW_FLOAT);
+					} else if (key == KeyCode.A){
+						logic.processCommand(UIData.CMD_SHOW_ALL);
+					} else if (key == KeyCode.D){
+						logic.processCommand(UIData.CMD_SHOW_COMPLETED);
+					}
+				} else {
+					if (!commandBox.isSelected()){
+						commandBox.select();
+					}
+				}
+				keyEvent.consume();
+			}
+		});
 	}
 	
 	private void initStageListeners(){

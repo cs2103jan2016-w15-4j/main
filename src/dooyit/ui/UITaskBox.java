@@ -89,13 +89,14 @@ public class UITaskBox {
 	    } else {
 	    	this.taskPeriod = new Label(UIData.EMP_STR);
 	    }
-	    
-	    try {
-			this.customTaskPeriodFont = Font.loadFont(getClass().getResourceAsStream("fonts/Avenir-Medium.ttf"), 14);
-			this.taskPeriod.setFont(this.customTaskPeriodFont);
-		} catch (Exception e) {
-			this.taskPeriod.setFont(FONT_TASK_PERIOD);
-		}
+		
+//	    try {
+//			this.customTaskPeriodFont = Font.loadFont(getClass().getResourceAsStream("fonts/Avenir-Medium.ttf"), 14);
+//			this.taskPeriod.setFont(this.customTaskPeriodFont);
+//		} catch (Exception e) {
+//			this.taskPeriod.setFont(FONT_TASK_PERIOD);
+//		}
+		this.taskPeriod.setFont(FONT_TASK_PERIOD);
 	    this.taskPeriod.getStyleClass().add(STYLECLASS_TASK_PERIOD);
 	    this.taskPeriod.setPrefWidth(PREFWIDTH_TASK_PERIOD);
 	}

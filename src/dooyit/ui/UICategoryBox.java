@@ -1,7 +1,7 @@
 package dooyit.ui;
 
 import dooyit.common.datatype.Category;
-import dooyit.common.datatype.Colour;
+import dooyit.common.datatype.CustomColor;
 import dooyit.logic.core.*;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -37,7 +37,7 @@ public class UICategoryBox {
 
 		this.categoryName.getStyleClass().add(STYLECLASS_CAT_NAME);
 
-		Colour colour = category.getColour();
+		CustomColor colour = category.getColour();
 		this.categoryCircle = new Circle(4, Color.color(colour.r, colour.g, colour.b));
 		this.categoryCircle.getStyleClass().add(STYLECLASS_CAT_CIRCLE);
 

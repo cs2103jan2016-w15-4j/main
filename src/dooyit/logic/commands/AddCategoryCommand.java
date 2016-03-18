@@ -1,7 +1,7 @@
 package dooyit.logic.commands;
 
 import dooyit.common.datatype.Category;
-import dooyit.common.datatype.Colour;
+import dooyit.common.datatype.CustomColor;
 import dooyit.common.exception.IncorrectInputException;
 import dooyit.logic.core.CategoryManager;
 import dooyit.logic.core.Logic;
@@ -9,14 +9,14 @@ import dooyit.logic.core.Logic;
 public class AddCategoryCommand extends Command {
 
 	private String categoryName;
-	private Colour colour;
+	private CustomColor colour;
 
 	public AddCategoryCommand(String categoryName) {
 		this.categoryName = categoryName;
 		this.colour = null;
 	}
 
-	public AddCategoryCommand(String categoryName, Colour colour) {
+	public AddCategoryCommand(String categoryName, CustomColor colour) {
 		this.categoryName = categoryName;
 		this.colour = colour;
 	}

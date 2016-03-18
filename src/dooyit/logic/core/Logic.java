@@ -56,6 +56,7 @@ public class Logic {
 
 	/**
 	 * process and execute command input from user
+	 * 
 	 * @param input
 	 */
 	public void processCommand(String input) {

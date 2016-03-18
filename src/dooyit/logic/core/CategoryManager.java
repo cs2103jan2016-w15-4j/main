@@ -3,7 +3,7 @@ package dooyit.logic.core;
 import java.util.ArrayList;
 
 import dooyit.common.datatype.Category;
-import dooyit.common.datatype.Colour;
+import dooyit.common.datatype.CustomColor;
 
 public class CategoryManager {
 	ArrayList<Category> categories;
@@ -32,7 +32,7 @@ public class CategoryManager {
 		return category;
 	}
 
-	public Category addCategory(String categoryName, Colour colour) {
+	public Category addCategory(String categoryName, CustomColor colour) {
 		if (findTask(categoryName) != null) {
 			return null;
 		}

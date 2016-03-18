@@ -110,13 +110,13 @@ public class UITaskBox {
 	
 	private void initTaskName(){
 		this.taskName = new Label(this.task.getName());
-	    try {
-	    	this.Avenir_16 = Font.loadFont(getClass().getResourceAsStream("fonts/Avenir-Light.ttf"), 16);
-	    	this.taskName.setFont(this.Avenir_16);
-	    } catch(Exception e) {
-			this.taskName.setFont(FONT_TASK_NAME);
-			System.out.println(e.getMessage());
-	    }
+//	    try {
+//	    	this.Avenir_16 = Font.loadFont(getClass().getResourceAsStream("fonts/Avenir-Light.ttf"), 16);
+//	    	this.taskName.setFont(this.Avenir_16);
+//	    } catch(Exception e) {
+//			this.taskName.setFont(FONT_TASK_NAME);
+//	    }
+	    this.taskName.setFont(FONT_TASK_NAME);
 	    this.taskName.getStyleClass().add(STYLECLASS_TASK_NAME);
 	    double width = this.parent.getStageWidth();
 	    updateTaskNameWidth(width - TASK_NAME_WIDTH_TO_SUBTRACT);

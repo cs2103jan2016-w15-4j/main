@@ -38,10 +38,7 @@ public class UIDayBox {
 		} else {
 			if (taskGroup.getTitle().equals(TASK_GROUP_TODAY)){
 				UIMainViewType activeView = getActiveMainView();
-				if (activeView == UIMainViewType.EXTENDED){
-					setNoTaskMessage();
-				} else if (activeView == UIMainViewType.TODAY){
-					//setNoTaskPane();
+				if (activeView == UIMainViewType.EXTENDED || activeView == UIMainViewType.TODAY){
 					setNoTaskMessage();
 				}
 			}
@@ -77,11 +74,6 @@ public class UIDayBox {
 		this.taskBoxList.add(taskBox);
         HBox taskBoxView = taskBox.getView();
         this.dayBox.getChildren().add(taskBoxView);
-	}
-	
-	private void setNoTaskPane(){
-		VBox taskPaneView = new UITaskPane().getView();
-		this.dayBox.getChildren().add(taskPaneView);
 	}
 	
 	private void setNoTaskMessage(){

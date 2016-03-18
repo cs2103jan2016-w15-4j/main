@@ -30,7 +30,10 @@ public class Category {
 
 	@Override
 	public boolean equals(Object o) {
-		if (o instanceof Category) {
+		if (o instanceof String) {
+			String categoryName = (String) o;
+			return getName().toLowerCase().equals(categoryName.toLowerCase());
+		} else if (o instanceof Category) {
 			Category category = (Category) o;
 			return getName().toLowerCase().equals(category.getName().toLowerCase());
 		}

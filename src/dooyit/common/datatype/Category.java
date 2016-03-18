@@ -1,6 +1,6 @@
 package dooyit.common.datatype;
 
-import java.awt.Color;
+import javafx.scene.paint.Color;
 
 public class Category {
 	private String name;

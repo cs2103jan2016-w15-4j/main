@@ -66,6 +66,10 @@
 	-fx-border-color: #d0d0d0;
 }
 
+.task-pane-icon {
+	-fx-fill: #5AC8FB;
+}
+
 .task-id {
 	-fx-text-fill: #c0c0c0;
 }

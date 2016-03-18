@@ -36,7 +36,6 @@ public class UITaskBox {
 	private static final int PAD_X = 20;
 
 	private Font Avenir_16;
-	private Font customTaskPeriodFont;
 	private UIDayBox parent;
 	private Task task;
 	private CheckBox taskCheckBox;

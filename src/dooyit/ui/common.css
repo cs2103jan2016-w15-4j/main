@@ -117,8 +117,15 @@
 	-fx-padding: 3 5 3 5;
 }
 
-.task-name {
-	
+.task-pane-icon {
+	-glyph-size: 120px;
+}
+
+.task-message {
+	-fx-background-radius: 7;
+	-fx-padding: 0;
+	-fx-border-color: transparent;
+	-fx-border-radius: 7;
 }
 
 .message-box-label {
@@ -146,9 +153,6 @@
 .help-box-content-label {
 	-fx-text-fill: #f0f0f0;	
 }
-
-
-
 
 
 

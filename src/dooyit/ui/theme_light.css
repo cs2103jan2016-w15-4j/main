@@ -66,6 +66,14 @@
 	-fx-border-color: #d0d0d0;
 }
 
+.task-pane-icon {
+	-fx-fill: #f0f0f0;
+}
+
+.task-message {
+	-fx-text-fill: #909090;
+}
+
 .command-helper-list-view:focused, .command-helper-list-view:selected {
 	-fx-background-color: #ff6c57;
 	-fx-text-fill: white;

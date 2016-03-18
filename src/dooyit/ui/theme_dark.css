@@ -69,6 +69,14 @@
 	-fx-border-color: #606060;
 }
 
+.task-pane-icon {
+	-fx-fill: #333F50;
+}
+
+.task-message {
+	
+}
+
 .task-id {
 	-fx-text-fill: #585858;
 }

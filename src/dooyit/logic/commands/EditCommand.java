@@ -62,27 +62,27 @@ public class EditCommand extends Command {
 			Task task = taskManager.findTask(taskId);
 
 			switch (editCommandType) {
-			case NAME:
-				task.changeName(taskName);
-				break;
-
-			case DEADLINE:
-				task.changeDeadline(dateTimeDeadline);
-				break;
-
-			case EVENT:
-				task.changeEvent(dateTimeStart, dateTimeEnd);
-				break;
-
-			case NAME_N_DEADLINE:
-				task.changeName(taskName);
-				task.changeDeadline(dateTimeDeadline);
-				break;
-
-			case NAME_N_EVENT:
-				task.changeName(taskName);
-				task.changeEvent(dateTimeStart, dateTimeEnd);
-				break;
+				case NAME:
+					task.changeName(taskName);
+					break;
+	
+				case DEADLINE:
+					task.changeDeadline(dateTimeDeadline);
+					break;
+	
+				case EVENT:
+					task.changeEvent(dateTimeStart, dateTimeEnd);
+					break;
+	
+				case NAME_N_DEADLINE:
+					task.changeName(taskName);
+					task.changeDeadline(dateTimeDeadline);
+					break;
+	
+				case NAME_N_EVENT:
+					task.changeName(taskName);
+					task.changeEvent(dateTimeStart, dateTimeEnd);
+					break;
 			}
 		} else {
 			throw new IncorrectInputException("Cant find task ID: " + taskId);

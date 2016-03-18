@@ -164,7 +164,8 @@ public class Task {
 		if (o instanceof Task) {
 			Task task = (Task) o;
 			return task.getId() == taskId;
-		} else
+		} else {
 			return false;
+		}
 	}
 }

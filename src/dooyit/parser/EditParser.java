@@ -20,12 +20,14 @@ public class EditParser {
 		NAME, DEADLINE, TIME_START_END, TIME_START, TIME_END, NAME_TIME_START_END, NAME_TIME_START, NAME_TIME_END, NAME_DEADLINE, INVALID
 	};
 
-	public EditParser(String input) {
-		userInput = input.trim();
-		taskId = Integer.parseInt(userInput.split("\\s+")[0].trim());
+	public EditParser() {
+
 	}
 
-	public Command getCommand() {
+	public Command getCommand(String input) {
+		userInput = input.trim();
+		taskId = Integer.parseInt(userInput.split("\\s+")[0].trim());
+		
 		switch (getEditType()) {
 		case NAME:
 			parseName();

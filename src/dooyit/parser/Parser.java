@@ -16,10 +16,23 @@ public class Parser {
 	static final String COMMAND_ADD_CAT = "addcat";
 	static final String COMMAND_SKIN = "skin";
 	static final String COMMAND_STORAGE = "storage";
-	private static final String COMMAND_UNMARK = "unmark";
+	static final String COMMAND_UNMARK = "unmark";
+	private static AddParser addParser;
+	private static ShowParser showParser;
+	private static EditParser editParser;
+	private static AddCatParser addCatParser;
+	private static DeleteParser deleteParser;
+	private static MarkParser markParser;
+	private static UnmarkParser unmarkParser;
 
 	public Parser() {
-
+		addParser = new AddParser();
+		showParser = new ShowParser();
+		editParser = new EditParser();
+		addCatParser = new AddCatParser();
+		deleteParser = new DeleteParser();
+		markParser = new MarkParser();
+		unmarkParser = new UnmarkParser();
 	}
 
 	public Command getCommand(String input) {
@@ -31,39 +44,33 @@ public class Parser {
 		}
 
 		String[] splittedInput = input.split("\\s+", 2);
-		String commandString = splittedInput[0];
+		String commandString = splittedInput[0].toLowerCase();
 
 		Command command = null;
 		// assert false;
-		switch (commandString.toLowerCase()) {
+		switch (commandString) {
 		case COMMAND_ADD:
-			AddParser addParser = new AddParser(getInputWithoutCommand(input, COMMAND_ADD));
-			command = addParser.getCommand();
+			command = addParser.getCommand(getInputWithoutCommand(input, COMMAND_ADD));
 			break;
 
 		case COMMAND_SHOW:
-			ShowParser showParser = new ShowParser(getInputWithoutCommand(input, COMMAND_SHOW));
-			command = showParser.getCommand();
+			command = showParser.getCommand(getInputWithoutCommand(input, COMMAND_SHOW));
 			break;
 
 		case COMMAND_EDIT:
-			EditParser editParser = new EditParser(getInputWithoutCommand(input, COMMAND_EDIT));
-			command = editParser.getCommand();
+			command = editParser.getCommand(getInputWithoutCommand(input, COMMAND_EDIT));
 			break;
 
 		case COMMAND_DELETE:
-			DeleteParser deleteParser = new DeleteParser(getInputWithoutCommand(input, COMMAND_DELETE));
-			command = deleteParser.getCommand();
+			command = deleteParser.getCommand(getInputWithoutCommand(input, COMMAND_DELETE));
 			break;
 
 		case COMMAND_MARK:
-			MarkParser markParser = new MarkParser(getInputWithoutCommand(input, COMMAND_MARK));
-			command = markParser.getCommand();
+			command = markParser.getCommand(getInputWithoutCommand(input, COMMAND_MARK));
 			break;
 
 		case COMMAND_ADD_CAT:
-			AddCatParser addCatParser = new AddCatParser(getInputWithoutCommand(input, COMMAND_ADD_CAT));
-			command = addCatParser.getCommand();
+			command = addCatParser.getCommand(getInputWithoutCommand(input, COMMAND_ADD_CAT));
 			break;
 
 		case COMMAND_SKIN:
@@ -77,8 +84,7 @@ public class Parser {
 			break;
 
 		case COMMAND_UNMARK:
-			UnmarkParser unmarkParser = new UnmarkParser(getInputWithoutCommand(input, COMMAND_MARK));
-			// command = unmarkParser.getCommand();
+			// command = unmarkParser.getCommand(getInputWithoutCommand(input, COMMAND_MARK));
 			break;
 
 		case COMMAND_EXIT:
@@ -93,6 +99,8 @@ public class Parser {
 	}
 
 	private String getInputWithoutCommand(String input, String command) {
-		return input.replace(command, "").trim();
+		String temp = input.substring(command.length()).trim();
+		System.out.println("temp is " + temp);
+		return temp;
 	}
 }

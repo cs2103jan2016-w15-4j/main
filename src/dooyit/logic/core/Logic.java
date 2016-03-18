@@ -54,9 +54,9 @@ public class Logic {
 		logger.log(Level.INFO, "End of initialising logic class");
 	}
 
-	/*
+	/**
 	 * process and execute command input from user
-	 * 
+	 * @param input
 	 */
 	public void processCommand(String input) {
 		Command command = parser.getCommand(input);

@@ -39,7 +39,6 @@ public class AddCommand extends Command {
 	@Override
 	public void execute(Logic logic) throws IncorrectInputException {
 		TaskManager taskManager = logic.getTaskManager();
-
 		assert (taskManager != null);
 
 		switch (taskType) {

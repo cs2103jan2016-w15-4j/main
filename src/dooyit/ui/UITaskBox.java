@@ -101,6 +101,10 @@ public class UITaskBox {
 	}
 	
 	private void initTaskCategoryLabel(){
+		this.taskCategoryLabel = new Label();
+		if (this.task.hasCategory()){
+			
+		}
 		this.taskCategoryLabel = new Label("Category Name");
 	    this.taskCategoryLabel.setFont(FONT_TASK_CATEGORY_LABEL);
 	    this.taskCategoryLabel.getStyleClass().add(STYLECLASS_TASK_CATEGORY_LABEL);

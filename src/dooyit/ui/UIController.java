@@ -1,9 +1,6 @@
 package dooyit.ui;
 
-// import java.beans.EventHandler;
 import java.util.ArrayList;
-import java.util.Observable;
-
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
@@ -11,8 +8,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Toggle;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyCodeCombination;
-import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.web.WebEngine;
@@ -33,7 +28,6 @@ public class UIController {
 	private String urlCssThemeLight;
 	private String urlCssThemeDark;
 	private String urlCssThemeAqua;
-
 	private Scene scene;
 	private BorderPane root;
 	private UIHeader header;
@@ -41,16 +35,13 @@ public class UIController {
 	private UIDayBoxContainer dayBoxContainer;
 	private ScrollPane mainView;
 	private UICommandBox commandBox;
-	private UICommandHelper commandHelper;
 	private UIMessageBox messageBox;
 	private UIHelpBox helpBox;
 	private ChangeListener<Number> resizeListener;
 	private ChangeListener<Boolean> maximizeListener;
-
 	private WebView webView;
 	private WebEngine webEngine;
 	private Stage secWindow;
-
 	private Logic logic;
 	private Stage primaryStage;
 	private UIMainViewType activeMainView;
@@ -239,7 +230,6 @@ public class UIController {
 	
 	private void initCommandBox(){
 		this.commandBox = new UICommandBox();
-		this.commandHelper = new UICommandHelper(this.primaryStage);
 	}
 	
 	private void initMessageBox(){
@@ -270,19 +260,6 @@ public class UIController {
 	}
 	
 	private void initCommandBoxListeners(){
-		// Command text field listener
-		// When value changes, command helper will be displayed
-		this.commandBox.getCommandTextField().textProperty().addListener(new ChangeListener<String>() {
-			@Override
-			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-				if (newValue.equals(UIData.EMP_STR) && commandHelper.isShowing()) {
-					// commandHelper.hide();
-				} else if (!newValue.equals(oldValue) && !commandHelper.isShowing()) {
-					// commandHelper.show();
-				}
-			}
-		});
-
 		// Command text field listener
 		this.commandBox.getCommandTextField().setOnAction((event) -> {
 			String commandString = commandBox.getCommandTextField().getText();

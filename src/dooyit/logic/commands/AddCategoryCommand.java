@@ -10,6 +10,7 @@ public class AddCategoryCommand extends Command {
 
 	private String categoryName;
 	private CustomColor customColor;
+	private String colorString;
 
 	public AddCategoryCommand(String categoryName) {
 		this.categoryName = categoryName;
@@ -19,6 +20,10 @@ public class AddCategoryCommand extends Command {
 	public AddCategoryCommand(String categoryName, CustomColor colour) {
 		this.categoryName = categoryName;
 		this.customColor = colour;
+	}
+	public AddCategoryCommand(String categoryName, String colorString) {
+		this.categoryName = categoryName;
+		this.colorString = colorString;
 	}
 	
 	private boolean hasCustomColor(){

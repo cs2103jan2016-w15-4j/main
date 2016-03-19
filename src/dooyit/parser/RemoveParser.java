@@ -4,10 +4,10 @@ import dooyit.common.exception.IncorrectInputException;
 import dooyit.logic.commands.Command;
 import dooyit.logic.commands.CommandUtils;
 
-public class DeleteParser extends TagParser {
+public class RemoveParser extends TagParser {
 	private static Command command = null;
 
-	public DeleteParser() {
+	public RemoveParser() {
 		super();
 		command = null;
 	}
@@ -22,7 +22,7 @@ public class DeleteParser extends TagParser {
 				command = getInvalidCommand(e.getMessage());
 				break;
 			}
-			command = getSingleTypeDeleteCmd();
+			command = getSingleTypeRemoveCmd();
 			break;
 
 		case MULTIPLE:
@@ -32,7 +32,7 @@ public class DeleteParser extends TagParser {
 				command = getInvalidCommand(e.getMessage());
 				break;
 			}
-			command = getMultipleTypeDeleteCmd();
+			command = getMultipleTypeRemoveCmd();
 			break;
 
 		case INTERVAL:
@@ -42,7 +42,7 @@ public class DeleteParser extends TagParser {
 				command = getInvalidCommand(e.getMessage());
 				break;
 			}
-			command = getIntervalTypeDeleteCmd();
+			command = getIntervalTypeRemoveCmd();
 			break;
 
 		case INVALID:
@@ -52,20 +52,23 @@ public class DeleteParser extends TagParser {
 		return command;
 	}
 
-	private Command getIntervalTypeDeleteCmd() {
-		return CommandUtils.createDeleteCommand(taskIdsForTagging);
+	private Command getIntervalTypeRemoveCmd() {
+		//return CommandUtils.createRemoveCommand(taskIdsForTagging);
+		return null;
 	}
 
 	// Eg. delete 5 6 8
-	private Command getMultipleTypeDeleteCmd() {
-		return CommandUtils.createDeleteCommand(taskIdsForTagging);
+	private Command getMultipleTypeRemoveCmd() {
+		//return CommandUtils.createRemoveCommand(taskIdsForTagging);
+		return null;
 	}
 
-	private Command getSingleTypeDeleteCmd() {
-		return CommandUtils.createDeleteCommand(taskIdForTagging);
+	private Command getSingleTypeRemoveCmd() {
+		//return CommandUtils.createRemoveCommand(taskIdForTagging);
+		return null;
 	}
 
 	private Command getInvalidCmd() {
-		return CommandUtils.createInvalidCommand("Invalid Delete Command!");
+		return CommandUtils.createInvalidCommand("Invalid Remove Command!");
 	}
 }

@@ -23,7 +23,7 @@ public class EditCategoryParser {
 	private boolean hasInsufficientArguments;
 	private boolean hasTooManyWordsInNewCategoryName;
 	
-	public Command command;
+	private static Command command;
 	
 	public EditCategoryParser() {
 		

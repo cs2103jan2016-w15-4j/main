@@ -43,9 +43,7 @@ public class Parser {
 	}
 
 	public Command getCommand(String input) {
-		System.out.println("reached here!");
 		input = input.trim();
-		System.out.println("helloworld");
 
 		if (input == "") {
 			Main.showToUser(Main.MESAGE_EMPTY_COMMAND);
@@ -57,7 +55,6 @@ public class Parser {
 		System.out.println("commandString is " + commandString);
 
 		Command command = null;
-		// assert false;
 		switch (commandString) {
 		case COMMAND_ADD:
 			command = addParser.getCommand(getInputWithoutCommand(input, COMMAND_ADD));
@@ -93,7 +90,6 @@ public class Parser {
 
 		case COMMAND_SKIN:
 			String colour = getInputWithoutCommand(input, COMMAND_SKIN);
-			System.out.println("skin is " + colour);
 			command = CommandUtils.createChangeThemeCommand(colour);
 			break;
 
@@ -118,9 +114,7 @@ public class Parser {
 	}
 
 	private String getInputWithoutCommand(String input, String command) {
-		System.out.println("hello!!!!!");
 		String temp = input.substring(command.length()).trim();
-		System.out.println("temp is " + temp + " and command is " + command);
 		return temp;
 	}
 }

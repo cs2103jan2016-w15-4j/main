@@ -35,7 +35,7 @@ public class ShowCommand extends Command {
 				uiController.refreshMainView(taskManager.getTaskGroupsCompleted(), category);
 			}
 		}
-		
+
 		uiController.setActiveViewType(uiMainViewtype);
 	}
 

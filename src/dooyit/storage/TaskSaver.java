@@ -10,13 +10,14 @@ import com.google.gson.Gson;
 
 import dooyit.common.datatype.Task;
 
-public class TaskSaver extends StorageConstants {
+public class TaskSaver {
+	private String filePath;
 
-	TaskSaver(String filePath) {
+	protected TaskSaver(String filePath) {
 		this.filePath = filePath;
 	}
 
-	public boolean saveTasks(ArrayList<Task> tasks) throws IOException {
+	public boolean save(ArrayList<Task> tasks) throws IOException {
 		File file = new File(filePath);
 		BufferedWriter bWriter = new BufferedWriter(new FileWriter(file));
 
@@ -35,5 +36,13 @@ public class TaskSaver extends StorageConstants {
 		String json = gson.toJson(storageFormat);
 
 		return json;
+	}
+
+	protected void setFileDestination(String path) {
+		this.filePath = path;
+	}
+
+	protected String getFilePath() {
+		return this.filePath;
 	}
 }

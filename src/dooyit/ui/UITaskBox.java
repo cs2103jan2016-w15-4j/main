@@ -16,7 +16,7 @@ public class UITaskBox {
 	private static final int PREFWIDTH_TASK_ID = 30;
 	private static final Font FONT_TASK_NAME = UIFont.EUPHEMIA_M;
 	private static final String STYLECLASS_TASK_NAME = UIStyle.TASK_NAME;
-	private static final int TASK_NAME_WIDTH_TO_SUBTRACT = 280;
+	private static final int TASK_NAME_WIDTH_TO_SUBTRACT = 300;
 	private static final Font FONT_TASK_PERIOD = UIFont.SEGOE_M;
 	private static final String STYLECLASS_TASK_PERIOD = UIStyle.TASK_PERIOD;
 	private static final int PREFWIDTH_TASK_PERIOD = 100;

@@ -10,7 +10,7 @@ public class ShowParser {
 	private static final String DONE = "done";
 	private static final String ALL = "all";
 	private static final String DATE = "date";
-	private static final String CATEGORY = "category";
+	private static final String CATEGORY = "cat";
 	private static final String COMPLETED = "completed";
 	private static final String FLOAT = "float";
 

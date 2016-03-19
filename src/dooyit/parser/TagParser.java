@@ -24,6 +24,7 @@ public class TagParser {
 	
 	public void setVariables(String input) {
 		userInput = input;
+		System.out.println("userInput in setVariables of tagParser is " + userInput);
 		splitInput = userInput.split("\\s+");
 		taskIdsForTagging = new ArrayList<Integer>();
 	}
@@ -65,8 +66,10 @@ public class TagParser {
 
 	public void parseSingleType() throws IncorrectInputException {
 		if (isNumber(splitInput[INDEX_SINGLE])) {
+			System.out.println("taskID is " + splitInput[INDEX_SINGLE]);
 			taskIdForTagging = Integer.parseInt(splitInput[INDEX_SINGLE]);
 		} else {
+			System.out.println("taskID is " + splitInput[INDEX_SINGLE]);
 			throw new IncorrectInputException("Invalid Task ID!");
 		}
 	}

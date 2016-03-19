@@ -34,7 +34,6 @@ public class Parser {
 	private static RemoveParser removeParser;
 
 	public Parser() {
-		System.out.println("initializing parser object");
 		addParser = new AddParser();
 		showParser = new ShowParser();
 		editParser = new EditParser();
@@ -45,7 +44,6 @@ public class Parser {
 		editCatParser = new EditCategoryParser();
 		moveParser = new MoveParser();
 		removeParser = new RemoveParser();
-		System.out.println("parser has finished initialization");
 	}
 
 	public Command getCommand(String input) {
@@ -58,7 +56,6 @@ public class Parser {
 
 		String[] splittedInput = input.split("\\s+", 2);
 		String commandString = splittedInput[0].toLowerCase();
-		System.out.println("commandString is " + commandString);
 
 		Command command = null;
 		switch (commandString) {
@@ -109,6 +106,7 @@ public class Parser {
 			break;
 		
 		case COMMAND_MOVE_TO_CAT:
+			System.out.println("reached move to cat case");
 			command = moveParser.getCommand(getInputWithoutCommand(input, COMMAND_MOVE_TO_CAT));
 			break;
 			
@@ -128,7 +126,6 @@ public class Parser {
 	}
 
 	private String getInputWithoutCommand(String input, String command) {
-		String temp = input.substring(command.length()).trim();
-		return temp;
+		return input.substring(command.length()).trim();
 	}
 }

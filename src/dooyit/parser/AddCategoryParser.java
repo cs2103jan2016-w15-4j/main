@@ -23,7 +23,6 @@ public class AddCategoryParser extends TagParser{
 
 	private static boolean hasTasks;
 	private static boolean hasColour;
-	private static boolean hasTooFewArguments;
 	
 	enum ADD_CATEGORY_TYPE {
 		CREATE_NEW_CATEGORY_WITHOUT_TASKS, CREATE_NEW_CATEGORY_WITH_TASKS, INVALID
@@ -34,6 +33,7 @@ public class AddCategoryParser extends TagParser{
 	}
 
 	public Command getCommand(String input) {
+		System.out.println("input is " + input);
 		resetVariables(input);
 		parse();
 		
@@ -60,7 +60,6 @@ public class AddCategoryParser extends TagParser{
 		catColour = DEFAULT_COLOUR;
 		hasTasks = false;
 		hasColour = false;
-		hasTooFewArguments = false;
 	}
 
 	private Command getCommandToCreateCategoryWithTasks() {
@@ -92,7 +91,7 @@ public class AddCategoryParser extends TagParser{
 				command = getInvalidCommand(e.getMessage());
 				break;
 			}
-			//command = getCreateCategoryCommand(taskIdsForTagging);
+			command = getCreateCategoryCommand(taskIdsForTagging);
 			break;
 
 		case INVALID:
@@ -128,18 +127,19 @@ public class AddCategoryParser extends TagParser{
 	
 	private void parseTaskIds() {
 		if(hasColour) {
-			int indexOfTaskIds = userInput.indexOf(catColour) + catColour.length();
+			int indexOfTaskIds = userInput.indexOf(catColour) + catColour.length() - 1;
 			String taskIdString = userInput.substring(indexOfTaskIds).trim();
 			setVariables(taskIdString);
 		} else {
-			int indexOfTaskIds = userInput.indexOf(catName) + catName.length();
+			int indexOfTaskIds = userInput.indexOf(catName) + catName.length() - 1;
 			String taskIdString = userInput.substring(indexOfTaskIds).trim();
+			System.out.println("taskId string is " + taskIdString);
 			setVariables(taskIdString);
 		}
 	}
 
 	private ADD_CATEGORY_TYPE getCommandType() {
-		if(userInput.equals("") || hasTooFewArguments) {
+		if(userInput.equals("")) {
 			return ADD_CATEGORY_TYPE.INVALID;
 		} else if(hasTasks) {
 			return ADD_CATEGORY_TYPE.CREATE_NEW_CATEGORY_WITH_TASKS;
@@ -150,7 +150,7 @@ public class AddCategoryParser extends TagParser{
 
 	private Command getCommandToCreateCategoryWithoutTasks() {
 		if(hasColour) {
-			//command = CommandUtils.createAddCategoryCommand(catName, catColour);
+			command = CommandUtils.createAddCategoryCommand(catName, catColour);
 		} else { 
 			command = CommandUtils.createAddCategoryCommand(catName);
 		}
@@ -158,11 +158,9 @@ public class AddCategoryParser extends TagParser{
 	}
 
 	private void parse() {
-		String[] inputArr = userInput.split("//s+");
+		String[] inputArr = userInput.split("\\s+");
 		catName = inputArr[INDEX_NAME];
-		if(inputArr.length == 1) {
-			hasTooFewArguments = true;
-		} else {
+		if(inputArr.length != 1) {
 			catColour = inputArr[INDEX_COLOUR];
 			hasColour = !isNumber(catColour);
 		}

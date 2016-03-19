@@ -57,16 +57,18 @@ public class MoveParser extends TagParser {
 	}
 
 	private Command getIntervalTypeMoveCommand() {
-		return CommandUtils.createMoveCommand(catName, taskIdsForTagging);
+		//return CommandUtils.createMoveCommand(catName, taskIdsForTagging);
+		return null;
 	}
 
 	// Eg. delete 5 6 8
 	private Command getMultipleTypeMoveCommand() {
-		return CommandUtils.createMoveCommand(catName, taskIdsForTagging);
+		//return CommandUtils.createMoveCommand(catName, taskIdsForTagging);
+		return null;
 	}
 
 	private Command getSingleTypeMoveCommand() {
-		return CommandUtils.createMoveCommand(catName, taskIdForTagging);
+		return CommandUtils.createSetCategoryCommand(taskIdForTagging, catName);
 	}
 
 	private Command getInvalidCmd() {

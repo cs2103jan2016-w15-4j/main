@@ -19,6 +19,8 @@ public class Parser {
 	static final String COMMAND_UNMARK = "unmark";
 	private static final String COMMAND_DELETE_CAT = "deletecat";
 	private static final String COMMAND_EDIT_CAT = "editcat";
+	private static final String COMMAND_MOVE_TO_CAT = "move";
+	private static final String COMMAND_REMOVE_FROM_CAT = "rm";
 	private static AddParser addParser;
 	private static ShowParser showParser;
 	private static EditParser editParser;
@@ -28,6 +30,8 @@ public class Parser {
 	private static UnmarkParser unmarkParser;
 	private static DeleteCategoryParser deleteCatParser;
 	private static EditCategoryParser editCatParser;
+	private static MoveParser moveParser;
+	private static RemoveParser removeParser;
 
 	public Parser() {
 		System.out.println("initializing parser object");
@@ -39,6 +43,8 @@ public class Parser {
 		markParser = new MarkParser();
 		unmarkParser = new UnmarkParser();
 		editCatParser = new EditCategoryParser();
+		moveParser = new MoveParser();
+		removeParser = new RemoveParser();
 		System.out.println("parser has finished initialization");
 	}
 
@@ -95,11 +101,19 @@ public class Parser {
 
 		case COMMAND_STORAGE:
 			String filePath = getInputWithoutCommand(input, COMMAND_STORAGE);
-			// command = CommandUtils.createStorageCommand(filePath);
+			command = CommandUtils.createStorageCommand(filePath);
 			break;
 
 		case COMMAND_UNMARK:
-			// command = unmarkParser.getCommand(getInputWithoutCommand(input, COMMAND_MARK));
+			command = unmarkParser.getCommand(getInputWithoutCommand(input, COMMAND_MARK));
+			break;
+		
+		case COMMAND_MOVE_TO_CAT:
+			command = moveParser.getCommand(getInputWithoutCommand(input, COMMAND_MOVE_TO_CAT));
+			break;
+			
+		case COMMAND_REMOVE_FROM_CAT:
+			command = removeParser.getCommand(getInputWithoutCommand(input, COMMAND_REMOVE_FROM_CAT));
 			break;
 
 		case COMMAND_EXIT:

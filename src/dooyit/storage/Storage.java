@@ -2,6 +2,7 @@ package dooyit.storage;
 
 import java.util.ArrayList;
 import java.util.logging.Logger;
+
 import java.util.logging.Level;
 
 import java.io.BufferedReader;
@@ -13,29 +14,31 @@ import java.io.IOException;
 
 import dooyit.storage.TaskController;
 import dooyit.storage.CategoryController;
-import dooyit.storage.StorageConstants;
 import dooyit.common.datatype.Category;
 import dooyit.common.datatype.Task;
+import dooyit.common.exception.InvalidFilePathException;
 import dooyit.logic.core.CategoryManager;
 import dooyit.logic.core.TaskManager;
 
-public class Storage {
+public class Storage extends StorageConstants {
+	
+	private static final int TASK_DESTINATION = 0;
+	private static final int THEME_DESTINATION = 1;
 
-	String currentPath;
 	String configFilePath;
-	String filePath;
-	CategoryController catControl;
+	String[] preferences;
+	CategoryController categoryControl;
 	TaskController taskControl;
 	private static Logger logger = Logger.getLogger("Storage");
 
 	static final String NAME_FILE_CONFIG = "config.txt";
 
 	public Storage() throws IOException {
-		currentPath = System.getProperty("user.dir");
-		configFilePath = getConfigPath(currentPath);
-		filePath = getTaskDestination(configFilePath);
-		catControl = new CategoryController(currentPath);
-		taskControl = new TaskController(filePath);
+		preferences = new String[2];
+		configFilePath = getConfigPath(CURRENT_DIRECTORY);
+		preferences = getPreferences(configFilePath);
+		categoryControl = new CategoryController(CURRENT_DIRECTORY);
+		taskControl = new TaskController(preferences[0]);
 	}
 
 	private String getConfigPath(String currentPath) {
@@ -43,35 +46,36 @@ public class Storage {
 		return currentPath + File.separatorChar + NAME_FILE_CONFIG;
 	}
 
-	public boolean setFileDestination(String newFilePath) throws IOException {
+	public boolean setFileDestination(String newFilePath) throws IOException, InvalidFilePathException {
 		logger.log(Level.INFO, "Changing save destination");
-		boolean isNotEmpty = !newFilePath.equals("");
-		assert isNotEmpty;
-		modifyConfig(newFilePath);
+		boolean isValid = isValidSavePath(newFilePath);
+		assert isValid;
+		preferences[TASK_DESTINATION] = newFilePath;
+		modifyConfig(preferences);
 		taskControl.setFileDestination(newFilePath);
 
 		return true;
 	}
 
 	public boolean saveTasks(ArrayList<Task> tasks) throws IOException {
-		logger.log(Level.INFO, "Attempting to save tasks\n");
+		logger.log(Level.INFO, "Attempting to save tasks to " + preferences);
 		assert tasks != null;
 		if (taskControl.save(tasks)) {
-			logger.log(Level.INFO, "Successfully saved tasks!\n");
+			logger.log(Level.INFO, "Successfully saved tasks!");
 			return true;
 		} else {
-			logger.log(Level.SEVERE, "Failed to save tasks\n");
+			logger.log(Level.SEVERE, "Failed to save tasks");
 			return false;
 		}
 
 	}
 
 	public boolean loadTasks(TaskManager taskManager) throws IOException {
-		logger.log(Level.INFO, "Checking if Task Manager is there\n");
+		logger.log(Level.INFO, "Checking if Task Manager is there");
 		assert taskManager != null;
-		logger.log(Level.INFO, "Attempting to load tasks\n");
+		logger.log(Level.INFO, "Attempting to load tasks from " + preferences);
 		if (taskControl.load(taskManager)) {
-			logger.log(Level.INFO, "Successfully loaded tasks!\n");
+			logger.log(Level.INFO, "Successfully loaded tasks!");
 			return true;
 		} else {
 			logger.log(Level.SEVERE, "Failed to load tasks");
@@ -81,43 +85,81 @@ public class Storage {
 
 	public boolean saveCategory(ArrayList<Category> categories) throws IOException {
 		assert categories != null;
-		return catControl.saveCategory(categories);
+		return categoryControl.save(categories);
 	}
 
 	public boolean loadCategory(CategoryManager categoryManager) throws IOException {
 		assert categoryManager != null;
-		return catControl.loadCategory(categoryManager);
+		return categoryControl.load(categoryManager);
 	}
 
-	private String getTaskDestination(String configFilePath) throws IOException {
+	private String[] getPreferences(String configFilePath) throws IOException {
 		File configFile = new File(configFilePath);
-		String saveDestination = "";
+		String[] preferences = new String[2];
 		if (configFile.exists()) {
 			BufferedReader bReader = new BufferedReader(new FileReader(configFile));
-			saveDestination = bReader.readLine();
+			for(int i=0; i<preferences.length; i++) {
+				preferences[i] = bReader.readLine();
+			}
 			bReader.close();
-		} else {
-			String defaultSavePath = setDefaultPath(currentPath);
-			modifyConfig(defaultSavePath);
-			return defaultSavePath;
 		}
-
-		return saveDestination;
+		
+		if(!isValidLoadPath(preferences[0])) {
+			preferences[TASK_DESTINATION] = setDefaultPath(CURRENT_DIRECTORY, DEFAULT_TASKS_DESTINATION);
+		}
+		if(!isValidThemePath(preferences[1])) {
+			preferences[THEME_DESTINATION] = setDefaultPath(CURRENT_DIRECTORY, DEFAULT_THEME_DESTINATION);
+		}
+		
+		modifyConfig(preferences);
+		
+		return preferences;
+	}
+	
+	private boolean isValidSavePath(String filePath) throws InvalidFilePathException {
+		if(!filePath.endsWith(".txt")) {
+			throw new InvalidFilePathException("MISSING FILE EXTENSON \".txt\"");
+		}
+	
+		return true;
 	}
 
-	public String getTaskDestination() throws IOException {
-		return taskControl.getSaveDestination();
+	private boolean isValidLoadPath(String filePath) {
+		if (filePath == null) {
+			return false;
+		} else if (!filePath.endsWith(".txt")) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
+	private boolean isValidThemePath(String filePath) {
+		if (filePath == null) {
+			return false;
+		} else if (!filePath.endsWith(".css")) {
+			return false;
+		} else {
+			return true;
+		}
 	}
 
-	private String setDefaultPath(String currentPath) {
-		String path = currentPath + StorageConstants.DEFAULT_TASKS_DESTINATION;
+	public String getFilePath() throws IOException {
+		return taskControl.getFilePath();
+	}
+
+	private String setDefaultPath(String currentPath, String type) {
+		String path = currentPath + type;
 		return path;
 	}
 
-	private void modifyConfig(String newFilePath) throws IOException {
+	private void modifyConfig(String[] preferences) throws IOException {
 		File configFile = new File(configFilePath);
 		BufferedWriter bWriter = new BufferedWriter(new FileWriter(configFile));
-		bWriter.write(newFilePath);
+		for (String path : preferences) {
+			bWriter.append(path);
+			bWriter.newLine();
+		}
 		bWriter.close();
 	}
 }

@@ -65,7 +65,7 @@ public class UIDayBox {
 	}
 	
 	private void displayNoTasks(){
-		if (this.taskGroup.getTitle().equals(UIData.TODAY)){
+		if (this.taskGroup.getTitle().contains(UIData.TODAY)){
 			UIMainViewType activeView = getActiveMainView();
 			if (activeView == UIMainViewType.EXTENDED || activeView == UIMainViewType.TODAY){
 				setNoTaskMessage();

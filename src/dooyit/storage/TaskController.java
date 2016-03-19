@@ -6,30 +6,29 @@ import java.util.ArrayList;
 import dooyit.common.datatype.Task;
 import dooyit.logic.core.TaskManager;
 
-public class TaskController extends StorageConstants {
-	TaskSaver saver;
-	TaskLoader loader;
+public class TaskController {
+	TaskSaver taskSaver;
+	TaskLoader taskLoader;
 
 	public TaskController(String filePath) {
-		this.filePath = filePath;
-		loader = new TaskLoader(filePath);
-		saver = new TaskSaver(filePath);
+		taskLoader = new TaskLoader(filePath);
+		taskSaver = new TaskSaver(filePath);
 	}
 
 	protected void setFileDestination(String newFilePath) {
-		saver.setFileDestination(newFilePath);
-		loader.setFileDestination(newFilePath);
+		taskSaver.setFileDestination(newFilePath);
+		taskLoader.setFileDestination(newFilePath);
 	}
 
 	protected boolean save(ArrayList<Task> tasks) throws IOException {
-		return saver.saveTasks(tasks);
+		return taskSaver.save(tasks);
 	}
 
 	protected boolean load(TaskManager taskManager) throws IOException {
-		return loader.loadTasks(taskManager);
+		return taskLoader.load(taskManager);
 	}
 
-	public String getSaveDestination() {
-		return filePath;
+	protected String getFilePath() {
+		return taskSaver.getFilePath();
 	}
 }

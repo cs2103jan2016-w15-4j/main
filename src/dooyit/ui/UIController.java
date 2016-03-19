@@ -50,7 +50,7 @@ public class UIController {
 	    this.logic = logic;
 	    this.primaryStage = primaryStage;
 	    initialize();
-	    
+	    setActiveMenuButton(UIMainViewType.TODAY);
 	}
 	
 	private void initialize(){

@@ -114,7 +114,11 @@ public class Logic {
 		case COMPLETED:
 			uiController.refreshMainView(taskManager.getTaskGroupsCompleted());
 			break;
-
+			
+		case FLOAT:
+			uiController.refreshMainView(taskManager.getTaskGroupsFloating());
+			break;
+			
 		case CATEGORY:
 
 			break;

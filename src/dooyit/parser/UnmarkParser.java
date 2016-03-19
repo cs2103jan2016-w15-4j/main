@@ -22,7 +22,7 @@ public class UnmarkParser extends TagParser{
 				command = getInvalidCommand(e.getMessage());
 				break;
 			}
-			command = getSingleTypeUnmarkCmd();
+			command = getSingleTypeUnmarkCommand();
 			break;
 
 		case MULTIPLE:
@@ -32,7 +32,7 @@ public class UnmarkParser extends TagParser{
 				command = getInvalidCommand(e.getMessage());
 				break;
 			}
-			command = getMultipleTypeUnmarkCmd();
+			command = getMultipleTypeUnmarkCommand();
 			break;
 
 		case INTERVAL:
@@ -42,7 +42,7 @@ public class UnmarkParser extends TagParser{
 				command = getInvalidCommand(e.getMessage());
 				break;
 			}
-			command = getIntervalTypeUnmarkCmd();
+			command = getIntervalTypeUnmarkCommand();
 			break;
 
 		case INVALID:
@@ -52,18 +52,18 @@ public class UnmarkParser extends TagParser{
 		return command;
 	}
 
-	private Command getIntervalTypeUnmarkCmd() {
+	private Command getIntervalTypeUnmarkCommand() {
 		return null;
 		// return CommandUtils.createUnmarkCommand(taskIdsForTagging);
 	}
 	
 	// Eg. unmark 2 4 0 9
-	private Command getMultipleTypeUnmarkCmd() {
+	private Command getMultipleTypeUnmarkCommand() {
 		return null;
 		// return CommandUtils.createUnmarkCommand(taskIdsForTagging);
 	}
 
-	private Command getSingleTypeUnmarkCmd() {
+	private Command getSingleTypeUnmarkCommand() {
 		return null;
 		// return CommandUtils.createUnmarkCommand(taskIdForTagging);
 	}

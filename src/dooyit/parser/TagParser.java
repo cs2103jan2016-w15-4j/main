@@ -64,8 +64,6 @@ public class TagParser {
 	}
 
 	public void parseSingleType() throws IncorrectInputException {
-		// System.out.println("currWord at parseSingleType() is " +
-		// splitInput[INDEX_SINGLE]);
 		if (isNumber(splitInput[INDEX_SINGLE])) {
 			taskIdForTagging = Integer.parseInt(splitInput[INDEX_SINGLE]);
 		} else {

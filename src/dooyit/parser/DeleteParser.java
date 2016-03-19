@@ -22,7 +22,7 @@ public class DeleteParser extends TagParser {
 				command = getInvalidCommand(e.getMessage());
 				break;
 			}
-			command = getSingleTypeDeleteCmd();
+			command = getSingleTypeDeleteCommand();
 			break;
 
 		case MULTIPLE:
@@ -32,7 +32,7 @@ public class DeleteParser extends TagParser {
 				command = getInvalidCommand(e.getMessage());
 				break;
 			}
-			command = getMultipleTypeDeleteCmd();
+			command = getMultipleTypeDeleteCommand();
 			break;
 
 		case INTERVAL:
@@ -42,7 +42,7 @@ public class DeleteParser extends TagParser {
 				command = getInvalidCommand(e.getMessage());
 				break;
 			}
-			command = getIntervalTypeDeleteCmd();
+			command = getIntervalTypeDeleteCommand();
 			break;
 
 		case INVALID:
@@ -52,16 +52,16 @@ public class DeleteParser extends TagParser {
 		return command;
 	}
 
-	private Command getIntervalTypeDeleteCmd() {
+	private Command getIntervalTypeDeleteCommand() {
 		return CommandUtils.createDeleteCommand(taskIdsForTagging);
 	}
 
 	// Eg. delete 5 6 8
-	private Command getMultipleTypeDeleteCmd() {
+	private Command getMultipleTypeDeleteCommand() {
 		return CommandUtils.createDeleteCommand(taskIdsForTagging);
 	}
 
-	private Command getSingleTypeDeleteCmd() {
+	private Command getSingleTypeDeleteCommand() {
 		return CommandUtils.createDeleteCommand(taskIdForTagging);
 	}
 

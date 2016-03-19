@@ -37,63 +37,63 @@ public class AddParser {
 			try {
 				parseFloat();
 			} catch (IncorrectInputException e) {
-				setToInvalidCmd(e.getMessage());
+				setToInvalidCommand(e.getMessage());
 				break;
 			}
-			setToFloatCmd();
+			setToFloatCommand();
 			break;
 
 		case WORK:
 			try {
 				parseWork();
 			} catch (IncorrectInputException e) {
-				setToInvalidCmd(e.getMessage());
+				setToInvalidCommand(e.getMessage());
 				break;
 			}
-			setToWorkCmd();
+			setToWorkCommand();
 			break;
 
 		case EVENT:
 			try {
 				parseEvent();
 			} catch (IncorrectInputException e) {
-				setToInvalidCmd(e.getMessage());
+				setToInvalidCommand(e.getMessage());
 				break;
 			}
-			setToEventCmd();
+			setToEventCommand();
 			break;
 
 		case CATEGORY_AND_FLOATING:
 			try {
 				parseCategoryAndFloating();
 			} catch (IncorrectInputException e) {
-				setToInvalidCmd(e.getMessage());
+				setToInvalidCommand(e.getMessage());
 				break;
 			}
-			setCategoryAndFloatingCmd();
+			setCategoryAndFloatingCommand();
 			break;
 
 		case CATEGORY_AND_WORK:
 			try {
 				parseCategoryAndWork();
 			} catch (IncorrectInputException e) {
-				setToInvalidCmd(e.getMessage());
+				setToInvalidCommand(e.getMessage());
 				break;
 			}
-			setCategoryAndWorkCmd();
+			setCategoryAndWorkCommand();
 			break;
 
 		case CATEGORY_AND_EVENT:
 			try {
 				parseCategoryAndEvent();
 			} catch (IncorrectInputException e) {
-				setToInvalidCmd(e.getMessage());
+				setToInvalidCommand(e.getMessage());
 			}
-			setCategoryAndEventCmd();
+			setCategoryAndEventCommand();
 			break;
 
 		case INVALID:
-			setToInvalidCmd("Invalid input!");
+			setToInvalidCommand("Invalid input!");
 		}
 
 		return cmd;
@@ -128,34 +128,34 @@ public class AddParser {
 		return currWord.matches("[0-9]+");
 	}
 
-	private void setCategoryAndEventCmd() {
+	private void setCategoryAndEventCommand() {
 		// cmd = CommandUtils.createAddCommandCategory(taskName, start, end,
 		// categoryId, categoryName);
 	}
 
-	private void setCategoryAndWorkCmd() {
+	private void setCategoryAndWorkCommand() {
 		// cmd = CommandUtils.createAddCommandCategory(taskName, deadline,
 		// categoryId, categoryName);
 	}
 
-	private void setCategoryAndFloatingCmd() {
+	private void setCategoryAndFloatingCommand() {
 		// cmd = CommandUtils.createAddCommandCategory(taskName, categoryId,
 		// categoryName);
 	}
 
-	private void setToInvalidCmd(String message) {
+	private void setToInvalidCommand(String message) {
 		cmd = CommandUtils.createInvalidCommand(message);
 	}
 
-	private void setToEventCmd() {
+	private void setToEventCommand() {
 		cmd = CommandUtils.createAddCommandEvent(taskName, start, end);
 	}
 
-	private void setToWorkCmd() {
+	private void setToWorkCommand() {
 		cmd = CommandUtils.createAddCommandDeadline(taskName, deadline);
 	}
 
-	private void setToFloatCmd() {
+	private void setToFloatCommand() {
 		cmd = CommandUtils.createAddCommandFloat(taskName);
 	}
 

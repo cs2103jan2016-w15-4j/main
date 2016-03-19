@@ -22,7 +22,7 @@ public class MarkParser extends TagParser{
 				command = getInvalidCommand(e.getMessage());
 				break;
 			}
-			command = getSingleTypeMarkCmd();
+			command = getSingleTypeMarkCommand();
 			break;
 
 		case MULTIPLE:
@@ -32,7 +32,7 @@ public class MarkParser extends TagParser{
 				command = getInvalidCommand(e.getMessage());
 				break;
 			}
-			command = getMultipleTypeMarkCmd();
+			command = getMultipleTypeMarkCommand();
 			break;
 
 		case INTERVAL:
@@ -42,7 +42,7 @@ public class MarkParser extends TagParser{
 				command = getInvalidCommand(e.getMessage());
 				break;
 			}
-			command = getIntervalTypeMarkCmd();
+			command = getIntervalTypeMarkCommand();
 			break;
 
 		default:
@@ -52,16 +52,16 @@ public class MarkParser extends TagParser{
 		return command;
 	}
 
-	private Command getIntervalTypeMarkCmd() {
+	private Command getIntervalTypeMarkCommand() {
 		return CommandUtils.createMarkCommand(taskIdsForTagging);
 	}
 
 	// Eg. mark 2 4 0 9
-	private Command getMultipleTypeMarkCmd() {
+	private Command getMultipleTypeMarkCommand() {
 		return CommandUtils.createMarkCommand(taskIdsForTagging);
 	}
 
-	private Command getSingleTypeMarkCmd() {
+	private Command getSingleTypeMarkCommand() {
 		return CommandUtils.createMarkCommand(taskIdForTagging);
 	}
 

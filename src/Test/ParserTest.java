@@ -12,11 +12,11 @@ import org.powermock.modules.junit4.PowerMockRunner;
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(Parser.class)
 public class ParserTest {
-	private Parser parser = new Parser();
+	//private Parser parser = new Parser();
 	
 	@Test
 	public void testAddFloatingTask() {
 		String userInput = "add floatingTask";
-		Command command = parser.getCommand(userInput);
+		//Command command = parser.getCommand(userInput);
 	}
 }

@@ -5,11 +5,11 @@ import dooyit.logic.commands.Command;
 import dooyit.logic.commands.CommandUtils;
 
 public class UnmarkParser extends TagParser{
-	private static Command cmd = null;
+	private static Command command = null;
 
 	public UnmarkParser() {
 		super();
-		cmd = null;
+		command = null;
 	}
 
 	public Command getCommand(String input) throws IncorrectInputException {
@@ -19,37 +19,37 @@ public class UnmarkParser extends TagParser{
 			try {
 				parseSingleType();
 			} catch (IncorrectInputException e) {
-				cmd = getInvalidCommand(e.getMessage());
+				command = getInvalidCommand(e.getMessage());
 				break;
 			}
-			cmd = getSingleTypeUnmarkCmd();
+			command = getSingleTypeUnmarkCmd();
 			break;
 
 		case MULTIPLE:
 			try {
 				parseMultipleType();
 			} catch (IncorrectInputException e) {
-				cmd = getInvalidCommand(e.getMessage());
+				command = getInvalidCommand(e.getMessage());
 				break;
 			}
-			cmd = getMultipleTypeUnmarkCmd();
+			command = getMultipleTypeUnmarkCmd();
 			break;
 
 		case INTERVAL:
 			try {
 				parseIntervalType();
 			} catch (IncorrectInputException e) {
-				cmd = getInvalidCommand(e.getMessage());
+				command = getInvalidCommand(e.getMessage());
 				break;
 			}
-			cmd = getIntervalTypeUnmarkCmd();
+			command = getIntervalTypeUnmarkCmd();
 			break;
 
 		case INVALID:
-			cmd = getInvalidCmd();
+			command = getInvalidCmd();
 			break;
 		}
-		return cmd;
+		return command;
 	}
 
 	private Command getIntervalTypeUnmarkCmd() {

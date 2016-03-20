@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import dooyit.common.exception.IncorrectInputException;
 import dooyit.logic.core.LogicController;
-import dooyit.storage.Storage;
+import dooyit.storage.StorageController;
 
 public class StorageCommand extends Command {
 
@@ -16,7 +16,7 @@ public class StorageCommand extends Command {
 
 	@Override
 	public void execute(LogicController logic) throws IncorrectInputException {
-		Storage storage = logic.getStorage();
+		StorageController storage = logic.getStorage();
 
 		try {
 			storage.setFileDestination(path);

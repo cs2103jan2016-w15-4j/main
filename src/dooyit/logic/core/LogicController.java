@@ -1,6 +1,6 @@
 package dooyit.logic.core;
 
-import dooyit.storage.Storage;
+import dooyit.storage.StorageController;
 
 import dooyit.ui.UIController;
 import dooyit.ui.UIMainViewType;
@@ -19,7 +19,7 @@ public class LogicController {
 	private Parser parser;
 	private TaskManager taskManager;
 	private CategoryManager categoryManager;
-	private Storage storage;
+	private StorageController storage;
 	private UIController uiController;
 	private static Logger logger = Logger.getLogger("Logic");
 
@@ -31,7 +31,7 @@ public class LogicController {
 		categoryManager = new CategoryManager();
 
 		try {
-			storage = new Storage();
+			storage = new StorageController();
 		} catch (IOException e) {
 			logger.log(Level.SEVERE, "ERROR: Fail to create storage");
 			uiController.displayMessage("ERROR: CREATING STORAGE");
@@ -160,7 +160,7 @@ public class LogicController {
 	 * 
 	 * @return Storage
 	 */
-	public Storage getStorage() {
+	public StorageController getStorage() {
 		return storage;
 	}
 

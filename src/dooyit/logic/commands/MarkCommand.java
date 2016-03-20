@@ -3,7 +3,7 @@ package dooyit.logic.commands;
 import java.util.ArrayList;
 
 import dooyit.common.exception.IncorrectInputException;
-import dooyit.logic.core.Logic;
+import dooyit.logic.core.LogicController;
 import dooyit.logic.core.TaskManager;
 
 public class MarkCommand extends Command {
@@ -30,7 +30,7 @@ public class MarkCommand extends Command {
 	}
 
 	@Override
-	public void execute(Logic logic) throws IncorrectInputException {
+	public void execute(LogicController logic) throws IncorrectInputException {
 		TaskManager taskManager = logic.getTaskManager();
 		assert (taskManager != null);
 

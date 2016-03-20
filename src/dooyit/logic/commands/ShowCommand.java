@@ -3,7 +3,7 @@ package dooyit.logic.commands;
 import dooyit.common.datatype.Category;
 import dooyit.common.exception.IncorrectInputException;
 import dooyit.logic.core.CategoryManager;
-import dooyit.logic.core.Logic;
+import dooyit.logic.core.LogicController;
 import dooyit.logic.core.TaskManager;
 import dooyit.ui.UIController;
 import dooyit.ui.UIMainViewType;
@@ -23,7 +23,7 @@ public class ShowCommand extends Command {
 	}
 
 	@Override
-	public void execute(Logic logic) throws IncorrectInputException {
+	public void execute(LogicController logic) throws IncorrectInputException {
 		UIController uiController = logic.getUIController();
 		CategoryManager categoryManager = logic.getCategoryManager();
 		TaskManager taskManager = logic.getTaskManager();

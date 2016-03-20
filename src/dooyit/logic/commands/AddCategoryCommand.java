@@ -4,7 +4,7 @@ import dooyit.common.datatype.Category;
 import dooyit.common.datatype.CustomColor;
 import dooyit.common.exception.IncorrectInputException;
 import dooyit.logic.core.CategoryManager;
-import dooyit.logic.core.Logic;
+import dooyit.logic.core.LogicController;
 
 public class AddCategoryCommand extends Command {
 
@@ -31,7 +31,7 @@ public class AddCategoryCommand extends Command {
 	}
 
 	@Override
-	public void execute(Logic logic) throws IncorrectInputException {
+	public void execute(LogicController logic) throws IncorrectInputException {
 		CategoryManager categoryManager = logic.getCategoryManager();
 		Category category;
 

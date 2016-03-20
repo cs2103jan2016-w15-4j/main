@@ -5,7 +5,7 @@ import dooyit.common.datatype.CustomColor;
 import dooyit.common.datatype.Task;
 import dooyit.common.exception.IncorrectInputException;
 import dooyit.logic.core.CategoryManager;
-import dooyit.logic.core.Logic;
+import dooyit.logic.core.LogicController;
 import dooyit.logic.core.TaskManager;
 
 public class SetCategoryCommand extends Command {
@@ -20,7 +20,7 @@ public class SetCategoryCommand extends Command {
 	}
 
 	@Override
-	public void execute(Logic logic) throws IncorrectInputException {
+	public void execute(LogicController logic) throws IncorrectInputException {
 		TaskManager taskManager = logic.getTaskManager();
 		CategoryManager categoryManager = logic.getCategoryManager();
 

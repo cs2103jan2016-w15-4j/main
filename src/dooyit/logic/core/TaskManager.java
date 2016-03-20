@@ -15,15 +15,15 @@ public class TaskManager {
 		tasks = new ArrayList<Task>();
 	}
 
-	public Task AddTaskFloat(String data) {
+	public Task addFloatingTask(String data) {
 		return AddTaskFloat(data, false);
 	}
 
-	public Task AddTaskDeadline(String data, DateTime dateTime) {
+	public Task addDeadlineTask(String data, DateTime dateTime) {
 		return AddTaskDeadline(data, dateTime, false);
 	}
 
-	public Task AddTaskEvent(String data, DateTime start, DateTime end) {
+	public Task addEventTask(String data, DateTime start, DateTime end) {
 		return AddTaskEvent(data, start, end, false);
 	}
 

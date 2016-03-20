@@ -14,7 +14,7 @@ import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class Logic {
+public class LogicController {
 
 	private Parser parser;
 	private TaskManager taskManager;
@@ -23,7 +23,7 @@ public class Logic {
 	private UIController uiController;
 	private static Logger logger = Logger.getLogger("Logic");
 
-	public Logic() {
+	public LogicController() {
 		logger.log(Level.INFO, "Initialising logic class");
 
 		parser = new Parser();

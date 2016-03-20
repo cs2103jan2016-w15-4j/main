@@ -3,7 +3,7 @@ package dooyit.logic.commands;
 import dooyit.common.datatype.DateTime;
 import dooyit.common.datatype.Task;
 import dooyit.common.exception.IncorrectInputException;
-import dooyit.logic.core.Logic;
+import dooyit.logic.core.LogicController;
 import dooyit.logic.core.TaskManager;
 
 public class AddCommand extends Command {
@@ -37,21 +37,21 @@ public class AddCommand extends Command {
 	}
 
 	@Override
-	public void execute(Logic logic) throws IncorrectInputException {
+	public void execute(LogicController logic) throws IncorrectInputException {
 		TaskManager taskManager = logic.getTaskManager();
 		assert (taskManager != null);
 
 		switch (taskType) {
 		case FLOATING:
-			taskManager.AddTaskFloat(taskName);
+			taskManager.addFloatingTask(taskName);
 			break;
 
 		case DEADLINE:
-			taskManager.AddTaskDeadline(taskName, dateTimeDeadline);
+			taskManager.addDeadlineTask(taskName, dateTimeDeadline);
 			break;
 
 		case EVENT:
-			taskManager.AddTaskEvent(taskName, dateTimeStart, dateTimeEnd);
+			taskManager.addEventTask(taskName, dateTimeStart, dateTimeEnd);
 			break;
 		}
 	}

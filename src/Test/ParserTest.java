@@ -19,7 +19,7 @@ public class ParserTest {
 		String userInput = "29 March 2016";
 		DateTimeParser dateTimeParser = PowerMockito.spy(new DateTimeParser());
 		dateTimeParser.parse(userInput);
-		PowerMockito.when(dateTimeParser, "parse", userInput)
+		//PowerMockito.when(dateTimeParser, "parse", userInput;
 		
 		//Command command = parser.getCommand(userInput);
 	}

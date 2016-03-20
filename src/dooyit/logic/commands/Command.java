@@ -3,7 +3,7 @@ package dooyit.logic.commands;
 import com.sun.istack.internal.logging.Logger;
 
 import dooyit.common.exception.IncorrectInputException;
-import dooyit.logic.core.Logic;
+import dooyit.logic.core.LogicController;
 
 public abstract class Command {
 
@@ -23,5 +23,5 @@ public abstract class Command {
 
 	}
 
-	public abstract void execute(Logic logic) throws IncorrectInputException;
+	public abstract void execute(LogicController logic) throws IncorrectInputException;
 }

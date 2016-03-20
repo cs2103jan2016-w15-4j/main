@@ -42,11 +42,11 @@ public class UIController {
 	private WebView webView;
 	private WebEngine webEngine;
 	private Stage secWindow;
-	private Logic logic;
+	private LogicController logic;
 	private Stage primaryStage;
 	private UIMainViewType activeMainView;
 	
-	public UIController(Stage primaryStage, Logic logic){
+	public UIController(Stage primaryStage, LogicController logic){
 	    this.logic = logic;
 	    this.primaryStage = primaryStage;
 	    initialize();

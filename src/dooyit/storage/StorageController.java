@@ -20,30 +20,30 @@ import dooyit.common.exception.InvalidFilePathException;
 import dooyit.logic.core.CategoryManager;
 import dooyit.logic.core.TaskManager;
 
-public class Storage extends StorageConstants {
+public class StorageController extends StorageConstants {
 	
 	private static final int TASK_DESTINATION = 0;
 	private static final int THEME_DESTINATION = 1;
 
-	String configFilePath;
-	String[] preferences;
-	CategoryController categoryControl;
-	TaskController taskControl;
+	private String configFilePath;
+	private String[] preferences;
+	private CategoryController categoryControl;
+	private TaskController taskControl;
 	private static Logger logger = Logger.getLogger("Storage");
 
 	static final String NAME_FILE_CONFIG = "config.txt";
 
-	public Storage() throws IOException {
+	public StorageController() throws IOException {
 		preferences = new String[2];
 		configFilePath = getConfigPath(CURRENT_DIRECTORY);
-		preferences = getPreferences(configFilePath);
+		preferences = loadPreferences(configFilePath);
 		categoryControl = new CategoryController(CURRENT_DIRECTORY);
 		taskControl = new TaskController(preferences[0]);
 	}
 
 	private String getConfigPath(String currentPath) {
 		logger.log(Level.INFO, "Getting save destination");
-		return currentPath + File.separatorChar + NAME_FILE_CONFIG;
+		return currentPath + SEPARATOR_CHAR + NAME_FILE_CONFIG;
 	}
 
 	public boolean setFileDestination(String newFilePath) throws IOException, InvalidFilePathException {
@@ -93,7 +93,7 @@ public class Storage extends StorageConstants {
 		return categoryControl.load(categoryManager);
 	}
 
-	private String[] getPreferences(String configFilePath) throws IOException {
+	private String[] loadPreferences(String configFilePath) throws IOException {
 		File configFile = new File(configFilePath);
 		String[] preferences = new String[2];
 		if (configFile.exists()) {
@@ -145,7 +145,11 @@ public class Storage extends StorageConstants {
 	}
 
 	public String getFilePath() throws IOException {
-		return taskControl.getFilePath();
+		return preferences[TASK_DESTINATION];
+	}
+	
+	public String[] getPreferences() {
+		return this.preferences;
 	}
 
 	private String setDefaultPath(String currentPath, String type) {

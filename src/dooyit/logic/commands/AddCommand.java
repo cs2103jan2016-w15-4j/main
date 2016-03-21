@@ -39,7 +39,6 @@ public class AddCommand extends ReversibleCommand {
 		taskManager.remove(addedTask);
 	}
 	
-	
 	@Override
 	public void execute(LogicController logic) throws IncorrectInputException {
 		TaskManager taskManager = logic.getTaskManager();

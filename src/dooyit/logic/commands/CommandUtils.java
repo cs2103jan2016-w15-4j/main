@@ -136,6 +136,7 @@ public class CommandUtils {
 	public static Command createChangeThemeCommand(String themeString){
 		ChangeThemeCommand changeThemeCommand = new ChangeThemeCommand(themeString);		
 		return changeThemeCommand;
+		//return createUndoCommand();
 	}
 
 	public static Command createUndoCommand() {

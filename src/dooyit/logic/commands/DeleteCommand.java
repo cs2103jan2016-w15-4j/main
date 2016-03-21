@@ -45,7 +45,7 @@ public class DeleteCommand extends ReversibleCommand {
 				Task deletedTask = taskManager.remove(deleteId);
 				deletedTasks.add(deletedTask);
 			} else {
-				errorMessageBody += " " + deleteIds;
+				errorMessageBody += " " + "[" + deleteId + "]";
 			}
 		}
 

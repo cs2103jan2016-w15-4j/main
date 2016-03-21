@@ -5,21 +5,12 @@ import dooyit.logic.core.LogicController;
 
 public abstract class Command {
 
-	public static enum ShowCommandType {
-		ALL, TODAY, NEXT7DAYS, DONE, CATEGORY
-	};
-
-	public enum EditCommandType {
-		NAME, DEADLINE, EVENT, NAME_N_DEADLINE, NAME_N_EVENT
-	};
-
 	public static enum CommandType {
 
 	}
 	
 	ColourManager colorManager = ColourManager.getInstance();
 	
-
 	public Command() {
 
 	}

@@ -8,6 +8,10 @@ import dooyit.logic.core.TaskManager;
 
 public class EditCommand extends Command {
 
+	private enum EditCommandType {
+		NAME, DEADLINE, EVENT, NAME_N_DEADLINE, NAME_N_EVENT
+	};
+	
 	private EditCommandType editCommandType;
 	private int taskId;
 	public String taskName;

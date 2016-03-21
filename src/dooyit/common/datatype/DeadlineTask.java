@@ -1,7 +1,5 @@
 package dooyit.common.datatype;
 
-import dooyit.common.datatype.Task.TaskType;
-
 public class DeadlineTask extends Task {
 
 	DateTime dateTimeDeadline;
@@ -20,7 +18,12 @@ public class DeadlineTask extends Task {
 	
 	@Override
 	public String getDateString(){
-		return dateTimeDeadline.getTime24hStr();
+		if(dateTimeDeadline.hasTime()){
+			return dateTimeDeadline.getTime24hStr();
+		}
+		else{
+			return "";
+		}
 	}
 	
 	@Override

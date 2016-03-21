@@ -6,17 +6,18 @@ import dooyit.common.exception.IncorrectInputException;
 import dooyit.logic.core.LogicController;
 import dooyit.logic.core.TaskManager;
 
-public class MarkCommand extends Command {
-	private ArrayList<Integer> markIds;
+public class UnMarkCommand extends Command {
+
+private ArrayList<Integer> unMarkIds;
 	
-	public MarkCommand(int markId) {
-		this.markIds = new ArrayList<Integer>();
-		this.markIds.add(markId);
+	public UnMarkCommand(int unMarkId) {
+		this.unMarkIds = new ArrayList<Integer>();
+		this.unMarkIds.add(unMarkId);
 	}
 
-	public MarkCommand(ArrayList<Integer> markIds) {
-		this.markIds = new ArrayList<Integer>();
-		this.markIds.addAll(markIds);
+	public UnMarkCommand(ArrayList<Integer> unMarkIds) {
+		this.unMarkIds = new ArrayList<Integer>();
+		this.unMarkIds.addAll(unMarkIds);
 	}
 
 	@Override
@@ -26,11 +27,11 @@ public class MarkCommand extends Command {
 
 		String errorMessageBody = "";
 
-		for (int i = 0; i < markIds.size(); i++) {
-			if (taskManager.containsTask(markIds.get(i))) {
-				taskManager.markTask(markIds.get(i));
+		for (int i = 0; i < unMarkIds.size(); i++) {
+			if (taskManager.containsTask(unMarkIds.get(i))) {
+				taskManager.unMarkTask(unMarkIds.get(i));
 			} else {
-				errorMessageBody += " " + markIds.get(i);
+				errorMessageBody += " " + unMarkIds.get(i);
 			}
 		}
 

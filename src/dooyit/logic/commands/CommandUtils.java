@@ -43,6 +43,16 @@ public class CommandUtils {
 		return deleteCommand;
 	}
 
+	public static Command createUnMarkCommand(int unMarkId) {
+		UnMarkCommand deleteCommand = new UnMarkCommand(unMarkId);
+		return deleteCommand;
+	}
+
+	public static Command createUnMarkCommand(ArrayList<Integer> unMarkIds) {
+		UnMarkCommand deleteCommand = new UnMarkCommand(unMarkIds);
+		return deleteCommand;
+	}
+	
 	public static Command createAddCategoryCommand(String categoryName) {
 		AddCategoryCommand addCategoryCommand = new AddCategoryCommand(categoryName);
 		return addCategoryCommand;

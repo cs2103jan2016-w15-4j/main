@@ -27,14 +27,12 @@ public class CommandUtils {
 	}
 
 	public static Command createDeleteCommand(int deleteId) {
-		DeleteCommand deleteCommand = new DeleteCommand();
-		deleteCommand.initDeleteCommand(deleteId);
+		DeleteCommand deleteCommand = new DeleteCommand(deleteId);
 		return deleteCommand;
 	}
 
 	public static Command createDeleteCommand(ArrayList<Integer> deleteIds) {
-		DeleteCommand deleteCommand = new DeleteCommand();
-		deleteCommand.initDeleteCommand(deleteIds);
+		DeleteCommand deleteCommand = new DeleteCommand(deleteIds);
 		return deleteCommand;
 	}
 

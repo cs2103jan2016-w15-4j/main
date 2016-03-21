@@ -10,15 +10,13 @@ public class DeleteCommand extends Command {
 
 	private ArrayList<Integer> deleteIds;
 
-	public DeleteCommand() {
-		deleteIds = new ArrayList<Integer>();
+	public DeleteCommand(int deleteId) {
+		this.deleteIds = new ArrayList<Integer>();
+		this.deleteIds.add(deleteId);
 	}
-
-	public void initDeleteCommand(int deleteId) {
-		deleteIds.add(deleteId);
-	}
-
-	public void initDeleteCommand(ArrayList<Integer> deleteIds) {
+	
+	public DeleteCommand(ArrayList<Integer> deleteIds) {
+		this.deleteIds = new ArrayList<Integer>();
 		this.deleteIds.addAll(deleteIds);
 	}
 

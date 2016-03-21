@@ -1,4 +1,4 @@
-package Test;
+package dooyit.parser;
 
 import dooyit.parser.*;
 import dooyit.logic.commands.*;

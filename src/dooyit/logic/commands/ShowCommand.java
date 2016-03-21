@@ -28,6 +28,9 @@ public class ShowCommand extends Command {
 		CategoryManager categoryManager = logic.getCategoryManager();
 		TaskManager taskManager = logic.getTaskManager();
 		
+//		if(uiController == null)
+//			return;
+		
 		if(uiMainViewtype == UIMainViewType.CATEGORY){
 			if(categoryManager.containsCategory(categoryName)){
 				Category category = categoryManager.findCategory(categoryName);

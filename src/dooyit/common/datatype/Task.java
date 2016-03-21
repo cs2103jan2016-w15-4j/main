@@ -6,14 +6,14 @@ public class Task {
 		DEADLINE, EVENT, FLOATING
 	};
 
-	private String taskName;
-	private int taskId;
-	private TaskType taskType;
-	private DateTime dateTimeDeadline;
-	private DateTime dateTimeStart;
-	private DateTime dateTimeEnd;
-	private boolean isCompleted;
-	private Category category;
+	protected String taskName;
+	protected int taskId;
+	protected TaskType taskType;
+	protected DateTime dateTimeDeadline;
+	protected DateTime dateTimeStart;
+	protected DateTime dateTimeEnd;
+	protected boolean isCompleted;
+	protected Category category;
 
 	public static int curTaskId = 1;
 
@@ -25,7 +25,7 @@ public class Task {
 		taskType = TaskType.FLOATING;
 		this.taskName = taskName;
 	}
-
+	
 	public void initTaskDeadline(String taskName, DateTime deadline) {
 		assert (deadline != null);
 
@@ -33,7 +33,7 @@ public class Task {
 		this.taskName = taskName;
 		this.dateTimeDeadline = deadline;
 	}
-
+	
 	public void initTaskEvent(String taskName, DateTime start, DateTime end) {
 		assert (start != null && end != null);
 
@@ -42,7 +42,7 @@ public class Task {
 		this.dateTimeStart = start;
 		this.dateTimeEnd = end;
 	}
-
+	
 	public void changeName(String taskName) {
 		this.taskName = taskName;
 	}
@@ -151,6 +151,10 @@ public class Task {
 		}
 	}
 
+	public String getDateString(){
+		return "";
+	}
+	
 	@Override
 	public String toString() {
 		String str = "";

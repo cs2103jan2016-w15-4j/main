@@ -84,6 +84,8 @@ public class UITaskBox {
 	    	this.taskPeriod = new Label(UIData.EMP_STR);
 	    }
 		
+		
+		
 		this.taskPeriod.setFont(FONT_TASK_PERIOD);
 	    this.taskPeriod.getStyleClass().add(STYLECLASS_TASK_PERIOD);
 	    this.taskPeriod.setPrefWidth(PREFWIDTH_TASK_PERIOD);

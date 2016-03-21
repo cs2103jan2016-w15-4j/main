@@ -2,22 +2,35 @@ package dooyit.logic.commands;
 
 import java.util.ArrayList;
 
+import dooyit.common.datatype.Task;
 import dooyit.common.exception.IncorrectInputException;
 import dooyit.logic.core.LogicController;
 import dooyit.logic.core.TaskManager;
 
-public class DeleteCommand extends Command {
+public class DeleteCommand extends ReversibleCommand {
 
 	private ArrayList<Integer> deleteIds;
+	private ArrayList<Task> deletedTasks;
 
 	public DeleteCommand(int deleteId) {
 		this.deleteIds = new ArrayList<Integer>();
+		this.deletedTasks = new ArrayList<Task>();
 		this.deleteIds.add(deleteId);
 	}
 	
 	public DeleteCommand(ArrayList<Integer> deleteIds) {
 		this.deleteIds = new ArrayList<Integer>();
+		this.deletedTasks = new ArrayList<Task>();
 		this.deleteIds.addAll(deleteIds);
+	}
+	
+	@Override
+	public void undo(LogicController logic){
+		TaskManager taskManager = logic.getTaskManager();
+		
+		for(Task deletedTask : deletedTasks){
+			taskManager.add(deletedTask);
+		}
 	}
 
 	@Override
@@ -27,11 +40,12 @@ public class DeleteCommand extends Command {
 		
 		String errorMessageBody = "";
 
-		for (int i = 0; i < deleteIds.size(); i++) {
-			if (taskManager.contains(deleteIds.get(i))) {
-				taskManager.remove(deleteIds.get(i));
+		for (Integer deleteId : deleteIds) {
+			if (taskManager.contains(deleteId)) {
+				Task deletedTask = taskManager.remove(deleteId);
+				deletedTasks.add(deletedTask);
 			} else {
-				errorMessageBody += " " + deleteIds.get(i);
+				errorMessageBody += " " + deleteIds;
 			}
 		}
 

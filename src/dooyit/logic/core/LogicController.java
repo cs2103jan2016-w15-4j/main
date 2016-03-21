@@ -7,8 +7,11 @@ import dooyit.parser.Parser;
 import dooyit.common.exception.IncorrectInputException;
 import dooyit.logic.commands.*;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import dooyit.common.datatype.Task;
 
 public class LogicController {
 
@@ -40,12 +43,13 @@ public class LogicController {
 		// uiController.displayMessage("ERROR: LOAD CATEGORY");
 		// }
 
-		/*try {
-			storage.loadTasks();
+		try {
+			ArrayList<Task> tasks = storage.loadTasks();
+			taskManager.loadTask(tasks);
 		} catch (IOException e) {
 			logger.log(Level.SEVERE, "ERROR: Fail to load task from storage");
 			uiController.displayMessage("ERROR: LOAD TASK");
-		}*/
+		}
 
 		logger.log(Level.INFO, "End of initialising logic class");
 	}

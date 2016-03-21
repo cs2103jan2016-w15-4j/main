@@ -71,6 +71,10 @@ public class TaskManager {
 		return null;
 	}
 
+	public void loadTask(ArrayList<Task> tasks){
+		this.tasks = new ArrayList<Task>(tasks);
+	}
+	
 	/**
 	 * Mark a task based on id
 	 * 

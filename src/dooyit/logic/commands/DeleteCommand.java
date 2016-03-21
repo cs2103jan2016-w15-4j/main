@@ -8,7 +8,6 @@ import dooyit.logic.core.TaskManager;
 
 public class DeleteCommand extends Command {
 
-	private int deleteId;
 	private ArrayList<Integer> deleteIds;
 
 	public DeleteCommand() {
@@ -28,7 +27,6 @@ public class DeleteCommand extends Command {
 		TaskManager taskManager = logic.getTaskManager();
 		assert (taskManager != null);
 		
-		
 		String errorMessageBody = "";
 
 		for (int i = 0; i < deleteIds.size(); i++) {
@@ -42,38 +40,5 @@ public class DeleteCommand extends Command {
 		if (errorMessageBody != "") {
 			throw new IncorrectInputException("Index" + errorMessageBody + " doesn't exists");
 		}
-		
-		
-//		switch (deleteCommandType) {
-//
-//		case SINGLE:
-//			if (taskManager.containsTask(deleteId)) {
-//				taskManager.deleteTask(deleteId);
-//			} else {
-//				throw new IncorrectInputException("Task ID " + deleteId + " doesn't exists");
-//			}
-//			break;
-//
-//		case MULTIPLE:
-//			String errorMessageBody = "";
-//
-//			for (int i = 0; i < deleteIds.size(); i++) {
-//				if (taskManager.containsTask(deleteIds.get(i))) {
-//					taskManager.deleteTask(deleteIds.get(i));
-//				} else {
-//					errorMessageBody += " " + deleteIds.get(i);
-//				}
-//			}
-//
-//			if (errorMessageBody != "") {
-//				throw new IncorrectInputException("Index" + errorMessageBody + " doesn't exists");
-//			}
-//
-//			break;
-//		}
-		
-		
-		
-
 	}
 }

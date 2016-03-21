@@ -39,14 +39,12 @@ public class CommandUtils {
 	}
 
 	public static Command createMarkCommand(int markId) {
-		MarkCommand deleteCommand = new MarkCommand();
-		deleteCommand.initMarkCommand(markId);
+		MarkCommand deleteCommand = new MarkCommand(markId);
 		return deleteCommand;
 	}
 
 	public static Command createMarkCommand(ArrayList<Integer> markIds) {
-		MarkCommand deleteCommand = new MarkCommand();
-		deleteCommand.initMarkCommand(markIds);
+		MarkCommand deleteCommand = new MarkCommand(markIds);
 		return deleteCommand;
 	}
 

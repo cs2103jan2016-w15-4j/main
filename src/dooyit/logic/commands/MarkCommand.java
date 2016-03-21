@@ -9,15 +9,13 @@ import dooyit.logic.core.TaskManager;
 public class MarkCommand extends Command {
 	private ArrayList<Integer> markIds;
 
-	public MarkCommand() {
+	public MarkCommand(int deleteId) {
 		markIds = new ArrayList<Integer>();
-	}
-
-	public void initMarkCommand(int deleteId) {
 		markIds.add(deleteId);
 	}
 
-	public void initMarkCommand(ArrayList<Integer> deleteIds) {
+	public MarkCommand(ArrayList<Integer> deleteIds) {
+		markIds = new ArrayList<Integer>();
 		this.markIds.addAll(deleteIds);
 	}
 

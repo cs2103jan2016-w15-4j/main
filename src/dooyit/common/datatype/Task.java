@@ -12,7 +12,6 @@ public class Task {
 	private DateTime dateTimeDeadline;
 	private DateTime dateTimeStart;
 	private DateTime dateTimeEnd;
-	private boolean isOverdue;
 	private boolean isCompleted;
 	private Category category;
 
@@ -76,6 +75,11 @@ public class Task {
 
 	public boolean isCompleted() {
 		return isCompleted;
+	}
+	
+	public boolean isOverDue(DateTime dateTime){
+		
+		return true;
 	}
 
 	public boolean setCategory(Category category) {

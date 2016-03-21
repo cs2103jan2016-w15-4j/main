@@ -17,7 +17,7 @@ public class TaskStorageFormat {
 		case DEADLINE:
 			DeadlineTask datelineTask = (DeadlineTask) task;
 			this.taskName = task.getName();
-			this.dateTimeDeadline = toReadableFormat(datelineTask.getDeadlineTime());
+			this.dateTimeDeadline = toReadableFormat(datelineTask.getDateTimeDeadline());
 			break;
 
 		case EVENT:

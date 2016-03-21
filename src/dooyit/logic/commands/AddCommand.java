@@ -6,14 +6,15 @@ import dooyit.common.exception.IncorrectInputException;
 import dooyit.logic.core.LogicController;
 import dooyit.logic.core.TaskManager;
 
-public class AddCommand extends Command {
+public class AddCommand extends ReversibleCommand {
 
 	private String taskName;
 	private Task.TaskType taskType;
 	private DateTime dateTimeDeadline;
 	private DateTime dateTimeStart;
 	private DateTime dateTimeEnd;
-
+	private Task addedTask;
+	
 	public AddCommand(String taskName) {
 		this.taskName = taskName;
 		taskType = Task.TaskType.FLOATING;
@@ -33,21 +34,29 @@ public class AddCommand extends Command {
 	}
 
 	@Override
+	public void undo(LogicController logic){
+		TaskManager taskManager = logic.getTaskManager();
+		taskManager.remove(addedTask);
+	}
+	
+	
+	@Override
 	public void execute(LogicController logic) throws IncorrectInputException {
 		TaskManager taskManager = logic.getTaskManager();
 		assert (taskManager != null);
 
 		switch (taskType) {
 		case FLOATING:
-			taskManager.addFloatingTask(taskName);
+			addedTask = taskManager.addFloatingTask(taskName);
 			break;
 
 		case DEADLINE:
-			taskManager.addDeadlineTask(taskName, dateTimeDeadline);
+			addedTask = taskManager.addDeadlineTask(taskName, dateTimeDeadline);
+
 			break;
 
 		case EVENT:
-			taskManager.addEventTask(taskName, dateTimeStart, dateTimeEnd);
+			addedTask = taskManager.addEventTask(taskName, dateTimeStart, dateTimeEnd);
 			break;
 		}
 	}

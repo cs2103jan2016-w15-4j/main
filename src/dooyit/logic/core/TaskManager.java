@@ -70,6 +70,15 @@ public class TaskManager {
 		}
 		return null;
 	}
+	
+	public Task remove(Task task) {
+		for (int i = 0; i < tasks.size(); i++) {
+			if (tasks.get(i).equals(task)) {
+				return tasks.remove(i);
+			}
+		}
+		return null;
+	}
 
 	public void loadTask(ArrayList<Task> tasks){
 		this.tasks = new ArrayList<Task>(tasks);
@@ -232,7 +241,7 @@ public class TaskManager {
 		for (Task task : tasks) {
 			if (task.getTaskType() == TaskType.DEADLINE) {
 				DeadlineTask deadlineTask = (DeadlineTask) task;
-				if (deadlineTask.getDeadlineTime().isTheSameDateAs(dateTime)) {
+				if (deadlineTask.getDateTimeDeadline().isTheSameDateAs(dateTime)) {
 					deadlineTasks.add(task);
 				}
 			}
@@ -247,7 +256,7 @@ public class TaskManager {
 		for (Task task : tasks) {
 			if (task.getTaskType() == TaskType.DEADLINE) {
 				DeadlineTask deadlineTask = (DeadlineTask) task;
-				if(deadlineTask.getDeadlineTime().isTheSameDateAs(dateTime) && !task.isCompleted()){
+				if(deadlineTask.getDateTimeDeadline().isTheSameDateAs(dateTime) && !task.isCompleted()){
 					deadlineTasks.add(task);
 				}
 			}

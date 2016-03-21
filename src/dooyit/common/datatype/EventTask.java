@@ -1,7 +1,5 @@
 package dooyit.common.datatype;
 
-import dooyit.common.datatype.Task.TaskType;
-
 public class EventTask extends Task {
 
 	private DateTime dateTimeStart;

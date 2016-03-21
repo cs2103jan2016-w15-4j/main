@@ -134,10 +134,15 @@ public class CommandUtils {
 	}
 	
 	public static Command createChangeThemeCommand(String themeString){
-		ChangeThemeCommand changeThemeCommand = new ChangeThemeCommand(themeString);
+		ChangeThemeCommand changeThemeCommand = new ChangeThemeCommand(themeString);		
 		return changeThemeCommand;
 	}
 
+	public static Command createUndoCommand() {
+		UndoCommand undoCommand = new UndoCommand();
+		return undoCommand;
+	}
+	
 	public static Command createInvalidCommand(String errorMessage) {
 		InvalidCommand invalidCommand = new InvalidCommand(errorMessage);
 		return invalidCommand;

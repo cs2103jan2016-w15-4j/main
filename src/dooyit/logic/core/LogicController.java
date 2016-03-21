@@ -8,6 +8,7 @@ import dooyit.common.exception.IncorrectInputException;
 import dooyit.logic.commands.*;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Stack;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -19,6 +20,7 @@ public class LogicController {
 	private TaskManager taskManager;
 	private CategoryManager categoryManager;
 	private StorageController storage;
+	private Stack<ReversibleCommand> history;
 	private UIController uiController;
 	private static Logger logger = Logger.getLogger("Logic");
 
@@ -28,6 +30,7 @@ public class LogicController {
 		parser = new Parser();
 		taskManager = new TaskManager();
 		categoryManager = new CategoryManager();
+		history = new Stack<ReversibleCommand>();
 
 		try {
 			storage = new StorageController();
@@ -62,12 +65,16 @@ public class LogicController {
 	public void processCommand(String input) {
 		Command command = parser.getCommand(input);
 
-		assert(command != null);
-		
+		assert (command != null);
+
 		try {
-				command.execute(this);
+			command.execute(this);
 		} catch (IncorrectInputException e) {
 			uiController.displayMessage(e.getMessage());
+		}
+
+		if (command instanceof ReversibleCommand) {
+			history.push((ReversibleCommand) command);
 		}
 
 		refreshUIController();
@@ -91,11 +98,11 @@ public class LogicController {
 
 	private void refreshUIController() {
 		// uiController.refreshMainView(taskManager.getTaskGroupsToday());
-		if(uiController == null)
+		if (uiController == null)
 			return;
-		
+
 		UIMainViewType uiMainViewType = uiController.getActiveViewType();
-		
+
 		switch (uiMainViewType) {
 
 		case TODAY:
@@ -113,11 +120,11 @@ public class LogicController {
 		case COMPLETED:
 			uiController.refreshMainView(taskManager.getTaskGroupsCompleted());
 			break;
-			
+
 		case FLOAT:
 			uiController.refreshMainView(taskManager.getTaskGroupsFloating());
 			break;
-			
+
 		case CATEGORY:
 
 			break;
@@ -172,4 +179,7 @@ public class LogicController {
 		return categoryManager;
 	}
 
+	public Stack<ReversibleCommand> getHistory() {
+		return history;
+	}
 }

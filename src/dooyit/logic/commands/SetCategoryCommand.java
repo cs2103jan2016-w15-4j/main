@@ -34,14 +34,14 @@ public class SetCategoryCommand extends Command {
 		CategoryManager categoryManager = logic.getCategoryManager();
 
 		for (Integer taskId : taskIds) {
-			if (taskManager.containsTask(taskId)) {
+			if (taskManager.contains(taskId)) {
 				if (categoryManager.contains(categoryName)) {
 					Category category = categoryManager.findCategory(categoryName);
-					Task task = taskManager.findTask(taskId);
+					Task task = taskManager.find(taskId);
 					task.setCategory(category);
 				} else {
 					Category category = categoryManager.addCategory(categoryName);
-					Task task = taskManager.findTask(taskId);
+					Task task = taskManager.find(taskId);
 					task.setCategory(category);
 					throw new IncorrectInputException("Category: " + categoryName + " is created.");
 				}

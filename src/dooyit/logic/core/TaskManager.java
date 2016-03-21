@@ -62,19 +62,12 @@ public class TaskManager {
 		return eventTask;
 	}
 
-	public Task deleteTask(int id) {
+	public Task remove(int id) {
 		for (int i = 0; i < tasks.size(); i++) {
 			if (tasks.get(i).getId() == id) {
 				return tasks.remove(i);
 			}
 		}
-
-		// for(int i=0; i<doneTasks.size(); i++){
-		// if(tasks.get(i).getId() == id){
-		// return tasks.remove(i);
-		// }
-		// }
-
 		return null;
 	}
 
@@ -111,7 +104,7 @@ public class TaskManager {
 		return false;
 	}
 
-	public boolean containsTask(int id) {
+	public boolean contains(int id) {
 		for (int i = 0; i < tasks.size(); i++) {
 			if (tasks.get(i).getId() == id) {
 				return true;
@@ -129,13 +122,43 @@ public class TaskManager {
 		return false;
 	}
 
-	public Task findTask(int id) {
+	public Task find(int id) {
 		for (int i = 0; i < tasks.size(); i++) {
 			if (tasks.get(i).getId() == id) {
 				return tasks.get(i);
 			}
 		}
 		return null;
+	}
+	
+	public boolean changeTaskName(int taskId, String newName){
+		if(!contains(taskId)){
+			return false;
+		}
+		
+		Task task = find(taskId);
+		task.changeName(newName);
+		return true;
+	}
+	
+	public boolean changeTaskToDeadline(int taskId, DateTime dateTimeDeadline){
+		if(!contains(taskId)){
+			return false;
+		}
+		
+		Task task = remove(taskId);
+		addDeadlineTask(task.getName(), dateTimeDeadline);
+		return true;
+	}
+	
+	public boolean changeTaskToEvent(int taskId, DateTime dateTimeStart, DateTime dateTimeEnd){
+		if(!contains(taskId)){
+			return false;
+		}
+		
+		Task task = remove(taskId);
+		addEventTask(task.getName(), dateTimeStart, dateTimeEnd);
+		return true;
 	}
 
 	public ArrayList<Task> getAllTasks() {

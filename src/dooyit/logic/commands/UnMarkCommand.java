@@ -28,7 +28,7 @@ private ArrayList<Integer> unMarkIds;
 		String errorMessageBody = "";
 
 		for (int i = 0; i < unMarkIds.size(); i++) {
-			if (taskManager.containsTask(unMarkIds.get(i))) {
+			if (taskManager.contains(unMarkIds.get(i))) {
 				taskManager.unMarkTask(unMarkIds.get(i));
 			} else {
 				errorMessageBody += " " + unMarkIds.get(i);

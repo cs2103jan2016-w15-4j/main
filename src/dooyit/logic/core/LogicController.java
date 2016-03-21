@@ -87,8 +87,8 @@ public class LogicController {
 
 	private void refreshUIController() {
 		// uiController.refreshMainView(taskManager.getTaskGroupsToday());
-//		if(uiController == null)
-//			return;
+		if(uiController == null)
+			return;
 		
 		UIMainViewType uiMainViewType = uiController.getActiveViewType();
 		

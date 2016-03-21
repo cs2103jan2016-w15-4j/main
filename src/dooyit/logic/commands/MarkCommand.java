@@ -27,7 +27,7 @@ public class MarkCommand extends Command {
 		String errorMessageBody = "";
 
 		for (int i = 0; i < markIds.size(); i++) {
-			if (taskManager.containsTask(markIds.get(i))) {
+			if (taskManager.contains(markIds.get(i))) {
 				taskManager.markTask(markIds.get(i));
 			} else {
 				errorMessageBody += " " + markIds.get(i);

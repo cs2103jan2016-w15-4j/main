@@ -1,6 +1,6 @@
 package dooyit.common.datatype;
 
-public class Task {
+public abstract class Task {
 
 	public enum TaskType {
 		DEADLINE, EVENT, FLOATING
@@ -22,24 +22,6 @@ public class Task {
 	public void changeName(String taskName) {
 		this.taskName = taskName;
 	}
-
-//	public void changeDeadline(DateTime deadline) {
-//		assert (deadline != null);
-//
-//		taskType = TaskType.DEADLINE;
-//		this.dateTimeDeadline = deadline;
-//		this.dateTimeStart = null;
-//		this.dateTimeEnd = null;
-//	}
-//
-//	public void changeEvent(DateTime start, DateTime end) {
-//		assert (start != null && end != null);
-//
-//		taskType = TaskType.EVENT;
-//		this.dateTimeDeadline = null;
-//		this.dateTimeStart = start;
-//		this.dateTimeEnd = end;
-//	}
 
 	public void mark() {
 		isCompleted = true;
@@ -89,48 +71,6 @@ public class Task {
 		return taskType;
 	}
 
-//	public DateTime getDeadlineTime() {
-//		return dateTimeDeadline;
-//	}
-//
-//	public DateTime getDateTimeStart() {
-//		return dateTimeStart;
-//	}
-//
-//	public DateTime getDateTimeEnd() {
-//		return dateTimeEnd;
-//	}
-
-	
-
-//	public boolean hasDeadlineTime() {
-//		if (dateTimeDeadline == null) {
-//			return false;
-//		} else {
-//			return dateTimeDeadline.hasTime();
-//		}
-//	}
-//
-//	public boolean hasStartTime() {
-//		if (dateTimeStart == null) {
-//			return false;
-//		} else {
-//			return dateTimeStart.hasTime();
-//		}
-//	}
-//
-//	public boolean hasEndTime() {
-//		if (dateTimeEnd == null) {
-//			return false;
-//		} else {
-//			return dateTimeEnd.hasTime();
-//		}
-//	}
-
-	public String getDateString(){
-		return "";
-	}
-
 	@Override
 	public boolean equals(Object o) {
 		if (o instanceof Task) {
@@ -140,4 +80,6 @@ public class Task {
 			return false;
 		}
 	}
+	
+	public abstract String getDateString();
 }

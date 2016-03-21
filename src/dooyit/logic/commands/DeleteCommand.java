@@ -28,8 +28,8 @@ public class DeleteCommand extends Command {
 		String errorMessageBody = "";
 
 		for (int i = 0; i < deleteIds.size(); i++) {
-			if (taskManager.containsTask(deleteIds.get(i))) {
-				taskManager.deleteTask(deleteIds.get(i));
+			if (taskManager.contains(deleteIds.get(i))) {
+				taskManager.remove(deleteIds.get(i));
 			} else {
 				errorMessageBody += " " + deleteIds.get(i);
 			}

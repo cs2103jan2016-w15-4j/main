@@ -146,24 +146,24 @@ public class TaskLoader {
 	public Task resolveTask(String taskFormat) {
 		JsonParser parser = new JsonParser();
 		JsonObject taskInfo = parser.parse(taskFormat).getAsJsonObject();
-		boolean isCompleted = false;
 
 		Task task;
 		String name = taskInfo.get(NAME).getAsString();
-
-		if (taskInfo.has(IS_COMPLETED)) {
-			isCompleted = taskInfo.get(IS_COMPLETED).getAsBoolean();
-		}
+		boolean isCompleted = taskInfo.get(IS_COMPLETED).getAsBoolean();
 
 		if (taskInfo.has(DEADLINE)) {
 			DateTime deadline = resolveDateTime(taskInfo, DEADLINE);
-			task = (Task) new DeadlineTask(name, deadline/* , isCompleted */);
+			task = (Task) new DeadlineTask(name, deadline);
 		} else if (taskInfo.has(EVENT_START) && taskInfo.has(EVENT_END)) {
 			DateTime eventStart = resolveDateTime(taskInfo, EVENT_START);
 			DateTime eventEnd = resolveDateTime(taskInfo, EVENT_END);
-			task = (Task) new EventTask(name, eventStart, eventEnd/* , isCompleted */);
+			task = (Task) new EventTask(name, eventStart, eventEnd);
 		} else {
-			task = (Task) new FloatingTask(name/* , isCompleted */);
+			task = (Task) new FloatingTask(name);
+		}
+		
+		if(isCompleted) {
+			task.mark();
 		}
 
 		return task;

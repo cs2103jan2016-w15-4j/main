@@ -14,22 +14,18 @@ public class AddCommand extends Command {
 	private DateTime dateTimeStart;
 	private DateTime dateTimeEnd;
 
-	public AddCommand() {
-
-	}
-
-	public void initAddCommandFloat(String taskName) {
+	public AddCommand(String taskName) {
 		this.taskName = taskName;
 		taskType = Task.TaskType.FLOATING;
 	}
 
-	public void initAddCommandDeadline(String data, DateTime deadline) {
+	public AddCommand(String data, DateTime deadline) {
 		this.taskName = data;
 		this.dateTimeDeadline = deadline;
 		taskType = Task.TaskType.DEADLINE;
 	}
-
-	public void initAddCommandEvent(String data, DateTime start, DateTime end) {
+	
+	public AddCommand(String data, DateTime start, DateTime end) {
 		this.taskName = data;
 		this.dateTimeStart = start;
 		this.dateTimeEnd = end;

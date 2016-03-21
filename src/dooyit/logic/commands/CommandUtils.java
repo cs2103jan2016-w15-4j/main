@@ -9,20 +9,17 @@ import dooyit.ui.UIMainViewType;
 public class CommandUtils {
 
 	public static Command createAddCommandFloat(String data) {
-		AddCommand addCommand = new AddCommand();
-		addCommand.initAddCommandFloat(data);
+		AddCommand addCommand = new AddCommand(data);
 		return addCommand;
 	}
 
 	public static Command createAddCommandDeadline(String data, DateTime deadline) {
-		AddCommand addCommand = new AddCommand();
-		addCommand.initAddCommandDeadline(data, deadline);
+		AddCommand addCommand = new AddCommand(data, deadline);
 		return addCommand;
 	}
 
 	public static Command createAddCommandEvent(String data, DateTime start, DateTime end) {
-		AddCommand addCommand = new AddCommand();
-		addCommand.initAddCommandEvent(data, start, end);
+		AddCommand addCommand = new AddCommand(data, start, end);
 		return addCommand;
 	}
 

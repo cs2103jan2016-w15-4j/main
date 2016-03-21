@@ -61,7 +61,7 @@ public class StorageController extends StorageConstants {
 	}
 
 	public boolean saveTasks(ArrayList<Task> tasks) throws IOException {
-		logger.log(Level.INFO, "Attempting to save tasks to " + preferences);
+		logger.log(Level.INFO, "Attempting to save tasks to " + preferences[TASK_DESTINATION]);
 		assert tasks != null;
 
 		if (taskControl.save(tasks)) {
@@ -75,7 +75,7 @@ public class StorageController extends StorageConstants {
 	}
 
 	public ArrayList<Task> loadTasks() throws IOException {
-		logger.log(Level.INFO, "Attempting to load tasks from " + preferences);
+		logger.log(Level.INFO, "Attempting to load tasks from " + preferences[TASK_DESTINATION]);
 		ArrayList<Task> taskList = taskControl.load();
 		logger.log(Level.INFO, "Successfully loaded tasks!");
 
@@ -118,7 +118,7 @@ public class StorageController extends StorageConstants {
 
 	private boolean isValidSavePath(String filePath) throws InvalidFilePathException {
 		if (!filePath.endsWith(TXT)) {
-			throw new InvalidFilePathException("MISSING FILE EXTENSON \".txt\"");
+			throw new InvalidFilePathException("MISSING FILE EXTENSON: " + TXT);
 		}
 
 		return true;

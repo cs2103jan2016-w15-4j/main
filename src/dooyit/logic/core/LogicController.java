@@ -40,12 +40,12 @@ public class LogicController {
 		// uiController.displayMessage("ERROR: LOAD CATEGORY");
 		// }
 
-		try {
-			storage.loadTasks(taskManager);
+		/*try {
+			storage.loadTasks();
 		} catch (IOException e) {
 			logger.log(Level.SEVERE, "ERROR: Fail to load task from storage");
 			uiController.displayMessage("ERROR: LOAD TASK");
-		}
+		}*/
 
 		logger.log(Level.INFO, "End of initialising logic class");
 	}

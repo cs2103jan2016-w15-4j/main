@@ -12,9 +12,9 @@ public class Category {
 		this.customColor = CustomColor.BLUE;
 	}
 
-	public Category(String name, CustomColor colour) {
+	public Category(String name, CustomColor customColour) {
 		this.name = name;
-		this.customColor = colour;
+		this.customColor = customColour;
 	}
 
 	public String getName() {

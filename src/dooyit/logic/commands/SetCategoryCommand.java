@@ -25,7 +25,7 @@ public class SetCategoryCommand extends Command {
 		CategoryManager categoryManager = logic.getCategoryManager();
 
 		if (taskManager.containsTask(taskId)) {
-			if (categoryManager.containsCategory(categoryName)) {
+			if (categoryManager.contains(categoryName)) {
 				Category category = categoryManager.findCategory(categoryName);
 				Task task = taskManager.findTask(taskId);
 				task.setCategory(category);

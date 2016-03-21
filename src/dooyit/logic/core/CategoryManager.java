@@ -10,7 +10,7 @@ public class CategoryManager {
 	ColourManager colourManager;
 
 	public CategoryManager() {
-		colourManager = new ColourManager();
+		colourManager = ColourManager.getInstance();
 		categories = new ArrayList<Category>();
 		setDefaultCategories();
 	}
@@ -44,7 +44,7 @@ public class CategoryManager {
 		return category;
 	}
 
-	public boolean containsCategory(String categoryName) {
+	public boolean contains(String categoryName) {
 		for (int i = 0; i < categories.size(); i++) {
 			if(categories.get(i).equals(categoryName)){
 				return true;
@@ -53,7 +53,7 @@ public class CategoryManager {
 		return false;
 	}
 
-	public boolean containsCategory(Category category) {
+	public boolean contains(Category category) {
 		for (int i = 0; i < categories.size(); i++) {
 			if(categories.get(i).equals(category)){
 				return true;

@@ -22,10 +22,6 @@ public class AddCategoryCommand extends Command {
 		this.colorString = colorString;
 	}
 	
-	private boolean hasCustomColor(){
-		return customColor != null;
-	}
-	
 	private boolean hasColorString(){
 		return colorString != null;
 	}
@@ -33,15 +29,23 @@ public class AddCategoryCommand extends Command {
 	@Override
 	public void execute(LogicController logic) throws IncorrectInputException {
 		CategoryManager categoryManager = logic.getCategoryManager();
-		Category category;
+		
+		@SuppressWarnings("unused")
+		Category category = null;
 
-		if(hasCustomColor()){
-			category = categoryManager.addCategory(categoryName, customColor);
-		}else{
-			category = categoryManager.addCategory(categoryName);
+		if(!categoryManager.contains(categoryName)){
+			if(hasColorString()){
+				if(colorManager.contains(colorString)){
+					CustomColor customColor = colorManager.find(colorString);
+					category = categoryManager.addCategory(categoryName, customColor);
+				}else{
+					throw new IncorrectInputException("Color: " + colorString + " is not available.");
+				}
+			}else{
+				category = categoryManager.addCategory(categoryName);
+			}
 		}
-
-		if (category == null) {
+		else{
 			throw new IncorrectInputException("Category: " + categoryName + " already exists.");
 		}
 	}

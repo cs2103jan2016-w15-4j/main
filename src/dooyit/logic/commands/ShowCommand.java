@@ -32,7 +32,7 @@ public class ShowCommand extends Command {
 //			return;
 		
 		if(uiMainViewtype == UIMainViewType.CATEGORY){
-			if(categoryManager.containsCategory(categoryName)){
+			if(categoryManager.contains(categoryName)){
 				Category category = categoryManager.findCategory(categoryName);
 				uiController.setActiveViewType(uiMainViewtype);
 				uiController.refreshMainView(taskManager.getTaskGroupsCompleted(), category);

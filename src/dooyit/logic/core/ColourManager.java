@@ -13,7 +13,13 @@ public class ColourManager {
 	ArrayList<CustomColor> availableColours;
 	ArrayList<CustomColor> colourPool;
 
-	public ColourManager() {
+	private static ColourManager colourManager = new ColourManager();
+	
+	public static ColourManager getInstance(){
+		return colourManager;
+	}
+	
+	private ColourManager() {
 		random = new Random();
 		availableColours = new ArrayList<CustomColor>();
 		availableColours.add(CustomColor.BLACK);
@@ -47,19 +53,29 @@ public class ColourManager {
 		return colourPool.remove(random.nextInt(colourPool.size()));
 	}
 	
-	public boolean hasCustomColor(String name){
-		boolean hasCustomColor = availableColours.contains(name);
+	public boolean contains(String name){
+		for(CustomColor customColor : availableColours){
+			if(customColor.equals(name)){
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean contains(CustomColor customColor){
+		boolean hasCustomColor = availableColours.contains(customColor);
 		return hasCustomColor;
 	}
 	
-	public CustomColor getCustomColor(String customColorString){
-		if(!hasCustomColor(customColorString)){
-			return null;
+	
+	
+	public CustomColor find(String customColorString){
+		for(CustomColor customColor : availableColours){
+			if(customColor.equals(customColorString)){
+				return customColor;
+			}
 		}
-		
-		int indexOfCustomColor = availableColours.indexOf(customColorString);
-		CustomColor customColor = availableColours.get(indexOfCustomColor);
-		return customColor;
+		return null;
 	}
 	
 }

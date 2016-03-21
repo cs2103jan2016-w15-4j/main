@@ -6,7 +6,7 @@ public class CustomColor {
 	public float r; // red
 	public float g; // green
 	public float b; // blue
-	public String name;
+	public String name; // colour name
 	
 	public CustomColor(String name, float r, float g, float b) {
 		this.name = name;

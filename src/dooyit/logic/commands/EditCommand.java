@@ -15,37 +15,33 @@ public class EditCommand extends Command {
 	private DateTime dateTimeStart;
 	private DateTime dateTimeEnd;
 
-	public EditCommand() {
-
-	}
-
-	public void initEditCommandName(int taskId, String taskName) {
+	public EditCommand(int taskId, String taskName) {
 		editCommandType = EditCommandType.NAME;
 		this.taskName = taskName;
 		this.taskId = taskId;
 	}
 
-	public void initEditCommandDeadline(int taskId, DateTime deadline) {
+	public EditCommand(int taskId, DateTime deadline) {
 		editCommandType = EditCommandType.DEADLINE;
 		this.dateTimeDeadline = deadline;
 		this.taskId = taskId;
 	}
 
-	public void initEditCommandEvent(int taskId, DateTime start, DateTime end) {
+	public EditCommand(int taskId, DateTime start, DateTime end) {
 		editCommandType = EditCommandType.EVENT;
 		this.dateTimeStart = start;
 		this.dateTimeEnd = end;
 		this.taskId = taskId;
 	}
 
-	public void initEditCommandNameAndDeadline(int taskId, String taskName, DateTime deadline) {
+	public EditCommand(int taskId, String taskName, DateTime deadline) {
 		editCommandType = EditCommandType.NAME_N_DEADLINE;
 		this.taskName = taskName;
 		this.dateTimeDeadline = deadline;
 		this.taskId = taskId;
 	}
 
-	public void initEditCommandNameAndEvent(int taskId, String taskName, DateTime start, DateTime end) {
+	public EditCommand(int taskId, String taskName, DateTime start, DateTime end) {
 		editCommandType = EditCommandType.NAME_N_EVENT;
 		this.taskName = taskName;
 		this.dateTimeStart = start;

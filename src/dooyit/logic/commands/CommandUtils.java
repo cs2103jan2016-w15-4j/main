@@ -62,11 +62,6 @@ public class CommandUtils {
 		AddCategoryCommand addCategoryCommand = new AddCategoryCommand(categoryName, colorString);
 		return addCategoryCommand;
 	}
-	
-	public static Command createAddCategoryCommand(String categoryName, CustomColor color) {
-		AddCategoryCommand addCategoryCommand = new AddCategoryCommand(categoryName, color);
-		return addCategoryCommand;
-	}
 
 	public static Command createSetCategoryCommand(int taskID, String categoryName) {
 		SetCategoryCommand addCategoryCommand = new SetCategoryCommand(taskID, categoryName);

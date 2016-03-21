@@ -9,34 +9,57 @@ public class ColourManager {
 	// Colour[] availableColours;
 	ArrayList<CustomColor> usedColours;
 	Random random;
-	ArrayList<CustomColor> recommendedColour;
+	ArrayList<CustomColor> recommendedColours;
+	ArrayList<CustomColor> availableColours;
 	ArrayList<CustomColor> colourPool;
 
 	public ColourManager() {
 		random = new Random();
-		// availableColours = new Colour[10];
+		availableColours = new ArrayList<CustomColor>();
+		availableColours.add(CustomColor.BLACK);
+		availableColours.add(CustomColor.BLUE);
+		availableColours.add(CustomColor.CYAN);
+		availableColours.add(CustomColor.GREY);
+		availableColours.add(CustomColor.GREEN);
+		availableColours.add(CustomColor.MAGENTA);
+		availableColours.add(CustomColor.PINK);
+		availableColours.add(CustomColor.RED);
+		availableColours.add(CustomColor.YELLOW);
+		availableColours.add(CustomColor.WHITE);
+		
+		recommendedColours = new ArrayList<CustomColor>();
+		recommendedColours.add(CustomColor.BLUE);
+		recommendedColours.add(CustomColor.CYAN);
+		recommendedColours.add(CustomColor.GREEN);
+		recommendedColours.add(CustomColor.MAGENTA);
+		recommendedColours.add(CustomColor.PINK);
+		recommendedColours.add(CustomColor.RED);
+		recommendedColours.add(CustomColor.YELLOW);
+		recommendedColours.add(CustomColor.GREY);
 
-		recommendedColour = new ArrayList<CustomColor>();
-
-		recommendedColour.add(CustomColor.BLUE);
-		recommendedColour.add(CustomColor.CYAN);
-		recommendedColour.add(CustomColor.GREEN);
-		recommendedColour.add(CustomColor.MAGENTA);
-		recommendedColour.add(CustomColor.PINK);
-		recommendedColour.add(CustomColor.RED);
-		recommendedColour.add(CustomColor.YELLOW);
-		recommendedColour.add(CustomColor.GREY);
-
-		colourPool = new ArrayList<CustomColor>(recommendedColour);
+		colourPool = new ArrayList<CustomColor>(recommendedColours);
 	}
 
 	public CustomColor pickRandomColour() {
-
 		if (colourPool.size() == 0) {
-			colourPool = new ArrayList<CustomColor>(recommendedColour);
+			colourPool = new ArrayList<CustomColor>(recommendedColours);
 		}
-
 		return colourPool.remove(random.nextInt(colourPool.size()));
 	}
-
+	
+	public boolean hasCustomColor(String name){
+		boolean hasCustomColor = availableColours.contains(name);
+		return hasCustomColor;
+	}
+	
+	public CustomColor getCustomColor(String customColorString){
+		if(!hasCustomColor(customColorString)){
+			return null;
+		}
+		
+		int indexOfCustomColor = availableColours.indexOf(customColorString);
+		CustomColor customColor = availableColours.get(indexOfCustomColor);
+		return customColor;
+	}
+	
 }

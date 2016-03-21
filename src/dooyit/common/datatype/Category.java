@@ -17,11 +17,6 @@ public class Category {
 		this.customColor = colour;
 	}
 
-	public Category(String name, float r, float g, float b) {
-		this.name = name;
-		this.customColor = new CustomColor(r, g, b);
-	}
-
 	public String getName() {
 		return this.name;
 	}

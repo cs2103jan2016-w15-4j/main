@@ -60,9 +60,9 @@ public class CategoryLoader {
 
 	private CustomColor resolveColour(String colourFormat) {
 		String[] rgb = colourFormat.split(" ");
-		CustomColor customColor = new CustomColor(Float.valueOf(rgb[0]), Float.valueOf(rgb[1]), Float.valueOf(rgb[2]));
+		//CustomColor customColor = new CustomColor("",Float.valueOf(rgb[0]), Float.valueOf(rgb[1]), Float.valueOf(rgb[2]));
 
-		return customColor;
+		return null;
 	}
 
 	private void readFromFile(FileReader fReader, CategoryManager categoryManager) throws IOException {

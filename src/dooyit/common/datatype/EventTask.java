@@ -33,4 +33,15 @@ public class EventTask extends Task {
 	public String toString() {
 		return taskName + ": event: " + dateTimeStart.toString() + "," + dateTimeEnd.toString();
 	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (o instanceof EventTask) {
+			EventTask eventTask = (EventTask) o;
+			return this.getName() == eventTask.getName() 
+					&& this.getDateTimeStart().equals(eventTask.getDateTimeStart())
+					&& this.getDateTimeEnd().equals(eventTask.getDateTimeEnd());
+		}
+		return false;
+	}
 }

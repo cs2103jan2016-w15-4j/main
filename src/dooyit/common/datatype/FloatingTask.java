@@ -18,4 +18,13 @@ public class FloatingTask extends Task {
 	public String toString() {
 		return taskName;
 	}
+	
+	@Override
+	public boolean equals(Object o){
+		if(o instanceof FloatingTask){
+			FloatingTask floatingTask = (FloatingTask)o;
+			return this.getName() == floatingTask.getName();
+		}
+		return false;
+	}
 }

@@ -36,7 +36,6 @@ public class CustomColor {
 	
 	@Override
 	public boolean equals(Object o) {
-		
 		if(o instanceof String){
 			String colourString = (String)o;
 			return name.equals(colourString);
@@ -46,6 +45,7 @@ public class CustomColor {
 			CustomColor colour = (CustomColor) o;
 			return r == colour.r && g == colour.g && b == colour.b;
 		}
+		
 		return false;
 	}
 

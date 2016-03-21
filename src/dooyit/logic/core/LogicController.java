@@ -1,16 +1,12 @@
 package dooyit.logic.core;
 
 import dooyit.storage.StorageController;
-
 import dooyit.ui.UIController;
 import dooyit.ui.UIMainViewType;
 import dooyit.parser.Parser;
 import dooyit.common.exception.IncorrectInputException;
 import dooyit.logic.commands.*;
-
 import java.io.IOException;
-
-import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -62,14 +58,10 @@ public class LogicController {
 	public void processCommand(String input) {
 		Command command = parser.getCommand(input);
 
+		assert(command != null);
+		
 		try {
-
-			if (command != null) {
 				command.execute(this);
-			} else {
-				System.out.println("ERROR: Comman Object is null");
-			}
-
 		} catch (IncorrectInputException e) {
 			uiController.displayMessage(e.getMessage());
 		}

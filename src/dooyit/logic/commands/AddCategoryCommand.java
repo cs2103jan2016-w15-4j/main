@@ -9,12 +9,10 @@ import dooyit.logic.core.LogicController;
 public class AddCategoryCommand extends Command {
 
 	private String categoryName;
-	private CustomColor customColor;
 	private String colorString;
 
 	public AddCategoryCommand(String categoryName) {
 		this.categoryName = categoryName;
-		this.customColor = null;
 	}
 
 	public AddCategoryCommand(String categoryName, String colorString) {

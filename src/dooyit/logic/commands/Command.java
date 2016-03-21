@@ -1,7 +1,4 @@
 package dooyit.logic.commands;
-
-import com.sun.istack.internal.logging.Logger;
-
 import dooyit.common.exception.IncorrectInputException;
 import dooyit.logic.core.ColourManager;
 import dooyit.logic.core.LogicController;

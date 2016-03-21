@@ -170,6 +170,10 @@ public class Task {
 		default:
 			str = "";
 		}
+		
+		if(category != null){
+			System.out.println("Has Cat: " + category.getName());
+		}
 
 		return str;
 	}

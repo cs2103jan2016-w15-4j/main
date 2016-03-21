@@ -12,9 +12,8 @@ public class CategoryController extends StorageConstants {
 	CategoryLoader categoryLoader;
 
 	public CategoryController(String path) {
-		String filePath = path + DEFAULT_CATEGORIES_DESTINATION;
-		categoryLoader = new CategoryLoader(filePath);
-		categorySaver = new CategorySaver(filePath);
+		categoryLoader = new CategoryLoader(path);
+		categorySaver = new CategorySaver(path);
 	}
 
 	public boolean save(ArrayList<Category> categories) throws IOException {

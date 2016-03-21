@@ -1,5 +1,7 @@
 package dooyit.storage;
 
+import dooyit.common.datatype.DeadlineTask;
+import dooyit.common.datatype.EventTask;
 import dooyit.common.datatype.Task;
 
 public class TaskStorageFormat {
@@ -13,13 +15,13 @@ public class TaskStorageFormat {
 		switch (task.getTaskType()) {
 		case DEADLINE:
 			this.taskName = task.getName();
-			this.dateTimeDeadline = task.getDeadlineTime().convertToSavableString();
+			this.dateTimeDeadline = ((DeadlineTask)task).getDeadlineTime().convertToSavableString();
 			break;
 
 		case EVENT:
 			this.taskName = task.getName();
-			this.dateTimeStart = task.getDateTimeStart().convertToSavableString();
-			this.dateTimeEnd = task.getDateTimeEnd().convertToSavableString();
+			this.dateTimeStart = ((EventTask)task).getDateTimeStart().convertToSavableString();
+			this.dateTimeEnd = ((EventTask)task).getDateTimeEnd().convertToSavableString();
 			break;
 
 		default:

@@ -4,7 +4,7 @@ import dooyit.common.datatype.Task.TaskType;
 
 public class DeadlineTask extends Task {
 
-	DateTime dateTime;
+	DateTime dateTimeDeadline;
 	
 	public DeadlineTask(String taskName, DateTime deadline){
 		assert (deadline != null);
@@ -14,5 +14,17 @@ public class DeadlineTask extends Task {
 		this.dateTimeDeadline = deadline;
 	}
 	
+	public DateTime getDeadlineTime() {
+		return dateTimeDeadline;
+	}
 	
+	@Override
+	public String getDateString(){
+		return dateTimeDeadline.getTime24hStr();
+	}
+	
+	@Override
+	public String toString() {
+		return taskName + ": deadline: " + dateTimeDeadline.toString();
+	}
 }

@@ -3,6 +3,9 @@ package dooyit.logic.core;
 import java.util.ArrayList;
 
 import dooyit.common.datatype.DateTime;
+import dooyit.common.datatype.DeadlineTask;
+import dooyit.common.datatype.EventTask;
+import dooyit.common.datatype.FloatingTask;
 import dooyit.common.datatype.Task;
 import dooyit.common.datatype.TaskGroup;
 import dooyit.common.datatype.Task.TaskType;
@@ -28,40 +31,35 @@ public class TaskManager {
 	}
 
 	public Task AddTaskFloat(String data, boolean isCompleted) {
-		Task task = new Task();
-		task.initTaskFloat(data);
-
+		FloatingTask floatingTask = new FloatingTask(data);
 		if (isCompleted) {
-			task.mark();
+			floatingTask.mark();
 		}
 
-		tasks.add(task);
+		tasks.add(floatingTask);
 
-		return task;
+		return floatingTask;
 	}
 
 	public Task AddTaskDeadline(String data, DateTime dateTime, boolean isCompleted) {
-		Task task = new Task();
-		task.initTaskDeadline(data, dateTime);
-
+		DeadlineTask deadlineTask = new DeadlineTask(data, dateTime);
 		if (isCompleted) {
-			task.mark();
+			deadlineTask.mark();
 		}
 
-		tasks.add(task);
-		return task;
+		tasks.add(deadlineTask);
+		return deadlineTask;
 	}
 
 	public Task AddTaskEvent(String data, DateTime start, DateTime end, boolean isCompleted) {
-		Task task = new Task();
-		task.initTaskEvent(data, start, end);
+		EventTask eventTask = new EventTask(data, start, end);
 
 		if (isCompleted) {
-			task.mark();
+			eventTask.mark();
 		}
 
-		tasks.add(task);
-		return task;
+		tasks.add(eventTask);
+		return eventTask;
 	}
 
 	public Task deleteTask(int id) {
@@ -176,7 +174,7 @@ public class TaskManager {
 		}
 		return floatingTasks;
 	}
-	
+
 	public ArrayList<Task> getIncompleteFloatingTasks() {
 		ArrayList<Task> floatingTasks = new ArrayList<Task>();
 
@@ -205,21 +203,26 @@ public class TaskManager {
 		ArrayList<Task> deadlineTasks = new ArrayList<Task>();
 
 		for (Task task : tasks) {
-			if (task.getTaskType() == TaskType.DEADLINE && task.getDeadlineTime().isTheSameDateAs(dateTime)) {
-				deadlineTasks.add(task);
+			if (task.getTaskType() == TaskType.DEADLINE) {
+				DeadlineTask deadlineTask = (DeadlineTask) task;
+				if (deadlineTask.getDeadlineTime().isTheSameDateAs(dateTime)) {
+					deadlineTasks.add(task);
+				}
 			}
 		}
 		return deadlineTasks;
 	}
-	
+
 	public ArrayList<Task> getIncompleteDeadlineTasks(DateTime dateTime) {
 
 		ArrayList<Task> deadlineTasks = new ArrayList<Task>();
 
 		for (Task task : tasks) {
-			if (task.getTaskType() == TaskType.DEADLINE && task.getDeadlineTime().isTheSameDateAs(dateTime)
-					&& !task.isCompleted()) {
-				deadlineTasks.add(task);
+			if (task.getTaskType() == TaskType.DEADLINE) {
+				DeadlineTask deadlineTask = (DeadlineTask) task;
+				if(deadlineTask.getDeadlineTime().isTheSameDateAs(dateTime) && !task.isCompleted()){
+					deadlineTasks.add(task);
+				}
 			}
 		}
 		return deadlineTasks;
@@ -242,28 +245,31 @@ public class TaskManager {
 		ArrayList<Task> eventTasks = new ArrayList<Task>();
 
 		for (Task task : tasks) {
-			if (task.getTaskType() == TaskType.EVENT && task.getDateTimeStart().isTheSameDateAs(dateTime)) {
-				eventTasks.add(task);
+			if (task.getTaskType() == TaskType.EVENT) {
+				EventTask eventTask = (EventTask) task;
+				if (eventTask.getDateTimeStart().isTheSameDateAs(dateTime)) {
+					eventTasks.add(task);
+				}
 			}
 		}
 		return eventTasks;
 	}
-	
+
 	public ArrayList<Task> getIncompleteEventTasks(DateTime dateTime) {
 
 		ArrayList<Task> eventTasks = new ArrayList<Task>();
 
 		for (Task task : tasks) {
-			if (task.getTaskType() == TaskType.EVENT && task.getDateTimeStart().isTheSameDateAs(dateTime)
-					&& !task.isCompleted()) {
-				eventTasks.add(task);
+			if (task.getTaskType() == TaskType.EVENT ) {
+				EventTask eventTask = (EventTask)task;
+				if(eventTask.getDateTimeStart().isTheSameDateAs(dateTime) && !task.isCompleted()){
+					eventTasks.add(task);
+				}
 			}
 		}
 		return eventTasks;
 	}
 
-	
-	
 	public ArrayList<TaskGroup> getTaskGroupsAll() {
 		ArrayList<TaskGroup> taskGroups = new ArrayList<TaskGroup>();
 		taskGroups.add(new TaskGroup("All", getIncompletedTasks()));
@@ -277,7 +283,7 @@ public class TaskManager {
 				currDate));
 		return taskGroups;
 	}
-	
+
 	public ArrayList<TaskGroup> getTaskGroupsFloating() {
 		ArrayList<TaskGroup> taskGroups = new ArrayList<TaskGroup>();
 		taskGroups.add(new TaskGroup("Float", getIncompleteFloatingTasks()));

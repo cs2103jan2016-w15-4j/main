@@ -53,36 +53,36 @@ public class EditCommand extends Command {
 	public void execute(LogicController logic) throws IncorrectInputException {
 		TaskManager taskManager = logic.getTaskManager();
 		assert (taskManager != null);
-
-		if (taskManager.containsTask(taskId)) {
-			Task task = taskManager.findTask(taskId);
-
-			switch (editCommandType) {
-				case NAME:
-					task.changeName(taskName);
-					break;
-	
-				case DEADLINE:
-					task.changeDeadline(dateTimeDeadline);
-					break;
-	
-				case EVENT:
-					task.changeEvent(dateTimeStart, dateTimeEnd);
-					break;
-	
-				case NAME_N_DEADLINE:
-					task.changeName(taskName);
-					task.changeDeadline(dateTimeDeadline);
-					break;
-	
-				case NAME_N_EVENT:
-					task.changeName(taskName);
-					task.changeEvent(dateTimeStart, dateTimeEnd);
-					break;
-			}
-		} else {
-			throw new IncorrectInputException("Cant find task ID: " + taskId);
-		}
+//
+//		if (taskManager.containsTask(taskId)) {
+//			Task task = taskManager.findTask(taskId);
+//
+//			switch (editCommandType) {
+//				case NAME:
+//					task.changeName(taskName);
+//					break;
+//	
+//				case DEADLINE:
+//					task.changeDeadline(dateTimeDeadline);
+//					break;
+//	
+//				case EVENT:
+//					task.changeEvent(dateTimeStart, dateTimeEnd);
+//					break;
+//	
+//				case NAME_N_DEADLINE:
+//					task.changeName(taskName);
+//					task.changeDeadline(dateTimeDeadline);
+//					break;
+//	
+//				case NAME_N_EVENT:
+//					task.changeName(taskName);
+//					task.changeEvent(dateTimeStart, dateTimeEnd);
+//					break;
+//			}
+//		} else {
+//			throw new IncorrectInputException("Cant find task ID: " + taskId);
+//		}
 	}
 
 }

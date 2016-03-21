@@ -8,4 +8,14 @@ public class FloatingTask extends Task {
 		taskType = TaskType.FLOATING;
 		this.taskName = taskName;
 	}
+	
+	@Override
+	public String getDateString(){
+		return "";
+	}
+	
+	@Override
+	public String toString() {
+		return taskName;
+	}
 }

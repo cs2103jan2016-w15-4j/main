@@ -9,9 +9,7 @@ public class Task {
 	protected String taskName;
 	protected int taskId;
 	protected TaskType taskType;
-	protected DateTime dateTimeDeadline;
-	protected DateTime dateTimeStart;
-	protected DateTime dateTimeEnd;
+	
 	protected boolean isCompleted;
 	protected Category category;
 
@@ -21,49 +19,27 @@ public class Task {
 		taskId = curTaskId++;
 	}
 
-	public void initTaskFloat(String taskName) {
-		taskType = TaskType.FLOATING;
-		this.taskName = taskName;
-	}
-	
-	public void initTaskDeadline(String taskName, DateTime deadline) {
-		assert (deadline != null);
-
-		taskType = TaskType.DEADLINE;
-		this.taskName = taskName;
-		this.dateTimeDeadline = deadline;
-	}
-	
-	public void initTaskEvent(String taskName, DateTime start, DateTime end) {
-		assert (start != null && end != null);
-
-		taskType = TaskType.EVENT;
-		this.taskName = taskName;
-		this.dateTimeStart = start;
-		this.dateTimeEnd = end;
-	}
-	
 	public void changeName(String taskName) {
 		this.taskName = taskName;
 	}
 
-	public void changeDeadline(DateTime deadline) {
-		assert (deadline != null);
-
-		taskType = TaskType.DEADLINE;
-		this.dateTimeDeadline = deadline;
-		this.dateTimeStart = null;
-		this.dateTimeEnd = null;
-	}
-
-	public void changeEvent(DateTime start, DateTime end) {
-		assert (start != null && end != null);
-
-		taskType = TaskType.EVENT;
-		this.dateTimeDeadline = null;
-		this.dateTimeStart = start;
-		this.dateTimeEnd = end;
-	}
+//	public void changeDeadline(DateTime deadline) {
+//		assert (deadline != null);
+//
+//		taskType = TaskType.DEADLINE;
+//		this.dateTimeDeadline = deadline;
+//		this.dateTimeStart = null;
+//		this.dateTimeEnd = null;
+//	}
+//
+//	public void changeEvent(DateTime start, DateTime end) {
+//		assert (start != null && end != null);
+//
+//		taskType = TaskType.EVENT;
+//		this.dateTimeDeadline = null;
+//		this.dateTimeStart = start;
+//		this.dateTimeEnd = end;
+//	}
 
 	public void mark() {
 		isCompleted = true;
@@ -113,73 +89,46 @@ public class Task {
 		return taskType;
 	}
 
-	public DateTime getDeadlineTime() {
-		return dateTimeDeadline;
-	}
-
-	public DateTime getDateTimeStart() {
-		return dateTimeStart;
-	}
-
-	public DateTime getDateTimeEnd() {
-		return dateTimeEnd;
-	}
+//	public DateTime getDeadlineTime() {
+//		return dateTimeDeadline;
+//	}
+//
+//	public DateTime getDateTimeStart() {
+//		return dateTimeStart;
+//	}
+//
+//	public DateTime getDateTimeEnd() {
+//		return dateTimeEnd;
+//	}
 
 	
 
-	public boolean hasDeadlineTime() {
-		if (dateTimeDeadline == null) {
-			return false;
-		} else {
-			return dateTimeDeadline.hasTime();
-		}
-	}
-
-	public boolean hasStartTime() {
-		if (dateTimeStart == null) {
-			return false;
-		} else {
-			return dateTimeStart.hasTime();
-		}
-	}
-
-	public boolean hasEndTime() {
-		if (dateTimeEnd == null) {
-			return false;
-		} else {
-			return dateTimeEnd.hasTime();
-		}
-	}
+//	public boolean hasDeadlineTime() {
+//		if (dateTimeDeadline == null) {
+//			return false;
+//		} else {
+//			return dateTimeDeadline.hasTime();
+//		}
+//	}
+//
+//	public boolean hasStartTime() {
+//		if (dateTimeStart == null) {
+//			return false;
+//		} else {
+//			return dateTimeStart.hasTime();
+//		}
+//	}
+//
+//	public boolean hasEndTime() {
+//		if (dateTimeEnd == null) {
+//			return false;
+//		} else {
+//			return dateTimeEnd.hasTime();
+//		}
+//	}
 
 	public String getDateString(){
 		return "";
-	}
-	
-	@Override
-	public String toString() {
-		String str = "";
-
-		switch (taskType) {
-		case FLOATING:
-			str = taskName;
-			break;
-
-		case DEADLINE:
-			str = taskName + ": deadline: " + dateTimeDeadline.toString();
-			break;
-
-		case EVENT:
-			str = taskName + ": event: " + dateTimeStart.toString() + "," + dateTimeEnd.toString();
-			break;
-		default:
-			str = "";
-		}
-		
-		if(category != null){
-			System.out.println("Has Cat: " + category.getName());
-		}
-
-		return str;
 	}
 
 	@Override

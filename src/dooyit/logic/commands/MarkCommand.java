@@ -7,26 +7,18 @@ import dooyit.logic.core.LogicController;
 import dooyit.logic.core.TaskManager;
 
 public class MarkCommand extends Command {
-	public enum MarkCommandType {
-		SINGLE, MULTIPLE
-	};
-
-	private int markId;
 	private ArrayList<Integer> markIds;
-	private MarkCommandType markCommandType;
 
 	public MarkCommand() {
-
+		markIds = new ArrayList<Integer>();
 	}
 
 	public void initMarkCommand(int deleteId) {
-		markCommandType = MarkCommandType.SINGLE;
-		this.markId = deleteId;
+		markIds.add(deleteId);
 	}
 
 	public void initMarkCommand(ArrayList<Integer> deleteIds) {
-		markCommandType = MarkCommandType.MULTIPLE;
-		this.markIds = deleteIds;
+		this.markIds.addAll(deleteIds);
 	}
 
 	@Override
@@ -34,37 +26,18 @@ public class MarkCommand extends Command {
 		TaskManager taskManager = logic.getTaskManager();
 		assert (taskManager != null);
 
-		switch (markCommandType) {
+		String errorMessageBody = "";
 
-		case SINGLE:
-			if (taskManager.containsTask(markId)) {
-				boolean successfullyMarked = taskManager.markTask(markId);
-
-				if (!successfullyMarked) {
-					throw new IncorrectInputException(
-							"Task " + markId + "-" + taskManager.findTask(markId).getName() + " is already marked.");
-				}
+		for (int i = 0; i < markIds.size(); i++) {
+			if (taskManager.containsTask(markIds.get(i))) {
+				taskManager.markTask(markIds.get(i));
 			} else {
-				throw new IncorrectInputException("Index " + markId + " doesn't exists");
+				errorMessageBody += " " + markIds.get(i);
 			}
-			break;
+		}
 
-		case MULTIPLE:
-			String errorMessageBody = "";
-
-			for (int i = 0; i < markIds.size(); i++) {
-				if (taskManager.containsTask(markIds.get(i))) {
-					taskManager.markTask(markIds.get(i));
-				} else {
-					errorMessageBody += " " + markIds.get(i);
-				}
-			}
-
-			if (errorMessageBody != "") {
-				throw new IncorrectInputException("Index" + errorMessageBody + " doesn't exists");
-			}
-
-			break;
+		if (errorMessageBody != "") {
+			throw new IncorrectInputException("Index" + errorMessageBody + " doesn't exists");
 		}
 
 	}

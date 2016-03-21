@@ -121,6 +121,17 @@ public class TaskManager {
 		return false;
 	}
 
+	public boolean unMarkTask(Task task) {
+		for (int i = 0; i < tasks.size(); i++) {
+			if (tasks.get(i).equals(task)) {
+				tasks.get(i).unMark();
+				return true;
+			}
+		}
+		// tell user if task is already marked.
+		return false;
+	}
+	
 	public boolean contains(int id) {
 		for (int i = 0; i < tasks.size(); i++) {
 			if (tasks.get(i).getId() == id) {

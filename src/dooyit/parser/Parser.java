@@ -109,7 +109,7 @@ public class Parser {
 			break;
 
 		case COMMAND_UNMARK:
-			command = unmarkParser.getCommand(getInputWithoutCommand(input, COMMAND_MARK));
+			command = unmarkParser.getCommand(getInputWithoutCommand(input, COMMAND_UNMARK));
 			break;
 		
 		case COMMAND_MOVE_TO_CAT:

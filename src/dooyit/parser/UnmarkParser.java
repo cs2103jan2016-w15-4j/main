@@ -16,6 +16,7 @@ public class UnmarkParser extends TagParser{
 		setVariables(input);
 		command = null;
 		
+		System.out.println("input is " + input);
 		try {
 			parseTaskIds();
 		} catch(IncorrectInputException e) {

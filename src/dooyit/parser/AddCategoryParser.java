@@ -1,7 +1,5 @@
 package dooyit.parser;
 
-import java.util.ArrayList;
-
 import dooyit.common.exception.IncorrectInputException;
 import dooyit.logic.commands.Command;
 import dooyit.logic.commands.CommandUtils;
@@ -73,56 +71,51 @@ public class AddCategoryParser extends TagParser{
 	private void setCorrectCategoryWithTasksCommand(TAG_TYPE tagType) {
 		switch (tagType) {
 		case SINGLE:
-			command = getCreateCategoryCommand(taskIdForTagging);
+			setCreateCategoryWithOneTaskCommand();
 			break;
 
 		case MULTIPLE:
-			command = getCreateCategoryCommand(taskIdsForTagging);
+			setCreateCategoryWithManyTasksCommand();
 			break;
 
 		case INTERVAL:
-			command = getCreateCategoryCommand(taskIdsForTagging);
+			setCreateCategoryWithManyTasksCommand();
 			break;
 
 		default:
-			command = getInvalidCmd();
+			setInvalidCmd();
 			break;
 		}
 	}
 
-	private Command getCreateCategoryCommand(ArrayList<Integer> taskIdsForTagging) {
-		Command temp = null;
+	private void setCreateCategoryWithOneTaskCommand() {
 		if(hasColour) {
-			//temp = CommandUtils.createAddCategoryCommand(catName, catColour, taskIdsForTagging);
+			//command = CommandUtils.createAddCategoryCommand(catName, catColour, taskIdsForTagging);
 		} else {
-			//temp = CommandUtils.createAddCatergoryCommand(catName, taskIdsForTagging); 
+			//command = CommandUtils.createAddCatergoryCommand(catName, taskIdsForTagging); 
 		}
-		return temp;
 	}
 
-	private Command getCreateCategoryCommand(int taskIdForTagging) {
-		Command temp = null;
+	private void setCreateCategoryWithManyTasksCommand() {
 		if(hasColour) {
-			//temp = CommandUtils.createAddCategoryCommand(catName, catColour, taskIdForTagging);
+			//command = CommandUtils.createAddCategoryCommand(catName, catColour, taskIdForTagging);
 		} else {
-			//temp = CommandUtils.createAddCatergoryCommand(catName, taskIdForTagging); 
+			//command = CommandUtils.createAddCatergoryCommand(catName, taskIdForTagging); 
 		}
-		return temp;
 	}
 
-	private Command getInvalidCmd() {
-		return CommandUtils.createInvalidCommand("Invalid Add Category Command!");
+	private void setInvalidCmd() {
+		command = CommandUtils.createInvalidCommand("Invalid Add Category Command!");
 	}
 	
 	private void getTaskIds() {
 		if(hasColour) {
-			int indexOfTaskIds = userInput.indexOf(catColour) + catColour.length() - 1;
+			int indexOfTaskIds = userInput.indexOf(catColour) + catColour.length();
 			String taskIdString = userInput.substring(indexOfTaskIds).trim();
 			setVariables(taskIdString);
 		} else {
-			int indexOfTaskIds = userInput.indexOf(catName) + catName.length() - 1;
+			int indexOfTaskIds = userInput.indexOf(catName) + catName.length();
 			String taskIdString = userInput.substring(indexOfTaskIds).trim();
-			System.out.println("taskId string is " + taskIdString);
 			setVariables(taskIdString);
 		}
 	}
@@ -148,9 +141,20 @@ public class AddCategoryParser extends TagParser{
 	private void parse() {
 		String[] inputArr = userInput.split("\\s+");
 		catName = inputArr[INDEX_NAME];
-		if(inputArr.length != 1) {
+		if(!isOneWordInput(inputArr)) {
 			catColour = inputArr[INDEX_COLOUR];
 			hasColour = !isNumber(catColour);
 		}
+		
+		for(int i = INDEX_COLOUR; i < inputArr.length; i++) {
+			if(isNumber(inputArr[i])) {
+				hasTasks = true;
+				break;
+			}
+		}
+	}
+
+	private boolean isOneWordInput(String[] inputArr) {
+		return inputArr.length == 1;
 	}
 }

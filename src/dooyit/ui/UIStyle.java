@@ -1,10 +1,10 @@
 package dooyit.ui;
 
 public class UIStyle {
-	protected static final String URL_CSS_COMMON = "common.css";
-	protected static final String URL_CSS_THEME_LIGHT = "theme_light.css";
-	protected static final String URL_CSS_THEME_DARK = "theme_dark.css";
-	protected static final String URL_CSS_THEME_AQUA = "theme_aqua.css";
+	protected static final String URL_CSS_COMMON = "resrc/css/common.css";
+	protected static final String URL_CSS_THEME_LIGHT = "resrc/css/theme_light.css";
+	protected static final String URL_CSS_THEME_DARK = "resrc/css/theme_dark.css";
+	protected static final String URL_CSS_THEME_AQUA = "resrc/css/theme_aqua.css";
 
 	protected static final String MAIN_VIEW = "main-view";
 

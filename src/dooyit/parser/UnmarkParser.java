@@ -50,19 +50,16 @@ public class UnmarkParser extends TagParser{
 	}
 
 	private Command getIntervalTypeUnmarkCommand() {
-		return null;
-		// return CommandUtils.createUnmarkCommand(taskIdsForTagging);
+		return CommandUtils.createUnMarkCommand(taskIdsForTagging);
 	}
 	
 	// Eg. unmark 2 4 0 9
 	private Command getMultipleTypeUnmarkCommand() {
-		return null;
-		// return CommandUtils.createUnmarkCommand(taskIdsForTagging);
+		return CommandUtils.createUnMarkCommand(taskIdsForTagging);
 	}
 
 	private Command getSingleTypeUnmarkCommand() {
-		return null;
-		// return CommandUtils.createUnmarkCommand(taskIdForTagging);
+		return CommandUtils.createUnMarkCommand(taskIdForTagging);
 	}
 
 	private Command getInvalidCmd() {

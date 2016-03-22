@@ -38,6 +38,7 @@ public class DateTime {
 	
 	private static String[] months = new String[] { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
 	private static String[] daysInWeek = new String[] { DUMMY_STR, "mon", "tue", "wed", "thu", "fri", "sat", "sun" };
+	private static int[] daysInMonth = new int[] { UNINITIALIZED, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 
 	private String date; // 8 March 2016
 	private String timeStr24H; // 1300
@@ -426,7 +427,7 @@ public class DateTime {
 
 	public void increaseByOne() {
 		this.dd += 1;
-		if (this.dd > DateTimeParser.daysInMonth[this.mm]) {
+		if (this.dd > daysInMonth[this.mm]) {
 			this.dd = 1;
 			this.mm += 1;
 		}

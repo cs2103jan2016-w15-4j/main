@@ -25,25 +25,31 @@ public class TagParser {
 	public void parseTaskIds() throws IncorrectInputException {
 		switch (getTagType()) {
 		case SINGLE:
+			System.out.println("is single tag type");
 			try {
 				parseSingleType();
 			} catch (IncorrectInputException e) {
 				throw e;
 			}
+			break;
 
 		case MULTIPLE:
+			System.out.println("is multiple tag type");
 			try {
 				parseMultipleType();
 			} catch (IncorrectInputException e) {
 				throw e;
 			}
+			break;
 
 		case INTERVAL:
+			System.out.println("is interval tag type");
 			try {
 				parseIntervalType();
 			} catch (IncorrectInputException e) {
 				throw e;
 			}
+			break;
 
 		default:
 			throw new IncorrectInputException("Error: Invalid Task IDs");

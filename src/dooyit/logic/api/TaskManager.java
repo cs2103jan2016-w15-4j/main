@@ -12,7 +12,6 @@ import dooyit.common.datatype.Task.TaskType;
 
 public class TaskManager {
 	private ArrayList<Task> tasks;
-	private DateTime dateTime;
 
 	public TaskManager() {
 		tasks = new ArrayList<Task>();

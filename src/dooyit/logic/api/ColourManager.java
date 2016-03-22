@@ -6,7 +6,6 @@ import java.util.Random;
 import dooyit.common.datatype.CustomColor;
 
 public class ColourManager {
-	// Colour[] availableColours;
 	ArrayList<CustomColor> usedColours;
 	Random random;
 	ArrayList<CustomColor> recommendedColours;

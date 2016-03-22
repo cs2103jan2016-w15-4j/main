@@ -7,6 +7,8 @@ import dooyit.ui.Main;
 public class Parser {
 
 	static final String COMMAND_EXIT = "exit";
+	static final String COMMAND_CLOSE = "close";
+	static final String COMMAND_HELP = "help";
 	static final String COMMAND_CLEAR = "clear";
 	static final String COMMAND_SHOW = "show";
 	static final String COMMAND_DELETE = "delete";
@@ -17,6 +19,7 @@ public class Parser {
 	static final String COMMAND_SKIN = "skin";
 	static final String COMMAND_STORAGE = "storage";
 	static final String COMMAND_UNMARK = "unmark";
+	static final String COMMAND_UNDO = "undo";
 	private static final String COMMAND_DELETE_CAT = "deletecat";
 	private static final String COMMAND_EDIT_CAT = "editcat";
 	private static final String COMMAND_MOVE_TO_CAT = "move";
@@ -100,6 +103,10 @@ public class Parser {
 			String filePath = getInputWithoutCommand(input, COMMAND_STORAGE);
 			command = CommandUtils.createStorageCommand(filePath);
 			break;
+		
+		case COMMAND_HELP:
+			command = CommandUtils.createHelpCommand();
+			break;
 
 		case COMMAND_UNMARK:
 			command = unmarkParser.getCommand(getInputWithoutCommand(input, COMMAND_MARK));
@@ -113,7 +120,15 @@ public class Parser {
 		case COMMAND_REMOVE_FROM_CAT:
 			command = removeParser.getCommand(getInputWithoutCommand(input, COMMAND_REMOVE_FROM_CAT));
 			break;
-
+			
+		case COMMAND_UNDO:
+			command = CommandUtils.createUndoCommand();
+			break;
+			
+		case COMMAND_CLOSE:
+			command = CommandUtils.createExitCommand();
+			break;
+			
 		case COMMAND_EXIT:
 			command = CommandUtils.createExitCommand();
 			break;

@@ -5,51 +5,47 @@ import dooyit.logic.commands.Command;
 import dooyit.logic.commands.CommandUtils;
 
 public class RemoveParser extends TagParser {
-	private static Command command = null;
+	private static Command command;
 
 	public RemoveParser() {
 		super();
-		command = null;
 	}
 
-	public Command getCommand(String input) throws IncorrectInputException {
+	public Command getCommand(String input) {
 		setVariables(input);
-		switch (getTagType()) {
+		command = null;
+		
+		try {
+			parseTaskIds();
+		} catch(IncorrectInputException e) {
+			command = getInvalidCommand(e.getMessage());
+		}
+		
+		if(command == null) {
+			setCorrectRemoveCommand(getTagType());
+		}
+		
+		return command;
+	}
+
+	private void setCorrectRemoveCommand(TAG_TYPE tagType) {
+		switch (tagType) {
 		case SINGLE:
-			try {
-				parseSingleType();
-			} catch (IncorrectInputException e) {
-				command = getInvalidCommand(e.getMessage());
-				break;
-			}
 			command = getSingleTypeRemoveCommand();
 			break;
 
 		case MULTIPLE:
-			try {
-				parseMultipleType();
-			} catch (IncorrectInputException e) {
-				command = getInvalidCommand(e.getMessage());
-				break;
-			}
 			command = getMultipleTypeRemoveCommand();
 			break;
 
 		case INTERVAL:
-			try {
-				parseIntervalType();
-			} catch (IncorrectInputException e) {
-				command = getInvalidCommand(e.getMessage());
-				break;
-			}
 			command = getIntervalTypeRemoveCommand();
 			break;
 
-		case INVALID:
+		default:
 			command = getInvalidCmd();
 			break;
 		}
-		return command;
 	}
 
 	private Command getIntervalTypeRemoveCommand() {

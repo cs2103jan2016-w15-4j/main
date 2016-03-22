@@ -5,51 +5,45 @@ import dooyit.logic.commands.Command;
 import dooyit.logic.commands.CommandUtils;
 
 public class DeleteParser extends TagParser {
-	private static Command command = null;
+	private static Command command;
 
 	public DeleteParser() {
 		super();
-		command = null;
 	}
 
-	public Command getCommand(String input) throws IncorrectInputException {
+	public Command getCommand(String input) {
 		setVariables(input);
-		switch (getTagType()) {
+		command = null;
+		try {
+			parseTaskIds();
+		} catch(IncorrectInputException e) {
+			command = getInvalidCommand(e.getMessage());
+		}
+		if(command == null) {
+			setCorrectDeleteCommand(getTagType());
+		}
+		
+		return command;
+	}
+
+	private void setCorrectDeleteCommand(TAG_TYPE tagType) {
+		switch (tagType) {
 		case SINGLE:
-			try {
-				parseSingleType();
-			} catch (IncorrectInputException e) {
-				command = getInvalidCommand(e.getMessage());
-				break;
-			}
 			command = getSingleTypeDeleteCommand();
 			break;
 
 		case MULTIPLE:
-			try {
-				parseMultipleType();
-			} catch (IncorrectInputException e) {
-				command = getInvalidCommand(e.getMessage());
-				break;
-			}
 			command = getMultipleTypeDeleteCommand();
 			break;
 
 		case INTERVAL:
-			try {
-				parseIntervalType();
-			} catch (IncorrectInputException e) {
-				command = getInvalidCommand(e.getMessage());
-				break;
-			}
 			command = getIntervalTypeDeleteCommand();
 			break;
 
-		case INVALID:
+		default:
 			command = getInvalidCmd();
 			break;
 		}
-		return command;
 	}
 
 	private Command getIntervalTypeDeleteCommand() {

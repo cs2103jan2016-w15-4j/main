@@ -15,45 +15,41 @@ public class MoveParser extends TagParser {
 		super();
 	}
 	
-	public Command getCommand(String input) throws IncorrectInputException {
+	public Command getCommand(String input) {
 		parse(input);
 		setVariables(taskIds);
-		switch (getTagType()) {
+		
+		try {
+			parseTaskIds();
+		} catch(IncorrectInputException e) {
+			command = getInvalidCommand(e.getMessage());
+		}
+		
+		if(command == null) {
+			setCorrectMoveCommand(getTagType());
+		}
+		
+		return command;
+	}
+
+	private void setCorrectMoveCommand(TAG_TYPE tagType) {
+		switch (tagType) {
 		case SINGLE:
-			try {
-				parseSingleType();
-			} catch (IncorrectInputException e) {
-				command = getInvalidCommand(e.getMessage());
-				break;
-			}
 			command = getSingleTypeMoveCommand();
 			break;
 
 		case MULTIPLE:
-			try {
-				parseMultipleType();
-			} catch (IncorrectInputException e) {
-				command = getInvalidCommand(e.getMessage());
-				break;
-			}
 			command = getMultipleTypeMoveCommand();
 			break;
 
 		case INTERVAL:
-			try {
-				parseIntervalType();
-			} catch (IncorrectInputException e) {
-				command = getInvalidCommand(e.getMessage());
-				break;
-			}
 			command = getIntervalTypeMoveCommand();
 			break;
 
-		case INVALID:
+		default:
 			command = getInvalidCmd();
 			break;
 		}
-		return command;
 	}
 
 	private Command getIntervalTypeMoveCommand() {

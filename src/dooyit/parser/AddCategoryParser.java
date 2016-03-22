@@ -8,9 +8,6 @@ import dooyit.logic.commands.CommandUtils;
 
 public class AddCategoryParser extends TagParser{
 	
-	//addcat <cat name> 
-	//addcat <cat name> <cat colour>, <task ids>
-	//addcat <cat name>, <task ids>
 	private static String userInput;
 	private static String catName;
 	private static String catColour;
@@ -33,18 +30,17 @@ public class AddCategoryParser extends TagParser{
 	}
 
 	public Command getCommand(String input) {
-		System.out.println("input is " + input);
 		resetVariables(input);
 		parse();
 		
 		switch (getCommandType()) {
 		case CREATE_NEW_CATEGORY_WITHOUT_TASKS:
-			command = getCommandToCreateCategoryWithoutTasks();
+			setCommandToCreateCategoryWithoutTasks();
 			break;
 
 		case CREATE_NEW_CATEGORY_WITH_TASKS:
-			parseTaskIds();
-			command = getCommandToCreateCategoryWithTasks();
+			getTaskIds();
+			setCommandToCreateCategoryWithTasks();
 			break;
 
 		default:
@@ -62,45 +58,38 @@ public class AddCategoryParser extends TagParser{
 		hasColour = false;
 	}
 
-	private Command getCommandToCreateCategoryWithTasks() {
-		switch (getTagType()) {
+	private void setCommandToCreateCategoryWithTasks() {
+		try {
+			parseTaskIds();
+		} catch (IncorrectInputException e) {
+			command = getInvalidCommand(e.getMessage());
+		}
+		
+		if(command == null) {
+			setCorrectCategoryWithTasksCommand(getTagType());
+		}
+	}
+	
+	private void setCorrectCategoryWithTasksCommand(TAG_TYPE tagType) {
+		switch (tagType) {
 		case SINGLE:
-			try {
-				parseSingleType();
-			} catch (IncorrectInputException e) {
-				command = getInvalidCommand(e.getMessage());
-				break;
-			}
 			command = getCreateCategoryCommand(taskIdForTagging);
 			break;
 
 		case MULTIPLE:
-			try {
-				parseMultipleType();
-			} catch (IncorrectInputException e) {
-				command = getInvalidCommand(e.getMessage());
-				break;
-			}
 			command = getCreateCategoryCommand(taskIdsForTagging);
 			break;
 
 		case INTERVAL:
-			try {
-				parseIntervalType();
-			} catch (IncorrectInputException e) {
-				command = getInvalidCommand(e.getMessage());
-				break;
-			}
 			command = getCreateCategoryCommand(taskIdsForTagging);
 			break;
 
-		case INVALID:
+		default:
 			command = getInvalidCmd();
 			break;
 		}
-		return command;
 	}
-	
+
 	private Command getCreateCategoryCommand(ArrayList<Integer> taskIdsForTagging) {
 		Command temp = null;
 		if(hasColour) {
@@ -125,7 +114,7 @@ public class AddCategoryParser extends TagParser{
 		return CommandUtils.createInvalidCommand("Invalid Add Category Command!");
 	}
 	
-	private void parseTaskIds() {
+	private void getTaskIds() {
 		if(hasColour) {
 			int indexOfTaskIds = userInput.indexOf(catColour) + catColour.length() - 1;
 			String taskIdString = userInput.substring(indexOfTaskIds).trim();
@@ -148,13 +137,12 @@ public class AddCategoryParser extends TagParser{
 		} 
 	}
 
-	private Command getCommandToCreateCategoryWithoutTasks() {
+	private void setCommandToCreateCategoryWithoutTasks() {
 		if(hasColour) {
 			command = CommandUtils.createAddCategoryCommand(catName, catColour);
 		} else { 
 			command = CommandUtils.createAddCategoryCommand(catName);
 		}
-		return command;
 	}
 
 	private void parse() {

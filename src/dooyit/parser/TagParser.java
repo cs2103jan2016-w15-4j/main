@@ -22,9 +22,36 @@ public class TagParser {
 
 	}
 	
+	public void parseTaskIds() throws IncorrectInputException {
+		switch (getTagType()) {
+		case SINGLE:
+			try {
+				parseSingleType();
+			} catch (IncorrectInputException e) {
+				throw e;
+			}
+
+		case MULTIPLE:
+			try {
+				parseMultipleType();
+			} catch (IncorrectInputException e) {
+				throw e;
+			}
+
+		case INTERVAL:
+			try {
+				parseIntervalType();
+			} catch (IncorrectInputException e) {
+				throw e;
+			}
+
+		default:
+			throw new IncorrectInputException("Error: Invalid Task IDs");
+		}
+	}
+	
 	public void setVariables(String input) {
 		userInput = input;
-		System.out.println("userInput in setVariables of tagParser is " + userInput);
 		splitInput = userInput.split("\\s+");
 		taskIdsForTagging = new ArrayList<Integer>();
 	}

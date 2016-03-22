@@ -5,43 +5,39 @@ import dooyit.logic.commands.Command;
 import dooyit.logic.commands.CommandUtils;
 
 public class MarkParser extends TagParser{
-	private static Command command = null;
+	private static Command command;
 
 	public MarkParser() {
 		super();
-		command = null;
 	}
 
-	public Command getCommand(String input) throws IncorrectInputException {
+	public Command getCommand(String input) {
 		setVariables(input);
-		switch (getTagType()) {
+		command = null;
+		try {
+			parseTaskIds();
+		} catch(IncorrectInputException e) {
+			command = getInvalidCommand(e.getMessage());
+		}
+		
+		if(command == null) {
+			setCorrectMarkCommand(getTagType());
+		}
+		
+		return command;
+	}
+
+	private void setCorrectMarkCommand(TAG_TYPE tagType) {
+		switch (tagType) {
 		case SINGLE:
-			try {
-				parseSingleType();
-			} catch (IncorrectInputException e) {
-				command = getInvalidCommand(e.getMessage());
-				break;
-			}
 			command = getSingleTypeMarkCommand();
 			break;
 
 		case MULTIPLE:
-			try {
-				parseMultipleType();
-			} catch (IncorrectInputException e) {
-				command = getInvalidCommand(e.getMessage());
-				break;
-			}
 			command = getMultipleTypeMarkCommand();
 			break;
 
 		case INTERVAL:
-			try {
-				parseIntervalType();
-			} catch (IncorrectInputException e) {
-				command = getInvalidCommand(e.getMessage());
-				break;
-			}
 			command = getIntervalTypeMarkCommand();
 			break;
 
@@ -49,7 +45,6 @@ public class MarkParser extends TagParser{
 			command = getInvalidCmd();
 			break;
 		}
-		return command;
 	}
 
 	private Command getIntervalTypeMarkCommand() {

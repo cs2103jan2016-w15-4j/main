@@ -5,51 +5,48 @@ import dooyit.logic.commands.Command;
 import dooyit.logic.commands.CommandUtils;
 
 public class UnmarkParser extends TagParser{
-	private static Command command = null;
+	private static Command command;
 
 	public UnmarkParser() {
 		super();
-		command = null;
+		
 	}
 
 	public Command getCommand(String input) throws IncorrectInputException {
 		setVariables(input);
-		switch (getTagType()) {
+		command = null;
+		
+		try {
+			parseTaskIds();
+		} catch(IncorrectInputException e) {
+			command = getInvalidCommand(e.getMessage());
+		}
+		
+		if(command == null) {
+			setUnmarkCommand(getTagType());
+		}
+		
+		return command;
+	}
+
+	private void setUnmarkCommand(TAG_TYPE tagType) {
+		switch (tagType) {
 		case SINGLE:
-			try {
-				parseSingleType();
-			} catch (IncorrectInputException e) {
-				command = getInvalidCommand(e.getMessage());
-				break;
-			}
 			command = getSingleTypeUnmarkCommand();
 			break;
 
 		case MULTIPLE:
-			try {
-				parseMultipleType();
-			} catch (IncorrectInputException e) {
-				command = getInvalidCommand(e.getMessage());
-				break;
-			}
 			command = getMultipleTypeUnmarkCommand();
 			break;
 
 		case INTERVAL:
-			try {
-				parseIntervalType();
-			} catch (IncorrectInputException e) {
-				command = getInvalidCommand(e.getMessage());
-				break;
-			}
 			command = getIntervalTypeUnmarkCommand();
 			break;
 
-		case INVALID:
+		default:
 			command = getInvalidCmd();
 			break;
 		}
-		return command;
 	}
 
 	private Command getIntervalTypeUnmarkCommand() {

@@ -16,11 +16,8 @@ public class ParserTest {
 	
 	@Test
 	public void testAddFloatingTask() {
-		String userInput = "29 March 2016";
+		String userInput = "add run for 30 minutes";
 		DateTimeParser dateTimeParser = PowerMockito.spy(new DateTimeParser());
-		dateTimeParser.parse(userInput);
-		PowerMockito.when(dateTimeParser, "parse", userInput)
 		
-		//Command command = parser.getCommand(userInput);
 	}
 }

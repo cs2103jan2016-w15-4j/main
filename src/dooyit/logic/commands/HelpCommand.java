@@ -14,7 +14,7 @@ public class HelpCommand extends Command {
 	public void execute(LogicController logic) throws IncorrectInputException {
 		UIController uiController = logic.getUIController();
 		
-		uiController.showUserGuide();
+		uiController.showHelp();
 		
 	}
 

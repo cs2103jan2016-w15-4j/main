@@ -25,7 +25,7 @@ public class LogicController {
 	private static Logger logger = Logger.getLogger("Logic");
 
 	private boolean isSaveOn;
-	
+
 	public LogicController() {
 		logger.log(Level.INFO, "Initialising logic class");
 
@@ -34,7 +34,7 @@ public class LogicController {
 		categoryManager = new CategoryManager();
 		history = new Stack<ReversibleCommand>();
 		isSaveOn = true;
-		
+
 		try {
 			storage = new StorageController();
 		} catch (IOException e) {
@@ -82,41 +82,42 @@ public class LogicController {
 
 		refreshUIController();
 
-		try {
-
-			save();
-
-		} catch (IOException e) {
-			logger.log(Level.SEVERE, "ERROR: Fail to save");
-			uiController.displayMessage("ERROR: SAVING");
-		}
+		save();
 
 		// update UI - UI.update();
 		taskManager.display();
 	}
 
-	private void save() throws IOException {
-		if(isSaveOn){
+	private void save() {
+		if (!isSaveOn) {
+			return;
+		}
+		
+		try {
 			storage.saveTasks(taskManager.getAllTasks());
+		} catch (IOException e) {
+			logger.log(Level.SEVERE, "ERROR: Fail to save");
+			uiController.displayMessage("ERROR: SAVING");
 		}
 	}
-	
-	public void enableSave(){
+
+	public void enableSave() {
 		isSaveOn = true;
 	}
-	
-	public void disableSave(){
+
+	public void disableSave() {
 		isSaveOn = false;
 	}
-	
-	public void clearTask(){
+
+	public void clearTask() {
 		taskManager.clear();
+		save();
 	}
 
 	private void refreshUIController() {
 		// uiController.refreshMainView(taskManager.getTaskGroupsToday());
-//		if (uiController == null)
-//			return;
+		// if (uiController == null)
+		// return;
 
 		UIMainViewType uiMainViewType = uiController.getActiveViewType();
 

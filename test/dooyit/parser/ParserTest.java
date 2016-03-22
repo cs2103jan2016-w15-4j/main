@@ -18,11 +18,8 @@ public class ParserTest {
 	public void testAddFloatingTask() {
 		String userInput = "add run for 30 minutes";
 		DateTimeParser dateTimeParser = PowerMockito.spy(new DateTimeParser());
-<<<<<<< HEAD:src/Test/ParserTest.java
-=======
 		dateTimeParser.parse(userInput);
 		//PowerMockito.when(dateTimeParser, "parse", userInput;
->>>>>>> a0030bed8e7c49895033ace88c9158501bbf0c6e:test/dooyit/parser/ParserTest.java
 		
 	}
 }

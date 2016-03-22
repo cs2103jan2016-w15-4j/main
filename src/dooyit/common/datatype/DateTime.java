@@ -16,8 +16,8 @@ public class DateTime {
 	private static final int INDEX_MM = 1;
 	private static final int INDEX_YY = 2;
 	private static final int INDEX_TIME_INT = 3;
-	private static final int INDEX_DAY_STRING = 4;
 	private static final int INDEX_DAY_INT = 5;
+	private static final String DUMMY_STR = "Dummy_Str";
 
 	private String date; // 08/02/2016
 	private String timeStr24H; // 1300
@@ -30,8 +30,7 @@ public class DateTime {
 	private int timeInt;
 	private String[] months = new String[] { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct",
 			"Nov", "Dec" };
-	private String[] daysInWeek = new String[] { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday",
-			"Sunday" };
+	private String[] daysInWeek = new String[] { DUMMY_STR, "mon", "tue", "wed", "thu", "fri", "sat", "sun" };
 
 	public DateTime(DateTime dt) {
 		this.dd = dt.getDD();
@@ -42,7 +41,11 @@ public class DateTime {
 		this.timeStr24H = dt.getTime24hStr();
 		this.dayStr = dt.getDayStr();
 		this.dayInt = setDayInt(this.dayStr);
-		this.date = this.dd + " " + months[this.mm - 1] + " " + this.yy;
+		this.date = this.dd + " " + months[decrementByOne(this.mm)] + " " + this.yy;
+	}
+
+	private int decrementByOne(int number) {
+		return number - 1;
 	}
 
 	public DateTime(int[] date, String day, int time) {
@@ -53,8 +56,9 @@ public class DateTime {
 		this.timeStr24H = convertTimeIntTo24hString(time);
 		this.timeStr12H = convertTimeIntTo12hString(time);
 		this.dayStr = day;
+		
 		this.dayInt = setDayInt(dayStr);
-		this.date = this.dd + " " + months[this.mm - 1] + " " + this.yy;
+		this.date = this.dd + " " + months[decrementByOne(this.mm)] + " " + this.yy;
 	}
 
 	public DateTime() {
@@ -68,11 +72,11 @@ public class DateTime {
 		this.mm = Integer.parseInt(splitDate[INDEX_MM]);
 		this.yy = Integer.parseInt(splitDate[INDEX_YY]);
 		this.timeInt = Integer.parseInt(splitDate[INDEX_TIME_INT].replace(":", ""));
-		this.dayStr = splitDate[INDEX_DAY_STRING];
 		this.dayInt = Integer.parseInt(splitDate[INDEX_DAY_INT]);
+		this.dayStr = daysInWeek[this.dayInt];
 		this.timeStr24H = convertTimeIntTo24hString(this.timeInt);
 		this.timeStr12H = convertTimeIntTo12hString(this.timeInt);
-		this.date = this.dd + " " + months[this.mm - 1] + " " + this.yy;
+		this.date = this.dd + " " + months[decrementByOne(this.mm)] + " " + this.yy;
 	}
 
 	public DateTime(int[] date, String day) {
@@ -83,7 +87,7 @@ public class DateTime {
 		this.timeStr12H = String.valueOf(UNINITIALIZED);
 		this.dayStr = day;
 		this.dayInt = setDayInt(dayStr);
-		this.date = this.dd + " " + months[this.mm - 1] + " " + this.yy;
+		this.date = this.dd + " " + months[decrementByOne(this.mm)] + " " + this.yy;
 	}
 
 	public DateTime(int dd, int mm, int yy, String day, String time) {
@@ -103,7 +107,7 @@ public class DateTime {
 		}
 		this.dayStr = day;
 		this.dayInt = setDayInt(dayStr);
-		this.date = this.dd + " " + months[this.mm - 1] + " " + this.yy;
+		this.date = this.dd + " " + months[decrementByOne(this.mm)] + " " + this.yy;
 	}
 
 	public DateTime(String[] split, String day, int time2) {
@@ -114,14 +118,14 @@ public class DateTime {
 		this.timeStr12H = convertTimeIntTo12hString(time2);
 		this.dayStr = day;
 		this.dayInt = setDayInt(dayStr);
-		this.date = this.dd + " " + months[this.mm - 1] + " " + this.yy;
+		this.date = this.dd + " " + months[decrementByOne(this.mm)] + " " + this.yy;
 	}
 
 	private int setDayInt(String str) {
 		int ans = UNINITIALIZED;
 		for (int i = 0; i < daysInWeek.length; i++) {
-			if (str.equals(daysInWeek)) {
-				ans = i + 1;
+			if (str.equals(daysInWeek[i])) {
+				ans = i;
 				break;
 			}
 		}
@@ -129,49 +133,65 @@ public class DateTime {
 	}
 
 	// Converts the 24h time int to 12h String format
-	private String convertTimeIntTo12hString(int time2) {
-		String temp;
-		if (time2 == -1) {
-			temp = NO_TIME_INDICATED;
-		} else if (time2 == 0) {
-			temp = "12 am";
-		} else if (time2 < 100 && time2 > 0) {
-			temp = "12." + time2 + " am";
-		} else if (time2 > 100 && time2 < 1200) {
-			if (time2 % 100 == 0) { // 12 am etc
-				temp = time2 / 100 + " am";
+	private String convertTimeIntTo12hString(int time) {
+		String timeString12H;
+		if (time == -1) {
+			timeString12H = NO_TIME_INDICATED;
+		} else if (isMidnight(time)) {
+			timeString12H = "12 am";
+		} else if (isAfter12amAndBefore1am(time)) {
+			timeString12H = "12." + time + " am";
+		} else if (isAfter1amAndBefor12pm(time)) {
+			if (time % 100 == 0) { // 12 am etc
+				timeString12H = time / 100 + " am";
 			} else { // 12.30 am etc
-				temp = time2 / 100 + "." + time2 % 100 + " am";
+				timeString12H = time / 100 + "." + time % 100 + " am";
 			}
 		} else {
-			if (time2 % 100 == 0) { // 12 pm etc
-				temp = (time2 - 1200) / 100 + " pm";
+			if (time % 100 == 0) { // 12 pm etc
+				timeString12H = (time - 1200) / 100 + " pm";
 			} else { // 12.30 pm etc
-				if (time2 % 100 < 10) {
-					temp = (time2 - 1200) / 100 + ".0" + time2 % 100 + " pm";
+				if (time % 100 < 10) {
+					timeString12H = (time - 1200) / 100 + ".0" + time % 100 + " pm";
 				} else {
-					temp = (time2 - 1200) / 100 + "." + time2 % 100 + " pm";
+					timeString12H = (time - 1200) / 100 + "." + time % 100 + " pm";
 				}
 			}
 		}
-		return temp;
+		return timeString12H;
+	}
+
+	private boolean isAfter1amAndBefor12pm(int time) {
+		return time > 100 && time < 1200;
+	}
+
+	private boolean isAfter12amAndBefore1am(int time) {
+		return time < 100 && time > 0;
+	}
+
+	private boolean isMidnight(int time) {
+		return time == 0;
 	}
 
 	// Converts the 24h time int to 24h String format
-	private String convertTimeIntTo24hString(int time2) {
-		String temp;
-		if (time2 == -1) {
-			temp = NO_TIME_INDICATED;
-		} else if (time2 == 0) {
-			temp = "0000";
-		} else if (time2 < 100 && time2 > 0) {
-			temp = "00" + time2;
-		} else if (time2 > 100 && time2 < 1000) {
-			temp = "0" + time2;
+	private String convertTimeIntTo24hString(int time) {
+		String timeString24H;
+		if (time == -1) {
+			timeString24H = NO_TIME_INDICATED;
+		} else if (isMidnight(time)) {
+			timeString24H = "0000";
+		} else if (isAfter12amAndBefore1am(time)) {
+			timeString24H = "00" + time;
+		} else if (isAfter1amAndBefore10am(time)) {
+			timeString24H = "0" + time;
 		} else {
-			temp = String.valueOf(time2);
+			timeString24H = String.valueOf(time);
 		}
-		return temp;
+		return timeString24H;
+	}
+
+	private boolean isAfter1amAndBefore10am(int time) {
+		return time > 100 && time < 1000;
 	}
 
 	public String getDayStr() {
@@ -234,8 +254,8 @@ public class DateTime {
 			this.yy += 1;
 		}
 		this.dayInt = increaseDayIntByOne();
-		this.dayStr = daysInWeek[this.dayInt - 1];
-		this.date = this.dd + " " + months[this.mm - 1] + " " + this.yy;
+		this.dayStr = daysInWeek[this.dayInt];
+		this.date = this.dd + " " + months[decrementByOne(this.mm)] + " " + this.yy;
 	}
 
 	private int increaseDayIntByOne() {

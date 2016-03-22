@@ -24,6 +24,8 @@ public class LogicController {
 	private UIController uiController;
 	private static Logger logger = Logger.getLogger("Logic");
 
+	private boolean isSaveOn;
+	
 	public LogicController() {
 		logger.log(Level.INFO, "Initialising logic class");
 
@@ -31,7 +33,8 @@ public class LogicController {
 		taskManager = new TaskManager();
 		categoryManager = new CategoryManager();
 		history = new Stack<ReversibleCommand>();
-
+		isSaveOn = true;
+		
 		try {
 			storage = new StorageController();
 		} catch (IOException e) {
@@ -93,7 +96,21 @@ public class LogicController {
 	}
 
 	private void save() throws IOException {
-		storage.saveTasks(taskManager.getAllTasks());
+		if(isSaveOn){
+			storage.saveTasks(taskManager.getAllTasks());
+		}
+	}
+	
+	public void enableSave(){
+		isSaveOn = true;
+	}
+	
+	public void disableSave(){
+		isSaveOn = false;
+	}
+	
+	public void clearTask(){
+		taskManager.clear();
 	}
 
 	private void refreshUIController() {

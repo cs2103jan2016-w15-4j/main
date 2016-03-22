@@ -158,6 +158,10 @@ public class TaskManager {
 		return null;
 	}
 	
+	public void clear(){
+		tasks.clear();
+	}
+	
 	public boolean changeTaskName(int taskId, String newName){
 		if(!contains(taskId)){
 			return false;

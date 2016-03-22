@@ -49,8 +49,8 @@ public class UIController {
 	public UIController(Stage primaryStage, LogicController logic){
 	    this.logic = logic;
 	    this.primaryStage = primaryStage;
+	    this.activeMainView = UIMainViewType.TODAY;
 	    initialize();
-	    setActiveMenuButton(UIMainViewType.TODAY);
 	}
 	
 	private void initialize(){
@@ -83,6 +83,7 @@ public class UIController {
 	
 	private void initSideMenu(){
 		this.sideMenu = new UISideMenu(this);
+		setActiveMenuButton(this.activeMainView);
 		ChangeListener<Toggle> toggleListener = new ChangeListener<Toggle>(){
 			public void changed(ObservableValue<? extends Toggle> ov, Toggle toggle, Toggle new_toggle) {
 				if (new_toggle != null){
@@ -118,7 +119,7 @@ public class UIController {
 		    	break;
 		    case UIData.USERDATA_COMPLETED:
 		    	activeMainView = UIMainViewType.COMPLETED;
-		    	 logic.processCommand(UIData.CMD_SHOW_COMPLETED);
+		    	logic.processCommand(UIData.CMD_SHOW_COMPLETED);
 		    	break;
 		    case UIData.USERDATA_CATEGORY:
 		    	activeMainView = UIMainViewType.CATEGORY;
@@ -173,34 +174,6 @@ public class UIController {
 			commandBox.getCommandTextField().setText(UIData.EMP_STR);
 
 			this.logic.processCommand(commandString);
-
-			switch (commandString) {
-			case "change theme dark":
-				changeTheme(UITheme.DARK);
-				break;
-			case "change theme light":
-				changeTheme(UITheme.LIGHT);
-				break;
-			case "change theme aqua":
-				changeTheme(UITheme.AQUA);
-				break;
-			case "help":
-				if (helpBox.isShowing()) {
-					helpBox.hide();
-				} else {
-					helpBox.show(primaryStage);
-				}
-				break;
-			case "manual":
-				showUserGuide();
-				break;
-			case "mb":
-				displayMessage("hello world");
-				break;
-			case "hmb":
-				this.messageBox.hide();
-				break;
-			}
 		});
 	}
 	

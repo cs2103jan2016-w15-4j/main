@@ -64,7 +64,6 @@ public class MoveParser extends TagParser {
 	}
 
 	private Command getSingleTypeMoveCommand() {
-		System.out.println("taskIdForMoving is " + taskIdForTagging);
 		return CommandUtils.createSetCategoryCommand(taskIdForTagging, catName);
 	}
 
@@ -75,9 +74,12 @@ public class MoveParser extends TagParser {
 	private void parse(String input) {
 		command = null;
 		userInput = input;
-		String[] inputArr = userInput.split("//s+");
+		String[] inputArr = userInput.split("\\s+");
 		catName = inputArr[INDEX_NAME];
-		int indexTaskIds = userInput.indexOf(catName) + catName.length() - 1;
-		taskIds = userInput.substring(indexTaskIds);
+		System.out.println("catName is " + catName);
+		
+		int indexOfTaskIds = userInput.indexOf(catName) + catName.length();
+		taskIds = userInput.substring(indexOfTaskIds).trim();
+		System.out.println("taskIds is " + taskIds);
 	}
 }

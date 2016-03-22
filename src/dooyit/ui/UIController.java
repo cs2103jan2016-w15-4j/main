@@ -15,7 +15,7 @@ import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import dooyit.common.datatype.Category;
 import dooyit.common.datatype.TaskGroup;
-import dooyit.logic.core.*;
+import dooyit.logic.api.*;
 
 public class UIController {
 
@@ -42,15 +42,15 @@ public class UIController {
 	private WebView webView;
 	private WebEngine webEngine;
 	private Stage secWindow;
-	private Logic logic;
+	private LogicController logic;
 	private Stage primaryStage;
 	private UIMainViewType activeMainView;
 	
-	public UIController(Stage primaryStage, Logic logic){
+	public UIController(Stage primaryStage, LogicController logic){
 	    this.logic = logic;
 	    this.primaryStage = primaryStage;
+	    this.activeMainView = UIMainViewType.TODAY;
 	    initialize();
-	    setActiveMenuButton(UIMainViewType.TODAY);
 	}
 	
 	private void initialize(){
@@ -83,6 +83,7 @@ public class UIController {
 	
 	private void initSideMenu(){
 		this.sideMenu = new UISideMenu(this);
+		setActiveMenuButton(this.activeMainView);
 		ChangeListener<Toggle> toggleListener = new ChangeListener<Toggle>(){
 			public void changed(ObservableValue<? extends Toggle> ov, Toggle toggle, Toggle new_toggle) {
 				if (new_toggle != null){
@@ -118,7 +119,7 @@ public class UIController {
 		    	break;
 		    case UIData.USERDATA_COMPLETED:
 		    	activeMainView = UIMainViewType.COMPLETED;
-		    	 logic.processCommand(UIData.CMD_SHOW_COMPLETED);
+		    	logic.processCommand(UIData.CMD_SHOW_COMPLETED);
 		    	break;
 		    case UIData.USERDATA_CATEGORY:
 		    	activeMainView = UIMainViewType.CATEGORY;
@@ -173,33 +174,9 @@ public class UIController {
 			commandBox.getCommandTextField().setText(UIData.EMP_STR);
 
 			this.logic.processCommand(commandString);
-
-			switch (commandString) {
-			case "change theme dark":
-				changeTheme(UITheme.DARK);
-				break;
-			case "change theme light":
-				changeTheme(UITheme.LIGHT);
-				break;
-			case "change theme aqua":
-				changeTheme(UITheme.AQUA);
-				break;
-			case "help":
-				if (helpBox.isShowing()) {
-					helpBox.hide();
-				} else {
-					helpBox.show(primaryStage);
-				}
-				break;
-			case "manual":
-				showUserGuide();
-				break;
-			case "mb":
-				displayMessage("hello world");
-				break;
-			case "hmb":
-				this.messageBox.hide();
-				break;
+			
+			if (commandString.equals("help")){
+				showHelp();
 			}
 		});
 	}
@@ -307,6 +284,9 @@ public class UIController {
 			case EXTENDED:
 				this.sideMenu.getMainViewToggleGroup().selectToggle(this.sideMenu.getExtendedBtn());
 				break;
+			case FLOAT:
+				this.sideMenu.getMainViewToggleGroup().selectToggle(this.sideMenu.getFloatBtn());
+				break;
 			case ALL:
 				this.sideMenu.getMainViewToggleGroup().selectToggle(this.sideMenu.getAllBtn());
 				break;
@@ -353,6 +333,7 @@ public class UIController {
 	
 	public void setActiveViewType(UIMainViewType activeMainView){
 		this.activeMainView = activeMainView;
+		setActiveMenuButton(activeMainView);
 	}
 	
 	public UIMainViewType getActiveViewType(){
@@ -361,6 +342,10 @@ public class UIController {
 	
 	public void refreshCategoryMenuView(ArrayList<Category> categoryList){
 		this.sideMenu.refreshCategoryMenuView(categoryList);
+	}
+	
+	public void showHelp(){
+		this.helpBox.show(this.primaryStage);
 	}
 	
 	public void showUserGuide(){

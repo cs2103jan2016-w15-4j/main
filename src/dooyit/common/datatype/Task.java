@@ -1,20 +1,17 @@
 package dooyit.common.datatype;
 
-public class Task {
+public abstract class Task {
 
 	public enum TaskType {
 		DEADLINE, EVENT, FLOATING
 	};
 
-	private String taskName;
-	private int taskId;
-	private TaskType taskType;
-	private DateTime dateTimeDeadline;
-	private DateTime dateTimeStart;
-	private DateTime dateTimeEnd;
-	private boolean isOverdue;
-	private boolean isCompleted;
-	private Category category;
+	protected String taskName;
+	protected int taskId;
+	protected TaskType taskType;
+	
+	protected boolean isCompleted;
+	protected Category category;
 
 	public static int curTaskId = 1;
 
@@ -22,48 +19,8 @@ public class Task {
 		taskId = curTaskId++;
 	}
 
-	public void initTaskFloat(String taskName) {
-		taskType = TaskType.FLOATING;
-		this.taskName = taskName;
-	}
-
-	public void initTaskDeadline(String taskName, DateTime deadline) {
-		assert (deadline != null);
-
-		taskType = TaskType.DEADLINE;
-		this.taskName = taskName;
-		this.dateTimeDeadline = deadline;
-	}
-
-	public void initTaskEvent(String taskName, DateTime start, DateTime end) {
-		assert (start != null && end != null);
-
-		taskType = TaskType.EVENT;
-		this.taskName = taskName;
-		this.dateTimeStart = start;
-		this.dateTimeEnd = end;
-	}
-
 	public void changeName(String taskName) {
 		this.taskName = taskName;
-	}
-
-	public void changeDeadline(DateTime deadline) {
-		assert (deadline != null);
-
-		taskType = TaskType.DEADLINE;
-		this.dateTimeDeadline = deadline;
-		this.dateTimeStart = null;
-		this.dateTimeEnd = null;
-	}
-
-	public void changeEvent(DateTime start, DateTime end) {
-		assert (start != null && end != null);
-
-		taskType = TaskType.EVENT;
-		this.dateTimeDeadline = null;
-		this.dateTimeStart = start;
-		this.dateTimeEnd = end;
 	}
 
 	public void mark() {
@@ -76,6 +33,11 @@ public class Task {
 
 	public boolean isCompleted() {
 		return isCompleted;
+	}
+	
+	public boolean isOverDue(DateTime dateTime){
+		
+		return true;
 	}
 
 	public boolean setCategory(Category category) {
@@ -109,67 +71,6 @@ public class Task {
 		return taskType;
 	}
 
-	public DateTime getDeadlineTime() {
-		return dateTimeDeadline;
-	}
-
-	public DateTime getDateTimeStart() {
-		return dateTimeStart;
-	}
-
-	public DateTime getDateTimeEnd() {
-		return dateTimeEnd;
-	}
-
-	
-
-	public boolean hasDeadlineTime() {
-		if (dateTimeDeadline == null) {
-			return false;
-		} else {
-			return dateTimeDeadline.hasTime();
-		}
-	}
-
-	public boolean hasStartTime() {
-		if (dateTimeStart == null) {
-			return false;
-		} else {
-			return dateTimeStart.hasTime();
-		}
-	}
-
-	public boolean hasEndTime() {
-		if (dateTimeEnd == null) {
-			return false;
-		} else {
-			return dateTimeEnd.hasTime();
-		}
-	}
-
-	@Override
-	public String toString() {
-		String str = "";
-
-		switch (taskType) {
-		case FLOATING:
-			str = taskName;
-			break;
-
-		case DEADLINE:
-			str = taskName + ": deadline: " + dateTimeDeadline.toString();
-			break;
-
-		case EVENT:
-			str = taskName + ": event: " + dateTimeStart.toString() + "," + dateTimeEnd.toString();
-			break;
-		default:
-			str = "";
-		}
-
-		return str;
-	}
-
 	@Override
 	public boolean equals(Object o) {
 		if (o instanceof Task) {
@@ -179,4 +80,6 @@ public class Task {
 			return false;
 		}
 	}
+	
+	public abstract String getDateString();
 }

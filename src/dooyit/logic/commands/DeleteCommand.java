@@ -2,65 +2,55 @@ package dooyit.logic.commands;
 
 import java.util.ArrayList;
 
+import dooyit.common.datatype.Task;
 import dooyit.common.exception.IncorrectInputException;
-import dooyit.logic.core.Logic;
-import dooyit.logic.core.TaskManager;
+import dooyit.logic.api.LogicController;
+import dooyit.logic.api.TaskManager;
 
-public class DeleteCommand extends Command {
-	public enum DeleteCommandType {
-		SINGLE, MULTIPLE
-	};
+public class DeleteCommand extends ReversibleCommand {
 
-	private int deleteId;
 	private ArrayList<Integer> deleteIds;
-	private DeleteCommandType deleteCommandType;
+	private ArrayList<Task> deletedTasks;
 
-	public DeleteCommand() {
-
+	public DeleteCommand(int deleteId) {
+		this.deleteIds = new ArrayList<Integer>();
+		this.deletedTasks = new ArrayList<Task>();
+		this.deleteIds.add(deleteId);
 	}
-
-	public void initDeleteCommand(int deleteId) {
-		deleteCommandType = DeleteCommandType.SINGLE;
-		this.deleteId = deleteId;
+	
+	public DeleteCommand(ArrayList<Integer> deleteIds) {
+		this.deleteIds = new ArrayList<Integer>();
+		this.deletedTasks = new ArrayList<Task>();
+		this.deleteIds.addAll(deleteIds);
 	}
-
-	public void initDeleteCommand(ArrayList<Integer> deleteIds) {
-		deleteCommandType = DeleteCommandType.MULTIPLE;
-		this.deleteIds = deleteIds;
+	
+	@Override
+	public void undo(LogicController logic){
+		TaskManager taskManager = logic.getTaskManager();
+		
+		for(Task deletedTask : deletedTasks){
+			taskManager.add(deletedTask);
+		}
 	}
 
 	@Override
-	public void execute(Logic logic) throws IncorrectInputException {
+	public void execute(LogicController logic) throws IncorrectInputException {
 		TaskManager taskManager = logic.getTaskManager();
 		assert (taskManager != null);
+		
+		String errorMessageBody = "";
 
-		switch (deleteCommandType) {
-
-		case SINGLE:
-			if (taskManager.containsTask(deleteId)) {
-				taskManager.deleteTask(deleteId);
+		for (Integer deleteId : deleteIds) {
+			if (taskManager.contains(deleteId)) {
+				Task deletedTask = taskManager.remove(deleteId);
+				deletedTasks.add(deletedTask);
 			} else {
-				throw new IncorrectInputException("Task ID " + deleteId + " doesn't exists");
+				errorMessageBody += " " + "[" + deleteId + "]";
 			}
-			break;
-
-		case MULTIPLE:
-			String errorMessageBody = "";
-
-			for (int i = 0; i < deleteIds.size(); i++) {
-				if (taskManager.containsTask(deleteIds.get(i))) {
-					taskManager.deleteTask(deleteIds.get(i));
-				} else {
-					errorMessageBody += " " + deleteIds.get(i);
-				}
-			}
-
-			if (errorMessageBody != "") {
-				throw new IncorrectInputException("Index" + errorMessageBody + " doesn't exists");
-			}
-
-			break;
 		}
 
+		if (errorMessageBody != "") {
+			throw new IncorrectInputException("Index" + errorMessageBody + " doesn't exists");
+		}
 	}
 }

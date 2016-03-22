@@ -12,14 +12,9 @@ public class Category {
 		this.customColor = CustomColor.BLUE;
 	}
 
-	public Category(String name, CustomColor colour) {
+	public Category(String name, CustomColor customColour) {
 		this.name = name;
-		this.customColor = colour;
-	}
-
-	public Category(String name, float r, float g, float b) {
-		this.name = name;
-		this.customColor = new CustomColor(r, g, b);
+		this.customColor = customColour;
 	}
 
 	public String getName() {

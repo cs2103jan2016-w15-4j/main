@@ -17,39 +17,42 @@ import dooyit.storage.CategoryController;
 import dooyit.common.datatype.Category;
 import dooyit.common.datatype.Task;
 import dooyit.common.exception.InvalidFilePathException;
-import dooyit.logic.core.CategoryManager;
-import dooyit.logic.core.TaskManager;
+import dooyit.logic.api.CategoryManager;
+import dooyit.logic.api.TaskManager;
 
-public class Storage extends StorageConstants {
-	
-	private static final int TASK_DESTINATION = 0;
-	private static final int THEME_DESTINATION = 1;
+public class StorageController extends StorageConstants {
 
-	String configFilePath;
-	String[] preferences;
-	CategoryController categoryControl;
-	TaskController taskControl;
+	private String configFilePath;
+	private String[] preferences;
+	private CategoryController categoryControl;
+	private TaskController taskControl;
 	private static Logger logger = Logger.getLogger("Storage");
 
-	static final String NAME_FILE_CONFIG = "config.txt";
+	private static final String NAME_FILE_CONFIG = "config.txt";
+	private static final int TASK_DESTINATION = 0;
+	private static final int THEME_DESTINATION = 1;
+	private static final int PREFERENCES_SIZE = 2;
+	private static final String CSS = ".css";
+	private static final String TXT = ".txt";
 
-	public Storage() throws IOException {
-		preferences = new String[2];
+	public StorageController() throws IOException {
+		preferences = new String[PREFERENCES_SIZE];
 		configFilePath = getConfigPath(CURRENT_DIRECTORY);
-		preferences = getPreferences(configFilePath);
-		categoryControl = new CategoryController(CURRENT_DIRECTORY);
-		taskControl = new TaskController(preferences[0]);
+		preferences = loadPreferences(configFilePath);
+		categoryControl = new CategoryController(DEFAULT_CATEGORIES_DESTINATION);
+		taskControl = new TaskController(preferences[TASK_DESTINATION]);
 	}
 
 	private String getConfigPath(String currentPath) {
 		logger.log(Level.INFO, "Getting save destination");
-		return currentPath + File.separatorChar + NAME_FILE_CONFIG;
+		return currentPath + SEPARATOR_CHAR + NAME_FILE_CONFIG;
 	}
 
 	public boolean setFileDestination(String newFilePath) throws IOException, InvalidFilePathException {
 		logger.log(Level.INFO, "Changing save destination");
 		boolean isValid = isValidSavePath(newFilePath);
 		assert isValid;
+
 		preferences[TASK_DESTINATION] = newFilePath;
 		modifyConfig(preferences);
 		taskControl.setFileDestination(newFilePath);
@@ -58,8 +61,9 @@ public class Storage extends StorageConstants {
 	}
 
 	public boolean saveTasks(ArrayList<Task> tasks) throws IOException {
-		logger.log(Level.INFO, "Attempting to save tasks to " + preferences);
+		logger.log(Level.INFO, "Attempting to save tasks to " + preferences[TASK_DESTINATION]);
 		assert tasks != null;
+
 		if (taskControl.save(tasks)) {
 			logger.log(Level.INFO, "Successfully saved tasks!");
 			return true;
@@ -70,17 +74,13 @@ public class Storage extends StorageConstants {
 
 	}
 
-	public boolean loadTasks(TaskManager taskManager) throws IOException {
-		logger.log(Level.INFO, "Checking if Task Manager is there");
-		assert taskManager != null;
-		logger.log(Level.INFO, "Attempting to load tasks from " + preferences);
-		if (taskControl.load(taskManager)) {
-			logger.log(Level.INFO, "Successfully loaded tasks!");
-			return true;
-		} else {
-			logger.log(Level.SEVERE, "Failed to load tasks");
-			return false;
-		}
+	public ArrayList<Task> loadTasks() throws IOException {
+		logger.log(Level.INFO, "Attempting to load tasks from " + preferences[TASK_DESTINATION]);
+		ArrayList<Task> taskList = taskControl.load();
+		logger.log(Level.INFO, "Successfully loaded tasks!");
+
+		return taskList;
+
 	}
 
 	public boolean saveCategory(ArrayList<Category> categories) throws IOException {
@@ -93,64 +93,50 @@ public class Storage extends StorageConstants {
 		return categoryControl.load(categoryManager);
 	}
 
-	private String[] getPreferences(String configFilePath) throws IOException {
+	private String[] loadPreferences(String configFilePath) throws IOException {
 		File configFile = new File(configFilePath);
-		String[] preferences = new String[2];
+		String[] preferences = new String[PREFERENCES_SIZE];
 		if (configFile.exists()) {
 			BufferedReader bReader = new BufferedReader(new FileReader(configFile));
-			for(int i=0; i<preferences.length; i++) {
+			for (int i = 0; i < PREFERENCES_SIZE; i++) {
 				preferences[i] = bReader.readLine();
 			}
 			bReader.close();
 		}
-		
-		if(!isValidLoadPath(preferences[0])) {
-			preferences[TASK_DESTINATION] = setDefaultPath(CURRENT_DIRECTORY, DEFAULT_TASKS_DESTINATION);
+
+		if (isInvalidPath(preferences[TASK_DESTINATION], TXT)) {
+			preferences[TASK_DESTINATION] = DEFAULT_TASKS_DESTINATION;
 		}
-		if(!isValidThemePath(preferences[1])) {
-			preferences[THEME_DESTINATION] = setDefaultPath(CURRENT_DIRECTORY, DEFAULT_THEME_DESTINATION);
+		if (isInvalidPath(preferences[THEME_DESTINATION], CSS)) {
+			preferences[THEME_DESTINATION] = DEFAULT_THEME_DESTINATION;
 		}
-		
+
 		modifyConfig(preferences);
-		
+
 		return preferences;
 	}
-	
+
 	private boolean isValidSavePath(String filePath) throws InvalidFilePathException {
-		if(!filePath.endsWith(".txt")) {
-			throw new InvalidFilePathException("MISSING FILE EXTENSON \".txt\"");
+		if (!filePath.endsWith(TXT)) {
+			throw new InvalidFilePathException("MISSING FILE EXTENSON: " + TXT);
 		}
-	
+
 		return true;
 	}
 
-	private boolean isValidLoadPath(String filePath) {
-		if (filePath == null) {
-			return false;
-		} else if (!filePath.endsWith(".txt")) {
-			return false;
-		} else {
+	private boolean isInvalidPath(String filePath, String fileType) {
+		if (filePath == null || !filePath.endsWith(fileType)) {
 			return true;
 		}
-	}
-	
-	private boolean isValidThemePath(String filePath) {
-		if (filePath == null) {
-			return false;
-		} else if (!filePath.endsWith(".css")) {
-			return false;
-		} else {
-			return true;
-		}
+		return false;
 	}
 
 	public String getFilePath() throws IOException {
-		return taskControl.getFilePath();
+		return preferences[TASK_DESTINATION];
 	}
 
-	private String setDefaultPath(String currentPath, String type) {
-		String path = currentPath + type;
-		return path;
+	public String[] getPreferences() {
+		return this.preferences;
 	}
 
 	private void modifyConfig(String[] preferences) throws IOException {

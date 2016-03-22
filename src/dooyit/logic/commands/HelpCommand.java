@@ -2,16 +2,20 @@ package dooyit.logic.commands;
 
 import dooyit.common.exception.IncorrectInputException;
 import dooyit.logic.api.LogicController;
-import dooyit.logic.api.TaskManager;
+import dooyit.ui.UIController;
 
-public class ExitCommand extends Command {
+public class HelpCommand extends Command {
 
-	public ExitCommand() {
-
+	public HelpCommand(){
+		
 	}
-
+	
 	@Override
 	public void execute(LogicController logic) throws IncorrectInputException {
-		System.exit(1);
+		UIController uiController = logic.getUIController();
+		
+		uiController.showHelp();
+		
 	}
+
 }

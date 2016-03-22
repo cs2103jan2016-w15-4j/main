@@ -5,13 +5,17 @@ import java.io.FileNotFoundException;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import dooyit.common.datatype.DateTime;
+import dooyit.common.datatype.DeadlineTask;
+import dooyit.common.datatype.EventTask;
+import dooyit.common.datatype.FloatingTask;
+import dooyit.common.datatype.Task;
 import dooyit.common.exception.MissingFileException;
-import dooyit.logic.core.TaskManager;
 
 /**
  * The TaskLoader class contains attributes and methods necessary for loading
@@ -27,6 +31,11 @@ public class TaskLoader {
 	private static final String EVENT_END = "dateTimeEnd";
 	private static final String NAME = "taskName";
 	private static final String IS_COMPLETED = "isCompleted";
+	private static final int DAY = 0;
+	private static final int MONTH = 1;
+	private static final int YEAR = 2;
+	private static final int DAY_OF_WEEK = 3;
+	private static final int TIME = 4;
 
 	private String filePath;
 
@@ -43,13 +52,14 @@ public class TaskLoader {
 	 * @throws IOException
 	 *             If loading fails
 	 */
-	public boolean load(TaskManager taskManager) throws IOException {
+	public ArrayList<Task> load() throws IOException {
 		File file = new File(filePath);
 		File directory = file.getParentFile();
+		ArrayList<Task> taskList = new ArrayList<Task>();
 
 		if (directory.exists()) {
 			if (file.exists()) {
-				loadFromFile(file, taskManager);
+				taskList = loadFromFile(file);
 			} else {
 				createFile(file);
 			}
@@ -57,7 +67,7 @@ public class TaskLoader {
 			createFile(directory, file);
 		}
 
-		return true;
+		return taskList;
 	}
 
 	private void createFile(File file) throws IOException {
@@ -95,15 +105,21 @@ public class TaskLoader {
 	 * @throws IOException
 	 *             If unable to read from the save file
 	 */
-	public void loadFromFile(File file, TaskManager taskManager) throws IOException {
+	private ArrayList<Task> loadFromFile(File file) throws IOException {
 		FileReader fReader;
-		fReader = tryToOpen(file);
+		ArrayList<Task> taskList = new ArrayList<Task>();
 
-		try {
-			readFromFile(fReader, taskManager);
-		} catch (IOException e) {
-			throw new IOException("Unable to read " + file.getName());
+		fReader = open(file);
+		BufferedReader bReader = new BufferedReader(fReader);
+		String taskInfo = bReader.readLine();
+
+		while (taskInfo != null) {
+			Task existingTask = resolveTask(taskInfo);
+			taskList.add(existingTask);
+			taskInfo = bReader.readLine();
 		}
+
+		return taskList;
 	}
 
 	/**
@@ -115,7 +131,7 @@ public class TaskLoader {
 	 * @throws FileNotFoundException
 	 *             If the save file is missing
 	 */
-	private FileReader tryToOpen(File file) throws FileNotFoundException {
+	private FileReader open(File file) throws FileNotFoundException {
 		FileReader fReader = null;
 		if (file.exists()) {
 			try {
@@ -127,62 +143,39 @@ public class TaskLoader {
 		return fReader;
 	}
 
-	/**
-	 * Reads input from FileReader and passes it to TaskManager.
-	 * 
-	 * @param fReader
-	 *            The FileReader associated with the save file.
-	 * @param taskManager
-	 *            The Task Manager.
-	 * @throws IOException
-	 *             If unable to read from file.
-	 */
-	private void readFromFile(FileReader fReader, TaskManager taskManager) throws IOException {
-		BufferedReader bReader = new BufferedReader(fReader);
-		String taskInfo = bReader.readLine();
-		while (taskInfo != null) {
-			loadToMemory(taskManager, taskInfo);
-			taskInfo = bReader.readLine();
-		}
-		bReader.close();
-		fReader.close();
-	}
-
-	private void loadToMemory(TaskManager taskManager, String taskFormat) {
-		loadTask(taskManager, taskFormat);
-	}
-
-	public boolean loadTask(TaskManager taskManager, String taskFormat) {
+	public Task resolveTask(String taskFormat) {
 		JsonParser parser = new JsonParser();
 		JsonObject taskInfo = parser.parse(taskFormat).getAsJsonObject();
-		boolean isCompleted = false;
 
+		Task task;
 		String name = taskInfo.get(NAME).getAsString();
-
-		if (taskInfo.has(IS_COMPLETED)) {
-			isCompleted = taskInfo.get(IS_COMPLETED).getAsBoolean();
-		}
+		boolean isCompleted = taskInfo.get(IS_COMPLETED).getAsBoolean();
 
 		if (taskInfo.has(DEADLINE)) {
 			DateTime deadline = resolveDateTime(taskInfo, DEADLINE);
-			taskManager.AddTaskDeadline(name, deadline, isCompleted);
-			return true;
+			task = (Task) new DeadlineTask(name, deadline);
 		} else if (taskInfo.has(EVENT_START) && taskInfo.has(EVENT_END)) {
 			DateTime eventStart = resolveDateTime(taskInfo, EVENT_START);
 			DateTime eventEnd = resolveDateTime(taskInfo, EVENT_END);
-			taskManager.AddTaskEvent(name, eventStart, eventEnd, isCompleted);
-			return true;
+			task = (Task) new EventTask(name, eventStart, eventEnd);
 		} else {
-			taskManager.AddTaskFloat(name, isCompleted);
-			return true;
+			task = (Task) new FloatingTask(name);
 		}
+		
+		if(isCompleted) {
+			task.mark();
+		}
+
+		return task;
 	}
 
 	private DateTime resolveDateTime(JsonObject taskInfo, String type) {
 		String dateTimeString = taskInfo.get(type).getAsString();
 		String[] parts = dateTimeString.split(" ");
-		DateTime dateTime = new DateTime(Integer.valueOf(parts[0]), Integer.valueOf(parts[1]),
-				Integer.valueOf(parts[2]), parts[3], parts[4]);
+		DateTime dateTime = new DateTime(Integer.valueOf(parts[DAY]),
+										Integer.valueOf(parts[MONTH]),
+										Integer.valueOf(parts[YEAR]),
+										parts[DAY_OF_WEEK], parts[TIME]);
 
 		return dateTime;
 	}

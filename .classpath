@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="test"/>
 	<classpathentry kind="lib" path="lib/fxiconics-0.0.5-jfx.jar"/>
 	<classpathentry kind="lib" path="lib/gson-2.6.1.jar"/>
 	<classpathentry kind="lib" path="lib/fontawesomefx-8.9.jar"/>

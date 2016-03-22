@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import dooyit.common.datatype.Task;
-import dooyit.logic.core.TaskManager;
+import dooyit.logic.api.TaskManager;
 
 public class TaskController {
 	TaskSaver taskSaver;
@@ -24,8 +24,8 @@ public class TaskController {
 		return taskSaver.save(tasks);
 	}
 
-	protected boolean load(TaskManager taskManager) throws IOException {
-		return taskLoader.load(taskManager);
+	protected ArrayList<Task> load() throws IOException {
+		return taskLoader.load();
 	}
 
 	protected String getFilePath() {

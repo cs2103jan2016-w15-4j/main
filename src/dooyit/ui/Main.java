@@ -32,7 +32,7 @@ import javafx.scene.layout.Pane;
 import javafx.geometry.Pos;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import dooyit.logic.core.Logic;
+import dooyit.logic.api.LogicController;
 import dooyit.ui.*;
 
 /**
@@ -66,21 +66,21 @@ public class Main extends Application {
 	// scanner for receiving user input
 	private Scanner sc;
 	private UIController ui;
-	Logic logic;
+	LogicController logic;
 
 	public Main() {
 	}
 	
 	public void init(Scanner sc) throws IOException {
 		this.sc = sc;
-		logic = new Logic();
+		logic = new LogicController();
 		UI(logic);
 	}
 
 	@Override
 	public void start(Stage primaryStage) throws IOException {
 
-		logic = new Logic();
+		logic = new LogicController();
 
 		try {
 			this.ui = new UIController(primaryStage, logic);
@@ -92,12 +92,13 @@ public class Main extends Application {
 			primaryStage.setMinHeight(MINHEIGHT_STAGE);
 			primaryStage.show();
 			logic.setUIController(this.ui);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	private void UI(Logic logic) throws IOException {
+	private void UI(LogicController logic) throws IOException {
 		while (true) {
 			showToUser(MESAGE_COMMAND);
 			String userInput = sc.nextLine();

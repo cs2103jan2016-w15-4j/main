@@ -1,37 +1,42 @@
-package dooyit.logic.core;
+package dooyit.logic.api;
 
-import dooyit.storage.Storage;
-
+import dooyit.storage.StorageController;
 import dooyit.ui.UIController;
 import dooyit.ui.UIMainViewType;
 import dooyit.parser.Parser;
 import dooyit.common.exception.IncorrectInputException;
 import dooyit.logic.commands.*;
-
 import java.io.IOException;
-
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Stack;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class Logic {
+import dooyit.common.datatype.Task;
+
+public class LogicController {
 
 	private Parser parser;
 	private TaskManager taskManager;
 	private CategoryManager categoryManager;
-	private Storage storage;
+	private StorageController storage;
+	private Stack<ReversibleCommand> history;
 	private UIController uiController;
 	private static Logger logger = Logger.getLogger("Logic");
 
-	public Logic() {
+	private boolean isSaveOn;
+
+	public LogicController() {
 		logger.log(Level.INFO, "Initialising logic class");
 
 		parser = new Parser();
 		taskManager = new TaskManager();
 		categoryManager = new CategoryManager();
+		history = new Stack<ReversibleCommand>();
+		isSaveOn = true;
 
 		try {
-			storage = new Storage();
+			storage = new StorageController();
 		} catch (IOException e) {
 			logger.log(Level.SEVERE, "ERROR: Fail to create storage");
 			uiController.displayMessage("ERROR: CREATING STORAGE");
@@ -45,7 +50,8 @@ public class Logic {
 		// }
 
 		try {
-			storage.loadTasks(taskManager);
+			ArrayList<Task> tasks = storage.loadTasks();
+			taskManager.loadTask(tasks);
 		} catch (IOException e) {
 			logger.log(Level.SEVERE, "ERROR: Fail to load task from storage");
 			uiController.displayMessage("ERROR: LOAD TASK");
@@ -62,39 +68,57 @@ public class Logic {
 	public void processCommand(String input) {
 		Command command = parser.getCommand(input);
 
+		assert (command != null);
+
 		try {
-
-			if (command != null) {
-				command.execute(this);
-			} else {
-				System.out.println("ERROR: Comman Object is null");
-			}
-
+			command.execute(this);
 		} catch (IncorrectInputException e) {
 			uiController.displayMessage(e.getMessage());
 		}
 
+		if (command instanceof ReversibleCommand) {
+			history.push((ReversibleCommand) command);
+		}
+
 		refreshUIController();
 
-		try {
-
-			save();
-
-		} catch (IOException e) {
-			logger.log(Level.SEVERE, "ERROR: Fail to save");
-			uiController.displayMessage("ERROR: SAVING");
-		}
+		save();
 
 		// update UI - UI.update();
 		taskManager.display();
 	}
 
-	private void save() throws IOException {
-		storage.saveTasks(taskManager.getAllTasks());
+	private void save() {
+		if (!isSaveOn) {
+			return;
+		}
+		
+		try {
+			storage.saveTasks(taskManager.getAllTasks());
+		} catch (IOException e) {
+			logger.log(Level.SEVERE, "ERROR: Fail to save");
+			uiController.displayMessage("ERROR: SAVING");
+		}
+	}
+
+	public void enableSave() {
+		isSaveOn = true;
+	}
+
+	public void disableSave() {
+		isSaveOn = false;
+	}
+
+	public void clearTask() {
+		taskManager.clear();
+		save();
 	}
 
 	private void refreshUIController() {
 		// uiController.refreshMainView(taskManager.getTaskGroupsToday());
+		// if (uiController == null)
+		// return;
+
 		UIMainViewType uiMainViewType = uiController.getActiveViewType();
 
 		switch (uiMainViewType) {
@@ -114,11 +138,11 @@ public class Logic {
 		case COMPLETED:
 			uiController.refreshMainView(taskManager.getTaskGroupsCompleted());
 			break;
-			
+
 		case FLOAT:
 			uiController.refreshMainView(taskManager.getTaskGroupsFloating());
 			break;
-			
+
 		case CATEGORY:
 
 			break;
@@ -160,7 +184,7 @@ public class Logic {
 	 * 
 	 * @return Storage
 	 */
-	public Storage getStorage() {
+	public StorageController getStorage() {
 		return storage;
 	}
 
@@ -173,4 +197,7 @@ public class Logic {
 		return categoryManager;
 	}
 
+	public Stack<ReversibleCommand> getHistory() {
+		return history;
+	}
 }

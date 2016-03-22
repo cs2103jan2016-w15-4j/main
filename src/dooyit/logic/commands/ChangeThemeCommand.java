@@ -1,7 +1,7 @@
 package dooyit.logic.commands;
 
 import dooyit.common.exception.IncorrectInputException;
-import dooyit.logic.core.Logic;
+import dooyit.logic.api.LogicController;
 import dooyit.ui.UIController;
 import dooyit.ui.UITheme;
 
@@ -15,7 +15,7 @@ public class ChangeThemeCommand extends Command {
 	}
 	
 	@Override
-	public void execute(Logic logic) throws IncorrectInputException {
+	public void execute(LogicController logic) throws IncorrectInputException {
 		UIController uicontroller = logic.getUIController();
 		
 		String lowerThemeString = themeString.toLowerCase();

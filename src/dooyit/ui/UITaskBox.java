@@ -72,17 +72,19 @@ public class UITaskBox {
 	}
 	
 	private void initTaskPeriod(){
-		if (this.task.hasDeadlineTime()){
-	    	this.taskPeriod = new Label(this.task.getDeadlineTime().getTime24hStr());
-	    } else if (this.task.hasStartTime() && this.task.hasEndTime()){
-	    	this.taskPeriod = new Label(this.task.getDateTimeStart().getTime24hStr() + TASK_PERIOD_TO + this.task.getDateTimeEnd().getTime24hStr());
-	    } else if (this.task.hasStartTime()){
-	    	this.taskPeriod = new Label(TASK_PERIOD_BEGINS + this.task.getDateTimeStart().getTime24hStr());
-	    } else if (this.task.hasEndTime()){
-	    	this.taskPeriod = new Label(TASK_PERIOD_ENDS + this.task.getDateTimeEnd().getTime24hStr());
-	    } else {
-	    	this.taskPeriod = new Label(UIData.EMP_STR);
-	    }
+//		if (this.task.hasDeadlineTime()){
+//	    	this.taskPeriod = new Label(this.task.getDeadlineTime().getTime24hStr());
+//	    } else if (this.task.hasStartTime() && this.task.hasEndTime()){
+//	    	this.taskPeriod = new Label(this.task.getDateTimeStart().getTime24hStr() + TASK_PERIOD_TO + this.task.getDateTimeEnd().getTime24hStr());
+//	    } else if (this.task.hasStartTime()){
+//	    	this.taskPeriod = new Label(TASK_PERIOD_BEGINS + this.task.getDateTimeStart().getTime24hStr());
+//	    } else if (this.task.hasEndTime()){
+//	    	this.taskPeriod = new Label(TASK_PERIOD_ENDS + this.task.getDateTimeEnd().getTime24hStr());
+//	    } else {
+//	    	this.taskPeriod = new Label(UIData.EMP_STR);
+//	    }
+		
+		this.taskPeriod = new Label(this.task.getDateString());
 		
 		this.taskPeriod.setFont(FONT_TASK_PERIOD);
 	    this.taskPeriod.getStyleClass().add(STYLECLASS_TASK_PERIOD);

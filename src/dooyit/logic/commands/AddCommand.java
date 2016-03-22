@@ -3,33 +3,30 @@ package dooyit.logic.commands;
 import dooyit.common.datatype.DateTime;
 import dooyit.common.datatype.Task;
 import dooyit.common.exception.IncorrectInputException;
-import dooyit.logic.core.Logic;
-import dooyit.logic.core.TaskManager;
+import dooyit.logic.api.LogicController;
+import dooyit.logic.api.TaskManager;
 
-public class AddCommand extends Command {
+public class AddCommand extends ReversibleCommand {
 
 	private String taskName;
 	private Task.TaskType taskType;
 	private DateTime dateTimeDeadline;
 	private DateTime dateTimeStart;
 	private DateTime dateTimeEnd;
-
-	public AddCommand() {
-
-	}
-
-	public void initAddCommandFloat(String taskName) {
+	private Task addedTask;
+	
+	public AddCommand(String taskName) {
 		this.taskName = taskName;
 		taskType = Task.TaskType.FLOATING;
 	}
 
-	public void initAddCommandDeadline(String data, DateTime deadline) {
+	public AddCommand(String data, DateTime deadline) {
 		this.taskName = data;
 		this.dateTimeDeadline = deadline;
 		taskType = Task.TaskType.DEADLINE;
 	}
-
-	public void initAddCommandEvent(String data, DateTime start, DateTime end) {
+	
+	public AddCommand(String data, DateTime start, DateTime end) {
 		this.taskName = data;
 		this.dateTimeStart = start;
 		this.dateTimeEnd = end;
@@ -37,21 +34,28 @@ public class AddCommand extends Command {
 	}
 
 	@Override
-	public void execute(Logic logic) throws IncorrectInputException {
+	public void undo(LogicController logic){
+		TaskManager taskManager = logic.getTaskManager();
+		taskManager.remove(addedTask);
+	}
+	
+	@Override
+	public void execute(LogicController logic) throws IncorrectInputException {
 		TaskManager taskManager = logic.getTaskManager();
 		assert (taskManager != null);
 
 		switch (taskType) {
 		case FLOATING:
-			taskManager.AddTaskFloat(taskName);
+			addedTask = taskManager.addFloatingTask(taskName);
 			break;
 
 		case DEADLINE:
-			taskManager.AddTaskDeadline(taskName, dateTimeDeadline);
+			addedTask = taskManager.addDeadlineTask(taskName, dateTimeDeadline);
+
 			break;
 
 		case EVENT:
-			taskManager.AddTaskEvent(taskName, dateTimeStart, dateTimeEnd);
+			addedTask = taskManager.addEventTask(taskName, dateTimeStart, dateTimeEnd);
 			break;
 		}
 	}

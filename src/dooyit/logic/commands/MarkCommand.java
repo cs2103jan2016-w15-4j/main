@@ -2,69 +2,55 @@ package dooyit.logic.commands;
 
 import java.util.ArrayList;
 
+import dooyit.common.datatype.Task;
 import dooyit.common.exception.IncorrectInputException;
-import dooyit.logic.core.Logic;
-import dooyit.logic.core.TaskManager;
+import dooyit.logic.api.LogicController;
+import dooyit.logic.api.TaskManager;
 
-public class MarkCommand extends Command {
-	public enum MarkCommandType {
-		SINGLE, MULTIPLE
-	};
-
-	private int markId;
+public class MarkCommand extends ReversibleCommand {
 	private ArrayList<Integer> markIds;
-	private MarkCommandType markCommandType;
-
-	public MarkCommand() {
-
+	private ArrayList<Task> markedTasks;
+	
+	public MarkCommand(int markId) {
+		this.markIds = new ArrayList<Integer>();
+		this.markedTasks = new ArrayList<Task>();
+		this.markIds.add(markId);
 	}
 
-	public void initMarkCommand(int deleteId) {
-		markCommandType = MarkCommandType.SINGLE;
-		this.markId = deleteId;
-	}
-
-	public void initMarkCommand(ArrayList<Integer> deleteIds) {
-		markCommandType = MarkCommandType.MULTIPLE;
-		this.markIds = deleteIds;
+	public MarkCommand(ArrayList<Integer> markIds) {
+		this.markIds = new ArrayList<Integer>();
+		this.markedTasks = new ArrayList<Task>();
+		this.markIds.addAll(markIds);
 	}
 
 	@Override
-	public void execute(Logic logic) throws IncorrectInputException {
+	public void undo(LogicController logic){
+		TaskManager taskManager = logic.getTaskManager();
+		
+		for(Task markedTask : markedTasks){
+			taskManager.unMarkTask(markedTask);
+		}
+	}
+	
+	@Override
+	public void execute(LogicController logic) throws IncorrectInputException {
 		TaskManager taskManager = logic.getTaskManager();
 		assert (taskManager != null);
 
-		switch (markCommandType) {
+		String errorMessageBody = "";
 
-		case SINGLE:
-			if (taskManager.containsTask(markId)) {
-				boolean successfullyMarked = taskManager.markTask(markId);
-
-				if (!successfullyMarked) {
-					throw new IncorrectInputException(
-							"Task " + markId + "-" + taskManager.findTask(markId).getName() + " is already marked.");
-				}
+		for (Integer markId : markIds) {
+			if (taskManager.contains(markId)) {
+				taskManager.markTask(markId);
+				Task markedTask = taskManager.find(markId);
+				markedTasks.add(markedTask);
 			} else {
-				throw new IncorrectInputException("Index " + markId + " doesn't exists");
+				errorMessageBody += " " + markId;
 			}
-			break;
+		}
 
-		case MULTIPLE:
-			String errorMessageBody = "";
-
-			for (int i = 0; i < markIds.size(); i++) {
-				if (taskManager.containsTask(markIds.get(i))) {
-					taskManager.markTask(markIds.get(i));
-				} else {
-					errorMessageBody += " " + markIds.get(i);
-				}
-			}
-
-			if (errorMessageBody != "") {
-				throw new IncorrectInputException("Index" + errorMessageBody + " doesn't exists");
-			}
-
-			break;
+		if (errorMessageBody != "") {
+			throw new IncorrectInputException("Index" + errorMessageBody + " doesn't exists");
 		}
 
 	}

@@ -61,13 +61,13 @@ public class DateTimeParser {
 	};
 
 	public DateTimeParser() {
-		DateTime dt = new DateTime();
-		currTime = dt.getTimeInt();
-		currDayInWeekString = dt.getDayStr();
-		currDayInWeekInt = dt.getDayInt();
-		currDD = dt.getDD();
-		currMM = dt.getMM();
-		currYY = dt.getYY();
+		DateTime dateTime = new DateTime();
+		currTime = dateTime.getTimeInt();
+		currDayInWeekString = dateTime.getDayStr();
+		currDayInWeekInt = dateTime.getDayInt();
+		currDD = dateTime.getDD();
+		currMM = dateTime.getMM();
+		currYY = dateTime.getYY();
 
 		if (isLeapYear(currYY)) {
 			daysInMonth[2] = LEAP_YEAR_FEB;
@@ -220,7 +220,7 @@ public class DateTimeParser {
 				}
 				break;
 
-			case TYPE_INVALID:
+			default:
 				combined[COMBINED_INDEX_COUNTER] += 1;
 				throw new IncorrectInputException("\"" + input + "\"" + " is an invalid date time input");
 

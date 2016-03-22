@@ -124,6 +124,10 @@ public class UISideMenu {
 	public ToggleButton getExtendedBtn() {
 		return this.extendedBtn;
 	}
+	
+	public ToggleButton getFloatBtn() {
+		return this.floatBtn;
+	}
 
 	public ToggleButton getAllBtn() {
 		return this.allBtn;

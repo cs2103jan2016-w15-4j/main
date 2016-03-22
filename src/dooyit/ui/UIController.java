@@ -284,6 +284,9 @@ public class UIController {
 			case EXTENDED:
 				this.sideMenu.getMainViewToggleGroup().selectToggle(this.sideMenu.getExtendedBtn());
 				break;
+			case FLOAT:
+				this.sideMenu.getMainViewToggleGroup().selectToggle(this.sideMenu.getFloatBtn());
+				break;
 			case ALL:
 				this.sideMenu.getMainViewToggleGroup().selectToggle(this.sideMenu.getAllBtn());
 				break;

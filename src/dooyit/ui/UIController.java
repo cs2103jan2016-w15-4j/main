@@ -174,6 +174,10 @@ public class UIController {
 			commandBox.getCommandTextField().setText(UIData.EMP_STR);
 
 			this.logic.processCommand(commandString);
+			
+			if (commandString.equals("help")){
+				showHelp();
+			}
 		});
 	}
 	
@@ -326,6 +330,7 @@ public class UIController {
 	
 	public void setActiveViewType(UIMainViewType activeMainView){
 		this.activeMainView = activeMainView;
+		setActiveMenuButton(activeMainView);
 	}
 	
 	public UIMainViewType getActiveViewType(){
@@ -334,6 +339,10 @@ public class UIController {
 	
 	public void refreshCategoryMenuView(ArrayList<Category> categoryList){
 		this.sideMenu.refreshCategoryMenuView(categoryList);
+	}
+	
+	public void showHelp(){
+		this.helpBox.show(this.primaryStage);
 	}
 	
 	public void showUserGuide(){

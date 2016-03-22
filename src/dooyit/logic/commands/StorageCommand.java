@@ -3,7 +3,7 @@ package dooyit.logic.commands;
 import java.io.IOException;
 
 import dooyit.common.exception.IncorrectInputException;
-import dooyit.logic.core.LogicController;
+import dooyit.logic.api.LogicController;
 import dooyit.storage.StorageController;
 
 public class StorageCommand extends Command {

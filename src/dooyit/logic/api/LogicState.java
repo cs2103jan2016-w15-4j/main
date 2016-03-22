@@ -1,4 +1,4 @@
-package dooyit.logic.core;
+package dooyit.logic.api;
 
 public class LogicState {
 

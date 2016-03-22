@@ -1,6 +1,6 @@
 package dooyit.logic.commands;
 
-import dooyit.logic.core.LogicController;
+import dooyit.logic.api.LogicController;
 
 public abstract class ReversibleCommand extends Command {
 	

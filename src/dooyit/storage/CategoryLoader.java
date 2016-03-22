@@ -11,7 +11,7 @@ import com.google.gson.JsonParser;
 
 import dooyit.common.datatype.CustomColor;
 import dooyit.common.exception.MissingFileException;
-import dooyit.logic.core.CategoryManager;
+import dooyit.logic.api.CategoryManager;
 
 public class CategoryLoader {
 	private String filePath;

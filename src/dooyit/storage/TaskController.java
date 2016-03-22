@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import dooyit.common.datatype.Task;
-import dooyit.logic.core.TaskManager;
+import dooyit.logic.api.TaskManager;
 
 public class TaskController {
 	TaskSaver taskSaver;

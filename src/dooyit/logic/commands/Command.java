@@ -1,7 +1,7 @@
 package dooyit.logic.commands;
 import dooyit.common.exception.IncorrectInputException;
-import dooyit.logic.core.ColourManager;
-import dooyit.logic.core.LogicController;
+import dooyit.logic.api.ColourManager;
+import dooyit.logic.api.LogicController;
 
 public abstract class Command {
 

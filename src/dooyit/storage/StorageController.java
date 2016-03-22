@@ -17,8 +17,8 @@ import dooyit.storage.CategoryController;
 import dooyit.common.datatype.Category;
 import dooyit.common.datatype.Task;
 import dooyit.common.exception.InvalidFilePathException;
-import dooyit.logic.core.CategoryManager;
-import dooyit.logic.core.TaskManager;
+import dooyit.logic.api.CategoryManager;
+import dooyit.logic.api.TaskManager;
 
 public class StorageController extends StorageConstants {
 

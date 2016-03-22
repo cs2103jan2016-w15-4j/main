@@ -1,4 +1,4 @@
-package dooyit.logic.core;
+package dooyit.logic.api;
 
 import java.util.ArrayList;
 import java.util.Random;

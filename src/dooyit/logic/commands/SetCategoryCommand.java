@@ -6,9 +6,9 @@ import dooyit.common.datatype.Category;
 import dooyit.common.datatype.CustomColor;
 import dooyit.common.datatype.Task;
 import dooyit.common.exception.IncorrectInputException;
-import dooyit.logic.core.CategoryManager;
-import dooyit.logic.core.LogicController;
-import dooyit.logic.core.TaskManager;
+import dooyit.logic.api.CategoryManager;
+import dooyit.logic.api.LogicController;
+import dooyit.logic.api.TaskManager;
 
 public class SetCategoryCommand extends Command {
 

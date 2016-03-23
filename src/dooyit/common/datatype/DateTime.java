@@ -4,7 +4,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.TimeZone;
-import dooyit.parser.DateTimeParser;
 
 public class DateTime {
 	private static final String FORMAT_SPACE = " ";
@@ -16,11 +15,12 @@ public class DateTime {
 	private static final String AM = " am";
 	private static final String DUMMY_STR = "Dummy_Str";
 	private static final String ONE_ZERO = "0";
-	private static final String NO_TIME_INDICATED = "NIL";
 	private static final String CALENDAR_DATE_FORMAT = "dd MM yyyy HH:mm E u";
 	private static final String CALENDAR_DEFAULT_TIME_ZONE = "UTC+08:00"; // Singapore Time Zone
-
-	private static final int UNINITIALIZED = -1;
+	
+	private static final String UNINITIALIZED_STRING = "-1";
+	private static final int UNINITIALIZED_INT = -1;
+	
 	private static final int INDEX_DD = 0;
 	private static final int INDEX_MM = 1;
 	private static final int INDEX_YY = 2;
@@ -38,7 +38,7 @@ public class DateTime {
 	
 	private static String[] months = new String[] { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
 	private static String[] daysInWeek = new String[] { DUMMY_STR, "mon", "tue", "wed", "thu", "fri", "sat", "sun" };
-	private static int[] daysInMonth = new int[] { UNINITIALIZED, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+	private static int[] daysInMonth = new int[] { UNINITIALIZED_INT, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 
 	private String date; // 8 March 2016
 	private String timeStr24H; // 1300
@@ -101,8 +101,8 @@ public class DateTime {
 		this.dd = date[INDEX_DD];
 		this.mm = date[INDEX_MM];
 		this.yy = date[INDEX_YY];
-		this.timeStr24H = String.valueOf(UNINITIALIZED);
-		this.timeStr12H = String.valueOf(UNINITIALIZED);
+		this.timeStr24H = String.valueOf(UNINITIALIZED_INT);
+		this.timeStr12H = String.valueOf(UNINITIALIZED_INT);
 		this.dayStr = day;
 		this.dayInt = setDayInt(dayStr);
 		this.date = this.dd + FORMAT_SPACE + months[decrementByOne(this.mm)] + FORMAT_SPACE + this.yy;
@@ -119,9 +119,9 @@ public class DateTime {
 		} catch (NumberFormatException e) {
 			System.out.println("Error: time is " + time);
 			System.out.println(e.getMessage());
-			this.timeInt = UNINITIALIZED;
-			this.timeStr24H = NO_TIME_INDICATED;
-			this.timeStr12H = NO_TIME_INDICATED;
+			this.timeInt = UNINITIALIZED_INT;
+			this.timeStr24H = UNINITIALIZED_STRING;
+			this.timeStr12H = UNINITIALIZED_STRING;
 		}
 		this.dayStr = day;
 		this.dayInt = setDayInt(dayStr);
@@ -276,7 +276,7 @@ public class DateTime {
 	}
 	
 	private int setDayInt(String str) {
-		int ans = UNINITIALIZED;
+		int ans = UNINITIALIZED_INT;
 		for (int i = 0; i < daysInWeek.length; i++) {
 			if (str.equals(daysInWeek[i])) {
 				ans = i;
@@ -290,7 +290,7 @@ public class DateTime {
 	private String convertTimeIntTo12hString(int time) {
 		String timeString12H;
 		if (isUninitialized(time)) {
-			timeString12H = NO_TIME_INDICATED;
+			timeString12H = UNINITIALIZED_STRING;
 		} else if (isMidnight(time)) {
 			timeString12H = TWELVE_MIDNIGHT;
 		} else if (isAfter12amAndBefore1am(time)) {
@@ -340,7 +340,7 @@ public class DateTime {
 	}
 
 	private boolean isUninitialized(int time) {
-		return time == UNINITIALIZED;
+		return time == UNINITIALIZED_INT;
 	}
 
 	private boolean isAfter1amAndBefor12pm(int time) {
@@ -359,7 +359,7 @@ public class DateTime {
 	private String convertTimeIntTo24hString(int time) {
 		String timeString24H;
 		if (isUninitialized(time)) {
-			timeString24H = NO_TIME_INDICATED;
+			timeString24H = UNINITIALIZED_STRING;
 		} else if (isMidnight(time)) {
 			timeString24H = "0000";
 		} else if (isAfter12amAndBefore1am(time)) {
@@ -418,7 +418,7 @@ public class DateTime {
 	}
 
 	public boolean hasTime() {
-		return this.getTimeInt() != UNINITIALIZED;
+		return this.getTimeInt() != UNINITIALIZED_INT;
 	}
 
 	public boolean isTheSameDateAs(DateTime obj) {

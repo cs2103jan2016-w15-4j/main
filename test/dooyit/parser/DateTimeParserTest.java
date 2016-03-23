@@ -1,4 +1,4 @@
-package Test;
+package dooyit.parser;
 
 import dooyit.parser.DateTimeParser;
 import dooyit.common.datatype.DateTime;

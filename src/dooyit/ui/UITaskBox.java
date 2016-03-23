@@ -6,6 +6,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
 public class UITaskBox {
@@ -13,10 +14,10 @@ public class UITaskBox {
 	private static final String STYLECLASS_TASK_CHECKBOX = UIStyle.TASK_CHECKBOX;
 	private static final Font FONT_TASK_ID = UIFont.TAHOMA_S;
 	private static final String STYLECLASS_TASK_ID = UIStyle.TASK_ID;
-	private static final int PREFWIDTH_TASK_ID = 30;
-	private static final Font FONT_TASK_NAME = UIFont.EUPHEMIA_M;
+	private static final int PREFWIDTH_TASK_ID = 20;
+	private static final Font FONT_TASK_NAME = UIFont.SEGOE_M;
 	private static final String STYLECLASS_TASK_NAME = UIStyle.TASK_NAME;
-	private static final int TASK_NAME_WIDTH_TO_SUBTRACT = 300;
+	private static final int TASK_NAME_WIDTH_TO_SUBTRACT = 90;
 	private static final Font FONT_TASK_PERIOD = UIFont.SEGOE_M;
 	private static final String STYLECLASS_TASK_PERIOD = UIStyle.TASK_PERIOD;
 	private static final int PREFWIDTH_TASK_PERIOD = 100;
@@ -30,6 +31,7 @@ public class UITaskBox {
 	private static final int SPACING_TASK_BOX = 10;
 	private static final int WIDTH_MENU = 180;
 	private static final int PAD_X = 20;
+	private static final String DOUBLE_SPACE = "  ";
 
 	private UIDayBox parent;
 	private Task task;
@@ -49,8 +51,8 @@ public class UITaskBox {
 	private void initialize(){
 		initTaskCheckBox();
 		initTaskId();
-		initTaskPeriod();
 		initTaskCategoryLabel();
+		initTaskPeriod();
 		initTaskName();
 		initTaskBox();
 		initListeners();
@@ -72,23 +74,13 @@ public class UITaskBox {
 	}
 	
 	private void initTaskPeriod(){
-//		if (this.task.hasDeadlineTime()){
-//	    	this.taskPeriod = new Label(this.task.getDeadlineTime().getTime24hStr());
-//	    } else if (this.task.hasStartTime() && this.task.hasEndTime()){
-//	    	this.taskPeriod = new Label(this.task.getDateTimeStart().getTime24hStr() + TASK_PERIOD_TO + this.task.getDateTimeEnd().getTime24hStr());
-//	    } else if (this.task.hasStartTime()){
-//	    	this.taskPeriod = new Label(TASK_PERIOD_BEGINS + this.task.getDateTimeStart().getTime24hStr());
-//	    } else if (this.task.hasEndTime()){
-//	    	this.taskPeriod = new Label(TASK_PERIOD_ENDS + this.task.getDateTimeEnd().getTime24hStr());
-//	    } else {
-//	    	this.taskPeriod = new Label(UIData.EMP_STR);
-//	    }
-		
-		this.taskPeriod = new Label(this.task.getDateString());
-		
+		String dateString = this.task.getDateString();
+		if (!dateString.isEmpty()){
+			dateString += DOUBLE_SPACE;
+		} 
+		this.taskPeriod = new Label(dateString);
 		this.taskPeriod.setFont(FONT_TASK_PERIOD);
 	    this.taskPeriod.getStyleClass().add(STYLECLASS_TASK_PERIOD);
-	    this.taskPeriod.setPrefWidth(PREFWIDTH_TASK_PERIOD);
 	}
 	
 	private void initTaskCategoryLabel(){
@@ -97,8 +89,9 @@ public class UITaskBox {
 			Category category = this.task.getCategory();
 			this.taskCategoryLabel.setText(category.getName());
 			this.taskCategoryLabel.setTextFill(category.getColour());
-		}
+		} 
 	    this.taskCategoryLabel.setFont(FONT_TASK_CATEGORY_LABEL);
+	    this.taskCategoryLabel.setAlignment(Pos.CENTER_RIGHT);
 	    this.taskCategoryLabel.getStyleClass().add(STYLECLASS_TASK_CATEGORY_LABEL);
 	    this.taskCategoryLabel.setPrefWidth(PREFWIDTH_TASK_CATEGORY_LABEL);
 	}
@@ -108,7 +101,9 @@ public class UITaskBox {
 	    this.taskName.setFont(FONT_TASK_NAME);
 	    this.taskName.getStyleClass().add(STYLECLASS_TASK_NAME);
 	    double width = this.parent.getStageWidth();
-	    updateTaskNameWidth(width - TASK_NAME_WIDTH_TO_SUBTRACT);
+	    width -= PREFWIDTH_TASK_CATEGORY_LABEL;
+	    width -= TASK_NAME_WIDTH_TO_SUBTRACT;
+	    updateTaskNameWidth(width);
 	}
 	
 	private void initTaskBox(){
@@ -116,7 +111,7 @@ public class UITaskBox {
 		 this.taskBox.setAlignment(Pos.CENTER_LEFT);
 		 this.taskBox.setSpacing(SPACING_TASK_BOX);
 		 this.taskBox.getStyleClass().add(STYLECLASS_TASK_BOX);
-		 this.taskBox.getChildren().addAll(this.taskCheckBox, this.taskId, this.taskName, this.taskPeriod, this.taskCategoryLabel);   
+		 this.taskBox.getChildren().addAll(this.taskCheckBox, this.taskId, this.taskPeriod, this.taskName, this.taskCategoryLabel);   
 	}
 	
 	private void initListeners(){
@@ -144,6 +139,7 @@ public class UITaskBox {
 		widthToSubtract += this.taskId.getWidth() + SPACING_TASK_BOX;
 		widthToSubtract += this.taskPeriod.getWidth() + SPACING_TASK_BOX;
 		widthToSubtract += this.taskCategoryLabel.getWidth() + 2 * SPACING_TASK_BOX;
+		widthToSubtract += SPACING_TASK_BOX;
 		double width = stageWidth - widthToSubtract;
 		this.taskName.setMinWidth(width);
 		this.taskName.setPrefWidth(width);

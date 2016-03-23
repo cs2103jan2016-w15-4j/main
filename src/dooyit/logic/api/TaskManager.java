@@ -18,18 +18,18 @@ public class TaskManager {
 	}
 
 	public Task addFloatingTask(String data) {
-		return AddTaskFloat(data, false);
+		return addFloatingTask(data, false);
 	}
 
 	public Task addDeadlineTask(String data, DateTime dateTime) {
-		return AddTaskDeadline(data, dateTime, false);
+		return addDeadlineTask(data, dateTime, false);
 	}
 
 	public Task addEventTask(String data, DateTime start, DateTime end) {
-		return AddTaskEvent(data, start, end, false);
+		return addEventTask(data, start, end, false);
 	}
 
-	public Task AddTaskFloat(String data, boolean isCompleted) {
+	public Task addFloatingTask(String data, boolean isCompleted) {
 		FloatingTask floatingTask = new FloatingTask(data);
 		if (isCompleted) {
 			floatingTask.mark();
@@ -40,7 +40,7 @@ public class TaskManager {
 		return floatingTask;
 	}
 
-	public Task AddTaskDeadline(String data, DateTime dateTime, boolean isCompleted) {
+	public Task addDeadlineTask(String data, DateTime dateTime, boolean isCompleted) {
 		DeadlineTask deadlineTask = new DeadlineTask(data, dateTime);
 		if (isCompleted) {
 			deadlineTask.mark();
@@ -50,7 +50,7 @@ public class TaskManager {
 		return deadlineTask;
 	}
 
-	public Task AddTaskEvent(String data, DateTime start, DateTime end, boolean isCompleted) {
+	public Task addEventTask(String data, DateTime start, DateTime end, boolean isCompleted) {
 		EventTask eventTask = new EventTask(data, start, end);
 
 		if (isCompleted) {
@@ -61,6 +61,14 @@ public class TaskManager {
 		return eventTask;
 	}
 
+	public void add(Task task) {
+		tasks.add(task);
+	}
+	
+	public void loadTask(ArrayList<Task> tasks){
+		this.tasks = new ArrayList<Task>(tasks);
+	}
+	
 	public Task remove(int id) {
 		for (int i = 0; i < tasks.size(); i++) {
 			if (tasks.get(i).getId() == id) {
@@ -70,23 +78,15 @@ public class TaskManager {
 		return null;
 	}
 	
-	public void add(Task task) {
-		tasks.add(task);
-	}
-	
-	public Task remove(Task task) {
+	public boolean remove(Task task) {
 		for (int i = 0; i < tasks.size(); i++) {
 			if (tasks.get(i).equals(task)) {
-				return tasks.remove(i);
+				return true;
 			}
 		}
-		return null;
+		return false;
 	}
 
-	public void loadTask(ArrayList<Task> tasks){
-		this.tasks = new ArrayList<Task>(tasks);
-	}
-	
 	/**
 	 * Mark a task based on id
 	 * 
@@ -149,18 +149,18 @@ public class TaskManager {
 		return false;
 	}
 
-	public boolean containsTask(String taskName) {
-		for (int i = 0; i < tasks.size(); i++) {
-			if (tasks.get(i).getName().equals(taskName)) {
-				return true;
-			}
-		}
-		return false;
-	}
-
 	public Task find(int id) {
 		for (int i = 0; i < tasks.size(); i++) {
 			if (tasks.get(i).getId() == id) {
+				return tasks.get(i);
+			}
+		}
+		return null;
+	}
+	
+	public Task find(Task task) {
+		for (int i = 0; i < tasks.size(); i++) {
+			if (tasks.get(i).equals(task)) {
 				return tasks.get(i);
 			}
 		}

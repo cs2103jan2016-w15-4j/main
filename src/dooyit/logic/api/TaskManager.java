@@ -419,6 +419,26 @@ public class TaskManager {
 		return taskGroups;
 	}
 
+	public ArrayList<TaskGroup> getTaskGroupSearched(String searchString) {
+		ArrayList<TaskGroup> taskGroups = new ArrayList<TaskGroup>();
+		ArrayList<Task> searchedTasks = new ArrayList<Task>();
+		
+		for(Task task : tasks){
+			String taskName = task.getName();
+			taskName = taskName.toLowerCase();
+			searchString = searchString.toLowerCase();
+			
+			if(taskName.contains(searchString)){
+				searchedTasks.add(task);
+			}
+		}
+		
+		TaskGroup taskGroup = new TaskGroup("Search List", searchedTasks);
+		taskGroups.add(taskGroup);
+		
+		return taskGroups;
+	}
+	
 	public void display() {
 		System.out.println();
 		System.out.println("Task List");

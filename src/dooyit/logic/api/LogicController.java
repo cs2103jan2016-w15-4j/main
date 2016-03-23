@@ -12,6 +12,7 @@ import java.util.Stack;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import dooyit.common.datatype.Category;
 import dooyit.common.datatype.DateTime;
 import dooyit.common.datatype.Task;
 
@@ -68,7 +69,7 @@ public class LogicController {
 	 */
 	public void processCommand(String input) {
 		Command command = parser.getCommand(input);
-		
+
 		assert (command != null);
 		executeCommand(command);
 		addCommandToHistory(command);
@@ -96,20 +97,20 @@ public class LogicController {
 			history.push((ReversibleCommand) command);
 		}
 	}
-	
-	public void undoLatestCommand(){
+
+	public void undoLatestCommand() {
 		ReversibleCommand reversibleCommand;
-		if(!history.isEmpty()){
+		if (!history.isEmpty()) {
 			reversibleCommand = history.pop();
 			reversibleCommand.undo(this);
 		}
 	}
-	
+
 	private void save() {
 		if (!isSaveOn) {
 			return;
 		}
-		
+
 		try {
 			storage.saveTasks(taskManager.getAllTasks());
 		} catch (IOException e) {
@@ -122,11 +123,11 @@ public class LogicController {
 	 * 
 	 */
 	private void displayInCommandline() {
-		if(displayCommandline){
+		if (displayCommandline) {
 			taskManager.display();
 		}
 	}
-	
+
 	public void enableSave() {
 		isSaveOn = true;
 	}
@@ -138,6 +139,46 @@ public class LogicController {
 	public void clearTask() {
 		taskManager.clear();
 		save();
+	}
+
+	public void setActiveView(UIMainViewType uiMainViewType) {
+		uiController.setActiveViewType(uiMainViewType);
+
+		switch (uiMainViewType) {
+
+		case TODAY:
+			uiController.refreshMainView(taskManager.getTaskGroupsToday());
+			break;
+
+		case EXTENDED:
+			uiController.refreshMainView(taskManager.getTaskGroupsNext7Days());
+			break;
+
+		case ALL:
+			uiController.refreshMainView(taskManager.getTaskGroupsAll());
+			break;
+
+		case COMPLETED:
+			uiController.refreshMainView(taskManager.getTaskGroupsCompleted());
+			break;
+
+		case FLOAT:
+			uiController.refreshMainView(taskManager.getTaskGroupsFloating());
+			break;
+
+		default:
+			assert (true);
+		}
+	}
+
+	public void setActiveViewCategory(Category category) {
+		uiController.setActiveViewType(UIMainViewType.CATEGORY);
+		uiController.refreshMainView(taskManager.getTaskGroupsCompleted(), category);
+	}
+	
+	public void setActiveViewSearch(String searchString) {
+		uiController.setActiveViewType(UIMainViewType.SEARCH);
+		
 	}
 
 	private void refreshUIController() {
@@ -172,36 +213,47 @@ public class LogicController {
 		case CATEGORY:
 
 			break;
+
+		case SEARCH:
+
+			break;
 		}
 
 		uiController.refreshCategoryMenuView(categoryManager.getCategoryList());
 	}
 
-	public Task addFloatingTask(String taskName){
+	public Task addFloatingTask(String taskName) {
 		Task addedTask = taskManager.addFloatingTask(taskName);
 		return addedTask;
 	}
-	
-	
-	public Task addDeadlineTask(String taskName, DateTime dateTimeDeadline){
+
+	public Task addDeadlineTask(String taskName, DateTime dateTimeDeadline) {
 		Task addedTask = taskManager.addDeadlineTask(taskName, dateTimeDeadline);
 		return addedTask;
 	}
-	
-	public Task addEventTask(String taskName, DateTime dateTimeStart, DateTime dateTimeEnd){
+
+	public Task addEventTask(String taskName, DateTime dateTimeStart, DateTime dateTimeEnd) {
 		Task addedTask = taskManager.addEventTask(taskName, dateTimeStart, dateTimeEnd);
 		return addedTask;
 	}
-	
-	public boolean containsTask(int taskId){
+
+	public boolean containsTask(int taskId) {
 		return taskManager.contains(taskId);
 	}
-	
-	public Task removeTask(int taskId){
+
+	public Task removeTask(int taskId) {
 		Task removedTask = taskManager.remove(taskId);
 		return removedTask;
 	}
-	
+
+	public boolean containsCategory(String categoryName) {
+		return categoryManager.contains(categoryName);
+	}
+
+	public Category findCategory(String categoryName) {
+		return categoryManager.find(categoryName);
+	}
+
 	/**
 	 * pass the uicontroller references to this class
 	 * 

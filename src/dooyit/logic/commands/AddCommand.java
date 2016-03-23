@@ -5,6 +5,7 @@ import dooyit.common.datatype.Task;
 import dooyit.common.exception.IncorrectInputException;
 import dooyit.logic.api.LogicController;
 import dooyit.logic.api.TaskManager;
+import dooyit.ui.UIMainViewType;
 
 public class AddCommand extends ReversibleCommand {
 
@@ -46,15 +47,17 @@ public class AddCommand extends ReversibleCommand {
 		switch (taskType) {
 		case FLOATING:
 			addedTask = logic.addFloatingTask(taskName);
+			logic.setActiveView(UIMainViewType.FLOAT);
 			break;
 
 		case DEADLINE:
 			addedTask = logic.addDeadlineTask(taskName, dateTimeDeadline);
-
+			logic.setActiveView(UIMainViewType.ALL);
 			break;
 
 		case EVENT:
 			addedTask = logic.addEventTask(taskName, dateTimeStart, dateTimeEnd);
+			logic.setActiveView(UIMainViewType.ALL);
 			break;
 		}
 	}

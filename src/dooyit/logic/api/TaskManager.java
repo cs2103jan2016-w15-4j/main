@@ -81,6 +81,7 @@ public class TaskManager {
 	public boolean remove(Task task) {
 		for (int i = 0; i < tasks.size(); i++) {
 			if (tasks.get(i).equals(task)) {
+				tasks.remove(i);
 				return true;
 			}
 		}

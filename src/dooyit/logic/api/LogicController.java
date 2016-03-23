@@ -142,6 +142,10 @@ public class LogicController {
 	}
 
 	public void setActiveView(UIMainViewType uiMainViewType) {
+		if(uiController == null){
+			return;
+		}
+		
 		uiController.setActiveViewType(uiMainViewType);
 
 		switch (uiMainViewType) {
@@ -172,11 +176,19 @@ public class LogicController {
 	}
 
 	public void setActiveViewCategory(Category category) {
+		if(uiController == null){
+			return;
+		}
+		
 		uiController.setActiveViewType(UIMainViewType.CATEGORY);
 		uiController.refreshMainView(taskManager.getTaskGroupsCompleted(), category);
 	}
 	
 	public void setActiveViewSearch(String searchString) {
+		if(uiController == null){
+			return;
+		}
+		
 		uiController.setActiveViewType(UIMainViewType.SEARCH);
 		
 	}

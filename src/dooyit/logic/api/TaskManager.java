@@ -64,11 +64,11 @@ public class TaskManager {
 	public void add(Task task) {
 		tasks.add(task);
 	}
-	
-	public void loadTask(ArrayList<Task> tasks){
+
+	public void loadTask(ArrayList<Task> tasks) {
 		this.tasks = new ArrayList<Task>(tasks);
 	}
-	
+
 	public Task remove(int id) {
 		for (int i = 0; i < tasks.size(); i++) {
 			if (tasks.get(i).getId() == id) {
@@ -77,7 +77,7 @@ public class TaskManager {
 		}
 		return null;
 	}
-	
+
 	public boolean remove(Task task) {
 		for (int i = 0; i < tasks.size(); i++) {
 			if (tasks.get(i).equals(task)) {
@@ -131,7 +131,7 @@ public class TaskManager {
 		// tell user if task is already marked.
 		return false;
 	}
-	
+
 	public boolean contains(int id) {
 		for (int i = 0; i < tasks.size(); i++) {
 			if (tasks.get(i).getId() == id) {
@@ -140,7 +140,7 @@ public class TaskManager {
 		}
 		return false;
 	}
-	
+
 	public boolean contains(Task task) {
 		for (int i = 0; i < tasks.size(); i++) {
 			if (tasks.get(i).equals(task)) {
@@ -158,7 +158,7 @@ public class TaskManager {
 		}
 		return null;
 	}
-	
+
 	public Task find(Task task) {
 		for (int i = 0; i < tasks.size(); i++) {
 			if (tasks.get(i).equals(task)) {
@@ -167,36 +167,36 @@ public class TaskManager {
 		}
 		return null;
 	}
-	
-	public void clear(){
+
+	public void clear() {
 		tasks.clear();
 	}
-	
-	public boolean changeTaskName(int taskId, String newName){
-		if(!contains(taskId)){
+
+	public boolean changeTaskName(int taskId, String newName) {
+		if (!contains(taskId)) {
 			return false;
 		}
-		
+
 		Task task = find(taskId);
 		task.changeName(newName);
 		return true;
 	}
-	
-	public boolean changeTaskToDeadline(int taskId, DateTime dateTimeDeadline){
-		if(!contains(taskId)){
+
+	public boolean changeTaskToDeadline(int taskId, DateTime dateTimeDeadline) {
+		if (!contains(taskId)) {
 			return false;
 		}
-		
+
 		Task task = remove(taskId);
 		addDeadlineTask(task.getName(), dateTimeDeadline);
 		return true;
 	}
-	
-	public boolean changeTaskToEvent(int taskId, DateTime dateTimeStart, DateTime dateTimeEnd){
-		if(!contains(taskId)){
+
+	public boolean changeTaskToEvent(int taskId, DateTime dateTimeStart, DateTime dateTimeEnd) {
+		if (!contains(taskId)) {
 			return false;
 		}
-		
+
 		Task task = remove(taskId);
 		addEventTask(task.getName(), dateTimeStart, dateTimeEnd);
 		return true;
@@ -284,7 +284,7 @@ public class TaskManager {
 		for (Task task : tasks) {
 			if (task.getTaskType() == TaskType.DEADLINE) {
 				DeadlineTask deadlineTask = (DeadlineTask) task;
-				if(deadlineTask.getDateTimeDeadline().isTheSameDateAs(dateTime) && !task.isCompleted()){
+				if (deadlineTask.getDateTimeDeadline().isTheSameDateAs(dateTime) && !task.isCompleted()) {
 					deadlineTasks.add(task);
 				}
 			}
@@ -324,9 +324,9 @@ public class TaskManager {
 		ArrayList<Task> eventTasks = new ArrayList<Task>();
 
 		for (Task task : tasks) {
-			if (task.getTaskType() == TaskType.EVENT ) {
-				EventTask eventTask = (EventTask)task;
-				if(eventTask.getDateTimeStart().isTheSameDateAs(dateTime) && !task.isCompleted()){
+			if (task.getTaskType() == TaskType.EVENT) {
+				EventTask eventTask = (EventTask) task;
+				if (eventTask.getDateTimeStart().isTheSameDateAs(dateTime) && !task.isCompleted()) {
 					eventTasks.add(task);
 				}
 			}

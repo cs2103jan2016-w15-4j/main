@@ -12,6 +12,7 @@ import java.util.Stack;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import dooyit.common.datatype.DateTime;
 import dooyit.common.datatype.Task;
 
 public class LogicController {
@@ -176,6 +177,31 @@ public class LogicController {
 		uiController.refreshCategoryMenuView(categoryManager.getCategoryList());
 	}
 
+	public Task addFloatingTask(String taskName){
+		Task addedTask = taskManager.addFloatingTask(taskName);
+		return addedTask;
+	}
+	
+	
+	public Task addDeadlineTask(String taskName, DateTime dateTimeDeadline){
+		Task addedTask = taskManager.addDeadlineTask(taskName, dateTimeDeadline);
+		return addedTask;
+	}
+	
+	public Task addEventTask(String taskName, DateTime dateTimeStart, DateTime dateTimeEnd){
+		Task addedTask = taskManager.addEventTask(taskName, dateTimeStart, dateTimeEnd);
+		return addedTask;
+	}
+	
+	public boolean containsTask(int taskId){
+		return taskManager.contains(taskId);
+	}
+	
+	public Task removeTask(int taskId){
+		Task removedTask = taskManager.remove(taskId);
+		return removedTask;
+	}
+	
 	/**
 	 * pass the uicontroller references to this class
 	 * 

@@ -41,21 +41,20 @@ public class AddCommand extends ReversibleCommand {
 	
 	@Override
 	public void execute(LogicController logic) throws IncorrectInputException {
-		TaskManager taskManager = logic.getTaskManager();
-		assert (taskManager != null);
+		assert (logic != null);
 
 		switch (taskType) {
 		case FLOATING:
-			addedTask = taskManager.addFloatingTask(taskName);
+			addedTask = logic.addFloatingTask(taskName);
 			break;
 
 		case DEADLINE:
-			addedTask = taskManager.addDeadlineTask(taskName, dateTimeDeadline);
+			addedTask = logic.addDeadlineTask(taskName, dateTimeDeadline);
 
 			break;
 
 		case EVENT:
-			addedTask = taskManager.addEventTask(taskName, dateTimeStart, dateTimeEnd);
+			addedTask = logic.addEventTask(taskName, dateTimeStart, dateTimeEnd);
 			break;
 		}
 	}

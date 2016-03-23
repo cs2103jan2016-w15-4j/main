@@ -6,6 +6,6 @@ import org.junit.runners.Suite;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({ AddCommandTest.class, DeleteCommandTest.class })
 
-public class CommandTestSuite {
+public class LogicCommandTestSuite {
 	
 }

@@ -36,11 +36,11 @@ public class SetCategoryCommand extends Command {
 		for (Integer taskId : taskIds) {
 			if (taskManager.contains(taskId)) {
 				if (categoryManager.contains(categoryName)) {
-					Category category = categoryManager.findCategory(categoryName);
+					Category category = categoryManager.find(categoryName);
 					Task task = taskManager.find(taskId);
 					task.setCategory(category);
 				} else {
-					Category category = categoryManager.addCategory(categoryName);
+					Category category = categoryManager.add(categoryName);
 					Task task = taskManager.find(taskId);
 					task.setCategory(category);
 					throw new IncorrectInputException("Category: " + categoryName + " is created.");

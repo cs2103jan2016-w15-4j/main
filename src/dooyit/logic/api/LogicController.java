@@ -67,27 +67,35 @@ public class LogicController {
 	 */
 	public void processCommand(String input) {
 		Command command = parser.getCommand(input);
-
+		
 		assert (command != null);
+		executeCommand(command);
+		addCommandToHistory(command);
+		refreshUIController();
+		save();
+		displayInCommandline();
+	}
 
+	/**
+	 * @param command
+	 */
+	private void executeCommand(Command command) {
 		try {
 			command.execute(this);
 		} catch (IncorrectInputException e) {
 			uiController.displayMessage(e.getMessage());
 		}
+	}
 
+	/**
+	 * @param command
+	 */
+	private void addCommandToHistory(Command command) {
 		if (command instanceof ReversibleCommand) {
 			history.push((ReversibleCommand) command);
 		}
-
-		refreshUIController();
-
-		save();
-
-		// update UI - UI.update();
-		taskManager.display();
 	}
-
+	
 	private void save() {
 		if (!isSaveOn) {
 			return;
@@ -101,6 +109,13 @@ public class LogicController {
 		}
 	}
 
+	/**
+	 * 
+	 */
+	private void displayInCommandline() {
+		taskManager.display();
+	}
+	
 	public void enableSave() {
 		isSaveOn = true;
 	}

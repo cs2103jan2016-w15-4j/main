@@ -6,7 +6,7 @@ public class EventTask extends Task {
 	private DateTime dateTimeEnd;
 
 	public EventTask(String taskName, DateTime start, DateTime end) {
-		assert (start != null && end != null);
+		assert (taskName != null && start != null && end != null);
 
 		taskType = TaskType.EVENT;
 		this.taskName = taskName;
@@ -24,7 +24,7 @@ public class EventTask extends Task {
 
 	@Override
 	public String getDateString() {
-		return dateTimeStart.getTime24hStr() + " to " + dateTimeEnd.getTime24hStr();
+		return dateTimeStart.getTime24hStr() + " - " + dateTimeEnd.getTime24hStr();
 	}
 
 	@Override

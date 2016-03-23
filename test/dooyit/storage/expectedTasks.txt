@@ -1,4 +1,4 @@
-{"taskName":"abc","dateTimeDeadline":"10 12 2016 sat NIL","isCompleted":false}
+{"taskName":"abc","dateTimeDeadline":"10 12 2016 sat -1","isCompleted":false}
 {"taskName":"homework","dateTimeDeadline":"10 12 2016 sat 0800","isCompleted":false}
 {"taskName":"float","isCompleted":false}
 {"taskName":"brunch","dateTimeStart":"10 12 2016 sat 1000","dateTimeEnd":"10 12 2016 sat 1200","isCompleted":false}

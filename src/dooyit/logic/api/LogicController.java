@@ -257,7 +257,15 @@ public class LogicController {
 		Task removedTask = taskManager.remove(taskId);
 		return removedTask;
 	}
+	
+	public boolean isTodayTask(Task task){
+		return taskManager.isTodayTask(task);
+	}
 
+	public boolean isNext7daysTask(Task task){
+		return taskManager.isNext7DaysTask(task);
+	}
+	
 	public boolean containsCategory(String categoryName) {
 		return categoryManager.contains(categoryName);
 	}

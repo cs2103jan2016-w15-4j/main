@@ -15,7 +15,7 @@ public class AddCommand extends ReversibleCommand {
 	private DateTime dateTimeStart;
 	private DateTime dateTimeEnd;
 	private Task addedTask;
-	
+
 	public AddCommand(String taskName) {
 		this.taskName = taskName;
 		taskType = Task.TaskType.FLOATING;
@@ -26,7 +26,7 @@ public class AddCommand extends ReversibleCommand {
 		this.dateTimeDeadline = deadline;
 		taskType = Task.TaskType.DEADLINE;
 	}
-	
+
 	public AddCommand(String data, DateTime start, DateTime end) {
 		this.taskName = data;
 		this.dateTimeStart = start;
@@ -35,11 +35,11 @@ public class AddCommand extends ReversibleCommand {
 	}
 
 	@Override
-	public void undo(LogicController logic){
+	public void undo(LogicController logic) {
 		TaskManager taskManager = logic.getTaskManager();
 		taskManager.remove(addedTask);
 	}
-	
+
 	@Override
 	public void execute(LogicController logic) throws IncorrectInputException {
 		assert (logic != null);
@@ -52,12 +52,26 @@ public class AddCommand extends ReversibleCommand {
 
 		case DEADLINE:
 			addedTask = logic.addDeadlineTask(taskName, dateTimeDeadline);
-			logic.setActiveView(UIMainViewType.ALL);
+
+			if (logic.isTodayTask(addedTask)) {
+				logic.setActiveView(UIMainViewType.TODAY);
+			} else if (logic.isNext7daysTask(addedTask)) {
+				logic.setActiveView(UIMainViewType.EXTENDED);
+			} else {
+				logic.setActiveView(UIMainViewType.ALL);
+			}
 			break;
 
 		case EVENT:
 			addedTask = logic.addEventTask(taskName, dateTimeStart, dateTimeEnd);
-			logic.setActiveView(UIMainViewType.ALL);
+			
+			if (logic.isTodayTask(addedTask)) {
+				logic.setActiveView(UIMainViewType.TODAY);
+			} else if (logic.isNext7daysTask(addedTask)) {
+				logic.setActiveView(UIMainViewType.EXTENDED);
+			} else {
+				logic.setActiveView(UIMainViewType.ALL);
+			}
 			break;
 		}
 	}

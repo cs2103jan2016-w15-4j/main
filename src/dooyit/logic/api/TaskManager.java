@@ -334,6 +334,42 @@ public class TaskManager {
 		return eventTasks;
 	}
 
+	public boolean isTodayTask(Task task) {
+		DateTime currDate = new DateTime();
+		if (task instanceof DeadlineTask) {
+			DeadlineTask deadlineTask = (DeadlineTask) task;
+			return deadlineTask.getDateTimeDeadline().isTheSameDateAs(currDate);
+		} else if (task instanceof EventTask) {
+			EventTask eventTask = (EventTask) task;
+			return eventTask.getDateTimeStart().isTheSameDateAs(currDate);
+		}
+		return false;
+	}
+
+	public boolean isNext7DaysTask(Task task) {
+		DateTime currDate = new DateTime();
+
+		if (task instanceof DeadlineTask) {
+			for (int i = 0; i < 7; i++) {
+				DeadlineTask deadlineTask = (DeadlineTask) task;
+				if (deadlineTask.getDateTimeDeadline().isTheSameDateAs(currDate)) {
+					return true;
+				}
+				currDate.increaseByOne();
+			}
+		} else if (task instanceof EventTask) {
+			EventTask eventTask = (EventTask) task;
+			for (int i = 0; i < 7; i++) {
+				if (eventTask.getDateTimeStart().isTheSameDateAs(currDate)) {
+					return true;
+				}
+				currDate.increaseByOne();
+			}
+		}
+
+		return false;
+	}
+
 	public ArrayList<TaskGroup> getTaskGroupsAll() {
 		ArrayList<TaskGroup> taskGroups = new ArrayList<TaskGroup>();
 		taskGroups.add(new TaskGroup("All", getIncompletedTasks()));

@@ -4,9 +4,9 @@ import java.io.File;
 
 public class StorageConstants {
 
-	protected static final char SEPARATOR_CHAR = File.separatorChar;
+	static final char SEPARATOR_CHAR = File.separatorChar;
 	
-	protected static final String CURRENT_DIRECTORY = System.getProperty("user.dir");
+	static final String CURRENT_DIRECTORY = System.getProperty("user.dir");
 	
 	static final String FOLDER_DATA = CURRENT_DIRECTORY + SEPARATOR_CHAR + "data" + SEPARATOR_CHAR;
 

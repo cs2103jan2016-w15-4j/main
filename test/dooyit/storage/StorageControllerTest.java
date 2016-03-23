@@ -18,9 +18,15 @@ import dooyit.common.exception.*;
 @PrepareForTest(StorageController.class)
 public class StorageControllerTest extends StorageConstants{
 	
-	static final String FOLDER_TEST = CURRENT_DIRECTORY + SEPARATOR_CHAR + "test" + SEPARATOR_CHAR + "dooyit" + SEPARATOR_CHAR;
+	static final String FOLDER_TEST = CURRENT_DIRECTORY + SEPARATOR_CHAR 
+									+ "test" + SEPARATOR_CHAR + "dooyit" 
+									+ SEPARATOR_CHAR;
 	static final String FOLDER_TEST_STORAGE = FOLDER_TEST + "storage" + SEPARATOR_CHAR;
-	static final String TEST_SAVE = "testSave.txt";
+	
+	static final String TEST_VALID_EXTENSION = "testSave.txt";
+	static final String TEST_INVALID_EXTENSION = "abc.css";
+	
+	static final String NAME_FILE_CONFIG = SEPARATOR_CHAR + "config.txt";
 	
 	
 	//Case for negative partition - folder
@@ -39,7 +45,7 @@ public class StorageControllerTest extends StorageConstants{
 		StorageController storage = new StorageController();
 		
 		//filePath is expected to end with .txt extension, this should throw exception
-		String filePath = FOLDER_TEST_STORAGE + "abc.css";
+		String filePath = FOLDER_TEST_STORAGE + TEST_INVALID_EXTENSION;
 		storage.setFileDestination(filePath);
 	}
 	
@@ -52,13 +58,13 @@ public class StorageControllerTest extends StorageConstants{
 		System.out.println(originalPath);
 		
 		//filePath ending with .txt extension
-		String filePath = FOLDER_TEST_STORAGE + "testDestinaton.txt";
+		String filePath = FOLDER_TEST_STORAGE + TEST_VALID_EXTENSION;
 		storage.setFileDestination(filePath);
 		
 		//Checking if file path is saved correctly on application
 		Assert.assertEquals(storage.getFilePath(), filePath);
 		
-		BufferedReader bReader = new BufferedReader(new FileReader(CURRENT_DIRECTORY + SEPARATOR_CHAR + "config.txt"));
+		BufferedReader bReader = new BufferedReader(new FileReader(CURRENT_DIRECTORY + NAME_FILE_CONFIG));
 		String taskPath = bReader.readLine();
 		bReader.close();
 		

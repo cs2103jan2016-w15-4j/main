@@ -24,7 +24,8 @@ public class LogicController {
 	private UIController uiController;
 	private static Logger logger = Logger.getLogger("Logic");
 
-	private boolean isSaveOn;
+	private boolean isSaveOn = true;
+	private boolean displayCommandline = true;
 
 	public LogicController() {
 		logger.log(Level.INFO, "Initialising logic class");
@@ -33,7 +34,6 @@ public class LogicController {
 		taskManager = new TaskManager();
 		categoryManager = new CategoryManager();
 		history = new Stack<ReversibleCommand>();
-		isSaveOn = true;
 
 		try {
 			storage = new StorageController();
@@ -96,6 +96,14 @@ public class LogicController {
 		}
 	}
 	
+	public void undoLatestCommand(){
+		ReversibleCommand reversibleCommand;
+		if(!history.isEmpty()){
+			reversibleCommand = history.pop();
+			reversibleCommand.undo(this);
+		}
+	}
+	
 	private void save() {
 		if (!isSaveOn) {
 			return;
@@ -113,7 +121,9 @@ public class LogicController {
 	 * 
 	 */
 	private void displayInCommandline() {
-		taskManager.display();
+		if(displayCommandline){
+			taskManager.display();
+		}
 	}
 	
 	public void enableSave() {

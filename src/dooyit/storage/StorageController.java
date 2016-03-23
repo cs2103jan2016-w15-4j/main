@@ -20,13 +20,14 @@ import dooyit.common.exception.InvalidFilePathException;
 import dooyit.logic.api.CategoryManager;
 import dooyit.logic.api.TaskManager;
 
+//@@author A0124586Y
 public class StorageController extends StorageConstants {
 
 	private String configFilePath;
 	private String[] preferences;
 	private CategoryController categoryControl;
 	private TaskController taskControl;
-	private static Logger logger = Logger.getLogger("Storage");
+	//private static Logger logger = Logger.getLogger("Storage");
 
 	private static final String NAME_FILE_CONFIG = "config.txt";
 	private static final int TASK_DESTINATION = 0;
@@ -44,12 +45,12 @@ public class StorageController extends StorageConstants {
 	}
 
 	private String getConfigPath(String currentPath) {
-		logger.log(Level.INFO, "Getting save destination");
+		//logger.log(Level.INFO, "Getting save destination");
 		return currentPath + SEPARATOR_CHAR + NAME_FILE_CONFIG;
 	}
 
 	public boolean setFileDestination(String newFilePath) throws IOException, InvalidFilePathException {
-		logger.log(Level.INFO, "Changing save destination");
+		//logger.log(Level.INFO, "Changing save destination");
 		boolean isValid = isValidSavePath(newFilePath);
 		assert isValid;
 
@@ -61,23 +62,20 @@ public class StorageController extends StorageConstants {
 	}
 
 	public boolean saveTasks(ArrayList<Task> tasks) throws IOException {
-		logger.log(Level.INFO, "Attempting to save tasks to " + preferences[TASK_DESTINATION]);
+		//logger.log(Level.INFO, "Attempting to save tasks to " + preferences[TASK_DESTINATION]);
 		assert tasks != null;
 
 		if (taskControl.save(tasks)) {
-			logger.log(Level.INFO, "Successfully saved tasks!");
 			return true;
 		} else {
-			logger.log(Level.SEVERE, "Failed to save tasks");
 			return false;
 		}
 
 	}
 
 	public ArrayList<Task> loadTasks() throws IOException {
-		logger.log(Level.INFO, "Attempting to load tasks from " + preferences[TASK_DESTINATION]);
+		//logger.log(Level.INFO, "Attempting to load tasks from " + preferences[TASK_DESTINATION]);
 		ArrayList<Task> taskList = taskControl.load();
-		logger.log(Level.INFO, "Successfully loaded tasks!");
 
 		return taskList;
 

@@ -143,6 +143,11 @@ public class CommandUtils {
 		return undoCommand;
 	}
 	
+	public static Command createClearCommand(){
+		ClearCommand clearCommand = new ClearCommand();
+		return clearCommand;
+	}
+	
 	public static Command createHelpCommand() {
 		HelpCommand undoCommand = new HelpCommand();
 		return undoCommand;

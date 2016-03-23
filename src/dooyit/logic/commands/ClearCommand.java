@@ -2,12 +2,15 @@ package dooyit.logic.commands;
 
 import dooyit.common.exception.IncorrectInputException;
 import dooyit.logic.api.LogicController;
+import dooyit.logic.api.TaskManager;
 
-public class UndoCommand extends Command {
+public class ClearCommand extends Command {
 
 	@Override
 	public void execute(LogicController logic) throws IncorrectInputException {
-		logic.undoLatestCommand();
+		TaskManager taskManager = logic.getTaskManager();
+		assert(taskManager != null);
+		taskManager.clear();
 	}
 
 }

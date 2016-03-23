@@ -23,14 +23,24 @@ public class StorageControllerTest extends StorageConstants{
 	static final String TEST_SAVE = "testSave.txt";
 	
 	
+	//Case for negative partition - folder
 	@Test(expected = InvalidFilePathException.class)
-	public void testBadSetFileDestination() throws IOException {
+	public void testFolderSetFileDestination() throws IOException {
 		StorageController storage = new StorageController();
 		
 		//filePath is expected to end with .txt extension, this should throw exception
 		String filePath = FOLDER_TEST_STORAGE;
 		storage.setFileDestination(filePath);
-		return;
+	}
+	
+	//Case for negative partition - file extension
+	@Test(expected = InvalidFilePathException.class)
+	public void testBadExtensionSetFileDestination() throws IOException {
+		StorageController storage = new StorageController();
+		
+		//filePath is expected to end with .txt extension, this should throw exception
+		String filePath = FOLDER_TEST_STORAGE + "abc.css";
+		storage.setFileDestination(filePath);
 	}
 	
 	@Test

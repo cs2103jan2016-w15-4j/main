@@ -1,5 +1,5 @@
 package dooyit.logic;
 
-public class Test {
+public class Constants {
 
 }

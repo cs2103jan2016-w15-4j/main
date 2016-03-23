@@ -5,7 +5,7 @@ public class DeadlineTask extends Task {
 	DateTime dateTimeDeadline;
 	
 	public DeadlineTask(String taskName, DateTime deadline){
-		assert (deadline != null);
+		assert (taskName != null && deadline != null);
 
 		taskType = TaskType.DEADLINE;
 		this.taskName = taskName;

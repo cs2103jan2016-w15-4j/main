@@ -17,13 +17,13 @@ public class CategoryManager {
 
 	private void setDefaultCategories() {
 		if (categories.size() == 0) {
-			addCategory("School");
-			addCategory("Entertainment");
+			add("School");
+			add("Entertainment");
 		}
 	}
 
-	public Category addCategory(String categoryName) {
-		if (findCategory(categoryName) != null) {
+	public Category add(String categoryName) {
+		if (find(categoryName) != null) {
 			return null;
 		}
 		
@@ -34,7 +34,7 @@ public class CategoryManager {
 	}
 
 	public Category addCategory(String categoryName, CustomColor colour) {
-		if (findCategory(categoryName) != null) {
+		if (find(categoryName) != null) {
 			return null;
 		}
 		
@@ -62,7 +62,7 @@ public class CategoryManager {
 		return false;
 	}
 	
-	public Category findCategory(String categoryName) {
+	public Category find(String categoryName) {
 		for (int i = 0; i < categories.size(); i++) {
 			if (categories.get(i).equals(categoryName)) {
 				return categories.get(i);
@@ -71,7 +71,7 @@ public class CategoryManager {
 		return null;
 	}
 	
-	public Category findCategory(Category category) {
+	public Category find(Category category) {
 		for (int i = 0; i < categories.size(); i++) {
 			if (categories.get(i).equals(category)) {
 				return categories.get(i);

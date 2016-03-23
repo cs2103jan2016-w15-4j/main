@@ -78,10 +78,12 @@ public class TaskManagerTest {
 		Task task1 = new FloatingTask("hi");
 		removeSuccessful = taskManager.remove(task1);
 		assertFalse(removeSuccessful);
-
+		
+		
 		taskManager.add(task1);
 		removeSuccessful = taskManager.remove(task1);
 		assertTrue(removeSuccessful);
+		assertFalse(taskManager.contains(task1));
 	}
 
 	@Test

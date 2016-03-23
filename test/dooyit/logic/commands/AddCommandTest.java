@@ -28,7 +28,6 @@ public class AddCommandTest {
 		taskManager = logicController.getTaskManager();
 	}
 	
-	
 	@Test
 	public void testAddFloatingTask(){
 		addCommand = new AddCommand("hello");

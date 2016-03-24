@@ -10,6 +10,11 @@ public class FloatingTask extends Task {
 	}
 	
 	@Override
+	public boolean isOverDue(DateTime dateTime){
+		return false;
+	}
+	
+	@Override
 	public String getDateString(){
 		return "";
 	}

@@ -17,6 +17,11 @@ public class DeadlineTask extends Task {
 	}
 	
 	@Override
+	public boolean isOverDue(DateTime dateTime){
+		return !isCompleted && dateTimeDeadline.compareTo(dateTime) == -1;
+	}
+	
+	@Override
 	public String getDateString(){
 		if(dateTimeDeadline.hasTime()){
 			return dateTimeDeadline.getTime24hStr();

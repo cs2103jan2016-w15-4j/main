@@ -23,6 +23,11 @@ public class EventTask extends Task {
 	}
 
 	@Override
+	public boolean isToday(DateTime dateTime){
+		return dateTimeStart.isTheSameDateAs(dateTime);
+	}
+	
+	@Override
 	public boolean isOverDue(DateTime dateTime){
 		return !isCompleted && dateTimeEnd.compareTo(dateTime) == -1;
 	}

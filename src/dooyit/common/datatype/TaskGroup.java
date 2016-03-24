@@ -12,26 +12,11 @@ public class TaskGroup {
 		this.title = title;
 		tasks = new ArrayList<Task>();
 	}
-
-	public TaskGroup(String title, ArrayList<Task> tasks) {
-		this.tasks = new ArrayList<Task>();
-		this.title = title;
-		addTasks(tasks);
-	}
-
-	public TaskGroup(String title, ArrayList<Task> tasks, DateTime dateTime) {
-		this.tasks = new ArrayList<Task>();
+	
+	public TaskGroup(String title, DateTime dateTime) {
 		this.title = title;
 		this.dateTime = dateTime;
-		addTasks(tasks);
-	}
-
-	public TaskGroup(String title, ArrayList<Task> tasks1, ArrayList<Task> tasks2, DateTime dateTime) {
-		this.tasks = new ArrayList<Task>();
-		this.title = title;
-		this.dateTime = dateTime;
-		addTasks(tasks1);
-		addTasks(tasks2);
+		tasks = new ArrayList<Task>();
 	}
 
 	public void addTask(Task task) {
@@ -39,9 +24,7 @@ public class TaskGroup {
 	}
 
 	public void addTasks(ArrayList<Task> tasks) {
-		for (Task task : tasks) {
-			this.tasks.add(task);
-		}
+		this.tasks.addAll(tasks);
 	}
 
 	public DateTime getDateTime() {

@@ -83,6 +83,19 @@ public class DateTimeParser {
 			daysInMonth[INDEX_FEBRUARY] = LEAP_YEAR_FEB;
 		}
 	}
+	
+	public DateTimeParser(DateTime dateTime) {
+		currTime = dateTime.getTimeInt();
+		currDayInWeekString = dateTime.getDayStr();
+		currDayInWeekInt = dateTime.getDayInt();
+		currDD = dateTime.getDD();
+		currMM = dateTime.getMM();
+		currYY = dateTime.getYY();
+
+		if (isLeapYear(currYY)) {
+			daysInMonth[INDEX_FEBRUARY] = LEAP_YEAR_FEB;
+		}
+	}
 
 	private boolean isLeapYear(int currYear) {
 		int[] arrLeapYears = new int[] { 2016, 2020, 2024, 2028, 2032, 2036, 2040, 2044, 2048, 2052, 2056, 2060, 2064,
@@ -178,8 +191,12 @@ public class DateTimeParser {
 		String[] splitInput = input.toLowerCase().split("\\s+");
 		// [dayOfWeek, time, DD, MM, YY, indexInArray]
 		int[] combined = new int[] { currDayInWeekInt, UNINITIALIZED_INT, currDD, currMM, currYY, 0 };
-
+		int maxCounter = 0;
+		
 		for (int i = 0; i < splitInput.length; i++) {
+			if(maxCounter == 10) {
+				break;
+			}
 			String currWord = splitInput[i];
 			switch (getDateTimeType(currWord, splitInput, i)) {
 			case TYPE_THIS_DAY_OF_WEEK:
@@ -224,7 +241,7 @@ public class DateTimeParser {
 
 			case TYPE_TIME:
 				try {
-					combined = getTime(splitInput, i, combined);
+					combined = getTimeFromUserInput(splitInput, i, combined);
 				} catch (IncorrectInputException e) {
 					throw e;
 				}
@@ -236,6 +253,9 @@ public class DateTimeParser {
 
 			}
 			i = combined[COMBINED_INDEX_COUNTER];
+			
+			
+			maxCounter++;
 		}
 		return getDateTimeObject(combined);
 	}
@@ -249,7 +269,7 @@ public class DateTimeParser {
 			int day = combined[COMBINED_INDEX_DAY_OF_WEEK];
 
 			if (hasPassed(currTime, time, date)) {
-				date = getDate(NEXT_DAY);
+				date = getDateAfterANumberOfDays(NEXT_DAY);
 				dateTime = new DateTime(date, daysInWeek[getNextDayInt()], time);
 			} else {
 				dateTime = new DateTime(date, daysInWeek[day], time);
@@ -262,7 +282,7 @@ public class DateTimeParser {
 
 	private int[] getTomorrow(int[] combined) {
 		int day = getNextDayInt();
-		int[] date = getDate(NEXT_DAY);
+		int[] date = getDateAfterANumberOfDays(NEXT_DAY);
 		int[] ans = getNewCombinedArray(combined, date, day);
 		printArray(ans);
 		return ans;
@@ -290,7 +310,7 @@ public class DateTimeParser {
 		int numWeeksLater = Integer.parseInt(splitInput[index]);
 		int day = currDayInWeekInt;
 		int fastForward = getFastForward(day) + NUMBER_OF_DAYS_IN_WEEK * numWeeksLater;
-		int[] date = getDate(fastForward);
+		int[] date = getDateAfterANumberOfDays(fastForward);
 		int[] ans = getNewCombinedArray(combined, date, day, incrementByOne(index));
 		return ans;
 	}
@@ -302,8 +322,8 @@ public class DateTimeParser {
 	// Eg. 2 days
 	private int[] getDateAndDayAfterNumberOfDays(String[] splitInput, int index, int[] combined) {
 		int numDaysLater = Integer.parseInt(splitInput[index]);
-		int day = get_Int_Day_From(numDaysLater);
-		int[] date = getDate(numDaysLater);
+		int day = getDayOfWeekAfterANumberOfDays(numDaysLater);
+		int[] date = getDateAfterANumberOfDays(numDaysLater);
 		printArray(date);
 		return getNewCombinedArray(combined, date, day, incrementByOne(index));
 	}
@@ -312,7 +332,7 @@ public class DateTimeParser {
 	private int[] getDateAfterOneWeek(String[] splitInput, int index, int[] combined) {
 		int day = currDayInWeekInt;
 		int fastForward = getFastForward(day) + NUMBER_OF_DAYS_IN_WEEK;
-		int[] date = getDate(fastForward);
+		int[] date = getDateAfterANumberOfDays(fastForward);
 		return getNewCombinedArray(combined, date, day, incrementByOne(index));
 	}
 
@@ -320,7 +340,7 @@ public class DateTimeParser {
 	private int[] getDayOfWeek(String[] splitInput, int index, int[] combined) {
 		int day = convertDayStringToInt(splitInput[index]);
 		int fastForward = getFastForward(day);
-		int[] date = getDate(fastForward);
+		int[] date = getDateAfterANumberOfDays(fastForward);
 		return getNewCombinedArray(combined, date, day, index);
 	}
 
@@ -328,7 +348,7 @@ public class DateTimeParser {
 	private int[] getNextDayOfWeek(String[] splitInput, int index, int[] combined) {
 		int day = convertDayStringToInt(splitInput[incrementByOne(index)]);
 		int fastForward = getFastForward(day) + NUMBER_OF_DAYS_IN_WEEK;
-		int[] date = getDate(fastForward);
+		int[] date = getDateAfterANumberOfDays(fastForward);
 		return getNewCombinedArray(combined, date, day, incrementByOne(index));
 	}
 
@@ -337,12 +357,22 @@ public class DateTimeParser {
 		// splitInput[i].equals("this")
 		int day = convertDayStringToInt(splitInput[incrementByOne(index)]);
 		int fastForward = getFastForward(day);
-		int[] date = getDate(fastForward);
+		int[] date = getDateAfterANumberOfDays(fastForward);
 		return getNewCombinedArray(combined, date, day, incrementByOne(index));
 	}
 
-	private int[] getDate(String[] splitInput, int index, int[] combined) {
-		int[] newDate = getDateAndAdvanceInt(splitInput, index); // [dd, mm, yy, advanceInt]
+	private int[] getDate(String[] splitInput, int index, int[] combined) throws IncorrectInputException {
+		int[] newDate;
+		try {
+			newDate = getDateAndAdvanceInt(splitInput, index); // [dd, mm, yy, advanceInt]
+		} catch (IncorrectInputException e) {
+			throw e;
+		}
+		
+		if(isInvalidDate(newDate)) {
+			throw new IncorrectInputException();
+		}
+		
 		return getNewCombinedArray(combined, newDate, getDayOfWeekFromADate(newDate), getAdvanceInt(newDate, combined[COMBINED_INDEX_COUNTER]));
 	}
 
@@ -370,7 +400,7 @@ public class DateTimeParser {
 	}
 
 	// To Do: include the check for valid dates
-	private int[] getDateAndAdvanceInt(String[] splitInput, int currIndexInSplitInput) {
+	private int[] getDateAndAdvanceInt(String[] splitInput, int currIndexInSplitInput) throws IncorrectInputException {
 		String firstWord = splitInput[currIndexInSplitInput];
 		int[] dateAdvanceIntArray= new int[] { UNINITIALIZED_INT, UNINITIALIZED_INT, UNINITIALIZED_INT, UNINITIALIZED_INT };
 		int numEntries = UNINITIALIZED_INT;
@@ -586,7 +616,7 @@ public class DateTimeParser {
 
 	// Input number of days to fastforward from today
 	// Output the day of the week
-	private int get_Int_Day_From(int daysLater) {
+	private int getDayOfWeekAfterANumberOfDays(int daysLater) {
 		int dayOfWeek = daysLater + currDayInWeekInt;
 		dayOfWeek %= NUMBER_OF_DAYS_IN_WEEK ;
 		if (dayOfWeek == 0) {
@@ -609,7 +639,7 @@ public class DateTimeParser {
 		return fastForward;
 	}
 
-	private int[] getDate(int fastForward) {
+	private int[] getDateAfterANumberOfDays(int fastForward) {
 		int newDay = currDD + fastForward;
 		int newMonth = currMM;
 		int newYear = currYY;
@@ -628,7 +658,7 @@ public class DateTimeParser {
 		return ans;
 	}
 
-	private int[] getTime(String[] splitInput, int index, int[] combined) throws IncorrectInputException {
+	private int[] getTimeFromUserInput(String[] splitInput, int index, int[] combined) throws IncorrectInputException {
 		String timeString = removeTimeSeparators(splitInput[index]);
 		boolean isAm = timeString.contains(AM);
 		boolean isPm = timeString.contains(PM);

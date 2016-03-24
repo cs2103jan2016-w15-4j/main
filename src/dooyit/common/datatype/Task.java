@@ -35,10 +35,7 @@ public abstract class Task {
 		return isCompleted;
 	}
 	
-	public boolean isOverDue(DateTime dateTime){
-		
-		return true;
-	}
+	
 
 	public boolean setCategory(Category category) {
 		assert (category != null);
@@ -82,4 +79,6 @@ public abstract class Task {
 	}
 	
 	public abstract String getDateString();
+	
+	public abstract boolean isOverDue(DateTime dateTime);
 }

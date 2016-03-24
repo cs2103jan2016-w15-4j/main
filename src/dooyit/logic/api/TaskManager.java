@@ -333,6 +333,18 @@ public class TaskManager {
 		}
 		return eventTasks;
 	}
+	
+	public ArrayList<Task> getOverdueTasks(DateTime dateTime){
+		ArrayList<Task> overdueTasks = new ArrayList<Task>();
+		
+		for(Task task: tasks){
+			if(task.isOverDue(dateTime)){
+				overdueTasks.add(task);
+			}
+		}
+		
+		return overdueTasks;
+	}
 
 	public boolean isTodayTask(Task task) {
 		DateTime currDate = new DateTime();
@@ -369,6 +381,20 @@ public class TaskManager {
 
 		return false;
 	}
+	
+	public boolean isOverDueTask(Task task){
+		DateTime dateTime = new DateTime();
+		
+		if (task instanceof DeadlineTask) {
+			DeadlineTask deadlineTask = (DeadlineTask)task;
+			return deadlineTask.getDateTimeDeadline().compareTo(dateTime) == -1;
+		}
+		if (task instanceof EventTask) {
+			EventTask eventTask = (EventTask)task;
+			return eventTask.getDateTimeEnd().compareTo(dateTime) == -1;
+		}
+		return false;
+	}
 
 	public ArrayList<TaskGroup> getTaskGroupsAll() {
 		ArrayList<TaskGroup> taskGroups = new ArrayList<TaskGroup>();
@@ -379,6 +405,12 @@ public class TaskManager {
 	public ArrayList<TaskGroup> getTaskGroupsToday() {
 		ArrayList<TaskGroup> taskGroups = new ArrayList<TaskGroup>();
 		DateTime currDate = new DateTime();
+		
+		ArrayList<Task> overdueTasks = getOverdueTasks(currDate);
+		if(!overdueTasks.isEmpty()){
+			taskGroups.add(new TaskGroup("Overdue", getOverdueTasks(currDate)));
+		}
+		
 		taskGroups.add(new TaskGroup("Today", getIncompleteDeadlineTasks(currDate), getIncompleteEventTasks(currDate),
 				currDate));
 		return taskGroups;
@@ -418,7 +450,7 @@ public class TaskManager {
 
 		return taskGroups;
 	}
-
+	
 	public ArrayList<TaskGroup> getTaskGroupSearched(String searchString) {
 		ArrayList<TaskGroup> taskGroups = new ArrayList<TaskGroup>();
 		ArrayList<Task> searchedTasks = new ArrayList<Task>();

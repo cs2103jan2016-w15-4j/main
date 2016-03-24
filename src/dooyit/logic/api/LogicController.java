@@ -69,8 +69,8 @@ public class LogicController {
 	 */
 	public void processCommand(String input) {
 		Command command = parser.getCommand(input);
-
 		assert (command != null);
+		
 		executeCommand(command);
 		addCommandToHistory(command);
 		refreshUIController();

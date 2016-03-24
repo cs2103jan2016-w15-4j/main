@@ -374,7 +374,7 @@ public class TaskManager {
 			if (task.isToday(currDate)) {
 				return true;
 			}
-			currDate.increaseByOne();
+			currDate.increaseByOneDay();
 		}
 
 		return false;
@@ -441,19 +441,19 @@ public class TaskManager {
 		taskGroup.addTasks(getIncompleteEventTasks(currDate));
 		taskGroups.add(taskGroup);
 		
-		currDate.increaseByOne();
+		currDate.increaseByOneDay();
 		taskGroup = new TaskGroup("Tomorrow", new DateTime(currDate));
 		taskGroup.addTasks(getIncompleteDeadlineTasks(currDate));
 		taskGroup.addTasks(getIncompleteEventTasks(currDate));
 		taskGroups.add(taskGroup);
 		
-		currDate.increaseByOne();
+		currDate.increaseByOneDay();
 		for (int i = 0; i < 5; i++) {
 			taskGroup = new TaskGroup(currDate.getDayStr(), new DateTime(currDate));
 			taskGroup.addTasks(getIncompleteDeadlineTasks(currDate));
 			taskGroup.addTasks(getIncompleteEventTasks(currDate));
 			taskGroups.add(taskGroup);
-			currDate.increaseByOne();
+			currDate.increaseByOneDay();
 
 		}
 

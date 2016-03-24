@@ -35,14 +35,13 @@ public class DeleteCommand extends ReversibleCommand {
 
 	@Override
 	public void execute(LogicController logic) throws IncorrectInputException {
-		TaskManager taskManager = logic.getTaskManager();
-		assert (taskManager != null);
+		assert (logic != null);
 		
 		String errorMessageBody = "";
 
 		for (Integer deleteId : deleteIds) {
-			if (taskManager.contains(deleteId)) {
-				Task deletedTask = taskManager.remove(deleteId);
+			if (logic.containsTask(deleteId)) {
+				Task deletedTask = logic.removeTask(deleteId);
 				deletedTasks.add(deletedTask);
 			} else {
 				errorMessageBody += " " + "[" + deleteId + "]";

@@ -24,22 +24,17 @@ public class ShowCommand extends Command {
 
 	@Override
 	public void execute(LogicController logic) throws IncorrectInputException {
-		UIController uiController = logic.getUIController();
-		CategoryManager categoryManager = logic.getCategoryManager();
-		TaskManager taskManager = logic.getTaskManager();
-		
-//		if(uiController == null)
-//			return;
+		assert(logic != null);
 		
 		if(uiMainViewtype == UIMainViewType.CATEGORY){
-			if(categoryManager.contains(categoryName)){
-				Category category = categoryManager.findCategory(categoryName);
-				uiController.setActiveViewType(uiMainViewtype);
-				uiController.refreshMainView(taskManager.getTaskGroupsCompleted(), category);
+			if(logic.containsCategory(categoryName)){
+				Category category = logic.findCategory(categoryName);
+				logic.setActiveView(uiMainViewtype);
+				logic.setActiveViewCategory(category);
 			}
 		}
 
-		uiController.setActiveViewType(uiMainViewtype);
+		logic.setActiveView(uiMainViewtype);
 	}
 
 }

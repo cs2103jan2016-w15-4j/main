@@ -13,10 +13,11 @@ public abstract class Task {
 	protected boolean isCompleted;
 	protected Category category;
 
-	public static int curTaskId = 1;
-
+	public static int curUniqueTaskId = 1; 
+	public int uniqueId; // to determine which task is created first
+	
 	public Task() {
-		taskId = curTaskId++;
+		uniqueId = curUniqueTaskId++;
 	}
 
 	public void changeName(String taskName) {
@@ -35,10 +36,7 @@ public abstract class Task {
 		return isCompleted;
 	}
 	
-	public boolean isOverDue(DateTime dateTime){
-		
-		return true;
-	}
+	
 
 	public boolean setCategory(Category category) {
 		assert (category != null);
@@ -66,7 +64,19 @@ public abstract class Task {
 	public int getId() {
 		return taskId;
 	}
+	
+	public void setId(int taskId){
+		this.taskId = taskId;
+	}
 
+	public int getUniqueId() {
+		return uniqueId;
+	}
+	
+	public void setUniqueId(int uniqueId){
+		this.uniqueId = uniqueId;
+	}
+	
 	public TaskType getTaskType() {
 		return taskType;
 	}
@@ -82,4 +92,8 @@ public abstract class Task {
 	}
 	
 	public abstract String getDateString();
+	
+	public abstract boolean isOverDue(DateTime dateTime);
+	
+	public abstract boolean isToday(DateTime dateTime);
 }

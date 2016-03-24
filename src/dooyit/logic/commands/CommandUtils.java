@@ -130,7 +130,8 @@ public class CommandUtils {
 
 	public static Command createStorageCommand(String path) {
 		StorageCommand storageCommand = new StorageCommand(path);
-		return storageCommand;
+		//return storageCommand;
+		return createSearchCommand(path);
 	}
 	
 	public static Command createChangeThemeCommand(String themeString){
@@ -141,6 +142,16 @@ public class CommandUtils {
 	public static Command createUndoCommand() {
 		UndoCommand undoCommand = new UndoCommand();
 		return undoCommand;
+	}
+	
+	public static Command createSearchCommand(String searchString) {
+		SearchCommand searchCommand = new SearchCommand(searchString);
+		return searchCommand;
+	}
+	
+	public static Command createClearCommand(){
+		ClearCommand clearCommand = new ClearCommand();
+		return clearCommand;
 	}
 	
 	public static Command createHelpCommand() {

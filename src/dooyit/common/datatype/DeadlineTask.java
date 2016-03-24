@@ -5,7 +5,7 @@ public class DeadlineTask extends Task {
 	DateTime dateTimeDeadline;
 	
 	public DeadlineTask(String taskName, DateTime deadline){
-		assert (deadline != null);
+		assert (taskName != null && deadline != null);
 
 		taskType = TaskType.DEADLINE;
 		this.taskName = taskName;
@@ -14,6 +14,16 @@ public class DeadlineTask extends Task {
 	
 	public DateTime getDateTimeDeadline() {
 		return dateTimeDeadline;
+	}
+	
+	@Override
+	public boolean isToday(DateTime dateTime){
+		return dateTimeDeadline.isTheSameDateAs(dateTime);
+	}
+	
+	@Override
+	public boolean isOverDue(DateTime dateTime){
+		return !isCompleted && dateTimeDeadline.compareTo(dateTime) == -1;
 	}
 	
 	@Override

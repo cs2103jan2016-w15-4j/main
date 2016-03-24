@@ -1,4 +1,4 @@
-package dooyit.logic.api;
+package dooyit.logic;
 
 public class Constants {
 

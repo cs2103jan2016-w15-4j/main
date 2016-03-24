@@ -5,6 +5,7 @@ import dooyit.common.datatype.Task;
 import dooyit.common.exception.IncorrectInputException;
 import dooyit.logic.api.LogicController;
 import dooyit.logic.api.TaskManager;
+import dooyit.ui.UIMainViewType;
 
 public class AddCommand extends ReversibleCommand {
 
@@ -14,7 +15,7 @@ public class AddCommand extends ReversibleCommand {
 	private DateTime dateTimeStart;
 	private DateTime dateTimeEnd;
 	private Task addedTask;
-	
+
 	public AddCommand(String taskName) {
 		this.taskName = taskName;
 		taskType = Task.TaskType.FLOATING;
@@ -25,7 +26,7 @@ public class AddCommand extends ReversibleCommand {
 		this.dateTimeDeadline = deadline;
 		taskType = Task.TaskType.DEADLINE;
 	}
-	
+
 	public AddCommand(String data, DateTime start, DateTime end) {
 		this.taskName = data;
 		this.dateTimeStart = start;
@@ -34,28 +35,43 @@ public class AddCommand extends ReversibleCommand {
 	}
 
 	@Override
-	public void undo(LogicController logic){
+	public void undo(LogicController logic) {
 		TaskManager taskManager = logic.getTaskManager();
 		taskManager.remove(addedTask);
 	}
-	
+
 	@Override
 	public void execute(LogicController logic) throws IncorrectInputException {
-		TaskManager taskManager = logic.getTaskManager();
-		assert (taskManager != null);
+		assert (logic != null);
 
 		switch (taskType) {
 		case FLOATING:
-			addedTask = taskManager.addFloatingTask(taskName);
+			addedTask = logic.addFloatingTask(taskName);
+			logic.setActiveView(UIMainViewType.FLOAT);
 			break;
 
 		case DEADLINE:
-			addedTask = taskManager.addDeadlineTask(taskName, dateTimeDeadline);
+			addedTask = logic.addDeadlineTask(taskName, dateTimeDeadline);
 
+			if (logic.isTodayTask(addedTask)) {
+				logic.setActiveView(UIMainViewType.TODAY);
+			} else if (logic.isNext7daysTask(addedTask)) {
+				logic.setActiveView(UIMainViewType.EXTENDED);
+			} else {
+				logic.setActiveView(UIMainViewType.ALL);
+			}
 			break;
 
 		case EVENT:
-			addedTask = taskManager.addEventTask(taskName, dateTimeStart, dateTimeEnd);
+			addedTask = logic.addEventTask(taskName, dateTimeStart, dateTimeEnd);
+			
+			if (logic.isTodayTask(addedTask)) {
+				logic.setActiveView(UIMainViewType.TODAY);
+			} else if (logic.isNext7daysTask(addedTask)) {
+				logic.setActiveView(UIMainViewType.EXTENDED);
+			} else {
+				logic.setActiveView(UIMainViewType.ALL);
+			}
 			break;
 		}
 	}

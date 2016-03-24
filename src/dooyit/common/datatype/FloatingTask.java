@@ -3,8 +3,20 @@ package dooyit.common.datatype;
 public class FloatingTask extends Task {
 
 	public FloatingTask(String taskName){
+		assert(taskName != null);
+		
 		taskType = TaskType.FLOATING;
 		this.taskName = taskName;
+	}
+	
+	@Override
+	public boolean isToday(DateTime dateTime){
+		return false;
+	}
+	
+	@Override
+	public boolean isOverDue(DateTime dateTime){
+		return false;
 	}
 	
 	@Override

@@ -425,7 +425,7 @@ public class DateTime {
 		return this.getDD() == obj.getDD() && this.getMM() == obj.getMM() && this.getYY() == obj.getYY();
 	}
 
-	public void increaseByOne() {
+	public void increaseByOneDay() {
 		this.dd += 1;
 		if (this.dd > daysInMonth[this.mm]) {
 			this.dd = 1;

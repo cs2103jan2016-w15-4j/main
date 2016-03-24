@@ -12,6 +12,8 @@ import java.util.Stack;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import dooyit.common.datatype.Category;
+import dooyit.common.datatype.DateTime;
 import dooyit.common.datatype.Task;
 
 public class LogicController {
@@ -24,7 +26,8 @@ public class LogicController {
 	private UIController uiController;
 	private static Logger logger = Logger.getLogger("Logic");
 
-	private boolean isSaveOn;
+	private boolean isSaveOn = true;
+	private boolean displayCommandline = true;
 
 	public LogicController() {
 		logger.log(Level.INFO, "Initialising logic class");
@@ -33,7 +36,6 @@ public class LogicController {
 		taskManager = new TaskManager();
 		categoryManager = new CategoryManager();
 		history = new Stack<ReversibleCommand>();
-		isSaveOn = true;
 
 		try {
 			storage = new StorageController();
@@ -67,37 +69,62 @@ public class LogicController {
 	 */
 	public void processCommand(String input) {
 		Command command = parser.getCommand(input);
-
 		assert (command != null);
+		
+		executeCommand(command);
+		addCommandToHistory(command);
+		refreshUIController();
+		save();
+		displayInCommandline();
+	}
 
+	/**
+	 * @param command
+	 */
+	private void executeCommand(Command command) {
 		try {
 			command.execute(this);
 		} catch (IncorrectInputException e) {
 			uiController.displayMessage(e.getMessage());
 		}
+	}
 
+	/**
+	 * @param command
+	 */
+	private void addCommandToHistory(Command command) {
 		if (command instanceof ReversibleCommand) {
 			history.push((ReversibleCommand) command);
 		}
+	}
 
-		refreshUIController();
-
-		save();
-
-		// update UI - UI.update();
-		taskManager.display();
+	public void undoLatestCommand() {
+		ReversibleCommand reversibleCommand;
+		if (!history.isEmpty()) {
+			reversibleCommand = history.pop();
+			reversibleCommand.undo(this);
+		}
 	}
 
 	private void save() {
 		if (!isSaveOn) {
 			return;
 		}
-		
+
 		try {
 			storage.saveTasks(taskManager.getAllTasks());
 		} catch (IOException e) {
 			logger.log(Level.SEVERE, "ERROR: Fail to save");
 			uiController.displayMessage("ERROR: SAVING");
+		}
+	}
+
+	/**
+	 * 
+	 */
+	private void displayInCommandline() {
+		if (displayCommandline) {
+			taskManager.display();
 		}
 	}
 
@@ -112,6 +139,58 @@ public class LogicController {
 	public void clearTask() {
 		taskManager.clear();
 		save();
+	}
+
+	public void setActiveView(UIMainViewType uiMainViewType) {
+		if(uiController == null){
+			return;
+		}
+		
+		uiController.setActiveViewType(uiMainViewType);
+
+		switch (uiMainViewType) {
+
+		case TODAY:
+			uiController.refreshMainView(taskManager.getTaskGroupsToday());
+			break;
+
+		case EXTENDED:
+			uiController.refreshMainView(taskManager.getTaskGroupsNext7Days());
+			break;
+
+		case ALL:
+			uiController.refreshMainView(taskManager.getTaskGroupsAll());
+			break;
+
+		case COMPLETED:
+			uiController.refreshMainView(taskManager.getTaskGroupsCompleted());
+			break;
+
+		case FLOAT:
+			uiController.refreshMainView(taskManager.getTaskGroupsFloating());
+			break;
+
+		default:
+			assert (true);
+		}
+	}
+
+	public void setActiveViewCategory(Category category) {
+		if(uiController == null){
+			return;
+		}
+		
+		uiController.setActiveViewType(UIMainViewType.CATEGORY);
+		uiController.refreshMainView(taskManager.getTaskGroupsCompleted(), category);
+	}
+	
+	public void setActiveViewSearch(String searchString) {
+		if(uiController == null){
+			return;
+		}
+		
+		uiController.setActiveViewType(UIMainViewType.SEARCH);
+		uiController.refreshMainView(taskManager.getTaskGroupSearched(searchString));
 	}
 
 	private void refreshUIController() {
@@ -146,9 +225,53 @@ public class LogicController {
 		case CATEGORY:
 
 			break;
+
+		case SEARCH:
+
+			break;
 		}
 
 		uiController.refreshCategoryMenuView(categoryManager.getCategoryList());
+	}
+
+	public Task addFloatingTask(String taskName) {
+		Task addedTask = taskManager.addFloatingTask(taskName);
+		return addedTask;
+	}
+
+	public Task addDeadlineTask(String taskName, DateTime dateTimeDeadline) {
+		Task addedTask = taskManager.addDeadlineTask(taskName, dateTimeDeadline);
+		return addedTask;
+	}
+
+	public Task addEventTask(String taskName, DateTime dateTimeStart, DateTime dateTimeEnd) {
+		Task addedTask = taskManager.addEventTask(taskName, dateTimeStart, dateTimeEnd);
+		return addedTask;
+	}
+
+	public boolean containsTask(int taskId) {
+		return taskManager.contains(taskId);
+	}
+
+	public Task removeTask(int taskId) {
+		Task removedTask = taskManager.remove(taskId);
+		return removedTask;
+	}
+	
+	public boolean isTodayTask(Task task){
+		return taskManager.isTodayTask(task);
+	}
+
+	public boolean isNext7daysTask(Task task){
+		return taskManager.isNext7DaysTask(task);
+	}
+	
+	public boolean containsCategory(String categoryName) {
+		return categoryManager.contains(categoryName);
+	}
+
+	public Category findCategory(String categoryName) {
+		return categoryManager.find(categoryName);
 	}
 
 	/**

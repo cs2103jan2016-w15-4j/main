@@ -40,7 +40,7 @@ public class AddCategoryCommand extends Command {
 					throw new IncorrectInputException("Color: " + colorString + " is not available.");
 				}
 			}else{
-				category = categoryManager.addCategory(categoryName);
+				category = categoryManager.add(categoryName);
 			}
 		}
 		else{

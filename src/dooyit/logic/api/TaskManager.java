@@ -479,7 +479,7 @@ public class TaskManager {
 	}
 	
 	public void resetTaskId(ArrayList<TaskGroup> taskGroups){
-		int taskId = 0;
+		int taskId = 1;
 		
 		for(TaskGroup taskGroup: taskGroups){
 			ArrayList<Task> tasks = taskGroup.getTasks();

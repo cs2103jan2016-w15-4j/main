@@ -36,8 +36,6 @@ public abstract class Task {
 		return isCompleted;
 	}
 	
-	
-
 	public boolean setCategory(Category category) {
 		assert (category != null);
 

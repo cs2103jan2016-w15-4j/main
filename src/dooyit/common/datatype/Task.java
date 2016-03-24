@@ -13,10 +13,7 @@ public abstract class Task {
 	protected boolean isCompleted;
 	protected Category category;
 
-	public static int curTaskId = 1;
-
 	public Task() {
-		taskId = curTaskId++;
 	}
 
 	public void changeName(String taskName) {
@@ -62,6 +59,10 @@ public abstract class Task {
 
 	public int getId() {
 		return taskId;
+	}
+	
+	public void setId(int taskId){
+		this.taskId = taskId;
 	}
 
 	public TaskType getTaskType() {

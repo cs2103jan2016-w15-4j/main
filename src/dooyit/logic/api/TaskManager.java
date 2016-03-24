@@ -387,6 +387,7 @@ public class TaskManager {
 		taskGroup.addTasks(getIncompletedTasks());
 		taskGroups.add(taskGroup);
 		
+		resetTaskId(taskGroups);
 		return taskGroups;
 	}
 
@@ -407,6 +408,7 @@ public class TaskManager {
 		taskGroup.addTasks(getIncompleteEventTasks(currDate));
 		taskGroups.add(taskGroup);
 		
+		resetTaskId(taskGroups);
 		return taskGroups;
 	}
 
@@ -417,6 +419,7 @@ public class TaskManager {
 		taskGroup.addTasks(getIncompleteFloatingTasks());
 		taskGroups.add(taskGroup);
 		
+		resetTaskId(taskGroups);
 		return taskGroups;
 	}
 
@@ -427,6 +430,7 @@ public class TaskManager {
 		taskGroup.addTasks(getCompletedTasks());
 		taskGroups.add(taskGroup);
 		
+		resetTaskId(taskGroups);
 		return taskGroups;
 	}
 
@@ -457,6 +461,7 @@ public class TaskManager {
 
 		}
 
+		resetTaskId(taskGroups);
 		return taskGroups;
 	}
 
@@ -469,7 +474,19 @@ public class TaskManager {
 		
 		taskGroups.add(taskGroup);
 
+		resetTaskId(taskGroups);
 		return taskGroups;
+	}
+	
+	public void resetTaskId(ArrayList<TaskGroup> taskGroups){
+		int taskId = 0;
+		
+		for(TaskGroup taskGroup: taskGroups){
+			ArrayList<Task> tasks = taskGroup.getTasks();
+			for(Task task : tasks){
+				task.setId(taskId++);
+			}
+		}
 	}
 	
 	public void display() {

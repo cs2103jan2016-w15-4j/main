@@ -9,7 +9,6 @@ import dooyit.common.exception.IncorrectInputException;
 
 public class DateTimeParser implements DateTimeParserCommon {
 	private static final int INDEX_FEBRUARY = 2;
-	private static boolean isInvalidDateTime;
 	DateFormat dateFormat;
 	DateTime dateTime;
 	RelativeDateParser relativeDateParser;
@@ -18,9 +17,6 @@ public class DateTimeParser implements DateTimeParserCommon {
 
 	private static Logger logger = Logger.getLogger("DateTimeParser");
 	private static String[] daysInWeekFull = new String[] { EMPTY_STRING, "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
-
-	private static int LEAP_YEAR_FEB = 29;
-	private int[] daysInMonth = new int[] { UNINITIALIZED_INT, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 
 	private int currMM;
 	private int currYY;
@@ -44,12 +40,6 @@ public class DateTimeParser implements DateTimeParserCommon {
 		relativeDateParser = new RelativeDateParser(dateTime);
 		timeParser = new TimeParser();
 		fixedDateParser = new FixedDateParser(dateTime);
-		
-		if (isLeapYear(currYY)) {
-			daysInMonth = daysInMonthLeapYear;
-		} else {
-			daysInMonth = daysInMonthNonLeapYear;
-		}
 	}
 	
 	public DateTimeParser(DateTime dateTime) {
@@ -60,11 +50,6 @@ public class DateTimeParser implements DateTimeParserCommon {
 		currDD = dateTime.getDD();
 		currMM = dateTime.getMM();
 		currYY = dateTime.getYY();
-
-		if (isLeapYear(currYY)) {
-			daysInMonth[INDEX_FEBRUARY] = LEAP_YEAR_FEB;
-		}
-		
 		
 		relativeDateParser = new RelativeDateParser(this.dateTime);
 		timeParser = new TimeParser();
@@ -77,9 +62,10 @@ public class DateTimeParser implements DateTimeParserCommon {
 		logger.log(Level.INFO, "input is " + input);
 		String[] splitInput = input.toLowerCase().split("\\s+");
 		int[] combined = new int[] { currDayInWeekInt, UNINITIALIZED_INT, currDD, currMM, currYY, 0 };
-		System.out.println("today's date is:");
-		printArray(combined);
+		
 		for(int i = 0; i < splitInput.length; i++) {
+			System.out.println("START: i is " + i);
+			combined[COMBINED_INDEX_COUNTER] = i;
 			String currWord = splitInput[i];
 			switch(getDateTimeType(currWord, splitInput, i)) {
 			case TYPE_RELATIVE_DATE:
@@ -103,18 +89,19 @@ public class DateTimeParser implements DateTimeParserCommon {
 			}
 			
 			i = combined[COMBINED_INDEX_COUNTER];
-			printArray(combined);
+			//printArray(combined);
+			System.out.println("END: i is " + i);
 		}
 		
 		return getDateTimeObject(combined);
 	}
 	
 	private DATE_TIME_FORMAT getDateTimeType(String currWord, String[] splitUserInput, int index) {
-		if(relativeDateParser.isRelativeDate(currWord, splitUserInput, index)) {
-			return DATE_TIME_FORMAT.TYPE_RELATIVE_DATE;
-			
-		} else if(timeParser.isValidTime(currWord, splitUserInput, index)) {
+		if(timeParser.isValidTime(currWord, splitUserInput, index)) {
 			return DATE_TIME_FORMAT.TYPE_TIME;
+			
+		} else if(relativeDateParser.isRelativeDate(currWord, splitUserInput, index)) {
+			return DATE_TIME_FORMAT.TYPE_RELATIVE_DATE;
 			
 		} else if(fixedDateParser.isFixedDate(currWord, splitUserInput, index)) {
 			return DATE_TIME_FORMAT.TYPE_FIXED_DATE;
@@ -128,20 +115,17 @@ public class DateTimeParser implements DateTimeParserCommon {
 	// This method converts the combined array into a DateTime object
 	private DateTime getDateTimeObject(int[] combined) {
 		DateTime dateTime;
-		if (!isInvalidDateTime) {
-			int[] date = new int[] { combined[COMBINED_INDEX_DD], combined[COMBINED_INDEX_MM], combined[COMBINED_INDEX_YY] };
-			int time = combined[COMBINED_INDEX_TIME];
-			int day = combined[COMBINED_INDEX_DAY_OF_WEEK];
+		int[] date = new int[] { combined[COMBINED_INDEX_DD], combined[COMBINED_INDEX_MM], combined[COMBINED_INDEX_YY] };
+		int time = combined[COMBINED_INDEX_TIME];
+		int day = combined[COMBINED_INDEX_DAY_OF_WEEK];
 
-			if (hasPassed(currTime, time, date)) {
-				date = getDateAfterANumberOfDays(NEXT_DAY);
-				dateTime = new DateTime(date, daysInWeekFull[getNextDayInt()], time);
-			} else {
-				dateTime = new DateTime(date, daysInWeekFull[day], time);
-			}
+		if (hasPassed(currTime, time, date)) {
+			date = getDateAfterANumberOfDays(NEXT_DAY);
+			dateTime = new DateTime(date, daysInWeekFull[getNextDayInt()], time);
 		} else {
-			dateTime = null;
+			dateTime = new DateTime(date, daysInWeekFull[day], time);
 		}
+		System.out.println(dateTime.toString());
 		return dateTime;
 	}
 	
@@ -150,6 +134,13 @@ public class DateTimeParser implements DateTimeParserCommon {
 		int newDay = currDD + fastForward;
 		int newMonth = currMM;
 		int newYear = currYY;
+		
+		int[] daysInMonth;
+		if (isLeapYear(currYY)) {
+			daysInMonth = daysInMonthLeapYear;
+		} else {
+			daysInMonth = daysInMonthNonLeapYear;
+		}
 
 		while (newDay > daysInMonth[newMonth]) {
 			newDay -= daysInMonth[newMonth];

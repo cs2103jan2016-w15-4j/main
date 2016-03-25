@@ -75,10 +75,12 @@ public interface DateTimeParserCommon {
 				break;
 			}
 			if (currYear == arrLeapYears[i]) {
+				System.out.println("currYear is " + currYear + " arrLeapYears[i] is " + arrLeapYears[i]);
 				ans = true;
 				break;
 			}
 		}
+		System.out.println("isLeapYear is " + ans);
 		return ans;
 	}
 

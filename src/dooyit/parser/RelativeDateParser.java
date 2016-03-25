@@ -12,8 +12,6 @@ public class RelativeDateParser implements DateTimeParserCommon {
 	private static final String THIS = "this";
 	private static final String NEXT = "next";
 
-	
-	private int[] daysInMonth;
 	private int currMM;
 	private int currYY;
 	private int currDD;
@@ -31,11 +29,6 @@ public class RelativeDateParser implements DateTimeParserCommon {
 		currMM = dateTime.getMM();
 		currYY = dateTime.getYY();
 		
-		if (isLeapYear(currYY)) {
-			daysInMonth = daysInMonthLeapYear;
-		} else {
-			daysInMonth = daysInMonthNonLeapYear;
-		}
 	}
 	
 	public int[] parse(String[] splitInput, int[] combined, int i) throws IncorrectInputException {
@@ -43,42 +36,34 @@ public class RelativeDateParser implements DateTimeParserCommon {
 		String currWord = splitInput[i];
 		switch (getRelativeDateType(currWord, splitInput, i)) {
 		case TYPE_THIS_DAY_OF_WEEK:
-			System.out.println("isNumWeeks");
 			combined = getThisDayOfWeek(splitInput, i, combined);
 			break;
 
 		case TYPE_NEXT_DAY_OF_WEEK:
-			System.out.println("isNextDayOfWeek");
 			combined = getNextDayOfWeek(splitInput, i, combined);
 			break;
 
 		case TYPE_DAY_OF_WEEK:
-			System.out.println("isNextWeekday");
 			combined = getDayOfWeek(splitInput, i, combined);
 			break;
 
 		case TYPE_NEXT_WEEK:
-			System.out.println("isNextWeek");
 			combined = getDateAfterOneWeek(splitInput, i, combined);
 			break;
 
 		case TYPE_NUM_DAYS:
-			System.out.println("isNumDays");
 			combined = getDateAndDayAfterANumberOfDays(splitInput, i, combined);
 			break;
 
 		case TYPE_NUM_WEEKS:
-			System.out.println("isNumWeeks");
 			combined = getDateAndDayAfterNumberOfWeeks(splitInput, i, combined);
 			break;
 
 		case TYPE_TODAY:
-			System.out.println("isToday");
 			combined = getCombinedArrayForToday(combined);
 			break;
 
 		case TYPE_TOMORROW:
-			System.out.println("isTomorrow");
 			combined = getCombinedArrayForTomorrow(combined);
 			break;
 
@@ -293,6 +278,13 @@ public class RelativeDateParser implements DateTimeParserCommon {
 		int newDay = currDD + fastForward;
 		int newMonth = currMM;
 		int newYear = currYY;
+		int[] daysInMonth;
+		
+		if (isLeapYear(currYY)) {
+			daysInMonth = daysInMonthLeapYear;
+		} else {
+			daysInMonth = daysInMonthNonLeapYear;
+		}
 
 		while (newDay > daysInMonth[newMonth]) {
 			newDay -= daysInMonth[newMonth];
@@ -310,7 +302,6 @@ public class RelativeDateParser implements DateTimeParserCommon {
 	
 	private boolean isValidDay(String currWord) {
 		boolean ans = convertDayStringToInt(currWord) != -1;
-		System.out.println("currWord is " + currWord + " isValidDay is " + ans);
 		return ans;
 	}
 	

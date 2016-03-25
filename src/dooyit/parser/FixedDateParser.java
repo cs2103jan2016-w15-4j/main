@@ -10,7 +10,6 @@ public class FixedDateParser implements DateTimeParserCommon {
 	private static final int DATE_INDEX_OF_ADVANCE_INT = 3;
 	private static final int DEFAULT_DD_IN_MONTH = 15;
 	
-	private int[] daysInMonth;
 	private int currMM;
 	private int currYY;
 	private int currDD;
@@ -23,12 +22,6 @@ public class FixedDateParser implements DateTimeParserCommon {
 		currDD = dateTime.getDD();
 		currMM = dateTime.getMM();
 		currYY = dateTime.getYY();
-		
-		if (isLeapYear(currYY)) {
-			daysInMonth = daysInMonthLeapYear;
-		} else {
-			daysInMonth = daysInMonthNonLeapYear;
-		}
 	}
 	
 	public boolean isFixedDate(String currWord, String[] splitUserInput, int index) {
@@ -36,7 +29,6 @@ public class FixedDateParser implements DateTimeParserCommon {
 	}
 
 	public int[] parse(String[] splitInput, int[] combined, int i) throws IncorrectInputException {
-		String currWord = splitInput[i];
 		try {
 			combined = getDate(splitInput, i, combined);
 		} catch (IncorrectInputException e) {
@@ -83,7 +75,6 @@ public class FixedDateParser implements DateTimeParserCommon {
 				if(dateAndAdvanceIntArray[j] <= 0) {
 					throw new IncorrectInputException("Date Inputs must be greater than 0!");
 				}
-				System.out.println("dateAdvanceIntArray[" + j + "] is " + dateAndAdvanceIntArray[j]);
 			}
 			numEntries++;
 			
@@ -181,7 +172,15 @@ public class FixedDateParser implements DateTimeParserCommon {
 	// Checks that the num of months does not exceed the max num of days in that month,
 	// Eg. 30 Feb will return an error
 	private boolean isInvalidDate(int[] ans) {
+		int[] daysInMonth;
 		int mm = ans[DATE_INDEX_OF_MM];
+		int yy = ans[DATE_INDEX_OF_YY];
+		if(isLeapYear(yy)) {
+			daysInMonth = daysInMonthLeapYear;
+		} else {
+			daysInMonth = daysInMonthNonLeapYear;
+		}
+		System.out.println("mm is " + ans[DATE_INDEX_OF_MM] + " and daysInMonth[mm] is " + daysInMonth[mm]);
 		return ans[DATE_INDEX_OF_DD] > daysInMonth[mm];
 	}
 

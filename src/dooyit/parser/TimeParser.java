@@ -25,9 +25,9 @@ public class TimeParser implements DateTimeParserCommon {
 	
 	public boolean isValidTime(String currWord, String[] userInput, int index) {
 		boolean ans = false;
-
 		if (currWord.contains(PM) || currWord.contains(AM)) {
 			currWord = currWord.replace(PM, EMPTY_STRING).replace(AM, EMPTY_STRING);
+			
 			if (currWord.contains(TIME_SEPARATOR_COLON) || currWord.contains(TIME_SEPARATOR_DOT)) { // Eg: 12pm, 12.30pm, 12:50am
 				currWord = removeTimeSeparators(currWord);
 				ans = true;
@@ -35,17 +35,18 @@ public class TimeParser implements DateTimeParserCommon {
 				ans = true;
 			}
 
-		} else if (isNumber(removeTimeSeparators(currWord)) && hasAWordAfterCurrWord(userInput, index)) { // Eg.9.30 pm, 9
-			String nextWord = userInput[incrementByOne(index)];
-			if (nextWord.equals(AM) ^ nextWord.equals(PM)) {
-				ans = true;
-			}
 		} else if (currWord.contains(TIME_SEPARATOR_COLON)) { // 24Hour formats eg: 23:30
 			currWord = removeTimeSeparators(currWord);
 			if (isNumber(currWord)) {
 				ans = true;
 			}
-		} else {
+			
+		} else if (isNumber(removeTimeSeparators(currWord)) && hasAWordAfterCurrWord(userInput, index)) { // Eg.9.30 pm, 9
+			String nextWord = userInput[incrementByOne(index)];
+			if (nextWord.equals(AM) ^ nextWord.equals(PM)) {
+				ans = true;
+			}
+		}  else {
 			// Invalid command here
 		}
 		return ans;
@@ -104,7 +105,8 @@ public class TimeParser implements DateTimeParserCommon {
 	
 	private int getNewAdvanceInt(String[] splitInput, int index) {
 		if (hasAWordAfterCurrWord(splitInput, index)) {
-			if (splitInput[incrementByOne(index)].equals(PM) || splitInput[incrementByOne(index)].equals(AM)) {
+			String nextWord = splitInput[incrementByOne(index)];
+			if (nextWord.equals(PM) || nextWord.equals(AM)) {
 				index += 1; // To skip the next word
 			}
 		}

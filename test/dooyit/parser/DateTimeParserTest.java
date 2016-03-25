@@ -226,7 +226,6 @@ public class DateTimeParserTest {
 		assertEquals(parsedDayInt, REFERENCE_NEXT_MONDAY_DAY_INT);
 	}
 	
-	
 	@Test
 	public void testParseThisMon() {
 		String userInput = "this mon";
@@ -494,12 +493,82 @@ public class DateTimeParserTest {
 	}
 	
 	@Test 
-	public void testParseValidNumberDate() {
+	public void testParseNumberDate() {
 		String numberDate = "1/10/2016";
 		DateTime userDate = dateTimeParser.parse(numberDate);
 		
 		String parsedDate = userDate.getDate();
 		String expectedDate = "1 Oct 2016";
+		assertEquals(parsedDate, expectedDate);
+	}
+	
+	@Test 
+	public void testParseNumberDateWithoutYearNotOver() {
+		String numberDate = "1/10";
+		DateTime userDate = dateTimeParser.parse(numberDate);
+		
+		String parsedDate = userDate.getDate();
+		String expectedDate = "1 Oct 2016";
+		assertEquals(parsedDate, expectedDate);
+	}
+	
+	@Test 
+	public void testParseNumberDateWithoutYearOver() {
+		String numberDate = "1/2";
+		DateTime userDate = dateTimeParser.parse(numberDate);
+		
+		String parsedDate = userDate.getDate();
+		String expectedDate = "1 Feb 2017";
+		assertEquals(parsedDate, expectedDate);
+	}
+	
+	@Test 
+	public void testParseWordDate() {
+		String numberDate = "12 Dec 2016";
+		DateTime userDate = dateTimeParser.parse(numberDate);
+		
+		String parsedDate = userDate.getDate();
+		String expectedDate = "12 Dec 2016";
+		assertEquals(parsedDate, expectedDate);
+	}
+	
+	@Test 
+	public void testParseWordDateWithoutYearOver() {
+		String numberDate = "12 Mar";
+		DateTime userDate = dateTimeParser.parse(numberDate);
+		
+		String parsedDate = userDate.getDate();
+		String expectedDate = "12 Mar 2017";
+		assertEquals(parsedDate, expectedDate);
+	}
+	
+	@Test 
+	public void testParseWordDateWithoutYearNotOver() {
+		String numberDate = "12 Sep";
+		DateTime userDate = dateTimeParser.parse(numberDate);
+		
+		String parsedDate = userDate.getDate();
+		String expectedDate = "12 Sep 2016";
+		assertEquals(parsedDate, expectedDate);
+	}
+	
+	@Test 
+	public void testParseWordDateMonthOnlyNotOver() {
+		String numberDate = "Sep";
+		DateTime userDate = dateTimeParser.parse(numberDate);
+		
+		String parsedDate = userDate.getDate();
+		String expectedDate = "15 Sep 2016";
+		assertEquals(parsedDate, expectedDate);
+	}
+	
+	@Test 
+	public void testParseWordDateMonthOnlyOver() {
+		String numberDate = "Feb";
+		DateTime userDate = dateTimeParser.parse(numberDate);
+		
+		String parsedDate = userDate.getDate();
+		String expectedDate = "15 Feb 2017";
 		assertEquals(parsedDate, expectedDate);
 	}
 	
@@ -510,10 +579,38 @@ public class DateTimeParserTest {
 		dateTimeParser.parse(numberDate);
 	}
 	
+	/* This is a boundary case for the ‘positive value’ partition */
+	@Test(expected = IncorrectInputException.class) 
+	public void testParseInvalidNumberDateLeapDay() {
+		String numberDate = "29/2/2017";
+		dateTimeParser.parse(numberDate);
+	}
+	
 	/* This is a boundary case for the ‘negative value’ partition */
 	@Test(expected = IncorrectInputException.class) 
 	public void testParseNumberDateWithInvalidNegativeDay() {
 		String numberDate = "-1/10/2016";
+		dateTimeParser.parse(numberDate);
+	}
+	
+	/* This is a boundary case for the ‘negative value’ partition */
+	@Test(expected = IncorrectInputException.class) 
+	public void testParseNumberDateWithInvalidNegativeMonth() {
+		String numberDate = "1/-10/2016";
+		dateTimeParser.parse(numberDate);
+	}
+	
+	/* This is a boundary case for the ‘negative value’ partition */
+	@Test(expected = IncorrectInputException.class) 
+	public void testParseNumberDateWithInvalidNegativeYear() {
+		String numberDate = "1/10/-2016";
+		dateTimeParser.parse(numberDate);
+	}
+	
+	/* This is a boundary case for the ‘negative value’ partition */
+	@Test(expected = IncorrectInputException.class) 
+	public void testParseNumberDateWithInvalidNegativeDayMonthYear() {
+		String numberDate = "-1/-10/-2016";
 		dateTimeParser.parse(numberDate);
 	}
 	
@@ -1027,8 +1124,48 @@ public class DateTimeParserTest {
 	}
 	
 	@Test
-	public void testParse_DD_MM_YY_DateAnd12HourAfternoonTimeWithoutSpacing() {
+	public void testParse12HourAfternoonTimeWithSpacingAndWordDate12HourAfternoonTimeWithSpacing() {
+		String userInput = "6 pm 15 June 2016";
+		DateTime dateTime = dateTimeParser.parse(userInput);
+		
+		String date = dateTime.getDate();
+		String timeStr24H = dateTime.getTime24hStr();
+		String timeStr12H = dateTime.getTime12hStr();
+		String dayStr = dateTime.getDayStr();
+		int dayInt = dateTime.getDayInt();
+		int timeInt = dateTime.getTimeInt();
+		
+		assertEquals(date, "15 Jun 2016");
+		assertEquals(timeStr24H, "1800");
+		assertEquals(timeStr12H, "6 pm");
+		assertEquals(dayStr, "Wednesday");
+		assertEquals(dayInt, 3);
+		assertEquals(timeInt, 1800);
+	}
+	
+	@Test
+	public void testParseDDMMYYDateAnd12HourAfternoonTimeWithoutSpacing() {
 		String userInput = "19/02/2020 6.30pm";
+		DateTime dateTime = dateTimeParser.parse(userInput);
+		
+		String date = dateTime.getDate();
+		String timeStr24H = dateTime.getTime24hStr();
+		String timeStr12H = dateTime.getTime12hStr();
+		String dayStr = dateTime.getDayStr();
+		int dayInt = dateTime.getDayInt();
+		int timeInt = dateTime.getTimeInt();
+		
+		assertEquals(date, "19 Feb 2020");
+		assertEquals(timeStr24H, "1830");
+		assertEquals(timeStr12H, "6.30 pm");
+		assertEquals(dayStr, "Wednesday");
+		assertEquals(dayInt, 3);
+		assertEquals(timeInt, 1830);
+	}
+	
+	@Test
+	public void testParse12HourAfternoonTimeWithoutSpacingAndDDMMYYDate() {
+		String userInput = "6.30pm 19/02/2020";
 		DateTime dateTime = dateTimeParser.parse(userInput);
 		
 		String date = dateTime.getDate();
@@ -1067,8 +1204,48 @@ public class DateTimeParserTest {
 	}
 	
 	@Test
+	public void testParse12HourMorningTimeWithSpacingAndIncompleteWordNotOverDate() {
+		String userInput = "6:45 am 15 Sept";
+		DateTime dateTime = dateTimeParser.parse(userInput);
+		
+		String date = dateTime.getDate();
+		String timeStr24H = dateTime.getTime24hStr();
+		String timeStr12H = dateTime.getTime12hStr();
+		String dayStr = dateTime.getDayStr();
+		int dayInt = dateTime.getDayInt();
+		int timeInt = dateTime.getTimeInt();
+		
+		assertEquals(date, "15 Sep 2016");
+		assertEquals(timeStr24H, "0645");
+		assertEquals(timeStr12H, "6.45 am");
+		assertEquals(dayStr, "Thursday");
+		assertEquals(dayInt, 4);
+		assertEquals(timeInt, 645);
+	}
+	
+	@Test
 	public void testParseIncompleteWordOverDateAnd12HourMorningTimeWithSpacing() {
 		String userInput = "1 Jan 13:45";
+		DateTime dateTime = dateTimeParser.parse(userInput);
+		
+		String date = dateTime.getDate();
+		String timeStr24H = dateTime.getTime24hStr();
+		String timeStr12H = dateTime.getTime12hStr();
+		String dayStr = dateTime.getDayStr();
+		int dayInt = dateTime.getDayInt();
+		int timeInt = dateTime.getTimeInt();
+		
+		assertEquals(date, "1 Jan 2017");
+		assertEquals(timeStr24H, "1345");
+		assertEquals(timeStr12H, "1.45 pm");
+		assertEquals(dayStr, "Sunday");
+		assertEquals(dayInt, 7);
+		assertEquals(timeInt, 1345);
+	}
+	
+	@Test
+	public void testParse12HourMorningTimeWithSpacingAndIncompleteWordOverDate() {
+		String userInput = "13:45 1 Jan";
 		DateTime dateTime = dateTimeParser.parse(userInput);
 		
 		String date = dateTime.getDate();
@@ -1107,7 +1284,27 @@ public class DateTimeParserTest {
 	}
 	
 	@Test
-	public void testParse_DD_MM_NotOverDateAnd24HourMorning() {
+	public void testParse12HourMorningTimeWithoutSpacingAndDDMMOverDate() {
+		String userInput = "6:45am 10/2";
+		DateTime dateTime = dateTimeParser.parse(userInput);
+		
+		String date = dateTime.getDate();
+		String timeStr24H = dateTime.getTime24hStr();
+		String timeStr12H = dateTime.getTime12hStr();
+		String dayStr = dateTime.getDayStr();
+		int dayInt = dateTime.getDayInt();
+		int timeInt = dateTime.getTimeInt();
+		
+		assertEquals(date, "10 Feb 2017");
+		assertEquals(timeStr24H, "0645");
+		assertEquals(timeStr12H, "6.45 am");
+		assertEquals(dayStr, "Friday");
+		assertEquals(dayInt, 5);
+		assertEquals(timeInt, 645);
+	}
+	
+	@Test
+	public void testParseDDMMNotOverDateAnd24HourMorningTime() {
 		String userInput = "10/10 8:45";
 		DateTime dateTime = dateTimeParser.parse(userInput);
 		
@@ -1127,7 +1324,27 @@ public class DateTimeParserTest {
 	}
 	
 	@Test
-	public void testParse_MM_NotOverDateAnd24HourAfternoon() {
+	public void testParse24HourMorningTimeAndDDMMNotOverDate() {
+		String userInput = "8:45 10/10";
+		DateTime dateTime = dateTimeParser.parse(userInput);
+		
+		String date = dateTime.getDate();
+		String timeStr24H = dateTime.getTime24hStr();
+		String timeStr12H = dateTime.getTime12hStr();
+		String dayStr = dateTime.getDayStr();
+		int dayInt = dateTime.getDayInt();
+		int timeInt = dateTime.getTimeInt();
+		
+		assertEquals(date, "10 Oct 2016");
+		assertEquals(timeStr24H, "0845");
+		assertEquals(timeStr12H, "8.45 am");
+		assertEquals(dayStr, "Monday");
+		assertEquals(dayInt, 1);
+		assertEquals(timeInt, 845);
+	}
+	
+	@Test
+	public void testParseMMNotOverDateAnd24HourAfternoon() {
 		String userInput = "Oct 19:15";
 		DateTime dateTime = dateTimeParser.parse(userInput);
 		
@@ -1147,8 +1364,8 @@ public class DateTimeParserTest {
 	}
 	
 	@Test
-	public void testParse_MM_OverDateAnd24HourAfternoon() {
-		String userInput = "Dec 19:15";
+	public void testParse24HourAfternoonAndMMNotOverDate() {
+		String userInput = "19:15 Oct";
 		DateTime dateTime = dateTimeParser.parse(userInput);
 		
 		String date = dateTime.getDate();
@@ -1158,11 +1375,52 @@ public class DateTimeParserTest {
 		int dayInt = dateTime.getDayInt();
 		int timeInt = dateTime.getTimeInt();
 		
-		assertEquals(date, "15 Dec 2016");
+		assertEquals(date, "15 Oct 2016");
 		assertEquals(timeStr24H, "1915");
 		assertEquals(timeStr12H, "7.15 pm");
-		assertEquals(dayStr, "Thursday");
-		assertEquals(dayInt, 4);
+		assertEquals(dayStr, "Saturday");
+		assertEquals(dayInt, 6);
 		assertEquals(timeInt, 1915);
 	}
+	
+	@Test
+	public void testParseMMNOverDateAnd24HourAfternoon() {
+		String userInput = "Jan 19:15";
+		DateTime dateTime = dateTimeParser.parse(userInput);
+		
+		String date = dateTime.getDate();
+		String timeStr24H = dateTime.getTime24hStr();
+		String timeStr12H = dateTime.getTime12hStr();
+		String dayStr = dateTime.getDayStr();
+		int dayInt = dateTime.getDayInt();
+		int timeInt = dateTime.getTimeInt();
+		
+		assertEquals(date, "15 Jan 2017");
+		assertEquals(timeStr24H, "1915");
+		assertEquals(timeStr12H, "7.15 pm");
+		assertEquals(dayStr, "Sunday");
+		assertEquals(dayInt, 7);
+		assertEquals(timeInt, 1915);
+	}
+	
+	@Test
+	public void testParse24HourAfternoonAndMMNOverDate() {
+		String userInput = "19:15 Jan";
+		DateTime dateTime = dateTimeParser.parse(userInput);
+		
+		String date = dateTime.getDate();
+		String timeStr24H = dateTime.getTime24hStr();
+		String timeStr12H = dateTime.getTime12hStr();
+		String dayStr = dateTime.getDayStr();
+		int dayInt = dateTime.getDayInt();
+		int timeInt = dateTime.getTimeInt();
+		
+		assertEquals(date, "15 Jan 2017");
+		assertEquals(timeStr24H, "1915");
+		assertEquals(timeStr12H, "7.15 pm");
+		assertEquals(dayStr, "Sunday");
+		assertEquals(dayInt, 7);
+		assertEquals(timeInt, 1915);
+	}
+	
 }

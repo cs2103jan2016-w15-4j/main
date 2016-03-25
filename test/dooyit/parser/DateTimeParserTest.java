@@ -7,37 +7,49 @@ import dooyit.logic.commands.*;
 import org.junit.Assert.*;
 
 import static org.junit.Assert.*;
-
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mockito;
-import org.powermock.api.mockito.PowerMockito;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
 
-@RunWith(PowerMockRunner.class)
-@PrepareForTest(DateTimeParser.class)
 public class DateTimeParserTest {
-	private static final int FORMAT_24H_2AM = 200;
+	private static final int FORMAT_24H_6AM = 600;
 
-	private static final String REFERENCE_TOMORROW_DAY_STR = "tue";
-	private static final String REFERENCE_TOMORROW_DATE = "16 Feb 2016";
-	private static final int REFERENCE_TOMORROW_DAY_INT = 2;
+	private static final String REFERENCE_TOMORROW_DAY_STRING = "Thursday";
+	private static final String REFERENCE_TOMORROW_DATE = "18 Feb 2016";
+	private static final int REFERENCE_TOMORROW_DAY_INT = 4;
 	
-	private static final String REFERENCE_NEXT_WEEK_DAY_STR = "mon";
-	private static final String REFERENCE_NEXT_WEEK_DATE = "22 Feb 2016";
-	private static final int REFERENCE_NEXT_WEEK_DAY_INT = 1;
+	private static final String REFERENCE_NEXT_WEEK_DAY_STRING = "Wednesday";
+	private static final String REFERENCE_NEXT_WEEK_DATE = "24 Feb 2016";
+	private static final int REFERENCE_NEXT_WEEK_DAY_INT = 3;
 	
-	private static final String REFERENCE_THREE_WEEKS_LATER_DAY_STR = "mon";
-	private static final String REFERENCE_THREE_WEEKS_LATER_DATE = "7 Mar 2016";
-	private static final int REFERENCE_THREE_WEEKS_LATER_DAY_INT = 1;
+	private static final String REFERENCE_THREE_WEEKS_LATER_DAY_STRING = "Wednesday";
+	private static final String REFERENCE_THREE_WEEKS_LATER_DATE = "9 Mar 2016";
+	private static final int REFERENCE_THREE_WEEKS_LATER_DAY_INT = 3;
 
-	DateTimeParser dateTimeParser = PowerMockito.spy(new DateTimeParser());
+	private static final String REFERENCE_TWELVE_DAYS_LATER_DAY_STRING = "Monday";
+	private static final String REFERENCE_TWELVE_DAYS_LATER_DATE = "29 Feb 2016";
+	private static final int REFERENCE_TWELVE_DAYS_LATER_DAY_INT = 1;
 	
-	int[] referenceDate = new int[] {15, 2, 2016};
-	String referenceDayString = "mon";
-	int referenceDayInt= 1;
-	int referenceTime = FORMAT_24H_2AM;
+	private static final String REFERENCE_THIS_SATURDAY_DAY_STRING = "Saturday";
+	private static final String REFERENCE_THIS_SATURDAY_DATE = "20 Feb 2016";
+	private static final int REFERENCE_THIS_SATURDAY_DAY_INT = 6;
+	
+	private static final String REFERENCE_NEXT_SATURDAY_DAY_STRING = "Saturday";
+	private static final String REFERENCE_NEXT_SATURDAY_DATE = "27 Feb 2016";
+	private static final int REFERENCE_NEXT_SATURDAY_DAY_INT = 6;
+	
+	private static final String REFERENCE_THIS_MONDAY_DAY_STRING = "Monday";
+	private static final String REFERENCE_THIS_MONDAY_DATE = "22 Feb 2016";
+	private static final int REFERENCE_THIS_MONDAY_DAY_INT = 1;
+	
+	private static final String REFERENCE_NEXT_MONDAY_DAY_STRING = "Monday";
+	private static final String REFERENCE_NEXT_MONDAY_DATE = "29 Feb 2016";
+	private static final int REFERENCE_NEXT_MONDAY_DAY_INT = 1;
+	
+	DateTimeParser dateTimeParser = new DateTimeParser();
+	
+	int[] referenceDate = new int[] {17, 2, 2016};
+	String referenceDayString = "Wednesday";
+	int referenceDayInt= 3;
+	int referenceTime = FORMAT_24H_6AM;
 	DateTime referenceDateTimeObject = new DateTime(referenceDate, referenceDayString, referenceTime);
 	DateTimeParser referenceDateTimeParser = new DateTimeParser(referenceDateTimeObject);
 	
@@ -45,6 +57,441 @@ public class DateTimeParserTest {
 	String todayDate = todayDateTimeObject.getDate();
 	String todayDayString = todayDateTimeObject.getDayStr();
 	int todayDayInt = todayDateTimeObject.getDayInt();
+	
+	@Test
+	public void testParseSaturday() {
+		String userInput = "saturday";
+		DateTime userDate = referenceDateTimeParser.parse(userInput);
+		
+		String parsedDate = userDate.getDate();
+		String parsedDayString = userDate.getDayStr();
+		int parsedDayInt = userDate.getDayInt();
+		
+		assertEquals(parsedDate, REFERENCE_THIS_SATURDAY_DATE);
+		assertEquals(parsedDayString, REFERENCE_THIS_SATURDAY_DAY_STRING);
+		assertEquals(parsedDayInt, REFERENCE_THIS_SATURDAY_DAY_INT);
+	}
+	
+	@Test
+	public void testParseSaturdayCaseInsensitive() {
+		String userInput = "satURDay";
+		DateTime userDate = referenceDateTimeParser.parse(userInput);
+		
+		String parsedDate = userDate.getDate();
+		String parsedDayString = userDate.getDayStr();
+		int parsedDayInt = userDate.getDayInt();
+		
+		assertEquals(parsedDate, REFERENCE_THIS_SATURDAY_DATE);
+		assertEquals(parsedDayString, REFERENCE_THIS_SATURDAY_DAY_STRING);
+		assertEquals(parsedDayInt, REFERENCE_THIS_SATURDAY_DAY_INT);
+	}
+	
+	@Test
+	public void testParseThisSaturday() {
+		String userInput = "this saturday";
+		DateTime userDate = referenceDateTimeParser.parse(userInput);
+		
+		String parsedDate = userDate.getDate();
+		String parsedDayString = userDate.getDayStr();
+		int parsedDayInt = userDate.getDayInt();
+		
+		assertEquals(parsedDate, REFERENCE_THIS_SATURDAY_DATE);
+		assertEquals(parsedDayString, REFERENCE_THIS_SATURDAY_DAY_STRING);
+		assertEquals(parsedDayInt, REFERENCE_THIS_SATURDAY_DAY_INT);
+	}
+	
+	@Test
+	public void testParseThisSaturdayCaseInsensitive() {
+		String userInput = "ThIs satURDay";
+		DateTime userDate = referenceDateTimeParser.parse(userInput);
+		
+		String parsedDate = userDate.getDate();
+		String parsedDayString = userDate.getDayStr();
+		int parsedDayInt = userDate.getDayInt();
+		
+		assertEquals(parsedDate, REFERENCE_THIS_SATURDAY_DATE);
+		assertEquals(parsedDayString, REFERENCE_THIS_SATURDAY_DAY_STRING);
+		assertEquals(parsedDayInt, REFERENCE_THIS_SATURDAY_DAY_INT);
+	}
+	
+	@Test
+	public void testParseNextSaturday() {
+		String userInput = "next saturday";
+		DateTime userDate = referenceDateTimeParser.parse(userInput);
+		
+		String parsedDate = userDate.getDate();
+		String parsedDayString = userDate.getDayStr();
+		int parsedDayInt = userDate.getDayInt();
+		
+		assertEquals(parsedDate, REFERENCE_NEXT_SATURDAY_DATE);
+		assertEquals(parsedDayString, REFERENCE_NEXT_SATURDAY_DAY_STRING);
+		assertEquals(parsedDayInt, REFERENCE_NEXT_SATURDAY_DAY_INT);
+	}
+	
+	@Test
+	public void testParseNextSaturdayCaseInsensitive() {
+		String userInput = "nExT satURday";
+		DateTime userDate = referenceDateTimeParser.parse(userInput);
+		
+		String parsedDate = userDate.getDate();
+		String parsedDayString = userDate.getDayStr();
+		int parsedDayInt = userDate.getDayInt();
+		
+		assertEquals(parsedDate, REFERENCE_NEXT_SATURDAY_DATE);
+		assertEquals(parsedDayString, REFERENCE_NEXT_SATURDAY_DAY_STRING);
+		assertEquals(parsedDayInt, REFERENCE_NEXT_SATURDAY_DAY_INT);
+	}
+	
+	@Test
+	public void testParseMonday() {
+		String userInput = "monday";
+		DateTime userDate = referenceDateTimeParser.parse(userInput);
+		
+		String parsedDate = userDate.getDate();
+		String parsedDayString = userDate.getDayStr();
+		int parsedDayInt = userDate.getDayInt();
+		
+		assertEquals(parsedDate, REFERENCE_THIS_MONDAY_DATE);
+		assertEquals(parsedDayString, REFERENCE_THIS_MONDAY_DAY_STRING);
+		assertEquals(parsedDayInt, REFERENCE_THIS_MONDAY_DAY_INT);
+	}
+	
+	@Test
+	public void testParseMondayCaseInsensitive() {
+		String userInput = "mONdaY";
+		DateTime userDate = referenceDateTimeParser.parse(userInput);
+		
+		String parsedDate = userDate.getDate();
+		String parsedDayString = userDate.getDayStr();
+		int parsedDayInt = userDate.getDayInt();
+		
+		assertEquals(parsedDate, REFERENCE_THIS_MONDAY_DATE);
+		assertEquals(parsedDayString, REFERENCE_THIS_MONDAY_DAY_STRING);
+		assertEquals(parsedDayInt, REFERENCE_THIS_MONDAY_DAY_INT);
+	}
+	
+	@Test
+	public void testParseThisMonday() {
+		String userInput = "this monday";
+		DateTime userDate = referenceDateTimeParser.parse(userInput);
+		
+		String parsedDate = userDate.getDate();
+		String parsedDayString = userDate.getDayStr();
+		int parsedDayInt = userDate.getDayInt();
+		
+		assertEquals(parsedDate, REFERENCE_THIS_MONDAY_DATE);
+		assertEquals(parsedDayString, REFERENCE_THIS_MONDAY_DAY_STRING);
+		assertEquals(parsedDayInt, REFERENCE_THIS_MONDAY_DAY_INT);
+	}
+	
+	@Test
+	public void testParseThisMondayCaseInsensitive() {
+		String userInput = "thIs mONday";
+		DateTime userDate = referenceDateTimeParser.parse(userInput);
+		
+		String parsedDate = userDate.getDate();
+		String parsedDayString = userDate.getDayStr();
+		int parsedDayInt = userDate.getDayInt();
+		
+		assertEquals(parsedDate, REFERENCE_THIS_MONDAY_DATE);
+		assertEquals(parsedDayString, REFERENCE_THIS_MONDAY_DAY_STRING);
+		assertEquals(parsedDayInt, REFERENCE_THIS_MONDAY_DAY_INT);
+	}
+	
+	@Test
+	public void testParseNextMonday() {
+		String userInput = "next monday";
+		DateTime userDate = referenceDateTimeParser.parse(userInput);
+		
+		String parsedDate = userDate.getDate();
+		String parsedDayString = userDate.getDayStr();
+		int parsedDayInt = userDate.getDayInt();
+		
+		assertEquals(parsedDate, REFERENCE_NEXT_MONDAY_DATE);
+		assertEquals(parsedDayString, REFERENCE_NEXT_MONDAY_DAY_STRING);
+		assertEquals(parsedDayInt, REFERENCE_NEXT_MONDAY_DAY_INT);
+	}
+	
+	@Test
+	public void testParseNextMondayCaseInsensitive() {
+		String userInput = "NExt mONday";
+		DateTime userDate = referenceDateTimeParser.parse(userInput);
+		
+		String parsedDate = userDate.getDate();
+		String parsedDayString = userDate.getDayStr();
+		int parsedDayInt = userDate.getDayInt();
+		
+		assertEquals(parsedDate, REFERENCE_NEXT_MONDAY_DATE);
+		assertEquals(parsedDayString, REFERENCE_NEXT_MONDAY_DAY_STRING);
+		assertEquals(parsedDayInt, REFERENCE_NEXT_MONDAY_DAY_INT);
+	}
+	
+	
+	@Test
+	public void testParseThisMon() {
+		String userInput = "this mon";
+		DateTime userDate = referenceDateTimeParser.parse(userInput);
+		
+		String parsedDate = userDate.getDate();
+		String parsedDayString = userDate.getDayStr();
+		int parsedDayInt = userDate.getDayInt();
+		
+		assertEquals(parsedDate, REFERENCE_THIS_MONDAY_DATE);
+		assertEquals(parsedDayString, REFERENCE_THIS_MONDAY_DAY_STRING);
+		assertEquals(parsedDayInt, REFERENCE_THIS_MONDAY_DAY_INT);
+	}
+	
+	@Test
+	public void testParseThisMonCaseInsensitive() {
+		String userInput = "tHIs mON";
+		DateTime userDate = referenceDateTimeParser.parse(userInput);
+		
+		String parsedDate = userDate.getDate();
+		String parsedDayString = userDate.getDayStr();
+		int parsedDayInt = userDate.getDayInt();
+		
+		assertEquals(parsedDate, REFERENCE_THIS_MONDAY_DATE);
+		assertEquals(parsedDayString, REFERENCE_THIS_MONDAY_DAY_STRING);
+		assertEquals(parsedDayInt, REFERENCE_THIS_MONDAY_DAY_INT);
+	}
+	
+	@Test
+	public void testParseTwelveDaysLater() {
+		String userInput = "12 days";
+		DateTime userDate = referenceDateTimeParser.parse(userInput);
+		
+		String parsedDate = userDate.getDate();
+		String parsedDayString = userDate.getDayStr();
+		int parsedDayInt = userDate.getDayInt();
+		
+		assertEquals(parsedDate, REFERENCE_TWELVE_DAYS_LATER_DATE);
+		assertEquals(parsedDayString, REFERENCE_TWELVE_DAYS_LATER_DAY_STRING);
+		assertEquals(parsedDayInt, REFERENCE_TWELVE_DAYS_LATER_DAY_INT);
+	}
+	
+	@Test
+	public void testParseTwelveDaysLaterCaseInsensitive() {
+		String userInput = "12 DAys";
+		DateTime userDate = referenceDateTimeParser.parse(userInput);
+		
+		String parsedDate = userDate.getDate();
+		String parsedDayString = userDate.getDayStr();
+		int parsedDayInt = userDate.getDayInt();
+		
+		assertEquals(parsedDate, REFERENCE_TWELVE_DAYS_LATER_DATE);
+		assertEquals(parsedDayString, REFERENCE_TWELVE_DAYS_LATER_DAY_STRING);
+		assertEquals(parsedDayInt, REFERENCE_TWELVE_DAYS_LATER_DAY_INT);
+	}
+	
+	@Test
+	public void testParseTwelveDay() {
+		String userInput = "12 day";
+		DateTime userDate = referenceDateTimeParser.parse(userInput);
+		
+		String parsedDate = userDate.getDate();
+		String parsedDayString = userDate.getDayStr();
+		int parsedDayInt = userDate.getDayInt();
+		
+		assertEquals(parsedDate, REFERENCE_TWELVE_DAYS_LATER_DATE);
+		assertEquals(parsedDayString, REFERENCE_TWELVE_DAYS_LATER_DAY_STRING);
+		assertEquals(parsedDayInt, REFERENCE_TWELVE_DAYS_LATER_DAY_INT);
+	}
+	
+	@Test
+	public void testParseTwelveDayLaterCaseInsensitive() {
+		String userInput = "12 DAy";
+		DateTime userDate = referenceDateTimeParser.parse(userInput);
+		
+		String parsedDate = userDate.getDate();
+		String parsedDayString = userDate.getDayStr();
+		int parsedDayInt = userDate.getDayInt();
+		
+		assertEquals(parsedDate, REFERENCE_TWELVE_DAYS_LATER_DATE);
+		assertEquals(parsedDayString, REFERENCE_TWELVE_DAYS_LATER_DAY_STRING);
+		assertEquals(parsedDayInt, REFERENCE_TWELVE_DAYS_LATER_DAY_INT);
+	}
+	
+	@Test
+	public void testParseTwelveDD() {
+		String userInput = "12 dd";
+		DateTime userDate = referenceDateTimeParser.parse(userInput);
+		
+		String parsedDate = userDate.getDate();
+		String parsedDayString = userDate.getDayStr();
+		int parsedDayInt = userDate.getDayInt();
+		
+		assertEquals(parsedDate, REFERENCE_TWELVE_DAYS_LATER_DATE);
+		assertEquals(parsedDayString, REFERENCE_TWELVE_DAYS_LATER_DAY_STRING);
+		assertEquals(parsedDayInt, REFERENCE_TWELVE_DAYS_LATER_DAY_INT);
+	}
+	
+	@Test
+	public void testParseTwelveDDCaseInsensitive() {
+		String userInput = "12 Dd";
+		DateTime userDate = referenceDateTimeParser.parse(userInput);
+		
+		String parsedDate = userDate.getDate();
+		String parsedDayString = userDate.getDayStr();
+		int parsedDayInt = userDate.getDayInt();
+		
+		assertEquals(parsedDate, REFERENCE_TWELVE_DAYS_LATER_DATE);
+		assertEquals(parsedDayString, REFERENCE_TWELVE_DAYS_LATER_DAY_STRING);
+		assertEquals(parsedDayInt, REFERENCE_TWELVE_DAYS_LATER_DAY_INT);
+	}
+	
+	@Test
+	public void testParseNextWeek() {
+		String userInput = "next week";
+		DateTime userDate = referenceDateTimeParser.parse(userInput);
+		
+		String parsedDate = userDate.getDate();
+		String parsedDayString = userDate.getDayStr();
+		int parsedDayInt = userDate.getDayInt();
+		
+		assertEquals(parsedDate, REFERENCE_NEXT_WEEK_DATE);
+		assertEquals(parsedDayString, REFERENCE_NEXT_WEEK_DAY_STRING);
+		assertEquals(parsedDayInt, REFERENCE_NEXT_WEEK_DAY_INT);
+	}
+	
+	@Test
+	public void testParseNextWeekCaseInsensitive() {
+		String userInput = "next wEEk";
+		DateTime userDate = referenceDateTimeParser.parse(userInput);
+		
+		String parsedDate = userDate.getDate();
+		String parsedDayString = userDate.getDayStr();
+		int parsedDayInt = userDate.getDayInt();
+		
+		assertEquals(parsedDate, REFERENCE_NEXT_WEEK_DATE);
+		assertEquals(parsedDayString, REFERENCE_NEXT_WEEK_DAY_STRING);
+		assertEquals(parsedDayInt, REFERENCE_NEXT_WEEK_DAY_INT);
+	}
+	
+	@Test
+	public void testParseNextWeeks() {
+		String userInput = "next weeks";
+		DateTime userDate = referenceDateTimeParser.parse(userInput);
+		
+		String parsedDate = userDate.getDate();
+		String parsedDayString = userDate.getDayStr();
+		int parsedDayInt = userDate.getDayInt();
+		
+		assertEquals(parsedDate, REFERENCE_NEXT_WEEK_DATE);
+		assertEquals(parsedDayString, REFERENCE_NEXT_WEEK_DAY_STRING);
+		assertEquals(parsedDayInt, REFERENCE_NEXT_WEEK_DAY_INT);
+	}
+	
+	@Test
+	public void testParseNextWeeksCaseInsensitive() {
+		String userInput = "next wEEks";
+		DateTime userDate = referenceDateTimeParser.parse(userInput);
+		
+		String parsedDate = userDate.getDate();
+		String parsedDayString = userDate.getDayStr();
+		int parsedDayInt = userDate.getDayInt();
+		
+		assertEquals(parsedDate, REFERENCE_NEXT_WEEK_DATE);
+		assertEquals(parsedDayString, REFERENCE_NEXT_WEEK_DAY_STRING);
+		assertEquals(parsedDayInt, REFERENCE_NEXT_WEEK_DAY_INT);
+	}
+	
+	@Test
+	public void testParseNextWk() {
+		String userInput = "next wk";
+		DateTime userDate = referenceDateTimeParser.parse(userInput);
+		
+		String parsedDate = userDate.getDate();
+		String parsedDayString = userDate.getDayStr();
+		int parsedDayInt = userDate.getDayInt();
+		
+		assertEquals(parsedDate, REFERENCE_NEXT_WEEK_DATE);
+		assertEquals(parsedDayString, REFERENCE_NEXT_WEEK_DAY_STRING);
+		assertEquals(parsedDayInt, REFERENCE_NEXT_WEEK_DAY_INT);
+	}
+	
+	@Test
+	public void testParseThreeWeeksLater() {
+		String userInput = "3 weeks";
+		DateTime userDate = referenceDateTimeParser.parse(userInput);
+		
+		String parsedDate = userDate.getDate();
+		String parsedDayString = userDate.getDayStr();
+		int parsedDayInt = userDate.getDayInt();
+		
+		assertEquals(parsedDate, REFERENCE_THREE_WEEKS_LATER_DATE);
+		assertEquals(parsedDayString, REFERENCE_THREE_WEEKS_LATER_DAY_STRING);
+		assertEquals(parsedDayInt, REFERENCE_THREE_WEEKS_LATER_DAY_INT);
+	}
+	
+	@Test
+	public void testParseThreeWeeksLaterCaseInsensitive() {
+		String userInput = "3 wEEks";
+		DateTime userDate = referenceDateTimeParser.parse(userInput);
+		
+		String parsedDate = userDate.getDate();
+		String parsedDayString = userDate.getDayStr();
+		int parsedDayInt = userDate.getDayInt();
+		
+		assertEquals(parsedDate, REFERENCE_THREE_WEEKS_LATER_DATE);
+		assertEquals(parsedDayString, REFERENCE_THREE_WEEKS_LATER_DAY_STRING);
+		assertEquals(parsedDayInt, REFERENCE_THREE_WEEKS_LATER_DAY_INT);
+	}
+	
+	@Test
+	public void testParseThreeWeekLater() {
+		String userInput = "3 week";
+		DateTime userDate = referenceDateTimeParser.parse(userInput);
+		
+		String parsedDate = userDate.getDate();
+		String parsedDayString = userDate.getDayStr();
+		int parsedDayInt = userDate.getDayInt();
+		
+		assertEquals(parsedDate, REFERENCE_THREE_WEEKS_LATER_DATE);
+		assertEquals(parsedDayString, REFERENCE_THREE_WEEKS_LATER_DAY_STRING);
+		assertEquals(parsedDayInt, REFERENCE_THREE_WEEKS_LATER_DAY_INT);
+	}
+	
+	@Test
+	public void testParseThreeWeekLaterCaseInsensitive() {
+		String userInput = "3 weEK";
+		DateTime userDate = referenceDateTimeParser.parse(userInput);
+		
+		String parsedDate = userDate.getDate();
+		String parsedDayString = userDate.getDayStr();
+		int parsedDayInt = userDate.getDayInt();
+		
+		assertEquals(parsedDate, REFERENCE_THREE_WEEKS_LATER_DATE);
+		assertEquals(parsedDayString, REFERENCE_THREE_WEEKS_LATER_DAY_STRING);
+		assertEquals(parsedDayInt, REFERENCE_THREE_WEEKS_LATER_DAY_INT);
+	}
+	
+	@Test
+	public void testParseThreeWkLater() {
+		String userInput = "3 wk";
+		DateTime userDate = referenceDateTimeParser.parse(userInput);
+		
+		String parsedDate = userDate.getDate();
+		String parsedDayString = userDate.getDayStr();
+		int parsedDayInt = userDate.getDayInt();
+		
+		assertEquals(parsedDate, REFERENCE_THREE_WEEKS_LATER_DATE);
+		assertEquals(parsedDayString, REFERENCE_THREE_WEEKS_LATER_DAY_STRING);
+		assertEquals(parsedDayInt, REFERENCE_THREE_WEEKS_LATER_DAY_INT);
+	}
+	
+	@Test
+	public void testParseThreeWkLaterCaseInsensitive() {
+		String userInput = "3 WK";
+		DateTime userDate = referenceDateTimeParser.parse(userInput);
+		
+		String parsedDate = userDate.getDate();
+		String parsedDayString = userDate.getDayStr();
+		int parsedDayInt = userDate.getDayInt();
+		
+		assertEquals(parsedDate, REFERENCE_THREE_WEEKS_LATER_DATE);
+		assertEquals(parsedDayString, REFERENCE_THREE_WEEKS_LATER_DAY_STRING);
+		assertEquals(parsedDayInt, REFERENCE_THREE_WEEKS_LATER_DAY_INT);
+	}
 	
 	@Test 
 	public void testParseValidNumberDate() {
@@ -60,15 +507,14 @@ public class DateTimeParserTest {
 	@Test(expected = IncorrectInputException.class) 
 	public void testParseNumberDateWithInvalidPositiveDay() {
 		String numberDate = "40/10/2016";
-		DateTime userDate = dateTimeParser.parse(numberDate);
+		dateTimeParser.parse(numberDate);
 	}
 	
 	/* This is a boundary case for the ‘negative value’ partition */
 	@Test(expected = IncorrectInputException.class) 
 	public void testParseNumberDateWithInvalidNegativeDay() {
 		String numberDate = "-1/10/2016";
-		DateTime userDate = dateTimeParser.parse(numberDate);
-		System.out.println("userDate is " + userDate);
+		dateTimeParser.parse(numberDate);
 	}
 	
 	@Test
@@ -517,7 +963,7 @@ public class DateTimeParserTest {
 		int dayIntParsed = parsedDateTimeObject.getDayInt();
 		
 		assertEquals(dateParsed, REFERENCE_TOMORROW_DATE);
-		assertEquals(dayStrParsed, REFERENCE_TOMORROW_DAY_STR);
+		assertEquals(dayStrParsed, REFERENCE_TOMORROW_DAY_STRING);
 		assertEquals(dayIntParsed, REFERENCE_TOMORROW_DAY_INT);
 	}
 	
@@ -530,7 +976,7 @@ public class DateTimeParserTest {
 		int dayIntParsed = parsedDateTimeObject.getDayInt();
 		
 		assertEquals(dateParsed, REFERENCE_TOMORROW_DATE);
-		assertEquals(dayStrParsed, REFERENCE_TOMORROW_DAY_STR);
+		assertEquals(dayStrParsed, REFERENCE_TOMORROW_DAY_STRING);
 		assertEquals(dayIntParsed, REFERENCE_TOMORROW_DAY_INT);
 	}
 	
@@ -543,7 +989,7 @@ public class DateTimeParserTest {
 		int dayIntParsed = parsedDateTimeObject.getDayInt();
 		
 		assertEquals(dateParsed, REFERENCE_TOMORROW_DATE);
-		assertEquals(dayStrParsed, REFERENCE_TOMORROW_DAY_STR);
+		assertEquals(dayStrParsed, REFERENCE_TOMORROW_DAY_STRING);
 		assertEquals(dayIntParsed, REFERENCE_TOMORROW_DAY_INT);
 	}
 	
@@ -556,7 +1002,7 @@ public class DateTimeParserTest {
 		int dayIntParsed = parsedDateTimeObject.getDayInt();
 		
 		assertEquals(dateParsed, REFERENCE_TOMORROW_DATE);
-		assertEquals(dayStrParsed, REFERENCE_TOMORROW_DAY_STR);
+		assertEquals(dayStrParsed, REFERENCE_TOMORROW_DAY_STRING);
 		assertEquals(dayIntParsed, REFERENCE_TOMORROW_DAY_INT);
 	}
 	
@@ -575,7 +1021,7 @@ public class DateTimeParserTest {
 		assertEquals(date, "15 Jun 2016");
 		assertEquals(timeStr24H, "1800");
 		assertEquals(timeStr12H, "6 pm");
-		assertEquals(dayStr, "wed");
+		assertEquals(dayStr, "Wednesday");
 		assertEquals(dayInt, 3);
 		assertEquals(timeInt, 1800);
 	}
@@ -595,7 +1041,7 @@ public class DateTimeParserTest {
 		assertEquals(date, "19 Feb 2020");
 		assertEquals(timeStr24H, "1830");
 		assertEquals(timeStr12H, "6.30 pm");
-		assertEquals(dayStr, "wed");
+		assertEquals(dayStr, "Wednesday");
 		assertEquals(dayInt, 3);
 		assertEquals(timeInt, 1830);
 	}
@@ -615,7 +1061,7 @@ public class DateTimeParserTest {
 		assertEquals(date, "15 Sep 2016");
 		assertEquals(timeStr24H, "0645");
 		assertEquals(timeStr12H, "6.45 am");
-		assertEquals(dayStr, "thu");
+		assertEquals(dayStr, "Thursday");
 		assertEquals(dayInt, 4);
 		assertEquals(timeInt, 645);
 	}
@@ -635,7 +1081,7 @@ public class DateTimeParserTest {
 		assertEquals(date, "1 Jan 2017");
 		assertEquals(timeStr24H, "1345");
 		assertEquals(timeStr12H, "1.45 pm");
-		assertEquals(dayStr, "sun");
+		assertEquals(dayStr, "Sunday");
 		assertEquals(dayInt, 7);
 		assertEquals(timeInt, 1345);
 	}
@@ -655,7 +1101,7 @@ public class DateTimeParserTest {
 		assertEquals(date, "10 Feb 2017");
 		assertEquals(timeStr24H, "0645");
 		assertEquals(timeStr12H, "6.45 am");
-		assertEquals(dayStr, "fri");
+		assertEquals(dayStr, "Friday");
 		assertEquals(dayInt, 5);
 		assertEquals(timeInt, 645);
 	}
@@ -675,7 +1121,7 @@ public class DateTimeParserTest {
 		assertEquals(date, "10 Oct 2016");
 		assertEquals(timeStr24H, "0845");
 		assertEquals(timeStr12H, "8.45 am");
-		assertEquals(dayStr, "mon");
+		assertEquals(dayStr, "Monday");
 		assertEquals(dayInt, 1);
 		assertEquals(timeInt, 845);
 	}
@@ -695,7 +1141,7 @@ public class DateTimeParserTest {
 		assertEquals(date, "15 Oct 2016");
 		assertEquals(timeStr24H, "1915");
 		assertEquals(timeStr12H, "7.15 pm");
-		assertEquals(dayStr, "sat");
+		assertEquals(dayStr, "Saturday");
 		assertEquals(dayInt, 6);
 		assertEquals(timeInt, 1915);
 	}
@@ -715,7 +1161,7 @@ public class DateTimeParserTest {
 		assertEquals(date, "15 Dec 2016");
 		assertEquals(timeStr24H, "1915");
 		assertEquals(timeStr12H, "7.15 pm");
-		assertEquals(dayStr, "thu");
+		assertEquals(dayStr, "Thursday");
 		assertEquals(dayInt, 4);
 		assertEquals(timeInt, 1915);
 	}

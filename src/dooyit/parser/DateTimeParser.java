@@ -8,6 +8,7 @@ import dooyit.common.exception.IncorrectInputException;
 
 public class DateTimeParser {
 	
+	private static final int YEARY_2000 = 2000;
 	private static final String ERROR_MESSAGE_MINUTES_EXCEED_SIXTY = "Invalid time! Minutes must be smaller than 60";
 	private static final String ERROR_MESSAGE_TIME_EXCEEDS_24H = "Invalid Time! Time must not exceed 24 hours!";
 	private static final String ERROR_MESSAGE_AM_AND_PM = " cannot be am and pm!";
@@ -51,11 +52,14 @@ public class DateTimeParser {
 	private static String[] daysInWeekFull = new String[] { DUMMY_STR, "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
 	private static String[] monthsInYear = new String[] { DUMMY_STR, "jan", "feb", "mar", "apr", "may", "jun", 
 															"jul", "aug", "sep", "oct", "nov", "dec" };
-	private static final int NUMBER_OF_MONTHS_IN_A_YEAR = monthsInYear.length;
+	private static String[] validWordForDay = new String[] { "day", "days", "dd" };
+	private static String[] validWordForWeek = new String[] { "week", "weeks", "wk" };
+	private static String[] validWordForToday = new String[] { "today", "tdy"};
+	private static String[] validWordForTomorrow = new String[] { "tomorrow", "tmr"};
+	private static final int NUMBER_OF_MONTHS_IN_A_YEAR = 12;
 
 	int LEAP_YEAR_FEB = 29;
 	private static int[] daysInMonth = new int[] { UNINITIALIZED_INT, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
-
 
 	private int currMM;
 	private int currYY;
@@ -63,7 +67,6 @@ public class DateTimeParser {
 	private int currDayInWeekInt;
 	private int currTime;
 	private String currDayInWeekString;
-
 
 	private static Logger logger = Logger.getLogger("DateTimeParser");
 
@@ -117,35 +120,27 @@ public class DateTimeParser {
 
 	private DATE_TIME_FORMAT getDateTimeType(String currWord, String[] splitUserInput, int index) {
 		if (isThisMonday(currWord, splitUserInput, index)) {
-			logger.log(Level.INFO, "is this Monday");
 			return DATE_TIME_FORMAT.TYPE_THIS_DAY_OF_WEEK;
 
 		} else if (isNextWeek(currWord, splitUserInput, index)) {
-			logger.log(Level.INFO, "isNextWeek");
 			return DATE_TIME_FORMAT.TYPE_NEXT_WEEK;
 
 		} else if (isNextWeekday(currWord, splitUserInput, index)) {
-			logger.log(Level.INFO, "isNextWeekday");
 			return DATE_TIME_FORMAT.TYPE_NEXT_DAY_OF_WEEK;
 
 		} else if (isValidDay(currWord)) {
-			logger.log(Level.INFO, "isValidDay");
 			return DATE_TIME_FORMAT.TYPE_DAY_OF_WEEK;
 
 		} else if (isValidTime(currWord, splitUserInput, index)) {
-			logger.log(Level.INFO, "isValidTime");
 			return DATE_TIME_FORMAT.TYPE_TIME;
 
 		} else if (isValidDate(currWord, splitUserInput, index)) {
-			logger.log(Level.INFO, "isValidDate");
 			return DATE_TIME_FORMAT.TYPE_DATE;
 
 		} else if (isToday(currWord)) {
-			logger.log(Level.INFO, "isToday");
 			return DATE_TIME_FORMAT.TYPE_TODAY;
 
 		} else if (isTomorrow(currWord)) {
-			logger.log(Level.INFO, "isTomorrow");
 			return DATE_TIME_FORMAT.TYPE_TOMORROW;
 
 		} else if (isNumberOfDays(currWord, splitUserInput, index)) {
@@ -166,7 +161,7 @@ public class DateTimeParser {
 		boolean ans = false;
 		if (isNumber(currWord) && hasAWordAfterCurrWord(splitUserInput, index)) {
 			String nextWord = splitUserInput[incrementByOne(index)];
-			ans = nextWord.equals("days") || nextWord.equals("day") || nextWord.equals("dd");
+			ans = checkIfWordIsInArray(nextWord, validWordForDay);
 		}
 		return ans;
 	}
@@ -175,7 +170,26 @@ public class DateTimeParser {
 		boolean ans = false;
 		if (isNumber(currWord) && hasAWordAfterCurrWord(arr, index)) {
 			String nextWord = arr[incrementByOne(index)];
-			ans = nextWord.equals("weeks") || nextWord.equals("week") || nextWord.equals("wk");
+			ans = checkIfWordIsInArray(nextWord, validWordForWeek);
+		}
+		return ans;
+	}
+	
+	private boolean isTomorrow(String currWord) {
+		return checkIfWordIsInArray(currWord, validWordForTomorrow);
+	}
+
+	private boolean isToday(String currWord) {
+		return checkIfWordIsInArray(currWord, validWordForToday);
+	}
+	
+	private boolean checkIfWordIsInArray(String currWord, String[] wordArray) {
+		boolean ans = false;
+		for(int i = 0; i < wordArray.length; i++) {
+			if(currWord.equals(wordArray[i])) {
+				ans = true;
+				break;
+			}
 		}
 		return ans;
 	}
@@ -189,6 +203,7 @@ public class DateTimeParser {
 	}
 
 	public DateTime parse(String input) throws IncorrectInputException {
+		System.out.println("userInput is " + input);
 		String[] splitInput = input.toLowerCase().split("\\s+");
 		// [dayOfWeek, time, DD, MM, YY, indexInArray]
 		int[] combined = new int[] { currDayInWeekInt, UNINITIALIZED_INT, currDD, currMM, currYY, 0 };
@@ -225,11 +240,11 @@ public class DateTimeParser {
 				break;
 
 			case TYPE_TODAY:
-				combined = getToday(combined);
+				combined = getCombinedArrayForToday(combined);
 				break;
 
 			case TYPE_TOMORROW:
-				combined = getTomorrow(combined);
+				combined = getCombinedArrayForTomorrow(combined);
 				break;
 
 			case TYPE_DATE:
@@ -281,11 +296,10 @@ public class DateTimeParser {
 		return dateTime;
 	}
 
-	private int[] getTomorrow(int[] combined) {
+	private int[] getCombinedArrayForTomorrow(int[] combined) {
 		int day = getNextDayInt();
 		int[] date = getDateAfterANumberOfDays(NEXT_DAY);
 		int[] ans = getNewCombinedArray(combined, date, day);
-		printArray(ans);
 		return ans;
 	}
 
@@ -293,7 +307,7 @@ public class DateTimeParser {
 		return new int[] { day, combined[COMBINED_INDEX_TIME], date[DATE_INDEX_OF_DD], date[DATE_INDEX_OF_MM], date[DATE_INDEX_OF_YY], combined[COMBINED_INDEX_COUNTER] };
 	}
 	
-	private int[] getToday(int[] combined) {
+	private int[] getCombinedArrayForToday(int[] combined) {
 		return combined;
 	}
 
@@ -308,9 +322,9 @@ public class DateTimeParser {
 
 	// Eg. 2 weeks later
 	private int[] getDateAndDayAfterNumberOfWeeks(String[] splitInput, int index, int[] combined) {
-		int numWeeksLater = Integer.parseInt(splitInput[index]);
+		int numWeeksLater = convertStringToInt(splitInput[index]);
 		int day = currDayInWeekInt;
-		int fastForward = getFastForward(day) + NUMBER_OF_DAYS_IN_WEEK * numWeeksLater;
+		int fastForward = getFastForwardFromDayOfWeek(day) + NUMBER_OF_DAYS_IN_WEEK * numWeeksLater;
 		int[] date = getDateAfterANumberOfDays(fastForward);
 		int[] ans = getNewCombinedArray(combined, date, day, incrementByOne(index));
 		return ans;
@@ -322,7 +336,7 @@ public class DateTimeParser {
 
 	// Eg. 2 days
 	private int[] getDateAndDayAfterNumberOfDays(String[] splitInput, int index, int[] combined) {
-		int numDaysLater = Integer.parseInt(splitInput[index]);
+		int numDaysLater = convertStringToInt(splitInput[index]);
 		int day = getDayOfWeekAfterANumberOfDays(numDaysLater);
 		int[] date = getDateAfterANumberOfDays(numDaysLater);
 		printArray(date);
@@ -332,7 +346,7 @@ public class DateTimeParser {
 	// Eg. next week
 	private int[] getDateAfterOneWeek(String[] splitInput, int index, int[] combined) {
 		int day = currDayInWeekInt;
-		int fastForward = getFastForward(day) + NUMBER_OF_DAYS_IN_WEEK;
+		int fastForward = getFastForwardFromDayOfWeek(day) + NUMBER_OF_DAYS_IN_WEEK;
 		int[] date = getDateAfterANumberOfDays(fastForward);
 		return getNewCombinedArray(combined, date, day, incrementByOne(index));
 	}
@@ -340,7 +354,7 @@ public class DateTimeParser {
 	// Eg. monday, wed
 	private int[] getDayOfWeek(String[] splitInput, int index, int[] combined) {
 		int day = convertDayStringToInt(splitInput[index]);
-		int fastForward = getFastForward(day);
+		int fastForward = getFastForwardFromDayOfWeek(day);
 		int[] date = getDateAfterANumberOfDays(fastForward);
 		return getNewCombinedArray(combined, date, day, index);
 	}
@@ -348,7 +362,7 @@ public class DateTimeParser {
 	// Eg. next monday, next wed
 	private int[] getNextDayOfWeek(String[] splitInput, int index, int[] combined) {
 		int day = convertDayStringToInt(splitInput[incrementByOne(index)]);
-		int fastForward = getFastForward(day) + NUMBER_OF_DAYS_IN_WEEK;
+		int fastForward = getFastForwardFromDayOfWeek(day) + NUMBER_OF_DAYS_IN_WEEK;
 		int[] date = getDateAfterANumberOfDays(fastForward);
 		return getNewCombinedArray(combined, date, day, incrementByOne(index));
 	}
@@ -357,7 +371,7 @@ public class DateTimeParser {
 	private int[] getThisDayOfWeek(String[] splitInput, int index, int[] combined) {
 		// splitInput[i].equals("this")
 		int day = convertDayStringToInt(splitInput[incrementByOne(index)]);
-		int fastForward = getFastForward(day);
+		int fastForward = getFastForwardFromDayOfWeek(day);
 		int[] date = getDateAfterANumberOfDays(fastForward);
 		return getNewCombinedArray(combined, date, day, incrementByOne(index));
 	}
@@ -403,14 +417,20 @@ public class DateTimeParser {
 	// To Do: include the check for valid dates
 	private int[] getDateAndAdvanceInt(String[] splitInput, int currIndexInSplitInput) throws IncorrectInputException {
 		String firstWord = splitInput[currIndexInSplitInput];
-		int[] dateAdvanceIntArray= new int[] { UNINITIALIZED_INT, UNINITIALIZED_INT, UNINITIALIZED_INT, UNINITIALIZED_INT };
+		int[] dateAndAdvanceIntArray= new int[] { UNINITIALIZED_INT, UNINITIALIZED_INT, UNINITIALIZED_INT, UNINITIALIZED_INT };
 		int numEntries = UNINITIALIZED_INT;
+		
+		System.out.println("firstWord is " + firstWord);
 
 		if (firstWord.contains(DATE_SEPARATOR)) {
 			//firstWord is in the form of DD/MM or DD/MM/YY
 			String[] userInputForDate = firstWord.split(DATE_SEPARATOR);
 			for (int j = 0; j < userInputForDate.length; j++) {
-				dateAdvanceIntArray[j] = Integer.parseInt(userInputForDate[j]);
+				dateAndAdvanceIntArray[j] = convertStringToInt(userInputForDate[j]);
+				if(dateAndAdvanceIntArray[j] <= 0) {
+					throw new IncorrectInputException("Date Inputs must be greater than 0!");
+				}
+				System.out.println("dateAdvanceIntArray[" + j + "] is " + dateAndAdvanceIntArray[j]);
 			}
 			numEntries++;
 			
@@ -423,23 +443,51 @@ public class DateTimeParser {
 					String currWord = splitInput[j];
 					if (isNumber(currWord)) {			//currWord is either DD or YY
 						int currInt = convertStringToInt(currWord);
-						if (currInt <= MAX_NUM_OF_DAYS_IN_A_MONTH && isUninitialized(dateAdvanceIntArray, DATE_INDEX_OF_DD)) {
-							dateAdvanceIntArray[DATE_INDEX_OF_DD] = currInt;
-							numEntries++;
-
-						} else if (currInt >= 2000 && isUninitialized(dateAdvanceIntArray, DATE_INDEX_OF_YY)) {
-							dateAdvanceIntArray[DATE_INDEX_OF_YY] = currInt;
-							numEntries++;
-						}
-					} else if (isMonth(currWord) && isUninitialized(dateAdvanceIntArray, DATE_INDEX_OF_MM)) {
-						dateAdvanceIntArray[DATE_INDEX_OF_MM] = convertMonthStrToInt(currWord);
+						 try {
+							 dateAndAdvanceIntArray = setDayAndYearValues(dateAndAdvanceIntArray, numEntries, currInt);
+						 } catch (IncorrectInputException e) {
+							 throw e;
+						 }
+						 numEntries++;
+					} else if (isMonth(currWord) && isUninitialized(dateAndAdvanceIntArray, DATE_INDEX_OF_MM)) {
+						dateAndAdvanceIntArray[DATE_INDEX_OF_MM] = convertMonthStrToInt(currWord);
 						numEntries++;
+					} else {
+						if(!isValidTime(currWord)) {
+							throw new IncorrectInputException("Invalid date!");
+						}
 					}
 				}
 				counter++;
 			}
 		}
+		
+		printArray(dateAndAdvanceIntArray);
+		
+		dateAndAdvanceIntArray = setUninitializedValuesToDefault(dateAndAdvanceIntArray);
 
+		if (isInvalidDate(dateAndAdvanceIntArray)) {
+			throw new IncorrectInputException("Invalid date!");
+		}
+
+		dateAndAdvanceIntArray[DATE_INDEX_OF_ADVANCE_INT] = numEntries;
+		return dateAndAdvanceIntArray;
+	}
+
+	private int[] setDayAndYearValues(int[] dateAdvanceIntArray, int numEntries, int currInt) {
+		if (currInt <= MAX_NUM_OF_DAYS_IN_A_MONTH && isUninitialized(dateAdvanceIntArray, DATE_INDEX_OF_DD)) {
+			dateAdvanceIntArray[DATE_INDEX_OF_DD] = currInt;
+
+		} else if (currInt >= YEARY_2000 && isUninitialized(dateAdvanceIntArray, DATE_INDEX_OF_YY)) {
+			dateAdvanceIntArray[DATE_INDEX_OF_YY] = currInt;
+			
+		} else {
+			throw new IncorrectInputException("Invalid date!");
+		}
+		return dateAdvanceIntArray;
+	}
+
+	private int[] setUninitializedValuesToDefault(int[] dateAdvanceIntArray) {
 		if (isUninitialized(dateAdvanceIntArray, DATE_INDEX_OF_YY)) {
 			dateAdvanceIntArray[DATE_INDEX_OF_YY] = getCorrectYear(dateAdvanceIntArray);
 		}
@@ -447,12 +495,6 @@ public class DateTimeParser {
 		if (isUninitialized(dateAdvanceIntArray, DATE_INDEX_OF_DD)) {
 			dateAdvanceIntArray[DATE_INDEX_OF_DD] = DEFAULT_DD_IN_MONTH; // Default
 		}
-
-		if (isInvalidDate(dateAdvanceIntArray)) {
-			throw new IncorrectInputException("Invalid date!");
-		}
-
-		dateAdvanceIntArray[DATE_INDEX_OF_ADVANCE_INT] = numEntries;
 		return dateAdvanceIntArray;
 	}
 
@@ -472,8 +514,7 @@ public class DateTimeParser {
 		return ans[index] == UNINITIALIZED_INT;
 	}
 
-	// Checks that the num of months does not exceed the max num of days in that
-	// month,
+	// Checks that the num of months does not exceed the max num of days in that month,
 	// Eg. 30 Feb will return an error
 	private boolean isInvalidDate(int[] ans) {
 		int mm = ans[DATE_INDEX_OF_MM];
@@ -507,19 +548,20 @@ public class DateTimeParser {
 		}
 		return ans;
 	}
+	
+	private boolean isValidTime(String currWord) {
+		boolean ans = currWord.contains(PM) || currWord.contains(AM);
+		ans = ans || currWord.contains(TIME_SEPARATOR_COLON) || currWord.contains(TIME_SEPARATOR_DOT);
+		return ans;
+	}
 
 	private String removeTimeSeparators(String currWord) {
 		return currWord.replace(TIME_SEPARATOR_COLON, EMPTY_STRING).replace(TIME_SEPARATOR_DOT, EMPTY_STRING);
 	}
-
-	private boolean isTomorrow(String currWord) {
-		return currWord.equals("tomorrow") || currWord.equals("tmr");
-	}
-
+	
 	private boolean isNextWeekday(String currWord, String[] userInput, int index) {
 		boolean ans = false;
 		if (currWord.equals(NEXT) && hasAWordAfterCurrWord(userInput, index)) { 
-			//Check if there is a word that follow "this"
 			ans = isValidDay(userInput[incrementByOne(index)]);
 		}
 		return ans;
@@ -530,7 +572,7 @@ public class DateTimeParser {
 		if (currentWord.equals(NEXT) && hasAWordAfterCurrWord(userInput, index)) {
 			int indexOfNextWord = incrementByOne(index);
 			String nextWord = userInput[indexOfNextWord];
-			ans = nextWord.equals("week") || nextWord.equals("weeks") || nextWord.equals("wk");
+			ans = checkIfWordIsInArray(nextWord, validWordForWeek);
 		}
 		return ans;
 	}
@@ -574,10 +616,10 @@ public class DateTimeParser {
 		return ans;
 	}
 
-	private boolean isMonth(String nextWord) {
+	private boolean isMonth(String currWord) {
 		boolean ans = false;
-		for (int i = 1; i < NUMBER_OF_MONTHS_IN_A_YEAR; i++) {
-			if (nextWord.contains(monthsInYear[i])) {
+		for (int i = 1; i < monthsInYear.length; i++) {
+			if (currWord.contains(monthsInYear[i])) {
 				ans = true;
 				break;
 			}
@@ -589,13 +631,9 @@ public class DateTimeParser {
 		return currWord.matches("[0-9]+");
 	}
 
-	private boolean isToday(String currWord) {
-		return currWord.equals("today") || currWord.equals("tdy");
-	}
-
 	private int convertMonthStrToInt(String monthInput) {
 		int monthInt = UNINITIALIZED_INT;
-		for (int j = 1; j < NUMBER_OF_MONTHS_IN_A_YEAR; j++) {
+		for (int j = 1; j < monthsInYear.length; j++) {
 			if (monthInput.contains(monthsInYear[j])) {
 				monthInt = j;
 				break;
@@ -605,7 +643,7 @@ public class DateTimeParser {
 	}
 
 	private int getNextDayInt() {
-		int temp = currDayInWeekInt + NEXT_DAY;
+		int temp = incrementByOne(currDayInWeekInt);
 		temp %= NUMBER_OF_DAYS_IN_WEEK ;
 		return temp;
 	}
@@ -628,7 +666,7 @@ public class DateTimeParser {
 
 	// Input desired day of the week in int
 	// Output days to fastForward from today
-	private int getFastForward(int desiredDay) {
+	private int getFastForwardFromDayOfWeek(int desiredDay) {
 		int fastForward = 0;
 		if (currDayInWeekInt > desiredDay) {
 			fastForward = NUMBER_OF_DAYS_IN_WEEK - currDayInWeekInt + desiredDay;

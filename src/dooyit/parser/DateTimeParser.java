@@ -47,7 +47,8 @@ public class DateTimeParser {
 	DateFormat dateFormat;
 
 	// Can just look for substrings
-	private static String[] daysInWeek = new String[] { DUMMY_STR, "mon", "tue", "wed", "thu", "fri", "sat", "sun" };
+	private static String[] daysInWeekShortForm = new String[] { DUMMY_STR, "mon", "tue", "wed", "thu", "fri", "sat", "sun" };
+	private static String[] daysInWeekFull = new String[] { DUMMY_STR, "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
 	private static String[] monthsInYear = new String[] { DUMMY_STR, "jan", "feb", "mar", "apr", "may", "jun", 
 															"jul", "aug", "sep", "oct", "nov", "dec" };
 	private static final int NUMBER_OF_MONTHS_IN_A_YEAR = monthsInYear.length;
@@ -270,9 +271,9 @@ public class DateTimeParser {
 
 			if (hasPassed(currTime, time, date)) {
 				date = getDateAfterANumberOfDays(NEXT_DAY);
-				dateTime = new DateTime(date, daysInWeek[getNextDayInt()], time);
+				dateTime = new DateTime(date, daysInWeekFull[getNextDayInt()], time);
 			} else {
-				dateTime = new DateTime(date, daysInWeek[day], time);
+				dateTime = new DateTime(date, daysInWeekFull[day], time);
 			}
 		} else {
 			dateTime = null;
@@ -775,8 +776,8 @@ public class DateTimeParser {
 
 	private int convertDayStringToInt(String string) {
 		int day = UNINITIALIZED_INT;
-		for (int i = 0; i < daysInWeek.length; i++) {
-			if (string.contains(daysInWeek[i])) {
+		for (int i = 0; i < daysInWeekShortForm.length; i++) {
+			if (string.contains(daysInWeekShortForm[i])) {
 				day = i;
 				break;
 			}

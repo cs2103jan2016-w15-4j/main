@@ -369,6 +369,7 @@ public class DateTime {
 		} else {
 			timeString24H = String.valueOf(time);
 		}
+		timeString24H = timeString24H.substring(0,2) + ":" + timeString24H.substring(2);
 		return timeString24H;
 	}
 

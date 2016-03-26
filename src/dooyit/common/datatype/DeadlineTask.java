@@ -23,7 +23,7 @@ public class DeadlineTask extends Task {
 	
 	@Override
 	public boolean isOverDue(DateTime dateTime){
-		return !isCompleted && dateTimeDeadline.compareTo(dateTime) == -1;
+		return !isToday(dateTime) && !isCompleted && dateTimeDeadline.compareTo(dateTime) == -1;
 	}
 	
 	@Override

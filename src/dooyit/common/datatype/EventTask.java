@@ -29,7 +29,7 @@ public class EventTask extends Task {
 	
 	@Override
 	public boolean isOverDue(DateTime dateTime){
-		return !isCompleted && dateTimeEnd.compareTo(dateTime) == -1;
+		return !isToday(dateTime) && !isCompleted && dateTimeEnd.compareTo(dateTime) == -1;
 	}
 	
 	@Override

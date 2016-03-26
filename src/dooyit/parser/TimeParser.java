@@ -71,11 +71,11 @@ public class TimeParser implements DateTimeParserCommon {
 		}
 
 		timeString = removeAmAndPmFromTimeString(timeString, isAm, isPm);
-		try {
-			timeInt = convertStringToInt(timeString);
-		} catch (NumberFormatException e) {
+		if(!isNumber(timeString)) {
 			throw new IncorrectInputException("\"" + timeString + "\"" + ERROR_MESSAGE_AM_AND_PM);
-		}
+		} else {
+			timeInt = convertStringToInt(timeString);
+		} 
 		
 		if(hasInvalidHoursOrMinutes(timeInt, splitInput, index, isAm, isPm)) {
 			throw new IncorrectInputException(ERROR_MESSAGE_INVALID_HOURS_OR_MINUTES);

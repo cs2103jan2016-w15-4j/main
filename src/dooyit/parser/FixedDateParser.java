@@ -11,6 +11,8 @@ public class FixedDateParser implements DateTimeParserCommon {
 	private static final String DATE_SEPARATOR = "/";
 	private static final int DATE_INDEX_OF_ADVANCE_INT = 3;
 	private static final int DEFAULT_DD_IN_MONTH = 15;
+	private static final String ERROR_MESSAGE_INVALID_NUMBER_OF_DATE_INPUTS = "Invalid number of date inputs";
+	private static final String ERROR_MESSAGE_DATE_INPUTS_MUST_BE_NUMBERS = "Date inputs must be numbers";
 	
 	private int currMM;
 	private int currYY;
@@ -105,8 +107,16 @@ public class FixedDateParser implements DateTimeParserCommon {
 	}
 
 	private int[] getNumberDate(int[] dateAndAdvanceIntArray, String[] userInputForDate) throws IncorrectInputException {
+		if(userInputForDate.length > 3 || userInputForDate.length == 1) {
+			throw new IncorrectInputException(ERROR_MESSAGE_INVALID_NUMBER_OF_DATE_INPUTS);
+		}
 		for (int j = 0; j < userInputForDate.length; j++) {
+			if(!isNumber(userInputForDate[j])) {
+				throw new IncorrectInputException(ERROR_MESSAGE_DATE_INPUTS_MUST_BE_NUMBERS);
+			}
+			
 			dateAndAdvanceIntArray[j] = convertStringToInt(userInputForDate[j]);
+			
 			if(dateAndAdvanceIntArray[j] <= 0) {
 				throw new IncorrectInputException(ERROR_MESSAGE_DATE_INPUTS_MUST_GREATER_THAN_ZERO);
 			}

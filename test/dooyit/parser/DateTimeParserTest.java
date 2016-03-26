@@ -83,6 +83,24 @@ public class DateTimeParserTest {
 	}
 	
 	@Test(expected = IncorrectInputException.class) 
+	public void testParseIncompleteNumberDate() {
+		String numberDate = "4/";
+		dateTimeParser.parse(numberDate);
+	}
+	
+	@Test(expected = IncorrectInputException.class) 
+	public void testParseInvalidNumberDateTooManyFields() {
+		String numberDate = "4/10/2016/20/15";
+		dateTimeParser.parse(numberDate);
+	}
+	
+	@Test(expected = IncorrectInputException.class) 
+	public void testParseInvalidNumberDate() {
+		String numberDate = "a/b/c";
+		dateTimeParser.parse(numberDate);
+	}
+	
+	@Test(expected = IncorrectInputException.class) 
 	public void testParseNumberDateWithInvalidPositiveYear() {
 		String numberDate = "4/10/16";
 		dateTimeParser.parse(numberDate);

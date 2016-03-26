@@ -279,13 +279,7 @@ public class RelativeDateParser implements DateTimeParserCommon {
 		int newMonth = currMM;
 		int newYear = currYY;
 		int[] daysInMonth;
-		
-		if (isLeapYear(currYY)) {
-			daysInMonth = daysInMonthLeapYear;
-		} else {
-			daysInMonth = daysInMonthNonLeapYear;
-		}
-
+		daysInMonth = getDaysInMonthArray(currYY);
 		while (newDay > daysInMonth[newMonth]) {
 			newDay -= daysInMonth[newMonth];
 			newMonth += 1;

@@ -31,7 +31,6 @@ public class AddParser {
 
 	public Command getCommand(String input) throws IncorrectInputException {
 		userInput = input.trim();
-		System.out.println("reached add command");
 		switch (getTaskType()) {
 		case FLOATING:
 			try {

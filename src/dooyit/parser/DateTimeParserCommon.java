@@ -75,12 +75,20 @@ public interface DateTimeParserCommon {
 				break;
 			}
 			if (currYear == arrLeapYears[i]) {
-				System.out.println("currYear is " + currYear + " arrLeapYears[i] is " + arrLeapYears[i]);
 				ans = true;
 				break;
 			}
 		}
-		System.out.println("isLeapYear is " + ans);
+		return ans;
+	}
+	
+	default int[] getDaysInMonthArray(int yy) {
+		int[] ans;
+		if(isLeapYear(yy)) {
+			ans = daysInMonthLeapYear;
+		} else {
+			ans = daysInMonthNonLeapYear;
+		}
 		return ans;
 	}
 

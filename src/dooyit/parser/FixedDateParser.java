@@ -2,9 +2,11 @@ package dooyit.parser;
 
 import dooyit.common.datatype.DateTime;
 import dooyit.common.exception.IncorrectInputException;
-import dooyit.parser.DateTimeParser.DATE_TIME_FORMAT;
 
 public class FixedDateParser implements DateTimeParserCommon {
+	private static final int LAST_INDEX_OF_WORD_DATE = 2;
+	private static final String ERROR_MESSAGE_INVALID_DATE = "Invalid date!";
+	private static final String ERROR_MESSAGE_DATE_INPUTS_MUST_GREATER_THAN_ZERO = "Date Inputs must be greater than 0!";
 	private static final int YEARY_2000 = 2000;
 	private static final String DATE_SEPARATOR = "/";
 	private static final int DATE_INDEX_OF_ADVANCE_INT = 3;
@@ -62,60 +64,78 @@ public class FixedDateParser implements DateTimeParserCommon {
 	// To Do: include the check for valid dates
 	private int[] getDateAndAdvanceInt(String[] splitInput, int currIndexInSplitInput) throws IncorrectInputException {
 		String firstWord = splitInput[currIndexInSplitInput];
-		int[] dateAndAdvanceIntArray= new int[] { UNINITIALIZED_INT, UNINITIALIZED_INT, UNINITIALIZED_INT, UNINITIALIZED_INT };
-		int numEntries = UNINITIALIZED_INT;
+		int[] dateAndAdvanceIntArray = new int[] { UNINITIALIZED_INT, UNINITIALIZED_INT, UNINITIALIZED_INT, UNINITIALIZED_INT };
 		
-		System.out.println("firstWord is " + firstWord);
-
-		if (firstWord.contains(DATE_SEPARATOR)) {
-			//firstWord is in the form of DD/MM or DD/MM/YY
-			String[] userInputForDate = firstWord.split(DATE_SEPARATOR);
-			for (int j = 0; j < userInputForDate.length; j++) {
-				dateAndAdvanceIntArray[j] = convertStringToInt(userInputForDate[j]);
-				if(dateAndAdvanceIntArray[j] <= 0) {
-					throw new IncorrectInputException("Date Inputs must be greater than 0!");
-				}
+		try {
+			if (firstWord.contains(DATE_SEPARATOR)) {
+				String[] userInputForDate = firstWord.split(DATE_SEPARATOR);
+				dateAndAdvanceIntArray = getNumberDate(dateAndAdvanceIntArray, userInputForDate);		
+			} else {
+				dateAndAdvanceIntArray = getWordDate(dateAndAdvanceIntArray, currIndexInSplitInput, splitInput);
 			}
-			numEntries++;
-			
-		} else {
-			int counter = 0;
-			for (int j = currIndexInSplitInput; j < splitInput.length; j++) {
-				if (counter > 2) {
-					break;
-				} else {
-					String currWord = splitInput[j];
-					if (isNumber(currWord)) {			//currWord is either DD or YY
-						int currInt = convertStringToInt(currWord);
-						 try {
-							 dateAndAdvanceIntArray = setDayAndYearValues(dateAndAdvanceIntArray, numEntries, currInt);
-						 } catch (IncorrectInputException e) {
-							 throw e;
-						 }
-						 numEntries++;
-					} else if (isMonth(currWord) && isUninitialized(dateAndAdvanceIntArray, DATE_INDEX_OF_MM)) {
-						dateAndAdvanceIntArray[DATE_INDEX_OF_MM] = convertMonthStrToInt(currWord);
-						numEntries++;
-					} else {
-						if(!isValidTime(currWord)) {
-							throw new IncorrectInputException("Invalid date!");
-						}
-					}
-				}
-				counter++;
-			}
+		} catch (IncorrectInputException e) {
+			throw e;
 		}
 		
 		dateAndAdvanceIntArray = setUninitializedValuesToDefault(dateAndAdvanceIntArray);
 
 		if (isInvalidDate(dateAndAdvanceIntArray)) {
-			throw new IncorrectInputException("Invalid date!");
+			throw new IncorrectInputException(ERROR_MESSAGE_INVALID_DATE);
 		}
 
-		dateAndAdvanceIntArray[DATE_INDEX_OF_ADVANCE_INT] = numEntries;
+		return dateAndAdvanceIntArray;
+	}
+
+	private int[] getWordDate(int[] dateAndAdvanceIntArray, int currIndexInSplitInput, String[] splitInput) throws IncorrectInputException {
+		int counter = 0;
+		for (int j = currIndexInSplitInput; j < splitInput.length; j++) {
+			if (counter > LAST_INDEX_OF_WORD_DATE) {
+				break;
+			} else {
+				String currWord = splitInput[j];
+				try {
+					dateAndAdvanceIntArray = setValuesInArray(currWord, dateAndAdvanceIntArray);
+				} catch (IncorrectInputException e) {
+					throw e;
+				}
+			}
+			counter++;
+		}
+		return dateAndAdvanceIntArray;
+	}
+
+	private int[] getNumberDate(int[] dateAndAdvanceIntArray, String[] userInputForDate) throws IncorrectInputException {
+		for (int j = 0; j < userInputForDate.length; j++) {
+			dateAndAdvanceIntArray[j] = convertStringToInt(userInputForDate[j]);
+			if(dateAndAdvanceIntArray[j] <= 0) {
+				throw new IncorrectInputException(ERROR_MESSAGE_DATE_INPUTS_MUST_GREATER_THAN_ZERO);
+			}
+		}
+		dateAndAdvanceIntArray[DATE_INDEX_OF_ADVANCE_INT] += 1;
 		return dateAndAdvanceIntArray;
 	}
 	
+	private int[] setValuesInArray(String currWord, int[] dateAndAdvanceIntArray) throws IncorrectInputException {
+		if (isNumber(currWord)) {			//currWord is either DD or YY
+			int currInt = convertStringToInt(currWord);
+			 try {
+				 dateAndAdvanceIntArray = setDayAndYearValues(dateAndAdvanceIntArray, currInt);
+				 dateAndAdvanceIntArray[DATE_INDEX_OF_ADVANCE_INT] += 1;
+			 } catch (IncorrectInputException e) {
+				 throw e;
+			 }
+		} else if (isMonth(currWord) && isUninitialized(dateAndAdvanceIntArray, DATE_INDEX_OF_MM)) {
+			dateAndAdvanceIntArray[DATE_INDEX_OF_MM] = convertMonthStrToInt(currWord);
+			dateAndAdvanceIntArray[DATE_INDEX_OF_ADVANCE_INT] += 1;
+		} else {
+			if(!isValidTime(currWord)) {
+				throw new IncorrectInputException(ERROR_MESSAGE_INVALID_DATE);
+			}
+		}
+		
+		return dateAndAdvanceIntArray;
+	}
+
 	private int[] getDate(String[] splitInput, int index, int[] combined) throws IncorrectInputException {
 		int[] newDate;
 		try {
@@ -131,7 +151,7 @@ public class FixedDateParser implements DateTimeParserCommon {
 		return getNewCombinedArray(combined, newDate, getDayOfWeekFromADate(newDate), getAdvanceInt(newDate, combined[COMBINED_INDEX_COUNTER]));
 	}
 
-	private int[] setDayAndYearValues(int[] dateAdvanceIntArray, int numEntries, int currInt) {
+	private int[] setDayAndYearValues(int[] dateAdvanceIntArray, int currInt) throws IncorrectInputException {
 		if (currInt <= MAX_NUM_OF_DAYS_IN_A_MONTH && isUninitialized(dateAdvanceIntArray, DATE_INDEX_OF_DD)) {
 			dateAdvanceIntArray[DATE_INDEX_OF_DD] = currInt;
 
@@ -139,7 +159,7 @@ public class FixedDateParser implements DateTimeParserCommon {
 			dateAdvanceIntArray[DATE_INDEX_OF_YY] = currInt;
 			
 		} else {
-			throw new IncorrectInputException("Invalid date!");
+			throw new IncorrectInputException(ERROR_MESSAGE_INVALID_DATE);
 		}
 		return dateAdvanceIntArray;
 	}
@@ -174,14 +194,16 @@ public class FixedDateParser implements DateTimeParserCommon {
 	private boolean isInvalidDate(int[] ans) {
 		int[] daysInMonth;
 		int mm = ans[DATE_INDEX_OF_MM];
-		int yy = ans[DATE_INDEX_OF_YY];
-		if(isLeapYear(yy)) {
-			daysInMonth = daysInMonthLeapYear;
+		
+		boolean output = false;
+		if(mm > NUMBER_OF_MONTHS_IN_A_YEAR) {
+			output = true;
 		} else {
-			daysInMonth = daysInMonthNonLeapYear;
+			int yy = ans[DATE_INDEX_OF_YY];
+			daysInMonth = getDaysInMonthArray(yy);
+			output = ans[DATE_INDEX_OF_DD] > daysInMonth[mm];
 		}
-		System.out.println("mm is " + ans[DATE_INDEX_OF_MM] + " and daysInMonth[mm] is " + daysInMonth[mm]);
-		return ans[DATE_INDEX_OF_DD] > daysInMonth[mm];
+		return output;
 	}
 
 

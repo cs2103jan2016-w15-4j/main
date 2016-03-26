@@ -3,12 +3,15 @@ package dooyit.parser;
 import dooyit.common.exception.IncorrectInputException;
 
 public class TimeParser implements DateTimeParserCommon {
-	private static final String ERROR_MESSAGE_MINUTES_EXCEED_SIXTY = "Invalid time! Minutes must be smaller than 60";
+	private static final int FORMAT_24H_1259AM = 59;
+	private static final int FORMAT_24H_12AM = 0;
+	private static final String ERROR_MESSAGE_INVALID_HOURS_OR_MINUTES = "Invalid Time! Hours must fall within the 24h range and Minutes must be between 0 to 59 inclusive";
 	private static final String ERROR_MESSAGE_TIME_EXCEEDS_24H = "Invalid Time! Time must not exceed 24 hours!";
 	private static final String ERROR_MESSAGE_AM_AND_PM = " cannot be am and pm!";
 	private static final String TWELVE_MIDNIGHT_ONE_STRING = "12am";
 	private static final int FORMAT_24H_12PM = 1200;
 	private static final int TWELVE_HOURS = 1200;
+	private static final int FORMAT_24H_1259PM = 1259;
 	
 	public TimeParser() {
 		
@@ -68,10 +71,14 @@ public class TimeParser implements DateTimeParserCommon {
 		}
 
 		timeString = removeAmAndPmFromTimeString(timeString, isAm, isPm);
-		timeInt = convertStringToInt(timeString);
-
-		if (hasInvalidMinutes(timeInt)) {
-			throw new IncorrectInputException(ERROR_MESSAGE_MINUTES_EXCEED_SIXTY);
+		try {
+			timeInt = convertStringToInt(timeString);
+		} catch (NumberFormatException e) {
+			throw new IncorrectInputException("\"" + timeString + "\"" + ERROR_MESSAGE_AM_AND_PM);
+		}
+		
+		if(hasInvalidHoursOrMinutes(timeInt, splitInput, index, isAm, isPm)) {
+			throw new IncorrectInputException(ERROR_MESSAGE_INVALID_HOURS_OR_MINUTES);
 		}
 
 		timeInt = getTimeIntByAssumingOneWordTimeInput(timeString, isAm, isPm, timeInt, isExactlyMidnight);
@@ -87,12 +94,33 @@ public class TimeParser implements DateTimeParserCommon {
 		return combined;
 	}
 	
+	private boolean hasInvalidHoursOrMinutes(int timeInt, String[] splitInput, int index, boolean isAm, boolean isPm) {
+		return hasInvalidHours(timeInt, splitInput, index, isAm, isPm) || hasInvalidMinutes(timeInt);
+	}
+	
+	private boolean hasInvalidHours(int timeInt, String[] splitInput, int index, boolean isAm, boolean isPm) {
+		String nextWord;
+		boolean isAmOrPm = false, ans = false;
+		if(hasAWordAfterCurrWord(splitInput, index)) {
+			nextWord = splitInput[incrementByOne(index)];
+			isAmOrPm = nextWord.contains(PM) || nextWord.contains(AM);
+		}
+		
+		if(isAmOrPm || isAm || isPm) {
+			boolean isValidHour = timeInt >= 1 && timeInt <= 12;
+			boolean hasOnlyTwoDigits = timeInt < 100;
+			ans = !isValidHour && hasOnlyTwoDigits;
+		}
+		return ans;
+	}
+
 	private boolean timeExceeds24H(int timeInt) {
 		return timeInt >= 2400;
 	}
 
 	private boolean hasInvalidMinutes(int timeInt) {
-		return getMinuteNumeralOfTime(timeInt) > 59;
+		int minutes = getMinuteNumeralOfTime(timeInt);
+		return minutes > 59 || minutes < 0;
 	}
 
 	private String removeAmAndPmFromTimeString(String timeString, boolean isAm, boolean isPm) {
@@ -120,7 +148,7 @@ public class TimeParser implements DateTimeParserCommon {
 				timeInt = timeInt + TWELVE_HOURS;
 			}
 			if (timeInt == FORMAT_24H_12PM && indicator.equals(AM)) {
-				timeInt = 0;
+				timeInt = FORMAT_24H_12AM;
 			}
 		}
 		return timeInt;
@@ -129,7 +157,7 @@ public class TimeParser implements DateTimeParserCommon {
 	private int getTimeIntByAssumingOneWordTimeInput(String timeString, boolean isAm, boolean isPm, int timeInt, boolean isExactlyMidnight) {
 		if (isMidnight(timeInt, timeString, isAm) || isExactlyMidnight) {
 			if (isExactlyMidnight) {
-				timeInt = 0;
+				timeInt = FORMAT_24H_12AM;
 			} else {
 				timeInt = getMinuteNumeralOfTime(timeInt);
 			}
@@ -162,8 +190,8 @@ public class TimeParser implements DateTimeParserCommon {
 	}
 
 	private boolean isMidnight(int timeInt, String timeString, boolean isAm) {
-		boolean isMidnight24H = timeInt >= 0 && timeInt <= 59 && timeString.contains("00");
-		boolean isMidnight12H = timeInt >= 1200 && timeInt <= 1259 && isAm;
+		boolean isMidnight24H = timeInt >= FORMAT_24H_12AM && timeInt <= FORMAT_24H_1259AM && timeString.contains("00");
+		boolean isMidnight12H = timeInt >= FORMAT_24H_12PM && timeInt <= FORMAT_24H_1259PM && isAm;
 		return isMidnight24H || isMidnight12H;
 	}
 

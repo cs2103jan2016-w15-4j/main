@@ -2,6 +2,7 @@ package dooyit.logic.api;
 
 import java.util.ArrayList;
 
+import dooyit.common.datatype.Category;
 import dooyit.common.datatype.DateTime;
 import dooyit.common.datatype.DeadlineTask;
 import dooyit.common.datatype.EventTask;
@@ -435,7 +436,6 @@ public class TaskManager {
 	}
 
 	public ArrayList<TaskGroup> getTaskGroupsNext7Days() {
-
 		DateTime currDate = new DateTime();
 		ArrayList<TaskGroup> taskGroups = new ArrayList<TaskGroup>();
 		TaskGroup taskGroup;
@@ -458,7 +458,6 @@ public class TaskManager {
 			taskGroup.addTasks(getIncompleteEventTasks(currDate));
 			taskGroups.add(taskGroup);
 			currDate.increaseByOneDay();
-
 		}
 
 		resetTaskId(taskGroups);
@@ -494,8 +493,13 @@ public class TaskManager {
 		System.out.println("Task List");
 
 		for (Task task : tasks) {
-			System.out.println(task.getId() + ": " + task);
-			// System.out.println(task.convertToSavableString());
+			System.out.print(task.getId() + ": " + task);
+			
+			Category cat = task.getCategory();
+			if(cat != null)
+				System.out.println(", Cat: " + cat.getName());
+			
+			System.out.println();
 		}
 
 		System.out.println();

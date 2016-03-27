@@ -5,6 +5,7 @@ import dooyit.logic.commands.Command;
 import dooyit.logic.commands.CommandUtils;
 
 public class DeleteParser extends TagParser {
+	private static final String ERROR_MESSAGE_INVALID_DELETE_COMMAND = "Invalid Delete Command!";
 	private Command command;
 
 	public DeleteParser() {
@@ -50,7 +51,6 @@ public class DeleteParser extends TagParser {
 		return CommandUtils.createDeleteCommand(taskIdsForTagging);
 	}
 
-	// Eg. delete 5 6 8
 	private Command getMultipleTypeDeleteCommand() {
 		return CommandUtils.createDeleteCommand(taskIdsForTagging);
 	}
@@ -60,6 +60,6 @@ public class DeleteParser extends TagParser {
 	}
 
 	private Command getInvalidCmd() {
-		return CommandUtils.createInvalidCommand("Invalid Delete Command!");
+		return CommandUtils.createInvalidCommand(ERROR_MESSAGE_INVALID_DELETE_COMMAND);
 	}
 }

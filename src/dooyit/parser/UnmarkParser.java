@@ -51,7 +51,7 @@ public class UnmarkParser extends TagParser{
 	}
 
 	private Command getIntervalTypeUnmarkCommand() {
-		return CommandUtils.createUnMarkCommand(taskIdsForTagging);
+		return CommandUtils.createUnMarkCommand(taskIdsForTagging); 
 	}
 	
 	// Eg. unmark 2 4 0 9

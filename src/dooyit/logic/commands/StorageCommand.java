@@ -1,12 +1,7 @@
 package dooyit.logic.commands;
 
-import java.io.IOException;
-
-import dooyit.common.datatype.Task;
 import dooyit.common.exception.IncorrectInputException;
 import dooyit.logic.api.LogicController;
-import dooyit.logic.api.TaskManager;
-import dooyit.storage.StorageController;
 
 public class StorageCommand extends ReversibleCommand {
 

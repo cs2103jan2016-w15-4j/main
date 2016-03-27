@@ -6,15 +6,17 @@ import dooyit.common.exception.IncorrectInputException;
 import dooyit.logic.api.LogicController;
 import dooyit.logic.api.TaskManager;
 
-public class EditCommand extends Command {
+public class EditCommand extends ReversibleCommand {
 
 	private enum EditCommandType {
 		NAME, DEADLINE, EVENT, NAME_N_DEADLINE, NAME_N_EVENT
 	};
-	
+
 	private EditCommandType editCommandType;
 	private int taskId;
-	public String taskName;
+	private String taskName;
+	private Task originalTask;
+	private Task newTask;
 	private DateTime dateTimeDeadline;
 	private DateTime dateTimeStart;
 	private DateTime dateTimeEnd;
@@ -54,37 +56,46 @@ public class EditCommand extends Command {
 	}
 
 	@Override
-	public void execute(LogicController logic) throws IncorrectInputException {
-		TaskManager taskManager = logic.getTaskManager();
-		assert (taskManager != null);
+	public void undo(LogicController logic) {
+		assert (logic != null);
 		
-		if(!taskManager.contains(taskId)){
+		logic.removeTask(newTask);
+		logic.addTask(originalTask);
+	}
+
+	@Override
+	public void execute(LogicController logic) throws IncorrectInputException {
+		assert (logic != null);
+
+		if (!logic.containsTask(taskId)) {
 			throw new IncorrectInputException("Cant find task ID: " + taskId);
 		}
-		
-		switch(editCommandType){
+
+		// save original task for undo
+		originalTask = logic.findTask(taskId);
+
+		switch (editCommandType) {
 		case NAME:
-			taskManager.changeTaskName(taskId, taskName);
+			newTask = logic.changeTaskName(taskId, taskName);
 			break;
-			
+
 		case DEADLINE:
-			taskManager.changeTaskToDeadline(taskId, dateTimeDeadline);
+			newTask = logic.changeTaskToDeadline(taskId, dateTimeDeadline);
 			break;
-			
-			case EVENT:
-				taskManager.changeTaskToEvent(taskId, dateTimeStart, dateTimeEnd);
+
+		case EVENT:
+			newTask = logic.changeTaskToEvent(taskId, dateTimeStart, dateTimeEnd);
 			break;
 
 		case NAME_N_DEADLINE:
-			taskManager.changeTaskName(taskId, taskName);
-			taskManager.changeTaskToDeadline(taskId, dateTimeDeadline);
+			logic.changeTaskName(taskId, taskName);
+			newTask = logic.changeTaskToDeadline(taskId, dateTimeDeadline);
 			break;
 
 		case NAME_N_EVENT:
-			taskManager.changeTaskName(taskId, taskName);
-			taskManager.changeTaskToEvent(taskId, dateTimeStart, dateTimeEnd);
-			break;		
+			logic.changeTaskName(taskId, taskName);
+			newTask = logic.changeTaskToEvent(taskId, dateTimeStart, dateTimeEnd);
+			break;
 		}
 	}
-
 }

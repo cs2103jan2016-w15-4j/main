@@ -4,7 +4,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
-@Suite.SuiteClasses({AddParserTest.class})
+@Suite.SuiteClasses({AddParserTest.class, DateTimeParserTest.class})
 public class ParserTestSuite {
 
 }

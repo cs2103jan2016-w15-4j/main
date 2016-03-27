@@ -322,6 +322,18 @@ public class LogicController {
 		return addedTask;
 	}
 
+	public Task changeTaskName(int taskId, String newName) {
+		return taskManager.changeTaskName(taskId, newName);
+	}
+	
+	public Task changeTaskToDeadline(int taskId, DateTime dateTimeDeadline) {
+		return taskManager.changeTaskToDeadline(taskId, dateTimeDeadline);
+	}
+	
+	public Task changeTaskToEvent(int taskId, DateTime dateTimeStart, DateTime dateTimeEnd) {
+		return taskManager.changeTaskToEvent(taskId, dateTimeStart, dateTimeEnd);
+	}
+	
 	public boolean containsTask(int taskId) {
 		return taskManager.contains(taskId);
 	}
@@ -339,6 +351,11 @@ public class LogicController {
 		return removedTask;
 	}
 
+	public boolean removeTask(Task task) {
+		boolean isRemoved = taskManager.remove(task);
+		return isRemoved;
+	}
+	
 	public boolean containsCategory(String categoryName) {
 		return categoryManager.contains(categoryName);
 	}

@@ -8,13 +8,12 @@ import dooyit.logic.commands.CommandUtils;
 
 public class TagParser {
 	private static final String MARKER_FOR_INTERVAL_TAG_TYPE = "-";
-	private static final String ERROR_MESSAGE_INVALID_TASK_ID = "Error: Invalid Task IDs";
+	private static final String ERROR_MESSAGE_INVALID_TASK_ID = "Error: Invalid Task ID";
 	private static final int INDEX_SINGLE = 0;
 	public String userInput;
 	public String[] splitInput;
 	public ArrayList<Integer> taskIdsForTagging;
 	public int taskIdForTagging;
-	public int tagType;
 	
 	enum TAG_TYPE {
 		SINGLE, MULTIPLE, INTERVAL, INVALID
@@ -71,8 +70,13 @@ public class TagParser {
 
 	public void setInterval(String currWord) {
 		String[] splitByDash = currWord.split(MARKER_FOR_INTERVAL_TAG_TYPE);
-		int start = Integer.parseInt(splitByDash[0]);
-		int end = Integer.parseInt(splitByDash[1]);
+		int start, end;
+		try {
+			start = Integer.parseInt(splitByDash[0]);
+			end = Integer.parseInt(splitByDash[1]);
+		} catch(NumberFormatException e) {
+			throw new IncorrectInputException(ERROR_MESSAGE_INVALID_TASK_ID);
+		}
 		for (int i = start; i <= end; i++) {
 			taskIdsForTagging.add(i);
 		}
@@ -82,7 +86,7 @@ public class TagParser {
 		for (int i = 0; i < splitInput.length; i++) {
 			String currWord = splitInput[i];
 			if (!isNumber(currWord)) {
-				throw new IncorrectInputException("Invalid Number!");
+				throw new IncorrectInputException(ERROR_MESSAGE_INVALID_TASK_ID);
 			} else {
 				taskIdsForTagging.add(Integer.parseInt(currWord));
 			}

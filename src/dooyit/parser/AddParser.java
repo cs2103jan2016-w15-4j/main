@@ -7,6 +7,7 @@ import dooyit.logic.commands.CommandUtils;
 
 public class AddParser {
 
+	private static final String ERROR_MESSAGE_INVALID_ADD_COMMAND = "Error: Invalid add command!";
 	private static final String MARKER_START_EVENT = " from ";
 	private static final String MARKER_END_EVENT = " to ";
 	private static final String MARKER_WORK = " by ";
@@ -91,8 +92,8 @@ public class AddParser {
 			setCategoryAndEventCommand();
 			break;
 
-		case INVALID:
-			setToInvalidCommand("Invalid input!");
+		default:
+			setToInvalidCommand(ERROR_MESSAGE_INVALID_ADD_COMMAND);
 		}
 
 		return cmd;
@@ -187,31 +188,31 @@ public class AddParser {
 			return TASK_TYPE.WORK;
 		} else if (isFloating()) {
 			return TASK_TYPE.FLOATING;
-		} else if (isCatAndEvent()) {
+		} else if (isCategoryAndEvent()) {
 			return TASK_TYPE.CATEGORY_AND_EVENT;
-		} else if (isCatAndWork()) {
+		} else if (isCategoryAndWork()) {
 			return TASK_TYPE.CATEGORY_AND_WORK;
-		} else if (isCatAndFloating()) {
+		} else if (isCategoryAndFloating()) {
 			return TASK_TYPE.CATEGORY_AND_FLOATING;
 		} else {
 			return TASK_TYPE.INVALID;
 		}
 	}
 
-	private boolean isCat() {
+	private boolean isCategory() {
 		return userInput.lastIndexOf(MARKER_CATEGORY) != -1;
 	}
 
-	private boolean isCatAndFloating() {
-		return isCat() && isFloating();
+	private boolean isCategoryAndFloating() {
+		return isCategory() && isFloating();
 	}
 
-	private boolean isCatAndWork() {
-		return isCat() && isWork();
+	private boolean isCategoryAndWork() {
+		return isCategory() && isWork();
 	}
 
-	private boolean isCatAndEvent() {
-		return isCatAndEvent();
+	private boolean isCategoryAndEvent() {
+		return isCategory() && isEvent();
 	}
 
 	private boolean isFloating() {

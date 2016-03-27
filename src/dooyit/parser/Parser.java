@@ -6,24 +6,25 @@ import dooyit.ui.Main;
 
 public class Parser {
 
-	static final String COMMAND_EXIT = "exit";
-	static final String COMMAND_CLOSE = "close";
-	static final String COMMAND_HELP = "help";
-	static final String COMMAND_CLEAR = "clear";
-	static final String COMMAND_SHOW = "show";
-	static final String COMMAND_DELETE = "delete";
-	static final String COMMAND_MARK = "mark";
-	static final String COMMAND_EDIT = "edit";
-	static final String COMMAND_ADD = "add";
-	static final String COMMAND_ADD_CAT = "addcat";
-	static final String COMMAND_SKIN = "skin";
-	static final String COMMAND_STORAGE = "storage";
-	static final String COMMAND_UNMARK = "unmark";
-	static final String COMMAND_UNDO = "undo";
+	private static final String COMMAND_EXIT = "exit";
+	private static final String COMMAND_CLOSE = "close";
+	private static final String COMMAND_HELP = "help";
+	private static final String COMMAND_CLEAR = "clear";
+	private static final String COMMAND_SHOW = "show";
+	private static final String COMMAND_DELETE = "delete";
+	private static final String COMMAND_MARK = "mark";
+	private static final String COMMAND_EDIT = "edit";
+	private static final String COMMAND_ADD = "add";
+	private static final String COMMAND_ADD_CAT = "addcat";
+	private static final String COMMAND_SKIN = "skin";
+	private static final String COMMAND_STORAGE = "storage";
+	private static final String COMMAND_UNMARK = "unmark";
+	private static final String COMMAND_UNDO = "undo";
 	private static final String COMMAND_DELETE_CAT = "deletecat";
 	private static final String COMMAND_EDIT_CAT = "editcat";
 	private static final String COMMAND_MOVE_TO_CAT = "move";
 	private static final String COMMAND_REMOVE_FROM_CAT = "rm";
+	private static final String COMMAND_SEARCH = "search";
 	private AddParser addParser;
 	private ShowParser showParser;
 	private EditParser editParser;
@@ -65,33 +66,61 @@ public class Parser {
 		case COMMAND_ADD:
 			command = addParser.getCommand(getInputWithoutCommand(input, COMMAND_ADD));
 			break;
-
-		case COMMAND_SHOW:
-			command = showParser.getCommand(getInputWithoutCommand(input, COMMAND_SHOW));
+			
+		case COMMAND_ADD_CAT:
+			command = addCatParser.getCommand(getInputWithoutCommand(input, COMMAND_ADD_CAT));
 			break;
-
-		case COMMAND_EDIT:
-			command = editParser.getCommand(getInputWithoutCommand(input, COMMAND_EDIT));
+			
+		case COMMAND_CLEAR:
+			command = CommandUtils.createClearCommand();
+			break;
+			
+		case COMMAND_CLOSE:
+			command = CommandUtils.createExitCommand();
 			break;
 
 		case COMMAND_DELETE:
 			command = deleteParser.getCommand(getInputWithoutCommand(input, COMMAND_DELETE));
-			break;
-
-		case COMMAND_MARK:
-			command = markParser.getCommand(getInputWithoutCommand(input, COMMAND_MARK));
-			break;
-
-		case COMMAND_ADD_CAT:
-			command = addCatParser.getCommand(getInputWithoutCommand(input, COMMAND_ADD_CAT));
 			break;
 			
 		case COMMAND_DELETE_CAT:
 			command = deleteCatParser.getCommand(getInputWithoutCommand(input, COMMAND_DELETE_CAT));
 			break;
 			
+		case COMMAND_EDIT:
+			command = editParser.getCommand(getInputWithoutCommand(input, COMMAND_EDIT));
+			break;
+			
 		case COMMAND_EDIT_CAT:
 			command = editCatParser.getCommand(getInputWithoutCommand(input, COMMAND_EDIT_CAT));
+			break;
+
+		case COMMAND_EXIT:
+			command = CommandUtils.createExitCommand();
+			break;
+			
+		case COMMAND_HELP:
+			command = CommandUtils.createHelpCommand();
+			break;
+			
+		case COMMAND_MARK:
+			command = markParser.getCommand(getInputWithoutCommand(input, COMMAND_MARK));
+			break;
+			
+		case COMMAND_MOVE_TO_CAT:
+			command = moveParser.getCommand(getInputWithoutCommand(input, COMMAND_MOVE_TO_CAT));
+			break;
+			
+		case COMMAND_REMOVE_FROM_CAT:
+			command = removeParser.getCommand(getInputWithoutCommand(input, COMMAND_REMOVE_FROM_CAT));
+			break;
+			
+		case COMMAND_SEARCH:
+			command = CommandUtils.createSearchCommand(getInputWithoutCommand(input, COMMAND_SEARCH));
+			break;
+			
+		case COMMAND_SHOW:
+			command = showParser.getCommand(getInputWithoutCommand(input, COMMAND_SHOW));
 			break;
 
 		case COMMAND_SKIN:
@@ -103,34 +132,13 @@ public class Parser {
 			String filePath = getInputWithoutCommand(input, COMMAND_STORAGE);
 			command = CommandUtils.createStorageCommand(filePath);
 			break;
-		
-		case COMMAND_HELP:
-			command = CommandUtils.createHelpCommand();
-			break;
-
-		case COMMAND_UNMARK:
-			command = unmarkParser.getCommand(getInputWithoutCommand(input, COMMAND_UNMARK));
-			break;
-		
-		case COMMAND_MOVE_TO_CAT:
-			System.out.println("reached move to cat case");
-			command = moveParser.getCommand(getInputWithoutCommand(input, COMMAND_MOVE_TO_CAT));
-			break;
-			
-		case COMMAND_REMOVE_FROM_CAT:
-			command = removeParser.getCommand(getInputWithoutCommand(input, COMMAND_REMOVE_FROM_CAT));
-			break;
 			
 		case COMMAND_UNDO:
 			command = CommandUtils.createUndoCommand();
 			break;
-			
-		case COMMAND_CLOSE:
-			command = CommandUtils.createExitCommand();
-			break;
-			
-		case COMMAND_EXIT:
-			command = CommandUtils.createExitCommand();
+
+		case COMMAND_UNMARK:
+			command = unmarkParser.getCommand(getInputWithoutCommand(input, COMMAND_UNMARK));
 			break;
 
 		default:

@@ -6,9 +6,9 @@ import dooyit.logic.commands.CommandUtils;
 
 public class AddCategoryParser extends TagParser{
 	
-	private static String userInput;
-	private static String catName;
-	private static String catColour;
+	private String userInput;
+	private String catName;
+	private String catColour;
 	private static final String DEFAULT_COLOUR = "";
 	
 	private Command command;

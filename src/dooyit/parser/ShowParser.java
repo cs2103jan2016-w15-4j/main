@@ -4,6 +4,7 @@ import dooyit.logic.commands.Command;
 import dooyit.logic.commands.CommandUtils;
 
 public class ShowParser {
+	private static final String ERROR_MESSAGE_INVALID_SHOW_COMMAND = "Error: Invalid show command";
 	private static String userInput;
 	private static final String TODAY = "today";
 	private static final String NEXT_SEVEN = "next7";
@@ -13,6 +14,7 @@ public class ShowParser {
 	private static final String CATEGORY = "cat";
 	private static final String COMPLETED = "completed";
 	private static final String FLOAT = "float";
+	private static final String OVERDUE = "overdue";
 
 	public ShowParser() {
 	
@@ -38,6 +40,9 @@ public class ShowParser {
 
 		case COMPLETED:
 			return CommandUtils.createShowCompletedCommand();
+			
+		case OVERDUE:
+			//return CommandUtils.createShowOverdueCommand();
 
 		// case DATE :
 		// DateTimeParser dateTimeParser = new DateTimeParser();
@@ -48,7 +53,7 @@ public class ShowParser {
 			return CommandUtils.createShowCategoryCommand(getCatName(userInput));
 
 		default:
-			return CommandUtils.createInvalidCommand("Invalid Show command");
+			return CommandUtils.createInvalidCommand(ERROR_MESSAGE_INVALID_SHOW_COMMAND);
 		}
 	}
 

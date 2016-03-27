@@ -9,10 +9,6 @@ public class EditCategoryParser {
 	private static final int INDEX_NEW_NAME = 1;
 	private static final int LENGTH_OF_COLOUR_MARKER = 5;
 	private static final int UNINITIALIZED = -1;
-
-	private String originalName;
-	private String newName;
-	private String newColour;
 	
 	private static final int EDIT_NAME_AND_COLOUR = 1;
 	private static final int EDIT_NAME_ONLY = 2;
@@ -20,6 +16,10 @@ public class EditCategoryParser {
 	private static final int INVALID_TOO_MANY_WORDS = 4;
 	private static final int INVALID_TOO_FEW_ARGUMENTS = 5;
 	
+	private String originalName;
+	private String newName;
+	private String newColour;
+
 	private boolean hasInsufficientArguments;
 	private boolean hasTooManyWordsInNewCategoryName;
 	

@@ -5,6 +5,7 @@ import dooyit.logic.commands.Command;
 import dooyit.logic.commands.CommandUtils;
 
 public class RemoveParser extends TagParser {
+	private static final String ERROR_MESSAGE_INVALID_REMOVE_COMMAND = "Error: Invalid remove Command!";
 	private Command command;
 
 	public RemoveParser() {
@@ -65,6 +66,6 @@ public class RemoveParser extends TagParser {
 	}
 
 	private Command getInvalidCmd() {
-		return CommandUtils.createInvalidCommand("Invalid Remove Command!");
+		return CommandUtils.createInvalidCommand(ERROR_MESSAGE_INVALID_REMOVE_COMMAND);
 	}
 }

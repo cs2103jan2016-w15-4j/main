@@ -5,6 +5,7 @@ import dooyit.logic.commands.Command;
 import dooyit.logic.commands.CommandUtils;
 
 public class MarkParser extends TagParser{
+	private static final String ERROR_MESSAGE_INVALID_MARK_COMMAND = "Error: Invalid mark Command!";
 	private Command command;
 
 	public MarkParser() {
@@ -51,7 +52,6 @@ public class MarkParser extends TagParser{
 		return CommandUtils.createMarkCommand(taskIdsForTagging);
 	}
 
-	// Eg. mark 2 4 0 9
 	private Command getMultipleTypeMarkCommand() {
 		return CommandUtils.createMarkCommand(taskIdsForTagging);
 	}
@@ -61,6 +61,6 @@ public class MarkParser extends TagParser{
 	}
 
 	private Command getInvalidCmd() {
-		return CommandUtils.createInvalidCommand("Invalid Mark Command!");
+		return CommandUtils.createInvalidCommand(ERROR_MESSAGE_INVALID_MARK_COMMAND);
 	}
 }

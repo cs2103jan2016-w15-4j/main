@@ -1,7 +1,6 @@
 package dooyit.parser;
 
 import dooyit.parser.DateTimeParserCommon;
-import java.text.DateFormat;
 import java.util.logging.*;
 
 import dooyit.common.datatype.DateTime;
@@ -10,12 +9,11 @@ import dooyit.common.exception.IncorrectInputException;
 public class DateTimeParser implements DateTimeParserCommon {
 	private static final String ERROR_MESSAGE_GOING_BACK_IN_TIME = "You can't go back in time to add a task or event!";
 	private static final String ERROR_MESSAGE_INVALID_DATE_TIME = "Invalid Date Time!";
-	DateFormat dateFormat;
-	DateTime dateTime;
-	RelativeDateParser relativeDateParser;
-	TimeParser timeParser;
-	FixedDateParser fixedDateParser;
-
+	
+	private DateTime dateTime;
+	private RelativeDateParser relativeDateParser;
+	private TimeParser timeParser;
+	private FixedDateParser fixedDateParser;
 	private static Logger logger = Logger.getLogger("DateTimeParser");
 	private static String[] daysInWeekFull = new String[] { EMPTY_STRING, "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
 

@@ -63,284 +63,284 @@ public class DateTimeParserTest {
 	int todayDayInt = todayDateTimeObject.getDayInt();
 	
 	@Test(expected = IncorrectInputException.class) 
-	public void testInvalidWordDateWithNegativeDay() {
+	public void parseInvalidWordDateWithNegativeDay() {
 		String wordDate = "-1 Mar 2016";
 		dateTimeParser.parse(wordDate);
 	}
 	
 	@Test(expected = IncorrectInputException.class) 
-	public void testInvalidWordDateWithNegativeYear() {
+	public void parseInvalidWordDateWithNegativeYear() {
 		String wordDate = "1 Mar -2016";
 		dateTimeParser.parse(wordDate);
 	}
 	
 	@Test(expected = IncorrectInputException.class) 
-	public void testInvalidWordDate() {
+	public void parseInvalidWordDate() {
 		String numberDate = "1 Gibberish 2016";
 		dateTimeParser.parse(numberDate);
 	}
 	
 	@Test(expected = IncorrectInputException.class) 
-	public void testParseNumberDateWithInvalidPositiveDay() {
+	public void parseNumberDateWithInvalidPositiveDay() {
 		String numberDate = "40/10/2016";
 		dateTimeParser.parse(numberDate);
 	}
 	
 	@Test(expected = IncorrectInputException.class) 
-	public void testParseIncompleteNumberDate() {
+	public void parseIncompleteNumberDate() {
 		String numberDate = "4/";
 		dateTimeParser.parse(numberDate);
 	}
 	
 	@Test(expected = IncorrectInputException.class) 
-	public void testParseInvalidNumberDateTooManyFields() {
+	public void parseInvalidNumberDateTooManyFields() {
 		String numberDate = "4/10/2016/20/15";
 		dateTimeParser.parse(numberDate);
 	}
 	
 	@Test(expected = IncorrectInputException.class) 
-	public void testParseInvalidNumberDate() {
+	public void parseInvalidNumberDate() {
 		String numberDate = "a/b/c";
 		dateTimeParser.parse(numberDate);
 	}
 	
 	@Test(expected = IncorrectInputException.class) 
-	public void testParseNumberDateWithInvalidPositiveYear() {
+	public void parseNumberDateWithInvalidPositiveYear() {
 		String numberDate = "4/10/16";
 		dateTimeParser.parse(numberDate);
 	}
 	
 	@Test(expected = IncorrectInputException.class) 
-	public void testParseNegative24Hour() {
+	public void parseNegative24Hour() {
 		String time = "-11:30";
 		dateTimeParser.parse(time);
 	}
 	
 	@Test(expected = IncorrectInputException.class) 
-	public void testParseNumberOfWeeks() {
+	public void parseNumberOfWeeks() {
 		String relativeDate = "-10 weeks";
 		dateTimeParser.parse(relativeDate);
 	}
 	
 	@Test(expected = IncorrectInputException.class) 
-	public void testParseNegativeGibberish() {
+	public void parseNegativeGibberish() {
 		String relativeDate = "-10 Gibberish";
 		dateTimeParser.parse(relativeDate);
 	}
 	
 	@Test(expected = IncorrectInputException.class) 
-	public void testParseGibberish() {
+	public void parseGibberish() {
 		String time = "-10 -1000 -2018 pm";
 		dateTimeParser.parse(time);
 	}
 	
 	@Test(expected = IncorrectInputException.class) 
-	public void testParseNegativeElevenAm() {
+	public void parseNegativeElevenAm() {
 		String time = "-11am";
 		dateTimeParser.parse(time);
 	}
 	
 	@Test(expected = IncorrectInputException.class) 
-	public void testParseZeroAm() {
+	public void parseZeroAm() {
 		String time = "0am";
 		dateTimeParser.parse(time);
 	}
 	
 	@Test(expected = IncorrectInputException.class) 
-	public void testParseTwentyFivePm() {
+	public void parseTwentyFivePm() {
 		String time = "25 Pm";
 		dateTimeParser.parse(time);
 	}
 	
 	@Test(expected = IncorrectInputException.class) 
-	public void testParseThirteenPm() {
+	public void parseThirteenPm() {
 		String time = "13 Pm";
 		dateTimeParser.parse(time);
 	}
 	
 	@Test(expected = IncorrectInputException.class) 
-	public void testParseThirteenSixtyPm() {
+	public void parseThirteenSixtyPm() {
 		String time = "3:60 Pm";
 		dateTimeParser.parse(time);
 	}
 	
 	@Test(expected = IncorrectInputException.class) 
-	public void testParseThirteenSixtyAm() {
+	public void parseThirteenSixtyAm() {
 		String time = "3:60 Am";
 		dateTimeParser.parse(time);
 	}
 	
 	@Test(expected = IncorrectInputException.class) 
-	public void testParseForteenNegativeElevenAm() {
+	public void parseForteenNegativeElevenAm() {
 		String time = "11.-11am";
 		dateTimeParser.parse(time);
 	}
 	
 	@Test(expected = IncorrectInputException.class) 
-	public void testParseForteenNegativeElevenPm() {
+	public void parseForteenNegativeElevenPm() {
 		String time = "11.-11pm";
 		dateTimeParser.parse(time);
 	}
 	
 	@Test(expected = IncorrectInputException.class) 
-	public void testParseForteenNegativeElevenAmWithSpacing() {
+	public void parseForteenNegativeElevenAmWithSpacing() {
 		String time = "11.-11 am";
 		dateTimeParser.parse(time);
 	}
 	
 	@Test(expected = IncorrectInputException.class) 
-	public void testParseForteenNegativeElevenPmWithSpacing() {
+	public void parseForteenNegativeElevenPmWithSpacing() {
 		String time = "11.-11 pm";
 		dateTimeParser.parse(time);
 	}
 	
 	@Test(expected = IncorrectInputException.class) 
-	public void testParseEmptyString() {
+	public void parseEmptyString() {
 		String numberDate = "";
 		dateTimeParser.parse(numberDate);
 	}
 	
 	@Test(expected = IncorrectInputException.class) 
-	public void testParseInvalid24HTime1() {
+	public void parseInvalid24HTime1() {
 		String time = "24:30";
 		dateTimeParser.parse(time);
 	}
 	
 	@Test(expected = IncorrectInputException.class) 
-	public void testParseInvalid24HTime2() {
+	public void parseInvalid24HTime2() {
 		String time = "2:60";
 		dateTimeParser.parse(time);
 	}
 	
 	@Test(expected = IncorrectInputException.class) 
-	public void testParseInvalid24HTime3() {
+	public void parseInvalid24HTime3() {
 		String time = "24:60";
 		dateTimeParser.parse(time);
 	}
 	
 	@Test(expected = IncorrectInputException.class) 
-	public void testParseInvalid24HTime4() {
+	public void parseInvalid24HTime4() {
 		String time = "1:-60";
 		dateTimeParser.parse(time);
 	}
 	
 	@Test(expected = IncorrectInputException.class) 
-	public void testParseInvalid24HTime5() {
+	public void parseInvalid24HTime5() {
 		String time = "-1:50";
 		dateTimeParser.parse(time);
 	}
 	
 	@Test(expected = IncorrectInputException.class) 
-	public void testParseInvalid24HTime6() {
+	public void parseInvalid24HTime6() {
 		String time = "-1:-50";
 		dateTimeParser.parse(time);
 	}
 	
 	@Test(expected = IncorrectInputException.class) 
-	public void testParseNestedTimeIndicator1() {
+	public void parseNestedTimeIndicator1() {
 		String time = "1.40 pmer";
 		dateTimeParser.parse(time);
 	}
 	
 	@Test(expected = IncorrectInputException.class) 
-	public void testParseNestedTimeIndicator2() {
+	public void parseNestedTimeIndicator2() {
 		String time = "1.40 amer";
 		dateTimeParser.parse(time);
 	}
 	
 	@Test(expected = IncorrectInputException.class) 
-	public void testParseNestedTimeIndicator3() {
+	public void parseNestedTimeIndicator3() {
 		String time = "1.40pmer";
 		dateTimeParser.parse(time);
 	}
 	
 	@Test(expected = IncorrectInputException.class) 
-	public void testParseNestedTimeIndicator4() {
+	public void parseNestedTimeIndicator4() {
 		String time = "1.40amer";
 		dateTimeParser.parse(time);
 	}
 	
 	@Test(expected = IncorrectInputException.class) 
-	public void testParseTimeAmAndPm1() {
+	public void parseTimeAmAndPm1() {
 		String time = "1.40ampm";
 		dateTimeParser.parse(time);
 	}
 	
 	@Test(expected = IncorrectInputException.class) 
-	public void testParseTimeAmAndPm2() {
+	public void parseTimeAmAndPm2() {
 		String time = "1.40pmam";
 		dateTimeParser.parse(time);
 	}
 	
 	@Test(expected = IncorrectInputException.class) 
-	public void testParseTimeAmAndPm3() {
+	public void parseTimeAmAndPm3() {
 		String time = "1.40 pmam";
 		dateTimeParser.parse(time);
 	}
 	
 	@Test(expected = IncorrectInputException.class) 
-	public void testParseTimeAmAndPm4() {
+	public void parseTimeAmAndPm4() {
 		String time = "1.40 ampm";
 		dateTimeParser.parse(time);
 	}
 	
 	
 	@Test(expected = IncorrectInputException.class) 
-	public void testParseNegativeNumberDate() {
+	public void parseNegativeNumberDate() {
 		String numberDate = "-10 -12 -2016";
 		dateTimeParser.parse(numberDate);
 	}
 	
 	/* This is a boundary case for the ‘positive value’ partition */
 	@Test(expected = IncorrectInputException.class) 
-	public void testParseInvalidMonthInNumberDate() {
+	public void parseInvalidMonthInNumberDate() {
 		String numberDate = "29/20/2017";
 		dateTimeParser.parse(numberDate);
 	}
 	
 	/* This is a boundary case for the ‘positive value’ partition */
 	@Test(expected = IncorrectInputException.class) 
-	public void testParseInvalidNumberDateLeapDay() {
+	public void parseInvalidNumberDateLeapDay() {
 		String numberDate = "29/2/2017";
 		dateTimeParser.parse(numberDate);
 	}
 	
 	/* This is a boundary case for the ‘negative value’ partition */
 	@Test(expected = IncorrectInputException.class) 
-	public void testParseNumberDateWithInvalidNegativeDay() {
+	public void parseNumberDateWithInvalidNegativeDay() {
 		String numberDate = "-1/10/2016";
 		dateTimeParser.parse(numberDate);
 	}
 	
 	/* This is a boundary case for the ‘negative value’ partition */
 	@Test(expected = IncorrectInputException.class) 
-	public void testParseNumberDateWithInvalidNegativeMonth() {
+	public void parseNumberDateWithInvalidNegativeMonth() {
 		String numberDate = "1/-10/2016";
 		dateTimeParser.parse(numberDate);
 	}
 	
 	/* This is a boundary case for the ‘negative value’ partition */
 	@Test(expected = IncorrectInputException.class) 
-	public void testParseNumberDateWithInvalidNegativeYear() {
+	public void parseNumberDateWithInvalidNegativeYear() {
 		String numberDate = "1/10/-2016";
 		dateTimeParser.parse(numberDate);
 	}
 	
 	/* This is a boundary case for the ‘negative value’ partition */
 	@Test(expected = IncorrectInputException.class) 
-	public void testParseNumberDateWithInvalidNegativeDayMonthYear() {
+	public void parseNumberDateWithInvalidNegativeDayMonthYear() {
 		String numberDate = "-1/-10/-2016";
 		dateTimeParser.parse(numberDate);
 	}
 	
 	@Test(expected = IncorrectInputException.class) 
-	public void testParseDateThatHasPassed() {
+	public void parseDateThatHasPassed() {
 		String userInput = "17 Feb 2015";
 		referenceDateTimeParser.parse(userInput);
 	}
 	
 	@Test
-	public void testParseTimeThatHasPassed() {
+	public void parseTimeThatHasPassed() {
 		String userInput = "5 am";
 		DateTime parsedDateTimeObject = referenceDateTimeParser.parse(userInput);
 		
@@ -357,7 +357,7 @@ public class DateTimeParserTest {
 	}
 	
 	@Test
-	public void testParseTime12HourTimeNoSpace1() {
+	public void parseTime12HourTimeNoSpace1() {
 		String userInput = "1am";
 		DateTime parsedDateTimeObject = referenceDateTimeParser.parse(userInput);
 		
@@ -368,8 +368,8 @@ public class DateTimeParserTest {
 		String time12hStringParsed = parsedDateTimeObject.getTime12hStr();
 		String time24hStringParsed = parsedDateTimeObject.getTime24hStr();
 		int expectedTime24H = 100;
-		String expected12hString = "1 am";
-		String expected24hString = "1:00";
+		String expected12hString = "1.00 am";
+		String expected24hString = "01:00";
 		
 		assertEquals(dateParsed, REFERENCE_TOMORROW_DATE);
 		assertEquals(dayStrParsed, REFERENCE_TOMORROW_DAY_STRING);
@@ -380,7 +380,7 @@ public class DateTimeParserTest {
 	}
 	
 	@Test
-	public void testParseTime12HourTimeNoSpace2() {
+	public void parseTime12HourTimeNoSpace2() {
 		String userInput = "2am";
 		DateTime parsedDateTimeObject = referenceDateTimeParser.parse(userInput);
 		
@@ -391,8 +391,8 @@ public class DateTimeParserTest {
 		String time12hStringParsed = parsedDateTimeObject.getTime12hStr();
 		String time24hStringParsed = parsedDateTimeObject.getTime24hStr();
 		int expectedTime24H = 200;
-		String expected12hString = "2 am";
-		String expected24hString = "2:00";
+		String expected12hString = "2.00 am";
+		String expected24hString = "02:00";
 		
 		assertEquals(dateParsed, REFERENCE_TOMORROW_DATE);
 		assertEquals(dayStrParsed, REFERENCE_TOMORROW_DAY_STRING);
@@ -403,7 +403,7 @@ public class DateTimeParserTest {
 	}
 	
 	@Test
-	public void testParseTime12HourTimeNoSpace3() {
+	public void parseTime12HourTimeNoSpace3() {
 		String userInput = "3am";
 		DateTime parsedDateTimeObject = referenceDateTimeParser.parse(userInput);
 		
@@ -414,8 +414,8 @@ public class DateTimeParserTest {
 		String time12hStringParsed = parsedDateTimeObject.getTime12hStr();
 		String time24hStringParsed = parsedDateTimeObject.getTime24hStr();
 		int expectedTime24H = 300;
-		String expected12hString = "3 am";
-		String expected24hString = "3:00";
+		String expected12hString = "3.00 am";
+		String expected24hString = "03:00";
 		
 		assertEquals(dateParsed, REFERENCE_TOMORROW_DATE);
 		assertEquals(dayStrParsed, REFERENCE_TOMORROW_DAY_STRING);
@@ -426,8 +426,8 @@ public class DateTimeParserTest {
 	}
 	
 	@Test
-	public void testParseTime12HourTimeNoSpace4() {
-		String userInput = "4am";
+	public void parseTime12HourTimeNoSpace4() {
+		String userInput = "10am";
 		DateTime parsedDateTimeObject = referenceDateTimeParser.parse(userInput);
 		
 		String dateParsed = parsedDateTimeObject.getDate();
@@ -436,55 +436,9 @@ public class DateTimeParserTest {
 		int time24hParsed = parsedDateTimeObject.getTimeInt();
 		String time12hStringParsed = parsedDateTimeObject.getTime12hStr();
 		String time24hStringParsed = parsedDateTimeObject.getTime24hStr();
-		int expectedTime24H = 400;
-		String expected12hString = "4 am";
-		String expected24hString = "4:00";
-		
-		assertEquals(dateParsed, REFERENCE_TOMORROW_DATE);
-		assertEquals(dayStrParsed, REFERENCE_TOMORROW_DAY_STRING);
-		assertEquals(dayIntParsed, REFERENCE_TOMORROW_DAY_INT);
-		assertEquals(time24hParsed, expectedTime24H);
-		assertEquals(time12hStringParsed, expected12hString);
-		assertEquals(time24hStringParsed, expected24hString);
-	}
-	
-	@Test
-	public void testParseTime12HourTimeNoSpace5() {
-		String userInput = "5am";
-		DateTime parsedDateTimeObject = referenceDateTimeParser.parse(userInput);
-		
-		String dateParsed = parsedDateTimeObject.getDate();
-		String dayStrParsed = parsedDateTimeObject.getDayStr();
-		int dayIntParsed = parsedDateTimeObject.getDayInt();
-		int time24hParsed = parsedDateTimeObject.getTimeInt();
-		String time12hStringParsed = parsedDateTimeObject.getTime12hStr();
-		String time24hStringParsed = parsedDateTimeObject.getTime24hStr();
-		int expectedTime24H = 500;
-		String expected12hString = "5 am";
-		String expected24hString = "5:00";
-		
-		assertEquals(dateParsed, REFERENCE_TOMORROW_DATE);
-		assertEquals(dayStrParsed, REFERENCE_TOMORROW_DAY_STRING);
-		assertEquals(dayIntParsed, REFERENCE_TOMORROW_DAY_INT);
-		assertEquals(time24hParsed, expectedTime24H);
-		assertEquals(time12hStringParsed, expected12hString);
-		assertEquals(time24hStringParsed, expected24hString);
-	}
-	
-	@Test
-	public void testParseTime12HourTimeNoSpace6() {
-		String userInput = "6am";
-		DateTime parsedDateTimeObject = referenceDateTimeParser.parse(userInput);
-		
-		String dateParsed = parsedDateTimeObject.getDate();
-		String dayStrParsed = parsedDateTimeObject.getDayStr();
-		int dayIntParsed = parsedDateTimeObject.getDayInt();
-		int time24hParsed = parsedDateTimeObject.getTimeInt();
-		String time12hStringParsed = parsedDateTimeObject.getTime12hStr();
-		String time24hStringParsed = parsedDateTimeObject.getTime24hStr();
-		int expectedTime24H = 600;
-		String expected12hString = "6 am";
-		String expected24hString = "6:00";
+		int expectedTime24H = 1000;
+		String expected12hString = "10.00 am";
+		String expected24hString = "10:00";
 		
 		assertEquals(dateParsed, REFERENCE_TODAY_DATE);
 		assertEquals(dayStrParsed, REFERENCE_TODAY_DAY_STRING);
@@ -495,7 +449,53 @@ public class DateTimeParserTest {
 	}
 	
 	@Test
-	public void testParseTimeThatHasPassedWithToday() {
+	public void parseTime12HourTimeNoSpace5() {
+		String userInput = "12pm";
+		DateTime parsedDateTimeObject = referenceDateTimeParser.parse(userInput);
+		
+		String dateParsed = parsedDateTimeObject.getDate();
+		String dayStrParsed = parsedDateTimeObject.getDayStr();
+		int dayIntParsed = parsedDateTimeObject.getDayInt();
+		int time24hParsed = parsedDateTimeObject.getTimeInt();
+		String time12hStringParsed = parsedDateTimeObject.getTime12hStr();
+		String time24hStringParsed = parsedDateTimeObject.getTime24hStr();
+		int expectedTime24H = 1200;
+		String expected12hString = "12.00 pm";
+		String expected24hString = "12:00";
+		
+		assertEquals(dateParsed, REFERENCE_TODAY_DATE);
+		assertEquals(dayStrParsed, REFERENCE_TODAY_DAY_STRING);
+		assertEquals(dayIntParsed, REFERENCE_TODAY_DAY_INT);
+		assertEquals(time24hParsed, expectedTime24H);
+		assertEquals(time12hStringParsed, expected12hString);
+		assertEquals(time24hStringParsed, expected24hString);
+	}
+	
+	@Test
+	public void parseTime12HourTimeNoSpace6() {
+		String userInput = "11pm";
+		DateTime parsedDateTimeObject = referenceDateTimeParser.parse(userInput);
+		
+		String dateParsed = parsedDateTimeObject.getDate();
+		String dayStrParsed = parsedDateTimeObject.getDayStr();
+		int dayIntParsed = parsedDateTimeObject.getDayInt();
+		int time24hParsed = parsedDateTimeObject.getTimeInt();
+		String time12hStringParsed = parsedDateTimeObject.getTime12hStr();
+		String time24hStringParsed = parsedDateTimeObject.getTime24hStr();
+		int expectedTime24H = 2300;
+		String expected12hString = "11.00 pm";
+		String expected24hString = "23:00";
+		
+		assertEquals(dateParsed, REFERENCE_TODAY_DATE);
+		assertEquals(dayStrParsed, REFERENCE_TODAY_DAY_STRING);
+		assertEquals(dayIntParsed, REFERENCE_TODAY_DAY_INT);
+		assertEquals(time24hParsed, expectedTime24H);
+		assertEquals(time12hStringParsed, expected12hString);
+		assertEquals(time24hStringParsed, expected24hString);
+	}
+	
+	@Test
+	public void parseTimeThatHasPassedWithToday() {
 		String userInput = "today 5 am";
 		DateTime parsedDateTimeObject = referenceDateTimeParser.parse(userInput);
 		
@@ -512,7 +512,7 @@ public class DateTimeParserTest {
 	} 
 	
 	@Test
-	public void testParseSaturday() {
+	public void parseSaturday() {
 		String userInput = "saturday";
 		DateTime userDate = referenceDateTimeParser.parse(userInput);
 		
@@ -526,7 +526,7 @@ public class DateTimeParserTest {
 	}
 	
 	@Test
-	public void testParseSaturdayCaseInsensitive() {
+	public void parseSaturdayCaseInsensitive() {
 		String userInput = "satURDay";
 		DateTime userDate = referenceDateTimeParser.parse(userInput);
 		
@@ -540,7 +540,7 @@ public class DateTimeParserTest {
 	}
 	
 	@Test
-	public void testParseThisSaturday() {
+	public void parseThisSaturday() {
 		String userInput = "this saturday";
 		DateTime userDate = referenceDateTimeParser.parse(userInput);
 		
@@ -554,7 +554,7 @@ public class DateTimeParserTest {
 	}
 	
 	@Test
-	public void testParseThisSaturdayCaseInsensitive() {
+	public void parseThisSaturdayCaseInsensitive() {
 		String userInput = "ThIs satURDay";
 		DateTime userDate = referenceDateTimeParser.parse(userInput);
 		
@@ -568,7 +568,7 @@ public class DateTimeParserTest {
 	}
 	
 	@Test
-	public void testParseNextSaturday() {
+	public void parseNextSaturday() {
 		String userInput = "next saturday";
 		DateTime userDate = referenceDateTimeParser.parse(userInput);
 		
@@ -582,7 +582,7 @@ public class DateTimeParserTest {
 	}
 	
 	@Test
-	public void testParseNextSaturdayCaseInsensitive() {
+	public void parseNextSaturdayCaseInsensitive() {
 		String userInput = "nExT satURday";
 		DateTime userDate = referenceDateTimeParser.parse(userInput);
 		
@@ -596,7 +596,7 @@ public class DateTimeParserTest {
 	}
 	
 	@Test
-	public void testParseMonday() {
+	public void parseMonday() {
 		String userInput = "monday";
 		DateTime userDate = referenceDateTimeParser.parse(userInput);
 		
@@ -610,7 +610,7 @@ public class DateTimeParserTest {
 	}
 	
 	@Test
-	public void testParseMondayCaseInsensitive() {
+	public void parseMondayCaseInsensitive() {
 		String userInput = "mONdaY";
 		DateTime userDate = referenceDateTimeParser.parse(userInput);
 		
@@ -624,7 +624,7 @@ public class DateTimeParserTest {
 	}
 	
 	@Test
-	public void testParseThisMonday() {
+	public void parseThisMonday() {
 		String userInput = "this monday";
 		DateTime userDate = referenceDateTimeParser.parse(userInput);
 		
@@ -638,7 +638,7 @@ public class DateTimeParserTest {
 	}
 	
 	@Test
-	public void testParseThisMondayCaseInsensitive() {
+	public void parseThisMondayCaseInsensitive() {
 		String userInput = "thIs mONday";
 		DateTime userDate = referenceDateTimeParser.parse(userInput);
 		
@@ -652,7 +652,7 @@ public class DateTimeParserTest {
 	}
 	
 	@Test
-	public void testParseNextMonday() {
+	public void parseNextMonday() {
 		String userInput = "next monday";
 		DateTime userDate = referenceDateTimeParser.parse(userInput);
 		
@@ -666,7 +666,7 @@ public class DateTimeParserTest {
 	}
 	
 	@Test
-	public void testParseNextMondayCaseInsensitive() {
+	public void parseNextMondayCaseInsensitive() {
 		String userInput = "NExt mONday";
 		DateTime userDate = referenceDateTimeParser.parse(userInput);
 		
@@ -680,7 +680,7 @@ public class DateTimeParserTest {
 	}
 	
 	@Test
-	public void testParseThisMon() {
+	public void parseThisMon() {
 		String userInput = "this mon";
 		DateTime userDate = referenceDateTimeParser.parse(userInput);
 		
@@ -694,7 +694,7 @@ public class DateTimeParserTest {
 	}
 	
 	@Test
-	public void testParseThisMonCaseInsensitive() {
+	public void parseThisMonCaseInsensitive() {
 		String userInput = "tHIs mON";
 		DateTime userDate = referenceDateTimeParser.parse(userInput);
 		
@@ -708,7 +708,7 @@ public class DateTimeParserTest {
 	}
 	
 	@Test
-	public void testParseTwelveDaysLater() {
+	public void parseTwelveDaysLater() {
 		String userInput = "12 days";
 		DateTime userDate = referenceDateTimeParser.parse(userInput);
 		
@@ -722,7 +722,7 @@ public class DateTimeParserTest {
 	}
 	
 	@Test
-	public void testParseTwelveDaysLaterCaseInsensitive() {
+	public void parseTwelveDaysLaterCaseInsensitive() {
 		String userInput = "12 DAys";
 		DateTime userDate = referenceDateTimeParser.parse(userInput);
 		
@@ -736,7 +736,7 @@ public class DateTimeParserTest {
 	}
 	
 	@Test
-	public void testParseTwelveDay() {
+	public void parseTwelveDay() {
 		String userInput = "12 day";
 		DateTime userDate = referenceDateTimeParser.parse(userInput);
 		
@@ -750,7 +750,7 @@ public class DateTimeParserTest {
 	}
 	
 	@Test
-	public void testParseTwelveDayLaterCaseInsensitive() {
+	public void parseTwelveDayLaterCaseInsensitive() {
 		String userInput = "12 DAy";
 		DateTime userDate = referenceDateTimeParser.parse(userInput);
 		
@@ -764,7 +764,7 @@ public class DateTimeParserTest {
 	}
 	
 	@Test
-	public void testParseTwelveDD() {
+	public void parseTwelveDD() {
 		String userInput = "12 dd";
 		DateTime userDate = referenceDateTimeParser.parse(userInput);
 		
@@ -778,7 +778,7 @@ public class DateTimeParserTest {
 	}
 	
 	@Test
-	public void testParseTwelveDDCaseInsensitive() {
+	public void parseTwelveDDCaseInsensitive() {
 		String userInput = "12 Dd";
 		DateTime userDate = referenceDateTimeParser.parse(userInput);
 		
@@ -792,7 +792,7 @@ public class DateTimeParserTest {
 	}
 	
 	@Test
-	public void testParseNextWeek() {
+	public void parseNextWeek() {
 		String userInput = "next week";
 		DateTime userDate = referenceDateTimeParser.parse(userInput);
 		
@@ -806,7 +806,7 @@ public class DateTimeParserTest {
 	}
 	
 	@Test
-	public void testParseNextWeekCaseInsensitive() {
+	public void parseNextWeekCaseInsensitive() {
 		String userInput = "next wEEk";
 		DateTime userDate = referenceDateTimeParser.parse(userInput);
 		
@@ -820,7 +820,7 @@ public class DateTimeParserTest {
 	}
 	
 	@Test
-	public void testParseNextWeeks() {
+	public void parseNextWeeks() {
 		String userInput = "next weeks";
 		DateTime userDate = referenceDateTimeParser.parse(userInput);
 		
@@ -834,7 +834,7 @@ public class DateTimeParserTest {
 	}
 	
 	@Test
-	public void testParseNextWeeksCaseInsensitive() {
+	public void parseNextWeeksCaseInsensitive() {
 		String userInput = "next wEEks";
 		DateTime userDate = referenceDateTimeParser.parse(userInput);
 		
@@ -848,7 +848,7 @@ public class DateTimeParserTest {
 	}
 	
 	@Test
-	public void testParseNextWk() {
+	public void parseNextWk() {
 		String userInput = "next wk";
 		DateTime userDate = referenceDateTimeParser.parse(userInput);
 		
@@ -862,7 +862,7 @@ public class DateTimeParserTest {
 	}
 	
 	@Test
-	public void testParseThreeWeeksLater() {
+	public void parseThreeWeeksLater() {
 		String userInput = "3 weeks";
 		DateTime userDate = referenceDateTimeParser.parse(userInput);
 		
@@ -876,7 +876,7 @@ public class DateTimeParserTest {
 	}
 	
 	@Test
-	public void testParseThreeWeeksLaterCaseInsensitive() {
+	public void parseThreeWeeksLaterCaseInsensitive() {
 		String userInput = "3 wEEks";
 		DateTime userDate = referenceDateTimeParser.parse(userInput);
 		
@@ -890,7 +890,7 @@ public class DateTimeParserTest {
 	}
 	
 	@Test
-	public void testParseThreeWeekLater() {
+	public void parseThreeWeekLater() {
 		String userInput = "3 week";
 		DateTime userDate = referenceDateTimeParser.parse(userInput);
 		
@@ -904,7 +904,7 @@ public class DateTimeParserTest {
 	}
 	
 	@Test
-	public void testParseThreeWeekLaterCaseInsensitive() {
+	public void parseThreeWeekLaterCaseInsensitive() {
 		String userInput = "3 weEK";
 		DateTime userDate = referenceDateTimeParser.parse(userInput);
 		
@@ -918,7 +918,7 @@ public class DateTimeParserTest {
 	}
 	
 	@Test
-	public void testParseThreeWkLater() {
+	public void parseThreeWkLater() {
 		String userInput = "3 wk";
 		DateTime userDate = referenceDateTimeParser.parse(userInput);
 		
@@ -932,7 +932,7 @@ public class DateTimeParserTest {
 	}
 	
 	@Test
-	public void testParseThreeWkLaterCaseInsensitive() {
+	public void parseThreeWkLaterCaseInsensitive() {
 		String userInput = "3 WK";
 		DateTime userDate = referenceDateTimeParser.parse(userInput);
 		
@@ -946,7 +946,7 @@ public class DateTimeParserTest {
 	}
 	
 	@Test 
-	public void testParseNumberDate() {
+	public void parseNumberDate() {
 		String numberDate = "1/10/2016";
 		DateTime userDate = dateTimeParser.parse(numberDate);
 		
@@ -956,7 +956,7 @@ public class DateTimeParserTest {
 	}
 	
 	@Test 
-	public void testParseNumberDateWithoutYearNotOver() {
+	public void parseNumberDateWithoutYearNotOver() {
 		String numberDate = "1/10";
 		DateTime userDate = dateTimeParser.parse(numberDate);
 		
@@ -966,7 +966,7 @@ public class DateTimeParserTest {
 	}
 	
 	@Test 
-	public void testParseNumberDateWithoutYearOver() {
+	public void parseNumberDateWithoutYearOver() {
 		String numberDate = "1/2";
 		DateTime userDate = dateTimeParser.parse(numberDate);
 		
@@ -976,7 +976,7 @@ public class DateTimeParserTest {
 	}
 	
 	@Test 
-	public void testParseWordDate() {
+	public void parseWordDate() {
 		String numberDate = "12 Dec 2016";
 		DateTime userDate = dateTimeParser.parse(numberDate);
 		
@@ -986,7 +986,7 @@ public class DateTimeParserTest {
 	}
 	
 	@Test 
-	public void testParseWordDateWithoutYearOver() {
+	public void parseWordDateWithoutYearOver() {
 		String numberDate = "12 Mar";
 		DateTime userDate = dateTimeParser.parse(numberDate);
 		
@@ -996,7 +996,7 @@ public class DateTimeParserTest {
 	}
 	
 	@Test 
-	public void testParseWordDateWithoutYearNotOver() {
+	public void parseWordDateWithoutYearNotOver() {
 		String numberDate = "12 Sep";
 		DateTime userDate = dateTimeParser.parse(numberDate);
 		
@@ -1006,7 +1006,7 @@ public class DateTimeParserTest {
 	}
 	
 	@Test 
-	public void testParseWordDateMonthOnlyNotOver() {
+	public void parseWordDateMonthOnlyNotOver() {
 		String numberDate = "Sep";
 		DateTime userDate = dateTimeParser.parse(numberDate);
 		
@@ -1016,7 +1016,7 @@ public class DateTimeParserTest {
 	}
 	
 	@Test 
-	public void testParseWordDateMonthOnlyOver() {
+	public void parseWordDateMonthOnlyOver() {
 		String numberDate = "Feb";
 		DateTime userDate = dateTimeParser.parse(numberDate);
 		
@@ -1026,7 +1026,7 @@ public class DateTimeParserTest {
 	}
 	
 	@Test
-	public void testParseTenThirtyAmWithSpaceAndDotTimeSeparator() {
+	public void parseTenThirtyAmWithSpaceAndDotTimeSeparator() {
 		String timeInput = "10.30 am";
 		DateTime parsedDateTimeObject = referenceDateTimeParser.parse(timeInput);
 		String dateParsed = parsedDateTimeObject.getDate();
@@ -1050,7 +1050,7 @@ public class DateTimeParserTest {
 	}
 	
 	@Test
-	public void testParseTenThirtyAmWithSpaceAndDotTimeSeparatorCaseInsensitive() {
+	public void parseTenThirtyAmWithSpaceAndDotTimeSeparatorCaseInsensitive() {
 		String timeInput = "10.30 Am";
 		DateTime parsedDateTimeObject = referenceDateTimeParser.parse(timeInput);
 		String dateParsed = parsedDateTimeObject.getDate();
@@ -1075,7 +1075,7 @@ public class DateTimeParserTest {
 	
 	
 	@Test
-	public void testParseTenThirtyAmWithoutSpaceAndDotTimeSeparator() {
+	public void parseTenThirtyAmWithoutSpaceAndDotTimeSeparator() {
 		String timeInput = "10.30am";
 		DateTime parsedDateTimeObject = referenceDateTimeParser.parse(timeInput);
 		String dateParsed = parsedDateTimeObject.getDate();
@@ -1099,7 +1099,7 @@ public class DateTimeParserTest {
 	}
 	
 	@Test
-	public void testParseTenThirtyAmWithoutSpaceAndDotTimeSeparatorCaseInsensitive() {
+	public void parseTenThirtyAmWithoutSpaceAndDotTimeSeparatorCaseInsensitive() {
 		String timeInput = "10.30AM";
 		DateTime parsedDateTimeObject = referenceDateTimeParser.parse(timeInput);
 		String dateParsed = parsedDateTimeObject.getDate();
@@ -1123,7 +1123,7 @@ public class DateTimeParserTest {
 	}
 	
 	@Test
-	public void testParseTenThirtyPmWithSpaceAndDotTimeSeparator() {
+	public void parseTenThirtyPmWithSpaceAndDotTimeSeparator() {
 		String timeInput = "10.30 pm";
 		DateTime parsedDateTimeObject = referenceDateTimeParser.parse(timeInput);
 		String dateParsed = parsedDateTimeObject.getDate();
@@ -1147,7 +1147,7 @@ public class DateTimeParserTest {
 	}
 	
 	@Test
-	public void testParseTenThirtyPmWithSpaceAndDotTimeSeparatorCaseInsensitive() {
+	public void parseTenThirtyPmWithSpaceAndDotTimeSeparatorCaseInsensitive() {
 		String timeInput = "10.30 pM";
 		DateTime parsedDateTimeObject = referenceDateTimeParser.parse(timeInput);
 		String dateParsed = parsedDateTimeObject.getDate();
@@ -1171,7 +1171,7 @@ public class DateTimeParserTest {
 	}
 	
 	@Test
-	public void testParseTenThirtyPmWithoutSpaceAndDotTimeSeparator() {
+	public void parseTenThirtyPmWithoutSpaceAndDotTimeSeparator() {
 		String timeInput = "10.30pm";
 		DateTime parsedDateTimeObject = referenceDateTimeParser.parse(timeInput);
 		String dateParsed = parsedDateTimeObject.getDate();
@@ -1195,7 +1195,7 @@ public class DateTimeParserTest {
 	}
 	
 	@Test
-	public void testParseTenThirtyPmWithoutSpaceAndDotTimeSeparatorCaseInsensitive() {
+	public void parseTenThirtyPmWithoutSpaceAndDotTimeSeparatorCaseInsensitive() {
 		String timeInput = "10.30PM";
 		DateTime parsedDateTimeObject = referenceDateTimeParser.parse(timeInput);
 		String dateParsed = parsedDateTimeObject.getDate();
@@ -1219,7 +1219,7 @@ public class DateTimeParserTest {
 	}
 	
 	@Test
-	public void testParseTenThirtyAmWithSpaceAndColonTimeSeparator() {
+	public void parseTenThirtyAmWithSpaceAndColonTimeSeparator() {
 		String timeInput = "10:30 am";
 		DateTime parsedDateTimeObject = referenceDateTimeParser.parse(timeInput);
 		String dateParsed = parsedDateTimeObject.getDate();
@@ -1243,7 +1243,7 @@ public class DateTimeParserTest {
 	}
 	
 	@Test
-	public void testParseTenThirtyAmWithSpaceAndColonTimeSeparatorCaseInsensitive() {
+	public void parseTenThirtyAmWithSpaceAndColonTimeSeparatorCaseInsensitive() {
 		String timeInput = "10:30 AM";
 		DateTime parsedDateTimeObject = referenceDateTimeParser.parse(timeInput);
 		String dateParsed = parsedDateTimeObject.getDate();
@@ -1267,7 +1267,7 @@ public class DateTimeParserTest {
 	}
 	
 	@Test
-	public void testParseTenThirtyAmWithoutSpaceAndColonTimeSeparator() {
+	public void parseTenThirtyAmWithoutSpaceAndColonTimeSeparator() {
 		String timeInput = "10:30am";
 		DateTime parsedDateTimeObject = referenceDateTimeParser.parse(timeInput);
 		String dateParsed = parsedDateTimeObject.getDate();
@@ -1291,7 +1291,7 @@ public class DateTimeParserTest {
 	}
 	
 	@Test
-	public void testParseTenThirtyAmWithoutSpaceAndColonTimeSeparatorCaseInsensitive() {
+	public void parseTenThirtyAmWithoutSpaceAndColonTimeSeparatorCaseInsensitive() {
 		String timeInput = "10:30Am";
 		DateTime parsedDateTimeObject = referenceDateTimeParser.parse(timeInput);
 		String dateParsed = parsedDateTimeObject.getDate();
@@ -1315,7 +1315,7 @@ public class DateTimeParserTest {
 	}
 	
 	@Test
-	public void testParseTenThirtyPmWithSpaceAndColonTimeSeparator() {
+	public void parseTenThirtyPmWithSpaceAndColonTimeSeparator() {
 		String timeInput = "10:30 pm";
 		DateTime parsedDateTimeObject = referenceDateTimeParser.parse(timeInput);
 		String dateParsed = parsedDateTimeObject.getDate();
@@ -1339,7 +1339,7 @@ public class DateTimeParserTest {
 	}
 	
 	@Test
-	public void testParseTenThirtyPmWithoutSpaceAndColonTimeSeparator() {
+	public void parseTenThirtyPmWithoutSpaceAndColonTimeSeparator() {
 		String timeInput = "10:30pm";
 		DateTime parsedDateTimeObject = referenceDateTimeParser.parse(timeInput);
 		String dateParsed = parsedDateTimeObject.getDate();
@@ -1363,7 +1363,7 @@ public class DateTimeParserTest {
 	}
 	
 	@Test
-	public void testParseTenThirtyPm24HFormat() {
+	public void parseTenThirtyPm24HFormat() {
 		String timeInput = "22:30";
 		DateTime parsedDateTimeObject = referenceDateTimeParser.parse(timeInput);
 		String dateParsed = parsedDateTimeObject.getDate();
@@ -1387,7 +1387,7 @@ public class DateTimeParserTest {
 	}
 	
 	@Test
-	public void testParseTenThirtyAm24HFormat() {
+	public void parseTenThirtyAm24HFormat() {
 		String timeInput = "10:30";
 		DateTime parsedDateTimeObject = referenceDateTimeParser.parse(timeInput);
 		String dateParsed = parsedDateTimeObject.getDate();
@@ -1411,7 +1411,7 @@ public class DateTimeParserTest {
 	}
 	
 	@Test
-	public void testParseToday() {
+	public void parseToday() {
 		String todayString = "today";
 		DateTime todayParsed = dateTimeParser.parse(todayString);
 		String dateParsed = todayParsed.getDate();
@@ -1424,7 +1424,7 @@ public class DateTimeParserTest {
 	}
 	
 	@Test
-	public void testParseTdy() {
+	public void parseTdy() {
 		String todayShortForm = "tdy";
 		DateTime todayParsed = dateTimeParser.parse(todayShortForm);
 		String dateParsed = todayParsed.getDate();
@@ -1437,7 +1437,7 @@ public class DateTimeParserTest {
 	}
 	
 	@Test
-	public void testParseTodayCaseInsensitive() {
+	public void parseTodayCaseInsensitive() {
 		String todayCaseInsensitive = "ToDAy";
 		DateTime todayParsed = dateTimeParser.parse(todayCaseInsensitive);
 		String dateParsed = todayParsed.getDate();
@@ -1450,7 +1450,7 @@ public class DateTimeParserTest {
 	}
 	
 	@Test
-	public void testParseTdyCaseInsensitive() {
+	public void parseTdyCaseInsensitive() {
 		String tdyCaseInsensitive = "TDy";
 		DateTime todayParsed = dateTimeParser.parse(tdyCaseInsensitive);
 		String dateParsed = todayParsed.getDate();
@@ -1463,7 +1463,7 @@ public class DateTimeParserTest {
 	}
 	
 	@Test
-	public void testParseTomorrow() {
+	public void parseTomorrow() {
 		String tomorrowInput = "tomorrow";
 		DateTime parsedDateTimeObject = referenceDateTimeParser.parse(tomorrowInput);
 		String dateParsed = parsedDateTimeObject.getDate();
@@ -1476,7 +1476,7 @@ public class DateTimeParserTest {
 	}
 	
 	@Test
-	public void testParseTomorrowCaseInsensitive() {
+	public void parseTomorrowCaseInsensitive() {
 		String tomorrowInput = "tomORroW";
 		DateTime parsedDateTimeObject = referenceDateTimeParser.parse(tomorrowInput);
 		String dateParsed = parsedDateTimeObject.getDate();
@@ -1489,7 +1489,7 @@ public class DateTimeParserTest {
 	}
 	
 	@Test
-	public void testParseTmr() {
+	public void parseTmr() {
 		String tomorrowInput = "tmr";
 		DateTime parsedDateTimeObject = referenceDateTimeParser.parse(tomorrowInput);
 		String dateParsed = parsedDateTimeObject.getDate();
@@ -1502,7 +1502,7 @@ public class DateTimeParserTest {
 	}
 	
 	@Test
-	public void testParseTmrCaseInsensitive() {
+	public void parseTmrCaseInsensitive() {
 		String tomorrowInput = "tMR";
 		DateTime parsedDateTimeObject = referenceDateTimeParser.parse(tomorrowInput);
 		String dateParsed = parsedDateTimeObject.getDate();
@@ -1515,7 +1515,7 @@ public class DateTimeParserTest {
 	}
 	
 	@Test
-	public void testParseWordDateAnd12HourAfternoonTimeWithSpacing() {
+	public void parseWordDateAnd12HourAfternoonTimeWithSpacing() {
 		String userInput = "15 June 2016 6 pm";
 		DateTime dateTime = dateTimeParser.parse(userInput);
 		
@@ -1528,14 +1528,14 @@ public class DateTimeParserTest {
 		
 		assertEquals(date, "15 Jun 2016");
 		assertEquals(timeStr24H, "18:00");
-		assertEquals(timeStr12H, "6 pm");
+		assertEquals(timeStr12H, "6.00 pm");
 		assertEquals(dayStr, "Wednesday");
 		assertEquals(dayInt, 3);
 		assertEquals(timeInt, 1800);
 	}
 	
 	@Test
-	public void testParse12HourAfternoonTimeWithSpacingAndWordDate12HourAfternoonTimeWithSpacing() {
+	public void parse12HourAfternoonTimeWithSpacingAndWordDate12HourAfternoonTimeWithSpacing() {
 		String userInput = "6 pm 15 June 2016";
 		DateTime dateTime = dateTimeParser.parse(userInput);
 		
@@ -1548,14 +1548,14 @@ public class DateTimeParserTest {
 		
 		assertEquals(date, "15 Jun 2016");
 		assertEquals(timeStr24H, "18:00");
-		assertEquals(timeStr12H, "6 pm");
+		assertEquals(timeStr12H, "6.00 pm");
 		assertEquals(dayStr, "Wednesday");
 		assertEquals(dayInt, 3);
 		assertEquals(timeInt, 1800);
 	}
 	
 	@Test
-	public void testParseDDMMYYDateAnd12HourAfternoonTimeWithoutSpacing() {
+	public void parseDDMMYYDateAnd12HourAfternoonTimeWithoutSpacing() {
 		String userInput = "19/02/2020 6.30pm";
 		DateTime dateTime = dateTimeParser.parse(userInput);
 		
@@ -1575,7 +1575,7 @@ public class DateTimeParserTest {
 	}
 	
 	@Test
-	public void testParse12HourAfternoonTimeWithoutSpacingAndDDMMYYDate() {
+	public void parse12HourAfternoonTimeWithoutSpacingAndDDMMYYDate() {
 		String userInput = "6.30pm 19/02/2020";
 		DateTime dateTime = dateTimeParser.parse(userInput);
 		
@@ -1595,7 +1595,7 @@ public class DateTimeParserTest {
 	}
 	
 	@Test
-	public void testParseIncompleteWordNotOverDateAnd12HourMorningTimeWithSpacing() {
+	public void parseIncompleteWordNotOverDateAnd12HourMorningTimeWithSpacing() {
 		String userInput = "15 Sept 6:45 am";
 		DateTime dateTime = dateTimeParser.parse(userInput);
 		
@@ -1615,7 +1615,7 @@ public class DateTimeParserTest {
 	}
 	
 	@Test
-	public void testParse12HourMorningTimeWithSpacingAndIncompleteWordNotOverDate() {
+	public void parse12HourMorningTimeWithSpacingAndIncompleteWordNotOverDate() {
 		String userInput = "6:45 am 15 Sept";
 		DateTime dateTime = dateTimeParser.parse(userInput);
 		
@@ -1635,7 +1635,7 @@ public class DateTimeParserTest {
 	}
 	
 	@Test
-	public void testParseIncompleteWordOverDateAnd12HourMorningTimeWithSpacing() {
+	public void parseIncompleteWordOverDateAnd12HourMorningTimeWithSpacing() {
 		String userInput = "1 Jan 13:45";
 		DateTime dateTime = dateTimeParser.parse(userInput);
 		
@@ -1655,7 +1655,7 @@ public class DateTimeParserTest {
 	}
 	
 	@Test
-	public void testParse12HourMorningTimeWithSpacingAndIncompleteWordOverDate() {
+	public void parse12HourMorningTimeWithSpacingAndIncompleteWordOverDate() {
 		String userInput = "13:45 1 Jan";
 		DateTime dateTime = dateTimeParser.parse(userInput);
 		
@@ -1675,7 +1675,7 @@ public class DateTimeParserTest {
 	}
 	
 	@Test
-	public void testParse_DD_MM_OverDateAnd12HourMorningTimeWithoutSpacing() {
+	public void parse_DD_MM_OverDateAnd12HourMorningTimeWithoutSpacing() {
 		String userInput = "10/2 6:45am";
 		DateTime dateTime = dateTimeParser.parse(userInput);
 		
@@ -1695,7 +1695,7 @@ public class DateTimeParserTest {
 	}
 	
 	@Test
-	public void testParse12HourMorningTimeWithoutSpacingAndDDMMOverDate() {
+	public void parse12HourMorningTimeWithoutSpacingAndDDMMOverDate() {
 		String userInput = "6:45am 10/2";
 		DateTime dateTime = dateTimeParser.parse(userInput);
 		
@@ -1715,7 +1715,7 @@ public class DateTimeParserTest {
 	}
 	
 	@Test
-	public void testParseDDMMNotOverDateAnd24HourMorningTime() {
+	public void parseDDMMNotOverDateAnd24HourMorningTime() {
 		String userInput = "10/10 8:45";
 		DateTime dateTime = dateTimeParser.parse(userInput);
 		
@@ -1735,7 +1735,7 @@ public class DateTimeParserTest {
 	}
 	
 	@Test
-	public void testParse24HourMorningTimeAndDDMMNotOverDate() {
+	public void parse24HourMorningTimeAndDDMMNotOverDate() {
 		String userInput = "8:45 10/10";
 		DateTime dateTime = dateTimeParser.parse(userInput);
 		
@@ -1755,7 +1755,7 @@ public class DateTimeParserTest {
 	}
 	
 	@Test
-	public void testParseMMNotOverDateAnd24HourAfternoon() {
+	public void parseMMNotOverDateAnd24HourAfternoon() {
 		String userInput = "Oct 19:15";
 		DateTime dateTime = dateTimeParser.parse(userInput);
 		
@@ -1775,7 +1775,7 @@ public class DateTimeParserTest {
 	}
 	
 	@Test
-	public void testParse24HourAfternoonAndMMNotOverDate() {
+	public void parse24HourAfternoonAndMMNotOverDate() {
 		String userInput = "19:15 Oct";
 		DateTime dateTime = dateTimeParser.parse(userInput);
 		
@@ -1795,7 +1795,7 @@ public class DateTimeParserTest {
 	}
 	
 	@Test
-	public void testParseMMNOverDateAnd24HourAfternoon() {
+	public void parseMMNOverDateAnd24HourAfternoon() {
 		String userInput = "Jan 19:15";
 		DateTime dateTime = dateTimeParser.parse(userInput);
 		
@@ -1815,7 +1815,7 @@ public class DateTimeParserTest {
 	}
 	
 	@Test
-	public void testParse24HourAfternoonAndMMNOverDate() {
+	public void parse24HourAfternoonAndMMNOverDate() {
 		String userInput = "19:15 Jan";
 		DateTime dateTime = dateTimeParser.parse(userInput);
 		

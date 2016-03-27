@@ -33,6 +33,7 @@ public class DateTime {
 	private static final int NUM_DAYS_IN_A_WEEK = 7;
 	private static final int FORMAT_24H_12AM = 0;
 	private static final int FORMAT_24H_12PM = 1200;
+	private static final int FORMAT_24H_1259PM = 1259;
 	private static final int FORMAT_24H_10AM = 1000;
 	private static final int FORMAT_24H_1AM = 100;
 	
@@ -295,24 +296,18 @@ public class DateTime {
 			timeString12H = TWELVE_MIDNIGHT;
 		} else if (isAfter12amAndBefore1am(time)) {
 			timeString12H = TWELVE + TIME_SEPARATOR_DOT + time + AM;
-		} else if (isAfter1amAndBefor12pm(time)) {
-			if (timeHasNoMinutes(time)) { // 12 am etc
-				timeString12H = getHourNumeralIn12HStringForMorningTiming(time) + AM;
-			} else { // 12.30 am etc
-				timeString12H = getHourNumeralIn12HStringForMorningTiming(time) + TIME_SEPARATOR_DOT + getMinutesNumeral(time) + AM;
-			}
+		} else if (isAfter1amAndBefore12pm(time)) {
+			timeString12H = getHourNumeralIn12HStringForMorningTiming(time) + TIME_SEPARATOR_DOT + getMinutesNumeralString(time) + AM;
+		} else if(isBetween12PmTo1259Pm(timeInt)) {
+			timeString12H = getHourNumeral(time) + TIME_SEPARATOR_DOT + getMinutesNumeralString(time) + PM;
 		} else {
-			if (timeHasNoMinutes(time)) { // 12 pm etc
-				timeString12H = getHourNumberalIn12HStringForAfternoonTiming(time) + PM;
-			} else { // 12.30 pm etc
-				if (timeHasLessThanTenMinutes(time)) {
-					timeString12H = getHourNumberalIn12HStringForAfternoonTiming(time) + TIME_SEPARATOR_DOT + ONE_ZERO + getMinutesNumeral(time) + PM;
-				} else {
-					timeString12H = getHourNumberalIn12HStringForAfternoonTiming(time) + TIME_SEPARATOR_DOT + getMinutesNumeral(time) + PM;
-				}
-			}
+			timeString12H = getHourNumberalIn12HStringForAfternoonTiming(time) + TIME_SEPARATOR_DOT + getMinutesNumeralString(time) + PM;
 		}
 		return timeString12H;
+	}
+
+	private boolean isBetween12PmTo1259Pm(int time) {
+		return time >= FORMAT_24H_12PM && time <= FORMAT_24H_1259PM;
 	}
 
 	private int getHourNumeralIn12HStringForMorningTiming(int time) {
@@ -343,8 +338,8 @@ public class DateTime {
 		return time == UNINITIALIZED_INT;
 	}
 
-	private boolean isAfter1amAndBefor12pm(int time) {
-		return time > FORMAT_24H_1AM && time < FORMAT_24H_12PM;
+	private boolean isAfter1amAndBefore12pm(int time) {
+		return time >= FORMAT_24H_1AM && time < FORMAT_24H_12PM;
 	}
 
 	private boolean isAfter12amAndBefore1am(int time) {
@@ -354,6 +349,19 @@ public class DateTime {
 	private boolean isMidnight(int time) {
 		return time == FORMAT_24H_12AM;
 	}
+	
+	private String getMinutesNumeralString(int time) {
+		int minutes = getMinutesNumeral(time);
+		String timeString = String.valueOf(minutes);
+		if(isSingleDigitMinute(minutes)) {
+			timeString = "0" + timeString;
+		}
+		return timeString;
+	}
+
+	private boolean isSingleDigitMinute(int minutes) {
+		return minutes < 10;
+	}
 
 	// Converts the 24h time int to 24h String format
 	private String convertTimeIntTo24hString(int time) {
@@ -361,20 +369,21 @@ public class DateTime {
 		if (isUninitialized(time)) {
 			timeString24H = UNINITIALIZED_STRING;
 		} else if (isMidnight(time)) {
-			timeString24H = "0000";
+			timeString24H = "00:00";
 		} else if (isAfter12amAndBefore1am(time)) {
-			timeString24H = "00" + time;
+			timeString24H = "00:" + time;
 		} else if (isAfter1amAndBefore10am(time)) {
-			timeString24H = "0" + time;
+			timeString24H = "0" + getHourNumeral(time) + TIME_SEPARATOR_COLON + getMinutesNumeralString(time);
+			System.out.println("24h string is " + timeString24H);
 		} else {
 			timeString24H = String.valueOf(time);
+			timeString24H = timeString24H.substring(0, 2) + TIME_SEPARATOR_COLON + timeString24H.substring(2);
 		}
-		timeString24H = timeString24H.substring(0,2) + ":" + timeString24H.substring(2);
 		return timeString24H;
 	}
 
 	private boolean isAfter1amAndBefore10am(int time) {
-		return time > FORMAT_24H_1AM && time < FORMAT_24H_10AM;
+		return time >= FORMAT_24H_1AM && time < FORMAT_24H_10AM;
 	}
 
 	public String getDayStr() {

@@ -5,6 +5,7 @@ import dooyit.logic.commands.Command;
 import dooyit.logic.commands.CommandUtils;
 
 public class UnmarkParser extends TagParser{
+	private static final String ERROR_MESSAGE_INVALID_UNMARK_COMMAND = "Invalid Unmark Command!";
 	private Command command;
 
 	public UnmarkParser() {
@@ -16,7 +17,6 @@ public class UnmarkParser extends TagParser{
 		setVariables(input);
 		command = null;
 		
-		System.out.println("input is " + input);
 		try {
 			parseTaskIds();
 		} catch(IncorrectInputException e) {
@@ -64,6 +64,6 @@ public class UnmarkParser extends TagParser{
 	}
 
 	private Command getInvalidCmd() {
-		return CommandUtils.createInvalidCommand("Invalid Unmark Command!");
+		return CommandUtils.createInvalidCommand(ERROR_MESSAGE_INVALID_UNMARK_COMMAND);
 	}
 }

@@ -7,7 +7,9 @@ import dooyit.logic.commands.Command;
 import dooyit.logic.commands.CommandUtils;
 
 public class TagParser {
-	public static final int INDEX_SINGLE = 0;
+	private static final String MARKER_FOR_INTERVAL_TAG_TYPE = "-";
+	private static final String ERROR_MESSAGE_INVALID_TASK_ID = "Error: Invalid Task IDs";
+	private static final int INDEX_SINGLE = 0;
 	public String userInput;
 	public String[] splitInput;
 	public ArrayList<Integer> taskIdsForTagging;
@@ -25,7 +27,6 @@ public class TagParser {
 	public void parseTaskIds() throws IncorrectInputException {
 		switch (getTagType()) {
 		case SINGLE:
-			System.out.println("is single tag type");
 			try {
 				parseSingleType();
 			} catch (IncorrectInputException e) {
@@ -34,7 +35,6 @@ public class TagParser {
 			break;
 
 		case MULTIPLE:
-			System.out.println("is multiple tag type");
 			try {
 				parseMultipleType();
 			} catch (IncorrectInputException e) {
@@ -43,7 +43,6 @@ public class TagParser {
 			break;
 
 		case INTERVAL:
-			System.out.println("is interval tag type");
 			try {
 				parseIntervalType();
 			} catch (IncorrectInputException e) {
@@ -52,7 +51,7 @@ public class TagParser {
 			break;
 
 		default:
-			throw new IncorrectInputException("Error: Invalid Task IDs");
+			throw new IncorrectInputException(ERROR_MESSAGE_INVALID_TASK_ID);
 		}
 	}
 	
@@ -63,15 +62,15 @@ public class TagParser {
 	}
 
 	public void parseIntervalType() throws IncorrectInputException {
-		for (int i = INDEX_SINGLE; i < splitInput.length; i++) {
-			if (splitInput[i].contains("-")) {
+		for (int i = 0; i < splitInput.length; i++) {
+			if (splitInput[i].contains(MARKER_FOR_INTERVAL_TAG_TYPE)) {
 				setInterval(splitInput[i]);
 			}
 		}
 	}
 
 	public void setInterval(String currWord) {
-		String[] splitByDash = currWord.split("-");
+		String[] splitByDash = currWord.split(MARKER_FOR_INTERVAL_TAG_TYPE);
 		int start = Integer.parseInt(splitByDash[0]);
 		int end = Integer.parseInt(splitByDash[1]);
 		for (int i = start; i <= end; i++) {
@@ -80,7 +79,7 @@ public class TagParser {
 	}
 
 	public void parseMultipleType() throws IncorrectInputException {
-		for (int i = INDEX_SINGLE; i < splitInput.length; i++) {
+		for (int i = 0; i < splitInput.length; i++) {
 			String currWord = splitInput[i];
 			if (!isNumber(currWord)) {
 				throw new IncorrectInputException("Invalid Number!");
@@ -96,16 +95,14 @@ public class TagParser {
 
 	public void parseSingleType() throws IncorrectInputException {
 		if (isNumber(splitInput[INDEX_SINGLE])) {
-			System.out.println("taskID is " + splitInput[INDEX_SINGLE]);
 			taskIdForTagging = Integer.parseInt(splitInput[INDEX_SINGLE]);
 		} else {
-			System.out.println("taskID is " + splitInput[INDEX_SINGLE]);
-			throw new IncorrectInputException("Invalid Task ID!");
+			throw new IncorrectInputException(ERROR_MESSAGE_INVALID_TASK_ID);
 		}
 	}
 
 	public TAG_TYPE getTagType() {
-		if (userInput.contains("-")) {
+		if (userInput.contains(MARKER_FOR_INTERVAL_TAG_TYPE)) {
 			return TAG_TYPE.INTERVAL;
 		} else if (splitInput.length == 1) {
 			return TAG_TYPE.SINGLE;

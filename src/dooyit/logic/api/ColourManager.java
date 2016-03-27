@@ -11,14 +11,8 @@ public class ColourManager {
 	ArrayList<CustomColor> recommendedColours;
 	ArrayList<CustomColor> availableColours;
 	ArrayList<CustomColor> colourPool;
-
-	private static ColourManager colourManager = new ColourManager();
 	
-	public static ColourManager getInstance(){
-		return colourManager;
-	}
-	
-	private ColourManager() {
+	public ColourManager() {
 		random = new Random();
 		availableColours = new ArrayList<CustomColor>();
 		availableColours.add(CustomColor.BLACK);
@@ -45,7 +39,7 @@ public class ColourManager {
 		colourPool = new ArrayList<CustomColor>(recommendedColours);
 	}
 
-	public CustomColor pickRandomColour() {
+	public CustomColor pickRandomCustomColour() {
 		if (colourPool.size() == 0) {
 			colourPool = new ArrayList<CustomColor>(recommendedColours);
 		}

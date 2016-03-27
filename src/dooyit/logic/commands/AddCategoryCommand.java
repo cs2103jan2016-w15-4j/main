@@ -10,6 +10,7 @@ public class AddCategoryCommand extends Command {
 
 	private String categoryName;
 	private String colorString;
+	Category addedCategory;
 
 	public AddCategoryCommand(String categoryName) {
 		this.categoryName = categoryName;
@@ -27,20 +28,12 @@ public class AddCategoryCommand extends Command {
 	@Override
 	public void execute(LogicController logic) throws IncorrectInputException {
 		CategoryManager categoryManager = logic.getCategoryManager();
-		
-		@SuppressWarnings("unused")
-		Category category = null;
 
 		if(!categoryManager.contains(categoryName)){
 			if(hasColorString()){
-				if(colorManager.contains(colorString)){
-					CustomColor customColor = colorManager.find(colorString);
-					category = categoryManager.addCategory(categoryName, customColor);
-				}else{
-					throw new IncorrectInputException("Color: " + colorString + " is not available.");
-				}
+				addedCategory = categoryManager.addCategory(categoryName, colorString);
 			}else{
-				category = categoryManager.add(categoryName);
+				addedCategory = categoryManager.addCategory(categoryName);
 			}
 		}
 		else{

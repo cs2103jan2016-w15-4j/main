@@ -40,7 +40,7 @@ public class SetCategoryCommand extends Command {
 					Task task = taskManager.find(taskId);
 					task.setCategory(category);
 				} else {
-					Category category = categoryManager.add(categoryName);
+					Category category = categoryManager.addCategory(categoryName);
 					Task task = taskManager.find(taskId);
 					task.setCategory(category);
 					throw new IncorrectInputException("Category: " + categoryName + " is created.");

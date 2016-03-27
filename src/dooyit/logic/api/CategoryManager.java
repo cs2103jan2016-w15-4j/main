@@ -4,38 +4,56 @@ import java.util.ArrayList;
 
 import dooyit.common.datatype.Category;
 import dooyit.common.datatype.CustomColor;
+import dooyit.common.exception.IncorrectInputException;
 
 public class CategoryManager {
 	ArrayList<Category> categories;
 	ColourManager colourManager;
 
 	public CategoryManager() {
-		colourManager = ColourManager.getInstance();
+		colourManager = new ColourManager();
 		categories = new ArrayList<Category>();
 		setDefaultCategories();
 	}
 
 	private void setDefaultCategories() {
 		if (categories.size() == 0) {
-			add("School");
-			add("Entertainment");
+			addCategory("School");
+			addCategory("Entertainment");
 		}
 	}
 
-	public Category add(String categoryName) {
-		if (find(categoryName) != null) {
-			return null;
+	public Category addCategory(String categoryName) throws IncorrectInputException {
+		if (contains(categoryName)) {
+			throw new IncorrectInputException("Category: " + categoryName + " already exists.");
 		}
 		
 		categoryName = capitalizeFirstCharacter(categoryName);
-		Category category = new Category(categoryName, colourManager.pickRandomColour());
+		Category category = new Category(categoryName, colourManager.pickRandomCustomColour());
 		categories.add(category);
 		return category;
 	}
-
-	public Category addCategory(String categoryName, CustomColor colour) {
-		if (find(categoryName) != null) {
-			return null;
+	
+	public Category addCategory(String categoryName, String customColourString) throws IncorrectInputException {
+		if (contains(categoryName)) {
+			throw new IncorrectInputException("Category: " + categoryName + " already exists.");
+		}
+		
+		if(!colourManager.contains(customColourString)){
+			addCategory(categoryName);
+			throw new IncorrectInputException("Colour: " + customColourString + " is not available. A random colour has been picked for you!");
+		}
+		
+		categoryName = capitalizeFirstCharacter(categoryName);
+		CustomColor customColour = colourManager.find(customColourString);
+		Category category = new Category(categoryName, customColour);
+		categories.add(category);
+		return category;
+	}
+	
+	public Category addCategory(String categoryName, CustomColor colour) throws IncorrectInputException {
+		if (contains(categoryName)) {
+			throw new IncorrectInputException("Category: " + categoryName + " already exists.");
 		}
 		
 		categoryName = capitalizeFirstCharacter(categoryName);

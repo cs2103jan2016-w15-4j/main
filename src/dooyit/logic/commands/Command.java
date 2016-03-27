@@ -9,8 +9,6 @@ public abstract class Command {
 
 	}
 	
-	ColourManager colorManager = ColourManager.getInstance();
-	
 	public Command() {
 
 	}

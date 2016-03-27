@@ -252,6 +252,10 @@ public class LogicController {
 	public boolean containsTask(int taskId) {
 		return taskManager.contains(taskId);
 	}
+	
+	public Task findTask(int taskId) {
+		return taskManager.find(taskId);
+	}
 
 	public Task removeTask(int taskId) {
 		Task removedTask = taskManager.remove(taskId);
@@ -272,16 +276,16 @@ public class LogicController {
 		return addedCategory;
 	}
 	
+	public Category findCategory(String categoryName){
+		return categoryManager.find(categoryName);
+	}
+	
 	public boolean isTodayTask(Task task){
 		return taskManager.isTodayTask(task);
 	}
 
 	public boolean isNext7daysTask(Task task){
 		return taskManager.isNext7DaysTask(task);
-	}
-
-	public Category findCategory(String categoryName) {
-		return categoryManager.find(categoryName);
 	}
 
 	/**

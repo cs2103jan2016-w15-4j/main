@@ -30,18 +30,16 @@ public class SetCategoryCommand extends Command {
 
 	@Override
 	public void execute(LogicController logic) throws IncorrectInputException {
-		TaskManager taskManager = logic.getTaskManager();
-		CategoryManager categoryManager = logic.getCategoryManager();
 
 		for (Integer taskId : taskIds) {
-			if (taskManager.contains(taskId)) {
-				if (categoryManager.contains(categoryName)) {
-					Category category = categoryManager.find(categoryName);
-					Task task = taskManager.find(taskId);
+			if (logic.containsTask(taskId)) {
+				if (logic.containsCategory(categoryName)) {
+					Category category = logic.findCategory(categoryName);
+					Task task = logic.findTask(taskId);
 					task.setCategory(category);
 				} else {
-					Category category = categoryManager.addCategory(categoryName);
-					Task task = taskManager.find(taskId);
+					Category category = logic.addCategory(categoryName);
+					Task task = logic.findTask(taskId);
 					task.setCategory(category);
 					throw new IncorrectInputException("Category: " + categoryName + " is created.");
 				}

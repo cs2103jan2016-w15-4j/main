@@ -6,16 +6,15 @@ import dooyit.logic.commands.CommandUtils;
 
 public class AddCategoryParser extends TagParser{
 	
+	private static final String ERROR_MESSAGE_INVALID_ADDCAT_COMMAND = "Error: Invalid addcat command!";
+	private static final String DEFAULT_COLOUR = "";
+	private static final int INDEX_NAME = 0;
+	private static final int INDEX_COLOUR = 1;
+	
 	private String userInput;
 	private String catName;
 	private String catColour;
-	private static final String DEFAULT_COLOUR = "";
-	
 	private Command command;
-	
-	private final int INDEX_NAME = 0;
-	private final int INDEX_COLOUR = 1;
-
 	private boolean hasTasks;
 	private boolean hasColour;
 	
@@ -42,7 +41,7 @@ public class AddCategoryParser extends TagParser{
 			break;
 
 		default:
-			command = CommandUtils.createInvalidCommand(userInput + " is an invalid addcat command!");
+			command = CommandUtils.createInvalidCommand(ERROR_MESSAGE_INVALID_ADDCAT_COMMAND);
 			break;
 		}
 

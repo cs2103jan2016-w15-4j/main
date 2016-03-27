@@ -32,6 +32,8 @@ public class TaskLoader {
 	private static final String NAME = "taskName";
 	private static final String CATEGORY = "category";
 	private static final String IS_COMPLETED = "isCompleted";
+	private static final int HOURS = 0;
+	private static final int MINUTES = 1;
 	private static final int DAY = 0;
 	private static final int MONTH = 1;
 	private static final int YEAR = 2;
@@ -177,10 +179,23 @@ public class TaskLoader {
 	private DateTime resolveDateTime(JsonObject taskInfo, String type) {
 		String dateTimeString = taskInfo.get(type).getAsString();
 		String[] parts = dateTimeString.split(" ");
-		DateTime dateTime = new DateTime(Integer.valueOf(parts[DAY]),
-										Integer.valueOf(parts[MONTH]),
-										Integer.valueOf(parts[YEAR]),
-										parts[DAY_OF_WEEK], parts[TIME]);
+		int[] date = new int[] {Integer.valueOf(parts[DAY]),
+				Integer.valueOf(parts[MONTH]),
+				Integer.valueOf(parts[YEAR])};
+		
+		//temporary workaround for DateTime
+		String time = parts[TIME];
+		String[] timeParts = time.split(":");
+		int timeInt;
+		if(timeParts.length > 1) {
+			timeInt = Integer.parseInt(timeParts[HOURS]) * 100 
+						+ Integer.parseInt(timeParts[MINUTES]);
+		}
+		else {
+			timeInt = Integer.parseInt(timeParts[0]);
+		}
+		
+		DateTime dateTime = new DateTime(date, parts[DAY_OF_WEEK], timeInt);
 
 		return dateTime;
 	}

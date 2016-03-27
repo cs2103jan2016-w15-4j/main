@@ -258,16 +258,26 @@ public class LogicController {
 		return removedTask;
 	}
 	
+	public boolean containsCategory(String categoryName){
+		return categoryManager.contains(categoryName);
+	}
+	
+	public Category addCategory(String categoryName){
+		Category addedCategory = categoryManager.addCategory(categoryName);
+		return addedCategory;
+	}
+	
+	public Category addCategory(String categoryName, String colourString){
+		Category addedCategory = categoryManager.addCategory(categoryName, colourString);
+		return addedCategory;
+	}
+	
 	public boolean isTodayTask(Task task){
 		return taskManager.isTodayTask(task);
 	}
 
 	public boolean isNext7daysTask(Task task){
 		return taskManager.isNext7DaysTask(task);
-	}
-	
-	public boolean containsCategory(String categoryName) {
-		return categoryManager.contains(categoryName);
 	}
 
 	public Category findCategory(String categoryName) {

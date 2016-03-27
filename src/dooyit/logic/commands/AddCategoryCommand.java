@@ -27,13 +27,11 @@ public class AddCategoryCommand extends Command {
 
 	@Override
 	public void execute(LogicController logic) throws IncorrectInputException {
-		CategoryManager categoryManager = logic.getCategoryManager();
-
-		if(!categoryManager.contains(categoryName)){
+		if(!logic.containsCategory(categoryName)){
 			if(hasColorString()){
-				addedCategory = categoryManager.addCategory(categoryName, colorString);
+				addedCategory = logic.addCategory(categoryName, colorString);
 			}else{
-				addedCategory = categoryManager.addCategory(categoryName);
+				addedCategory = logic.addCategory(categoryName);
 			}
 		}
 		else{

@@ -24,17 +24,17 @@ public class Parser {
 	private static final String COMMAND_EDIT_CAT = "editcat";
 	private static final String COMMAND_MOVE_TO_CAT = "move";
 	private static final String COMMAND_REMOVE_FROM_CAT = "rm";
-	private static AddParser addParser;
-	private static ShowParser showParser;
-	private static EditParser editParser;
-	private static AddCategoryParser addCatParser;
-	private static DeleteParser deleteParser;
-	private static MarkParser markParser;
-	private static UnmarkParser unmarkParser;
-	private static DeleteCategoryParser deleteCatParser;
-	private static EditCategoryParser editCatParser;
-	private static MoveParser moveParser;
-	private static RemoveParser removeParser;
+	private AddParser addParser;
+	private ShowParser showParser;
+	private EditParser editParser;
+	private AddCategoryParser addCatParser;
+	private DeleteParser deleteParser;
+	private MarkParser markParser;
+	private UnmarkParser unmarkParser;
+	private DeleteCategoryParser deleteCatParser;
+	private EditCategoryParser editCatParser;
+	private MoveParser moveParser;
+	private RemoveParser removeParser;
 
 	public Parser() {
 		addParser = new AddParser();

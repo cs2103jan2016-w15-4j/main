@@ -5,7 +5,7 @@ import dooyit.logic.commands.Command;
 import dooyit.logic.commands.CommandUtils;
 
 public class MarkParser extends TagParser{
-	private static Command command;
+	private Command command;
 
 	public MarkParser() {
 		super();

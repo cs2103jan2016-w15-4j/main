@@ -6,10 +6,10 @@ import dooyit.logic.commands.CommandUtils;
 
 public class MoveParser extends TagParser {
 	private static final int INDEX_NAME = 0;
-	private static String catName;
-	private static String taskIds;
-	private static String userInput;
-	private static Command command;
+	private String catName;
+	private String taskIds;
+	private String userInput;
+	private Command command;
 	
 	public MoveParser() {
 		super();

@@ -11,13 +11,13 @@ public class AddCategoryParser extends TagParser{
 	private static String catColour;
 	private static final String DEFAULT_COLOUR = "";
 	
-	private static Command command;
+	private Command command;
 	
-	private static final int INDEX_NAME = 0;
-	private static final int INDEX_COLOUR = 1;
+	private final int INDEX_NAME = 0;
+	private final int INDEX_COLOUR = 1;
 
-	private static boolean hasTasks;
-	private static boolean hasColour;
+	private boolean hasTasks;
+	private boolean hasColour;
 	
 	enum ADD_CATEGORY_TYPE {
 		CREATE_NEW_CATEGORY_WITHOUT_TASKS, CREATE_NEW_CATEGORY_WITH_TASKS, INVALID

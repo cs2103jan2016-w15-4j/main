@@ -8,11 +8,11 @@ import dooyit.logic.commands.CommandUtils;
 
 public class TagParser {
 	public static final int INDEX_SINGLE = 0;
-	public static String userInput;
-	public static String[] splitInput;
-	public static ArrayList<Integer> taskIdsForTagging;
-	public static int taskIdForTagging;
-	public static int tagType;
+	public String userInput;
+	public String[] splitInput;
+	public ArrayList<Integer> taskIdsForTagging;
+	public int taskIdForTagging;
+	public int tagType;
 	
 	enum TAG_TYPE {
 		SINGLE, MULTIPLE, INTERVAL, INVALID

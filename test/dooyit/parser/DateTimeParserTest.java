@@ -11,6 +11,10 @@ import org.junit.Test;
 
 public class DateTimeParserTest {
 	private static final int FORMAT_24H_6AM = 600;
+	
+	private static final String REFERENCE_TODAY_DAY_STRING = "Wednesday";
+	private static final String REFERENCE_TODAY_DATE = "17 Feb 2016";
+	private static final int REFERENCE_TODAY_DAY_INT = 3;
 
 	private static final String REFERENCE_TOMORROW_DAY_STRING = "Thursday";
 	private static final String REFERENCE_TOMORROW_DATE = "18 Feb 2016";
@@ -350,6 +354,144 @@ public class DateTimeParserTest {
 		assertEquals(dayStrParsed, REFERENCE_TOMORROW_DAY_STRING);
 		assertEquals(dayIntParsed, REFERENCE_TOMORROW_DAY_INT);
 		assertEquals(time24hParsed, expectedTime24H);
+	}
+	
+	@Test
+	public void testParseTime12HourTimeNoSpace1() {
+		String userInput = "1am";
+		DateTime parsedDateTimeObject = referenceDateTimeParser.parse(userInput);
+		
+		String dateParsed = parsedDateTimeObject.getDate();
+		String dayStrParsed = parsedDateTimeObject.getDayStr();
+		int dayIntParsed = parsedDateTimeObject.getDayInt();
+		int time24hParsed = parsedDateTimeObject.getTimeInt();
+		String time12hStringParsed = parsedDateTimeObject.getTime12hStr();
+		String time24hStringParsed = parsedDateTimeObject.getTime24hStr();
+		int expectedTime24H = 100;
+		String expected12hString = "1 am";
+		String expected24hString = "1:00";
+		
+		assertEquals(dateParsed, REFERENCE_TOMORROW_DATE);
+		assertEquals(dayStrParsed, REFERENCE_TOMORROW_DAY_STRING);
+		assertEquals(dayIntParsed, REFERENCE_TOMORROW_DAY_INT);
+		assertEquals(time24hParsed, expectedTime24H);
+		assertEquals(time12hStringParsed, expected12hString);
+		assertEquals(time24hStringParsed, expected24hString);
+	}
+	
+	@Test
+	public void testParseTime12HourTimeNoSpace2() {
+		String userInput = "2am";
+		DateTime parsedDateTimeObject = referenceDateTimeParser.parse(userInput);
+		
+		String dateParsed = parsedDateTimeObject.getDate();
+		String dayStrParsed = parsedDateTimeObject.getDayStr();
+		int dayIntParsed = parsedDateTimeObject.getDayInt();
+		int time24hParsed = parsedDateTimeObject.getTimeInt();
+		String time12hStringParsed = parsedDateTimeObject.getTime12hStr();
+		String time24hStringParsed = parsedDateTimeObject.getTime24hStr();
+		int expectedTime24H = 200;
+		String expected12hString = "2 am";
+		String expected24hString = "2:00";
+		
+		assertEquals(dateParsed, REFERENCE_TOMORROW_DATE);
+		assertEquals(dayStrParsed, REFERENCE_TOMORROW_DAY_STRING);
+		assertEquals(dayIntParsed, REFERENCE_TOMORROW_DAY_INT);
+		assertEquals(time24hParsed, expectedTime24H);
+		assertEquals(time12hStringParsed, expected12hString);
+		assertEquals(time24hStringParsed, expected24hString);
+	}
+	
+	@Test
+	public void testParseTime12HourTimeNoSpace3() {
+		String userInput = "3am";
+		DateTime parsedDateTimeObject = referenceDateTimeParser.parse(userInput);
+		
+		String dateParsed = parsedDateTimeObject.getDate();
+		String dayStrParsed = parsedDateTimeObject.getDayStr();
+		int dayIntParsed = parsedDateTimeObject.getDayInt();
+		int time24hParsed = parsedDateTimeObject.getTimeInt();
+		String time12hStringParsed = parsedDateTimeObject.getTime12hStr();
+		String time24hStringParsed = parsedDateTimeObject.getTime24hStr();
+		int expectedTime24H = 300;
+		String expected12hString = "3 am";
+		String expected24hString = "3:00";
+		
+		assertEquals(dateParsed, REFERENCE_TOMORROW_DATE);
+		assertEquals(dayStrParsed, REFERENCE_TOMORROW_DAY_STRING);
+		assertEquals(dayIntParsed, REFERENCE_TOMORROW_DAY_INT);
+		assertEquals(time24hParsed, expectedTime24H);
+		assertEquals(time12hStringParsed, expected12hString);
+		assertEquals(time24hStringParsed, expected24hString);
+	}
+	
+	@Test
+	public void testParseTime12HourTimeNoSpace4() {
+		String userInput = "4am";
+		DateTime parsedDateTimeObject = referenceDateTimeParser.parse(userInput);
+		
+		String dateParsed = parsedDateTimeObject.getDate();
+		String dayStrParsed = parsedDateTimeObject.getDayStr();
+		int dayIntParsed = parsedDateTimeObject.getDayInt();
+		int time24hParsed = parsedDateTimeObject.getTimeInt();
+		String time12hStringParsed = parsedDateTimeObject.getTime12hStr();
+		String time24hStringParsed = parsedDateTimeObject.getTime24hStr();
+		int expectedTime24H = 400;
+		String expected12hString = "4 am";
+		String expected24hString = "4:00";
+		
+		assertEquals(dateParsed, REFERENCE_TOMORROW_DATE);
+		assertEquals(dayStrParsed, REFERENCE_TOMORROW_DAY_STRING);
+		assertEquals(dayIntParsed, REFERENCE_TOMORROW_DAY_INT);
+		assertEquals(time24hParsed, expectedTime24H);
+		assertEquals(time12hStringParsed, expected12hString);
+		assertEquals(time24hStringParsed, expected24hString);
+	}
+	
+	@Test
+	public void testParseTime12HourTimeNoSpace5() {
+		String userInput = "5am";
+		DateTime parsedDateTimeObject = referenceDateTimeParser.parse(userInput);
+		
+		String dateParsed = parsedDateTimeObject.getDate();
+		String dayStrParsed = parsedDateTimeObject.getDayStr();
+		int dayIntParsed = parsedDateTimeObject.getDayInt();
+		int time24hParsed = parsedDateTimeObject.getTimeInt();
+		String time12hStringParsed = parsedDateTimeObject.getTime12hStr();
+		String time24hStringParsed = parsedDateTimeObject.getTime24hStr();
+		int expectedTime24H = 500;
+		String expected12hString = "5 am";
+		String expected24hString = "5:00";
+		
+		assertEquals(dateParsed, REFERENCE_TOMORROW_DATE);
+		assertEquals(dayStrParsed, REFERENCE_TOMORROW_DAY_STRING);
+		assertEquals(dayIntParsed, REFERENCE_TOMORROW_DAY_INT);
+		assertEquals(time24hParsed, expectedTime24H);
+		assertEquals(time12hStringParsed, expected12hString);
+		assertEquals(time24hStringParsed, expected24hString);
+	}
+	
+	@Test
+	public void testParseTime12HourTimeNoSpace6() {
+		String userInput = "6am";
+		DateTime parsedDateTimeObject = referenceDateTimeParser.parse(userInput);
+		
+		String dateParsed = parsedDateTimeObject.getDate();
+		String dayStrParsed = parsedDateTimeObject.getDayStr();
+		int dayIntParsed = parsedDateTimeObject.getDayInt();
+		int time24hParsed = parsedDateTimeObject.getTimeInt();
+		String time12hStringParsed = parsedDateTimeObject.getTime12hStr();
+		String time24hStringParsed = parsedDateTimeObject.getTime24hStr();
+		int expectedTime24H = 600;
+		String expected12hString = "6 am";
+		String expected24hString = "6:00";
+		
+		assertEquals(dateParsed, REFERENCE_TODAY_DATE);
+		assertEquals(dayStrParsed, REFERENCE_TODAY_DAY_STRING);
+		assertEquals(dayIntParsed, REFERENCE_TODAY_DAY_INT);
+		assertEquals(time24hParsed, expectedTime24H);
+		assertEquals(time12hStringParsed, expected12hString);
+		assertEquals(time24hStringParsed, expected24hString);
 	}
 	
 	@Test

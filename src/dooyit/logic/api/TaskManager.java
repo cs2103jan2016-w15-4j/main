@@ -169,8 +169,10 @@ public class TaskManager {
 		return null;
 	}
 
-	public void clear() {
+	public ArrayList<Task> clear() {
+		ArrayList<Task> clearedTasks = new ArrayList<Task>(tasks);
 		tasks.clear();
+		return clearedTasks;
 	}
 
 	public boolean changeTaskName(int taskId, String newName) {

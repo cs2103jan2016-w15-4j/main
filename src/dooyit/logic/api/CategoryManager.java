@@ -13,10 +13,10 @@ public class CategoryManager {
 	public CategoryManager() {
 		colourManager = new ColourManager();
 		categories = new ArrayList<Category>();
-		setDefaultCategories();
+		//setDefaultCategories();
 	}
 
-	private void setDefaultCategories() {
+	public void setDefaultCategories() {
 		if (categories.size() == 0) {
 			addCategory("School");
 			addCategory("Entertainment");
@@ -99,7 +99,7 @@ public class CategoryManager {
 		return null;
 	}
 
-	public ArrayList<Category> getCategoryList() {
+	public ArrayList<Category> getAllCategories() {
 		return categories;
 	}
 

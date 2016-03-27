@@ -10,7 +10,8 @@ public class ClearCommand extends Command {
 	public void execute(LogicController logic) throws IncorrectInputException {
 		TaskManager taskManager = logic.getTaskManager();
 		assert(taskManager != null);
-		taskManager.clear();
+		
+		logic.clearTask();
 	}
 
 }

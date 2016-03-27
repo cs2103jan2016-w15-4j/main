@@ -37,19 +37,14 @@ public class LogicController {
 		categoryManager = new CategoryManager();
 		history = new Stack<ReversibleCommand>();
 
-		try {
-			storage = new StorageController();
-		} catch (IOException e) {
-			logger.log(Level.SEVERE, "ERROR: Fail to create storage");
-			uiController.displayMessage("ERROR: CREATING STORAGE");
-		}
+		initStorage();
 
-		// try {
-		// categoryManager.categories = storage.loadCategory();
-		// } catch (IOException e) {
-		// System.out.println("ERROR: LOAD CATEGORY");
-		// uiController.displayMessage("ERROR: LOAD CATEGORY");
-		// }
+//		try {
+//			categoryManager.load(storage.loadCategory());
+//		} catch (IOException e) {
+//			System.out.println("ERROR: LOAD CATEGORY");
+//			uiController.displayMessage("ERROR: LOAD CATEGORY");
+//		}
 
 		try {
 			ArrayList<Task> tasks = storage.loadTasks();
@@ -59,9 +54,43 @@ public class LogicController {
 			uiController.displayMessage("ERROR: LOAD TASK");
 		}
 
+		assignTaskToCategory();
+		
 		logger.log(Level.INFO, "End of initialising logic class");
 	}
 
+
+	/**
+	 * 
+	 */
+	private void initStorage() {
+		try {
+			storage = new StorageController();
+		} catch (IOException e) {
+			logger.log(Level.SEVERE, "ERROR: Fail to create storage");
+			uiController.displayMessage("ERROR: CREATING STORAGE");
+		}
+	}
+
+	
+	public void assignTaskToCategory(){
+		ArrayList<Task> tasks = taskManager.getAllTasks();
+		
+		for(Task task : tasks){
+			if(task.hasUncheckCategory()){
+				String uncheckCategory = task.getUncheckCategory();
+				if(categoryManager.contains(uncheckCategory)){
+					Category category = categoryManager.find(uncheckCategory);
+					task.setCategory(category);
+				}
+			}
+		}
+		
+		categoryManager.setDefaultCategories();
+	}
+	
+	
+	
 	/**
 	 * process and execute command input from user
 	 * 
@@ -70,7 +99,7 @@ public class LogicController {
 	public void processCommand(String input) {
 		Command command = parser.getCommand(input);
 		assert (command != null);
-		
+
 		executeCommand(command);
 		addCommandToHistory(command);
 		refreshUIController();
@@ -113,10 +142,13 @@ public class LogicController {
 
 		try {
 			storage.saveTasks(taskManager.getAllTasks());
+			storage.saveCategory(categoryManager.getAllCategories());
 		} catch (IOException e) {
 			logger.log(Level.SEVERE, "ERROR: Fail to save");
 			uiController.displayMessage("ERROR: SAVING");
 		}
+		
+		
 	}
 
 	/**
@@ -136,16 +168,17 @@ public class LogicController {
 		isSaveOn = false;
 	}
 
-	public void clearTask() {
-		taskManager.clear();
+	public ArrayList<Task> clearTask() {
+		ArrayList<Task> clearedTasks = taskManager.clear();
 		save();
+		return clearedTasks;
 	}
 
 	public void setActiveView(UIMainViewType uiMainViewType) {
-		if(uiController == null){
+		if (uiController == null) {
 			return;
 		}
-		
+
 		uiController.setActiveViewType(uiMainViewType);
 
 		switch (uiMainViewType) {
@@ -176,19 +209,19 @@ public class LogicController {
 	}
 
 	public void setActiveViewCategory(Category category) {
-		if(uiController == null){
+		if (uiController == null) {
 			return;
 		}
-		
+
 		uiController.setActiveViewType(UIMainViewType.CATEGORY);
 		uiController.refreshMainView(taskManager.getTaskGroupsCompleted(), category);
 	}
-	
+
 	public void setActiveViewSearch(String searchString) {
-		if(uiController == null){
+		if (uiController == null) {
 			return;
 		}
-		
+
 		uiController.setActiveViewType(UIMainViewType.SEARCH);
 		uiController.refreshMainView(taskManager.getTaskGroupSearched(searchString));
 	}
@@ -231,7 +264,7 @@ public class LogicController {
 			break;
 		}
 
-		uiController.refreshCategoryMenuView(categoryManager.getCategoryList());
+		uiController.refreshCategoryMenuView(categoryManager.getAllCategories());
 	}
 
 	public Task addFloatingTask(String taskName) {
@@ -252,11 +285,11 @@ public class LogicController {
 	public boolean containsTask(int taskId) {
 		return taskManager.contains(taskId);
 	}
-	
+
 	public boolean containsTask(Task task) {
 		return taskManager.contains(task);
 	}
-	
+
 	public Task findTask(int taskId) {
 		return taskManager.find(taskId);
 	}
@@ -265,30 +298,30 @@ public class LogicController {
 		Task removedTask = taskManager.remove(taskId);
 		return removedTask;
 	}
-	
-	public boolean containsCategory(String categoryName){
+
+	public boolean containsCategory(String categoryName) {
 		return categoryManager.contains(categoryName);
 	}
-	
-	public Category addCategory(String categoryName){
+
+	public Category addCategory(String categoryName) {
 		Category addedCategory = categoryManager.addCategory(categoryName);
 		return addedCategory;
 	}
-	
-	public Category addCategory(String categoryName, String colourString){
+
+	public Category addCategory(String categoryName, String colourString) {
 		Category addedCategory = categoryManager.addCategory(categoryName, colourString);
 		return addedCategory;
 	}
-	
-	public Category findCategory(String categoryName){
+
+	public Category findCategory(String categoryName) {
 		return categoryManager.find(categoryName);
 	}
-	
-	public boolean isTodayTask(Task task){
+
+	public boolean isTodayTask(Task task) {
 		return taskManager.isTodayTask(task);
 	}
 
-	public boolean isNext7daysTask(Task task){
+	public boolean isNext7daysTask(Task task) {
 		return taskManager.isNext7DaysTask(task);
 	}
 

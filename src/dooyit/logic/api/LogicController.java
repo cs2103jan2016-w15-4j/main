@@ -303,6 +303,10 @@ public class LogicController {
 		uiController.refreshCategoryMenuView(categoryManager.getAllCategories());
 	}
 
+	public void addTask(Task task){
+		taskManager.add(task);
+	}
+	
 	public Task addFloatingTask(String taskName) {
 		Task addedTask = taskManager.addFloatingTask(taskName);
 		return addedTask;

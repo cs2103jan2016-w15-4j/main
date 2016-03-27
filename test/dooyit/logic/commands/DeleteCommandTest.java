@@ -17,8 +17,7 @@ import dooyit.logic.api.TaskManager;
 
 public class DeleteCommandTest {
 
-	LogicController logicController;
-	TaskManager taskManager;
+	LogicController logic;
 	DeleteCommand deleteCommand;
 
 	Task task1;
@@ -29,16 +28,13 @@ public class DeleteCommandTest {
 
 	@Before
 	public void setUp() {
-		logicController = new LogicController();
-		logicController.disableSave();
-		logicController.clearTask();
-
-		taskManager = logicController.getTaskManager();
-
+		logic = new LogicController();
+		logic.disableSave();
+		logic.clearTask();
 	}
 
 	public void setUpTask() {
-		logicController.clearTask();
+		logic.clearTask();
 
 		task1 = new FloatingTask("hello");
 		task2 = new FloatingTask("go");
@@ -46,11 +42,11 @@ public class DeleteCommandTest {
 		task4 = new FloatingTask("house");
 		task5 = new FloatingTask("water");
 		
-		taskManager.add(task1);
-		taskManager.add(task2);
-		taskManager.add(task3);
-		taskManager.add(task4);
-		taskManager.add(task5);
+		logic.addTask(task1);
+		logic.addTask(task2);
+		logic.addTask(task3);
+		logic.addTask(task4);
+		logic.addTask(task5);
 	}
 
 	@Test
@@ -58,20 +54,20 @@ public class DeleteCommandTest {
 		setUpTask();
 
 		// make sure task1 is inside task manager
-		assertTrue(taskManager.contains(task1));
+		assertTrue(logic.containsTask(task1));
 
 		// delete task1
 		deleteCommand = new DeleteCommand(task1.getId());
-		deleteCommand.execute(logicController);
+		deleteCommand.execute(logic);
 		// try to find task1
-		assertFalse(taskManager.contains(task1));
+		assertFalse(logic.containsTask(task1));
 
 		// tasks left in taskManager: task2, task3, task4, task5
 		// make sure task2 task3, task 4, task 5 is still inside task manager after deletion
-		assertTrue(taskManager.contains(task2));
-		assertTrue(taskManager.contains(task3));
-		assertTrue(taskManager.contains(task4));
-		assertTrue(taskManager.contains(task5));
+		assertTrue(logic.containsTask(task2));
+		assertTrue(logic.containsTask(task3));
+		assertTrue(logic.containsTask(task4));
+		assertTrue(logic.containsTask(task5));
 
 		// delete tasks in batch using 1 command
 		ArrayList<Integer> deleteIds = new ArrayList<Integer>();
@@ -81,15 +77,15 @@ public class DeleteCommandTest {
 
 		// delete task1
 		deleteCommand = new DeleteCommand(deleteIds);
-		deleteCommand.execute(logicController);
+		deleteCommand.execute(logic);
 
 		// try to find task2, task3, task4
-		assertFalse(taskManager.contains(task2));
-		assertFalse(taskManager.contains(task3));
-		assertFalse(taskManager.contains(task4));
+		assertFalse(logic.containsTask(task2));
+		assertFalse(logic.containsTask(task3));
+		assertFalse(logic.containsTask(task4));
 
 		// make sure task5 is still inside taskManager
-		assertTrue(taskManager.contains(task5));
+		assertTrue(logic.containsTask(task5));
 	}
 
 	// boundary case for negative partition
@@ -101,10 +97,10 @@ public class DeleteCommandTest {
 		// delete taskId -1
 		invalidTaskId = -1;
 		// try to find invalid task
-		assertFalse(taskManager.contains(invalidTaskId));
+		assertFalse(logic.containsTask(invalidTaskId));
 
 		deleteCommand = new DeleteCommand(invalidTaskId);
-		deleteCommand.execute(logicController);
+		deleteCommand.execute(logic);
 	}
 
 	// boundary case for positive partition
@@ -116,29 +112,28 @@ public class DeleteCommandTest {
 		// delete taskId 100
 		invalidTaskId = 100;
 		// try to find invalid task
-		assertFalse(taskManager.contains(invalidTaskId));
+		assertFalse(logic.containsTask(invalidTaskId));
 
 		deleteCommand = new DeleteCommand(invalidTaskId);
-		deleteCommand.execute(logicController);
+		deleteCommand.execute(logic);
 	}
 
-	
 	@Test
 	public void undo() {
 		setUpTask();
 		
 		// make sure task1 is inside taskManager
-		assertTrue(taskManager.contains(task1));
+		assertTrue(logic.containsTask(task1));
 		
 		deleteCommand = new DeleteCommand(task1.getId());
-		deleteCommand.execute(logicController);
+		deleteCommand.execute(logic);
 		
 		// make sure task1 is deleted
-		assertFalse(taskManager.contains(task1));
+		assertFalse(logic.containsTask(task1));
 		
-		deleteCommand.undo(logicController);
+		deleteCommand.undo(logic);
 		// make sure task1 is inside taskManager
-		assertTrue(taskManager.contains(task1));
+		assertTrue(logic.containsTask(task1));
 	}
 	
 }

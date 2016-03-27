@@ -18,9 +18,7 @@ public class ClearCommand extends ReversibleCommand {
 	
 	@Override
 	public void execute(LogicController logic) throws IncorrectInputException {
-		TaskManager taskManager = logic.getTaskManager();
-		assert(taskManager != null);
-		
+		assert(logic != null);
 		clearedTasks = logic.clearTask();
 	}
 

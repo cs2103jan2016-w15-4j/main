@@ -2,22 +2,35 @@ package dooyit.logic.commands;
 
 import java.util.ArrayList;
 
+import dooyit.common.datatype.Task;
 import dooyit.common.exception.IncorrectInputException;
 import dooyit.logic.api.LogicController;
 import dooyit.logic.api.TaskManager;
 
-public class UnMarkCommand extends Command {
+public class UnMarkCommand extends ReversibleCommand {
 
-private ArrayList<Integer> unMarkIds;
-	
+	private ArrayList<Integer> unmarkIds;
+	private ArrayList<Task> unmarkedTasks;
+
 	public UnMarkCommand(int unMarkId) {
-		this.unMarkIds = new ArrayList<Integer>();
-		this.unMarkIds.add(unMarkId);
+		this.unmarkIds = new ArrayList<Integer>();
+		this.unmarkedTasks = new ArrayList<Task>();
+		this.unmarkIds.add(unMarkId);
 	}
 
 	public UnMarkCommand(ArrayList<Integer> unMarkIds) {
-		this.unMarkIds = new ArrayList<Integer>();
-		this.unMarkIds.addAll(unMarkIds);
+		this.unmarkIds = new ArrayList<Integer>();
+		this.unmarkedTasks = new ArrayList<Task>();
+		this.unmarkIds.addAll(unMarkIds);
+	}
+	
+	@Override
+	public void undo(LogicController logic){
+		TaskManager taskManager = logic.getTaskManager();
+		
+		for(Task unmarkedTask : unmarkedTasks){
+			taskManager.markTask(unmarkedTask);
+		}
 	}
 
 	@Override
@@ -27,11 +40,13 @@ private ArrayList<Integer> unMarkIds;
 
 		String errorMessageBody = "";
 
-		for (int i = 0; i < unMarkIds.size(); i++) {
-			if (taskManager.contains(unMarkIds.get(i))) {
-				taskManager.unMarkTask(unMarkIds.get(i));
+		for (int unmarkId : unmarkIds) {
+			if (taskManager.contains(unmarkId)) {
+				taskManager.unMarkTask(unmarkId);
+				Task unmarkedTask = taskManager.find(unmarkId);
+				unmarkedTasks.add(unmarkedTask);
 			} else {
-				errorMessageBody += " " + unMarkIds.get(i);
+				errorMessageBody += " " + unmarkId;
 			}
 		}
 

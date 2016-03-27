@@ -111,6 +111,21 @@ public class TaskManager {
 		return false;
 	}
 
+	public boolean markTask(Task task) {
+		for (int i = 0; i < tasks.size(); i++) {
+			if (tasks.get(i).equals(task)) {
+				if (tasks.get(i).isCompleted()) {
+					return false;
+				} else {
+					tasks.get(i).mark();
+					return true;
+				}
+			}
+		}
+		// tell user if task is already marked.
+		return false;
+	}
+	
 	public boolean unMarkTask(int id) {
 		for (int i = 0; i < tasks.size(); i++) {
 			if (tasks.get(i).getId() == id) {
@@ -390,7 +405,7 @@ public class TaskManager {
 		taskGroup.addTasks(getIncompletedTasks());
 		taskGroups.add(taskGroup);
 		
-		resetTaskId(taskGroups);
+		resetTasksId(taskGroups);
 		return taskGroups;
 	}
 
@@ -411,7 +426,7 @@ public class TaskManager {
 		taskGroup.addTasks(getIncompleteEventTasks(currDate));
 		taskGroups.add(taskGroup);
 		
-		resetTaskId(taskGroups);
+		resetTasksId(taskGroups);
 		return taskGroups;
 	}
 
@@ -422,7 +437,7 @@ public class TaskManager {
 		taskGroup.addTasks(getIncompleteFloatingTasks());
 		taskGroups.add(taskGroup);
 		
-		resetTaskId(taskGroups);
+		resetTasksId(taskGroups);
 		return taskGroups;
 	}
 
@@ -433,7 +448,7 @@ public class TaskManager {
 		taskGroup.addTasks(getCompletedTasks());
 		taskGroups.add(taskGroup);
 		
-		resetTaskId(taskGroups);
+		resetTasksId(taskGroups);
 		return taskGroups;
 	}
 
@@ -462,7 +477,7 @@ public class TaskManager {
 			currDate.increaseByOneDay();
 		}
 
-		resetTaskId(taskGroups);
+		resetTasksId(taskGroups);
 		return taskGroups;
 	}
 
@@ -475,11 +490,28 @@ public class TaskManager {
 		
 		taskGroups.add(taskGroup);
 
-		resetTaskId(taskGroups);
+		resetTasksId(taskGroups);
 		return taskGroups;
 	}
 	
-	public void resetTaskId(ArrayList<TaskGroup> taskGroups){
+	public void resetTasksId(ArrayList<TaskGroup> taskGroups){
+		clearOldId();
+		assignNewId(taskGroups);
+	}
+
+	/**
+	 * 
+	 */
+	public void clearOldId() {
+		for(Task task : tasks){
+			task.resetId();
+		}
+	}
+
+	/**
+	 * @param taskGroups
+	 */
+	public void assignNewId(ArrayList<TaskGroup> taskGroups) {
 		int taskId = 1;
 		
 		for(TaskGroup taskGroup: taskGroups){

@@ -7,18 +7,13 @@ import java.util.ArrayList;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 import dooyit.common.datatype.DateTime;
 import dooyit.common.datatype.DeadlineTask;
 import dooyit.common.datatype.EventTask;
 import dooyit.common.datatype.FloatingTask;
 import dooyit.common.datatype.Task;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
 
-@RunWith(PowerMockRunner.class)
-@PrepareForTest(TaskController.class)
 public class TaskControllerTest extends StorageConstants{
 	
 	static final String FOLDER_TEST = CURRENT_DIRECTORY + SEPARATOR_CHAR + "test" 
@@ -44,8 +39,10 @@ public class TaskControllerTest extends StorageConstants{
 		DateTime deadline = new DateTime(date, "sat", 800);
 		tasks.add((Task)new DeadlineTask("homework", deadline));
 		
-		//{"taskName":"float","isCompleted":false}
-		tasks.add((Task)new FloatingTask("float"));
+		//{"taskName":"float","isCompleted":true}
+		Task floating = (Task)new FloatingTask("float");
+		floating.mark();
+		tasks.add(floating);
 		
 		//{"taskName":"brunch","dateTimeStart":"10 12 2016 sat 1000","dateTimeEnd":"10 12 2016 sat 1200","isCompleted":false}
 		DateTime event_start = new DateTime(date, "sat", 1000);
@@ -94,8 +91,10 @@ public class TaskControllerTest extends StorageConstants{
 		DateTime deadline = new DateTime(date, "sat", 800);
 		tasks.add((Task)new DeadlineTask("homework", deadline));
 		
-		//{"taskName":"float","isCompleted":false}
-		tasks.add((Task)new FloatingTask("float"));
+		//{"taskName":"float","isCompleted":true}
+		Task floating = (Task)new FloatingTask("float");
+		floating.mark();
+		tasks.add(floating);
 		
 		//{"taskName":"brunch","dateTimeStart":"10 12 2016 sat 1000","dateTimeEnd":"10 12 2016 sat 1200","isCompleted":false}
 		DateTime event_start = new DateTime(date, "sat", 1000);

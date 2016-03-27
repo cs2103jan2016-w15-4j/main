@@ -31,7 +31,7 @@ public class TaskSaver {
 	}
 
 	protected String setFormat(Task task) {
-		TaskStorageFormat storageFormat = new TaskStorageFormat(task);
+		TaskDataFormat storageFormat = new TaskDataFormat(task);
 		Gson gson = new Gson();
 		String json = gson.toJson(storageFormat);
 

@@ -9,7 +9,6 @@ public class Category {
 
 	public Category(String name) {
 		this.name = name;
-		this.customColor = CustomColor.BLUE;
 	}
 
 	public Category(String name, CustomColor customColour) {

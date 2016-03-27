@@ -32,34 +32,45 @@ public class LogicController {
 	public LogicController() {
 		logger.log(Level.INFO, "Initialising logic class");
 
-		parser = new Parser();
-		taskManager = new TaskManager();
-		categoryManager = new CategoryManager();
-		history = new Stack<ReversibleCommand>();
-
+		initParser();
+		initTaskManager();
+		initCategoryManager();
+		initHistory();
 		initStorage();
-
-//		try {
-//			categoryManager.load(storage.loadCategory());
-//		} catch (IOException e) {
-//			System.out.println("ERROR: LOAD CATEGORY");
-//			uiController.displayMessage("ERROR: LOAD CATEGORY");
-//		}
-
-		try {
-			ArrayList<Task> tasks = storage.loadTasks();
-			taskManager.load(tasks);
-		} catch (IOException e) {
-			logger.log(Level.SEVERE, "ERROR: Fail to load task from storage");
-			uiController.displayMessage("ERROR: LOAD TASK");
-		}
-
+		loadFromStorage();
 		assignTaskToCategory();
 		
 		logger.log(Level.INFO, "End of initialising logic class");
 	}
 
+	/**
+	 * 
+	 */
+	public void initParser() {
+		parser = new Parser();
+	}
+	
+	/**
+	 * 
+	 */
+	public void initTaskManager() {
+		taskManager = new TaskManager();
+	}
+	
+	/**
+	 * 
+	 */
+	public void initCategoryManager() {
+		categoryManager = new CategoryManager();
+	}
 
+	/**
+	 * 
+	 */
+	public void initHistory() {
+		history = new Stack<ReversibleCommand>();
+	}
+	
 	/**
 	 * 
 	 */
@@ -71,8 +82,35 @@ public class LogicController {
 			uiController.displayMessage("ERROR: CREATING STORAGE");
 		}
 	}
-
 	
+	/**
+	 * 
+	 */
+	public void loadFromStorage() {
+//		try {
+//			categoryManager.load(storage.loadCategory());
+//		} catch (IOException e) {
+//			System.out.println("ERROR: LOAD CATEGORY");
+//			uiController.displayMessage("ERROR: LOAD CATEGORY");
+//		}
+
+		try {
+			ArrayList<Task> tasks = storage.loadTasks();
+			loadTasks(tasks);
+		} catch (IOException e) {
+			logger.log(Level.SEVERE, "ERROR: Fail to load task from storage");
+			uiController.displayMessage("ERROR: LOAD TASK");
+		}
+	}
+
+
+	/**
+	 * @param tasks
+	 */
+	public void loadTasks(ArrayList<Task> tasks) {
+		taskManager.load(tasks);
+	}
+
 	public void assignTaskToCategory(){
 		ArrayList<Task> tasks = taskManager.getAllTasks();
 		
@@ -88,8 +126,6 @@ public class LogicController {
 		
 		categoryManager.setDefaultCategories();
 	}
-	
-	
 	
 	/**
 	 * process and execute command input from user
@@ -170,7 +206,7 @@ public class LogicController {
 
 	public ArrayList<Task> clearTask() {
 		ArrayList<Task> clearedTasks = taskManager.clear();
-		save();
+		//save();
 		return clearedTasks;
 	}
 

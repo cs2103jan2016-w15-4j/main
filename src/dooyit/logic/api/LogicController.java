@@ -365,6 +365,18 @@ public class LogicController {
 		return taskManager.isNext7DaysTask(task);
 	}
 
+	public String getFilePath(){
+		return storage.getFilePath();
+	}
+	
+	public void setFileDestinationPath(String path) throws IncorrectInputException{
+		try {
+			storage.setFileDestination(path);
+		} catch (IOException e) {
+			throw new IncorrectInputException("Invalid path: " + path);
+		}
+	}
+	
 	/**
 	 * pass the uicontroller references to this class
 	 * 

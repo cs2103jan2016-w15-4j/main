@@ -26,7 +26,15 @@ public class FloatingTask extends Task {
 	
 	@Override
 	public String toString() {
-		return taskName;
+		
+		String taskString = taskName;
+		String categoryString = "";
+		
+		if(hasCategory()){
+			categoryString = " ,Cat: " + category.getName() + "-" + category.getCustomColourName();
+		}
+		
+		return taskString + categoryString;
 	}
 	
 	@Override

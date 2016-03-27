@@ -44,8 +44,4 @@ public class CategorySaver {
 	private String getName(CustomColor color) {
 		return color.getName();
 	}
-
-	protected String getSaveDestination() {
-		return filePath;
-	}
 }

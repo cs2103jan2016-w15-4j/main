@@ -35,7 +35,7 @@ public class CategorySaver {
 	private String setFormat(Category category) {
 		String categoryName = category.getName();
 		String colorName = getName(category.getCustomColour());
-		CategoryDataFormat categoryFormat = new CategoryDataFormat(categoryName, colorName);
+		CategoryData categoryFormat = new CategoryData(categoryName, colorName);
 		Gson gson = new Gson();
 		String json = gson.toJson(categoryFormat);
 		return json;

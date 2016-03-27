@@ -52,17 +52,6 @@ public class CategoryManager {
 		return category;
 	}
 
-	public Category addCategory(String categoryName, CustomColor colour) throws IncorrectInputException {
-		if (contains(categoryName)) {
-			throw new IncorrectInputException("Category: " + categoryName + " already exists.");
-		}
-
-		categoryName = capitalizeFirstCharacter(categoryName);
-		Category category = new Category(categoryName, colour);
-		categories.add(category);
-		return category;
-	}
-
 	public boolean contains(String categoryName) {
 		for (int i = 0; i < categories.size(); i++) {
 			if (categories.get(i).equals(categoryName)) {
@@ -101,6 +90,10 @@ public class CategoryManager {
 
 	public ArrayList<Category> getAllCategories() {
 		return categories;
+	}
+	
+	public void clear(){
+		this.categories.clear();
 	}
 
 	public void load(ArrayList<Category> categories) {

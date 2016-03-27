@@ -111,6 +111,21 @@ public class TaskManager {
 		return false;
 	}
 
+	public boolean markTask(Task task) {
+		for (int i = 0; i < tasks.size(); i++) {
+			if (tasks.get(i).equals(task)) {
+				if (tasks.get(i).isCompleted()) {
+					return false;
+				} else {
+					tasks.get(i).mark();
+					return true;
+				}
+			}
+		}
+		// tell user if task is already marked.
+		return false;
+	}
+	
 	public boolean unMarkTask(int id) {
 		for (int i = 0; i < tasks.size(); i++) {
 			if (tasks.get(i).getId() == id) {

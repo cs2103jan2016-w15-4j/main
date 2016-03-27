@@ -81,6 +81,10 @@ public abstract class Task {
 	public void setId(int taskId){
 		this.taskId = taskId;
 	}
+	
+	public void resetId(){
+		this.taskId = -1;
+	}
 
 	public int getUniqueId() {
 		return uniqueId;

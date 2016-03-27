@@ -193,7 +193,7 @@ public class DeleteCommandTest {
 	}
 
 	@Test
-	public void undoDeletedDeadline() {
+	public void undoDeletedDeadlineTask() {
 		setUpTask();
 
 		// make sure task1 is inside taskManager

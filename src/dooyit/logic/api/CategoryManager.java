@@ -13,7 +13,7 @@ public class CategoryManager {
 	public CategoryManager() {
 		colourManager = new ColourManager();
 		categories = new ArrayList<Category>();
-		//setDefaultCategories();
+		// setDefaultCategories();
 	}
 
 	public void setDefaultCategories() {

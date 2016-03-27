@@ -39,7 +39,7 @@ public class MarkCommand extends ReversibleCommand {
 
 		String errorMessageBody = "";
 
-		for (Integer markId : markIds) {
+		for (int markId : markIds) {
 			if (taskManager.contains(markId)) {
 				taskManager.markTask(markId);
 				Task markedTask = taskManager.find(markId);

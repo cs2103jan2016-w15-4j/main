@@ -482,6 +482,10 @@ public class TaskManager {
 	public void resetTaskId(ArrayList<TaskGroup> taskGroups){
 		int taskId = 1;
 		
+		for(Task task : tasks){
+			task.resetId();
+		}
+		
 		for(TaskGroup taskGroup: taskGroups){
 			ArrayList<Task> tasks = taskGroup.getTasks();
 			for(Task task : tasks){

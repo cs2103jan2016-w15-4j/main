@@ -190,34 +190,34 @@ public class TaskManager {
 		return clearedTasks;
 	}
 
-	public boolean changeTaskName(int taskId, String newName) {
+	public Task changeTaskName(int taskId, String newName) {
 		if (!contains(taskId)) {
-			return false;
+			return null;
 		}
 
-		Task task = find(taskId);
-		task.changeName(newName);
-		return true;
+		remove(taskId);
+		Task newTask = addFloatingTask(newName);
+		return newTask;
 	}
 
-	public boolean changeTaskToDeadline(int taskId, DateTime dateTimeDeadline) {
+	public Task changeTaskToDeadline(int taskId, DateTime dateTimeDeadline) {
 		if (!contains(taskId)) {
-			return false;
+			return null;
 		}
 
 		Task task = remove(taskId);
-		addDeadlineTask(task.getName(), dateTimeDeadline);
-		return true;
+		Task newTask = addDeadlineTask(task.getName(), dateTimeDeadline);
+		return newTask;
 	}
 
-	public boolean changeTaskToEvent(int taskId, DateTime dateTimeStart, DateTime dateTimeEnd) {
+	public Task changeTaskToEvent(int taskId, DateTime dateTimeStart, DateTime dateTimeEnd) {
 		if (!contains(taskId)) {
-			return false;
+			return null;
 		}
 
 		Task task = remove(taskId);
-		addEventTask(task.getName(), dateTimeStart, dateTimeEnd);
-		return true;
+		Task newTask = addEventTask(task.getName(), dateTimeStart, dateTimeEnd);
+		return newTask;
 	}
 
 	public ArrayList<Task> getAllTasks() {

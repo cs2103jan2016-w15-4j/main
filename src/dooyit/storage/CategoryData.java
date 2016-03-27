@@ -1,10 +1,10 @@
 package dooyit.storage;
 
-public class CategoryDataFormat {
+public class CategoryData {
 	private String name;
 	private String color;
 
-	CategoryDataFormat(String categoryName, String colorName) {
+	CategoryData(String categoryName, String colorName) {
 		this.name = categoryName;
 		this.color = colorName;
 	}

@@ -8,6 +8,9 @@ import java.util.ArrayList;
 
 import com.google.gson.Gson;
 
+import dooyit.common.datatype.DeadlineTask;
+import dooyit.common.datatype.EventTask;
+import dooyit.common.datatype.FloatingTask;
 import dooyit.common.datatype.Task;
 
 public class TaskSaver {
@@ -31,9 +34,26 @@ public class TaskSaver {
 	}
 
 	protected String setFormat(Task task) {
-		TaskDataFormat storageFormat = new TaskDataFormat(task);
 		Gson gson = new Gson();
-		String json = gson.toJson(storageFormat);
+		String json = "";
+		
+		switch(task.getTaskType()) {
+		case DEADLINE :
+			DeadlineTask deadline = (DeadlineTask) task;
+			DeadlineTaskData deadlineData = new DeadlineTaskData(deadline);
+			json = gson.toJson(deadlineData);
+			break;
+		case EVENT :
+			EventTask event = (EventTask) task;
+			EventTaskData eventData = new EventTaskData(event);
+			json = gson.toJson(eventData);
+			break;
+		case FLOATING :
+			FloatingTask floating = (FloatingTask) task;
+			FloatTaskData floatData = new FloatTaskData(floating);
+			json = gson.toJson(floatData);
+			break;
+		}
 
 		return json;
 	}

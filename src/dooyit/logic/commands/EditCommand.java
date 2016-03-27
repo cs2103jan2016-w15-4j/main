@@ -11,10 +11,12 @@ public class EditCommand extends ReversibleCommand {
 	private enum EditCommandType {
 		NAME, DEADLINE, EVENT, NAME_N_DEADLINE, NAME_N_EVENT
 	};
-	
+
 	private EditCommandType editCommandType;
 	private int taskId;
-	public String taskName;
+	private String taskName;
+	private Task originalTask;
+	private Task newTask;
 	private DateTime dateTimeDeadline;
 	private DateTime dateTimeStart;
 	private DateTime dateTimeEnd;
@@ -55,39 +57,45 @@ public class EditCommand extends ReversibleCommand {
 
 	@Override
 	public void undo(LogicController logic) {
+		assert (logic != null);
 		
+		logic.removeTask(newTask);
+		logic.addTask(originalTask);
 	}
-	
+
 	@Override
 	public void execute(LogicController logic) throws IncorrectInputException {
 		assert (logic != null);
-		
-		if(!logic.containsTask(taskId)){
+
+		if (!logic.containsTask(taskId)) {
 			throw new IncorrectInputException("Cant find task ID: " + taskId);
 		}
-		
-		switch(editCommandType){
+
+		// save original task for undo
+		originalTask = logic.findTask(taskId);
+
+		switch (editCommandType) {
 		case NAME:
-			logic.changeTaskName(taskId, taskName);
+			newTask = logic.changeTaskName(taskId, taskName);
 			break;
-			
+
 		case DEADLINE:
-			logic.changeTaskToDeadline(taskId, dateTimeDeadline);
+			newTask = logic.changeTaskToDeadline(taskId, dateTimeDeadline);
 			break;
-			
-			case EVENT:
-				logic.changeTaskToEvent(taskId, dateTimeStart, dateTimeEnd);
+
+		case EVENT:
+			newTask = logic.changeTaskToEvent(taskId, dateTimeStart, dateTimeEnd);
 			break;
 
 		case NAME_N_DEADLINE:
 			logic.changeTaskName(taskId, taskName);
-			logic.changeTaskToDeadline(taskId, dateTimeDeadline);
+			newTask = logic.changeTaskToDeadline(taskId, dateTimeDeadline);
 			break;
 
 		case NAME_N_EVENT:
 			logic.changeTaskName(taskId, taskName);
-			logic.changeTaskToEvent(taskId, dateTimeStart, dateTimeEnd);
-			break;		
+			newTask = logic.changeTaskToEvent(taskId, dateTimeStart, dateTimeEnd);
+			break;
 		}
 	}
 }

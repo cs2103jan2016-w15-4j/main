@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import com.google.gson.Gson;
 
 import dooyit.common.datatype.Category;
+import dooyit.common.datatype.CustomColor;
 
 public class CategorySaver {
 	private String filePath;
@@ -17,7 +18,7 @@ public class CategorySaver {
 		this.filePath = filePath;
 	}
 
-	protected boolean saveCategory(ArrayList<Category> categories) throws IOException {
+	protected boolean save(ArrayList<Category> categories) throws IOException {
 		File file = new File(filePath);
 
 		BufferedWriter bWriter = new BufferedWriter(new FileWriter(file));
@@ -32,10 +33,16 @@ public class CategorySaver {
 	}
 
 	private String setFormat(Category category) {
-		CategoryStorageFormat categoryFormat = new CategoryStorageFormat(category);
+		String categoryName = category.getName();
+		String colorName = getName(category.getCustomColour());
+		CategoryDataFormat categoryFormat = new CategoryDataFormat(categoryName, colorName);
 		Gson gson = new Gson();
 		String json = gson.toJson(categoryFormat);
 		return json;
+	}
+	
+	private String getName(CustomColor color) {
+		return color.getName();
 	}
 
 	protected String getSaveDestination() {

@@ -30,6 +30,7 @@ public class TaskLoader {
 	private static final String EVENT_START = "dateTimeStart";
 	private static final String EVENT_END = "dateTimeEnd";
 	private static final String NAME = "taskName";
+	private static final String CATEGORY = "category";
 	private static final String IS_COMPLETED = "isCompleted";
 	private static final int DAY = 0;
 	private static final int MONTH = 1;
@@ -114,7 +115,8 @@ public class TaskLoader {
 		String taskInfo = bReader.readLine();
 
 		while (taskInfo != null) {
-			Task existingTask = resolveTask(taskInfo);
+			JsonObject jsonTask = getAsJson(taskInfo);
+			Task existingTask = resolveTask(jsonTask);
 			taskList.add(existingTask);
 			taskInfo = bReader.readLine();
 		}
@@ -143,20 +145,18 @@ public class TaskLoader {
 		return fReader;
 	}
 
-	public Task resolveTask(String taskFormat) {
-		JsonParser parser = new JsonParser();
-		JsonObject taskInfo = parser.parse(taskFormat).getAsJsonObject();
+	public Task resolveTask(JsonObject jsonTask) {
 
 		Task task;
-		String name = taskInfo.get(NAME).getAsString();
-		boolean isCompleted = taskInfo.get(IS_COMPLETED).getAsBoolean();
+		String name = jsonTask.get(NAME).getAsString();
+		boolean isCompleted = jsonTask.get(IS_COMPLETED).getAsBoolean();
 
-		if (taskInfo.has(DEADLINE)) {
-			DateTime deadline = resolveDateTime(taskInfo, DEADLINE);
+		if (jsonTask.has(DEADLINE)) {
+			DateTime deadline = resolveDateTime(jsonTask, DEADLINE);
 			task = (Task) new DeadlineTask(name, deadline);
-		} else if (taskInfo.has(EVENT_START) && taskInfo.has(EVENT_END)) {
-			DateTime eventStart = resolveDateTime(taskInfo, EVENT_START);
-			DateTime eventEnd = resolveDateTime(taskInfo, EVENT_END);
+		} else if (jsonTask.has(EVENT_START) && jsonTask.has(EVENT_END)) {
+			DateTime eventStart = resolveDateTime(jsonTask, EVENT_START);
+			DateTime eventEnd = resolveDateTime(jsonTask, EVENT_END);
 			task = (Task) new EventTask(name, eventStart, eventEnd);
 		} else {
 			task = (Task) new FloatingTask(name);
@@ -164,6 +164,11 @@ public class TaskLoader {
 		
 		if(isCompleted) {
 			task.mark();
+		}
+		
+		if(jsonTask.has(CATEGORY)) {
+			String categoryName = jsonTask.get(CATEGORY).getAsString();
+			task.setUncheckCategory(categoryName);
 		}
 
 		return task;
@@ -182,5 +187,12 @@ public class TaskLoader {
 
 	protected void setFileDestination(String path) {
 		this.filePath = path;
+	}
+	
+	private JsonObject getAsJson(String format) {
+		JsonParser parser = new JsonParser();
+		JsonObject object = parser.parse(format).getAsJsonObject();
+		
+		return object;
 	}
 }

@@ -1,18 +1,20 @@
 package dooyit.storage;
 
+import dooyit.common.datatype.Category;
 import dooyit.common.datatype.DateTime;
 import dooyit.common.datatype.DeadlineTask;
 import dooyit.common.datatype.EventTask;
 import dooyit.common.datatype.Task;
 
-public class TaskStorageFormat {
+public class TaskDataFormat {
 	private String taskName;
 	private String dateTimeDeadline;
 	private String dateTimeStart;
 	private String dateTimeEnd;
+	private String category;
 	private boolean isCompleted;
 
-	public TaskStorageFormat(Task task) {
+	public TaskDataFormat(Task task) {
 		switch (task.getTaskType()) {
 		case DEADLINE:
 			DeadlineTask datelineTask = (DeadlineTask) task;
@@ -43,5 +45,9 @@ public class TaskStorageFormat {
 		format += dt.getTime24hStr();
 		
 		return format;
+	}
+	
+	private String getName(Category category) {
+		return category.getName();
 	}
 }

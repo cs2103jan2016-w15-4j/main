@@ -16,10 +16,10 @@ public class CategoryController extends StorageConstants {
 	}
 
 	public boolean save(ArrayList<Category> categories) throws IOException {
-		return categorySaver.saveCategory(categories);
+		return categorySaver.save(categories);
 	}
 
-	public boolean load(CategoryManager categoryManager) throws IOException {
-		return categoryLoader.loadCategory(categoryManager);
+	public ArrayList<Category> load() throws IOException {
+		return categoryLoader.load();
 	}
 }

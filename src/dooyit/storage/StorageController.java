@@ -49,9 +49,9 @@ public class StorageController extends StorageConstants {
 		return currentPath + SEPARATOR_CHAR + NAME_FILE_CONFIG;
 	}
 
-	public boolean setFileDestination(String newFilePath) throws IOException, InvalidFilePathException {
+	public boolean setFileDestination(String newFilePath) throws IOException {
 		//logger.log(Level.INFO, "Changing save destination");
-		boolean isValid = isValidSavePath(newFilePath);
+		boolean isValid = isValidPath(newFilePath);
 		assert isValid;
 
 		preferences[TASK_DESTINATION] = newFilePath;
@@ -65,17 +65,13 @@ public class StorageController extends StorageConstants {
 		//logger.log(Level.INFO, "Attempting to save tasks to " + preferences[TASK_DESTINATION]);
 		assert tasks != null;
 
-		if (taskControl.save(tasks)) {
-			return true;
-		} else {
-			return false;
-		}
-
+		return taskControl.save(tasks);
 	}
 
 	public ArrayList<Task> loadTasks() throws IOException {
 		//logger.log(Level.INFO, "Attempting to load tasks from " + preferences[TASK_DESTINATION]);
 		ArrayList<Task> taskList = taskControl.load();
+		assert taskList != null;
 
 		return taskList;
 
@@ -86,9 +82,11 @@ public class StorageController extends StorageConstants {
 		return categoryControl.save(categories);
 	}
 
-	public boolean loadCategory(CategoryManager categoryManager) throws IOException {
-		assert categoryManager != null;
-		return categoryControl.load(categoryManager);
+	public ArrayList<Category> loadCategory() throws IOException {
+		ArrayList<Category> categories = categoryControl.load();
+		assert categories != null;
+		
+		return categories;
 	}
 
 	private String[] loadPreferences(String configFilePath) throws IOException {
@@ -114,9 +112,10 @@ public class StorageController extends StorageConstants {
 		return preferences;
 	}
 
-	private boolean isValidSavePath(String filePath) throws InvalidFilePathException {
+	private boolean isValidPath(String filePath) {
 		if (!filePath.endsWith(TXT)) {
-			throw new InvalidFilePathException("MISSING FILE EXTENSON: " + TXT);
+			System.out.println("Error: Invalid path");
+			return false;
 		}
 
 		return true;

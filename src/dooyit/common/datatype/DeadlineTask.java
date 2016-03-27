@@ -38,7 +38,14 @@ public class DeadlineTask extends Task {
 	
 	@Override
 	public String toString() {
-		return taskName + ": deadline: " + dateTimeDeadline.toString();
+		String taskString = taskName + ", Deadline: " + dateTimeDeadline.toString();
+		String categoryString = "";
+		
+		if(hasCategory()){
+			categoryString = " ,Cat: " + category.getName() + "-" + category.getCustomColourName();
+		}
+		
+		return taskString + categoryString;
 	}
 	
 	@Override

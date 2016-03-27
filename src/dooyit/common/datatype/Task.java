@@ -12,7 +12,6 @@ public abstract class Task {
 	
 	protected boolean isCompleted;
 	protected Category category;
-	protected String uncheckCategory;
 
 	public static int curUniqueTaskId = 1; 
 	public int uniqueId; // to determine which task is created first
@@ -39,10 +38,6 @@ public abstract class Task {
 		return isCompleted;
 	}
 	
-	public void setUncheckCategory(String categoryName){
-		this.uncheckCategory = categoryName;
-	}
-	
 	public boolean setCategory(Category category) {
 		assert (category != null);
 
@@ -56,14 +51,6 @@ public abstract class Task {
 	
 	public Category getCategory(){
 		return category;
-	}
-	
-	public String getUncheckCategory(){
-		return uncheckCategory;
-	}
-	
-	public boolean hasUncheckCategory(){
-		return uncheckCategory != null;
 	}
 	
 	public boolean hasCategory(){

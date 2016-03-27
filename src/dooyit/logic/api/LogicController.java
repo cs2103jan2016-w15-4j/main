@@ -114,15 +114,15 @@ public class LogicController {
 	public void assignTaskToCategory(){
 		ArrayList<Task> tasks = taskManager.getAllTasks();
 		
-		for(Task task : tasks){
-			if(task.hasUncheckCategory()){
-				String uncheckCategory = task.getUncheckCategory();
-				if(categoryManager.contains(uncheckCategory)){
-					Category category = categoryManager.find(uncheckCategory);
-					task.setCategory(category);
-				}
-			}
-		}
+//		for(Task task : tasks){
+//			if(task.hasUncheckCategory()){
+//				String uncheckCategory = task.getUncheckCategory();
+//				if(categoryManager.contains(uncheckCategory)){
+//					Category category = categoryManager.find(uncheckCategory);
+//					task.setCategory(category);
+//				}
+//			}
+//		}
 		
 		categoryManager.setDefaultCategories();
 	}
@@ -365,6 +365,18 @@ public class LogicController {
 		return taskManager.isNext7DaysTask(task);
 	}
 
+	public String getFilePath(){
+		return storage.getFilePath();
+	}
+	
+	public void setFileDestinationPath(String path) throws IncorrectInputException{
+		try {
+			storage.setFileDestination(path);
+		} catch (IOException e) {
+			throw new IncorrectInputException("Invalid path: " + path);
+		}
+	}
+	
 	/**
 	 * pass the uicontroller references to this class
 	 * 

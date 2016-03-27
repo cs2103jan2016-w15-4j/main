@@ -5,6 +5,7 @@ import dooyit.logic.commands.Command;
 import dooyit.logic.commands.CommandUtils;
 
 public class EditParser {
+	private static final String ERROR_MESSAGE_INVALID_EDIT_COMMAND = "Error: Invalid edit Command!";
 	private static final String MARKER_TIME_START = " from ";
 	private static final String MARKER_TIME_END = " to ";
 	private static final String MARKER_DEADLINE = " by ";
@@ -68,7 +69,7 @@ public class EditParser {
 			return CommandUtils.createEditCommandNameAndDeadline(taskId, taskName, deadline);
 
 		case INVALID:
-			return CommandUtils.createInvalidCommand("Invalid Edit Command!");
+			return CommandUtils.createInvalidCommand(ERROR_MESSAGE_INVALID_EDIT_COMMAND);
 		}
 		return null;
 	}

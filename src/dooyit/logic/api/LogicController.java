@@ -114,15 +114,15 @@ public class LogicController {
 	public void assignTaskToCategory(){
 		ArrayList<Task> tasks = taskManager.getAllTasks();
 		
-		for(Task task : tasks){
-			if(task.hasUncheckCategory()){
-				String uncheckCategory = task.getUncheckCategory();
-				if(categoryManager.contains(uncheckCategory)){
-					Category category = categoryManager.find(uncheckCategory);
-					task.setCategory(category);
-				}
-			}
-		}
+//		for(Task task : tasks){
+//			if(task.hasUncheckCategory()){
+//				String uncheckCategory = task.getUncheckCategory();
+//				if(categoryManager.contains(uncheckCategory)){
+//					Category category = categoryManager.find(uncheckCategory);
+//					task.setCategory(category);
+//				}
+//			}
+//		}
 		
 		categoryManager.setDefaultCategories();
 	}

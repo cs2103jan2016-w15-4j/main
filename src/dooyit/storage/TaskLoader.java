@@ -170,7 +170,7 @@ public class TaskLoader {
 		
 		if(jsonTask.has(CATEGORY)) {
 			String categoryName = jsonTask.get(CATEGORY).getAsString();
-			task.setUncheckCategory(categoryName);
+			//task.setUncheckCategory(categoryName);
 		}
 
 		return task;

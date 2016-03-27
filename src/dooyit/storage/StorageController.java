@@ -128,7 +128,7 @@ public class StorageController extends StorageConstants {
 		return false;
 	}
 
-	public String getFilePath() throws IOException {
+	public String getFilePath() {
 		return preferences[TASK_DESTINATION];
 	}
 

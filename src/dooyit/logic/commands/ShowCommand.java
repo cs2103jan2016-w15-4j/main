@@ -2,9 +2,9 @@ package dooyit.logic.commands;
 
 import dooyit.common.datatype.Category;
 import dooyit.common.exception.IncorrectInputException;
-import dooyit.logic.api.CategoryManager;
+import dooyit.logic.CategoryManager;
+import dooyit.logic.TaskManager;
 import dooyit.logic.api.LogicController;
-import dooyit.logic.api.TaskManager;
 import dooyit.ui.UIController;
 import dooyit.ui.UIMainViewType;
 

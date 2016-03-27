@@ -3,7 +3,7 @@ package dooyit.logic.commands;
 import dooyit.common.datatype.Category;
 import dooyit.common.datatype.CustomColor;
 import dooyit.common.exception.IncorrectInputException;
-import dooyit.logic.api.CategoryManager;
+import dooyit.logic.CategoryManager;
 import dooyit.logic.api.LogicController;
 
 public class AddCategoryCommand extends Command {

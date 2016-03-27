@@ -89,6 +89,8 @@ show today				//Show tasks due today				//TODAY
 show next7				//Show tasks over the next 7			//NEXT_SEVEN
 show done				//Show ALL the tasks which are done		//TASKS_DONE
 show all				//Show all tasks that are not finished		//TASKS_ALL
+show completed
+show overdue
 show <date>				//Show the tasks that are done on that day	//DATE
 show cat <Catergory Name>		//Show all the tasks in that catergory		//CAT
 
@@ -98,7 +100,7 @@ addcat <cat name>
 addcat <cat name> <colour>				
 addcat <cat name> <colour> 1 2 3 4 5 6 		
 addcat <cat name> <colour> 1 
-addcat <cat name> <colour> 1 - 6 		//To be done
+addcat <cat name> <colour> 1-6 		//To be done
 addcat <cat name> 1 2 3 4 5
 addcat <cat name> 1 - 5
 addcat <cat name> 1
@@ -117,7 +119,7 @@ deletecat <cat name>
 
 move <cat name> 1 2 3 4 5						
 move <cat name> 1
-move <cat name> 1 - 5
+move <cat name> 1-5
 
 ----------------------------------------------------- Valid Commands for remove parser --------------------------------------------------------------------------------
 
@@ -130,4 +132,3 @@ rm 1 - 5
 skin <skin colour>
 storage <file path>
 undo
-[pg dn]/ [pg up]

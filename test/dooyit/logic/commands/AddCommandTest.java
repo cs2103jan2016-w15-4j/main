@@ -16,7 +16,6 @@ import dooyit.logic.api.TaskManager;
 public class AddCommandTest {
 
 	LogicController logic;
-	//TaskManager taskManager;
 	AddCommand addCommand;
 	
 	@Before
@@ -24,12 +23,10 @@ public class AddCommandTest {
 		logic = new LogicController();
 		logic.disableSave();
 		logic.clearTask();
-
-		//taskManager = logic.getTaskManager();
 	}
 	
 	@Test
-	public void testAddFloatingTask(){
+	public void addFloatingTask(){
 		addCommand = new AddCommand("hello");
 		addCommand.execute(logic);
 		
@@ -39,7 +36,7 @@ public class AddCommandTest {
 	}
 	
 	@Test
-	public void testAddDeadlineTask(){
+	public void addDeadlineTask(){
 		DateTime dateTime = new DateTime();
 		addCommand = new AddCommand("hello", dateTime);
 		addCommand.execute(logic);
@@ -50,7 +47,7 @@ public class AddCommandTest {
 	}
 	
 	@Test
-	public void testAddEventTask(){
+	public void addEventTask(){
 		DateTime dateTimeStart = new DateTime();
 		DateTime dateTimeEnd = new DateTime();
 		addCommand = new AddCommand("hello", dateTimeStart, dateTimeEnd);
@@ -62,11 +59,44 @@ public class AddCommandTest {
 	}
 	
 	@Test
-	public void undoAddedTask(){
+	public void undoAddedFloatingTask(){
 		addCommand = new AddCommand("hello");
 		addCommand.execute(logic);
 		
 		Task task = new FloatingTask("hello");
+		
+		//make sure task is inside taskManager
+		assertTrue(logic.containsTask(task));
+		
+		addCommand.undo(logic);
+		assertFalse(logic.containsTask(task));
+	}
+	
+	@Test
+	public void undoAddedDeadlineTask(){
+		DateTime dateTime = new DateTime();
+		addCommand = new AddCommand("hello", dateTime);
+		addCommand.execute(logic);
+		
+		
+		Task task = new DeadlineTask("hello", dateTime);
+		
+		//make sure task is inside taskManager
+		assertTrue(logic.containsTask(task));
+		
+		addCommand.undo(logic);
+		assertFalse(logic.containsTask(task));
+	}
+	
+	@Test
+	public void undoAddedEventTask(){
+		DateTime dateTimeStart = new DateTime();
+		DateTime dateTimeEnd = new DateTime();
+		addCommand = new AddCommand("hello", dateTimeStart, dateTimeEnd);
+		addCommand.execute(logic);
+		
+		
+		Task task = new EventTask("hello", dateTimeStart, dateTimeEnd);
 		
 		//make sure task is inside taskManager
 		assertTrue(logic.containsTask(task));

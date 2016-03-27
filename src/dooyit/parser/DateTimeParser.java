@@ -8,7 +8,8 @@ import dooyit.common.datatype.DateTime;
 import dooyit.common.exception.IncorrectInputException;
 
 public class DateTimeParser implements DateTimeParserCommon {
-	private static final int INDEX_FEBRUARY = 2;
+	private static final String ERROR_MESSAGE_GOING_BACK_IN_TIME = "You can't go back in time to add a task or event!";
+	private static final String ERROR_MESSAGE_INVALID_DATE_TIME = "Invalid Date Time!";
 	DateFormat dateFormat;
 	DateTime dateTime;
 	RelativeDateParser relativeDateParser;
@@ -54,8 +55,6 @@ public class DateTimeParser implements DateTimeParserCommon {
 		relativeDateParser = new RelativeDateParser(this.dateTime);
 		timeParser = new TimeParser();
 		fixedDateParser = new FixedDateParser(this.dateTime);
-		
-
 	}
 	
 	public DateTime parse(String input) throws IncorrectInputException {
@@ -85,15 +84,20 @@ public class DateTimeParser implements DateTimeParserCommon {
 				
 			default:
 				System.out.println("is default");
-				throw new IncorrectInputException("Invalid Date Time!");
+				throw new IncorrectInputException(ERROR_MESSAGE_INVALID_DATE_TIME);
 			}
 			
 			i = combined[COMBINED_INDEX_COUNTER];
 			//printArray(combined);
 			System.out.println("END: i is " + i);
 		}
-		
-		return getDateTimeObject(combined);
+		DateTime temp;
+		try {
+			temp = getDateTimeObject(combined);
+		} catch (IncorrectInputException e) {
+			throw e;
+		}
+		return temp;
 	}
 	
 	private DATE_TIME_FORMAT getDateTimeType(String currWord, String[] splitUserInput, int index) {
@@ -113,34 +117,49 @@ public class DateTimeParser implements DateTimeParserCommon {
 	
 
 	// This method converts the combined array into a DateTime object
-	private DateTime getDateTimeObject(int[] combined) {
+	private DateTime getDateTimeObject(int[] combined) throws IncorrectInputException {
 		DateTime dateTime;
 		int[] date = new int[] { combined[COMBINED_INDEX_DD], combined[COMBINED_INDEX_MM], combined[COMBINED_INDEX_YY] };
 		int time = combined[COMBINED_INDEX_TIME];
 		int day = combined[COMBINED_INDEX_DAY_OF_WEEK];
 
-		if (hasPassed(currTime, time, date)) {
+		if (inputTimeIsOverToday(time, date)) {
 			date = getDateAfterANumberOfDays(NEXT_DAY);
 			dateTime = new DateTime(date, daysInWeekFull[getNextDayInt()], time);
 		} else {
 			dateTime = new DateTime(date, daysInWeekFull[day], time);
 		}
-		System.out.println(dateTime.toString());
+		
+		if(inputDateIsOver(date)) {
+			throw new IncorrectInputException(ERROR_MESSAGE_GOING_BACK_IN_TIME);
+		}
+		logger.log(Level.INFO, "Date is " + dateTime.toString());
 		return dateTime;
 	}
 	
+	private boolean inputDateIsOver(int[] date) {
+		return yearIsOver(date) || monthIsOver(date) || dayIsOver(date);
+	}
+
+	private boolean monthIsOver(int[] date) {
+		return date[DATE_INDEX_OF_MM] < currMM && date[DATE_INDEX_OF_YY] == currYY;
+	}
+
+	private boolean yearIsOver(int[] date) {
+		return date[DATE_INDEX_OF_YY] < currYY;
+	}
+
+	private boolean dayIsOver(int[] date) {
+		return date[DATE_INDEX_OF_DD] < currDD && date[DATE_INDEX_OF_MM] == currMM && date[DATE_INDEX_OF_YY] == currYY;
+	}
+
 	//This method is repeated in relative date parser, i need to remove this
 	private int[] getDateAfterANumberOfDays(int fastForward) {
 		int newDay = currDD + fastForward;
 		int newMonth = currMM;
 		int newYear = currYY;
 		
-		int[] daysInMonth;
-		if (isLeapYear(currYY)) {
-			daysInMonth = daysInMonthLeapYear;
-		} else {
-			daysInMonth = daysInMonthNonLeapYear;
-		}
+		int[] daysInMonth = getDaysInMonthArray(currYY);
 
 		while (newDay > daysInMonth[newMonth]) {
 			newDay -= daysInMonth[newMonth];
@@ -172,8 +191,11 @@ public class DateTimeParser implements DateTimeParserCommon {
 		System.out.println(temp);
 	}
 
-	private boolean hasPassed(int currTime2, int time, int[] date) {
-		return currTime2 > time && date[DATE_INDEX_OF_DD] == currDD && date[DATE_INDEX_OF_MM] == currMM
-				&& date[DATE_INDEX_OF_YY] == currYY && time != UNINITIALIZED_INT;
+	private boolean inputTimeIsOverToday(int inputTime, int[] date) {
+		return currTime > inputTime && inputDateIsToday(date) && inputTime != UNINITIALIZED_INT;
+	}
+	
+	private boolean inputDateIsToday(int[] date) {
+		return date[DATE_INDEX_OF_DD] == currDD && date[DATE_INDEX_OF_MM] == currMM && date[DATE_INDEX_OF_YY] == currYY;
 	}
 }

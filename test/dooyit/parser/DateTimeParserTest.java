@@ -11,6 +11,10 @@ import org.junit.Test;
 
 public class DateTimeParserTest {
 	private static final int FORMAT_24H_6AM = 600;
+	
+	private static final String REFERENCE_TODAY_DAY_STRING = "Wednesday";
+	private static final String REFERENCE_TODAY_DATE = "17 Feb 2016";
+	private static final int REFERENCE_TODAY_DAY_INT = 3;
 
 	private static final String REFERENCE_TOMORROW_DAY_STRING = "Thursday";
 	private static final String REFERENCE_TOMORROW_DATE = "18 Feb 2016";
@@ -57,6 +61,455 @@ public class DateTimeParserTest {
 	String todayDate = todayDateTimeObject.getDate();
 	String todayDayString = todayDateTimeObject.getDayStr();
 	int todayDayInt = todayDateTimeObject.getDayInt();
+	
+	@Test(expected = IncorrectInputException.class) 
+	public void testInvalidWordDateWithNegativeDay() {
+		String wordDate = "-1 Mar 2016";
+		dateTimeParser.parse(wordDate);
+	}
+	
+	@Test(expected = IncorrectInputException.class) 
+	public void testInvalidWordDateWithNegativeYear() {
+		String wordDate = "1 Mar -2016";
+		dateTimeParser.parse(wordDate);
+	}
+	
+	@Test(expected = IncorrectInputException.class) 
+	public void testInvalidWordDate() {
+		String numberDate = "1 Gibberish 2016";
+		dateTimeParser.parse(numberDate);
+	}
+	
+	@Test(expected = IncorrectInputException.class) 
+	public void testParseNumberDateWithInvalidPositiveDay() {
+		String numberDate = "40/10/2016";
+		dateTimeParser.parse(numberDate);
+	}
+	
+	@Test(expected = IncorrectInputException.class) 
+	public void testParseIncompleteNumberDate() {
+		String numberDate = "4/";
+		dateTimeParser.parse(numberDate);
+	}
+	
+	@Test(expected = IncorrectInputException.class) 
+	public void testParseInvalidNumberDateTooManyFields() {
+		String numberDate = "4/10/2016/20/15";
+		dateTimeParser.parse(numberDate);
+	}
+	
+	@Test(expected = IncorrectInputException.class) 
+	public void testParseInvalidNumberDate() {
+		String numberDate = "a/b/c";
+		dateTimeParser.parse(numberDate);
+	}
+	
+	@Test(expected = IncorrectInputException.class) 
+	public void testParseNumberDateWithInvalidPositiveYear() {
+		String numberDate = "4/10/16";
+		dateTimeParser.parse(numberDate);
+	}
+	
+	@Test(expected = IncorrectInputException.class) 
+	public void testParseNegative24Hour() {
+		String time = "-11:30";
+		dateTimeParser.parse(time);
+	}
+	
+	@Test(expected = IncorrectInputException.class) 
+	public void testParseNumberOfWeeks() {
+		String relativeDate = "-10 weeks";
+		dateTimeParser.parse(relativeDate);
+	}
+	
+	@Test(expected = IncorrectInputException.class) 
+	public void testParseNegativeGibberish() {
+		String relativeDate = "-10 Gibberish";
+		dateTimeParser.parse(relativeDate);
+	}
+	
+	@Test(expected = IncorrectInputException.class) 
+	public void testParseGibberish() {
+		String time = "-10 -1000 -2018 pm";
+		dateTimeParser.parse(time);
+	}
+	
+	@Test(expected = IncorrectInputException.class) 
+	public void testParseNegativeElevenAm() {
+		String time = "-11am";
+		dateTimeParser.parse(time);
+	}
+	
+	@Test(expected = IncorrectInputException.class) 
+	public void testParseZeroAm() {
+		String time = "0am";
+		dateTimeParser.parse(time);
+	}
+	
+	@Test(expected = IncorrectInputException.class) 
+	public void testParseTwentyFivePm() {
+		String time = "25 Pm";
+		dateTimeParser.parse(time);
+	}
+	
+	@Test(expected = IncorrectInputException.class) 
+	public void testParseThirteenPm() {
+		String time = "13 Pm";
+		dateTimeParser.parse(time);
+	}
+	
+	@Test(expected = IncorrectInputException.class) 
+	public void testParseThirteenSixtyPm() {
+		String time = "3:60 Pm";
+		dateTimeParser.parse(time);
+	}
+	
+	@Test(expected = IncorrectInputException.class) 
+	public void testParseThirteenSixtyAm() {
+		String time = "3:60 Am";
+		dateTimeParser.parse(time);
+	}
+	
+	@Test(expected = IncorrectInputException.class) 
+	public void testParseForteenNegativeElevenAm() {
+		String time = "11.-11am";
+		dateTimeParser.parse(time);
+	}
+	
+	@Test(expected = IncorrectInputException.class) 
+	public void testParseForteenNegativeElevenPm() {
+		String time = "11.-11pm";
+		dateTimeParser.parse(time);
+	}
+	
+	@Test(expected = IncorrectInputException.class) 
+	public void testParseForteenNegativeElevenAmWithSpacing() {
+		String time = "11.-11 am";
+		dateTimeParser.parse(time);
+	}
+	
+	@Test(expected = IncorrectInputException.class) 
+	public void testParseForteenNegativeElevenPmWithSpacing() {
+		String time = "11.-11 pm";
+		dateTimeParser.parse(time);
+	}
+	
+	@Test(expected = IncorrectInputException.class) 
+	public void testParseEmptyString() {
+		String numberDate = "";
+		dateTimeParser.parse(numberDate);
+	}
+	
+	@Test(expected = IncorrectInputException.class) 
+	public void testParseInvalid24HTime1() {
+		String time = "24:30";
+		dateTimeParser.parse(time);
+	}
+	
+	@Test(expected = IncorrectInputException.class) 
+	public void testParseInvalid24HTime2() {
+		String time = "2:60";
+		dateTimeParser.parse(time);
+	}
+	
+	@Test(expected = IncorrectInputException.class) 
+	public void testParseInvalid24HTime3() {
+		String time = "24:60";
+		dateTimeParser.parse(time);
+	}
+	
+	@Test(expected = IncorrectInputException.class) 
+	public void testParseInvalid24HTime4() {
+		String time = "1:-60";
+		dateTimeParser.parse(time);
+	}
+	
+	@Test(expected = IncorrectInputException.class) 
+	public void testParseInvalid24HTime5() {
+		String time = "-1:50";
+		dateTimeParser.parse(time);
+	}
+	
+	@Test(expected = IncorrectInputException.class) 
+	public void testParseInvalid24HTime6() {
+		String time = "-1:-50";
+		dateTimeParser.parse(time);
+	}
+	
+	@Test(expected = IncorrectInputException.class) 
+	public void testParseNestedTimeIndicator1() {
+		String time = "1.40 pmer";
+		dateTimeParser.parse(time);
+	}
+	
+	@Test(expected = IncorrectInputException.class) 
+	public void testParseNestedTimeIndicator2() {
+		String time = "1.40 amer";
+		dateTimeParser.parse(time);
+	}
+	
+	@Test(expected = IncorrectInputException.class) 
+	public void testParseNestedTimeIndicator3() {
+		String time = "1.40pmer";
+		dateTimeParser.parse(time);
+	}
+	
+	@Test(expected = IncorrectInputException.class) 
+	public void testParseNestedTimeIndicator4() {
+		String time = "1.40amer";
+		dateTimeParser.parse(time);
+	}
+	
+	@Test(expected = IncorrectInputException.class) 
+	public void testParseTimeAmAndPm1() {
+		String time = "1.40ampm";
+		dateTimeParser.parse(time);
+	}
+	
+	@Test(expected = IncorrectInputException.class) 
+	public void testParseTimeAmAndPm2() {
+		String time = "1.40pmam";
+		dateTimeParser.parse(time);
+	}
+	
+	@Test(expected = IncorrectInputException.class) 
+	public void testParseTimeAmAndPm3() {
+		String time = "1.40 pmam";
+		dateTimeParser.parse(time);
+	}
+	
+	@Test(expected = IncorrectInputException.class) 
+	public void testParseTimeAmAndPm4() {
+		String time = "1.40 ampm";
+		dateTimeParser.parse(time);
+	}
+	
+	
+	@Test(expected = IncorrectInputException.class) 
+	public void testParseNegativeNumberDate() {
+		String numberDate = "-10 -12 -2016";
+		dateTimeParser.parse(numberDate);
+	}
+	
+	/* This is a boundary case for the ‘positive value’ partition */
+	@Test(expected = IncorrectInputException.class) 
+	public void testParseInvalidMonthInNumberDate() {
+		String numberDate = "29/20/2017";
+		dateTimeParser.parse(numberDate);
+	}
+	
+	/* This is a boundary case for the ‘positive value’ partition */
+	@Test(expected = IncorrectInputException.class) 
+	public void testParseInvalidNumberDateLeapDay() {
+		String numberDate = "29/2/2017";
+		dateTimeParser.parse(numberDate);
+	}
+	
+	/* This is a boundary case for the ‘negative value’ partition */
+	@Test(expected = IncorrectInputException.class) 
+	public void testParseNumberDateWithInvalidNegativeDay() {
+		String numberDate = "-1/10/2016";
+		dateTimeParser.parse(numberDate);
+	}
+	
+	/* This is a boundary case for the ‘negative value’ partition */
+	@Test(expected = IncorrectInputException.class) 
+	public void testParseNumberDateWithInvalidNegativeMonth() {
+		String numberDate = "1/-10/2016";
+		dateTimeParser.parse(numberDate);
+	}
+	
+	/* This is a boundary case for the ‘negative value’ partition */
+	@Test(expected = IncorrectInputException.class) 
+	public void testParseNumberDateWithInvalidNegativeYear() {
+		String numberDate = "1/10/-2016";
+		dateTimeParser.parse(numberDate);
+	}
+	
+	/* This is a boundary case for the ‘negative value’ partition */
+	@Test(expected = IncorrectInputException.class) 
+	public void testParseNumberDateWithInvalidNegativeDayMonthYear() {
+		String numberDate = "-1/-10/-2016";
+		dateTimeParser.parse(numberDate);
+	}
+	
+	@Test(expected = IncorrectInputException.class) 
+	public void testParseDateThatHasPassed() {
+		String userInput = "17 Feb 2015";
+		referenceDateTimeParser.parse(userInput);
+	}
+	
+	@Test
+	public void testParseTimeThatHasPassed() {
+		String userInput = "5 am";
+		DateTime parsedDateTimeObject = referenceDateTimeParser.parse(userInput);
+		
+		String dateParsed = parsedDateTimeObject.getDate();
+		String dayStrParsed = parsedDateTimeObject.getDayStr();
+		int dayIntParsed = parsedDateTimeObject.getDayInt();
+		int time24hParsed = parsedDateTimeObject.getTimeInt();
+		int expectedTime24H = 500;
+		
+		assertEquals(dateParsed, REFERENCE_TOMORROW_DATE);
+		assertEquals(dayStrParsed, REFERENCE_TOMORROW_DAY_STRING);
+		assertEquals(dayIntParsed, REFERENCE_TOMORROW_DAY_INT);
+		assertEquals(time24hParsed, expectedTime24H);
+	}
+	
+	@Test
+	public void testParseTime12HourTimeNoSpace1() {
+		String userInput = "1am";
+		DateTime parsedDateTimeObject = referenceDateTimeParser.parse(userInput);
+		
+		String dateParsed = parsedDateTimeObject.getDate();
+		String dayStrParsed = parsedDateTimeObject.getDayStr();
+		int dayIntParsed = parsedDateTimeObject.getDayInt();
+		int time24hParsed = parsedDateTimeObject.getTimeInt();
+		String time12hStringParsed = parsedDateTimeObject.getTime12hStr();
+		String time24hStringParsed = parsedDateTimeObject.getTime24hStr();
+		int expectedTime24H = 100;
+		String expected12hString = "1 am";
+		String expected24hString = "1:00";
+		
+		assertEquals(dateParsed, REFERENCE_TOMORROW_DATE);
+		assertEquals(dayStrParsed, REFERENCE_TOMORROW_DAY_STRING);
+		assertEquals(dayIntParsed, REFERENCE_TOMORROW_DAY_INT);
+		assertEquals(time24hParsed, expectedTime24H);
+		assertEquals(time12hStringParsed, expected12hString);
+		assertEquals(time24hStringParsed, expected24hString);
+	}
+	
+	@Test
+	public void testParseTime12HourTimeNoSpace2() {
+		String userInput = "2am";
+		DateTime parsedDateTimeObject = referenceDateTimeParser.parse(userInput);
+		
+		String dateParsed = parsedDateTimeObject.getDate();
+		String dayStrParsed = parsedDateTimeObject.getDayStr();
+		int dayIntParsed = parsedDateTimeObject.getDayInt();
+		int time24hParsed = parsedDateTimeObject.getTimeInt();
+		String time12hStringParsed = parsedDateTimeObject.getTime12hStr();
+		String time24hStringParsed = parsedDateTimeObject.getTime24hStr();
+		int expectedTime24H = 200;
+		String expected12hString = "2 am";
+		String expected24hString = "2:00";
+		
+		assertEquals(dateParsed, REFERENCE_TOMORROW_DATE);
+		assertEquals(dayStrParsed, REFERENCE_TOMORROW_DAY_STRING);
+		assertEquals(dayIntParsed, REFERENCE_TOMORROW_DAY_INT);
+		assertEquals(time24hParsed, expectedTime24H);
+		assertEquals(time12hStringParsed, expected12hString);
+		assertEquals(time24hStringParsed, expected24hString);
+	}
+	
+	@Test
+	public void testParseTime12HourTimeNoSpace3() {
+		String userInput = "3am";
+		DateTime parsedDateTimeObject = referenceDateTimeParser.parse(userInput);
+		
+		String dateParsed = parsedDateTimeObject.getDate();
+		String dayStrParsed = parsedDateTimeObject.getDayStr();
+		int dayIntParsed = parsedDateTimeObject.getDayInt();
+		int time24hParsed = parsedDateTimeObject.getTimeInt();
+		String time12hStringParsed = parsedDateTimeObject.getTime12hStr();
+		String time24hStringParsed = parsedDateTimeObject.getTime24hStr();
+		int expectedTime24H = 300;
+		String expected12hString = "3 am";
+		String expected24hString = "3:00";
+		
+		assertEquals(dateParsed, REFERENCE_TOMORROW_DATE);
+		assertEquals(dayStrParsed, REFERENCE_TOMORROW_DAY_STRING);
+		assertEquals(dayIntParsed, REFERENCE_TOMORROW_DAY_INT);
+		assertEquals(time24hParsed, expectedTime24H);
+		assertEquals(time12hStringParsed, expected12hString);
+		assertEquals(time24hStringParsed, expected24hString);
+	}
+	
+	@Test
+	public void testParseTime12HourTimeNoSpace4() {
+		String userInput = "4am";
+		DateTime parsedDateTimeObject = referenceDateTimeParser.parse(userInput);
+		
+		String dateParsed = parsedDateTimeObject.getDate();
+		String dayStrParsed = parsedDateTimeObject.getDayStr();
+		int dayIntParsed = parsedDateTimeObject.getDayInt();
+		int time24hParsed = parsedDateTimeObject.getTimeInt();
+		String time12hStringParsed = parsedDateTimeObject.getTime12hStr();
+		String time24hStringParsed = parsedDateTimeObject.getTime24hStr();
+		int expectedTime24H = 400;
+		String expected12hString = "4 am";
+		String expected24hString = "4:00";
+		
+		assertEquals(dateParsed, REFERENCE_TOMORROW_DATE);
+		assertEquals(dayStrParsed, REFERENCE_TOMORROW_DAY_STRING);
+		assertEquals(dayIntParsed, REFERENCE_TOMORROW_DAY_INT);
+		assertEquals(time24hParsed, expectedTime24H);
+		assertEquals(time12hStringParsed, expected12hString);
+		assertEquals(time24hStringParsed, expected24hString);
+	}
+	
+	@Test
+	public void testParseTime12HourTimeNoSpace5() {
+		String userInput = "5am";
+		DateTime parsedDateTimeObject = referenceDateTimeParser.parse(userInput);
+		
+		String dateParsed = parsedDateTimeObject.getDate();
+		String dayStrParsed = parsedDateTimeObject.getDayStr();
+		int dayIntParsed = parsedDateTimeObject.getDayInt();
+		int time24hParsed = parsedDateTimeObject.getTimeInt();
+		String time12hStringParsed = parsedDateTimeObject.getTime12hStr();
+		String time24hStringParsed = parsedDateTimeObject.getTime24hStr();
+		int expectedTime24H = 500;
+		String expected12hString = "5 am";
+		String expected24hString = "5:00";
+		
+		assertEquals(dateParsed, REFERENCE_TOMORROW_DATE);
+		assertEquals(dayStrParsed, REFERENCE_TOMORROW_DAY_STRING);
+		assertEquals(dayIntParsed, REFERENCE_TOMORROW_DAY_INT);
+		assertEquals(time24hParsed, expectedTime24H);
+		assertEquals(time12hStringParsed, expected12hString);
+		assertEquals(time24hStringParsed, expected24hString);
+	}
+	
+	@Test
+	public void testParseTime12HourTimeNoSpace6() {
+		String userInput = "6am";
+		DateTime parsedDateTimeObject = referenceDateTimeParser.parse(userInput);
+		
+		String dateParsed = parsedDateTimeObject.getDate();
+		String dayStrParsed = parsedDateTimeObject.getDayStr();
+		int dayIntParsed = parsedDateTimeObject.getDayInt();
+		int time24hParsed = parsedDateTimeObject.getTimeInt();
+		String time12hStringParsed = parsedDateTimeObject.getTime12hStr();
+		String time24hStringParsed = parsedDateTimeObject.getTime24hStr();
+		int expectedTime24H = 600;
+		String expected12hString = "6 am";
+		String expected24hString = "6:00";
+		
+		assertEquals(dateParsed, REFERENCE_TODAY_DATE);
+		assertEquals(dayStrParsed, REFERENCE_TODAY_DAY_STRING);
+		assertEquals(dayIntParsed, REFERENCE_TODAY_DAY_INT);
+		assertEquals(time24hParsed, expectedTime24H);
+		assertEquals(time12hStringParsed, expected12hString);
+		assertEquals(time24hStringParsed, expected24hString);
+	}
+	
+	@Test
+	public void testParseTimeThatHasPassedWithToday() {
+		String userInput = "today 5 am";
+		DateTime parsedDateTimeObject = referenceDateTimeParser.parse(userInput);
+		
+		String dateParsed = parsedDateTimeObject.getDate();
+		String dayStrParsed = parsedDateTimeObject.getDayStr();
+		int dayIntParsed = parsedDateTimeObject.getDayInt();
+		int time24hParsed = parsedDateTimeObject.getTimeInt();
+		int expectedTime24H = 500;
+		
+		assertEquals(dateParsed, REFERENCE_TOMORROW_DATE);
+		assertEquals(dayStrParsed, REFERENCE_TOMORROW_DAY_STRING);
+		assertEquals(dayIntParsed, REFERENCE_TOMORROW_DAY_INT);
+		assertEquals(time24hParsed, expectedTime24H);
+	} 
 	
 	@Test
 	public void testParseSaturday() {
@@ -572,48 +1025,6 @@ public class DateTimeParserTest {
 		assertEquals(parsedDate, expectedDate);
 	}
 	
-	/* This is a boundary case for the ‘positive value’ partition */
-	@Test(expected = IncorrectInputException.class) 
-	public void testParseNumberDateWithInvalidPositiveDay() {
-		String numberDate = "40/10/2016";
-		dateTimeParser.parse(numberDate);
-	}
-	
-	/* This is a boundary case for the ‘positive value’ partition */
-	@Test(expected = IncorrectInputException.class) 
-	public void testParseInvalidNumberDateLeapDay() {
-		String numberDate = "29/2/2017";
-		dateTimeParser.parse(numberDate);
-	}
-	
-	/* This is a boundary case for the ‘negative value’ partition */
-	@Test(expected = IncorrectInputException.class) 
-	public void testParseNumberDateWithInvalidNegativeDay() {
-		String numberDate = "-1/10/2016";
-		dateTimeParser.parse(numberDate);
-	}
-	
-	/* This is a boundary case for the ‘negative value’ partition */
-	@Test(expected = IncorrectInputException.class) 
-	public void testParseNumberDateWithInvalidNegativeMonth() {
-		String numberDate = "1/-10/2016";
-		dateTimeParser.parse(numberDate);
-	}
-	
-	/* This is a boundary case for the ‘negative value’ partition */
-	@Test(expected = IncorrectInputException.class) 
-	public void testParseNumberDateWithInvalidNegativeYear() {
-		String numberDate = "1/10/-2016";
-		dateTimeParser.parse(numberDate);
-	}
-	
-	/* This is a boundary case for the ‘negative value’ partition */
-	@Test(expected = IncorrectInputException.class) 
-	public void testParseNumberDateWithInvalidNegativeDayMonthYear() {
-		String numberDate = "-1/-10/-2016";
-		dateTimeParser.parse(numberDate);
-	}
-	
 	@Test
 	public void testParseTenThirtyAmWithSpaceAndDotTimeSeparator() {
 		String timeInput = "10.30 am";
@@ -630,7 +1041,7 @@ public class DateTimeParserTest {
 		int expectedTimeInt = 1030;
 		String time24HString = parsedDateTimeObject.getTime24hStr();
 		String time12HString = parsedDateTimeObject.getTime12hStr();
-		String expected24HTimeString = "1030";
+		String expected24HTimeString = "10:30";
 		String expected12HTimeString = "10.30 am";
 		
 		assertEquals(timeInt, expectedTimeInt);
@@ -654,7 +1065,7 @@ public class DateTimeParserTest {
 		int expectedTimeInt = 1030;
 		String time24HString = parsedDateTimeObject.getTime24hStr();
 		String time12HString = parsedDateTimeObject.getTime12hStr();
-		String expected24HTimeString = "1030";
+		String expected24HTimeString = "10:30";
 		String expected12HTimeString = "10.30 am";
 		
 		assertEquals(timeInt, expectedTimeInt);
@@ -679,7 +1090,7 @@ public class DateTimeParserTest {
 		int expectedTimeInt = 1030;
 		String time24HString = parsedDateTimeObject.getTime24hStr();
 		String time12HString = parsedDateTimeObject.getTime12hStr();
-		String expected24HTimeString = "1030";
+		String expected24HTimeString = "10:30";
 		String expected12HTimeString = "10.30 am";
 		
 		assertEquals(timeInt, expectedTimeInt);
@@ -703,7 +1114,7 @@ public class DateTimeParserTest {
 		int expectedTimeInt = 1030;
 		String time24HString = parsedDateTimeObject.getTime24hStr();
 		String time12HString = parsedDateTimeObject.getTime12hStr();
-		String expected24HTimeString = "1030";
+		String expected24HTimeString = "10:30";
 		String expected12HTimeString = "10.30 am";
 		
 		assertEquals(timeInt, expectedTimeInt);
@@ -727,7 +1138,7 @@ public class DateTimeParserTest {
 		int expectedTimeInt = 2230;
 		String time24HString = parsedDateTimeObject.getTime24hStr();
 		String time12HString = parsedDateTimeObject.getTime12hStr();
-		String expected24HTimeString = "2230";
+		String expected24HTimeString = "22:30";
 		String expected12HTimeString = "10.30 pm";
 		
 		assertEquals(timeInt, expectedTimeInt);
@@ -751,7 +1162,7 @@ public class DateTimeParserTest {
 		int expectedTimeInt = 2230;
 		String time24HString = parsedDateTimeObject.getTime24hStr();
 		String time12HString = parsedDateTimeObject.getTime12hStr();
-		String expected24HTimeString = "2230";
+		String expected24HTimeString = "22:30";
 		String expected12HTimeString = "10.30 pm";
 		
 		assertEquals(timeInt, expectedTimeInt);
@@ -775,7 +1186,7 @@ public class DateTimeParserTest {
 		int expectedTimeInt = 2230;
 		String time24HString = parsedDateTimeObject.getTime24hStr();
 		String time12HString = parsedDateTimeObject.getTime12hStr();
-		String expected24HTimeString = "2230";
+		String expected24HTimeString = "22:30";
 		String expected12HTimeString = "10.30 pm";
 		
 		assertEquals(timeInt, expectedTimeInt);
@@ -799,7 +1210,7 @@ public class DateTimeParserTest {
 		int expectedTimeInt = 2230;
 		String time24HString = parsedDateTimeObject.getTime24hStr();
 		String time12HString = parsedDateTimeObject.getTime12hStr();
-		String expected24HTimeString = "2230";
+		String expected24HTimeString = "22:30";
 		String expected12HTimeString = "10.30 pm";
 		
 		assertEquals(timeInt, expectedTimeInt);
@@ -823,7 +1234,7 @@ public class DateTimeParserTest {
 		int expectedTimeInt = 1030;
 		String time24HString = parsedDateTimeObject.getTime24hStr();
 		String time12HString = parsedDateTimeObject.getTime12hStr();
-		String expected24HTimeString = "1030";
+		String expected24HTimeString = "10:30";
 		String expected12HTimeString = "10.30 am";
 		
 		assertEquals(timeInt, expectedTimeInt);
@@ -847,7 +1258,7 @@ public class DateTimeParserTest {
 		int expectedTimeInt = 1030;
 		String time24HString = parsedDateTimeObject.getTime24hStr();
 		String time12HString = parsedDateTimeObject.getTime12hStr();
-		String expected24HTimeString = "1030";
+		String expected24HTimeString = "10:30";
 		String expected12HTimeString = "10.30 am";
 		
 		assertEquals(timeInt, expectedTimeInt);
@@ -871,7 +1282,7 @@ public class DateTimeParserTest {
 		int expectedTimeInt = 1030;
 		String time24HString = parsedDateTimeObject.getTime24hStr();
 		String time12HString = parsedDateTimeObject.getTime12hStr();
-		String expected24HTimeString = "1030";
+		String expected24HTimeString = "10:30";
 		String expected12HTimeString = "10.30 am";
 		
 		assertEquals(timeInt, expectedTimeInt);
@@ -895,7 +1306,7 @@ public class DateTimeParserTest {
 		int expectedTimeInt = 1030;
 		String time24HString = parsedDateTimeObject.getTime24hStr();
 		String time12HString = parsedDateTimeObject.getTime12hStr();
-		String expected24HTimeString = "1030";
+		String expected24HTimeString = "10:30";
 		String expected12HTimeString = "10.30 am";
 		
 		assertEquals(timeInt, expectedTimeInt);
@@ -919,7 +1330,7 @@ public class DateTimeParserTest {
 		int expectedTimeInt = 2230;
 		String time24HString = parsedDateTimeObject.getTime24hStr();
 		String time12HString = parsedDateTimeObject.getTime12hStr();
-		String expected24HTimeString = "2230";
+		String expected24HTimeString = "22:30";
 		String expected12HTimeString = "10.30 pm";
 		
 		assertEquals(timeInt, expectedTimeInt);
@@ -943,7 +1354,7 @@ public class DateTimeParserTest {
 		int expectedTimeInt = 2230;
 		String time24HString = parsedDateTimeObject.getTime24hStr();
 		String time12HString = parsedDateTimeObject.getTime12hStr();
-		String expected24HTimeString = "2230";
+		String expected24HTimeString = "22:30";
 		String expected12HTimeString = "10.30 pm";
 		
 		assertEquals(timeInt, expectedTimeInt);
@@ -967,7 +1378,7 @@ public class DateTimeParserTest {
 		int expectedTimeInt = 2230;
 		String time24HString = parsedDateTimeObject.getTime24hStr();
 		String time12HString = parsedDateTimeObject.getTime12hStr();
-		String expected24HTimeString = "2230";
+		String expected24HTimeString = "22:30";
 		String expected12HTimeString = "10.30 pm";
 		
 		assertEquals(timeInt, expectedTimeInt);
@@ -991,7 +1402,7 @@ public class DateTimeParserTest {
 		int expectedTimeInt = 1030;
 		String time24HString = parsedDateTimeObject.getTime24hStr();
 		String time12HString = parsedDateTimeObject.getTime12hStr();
-		String expected24HTimeString = "1030";
+		String expected24HTimeString = "10:30";
 		String expected12HTimeString = "10.30 am";
 		
 		assertEquals(timeInt, expectedTimeInt);
@@ -1116,7 +1527,7 @@ public class DateTimeParserTest {
 		int timeInt = dateTime.getTimeInt();
 		
 		assertEquals(date, "15 Jun 2016");
-		assertEquals(timeStr24H, "1800");
+		assertEquals(timeStr24H, "18:00");
 		assertEquals(timeStr12H, "6 pm");
 		assertEquals(dayStr, "Wednesday");
 		assertEquals(dayInt, 3);
@@ -1136,7 +1547,7 @@ public class DateTimeParserTest {
 		int timeInt = dateTime.getTimeInt();
 		
 		assertEquals(date, "15 Jun 2016");
-		assertEquals(timeStr24H, "1800");
+		assertEquals(timeStr24H, "18:00");
 		assertEquals(timeStr12H, "6 pm");
 		assertEquals(dayStr, "Wednesday");
 		assertEquals(dayInt, 3);
@@ -1156,7 +1567,7 @@ public class DateTimeParserTest {
 		int timeInt = dateTime.getTimeInt();
 		
 		assertEquals(date, "19 Feb 2020");
-		assertEquals(timeStr24H, "1830");
+		assertEquals(timeStr24H, "18:30");
 		assertEquals(timeStr12H, "6.30 pm");
 		assertEquals(dayStr, "Wednesday");
 		assertEquals(dayInt, 3);
@@ -1176,7 +1587,7 @@ public class DateTimeParserTest {
 		int timeInt = dateTime.getTimeInt();
 		
 		assertEquals(date, "19 Feb 2020");
-		assertEquals(timeStr24H, "1830");
+		assertEquals(timeStr24H, "18:30");
 		assertEquals(timeStr12H, "6.30 pm");
 		assertEquals(dayStr, "Wednesday");
 		assertEquals(dayInt, 3);
@@ -1196,7 +1607,7 @@ public class DateTimeParserTest {
 		int timeInt = dateTime.getTimeInt();
 		
 		assertEquals(date, "15 Sep 2016");
-		assertEquals(timeStr24H, "0645");
+		assertEquals(timeStr24H, "06:45");
 		assertEquals(timeStr12H, "6.45 am");
 		assertEquals(dayStr, "Thursday");
 		assertEquals(dayInt, 4);
@@ -1216,7 +1627,7 @@ public class DateTimeParserTest {
 		int timeInt = dateTime.getTimeInt();
 		
 		assertEquals(date, "15 Sep 2016");
-		assertEquals(timeStr24H, "0645");
+		assertEquals(timeStr24H, "06:45");
 		assertEquals(timeStr12H, "6.45 am");
 		assertEquals(dayStr, "Thursday");
 		assertEquals(dayInt, 4);
@@ -1236,7 +1647,7 @@ public class DateTimeParserTest {
 		int timeInt = dateTime.getTimeInt();
 		
 		assertEquals(date, "1 Jan 2017");
-		assertEquals(timeStr24H, "1345");
+		assertEquals(timeStr24H, "13:45");
 		assertEquals(timeStr12H, "1.45 pm");
 		assertEquals(dayStr, "Sunday");
 		assertEquals(dayInt, 7);
@@ -1256,7 +1667,7 @@ public class DateTimeParserTest {
 		int timeInt = dateTime.getTimeInt();
 		
 		assertEquals(date, "1 Jan 2017");
-		assertEquals(timeStr24H, "1345");
+		assertEquals(timeStr24H, "13:45");
 		assertEquals(timeStr12H, "1.45 pm");
 		assertEquals(dayStr, "Sunday");
 		assertEquals(dayInt, 7);
@@ -1276,7 +1687,7 @@ public class DateTimeParserTest {
 		int timeInt = dateTime.getTimeInt();
 		
 		assertEquals(date, "10 Feb 2017");
-		assertEquals(timeStr24H, "0645");
+		assertEquals(timeStr24H, "06:45");
 		assertEquals(timeStr12H, "6.45 am");
 		assertEquals(dayStr, "Friday");
 		assertEquals(dayInt, 5);
@@ -1296,7 +1707,7 @@ public class DateTimeParserTest {
 		int timeInt = dateTime.getTimeInt();
 		
 		assertEquals(date, "10 Feb 2017");
-		assertEquals(timeStr24H, "0645");
+		assertEquals(timeStr24H, "06:45");
 		assertEquals(timeStr12H, "6.45 am");
 		assertEquals(dayStr, "Friday");
 		assertEquals(dayInt, 5);
@@ -1316,7 +1727,7 @@ public class DateTimeParserTest {
 		int timeInt = dateTime.getTimeInt();
 		
 		assertEquals(date, "10 Oct 2016");
-		assertEquals(timeStr24H, "0845");
+		assertEquals(timeStr24H, "08:45");
 		assertEquals(timeStr12H, "8.45 am");
 		assertEquals(dayStr, "Monday");
 		assertEquals(dayInt, 1);
@@ -1336,7 +1747,7 @@ public class DateTimeParserTest {
 		int timeInt = dateTime.getTimeInt();
 		
 		assertEquals(date, "10 Oct 2016");
-		assertEquals(timeStr24H, "0845");
+		assertEquals(timeStr24H, "08:45");
 		assertEquals(timeStr12H, "8.45 am");
 		assertEquals(dayStr, "Monday");
 		assertEquals(dayInt, 1);
@@ -1356,7 +1767,7 @@ public class DateTimeParserTest {
 		int timeInt = dateTime.getTimeInt();
 		
 		assertEquals(date, "15 Oct 2016");
-		assertEquals(timeStr24H, "1915");
+		assertEquals(timeStr24H, "19:15");
 		assertEquals(timeStr12H, "7.15 pm");
 		assertEquals(dayStr, "Saturday");
 		assertEquals(dayInt, 6);
@@ -1376,7 +1787,7 @@ public class DateTimeParserTest {
 		int timeInt = dateTime.getTimeInt();
 		
 		assertEquals(date, "15 Oct 2016");
-		assertEquals(timeStr24H, "1915");
+		assertEquals(timeStr24H, "19:15");
 		assertEquals(timeStr12H, "7.15 pm");
 		assertEquals(dayStr, "Saturday");
 		assertEquals(dayInt, 6);
@@ -1396,7 +1807,7 @@ public class DateTimeParserTest {
 		int timeInt = dateTime.getTimeInt();
 		
 		assertEquals(date, "15 Jan 2017");
-		assertEquals(timeStr24H, "1915");
+		assertEquals(timeStr24H, "19:15");
 		assertEquals(timeStr12H, "7.15 pm");
 		assertEquals(dayStr, "Sunday");
 		assertEquals(dayInt, 7);
@@ -1416,7 +1827,7 @@ public class DateTimeParserTest {
 		int timeInt = dateTime.getTimeInt();
 		
 		assertEquals(date, "15 Jan 2017");
-		assertEquals(timeStr24H, "1915");
+		assertEquals(timeStr24H, "19:15");
 		assertEquals(timeStr12H, "7.15 pm");
 		assertEquals(dayStr, "Sunday");
 		assertEquals(dayInt, 7);

@@ -10,18 +10,20 @@ public class EditParser {
 	private static final String MARKER_DEADLINE = " by ";
 
 	private static String userInput;
-	private static String taskName;
-	private static int taskId = -1;
-	private static DateTime start = null;
-	private static DateTime end = null;
-	private static DateTime deadline = null;
+	private String taskName;
+	private int taskId = -1;
+	private DateTime start;
+	private DateTime end;
+	private DateTime deadline;
 
 	enum EDIT_TYPE {
 		NAME, DEADLINE, TIME_START_END, TIME_START, TIME_END, NAME_TIME_START_END, NAME_TIME_START, NAME_TIME_END, NAME_DEADLINE, INVALID
 	};
 
 	public EditParser() {
-
+		start = null;
+		end = null;
+		deadline = null;
 	}
 
 	public Command getCommand(String input) {

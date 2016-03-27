@@ -12,14 +12,14 @@ public class AddParser {
 	private static final String MARKER_WORK = " by ";
 	private static final String MARKER_CATEGORY = " @ ";
 
-	private static String userInput;
-	private static String taskName;
-	private static String categoryName;
-	private static int categoryId;
-	private static DateTime start;
-	private static DateTime end;
-	private static DateTime deadline;
-	private static Command cmd;
+	private String userInput;
+	private String taskName;
+	private String categoryName;
+	private int categoryId;
+	private DateTime start;
+	private DateTime end;
+	private DateTime deadline;
+	private Command cmd;
 
 	enum TASK_TYPE {
 		FLOATING, WORK, EVENT, INVALID, CATEGORY_AND_EVENT, CATEGORY_AND_WORK, CATEGORY_AND_FLOATING
@@ -31,7 +31,6 @@ public class AddParser {
 
 	public Command getCommand(String input) throws IncorrectInputException {
 		userInput = input.trim();
-		System.out.println("reached add command");
 		switch (getTaskType()) {
 		case FLOATING:
 			try {

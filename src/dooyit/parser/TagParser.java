@@ -8,11 +8,11 @@ import dooyit.logic.commands.CommandUtils;
 
 public class TagParser {
 	public static final int INDEX_SINGLE = 0;
-	public static String userInput;
-	public static String[] splitInput;
-	public static ArrayList<Integer> taskIdsForTagging;
-	public static int taskIdForTagging;
-	public static int tagType;
+	public String userInput;
+	public String[] splitInput;
+	public ArrayList<Integer> taskIdsForTagging;
+	public int taskIdForTagging;
+	public int tagType;
 	
 	enum TAG_TYPE {
 		SINGLE, MULTIPLE, INTERVAL, INVALID
@@ -64,19 +64,16 @@ public class TagParser {
 
 	public void parseIntervalType() throws IncorrectInputException {
 		for (int i = INDEX_SINGLE; i < splitInput.length; i++) {
-			if (splitInput[i].equals("-")) {
-				if (!isNumber(splitInput[i - 1]) || !isNumber(splitInput[i + 1])) {
-					throw new IncorrectInputException("Invalid Number!");
-				} else {
-					setInterval(splitInput, i);
-				}
+			if (splitInput[i].contains("-")) {
+				setInterval(splitInput[i]);
 			}
 		}
 	}
 
-	public void setInterval(String[] arr, int index) {
-		int start = Integer.parseInt(arr[index - 1]);
-		int end = Integer.parseInt(arr[index + 1]);
+	public void setInterval(String currWord) {
+		String[] splitByDash = currWord.split("-");
+		int start = Integer.parseInt(splitByDash[0]);
+		int end = Integer.parseInt(splitByDash[1]);
 		for (int i = start; i <= end; i++) {
 			taskIdsForTagging.add(i);
 		}

@@ -5,7 +5,7 @@ import dooyit.logic.commands.Command;
 import dooyit.logic.commands.CommandUtils;
 
 public class DeleteParser extends TagParser {
-	private static Command command;
+	private Command command;
 
 	public DeleteParser() {
 		super();

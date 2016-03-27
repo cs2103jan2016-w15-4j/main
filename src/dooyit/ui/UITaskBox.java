@@ -17,8 +17,8 @@ public class UITaskBox {
 	private static final int PREFWIDTH_TASK_ID = 20;
 	private static final Font FONT_TASK_NAME = UIFont.SEGOE_M;
 	private static final String STYLECLASS_TASK_NAME = UIStyle.TASK_NAME;
-	private static final int TASK_NAME_WIDTH_TO_SUBTRACT = 90;
-	private static final Font FONT_TASK_PERIOD = UIFont.SEGOE_M;
+	private static final int TASK_NAME_WIDTH_TO_SUBTRACT = 100;
+	private static final Font FONT_TASK_PERIOD = UIFont.VERDANA_M;
 	private static final String STYLECLASS_TASK_PERIOD = UIStyle.TASK_PERIOD;
 	private static final int PREFWIDTH_TASK_PERIOD = 100;
 	private static final String TASK_PERIOD_TO = " to ";
@@ -139,7 +139,7 @@ public class UITaskBox {
 		widthToSubtract += this.taskId.getWidth() + SPACING_TASK_BOX;
 		widthToSubtract += this.taskPeriod.getWidth() + SPACING_TASK_BOX;
 		widthToSubtract += this.taskCategoryLabel.getWidth() + 2 * SPACING_TASK_BOX;
-		widthToSubtract += SPACING_TASK_BOX;
+		widthToSubtract += 2*SPACING_TASK_BOX;
 		double width = stageWidth - widthToSubtract;
 		this.taskName.setMinWidth(width);
 		this.taskName.setPrefWidth(width);

@@ -390,7 +390,7 @@ public class TaskManager {
 		taskGroup.addTasks(getIncompletedTasks());
 		taskGroups.add(taskGroup);
 		
-		resetTaskId(taskGroups);
+		resetTasksId(taskGroups);
 		return taskGroups;
 	}
 
@@ -411,7 +411,7 @@ public class TaskManager {
 		taskGroup.addTasks(getIncompleteEventTasks(currDate));
 		taskGroups.add(taskGroup);
 		
-		resetTaskId(taskGroups);
+		resetTasksId(taskGroups);
 		return taskGroups;
 	}
 
@@ -422,7 +422,7 @@ public class TaskManager {
 		taskGroup.addTasks(getIncompleteFloatingTasks());
 		taskGroups.add(taskGroup);
 		
-		resetTaskId(taskGroups);
+		resetTasksId(taskGroups);
 		return taskGroups;
 	}
 
@@ -433,7 +433,7 @@ public class TaskManager {
 		taskGroup.addTasks(getCompletedTasks());
 		taskGroups.add(taskGroup);
 		
-		resetTaskId(taskGroups);
+		resetTasksId(taskGroups);
 		return taskGroups;
 	}
 
@@ -462,7 +462,7 @@ public class TaskManager {
 			currDate.increaseByOneDay();
 		}
 
-		resetTaskId(taskGroups);
+		resetTasksId(taskGroups);
 		return taskGroups;
 	}
 
@@ -475,16 +475,29 @@ public class TaskManager {
 		
 		taskGroups.add(taskGroup);
 
-		resetTaskId(taskGroups);
+		resetTasksId(taskGroups);
 		return taskGroups;
 	}
 	
-	public void resetTaskId(ArrayList<TaskGroup> taskGroups){
-		int taskId = 1;
-		
+	public void resetTasksId(ArrayList<TaskGroup> taskGroups){
+		clearOldId();
+		assignNewId(taskGroups);
+	}
+
+	/**
+	 * 
+	 */
+	public void clearOldId() {
 		for(Task task : tasks){
 			task.resetId();
 		}
+	}
+
+	/**
+	 * @param taskGroups
+	 */
+	public void assignNewId(ArrayList<TaskGroup> taskGroups) {
+		int taskId = 1;
 		
 		for(TaskGroup taskGroup: taskGroups){
 			ArrayList<Task> tasks = taskGroup.getTasks();

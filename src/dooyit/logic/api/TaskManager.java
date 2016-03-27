@@ -527,13 +527,7 @@ public class TaskManager {
 		System.out.println("Task List");
 
 		for (Task task : tasks) {
-			System.out.print(task.getId() + ": " + task);
-			
-			Category cat = task.getCategory();
-			if(cat != null)
-				System.out.println(", Cat: " + cat.getName());
-			
-			System.out.println();
+			System.out.println(task.getId() + ": " + task);
 		}
 
 		System.out.println();

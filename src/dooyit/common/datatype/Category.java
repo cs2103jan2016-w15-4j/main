@@ -28,6 +28,10 @@ public class Category {
 		return customColor;
 	}
 
+	public String getCustomColourName() {
+		return customColor.getName();
+	}
+	
 	@Override
 	public boolean equals(Object o) {
 		if (o instanceof String) {

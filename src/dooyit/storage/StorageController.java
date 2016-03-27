@@ -128,7 +128,7 @@ public class StorageController extends StorageConstants {
 		return false;
 	}
 
-	public String getFilePath() throws IOException {
+	public String getFilePath() {
 		return preferences[TASK_DESTINATION];
 	}
 
@@ -138,7 +138,15 @@ public class StorageController extends StorageConstants {
 
 	private void modifyConfig(String[] preferences) throws IOException {
 		File configFile = new File(configFilePath);
-		BufferedWriter bWriter = new BufferedWriter(new FileWriter(configFile));
+		FileWriter fileWriter = null;
+		try {
+			fileWriter = new FileWriter(configFile);
+		} catch (IOException e) {
+			throw new IOException("Error: Cannot open config");
+		}
+		
+		assert fileWriter != null;
+		BufferedWriter bWriter = new BufferedWriter(fileWriter);
 		for (String path : preferences) {
 			bWriter.append(path);
 			bWriter.newLine();

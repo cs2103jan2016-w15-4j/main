@@ -39,7 +39,14 @@ public class EventTask extends Task {
 
 	@Override
 	public String toString() {
-		return taskName + ": event: " + dateTimeStart.toString() + "," + dateTimeEnd.toString();
+		String taskString = taskName + ", Event: " + dateTimeStart.toString() + "to" + dateTimeEnd.toString();
+		String categoryString = "";
+		
+		if(hasCategory()){
+			categoryString = ", Cat: " + category.getName() + "-" + category.getCustomColourName();
+		}
+		
+		return taskString + categoryString;
 	}
 
 	@Override

@@ -66,8 +66,8 @@ public class TaskManager {
 		tasks.add(task);
 	}
 
-	public void loadTask(ArrayList<Task> tasks) {
-		this.tasks = new ArrayList<Task>(tasks);
+	public void load(ArrayList<Task> tasks) {
+		this.tasks.addAll(tasks);
 	}
 
 	public Task remove(int id) {

@@ -15,38 +15,38 @@ import dooyit.logic.api.TaskManager;
 
 public class AddCommandTest {
 
-	LogicController logicController;
-	TaskManager taskManager;
+	LogicController logic;
+	//TaskManager taskManager;
 	AddCommand addCommand;
 	
 	@Before
 	public void setUp() {
-		logicController = new LogicController();
-		logicController.disableSave();
-		logicController.clearTask();
+		logic = new LogicController();
+		logic.disableSave();
+		logic.clearTask();
 
-		taskManager = logicController.getTaskManager();
+		//taskManager = logic.getTaskManager();
 	}
 	
 	@Test
 	public void testAddFloatingTask(){
 		addCommand = new AddCommand("hello");
-		addCommand.execute(logicController);
+		addCommand.execute(logic);
 		
 		Task task = new FloatingTask("hello");
 		
-		assertTrue(taskManager.contains(task));
+		assertTrue(logic.containsTask(task));
 	}
 	
 	@Test
 	public void testAddDeadlineTask(){
 		DateTime dateTime = new DateTime();
 		addCommand = new AddCommand("hello", dateTime);
-		addCommand.execute(logicController);
+		addCommand.execute(logic);
 		
 		Task task = new DeadlineTask("hello", dateTime);
 		
-		assertTrue(taskManager.contains(task));
+		assertTrue(logic.containsTask(task));
 	}
 	
 	@Test
@@ -54,24 +54,24 @@ public class AddCommandTest {
 		DateTime dateTimeStart = new DateTime();
 		DateTime dateTimeEnd = new DateTime();
 		addCommand = new AddCommand("hello", dateTimeStart, dateTimeEnd);
-		addCommand.execute(logicController);
+		addCommand.execute(logic);
 		
 		Task task = new EventTask("hello", dateTimeStart, dateTimeEnd);
 		
-		assertTrue(taskManager.contains(task));
+		assertTrue(logic.containsTask(task));
 	}
 	
 	@Test
 	public void undoAddedTask(){
 		addCommand = new AddCommand("hello");
-		addCommand.execute(logicController);
+		addCommand.execute(logic);
 		
 		Task task = new FloatingTask("hello");
 		
 		//make sure task is inside taskManager
-		assertTrue(taskManager.contains(task));
+		assertTrue(logic.containsTask(task));
 		
-		addCommand.undo(logicController);
-		assertFalse(taskManager.contains(task));
+		addCommand.undo(logic);
+		assertFalse(logic.containsTask(task));
 	}
 }

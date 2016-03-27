@@ -17,7 +17,9 @@ public abstract class Task {
 	public int uniqueId; // to determine which task is created first
 	
 	public Task() {
-		uniqueId = curUniqueTaskId++;
+		uniqueId = curUniqueTaskId;
+		taskId = curUniqueTaskId;
+		curUniqueTaskId++;
 	}
 
 	public void changeName(String taskName) {

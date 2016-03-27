@@ -53,7 +53,7 @@ public class LogicController {
 
 		try {
 			ArrayList<Task> tasks = storage.loadTasks();
-			taskManager.loadTask(tasks);
+			taskManager.load(tasks);
 		} catch (IOException e) {
 			logger.log(Level.SEVERE, "ERROR: Fail to load task from storage");
 			uiController.displayMessage("ERROR: LOAD TASK");
@@ -251,6 +251,10 @@ public class LogicController {
 
 	public boolean containsTask(int taskId) {
 		return taskManager.contains(taskId);
+	}
+	
+	public boolean containsTask(Task task) {
+		return taskManager.contains(task);
 	}
 	
 	public Task findTask(int taskId) {

@@ -27,35 +27,36 @@ public class CategoryManager {
 		if (contains(categoryName)) {
 			throw new IncorrectInputException("Category: " + categoryName + " already exists.");
 		}
-		
+
 		categoryName = capitalizeFirstCharacter(categoryName);
 		Category category = new Category(categoryName, colourManager.pickRandomCustomColour());
 		categories.add(category);
 		return category;
 	}
-	
+
 	public Category addCategory(String categoryName, String customColourString) throws IncorrectInputException {
 		if (contains(categoryName)) {
 			throw new IncorrectInputException("Category: " + categoryName + " already exists.");
 		}
-		
-		if(!colourManager.contains(customColourString)){
+
+		if (!colourManager.contains(customColourString)) {
 			addCategory(categoryName);
-			throw new IncorrectInputException("Colour: " + customColourString + " is not available. A random colour has been picked for you!");
+			throw new IncorrectInputException(
+					"Colour: " + customColourString + " is not available. A random colour has been picked for you!");
 		}
-		
+
 		categoryName = capitalizeFirstCharacter(categoryName);
 		CustomColor customColour = colourManager.find(customColourString);
 		Category category = new Category(categoryName, customColour);
 		categories.add(category);
 		return category;
 	}
-	
+
 	public Category addCategory(String categoryName, CustomColor colour) throws IncorrectInputException {
 		if (contains(categoryName)) {
 			throw new IncorrectInputException("Category: " + categoryName + " already exists.");
 		}
-		
+
 		categoryName = capitalizeFirstCharacter(categoryName);
 		Category category = new Category(categoryName, colour);
 		categories.add(category);
@@ -64,7 +65,7 @@ public class CategoryManager {
 
 	public boolean contains(String categoryName) {
 		for (int i = 0; i < categories.size(); i++) {
-			if(categories.get(i).equals(categoryName)){
+			if (categories.get(i).equals(categoryName)) {
 				return true;
 			}
 		}
@@ -73,13 +74,13 @@ public class CategoryManager {
 
 	public boolean contains(Category category) {
 		for (int i = 0; i < categories.size(); i++) {
-			if(categories.get(i).equals(category)){
+			if (categories.get(i).equals(category)) {
 				return true;
 			}
 		}
 		return false;
 	}
-	
+
 	public Category find(String categoryName) {
 		for (int i = 0; i < categories.size(); i++) {
 			if (categories.get(i).equals(categoryName)) {
@@ -88,7 +89,7 @@ public class CategoryManager {
 		}
 		return null;
 	}
-	
+
 	public Category find(Category category) {
 		for (int i = 0; i < categories.size(); i++) {
 			if (categories.get(i).equals(category)) {
@@ -101,18 +102,22 @@ public class CategoryManager {
 	public ArrayList<Category> getCategoryList() {
 		return categories;
 	}
-	
-	private String capitalizeFirstCharacter(String categoryName){
-		assert(categoryName != null);
-		
-		if(categoryName == ""){
+
+	public void load(ArrayList<Category> categories) {
+		this.categories.addAll(categories);
+	}
+
+	private String capitalizeFirstCharacter(String categoryName) {
+		assert (categoryName != null);
+
+		if (categoryName == "") {
 			return "";
 		}
-		
+
 		categoryName = categoryName.toLowerCase();
 		char capitalFirstLetter = Character.toUpperCase(categoryName.charAt(0));
 		String string = capitalFirstLetter + categoryName.substring(1);
-		
+
 		return string;
 	}
 }

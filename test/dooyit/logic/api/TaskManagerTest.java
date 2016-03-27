@@ -101,7 +101,7 @@ public class TaskManagerTest {
 		tasks.add(task2);
 		tasks.add(task3);
 
-		taskManager.loadTask(tasks);
+		taskManager.load(tasks);
 
 		assertTrue(taskManager.contains(task1));
 		assertTrue(taskManager.contains(task2));

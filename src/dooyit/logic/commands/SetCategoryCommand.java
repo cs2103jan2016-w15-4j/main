@@ -21,13 +21,6 @@ public class SetCategoryCommand extends Command {
 		this.categoryName = categoryName;
 	}
 
-	// public SetCategoryCommand(ArrayList<Integer> taskIds, String
-	// categoryName) {
-	// this.taskIds = new ArrayList<Integer>();
-	// this.taskIds.addAll(taskIds);
-	// this.categoryName = categoryName;
-	// }
-
 	@Override
 	public void execute(LogicController logic) throws IncorrectInputException {
 

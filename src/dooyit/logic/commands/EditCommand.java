@@ -6,7 +6,7 @@ import dooyit.common.exception.IncorrectInputException;
 import dooyit.logic.api.LogicController;
 import dooyit.logic.api.TaskManager;
 
-public class EditCommand extends Command {
+public class EditCommand extends ReversibleCommand {
 
 	private enum EditCommandType {
 		NAME, DEADLINE, EVENT, NAME_N_DEADLINE, NAME_N_EVENT
@@ -54,37 +54,40 @@ public class EditCommand extends Command {
 	}
 
 	@Override
-	public void execute(LogicController logic) throws IncorrectInputException {
-		TaskManager taskManager = logic.getTaskManager();
-		assert (taskManager != null);
+	public void undo(LogicController logic) {
 		
-		if(!taskManager.contains(taskId)){
+	}
+	
+	@Override
+	public void execute(LogicController logic) throws IncorrectInputException {
+		assert (logic != null);
+		
+		if(!logic.containsTask(taskId)){
 			throw new IncorrectInputException("Cant find task ID: " + taskId);
 		}
 		
 		switch(editCommandType){
 		case NAME:
-			taskManager.changeTaskName(taskId, taskName);
+			logic.changeTaskName(taskId, taskName);
 			break;
 			
 		case DEADLINE:
-			taskManager.changeTaskToDeadline(taskId, dateTimeDeadline);
+			logic.changeTaskToDeadline(taskId, dateTimeDeadline);
 			break;
 			
 			case EVENT:
-				taskManager.changeTaskToEvent(taskId, dateTimeStart, dateTimeEnd);
+				logic.changeTaskToEvent(taskId, dateTimeStart, dateTimeEnd);
 			break;
 
 		case NAME_N_DEADLINE:
-			taskManager.changeTaskName(taskId, taskName);
-			taskManager.changeTaskToDeadline(taskId, dateTimeDeadline);
+			logic.changeTaskName(taskId, taskName);
+			logic.changeTaskToDeadline(taskId, dateTimeDeadline);
 			break;
 
 		case NAME_N_EVENT:
-			taskManager.changeTaskName(taskId, taskName);
-			taskManager.changeTaskToEvent(taskId, dateTimeStart, dateTimeEnd);
+			logic.changeTaskName(taskId, taskName);
+			logic.changeTaskToEvent(taskId, dateTimeStart, dateTimeEnd);
 			break;		
 		}
 	}
-
 }

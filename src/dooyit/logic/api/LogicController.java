@@ -322,6 +322,18 @@ public class LogicController {
 		return addedTask;
 	}
 
+	public boolean changeTaskName(int taskId, String newName) {
+		return taskManager.changeTaskName(taskId, newName);
+	}
+	
+	public boolean changeTaskToDeadline(int taskId, DateTime dateTimeDeadline) {
+		return taskManager.changeTaskToDeadline(taskId, dateTimeDeadline);
+	}
+	
+	public boolean changeTaskToEvent(int taskId, DateTime dateTimeStart, DateTime dateTimeEnd) {
+		return taskManager.changeTaskToEvent(taskId, dateTimeStart, dateTimeEnd);
+	}
+	
 	public boolean containsTask(int taskId) {
 		return taskManager.contains(taskId);
 	}

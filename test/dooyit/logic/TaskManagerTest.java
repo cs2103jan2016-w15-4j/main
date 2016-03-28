@@ -1,4 +1,4 @@
-package dooyit.logic.api;
+package dooyit.logic;
 
 import static org.junit.Assert.*;
 
@@ -12,6 +12,8 @@ import dooyit.common.datatype.DeadlineTask;
 import dooyit.common.datatype.EventTask;
 import dooyit.common.datatype.FloatingTask;
 import dooyit.common.datatype.Task;
+import dooyit.logic.TaskManager;
+import dooyit.logic.api.LogicController;
 
 public class TaskManagerTest {
 
@@ -29,6 +31,8 @@ public class TaskManagerTest {
 
 	@Test
 	public void addTaskTest() {
+		taskManager.clear();
+		
 		Task task1 = new FloatingTask("hi");
 		taskManager.add(task1);
 		assertTrue(taskManager.contains(task1));
@@ -36,6 +40,8 @@ public class TaskManagerTest {
 
 	@Test
 	public void findAndContainTest() {
+		taskManager.clear();
+		
 		DateTime dateTimeDeadline = new DateTime();
 		DateTime dateTimeStart = new DateTime();
 		DateTime dateTimeEnd = new DateTime();
@@ -73,6 +79,7 @@ public class TaskManagerTest {
 
 	@Test
 	public void removeTaskTest() {
+		taskManager.clear();
 		boolean removeSuccessful;
 
 		Task task1 = new FloatingTask("hi");
@@ -88,6 +95,8 @@ public class TaskManagerTest {
 
 	@Test
 	public void loadTaskTest() {
+		taskManager.clear();
+		
 		DateTime dateTimeDeadline = new DateTime();
 		DateTime dateTimeStart = new DateTime();
 		DateTime dateTimeEnd = new DateTime();
@@ -110,6 +119,8 @@ public class TaskManagerTest {
 
 	@Test
 	public void addFloatingTaskTest() {
+		taskManager.clear();
+		
 		Task task1 = taskManager.addFloatingTask("hello");
 		assertTrue(!task1.isCompleted());
 		assertTrue(taskManager.contains(task1));
@@ -123,6 +134,8 @@ public class TaskManagerTest {
 
 	@Test
 	public void addDeadlineTaskTest() {
+		taskManager.clear();
+		
 		DateTime dateTime = new DateTime();
 
 		Task task1 = taskManager.addDeadlineTask("hello", dateTime);
@@ -138,6 +151,8 @@ public class TaskManagerTest {
 
 	@Test
 	public void addEventTaskTest() {
+		taskManager.clear();
+		
 		DateTime dateTimeStart = new DateTime();
 		DateTime dateTimeEnd = new DateTime();
 

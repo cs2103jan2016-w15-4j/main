@@ -5,6 +5,8 @@ import dooyit.ui.UIController;
 import dooyit.ui.UIMainViewType;
 import dooyit.parser.Parser;
 import dooyit.common.exception.IncorrectInputException;
+import dooyit.logic.CategoryManager;
+import dooyit.logic.TaskManager;
 import dooyit.logic.commands.*;
 import java.io.IOException;
 import java.util.ArrayList;

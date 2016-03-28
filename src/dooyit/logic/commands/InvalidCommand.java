@@ -1,8 +1,8 @@
 package dooyit.logic.commands;
 
 import dooyit.common.exception.IncorrectInputException;
+import dooyit.logic.TaskManager;
 import dooyit.logic.api.LogicController;
-import dooyit.logic.api.TaskManager;
 
 public class InvalidCommand extends Command {
 	String errorMessage;

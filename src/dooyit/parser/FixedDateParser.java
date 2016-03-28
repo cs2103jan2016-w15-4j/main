@@ -3,7 +3,7 @@ package dooyit.parser;
 import dooyit.common.datatype.DateTime;
 import dooyit.common.exception.IncorrectInputException;
 
-public class FixedDateParser implements DateTimeParserCommon {
+public class FixedDateParser extends DateTimeParserCommon {
 	private static final int MAX_NUMBER_OF_WORDS_IN_WORD_DATE = 2;
 	private static final int LAST_INDEX_OF_WORD_DATE = 2;
 	private static final String ERROR_MESSAGE_INVALID_DATE = "Invalid date!";
@@ -46,25 +46,13 @@ public class FixedDateParser implements DateTimeParserCommon {
 		int ans = newDate[DATE_INDEX_OF_ADVANCE_INT] + index;
 		return ans;
 	}
-
-	// This method calculates that day of the week that the date falls on
+	
 	private int getDayOfWeekFromADate(int[] date) {
-		int[] dayTable = new int[] { 7, 1, 2, 3, 4, 5, 6 };
-		int[] monthTable = new int[] {UNINITIALIZED_INT, 6, 2, 2, 5, 0, 3, 5, 1, 4, 6, 2, 4};
-		int dd = date[DATE_INDEX_OF_DD];
-		int mm = date[DATE_INDEX_OF_MM];
-		int yy = date[DATE_INDEX_OF_YY];
-		
-		int lastTwoDigitsOfYear = yy % 1000;
-		int divideLastTwoDigitsOfYearByFour = lastTwoDigitsOfYear / 4;
-		int sum = lastTwoDigitsOfYear + divideLastTwoDigitsOfYearByFour + dd + monthTable[mm];
-		if(isLeapYear(yy) && mm <= 2 && dd <= 31) {
-			sum--;
-		}
-		return dayTable[sum % NUMBER_OF_DAYS_IN_WEEK];
+		DateTime dateTime = new DateTime(date);
+		return dateTime.getDayInt();
 	}
 	
-	private int[] getDateAndAdvanceInt(String[] splitInput, int currIndexInSplitInput) throws IncorrectInputException {
+	private int[] getDateAndArrayIndex(String[] splitInput, int currIndexInSplitInput) throws IncorrectInputException {
 		String firstWord = splitInput[currIndexInSplitInput];
 		int[] dateAndArrayIndex = new int[] { UNINITIALIZED_INT, UNINITIALIZED_INT, UNINITIALIZED_INT, UNINITIALIZED_INT };
 		
@@ -149,7 +137,7 @@ public class FixedDateParser implements DateTimeParserCommon {
 	private int[] getDate(String[] splitInput, int index, int[] combined) throws IncorrectInputException {
 		int[] newDate;
 		try {
-			newDate = getDateAndAdvanceInt(splitInput, index); // [dd, mm, yy, advanceInt]
+			newDate = getDateAndArrayIndex(splitInput, index); // [dd, mm, yy, advanceInt]
 		} catch (IncorrectInputException e) {
 			throw e;
 		}

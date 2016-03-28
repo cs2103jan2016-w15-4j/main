@@ -2,7 +2,7 @@ package dooyit.parser;
 
 import dooyit.common.exception.IncorrectInputException;
 
-public class TimeParser implements DateTimeParserCommon {
+public class TimeParser extends DateTimeParserCommon {
 	private static final String ERROR_MESSAGE_INVALID_TIME = "Error: Invalid time!";
 	private static final String ERROR_MESSAGE_INVALID_HOURS_OR_MINUTES = "Error: Invalid Time! Hours must fall within the 24h range and Minutes must be between 0 to 59 inclusive";
 	private static final String ERROR_MESSAGE_TIME_EXCEEDS_24H = "Error: Invalid Time! Time must not exceed 24 hours!";

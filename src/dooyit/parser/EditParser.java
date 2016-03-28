@@ -4,7 +4,7 @@ import dooyit.common.datatype.DateTime;
 import dooyit.logic.commands.Command;
 import dooyit.logic.commands.CommandUtils;
 
-public class EditParser {
+public class EditParser implements ParserCommons {
 	private static final String ERROR_MESSAGE_INVALID_EDIT_COMMAND = "Error: Invalid edit Command!";
 	private static final String MARKER_TIME_START = " from ";
 	private static final String MARKER_TIME_END = " to ";
@@ -12,7 +12,7 @@ public class EditParser {
 
 	private static String userInput;
 	private String taskName;
-	private int taskId = -1;
+	private int taskId;
 	private DateTime start;
 	private DateTime end;
 	private DateTime deadline;
@@ -22,6 +22,7 @@ public class EditParser {
 	};
 
 	public EditParser() {
+		taskId = UNINITIALIZED_INT;
 		start = null;
 		end = null;
 		deadline = null;

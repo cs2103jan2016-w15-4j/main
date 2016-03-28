@@ -3,7 +3,7 @@ package dooyit.parser;
 import dooyit.common.datatype.DateTime;
 import dooyit.common.exception.IncorrectInputException;
 
-public class RelativeDateParser implements DateTimeParserCommon {
+public class RelativeDateParser extends DateTimeParserCommon {
 	private static final String ERROR_MESSAGE_INVALID_DATE_INPUT = "Error: Invalid date input!";
 	private static String[] validWordForDay = new String[] { "day", "days", "dd" };
 	private static String[] validWordForWeek = new String[] { "week", "weeks", "wk" };

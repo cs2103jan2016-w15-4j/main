@@ -3,12 +3,12 @@ package dooyit.parser;
 import dooyit.logic.commands.Command;
 import dooyit.logic.commands.CommandUtils;
 
-public class EditCategoryParser {
+public class EditCategoryParser implements ParserCommons {
 	private static final String MARKER_COLOUR = " to ";
 	private static final int INDEX_ORIGINAL_NAME = 0;
 	private static final int INDEX_NEW_NAME = 1;
 	private static final int LENGTH_OF_COLOUR_MARKER = 5;
-	private static final int UNINITIALIZED = -1;
+	private static final int UNINITIALIZED_INT = -1;
 	
 	private static final int EDIT_NAME_AND_COLOUR = 1;
 	private static final int EDIT_NAME_ONLY = 2;
@@ -62,7 +62,7 @@ public class EditCategoryParser {
 	}
 
 	private int getEditType() {
-		int editType = UNINITIALIZED;
+		int editType = UNINITIALIZED_INT;
 		if(hasTooManyWordsInNewCategoryName) {
 			editType = INVALID_TOO_MANY_WORDS;
 		} else if(hasInsufficientArguments) {

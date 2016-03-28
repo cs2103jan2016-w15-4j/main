@@ -6,7 +6,7 @@ import java.util.logging.*;
 import dooyit.common.datatype.DateTime;
 import dooyit.common.exception.IncorrectInputException;
 
-public class DateTimeParser implements DateTimeParserCommon {
+public class DateTimeParser extends DateTimeParserCommon {
 	private static final String ERROR_MESSAGE_ONLY_ONE_DATE = "Error: You can only key in ONE date!";
 	private static final String ERROR_MESSAGE_ONLY_ONE_TIMING = "Error: You can only key in ONE timing!";
 	private static final String ERROR_MESSAGE_GOING_BACK_IN_TIME = "You can't go back in time to add a task or event!";

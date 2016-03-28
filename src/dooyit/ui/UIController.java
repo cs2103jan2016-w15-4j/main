@@ -85,11 +85,12 @@ public class UIController {
 		this.sideMenu = new UISideMenu(this);
 		setActiveMenuButton(this.activeMainView);
 		ChangeListener<Toggle> toggleListener = new ChangeListener<Toggle>(){
-			public void changed(ObservableValue<? extends Toggle> ov, Toggle toggle, Toggle new_toggle) {
-				if (new_toggle != null){
-				    String userData = getSideMenuUserData();
-		            showSelectedSideMenu(userData);
-	            }
+			public void changed(ObservableValue<? extends Toggle> ov, Toggle old_toggle, Toggle new_toggle) {
+				if (new_toggle == null){
+					sideMenu.getMainViewToggleGroup().selectToggle(old_toggle);
+				}
+			    String userData = getSideMenuUserData();
+		        showSelectedSideMenu(userData);
 	        }
 		};
 		this.sideMenu.getMainViewToggleGroup().selectedToggleProperty().addListener(toggleListener);

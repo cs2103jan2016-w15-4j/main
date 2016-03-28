@@ -191,7 +191,7 @@ public class AddParser implements ParserCommons {
 		} catch(IncorrectInputException e) {
 			throw e;
 		}
-	}
+	} 
 
 	private void parseFloat() {
 		taskName = userInput;
@@ -216,7 +216,7 @@ public class AddParser implements ParserCommons {
 	}
 
 	private boolean isCategory() {
-		return userInput.lastIndexOf(MARKER_CATEGORY) != -1;
+		return !isUninitialized(userInput.lastIndexOf(MARKER_CATEGORY));
 	}
 
 	private boolean isCategoryAndFloating() {
@@ -236,11 +236,11 @@ public class AddParser implements ParserCommons {
 	}
 
 	private boolean isEvent() {
-		return isUninitialized(userInput.lastIndexOf(MARKER_START_EVENT)) && 
-				isUninitialized(userInput.lastIndexOf(MARKER_END_EVENT));
+		return !isUninitialized(userInput.lastIndexOf(MARKER_START_EVENT)) && 
+				!isUninitialized(userInput.lastIndexOf(MARKER_END_EVENT));
 	}
 
 	private boolean isWork() {
-		return isUninitialized(userInput.lastIndexOf(MARKER_WORK));
+		return !isUninitialized(userInput.lastIndexOf(MARKER_WORK));
 	}
 }

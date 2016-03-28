@@ -1,6 +1,6 @@
 package dooyit.parser;
 
-public interface DateTimeParserCommon {
+public class DateTimeParserCommon implements ParserCommons{
 	public static final int COMBINED_INDEX_DAY_OF_WEEK = 0;
 	public static final int COMBINED_INDEX_TIME = 1;
 	public static final int COMBINED_INDEX_DD = 2;
@@ -12,7 +12,6 @@ public interface DateTimeParserCommon {
 	public static final int DATE_INDEX_OF_MM = 1;
 	public static final int DATE_INDEX_OF_YY = 2;
 	
-	public static final int UNINITIALIZED_INT = -1;
 	public static final int NEXT_DAY = 1;
 	public static final String EMPTY_STRING = "";
 	public static final int STARTING_VALUE_OF_ARRAY_CONSTANTS = 1;
@@ -32,57 +31,33 @@ public interface DateTimeParserCommon {
 	public static final String PM = "pm";
 	public static final String AM = "am";
 	
-	default boolean isUninitialized(int[] ans, int index) {
-		return ans[index] == UNINITIALIZED_INT;
-	}
-	
-	default int convertStringToInt(String timeString) {
+	public int convertStringToInt(String timeString) {
 		return Integer.parseInt(timeString);
 	}
 	
-	default boolean isNumber(String currWord) {
-		return currWord.matches("[0-9]+");
-	}
-	
-	default int incrementByOne(int index) {
+	public int incrementByOne(int index) {
 		return index + 1;
 	}
 	
-	default boolean hasAWordAfterCurrWord(String[] arr, int index) {
+	public boolean hasAWordAfterCurrWord(String[] arr, int index) {
 		return index < arr.length - 1;
 	}
 	
-	default int[] getNewCombinedArray(int[] combined, int[] date, int day ) {
+	public int[] getNewCombinedArray(int[] combined, int[] date, int day ) {
 		return new int[] { day, combined[COMBINED_INDEX_TIME], date[DATE_INDEX_OF_DD], date[DATE_INDEX_OF_MM], date[DATE_INDEX_OF_YY], combined[COMBINED_INDEX_COUNTER] };
 	}
 	
-	default int[] getNewCombinedArray(int[] combined, int[] date, int day, int index) {
+	public int[] getNewCombinedArray(int[] combined, int[] date, int day, int index) {
 		return new int[] { day, combined[COMBINED_INDEX_TIME], date[DATE_INDEX_OF_DD], date[DATE_INDEX_OF_MM], date[DATE_INDEX_OF_YY], index };
 	}
 	
-	default boolean isValidTime(String currWord) {
+	public boolean isValidTime(String currWord) {
 		boolean ans = currWord.contains(PM) || currWord.contains(AM);
 		ans = ans || currWord.contains(TIME_SEPARATOR_COLON) || currWord.contains(TIME_SEPARATOR_DOT);
 		return ans;
 	}
 	
-	default boolean isLeapYear(int currYear) {
-		int[] arrLeapYears = new int[] { 2016, 2020, 2024, 2028, 2032, 2036, 2040, 2044, 2048, 2052, 2056, 2060, 2064, 2068, 2072, 2076, 2080, 2084, 2088, 2092, 2096 };
-
-		boolean ans = false;
-		for (int i = 0; i < arrLeapYears.length; i++) {
-			if (currYear < arrLeapYears[i]) {
-				break;
-			}
-			if (currYear == arrLeapYears[i]) {
-				ans = true;
-				break;
-			}
-		}
-		return ans;
-	}
-	
-	default int[] getDaysInMonthArray(int yy) {
+	public int[] getDaysInMonthArray(int yy) {
 		int[] ans;
 		if(isLeapYear(yy)) {
 			ans = daysInMonthLeapYear;
@@ -91,5 +66,31 @@ public interface DateTimeParserCommon {
 		}
 		return ans;
 	}
+	
+	public int getNextDayInt(int day) {
+		int temp = incrementByOne(day);
+		temp %= NUMBER_OF_DAYS_IN_WEEK ;
+		return temp;
+	}
 
+	public int[] getDateAfterANumberOfDays(int fastForward, int day, int month, int year) {
+		int newDay = day + fastForward;
+		int newMonth = month;
+		int newYear = year;
+		
+		int[] daysInMonth = getDaysInMonthArray(year);
+
+		while (newDay > daysInMonth[newMonth]) {
+			newDay -= daysInMonth[newMonth];
+			newMonth += 1;
+		}
+
+		if (newMonth > NUMBER_OF_MONTHS_IN_A_YEAR) {
+			newMonth = 1;
+			newYear = incrementByOne(newYear);
+		}
+
+		int[] ans = new int[] { newDay, newMonth, newYear };
+		return ans;
+	}
 }

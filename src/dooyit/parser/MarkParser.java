@@ -12,13 +12,13 @@ public class MarkParser extends TagParser{
 		super();
 	}
 
-	public Command getCommand(String input) {
+	public Command getCommand(String input) throws IncorrectInputException {
 		setVariables(input);
 		command = null;
 		try {
 			parseTaskIds();
 		} catch(IncorrectInputException e) {
-			command = getInvalidCommand(e.getMessage());
+			setInvalidCommand(e.getMessage());
 		}
 		
 		if(command == null) {
@@ -31,36 +31,40 @@ public class MarkParser extends TagParser{
 	private void setCorrectMarkCommand(TAG_TYPE tagType) {
 		switch (tagType) {
 		case SINGLE:
-			command = getSingleTypeMarkCommand();
+			setSingleTypeMarkCommand();
 			break;
 
 		case MULTIPLE:
-			command = getMultipleTypeMarkCommand();
+			setMultipleTypeMarkCommand();
 			break;
 
 		case INTERVAL:
-			command = getIntervalTypeMarkCommand();
+			setIntervalTypeMarkCommand();
 			break;
 
 		default:
-			command = getInvalidCmd();
+			setInvalidCommand();
 			break;
 		}
 	}
 
-	private Command getIntervalTypeMarkCommand() {
-		return CommandUtils.createMarkCommand(taskIdsForTagging);
+	private void setIntervalTypeMarkCommand() {
+		command = CommandUtils.createMarkCommand(taskIdsForTagging);
 	}
 
-	private Command getMultipleTypeMarkCommand() {
-		return CommandUtils.createMarkCommand(taskIdsForTagging);
+	private void setMultipleTypeMarkCommand() {
+		command = CommandUtils.createMarkCommand(taskIdsForTagging);
 	}
 
-	private Command getSingleTypeMarkCommand() {
-		return CommandUtils.createMarkCommand(taskIdForTagging);
+	private void setSingleTypeMarkCommand() {
+		command = CommandUtils.createMarkCommand(taskIdForTagging);
+	}
+	
+	private void setInvalidCommand(String message) {
+		command = CommandUtils.createInvalidCommand(message);
 	}
 
-	private Command getInvalidCmd() {
-		return CommandUtils.createInvalidCommand(ERROR_MESSAGE_INVALID_MARK_COMMAND);
+	private void setInvalidCommand() {
+		command = CommandUtils.createInvalidCommand(ERROR_MESSAGE_INVALID_MARK_COMMAND);
 	}
 }

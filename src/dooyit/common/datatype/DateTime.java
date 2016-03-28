@@ -5,7 +5,9 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.TimeZone;
 
-public class DateTime {
+import dooyit.parser.ParserCommons;
+
+public class DateTime implements ParserCommons {
 	private static final String FORMAT_SPACE = " ";
 	private static final String TWELVE = "12";
 	private static final String TIME_SEPARATOR_COLON = ":";
@@ -14,12 +16,8 @@ public class DateTime {
 	private static final String PM = " pm";
 	private static final String AM = " am";
 	private static final String DUMMY_STR = "Dummy_Str";
-	private static final String ONE_ZERO = "0";
 	private static final String CALENDAR_DATE_FORMAT = "dd MM yyyy HH:mm E u";
 	private static final String CALENDAR_DEFAULT_TIME_ZONE = "UTC+08:00"; // Singapore Time Zone
-	
-	private static final String UNINITIALIZED_STRING = "-1";
-	private static final int UNINITIALIZED_INT = -1;
 	
 	private static final int INDEX_DD = 0;
 	private static final int INDEX_MM = 1;
@@ -36,8 +34,9 @@ public class DateTime {
 	private static final int FORMAT_24H_1259PM = 1259;
 	private static final int FORMAT_24H_10AM = 1000;
 	private static final int FORMAT_24H_1AM = 100;
+	private static final int NUMBER_OF_DAYS_IN_WEEK = 7;	//Repeated
 	
-	private static String[] months = new String[] { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
+	private static String[] months = new String[] { DUMMY_STR, "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
 	private static String[] daysInWeek = new String[] { DUMMY_STR, "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
 	private static int[] daysInMonth = new int[] { UNINITIALIZED_INT, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 
@@ -51,6 +50,10 @@ public class DateTime {
 	private int yy; // 2016
 	private int timeInt;
 
+	
+	//********************************************
+	//************* Constructors *****************
+	//********************************************
 	public DateTime(DateTime dt) {
 		this.dd = dt.getDD();
 		this.mm = dt.getMM();
@@ -60,11 +63,19 @@ public class DateTime {
 		this.timeStr24H = dt.getTime24hStr();
 		this.dayStr = dt.getDayStr();
 		this.dayInt = setDayInt(this.dayStr);
-		this.date = this.dd + FORMAT_SPACE + months[decrementByOne(this.mm)] + FORMAT_SPACE + this.yy;
+		this.date = this.dd + FORMAT_SPACE + months[this.mm] + FORMAT_SPACE + this.yy;
 	}
-
-	private int decrementByOne(int number) {
-		return number - 1;
+	
+	public DateTime(int[] date) {
+		this.dd = date[INDEX_DD];
+		this.mm = date[INDEX_MM];
+		this.yy = date[INDEX_YY];
+		this.timeInt = UNINITIALIZED_INT;
+		this.timeStr12H = UNINITIALIZED_STRING;
+		this.timeStr24H = UNINITIALIZED_STRING;
+		this.dayInt = getDayOfWeekFromADate(date);
+		this.dayStr = daysInWeek[this.dayInt];
+		this.date = this.dd + FORMAT_SPACE + months[this.mm] + FORMAT_SPACE + this.yy;
 	}
 
 	public DateTime(int[] date, String day, int time) {
@@ -77,7 +88,7 @@ public class DateTime {
 		this.dayStr = day;
 		
 		this.dayInt = setDayInt(dayStr);
-		this.date = this.dd + FORMAT_SPACE + months[decrementByOne(this.mm)] + FORMAT_SPACE + this.yy;
+		this.date = this.dd + FORMAT_SPACE + months[this.mm] + FORMAT_SPACE + this.yy;
 	}
 
 	public DateTime() {
@@ -95,7 +106,7 @@ public class DateTime {
 		this.dayStr = daysInWeek[this.dayInt];
 		this.timeStr24H = convertTimeIntTo24hString(this.timeInt);
 		this.timeStr12H = convertTimeIntTo12hString(this.timeInt);
-		this.date = this.dd + FORMAT_SPACE + months[decrementByOne(this.mm)] + FORMAT_SPACE + this.yy;
+		this.date = this.dd + FORMAT_SPACE + months[this.mm] + FORMAT_SPACE + this.yy;
 	}
 
 	public DateTime(int[] date, String day) {
@@ -103,30 +114,25 @@ public class DateTime {
 		this.mm = date[INDEX_MM];
 		this.yy = date[INDEX_YY];
 		this.timeStr24H = String.valueOf(UNINITIALIZED_INT);
-		this.timeStr12H = String.valueOf(UNINITIALIZED_INT);
+		this.timeStr12H = String.valueOf(UNINITIALIZED_INT); 
+		this.timeInt = UNINITIALIZED_INT;
 		this.dayStr = day;
 		this.dayInt = setDayInt(dayStr);
-		this.date = this.dd + FORMAT_SPACE + months[decrementByOne(this.mm)] + FORMAT_SPACE + this.yy;
+		this.date = this.dd + FORMAT_SPACE + months[this.mm] + FORMAT_SPACE + this.yy;
 	}
 
-	public DateTime(int dd, int mm, int yy, String day, String time) throws NumberFormatException {
+	public DateTime(int dd, int mm, int yy, String day, String time) {
 		this.dd = dd;
 		this.mm = mm;
 		this.yy = yy;
-		try {
-			this.timeInt = Integer.parseInt(time);
-			this.timeStr24H = time;
-			this.timeStr12H = convertTimeIntTo12hString(Integer.parseInt(time));
-		} catch (NumberFormatException e) {
-			System.out.println("Error: time is " + time);
-			System.out.println(e.getMessage());
-			this.timeInt = UNINITIALIZED_INT;
-			this.timeStr24H = UNINITIALIZED_STRING;
-			this.timeStr12H = UNINITIALIZED_STRING;
-		}
+		assert(isNumber(time));
+		
+		this.timeInt = Integer.parseInt(time);
+		this.timeStr24H = time;
+		this.timeStr12H = convertTimeIntTo12hString(Integer.parseInt(time));
 		this.dayStr = day;
 		this.dayInt = setDayInt(dayStr);
-		this.date = this.dd + FORMAT_SPACE + months[decrementByOne(this.mm)] + FORMAT_SPACE + this.yy;
+		this.date = this.dd + FORMAT_SPACE + months[this.mm] + FORMAT_SPACE + this.yy;
 	}
 
 	public DateTime(String[] split, String day, int time2) {
@@ -137,8 +143,52 @@ public class DateTime {
 		this.timeStr12H = convertTimeIntTo12hString(time2);
 		this.dayStr = day;
 		this.dayInt = setDayInt(dayStr);
-		this.date = this.dd + FORMAT_SPACE + months[decrementByOne(this.mm)] + FORMAT_SPACE + this.yy;
+		this.date = this.dd + FORMAT_SPACE + months[this.mm] + FORMAT_SPACE + this.yy;
 	}
+	
+	//********************************************
+	//** Methods to retrieve object attributes ***
+	//********************************************
+	
+	public String getDayStr() {
+		return this.dayStr;
+	}
+
+	public int getDayInt() {
+		return this.dayInt;
+	}
+
+	public String getDate() {
+		return this.date;
+	}
+
+	public String getTime24hStr() {
+		return this.timeStr24H;
+	}
+
+	public String getTime12hStr() {
+		return this.timeStr12H;
+	}
+
+	public int getTimeInt() {
+		return this.timeInt;
+	}
+
+	public int getDD() {
+		return this.dd;
+	}
+
+	public int getMM() {
+		return this.mm;
+	}
+
+	public int getYY() {
+		return this.yy;
+	}
+	
+	//********************************************
+	//****** Methods to 2 DateTime objects *******
+	//********************************************
 	
 	// Returns 0 if this DateTime object has the same date and time as the DateTime object passed in as argument
 	// Returns 1 if this DateTime object lies after DateTime object passed in as argument
@@ -173,7 +223,7 @@ public class DateTime {
 			} else {
 				comparison = COMPARISON_FIRST_IS_AFTER_SECOND;
 			}
-		}
+		} 
 		return comparison;
 	}
 
@@ -219,7 +269,6 @@ public class DateTime {
 	private boolean isSameYear(int yearComparison) {
 		return yearComparison == COMPARISON_FIRST_EQUALS_SECOND;
 	}
-	
 
 	private int compareDay(DateTime first, DateTime second) {
 		int comparison = COMPARISON_FIRST_EQUALS_SECOND;
@@ -276,6 +325,53 @@ public class DateTime {
 		return hasEqualDateString && hasEqualTimeStr24H && hasEqualTimeStr12H && hasEqualDayStr && hasEqualDayInt;
 	}
 	
+	//**********************************************
+	//*************** Public Methods ***************
+	//**********************************************
+
+	public String toString() {
+		String ans = this.date + FORMAT_SPACE + this.dayStr + FORMAT_SPACE + this.timeStr24H + FORMAT_SPACE + this.timeStr12H;
+		return ans;
+	}
+
+	public boolean hasTime() {
+		return this.getTimeInt() != UNINITIALIZED_INT;
+	}
+
+	public boolean isTheSameDateAs(DateTime obj) {
+		return this.getDD() == obj.getDD() && this.getMM() == obj.getMM() && this.getYY() == obj.getYY();
+	}
+
+	public void increaseByOneDay() {
+		this.dd += 1;
+		if (this.dd > daysInMonth[this.mm]) {
+			this.dd = 1;
+			this.mm += 1;
+		}
+		if (this.mm > NUM_MONTHS_IN_A_YEAR) {
+			this.mm = 1;
+			this.yy += 1;
+		}
+		this.dayInt = increaseDayIntByOne();
+		this.dayStr = daysInWeek[this.dayInt];
+		this.date = this.dd + FORMAT_SPACE + months[this.mm] + FORMAT_SPACE + this.yy;
+	}
+
+	public String convertToSavableString() {
+		String dateTimeString = "";
+		dateTimeString += String.valueOf(dd) + FORMAT_SPACE;
+		dateTimeString += String.valueOf(mm) + FORMAT_SPACE;
+		dateTimeString += String.valueOf(yy) + FORMAT_SPACE;
+		dateTimeString += dayStr + FORMAT_SPACE;
+		dateTimeString += timeStr24H;
+
+		return dateTimeString;
+	}
+	
+	//**********************************************
+	//************** Private Methods ***************
+	//**********************************************
+	
 	private int setDayInt(String str) {
 		int ans = UNINITIALIZED_INT;
 		for (int i = 0; i < daysInWeek.length; i++) {
@@ -321,21 +417,9 @@ public class DateTime {
 	private int getHourNumeral(int time) {
 		return time / 100;
 	}
-
-	private boolean timeHasLessThanTenMinutes(int time) {
-		return getMinutesNumeral(time) < 10;
-	}
-
-	private boolean timeHasNoMinutes(int time) {
-		return getMinutesNumeral(time) == 0;
-	}
-
+	
 	private int getMinutesNumeral(int time) {
 		return time % 100;
-	}
-
-	private boolean isUninitialized(int time) {
-		return time == UNINITIALIZED_INT;
 	}
 
 	private boolean isAfter1amAndBefore12pm(int time) {
@@ -363,6 +447,23 @@ public class DateTime {
 		return minutes < 10;
 	}
 
+	// This method calculates that day of the week that the date falls on
+	private int getDayOfWeekFromADate(int[] date) {
+		int[] dayTable = new int[] { 7, 1, 2, 3, 4, 5, 6 };
+		int[] monthTable = new int[] {UNINITIALIZED_INT, 6, 2, 2, 5, 0, 3, 5, 1, 4, 6, 2, 4};
+		int dd = date[INDEX_DD];
+		int mm = date[INDEX_MM];
+		int yy = date[INDEX_YY];
+		
+		int lastTwoDigitsOfYear = yy % 1000;
+		int divideLastTwoDigitsOfYearByFour = lastTwoDigitsOfYear / 4;
+		int sum = lastTwoDigitsOfYear + divideLastTwoDigitsOfYearByFour + dd + monthTable[mm];
+		if(isLeapYear(yy) && mm <= 2 && dd <= 31) {
+			sum--;
+		}
+		return dayTable[sum % NUMBER_OF_DAYS_IN_WEEK];
+	}
+
 	// Converts the 24h time int to 24h String format
 	private String convertTimeIntTo24hString(int time) {
 		String timeString24H;
@@ -374,7 +475,6 @@ public class DateTime {
 			timeString24H = "00:" + time;
 		} else if (isAfter1amAndBefore10am(time)) {
 			timeString24H = "0" + getHourNumeral(time) + TIME_SEPARATOR_COLON + getMinutesNumeralString(time);
-			System.out.println("24h string is " + timeString24H);
 		} else {
 			timeString24H = String.valueOf(time);
 			timeString24H = timeString24H.substring(0, 2) + TIME_SEPARATOR_COLON + timeString24H.substring(2);
@@ -386,70 +486,6 @@ public class DateTime {
 		return time >= FORMAT_24H_1AM && time < FORMAT_24H_10AM;
 	}
 
-	public String getDayStr() {
-		return this.dayStr;
-	}
-
-	public int getDayInt() {
-		return this.dayInt;
-	}
-
-	public String getDate() {
-		return this.date;
-	}
-
-	public String getTime24hStr() {
-		return this.timeStr24H;
-	}
-
-	public String getTime12hStr() {
-		return this.timeStr12H;
-	}
-
-	public int getTimeInt() {
-		return this.timeInt;
-	}
-
-	public int getDD() {
-		return this.dd;
-	}
-
-	public int getMM() {
-		return this.mm;
-	}
-
-	public int getYY() {
-		return this.yy;
-	}
-
-	public String toString() {
-		String ans = this.date + FORMAT_SPACE + this.dayStr + FORMAT_SPACE + this.timeStr24H + FORMAT_SPACE + this.timeStr12H;
-		return ans;
-	}
-
-	public boolean hasTime() {
-		return this.getTimeInt() != UNINITIALIZED_INT;
-	}
-
-	public boolean isTheSameDateAs(DateTime obj) {
-		return this.getDD() == obj.getDD() && this.getMM() == obj.getMM() && this.getYY() == obj.getYY();
-	}
-
-	public void increaseByOneDay() {
-		this.dd += 1;
-		if (this.dd > daysInMonth[this.mm]) {
-			this.dd = 1;
-			this.mm += 1;
-		}
-		if (this.mm > NUM_MONTHS_IN_A_YEAR) {
-			this.mm = 1;
-			this.yy += 1;
-		}
-		this.dayInt = increaseDayIntByOne();
-		this.dayStr = daysInWeek[this.dayInt];
-		this.date = this.dd + FORMAT_SPACE + months[decrementByOne(this.mm)] + FORMAT_SPACE + this.yy;
-	}
-
 	private int increaseDayIntByOne() {
 		if (this.dayInt == NUM_DAYS_IN_A_WEEK) {
 			return 1;
@@ -458,16 +494,4 @@ public class DateTime {
 			return this.dayInt;
 		}
 	}
-
-	public String convertToSavableString() {
-		String dateTimeString = "";
-		dateTimeString += String.valueOf(dd) + FORMAT_SPACE;
-		dateTimeString += String.valueOf(mm) + FORMAT_SPACE;
-		dateTimeString += String.valueOf(yy) + FORMAT_SPACE;
-		dateTimeString += dayStr + FORMAT_SPACE;
-		dateTimeString += timeStr24H;
-
-		return dateTimeString;
-	}
-
 }

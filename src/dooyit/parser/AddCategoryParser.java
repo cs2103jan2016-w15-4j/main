@@ -35,17 +35,21 @@ public class AddCategoryParser extends TagParser{
 			setCommandToCreateCategoryWithoutTasks();
 			break;
 
-		case CREATE_NEW_CATEGORY_WITH_TASKS:
+		case CREATE_NEW_CATEGORY_WITH_TASKS: 
 			getTaskIds();
 			setCommandToCreateCategoryWithTasks();
 			break;
 
 		default:
-			command = CommandUtils.createInvalidCommand(ERROR_MESSAGE_INVALID_ADDCAT_COMMAND);
+			setInvalidCommand();
 			break;
 		}
 
 		return command;
+	} 
+
+	private void setInvalidCommand() {
+		command = CommandUtils.createInvalidCommand(ERROR_MESSAGE_INVALID_ADDCAT_COMMAND);
 	}
 
 	private void resetVariables(String input) {
@@ -81,7 +85,7 @@ public class AddCategoryParser extends TagParser{
 			setCreateCategoryWithManyTasksCommand();
 			break;
 
-		default:
+		default: 
 			setInvalidCmd();
 			break;
 		}

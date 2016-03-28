@@ -9,21 +9,21 @@ public class MoveParser extends TagParser {
 	private static final int INDEX_NAME = 0;
 	private String catName;
 	private String taskIds;
-	private String userInput;
+	private String userInput; 
 	private Command command;
 	
 	public MoveParser() {
 		super();
 	}
 	
-	public Command getCommand(String input) {
+	public Command getCommand(String input) throws IncorrectInputException {
 		parse(input);
 		setVariables(taskIds);
 		
 		try {
 			parseTaskIds();
 		} catch(IncorrectInputException e) {
-			command = getInvalidCommand(e.getMessage());
+			setInvalidCommand(e.getMessage()); 
 		}
 		
 		if(command == null) {
@@ -36,40 +36,44 @@ public class MoveParser extends TagParser {
 	private void setCorrectMoveCommand(TAG_TYPE tagType) {
 		switch (tagType) {
 		case SINGLE:
-			command = getSingleTypeMoveCommand();
+			setSingleTypeMoveCommand();
 			break;
 
 		case MULTIPLE:
-			command = getMultipleTypeMoveCommand();
+			setMultipleTypeMoveCommand();
 			break;
 
 		case INTERVAL:
-			command = getIntervalTypeMoveCommand();
+			setIntervalTypeMoveCommand();
 			break;
 
 		default:
-			command = getInvalidCmd();
+			setInvalidCommand();
 			break;
 		}
 	}
 
-	private Command getIntervalTypeMoveCommand() {
-		//return CommandUtils.createMoveCommand(catName, taskIdsForTagging);
-		return null;
+	private void setIntervalTypeMoveCommand() {
+		//comamnd = CommandUtils.createMoveCommand(catName, taskIdsForTagging);
+		command = null;
 	}
 
 	// Eg. delete 5 6 8
-	private Command getMultipleTypeMoveCommand() {
-		//return CommandUtils.createMoveCommand(catName, taskIdsForTagging);
-		return null;
+	private void setMultipleTypeMoveCommand() {
+		//command = CommandUtils.createMoveCommand(catName, taskIdsForTagging);
+		command = null;
 	}
 
-	private Command getSingleTypeMoveCommand() {
-		return CommandUtils.createSetCategoryCommand(taskIdForTagging, catName);
+	private void setSingleTypeMoveCommand() {
+		command = CommandUtils.createSetCategoryCommand(taskIdForTagging, catName);
 	}
 
-	private Command getInvalidCmd() {
-		return CommandUtils.createInvalidCommand(ERROR_MESSAGE_INVALID_MOVE_COMMAND);
+	private void setInvalidCommand() {
+		command = CommandUtils.createInvalidCommand(ERROR_MESSAGE_INVALID_MOVE_COMMAND);
+	}
+	
+	private void setInvalidCommand(String message) {
+		command = CommandUtils.createInvalidCommand(message);
 	}
 
 	private void parse(String input) {

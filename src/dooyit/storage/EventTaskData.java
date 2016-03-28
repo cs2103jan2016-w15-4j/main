@@ -1,18 +1,34 @@
 package dooyit.storage;
 
-import dooyit.common.datatype.EventTask;
+import dooyit.common.datatype.Category;
+import dooyit.common.datatype.DateTime;
 
-public class EventTaskData extends TaskData{
-	private String start;
-	private String end;
+public class EventTaskData extends TaskData {
+	private DateTime start;
+	private DateTime end;
+
+	public EventTaskData(String name, DateTime start, DateTime end,
+						Category category, boolean isCompleted) {
+		this.taskName = name;
+		this.isCompleted = isCompleted;
+		this.category = getName(category);
+		this.start = start;
+		this.end = end;
+	}
+
+	public EventTaskData(String name, DateTime start, DateTime end,
+						boolean isCompleted) {
+		this.taskName = name;
+		this.isCompleted = isCompleted;
+		this.start = start;
+		this.end = end;
+	}
 	
-	public EventTaskData(EventTask task) {
-		this.taskName = task.getName();
-		this.isCompleted = task.isCompleted();
-		if (hasCategory(task)) {
-			this.category = getName(task.getCategory());
-		}
-		this.start = toReadableFormat(task.getDateTimeStart());
-		this.end = toReadableFormat(task.getDateTimeEnd());
+	public DateTime getStart() {
+		return this.start;
+	}
+	
+	public DateTime getEnd() {
+		return this.end;
 	}
 }

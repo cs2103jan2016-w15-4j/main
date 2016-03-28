@@ -92,7 +92,7 @@ show all				//Show all tasks that are not finished		//TASKS_ALL
 show completed
 show overdue
 show <date>				//Show the tasks that are done on that day	//DATE
-show cat <Catergory Name>		//Show all the tasks in that catergory		//CAT
+show cat <Catergory Name>		//Show all the tasks in that category		//CAT
 
 ----------------------------------------------------- Valid Commands for addCat parser --------------------------------------------------------------------------------
 

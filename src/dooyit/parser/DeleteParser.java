@@ -5,21 +5,22 @@ import dooyit.logic.commands.Command;
 import dooyit.logic.commands.CommandUtils;
 
 public class DeleteParser extends TagParser {
-	private static final String ERROR_MESSAGE_INVALID_DELETE_COMMAND = "Invalid Delete Command!";
+	private static final String ERROR_MESSAGE_INVALID_DELETE_COMMAND = "Error: Invalid Delete Command!";
 	private Command command;
 
 	public DeleteParser() {
 		super();
 	}
 
-	public Command getCommand(String input) {
+	public Command getCommand(String input) throws IncorrectInputException {
 		setVariables(input);
 		command = null;
 		try {
 			parseTaskIds();
 		} catch(IncorrectInputException e) {
-			command = getInvalidCommand(e.getMessage());
+			setInvalidCommand(e.getMessage());
 		}
+		
 		if(command == null) {
 			setCorrectDeleteCommand(getTagType());
 		}
@@ -27,39 +28,44 @@ public class DeleteParser extends TagParser {
 		return command;
 	}
 
+	private void setInvalidCommand(String message) {
+		command = CommandUtils.createInvalidCommand(message);
+		
+	}
+
 	private void setCorrectDeleteCommand(TAG_TYPE tagType) {
 		switch (tagType) {
 		case SINGLE:
-			command = getSingleTypeDeleteCommand();
+			setSingleTypeDeleteCommand();
 			break;
 
 		case MULTIPLE:
-			command = getMultipleTypeDeleteCommand();
+			setMultipleTypeDeleteCommand();
 			break;
 
 		case INTERVAL:
-			command = getIntervalTypeDeleteCommand();
+			setIntervalTypeDeleteCommand();
 			break;
 
 		default:
-			command = getInvalidCmd();
+			setInvalidCommand();
 			break;
 		}
 	}
 
-	private Command getIntervalTypeDeleteCommand() {
-		return CommandUtils.createDeleteCommand(taskIdsForTagging);
+	private void setIntervalTypeDeleteCommand() {
+		command = CommandUtils.createDeleteCommand(taskIdsForTagging);
 	}
 
-	private Command getMultipleTypeDeleteCommand() {
-		return CommandUtils.createDeleteCommand(taskIdsForTagging);
+	private void setMultipleTypeDeleteCommand() {
+		command = CommandUtils.createDeleteCommand(taskIdsForTagging);
 	}
 
-	private Command getSingleTypeDeleteCommand() {
-		return CommandUtils.createDeleteCommand(taskIdForTagging);
+	private void setSingleTypeDeleteCommand() {
+		command = CommandUtils.createDeleteCommand(taskIdForTagging);
 	}
 
-	private Command getInvalidCmd() {
-		return CommandUtils.createInvalidCommand(ERROR_MESSAGE_INVALID_DELETE_COMMAND);
+	private void setInvalidCommand() {
+		command = CommandUtils.createInvalidCommand(ERROR_MESSAGE_INVALID_DELETE_COMMAND);
 	}
 }

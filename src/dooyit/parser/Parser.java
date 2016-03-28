@@ -61,7 +61,7 @@ public class Parser {
 		String[] splittedInput = input.split("\\s+", 2);
 		String commandString = splittedInput[0].toLowerCase();
 
-		Command command = null;
+		Command command = null; 
 		switch (commandString) {
 		case COMMAND_ADD:
 			command = addParser.getCommand(getInputWithoutCommand(input, COMMAND_ADD));
@@ -137,7 +137,7 @@ public class Parser {
 			command = CommandUtils.createUndoCommand();
 			break;
 
-		case COMMAND_UNMARK:
+		case COMMAND_UNMARK: 
 			command = unmarkParser.getCommand(getInputWithoutCommand(input, COMMAND_UNMARK));
 			break;
 

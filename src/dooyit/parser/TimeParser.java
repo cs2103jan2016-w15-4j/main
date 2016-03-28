@@ -147,11 +147,11 @@ public class TimeParser implements DateTimeParserCommon {
 	private int getTimeIntByAssumingTwoWordsTimeInput(String[] splitInput, int index, int timeInt) {
 		if (incrementByOne(index) < splitInput.length) {
 			String indicator = splitInput[incrementByOne(index)];
-			if (indicator.equals(PM) && !timeIsBetween12pmAnd1259pmInclusive(timeInt)) {
-				timeInt = timeInt + TWELVE_HOURS;
+			if (indicator.equals(PM) && !timeIsBetween1200And1259Inclusive(timeInt)) {
+				timeInt += TWELVE_HOURS;
 			}
-			if (timeInt == FORMAT_24H_12PM && indicator.equals(AM)) {
-				timeInt = FORMAT_24H_12AM;
+			if (timeIsBetween1200And1259Inclusive(timeInt) && indicator.equals(AM)) {
+				timeInt -= TWELVE_HOURS;
 			}
 		}
 		return timeInt;
@@ -169,14 +169,14 @@ public class TimeParser implements DateTimeParserCommon {
 		}
 
 		if (isPm) {
-			if(!timeIsBetween12pmAnd1259pmInclusive(timeInt)) {
+			if(!timeIsBetween1200And1259Inclusive(timeInt)) {
 				timeInt = timeInt + TWELVE_HOURS;
 			}
 		}
 		return timeInt;
 	}
 
-	private boolean timeIsBetween12pmAnd1259pmInclusive(int timeInt) {
+	private boolean timeIsBetween1200And1259Inclusive(int timeInt) {
 		return timeInt >= FORMAT_24H_12PM && timeInt < FORMAT_24H_1PM;
 	}
 	

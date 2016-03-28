@@ -7,6 +7,8 @@ import dooyit.common.datatype.DateTime;
 import dooyit.common.exception.IncorrectInputException;
 
 public class DateTimeParser implements DateTimeParserCommon {
+	private static final String ERROR_MESSAGE_ONLY_ONE_DATE = "Error: You can only key in ONE date!";
+	private static final String ERROR_MESSAGE_ONLY_ONE_TIMING = "Error: You can only key in ONE timing!";
 	private static final String ERROR_MESSAGE_GOING_BACK_IN_TIME = "You can't go back in time to add a task or event!";
 	private static final String ERROR_MESSAGE_INVALID_DATE_TIME = "Invalid Date Time!";
 	
@@ -23,6 +25,7 @@ public class DateTimeParser implements DateTimeParserCommon {
 	private int currDayInWeekInt;
 	private int currTime;
 	private String currDayInWeekString;
+	private boolean hasDate, hasTime;
 
 	enum DATE_TIME_FORMAT {
 		TYPE_RELATIVE_DATE, TYPE_FIXED_DATE, TYPE_TIME, TYPE_INVALID
@@ -39,6 +42,8 @@ public class DateTimeParser implements DateTimeParserCommon {
 		relativeDateParser = new RelativeDateParser(dateTime);
 		timeParser = new TimeParser();
 		fixedDateParser = new FixedDateParser(dateTime);
+		hasTime = false;
+		hasDate = false;
 	}
 	
 	public DateTimeParser(DateTime dateTime) {
@@ -53,41 +58,52 @@ public class DateTimeParser implements DateTimeParserCommon {
 		relativeDateParser = new RelativeDateParser(this.dateTime);
 		timeParser = new TimeParser();
 		fixedDateParser = new FixedDateParser(this.dateTime);
+		hasTime = false;
+		hasDate = false;
 	}
 	
 	public DateTime parse(String input) throws IncorrectInputException {
-		logger.log(Level.INFO, "input is " + input);
 		String[] splitInput = input.toLowerCase().split("\\s+");
 		int[] combined = new int[] { currDayInWeekInt, UNINITIALIZED_INT, currDD, currMM, currYY, 0 };
 		
 		for(int i = 0; i < splitInput.length; i++) {
-			System.out.println("START: i is " + i);
 			combined[COMBINED_INDEX_COUNTER] = i;
 			String currWord = splitInput[i];
 			switch(getDateTimeType(currWord, splitInput, i)) {
 			case TYPE_RELATIVE_DATE:
-				System.out.println("isRelativeDate");
+				try{
+					setHasDateBoolean();
+				} catch(IncorrectInputException e) {
+					throw e;
+				}
 				combined = relativeDateParser.parse(splitInput, combined, i);
 				break;
 			
 			case TYPE_FIXED_DATE:
-				System.out.println("isFixedDate");
+				try{
+					setHasDateBoolean();
+				} catch(IncorrectInputException e) {
+					throw e;
+				}
 				combined = fixedDateParser.parse(splitInput, combined, i);
 				break;
 			
 			case TYPE_TIME:
-				System.out.println("is timetype");
+				try {
+					setHasTimeBoolean();
+				} catch(IncorrectInputException e) {
+					throw e;
+				}
 				combined = timeParser.parse(splitInput, combined, i);
+				System.out.println("combined here is");
+				printArray(combined);
 				break;
 				
 			default:
-				System.out.println("is default");
 				throw new IncorrectInputException(ERROR_MESSAGE_INVALID_DATE_TIME);
 			}
 			
 			i = combined[COMBINED_INDEX_COUNTER];
-			//printArray(combined);
-			System.out.println("END: i is " + i);
 		}
 		DateTime temp;
 		try {
@@ -98,6 +114,23 @@ public class DateTimeParser implements DateTimeParserCommon {
 		return temp;
 	}
 	
+	private void setHasTimeBoolean() throws IncorrectInputException {
+		if(!hasTime) {
+			hasTime = true;
+		} else {
+			throw new IncorrectInputException(ERROR_MESSAGE_ONLY_ONE_TIMING);
+		}
+	}
+	
+	private void setHasDateBoolean() throws IncorrectInputException {
+		if(!hasDate) {
+			hasDate = true;
+		} else {
+			throw new IncorrectInputException(ERROR_MESSAGE_ONLY_ONE_DATE);
+		}
+	}
+
+
 	private DATE_TIME_FORMAT getDateTimeType(String currWord, String[] splitUserInput, int index) {
 		if(timeParser.isValidTime(currWord, splitUserInput, index)) {
 			return DATE_TIME_FORMAT.TYPE_TIME;
@@ -109,7 +142,7 @@ public class DateTimeParser implements DateTimeParserCommon {
 			return DATE_TIME_FORMAT.TYPE_FIXED_DATE;
 			
 		} else {
-			return DATE_TIME_FORMAT.TYPE_INVALID;
+			return DATE_TIME_FORMAT.TYPE_INVALID; 
 		}
 	}
 	
@@ -120,8 +153,9 @@ public class DateTimeParser implements DateTimeParserCommon {
 		int[] date = new int[] { combined[COMBINED_INDEX_DD], combined[COMBINED_INDEX_MM], combined[COMBINED_INDEX_YY] };
 		int time = combined[COMBINED_INDEX_TIME];
 		int day = combined[COMBINED_INDEX_DAY_OF_WEEK];
+		printArray(combined);
 
-		if (inputTimeIsOverToday(time, date)) {
+		if (inputTimeIsOverToday(time, date) && !hasDate) {
 			date = getDateAfterANumberOfDays(NEXT_DAY);
 			dateTime = new DateTime(date, daysInWeekFull[getNextDayInt()], time);
 		} else {

@@ -20,7 +20,7 @@ public class UnmarkParser extends TagParser{
 		try {
 			parseTaskIds();
 		} catch(IncorrectInputException e) {
-			command = getInvalidCommand(e.getMessage());
+			setInvalidCommand(e.getMessage());
 		}
 		
 		if(command == null) {
@@ -33,37 +33,41 @@ public class UnmarkParser extends TagParser{
 	private void setUnmarkCommand(TAG_TYPE tagType) {
 		switch (tagType) {
 		case SINGLE:
-			command = getSingleTypeUnmarkCommand();
+			setSingleTypeUnmarkCommand();
 			break;
 
 		case MULTIPLE:
-			command = getMultipleTypeUnmarkCommand();
+			setMultipleTypeUnmarkCommand();
 			break;
 
 		case INTERVAL:
-			command = getIntervalTypeUnmarkCommand();
+			setIntervalTypeUnmarkCommand();
 			break;
 
 		default:
-			command = getInvalidCmd();
+			setInvalidCommand();
 			break;
 		}
 	}
 
-	private Command getIntervalTypeUnmarkCommand() {
-		return CommandUtils.createUnMarkCommand(taskIdsForTagging); 
+	private void setIntervalTypeUnmarkCommand() {
+		command = CommandUtils.createUnMarkCommand(taskIdsForTagging); 
 	}
 	
 	// Eg. unmark 2 4 0 9
-	private Command getMultipleTypeUnmarkCommand() {
-		return CommandUtils.createUnMarkCommand(taskIdsForTagging);
+	private void setMultipleTypeUnmarkCommand() {
+		command = CommandUtils.createUnMarkCommand(taskIdsForTagging);
 	}
 
-	private Command getSingleTypeUnmarkCommand() {
-		return CommandUtils.createUnMarkCommand(taskIdForTagging);
+	private void setSingleTypeUnmarkCommand() {
+		command = CommandUtils.createUnMarkCommand(taskIdForTagging);
+	}
+	
+	private void setInvalidCommand(String message) {
+		command = CommandUtils.createInvalidCommand(message);
 	}
 
-	private Command getInvalidCmd() {
-		return CommandUtils.createInvalidCommand(ERROR_MESSAGE_INVALID_UNMARK_COMMAND);
+	private void setInvalidCommand() {
+		command = CommandUtils.createInvalidCommand(ERROR_MESSAGE_INVALID_UNMARK_COMMAND);
 	}
 }

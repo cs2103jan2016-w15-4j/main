@@ -5,7 +5,7 @@ import dooyit.common.exception.IncorrectInputException;
 import dooyit.logic.commands.Command;
 import dooyit.logic.commands.CommandUtils;
 
-public class AddParser {
+public class AddParser implements ParserCommons {
 
 	private static final String ERROR_MESSAGE_INVALID_ADD_COMMAND = "Error: Invalid add command!";
 	private static final String MARKER_START_EVENT = " from ";
@@ -99,19 +99,31 @@ public class AddParser {
 		return cmd;
 	}
 
-	private void parseCategoryAndFloating() {
+	private void parseCategoryAndFloating() throws IncorrectInputException {
 		parseCategory();
-		parseWork();
+		try {
+			parseWork();
+		} catch(IncorrectInputException e) {
+			throw e;
+		}
 	}
 
-	private void parseCategoryAndWork() {
+	private void parseCategoryAndWork() throws IncorrectInputException {
 		parseCategory();
-		parseEvent();
+		try {
+			parseEvent();
+		} catch(IncorrectInputException e) {
+			throw e;
+		}
 	}
 
-	private void parseCategoryAndEvent() {
+	private void parseCategoryAndEvent() throws IncorrectInputException {
 		parseCategory();
-		parseEvent();
+		try {
+			parseEvent();
+		} catch (IncorrectInputException e) {
+			throw e;
+		}
 	}
 
 	private void parseCategory() {
@@ -121,11 +133,7 @@ public class AddParser {
 			categoryId = Integer.parseInt(category);
 		} else {
 			categoryName = category;
-		}
-	}
-
-	private boolean isNumber(String currWord) {
-		return currWord.matches("[0-9]+");
+		} 
 	}
 
 	private void setCategoryAndEventCommand() {
@@ -159,22 +167,30 @@ public class AddParser {
 		cmd = CommandUtils.createAddCommandFloat(taskName);
 	}
 
-	private void parseEvent() {
+	private void parseEvent() throws IncorrectInputException {
 		DateTimeParser dateTimeParser = new DateTimeParser();
 		int indexFrom = userInput.lastIndexOf(MARKER_START_EVENT);
 		int indexTo = userInput.lastIndexOf(MARKER_END_EVENT); // what if
 																// indexTo <
 																// indexFrom
 		taskName = userInput.substring(0, indexFrom);
-		start = dateTimeParser.parse((userInput.substring(indexFrom, indexTo).replace(MARKER_START_EVENT, "").trim()));
-		end = dateTimeParser.parse((userInput.substring(indexTo).replace(MARKER_END_EVENT, "").trim()));
+		try {
+			start = dateTimeParser.parse((userInput.substring(indexFrom, indexTo).replace(MARKER_START_EVENT, "").trim()));
+			end = dateTimeParser.parse((userInput.substring(indexTo).replace(MARKER_END_EVENT, "").trim()));
+		} catch(IncorrectInputException e) {
+			throw e;
+		}
 	}
 
-	private void parseWork() {
+	private void parseWork() throws IncorrectInputException {
 		DateTimeParser dateTimeParser = new DateTimeParser();
 		int indexBy = userInput.lastIndexOf(MARKER_WORK);
 		taskName = userInput.substring(0, indexBy);
-		deadline = dateTimeParser.parse((userInput.substring(indexBy).replace(MARKER_WORK, "").trim()));
+		try {
+			deadline = dateTimeParser.parse((userInput.substring(indexBy).replace(MARKER_WORK, "").trim()));
+		} catch(IncorrectInputException e) {
+			throw e;
+		}
 	}
 
 	private void parseFloat() {
@@ -220,10 +236,11 @@ public class AddParser {
 	}
 
 	private boolean isEvent() {
-		return userInput.lastIndexOf(MARKER_START_EVENT) != -1 && userInput.lastIndexOf(MARKER_END_EVENT) != -1;
+		return isUninitialized(userInput.lastIndexOf(MARKER_START_EVENT)) && 
+				isUninitialized(userInput.lastIndexOf(MARKER_END_EVENT));
 	}
 
 	private boolean isWork() {
-		return userInput.lastIndexOf(MARKER_WORK) != -1;
+		return isUninitialized(userInput.lastIndexOf(MARKER_WORK));
 	}
 }

@@ -18,8 +18,12 @@ import dooyit.logic.commands.Command;
 
 @PrepareForTest(AddParser.class)
 public class ParserTest {
+	Parser parser;
 	
-	Parser parser = new Parser();
+	@Before
+	public void setup() {
+		parser = new Parser();
+	}
 	
 	//****************************************
 	//***** Tests for DeleteParser ***********
@@ -33,6 +37,30 @@ public class ParserTest {
 		assertEquals(taskIdsInCommand, expectedTaskIds);
 	}
 	
+	@Test(expected = IncorrectInputException.class)
+	public void deleteInvalidSingleTaskIdAlphabet() {
+		String input = "delete a";
+		parser.getCommand(input);
+	}
+	
+	@Test(expected = IncorrectInputException.class)
+	public void deleteInvalidSingleTaskIdColon() {
+		String input = "delete :";
+		parser.getCommand(input);
+	}
+	
+	@Test(expected = IncorrectInputException.class)
+	public void deleteInvalidSingleTaskIdQuestionMark() {
+		String input = "delete ?";
+		parser.getCommand(input);
+	}
+	
+	@Test(expected = IncorrectInputException.class)
+	public void deleteInvalidSingleTaskIdEmptyString() {
+		String input = "delete ";
+		parser.getCommand(input);
+	}
+	
 	@Test
 	public void deleteMultipleTaskIds() {
 		String input = "delete 2 3 5 7 20 12";
@@ -42,6 +70,30 @@ public class ParserTest {
 		assertEquals(taskIdsInCommand, expectedTaskIds);
 	}
 	
+	@Test(expected = IncorrectInputException.class)
+	public void deleteInvalidMultipleTaskIdsAlphabet() {
+		String input = "delete 2 a 5 7 20 12";
+		parser.getCommand(input);
+	}
+	
+	@Test(expected = IncorrectInputException.class)
+	public void deleteInvalidMultipleTaskIdsColon() {
+		String input = "delete 2 : 5 7 20 12";
+		parser.getCommand(input);
+	}
+	
+	@Test(expected = IncorrectInputException.class)
+	public void deleteInvalidMultipleTaskIdsBackslash() {
+		String input = "delete 2" + " \\ 5 7 20 12";
+		parser.getCommand(input);
+	}
+	
+	@Test(expected = IncorrectInputException.class)
+	public void deleteInvalidMultipleTaskIdsQuestionMark() {
+		String input = "delete 2 ? 5 7 20 12";
+		parser.getCommand(input);
+	}
+	
 	@Test
 	public void deleteIntervalOfTaskIds() {
 		String input = "delete 2-7";
@@ -49,6 +101,48 @@ public class ParserTest {
 		ArrayList<Integer> taskIdsInCommand = Whitebox.getInternalState(command, "deleteIds");
 		ArrayList<Integer> expectedTaskIds = new ArrayList<Integer>(Arrays.asList(2, 3, 4, 5, 6, 7));
 		assertEquals(taskIdsInCommand, expectedTaskIds);
+	}
+	
+	@Test(expected = IncorrectInputException.class)
+	public void deleteInvalidIntervalOfTaskIdsStartAlphabet() {
+		String input = "delete a-7";
+		parser.getCommand(input);
+	}
+	
+	@Test(expected = IncorrectInputException.class)
+	public void deleteInvalidIntervalOfTaskIdsEndAlphabet() {
+		String input = "delete 2-c";
+		parser.getCommand(input);
+	}
+	
+	@Test(expected = IncorrectInputException.class)
+	public void deleteInvalidIntervalOfTaskIdsStartAndEndAlphabet() {
+		String input = "delete a-z";
+		parser.getCommand(input);
+	}
+	
+	@Test(expected = IncorrectInputException.class)
+	public void deleteInvalidIntervalOfTaskIdsStartColon() {
+		String input = "delete :-3";
+		parser.getCommand(input);
+	}
+	
+	@Test(expected = IncorrectInputException.class)
+	public void deleteInvalidIntervalOfTaskIdsEndColon() {
+		String input = "delete 1-:";
+		parser.getCommand(input);
+	}
+	
+	@Test(expected = IncorrectInputException.class)
+	public void deleteInvalidIntervalOfTaskIdsStartBackslash() {
+		String input = "delete \\-3";
+		parser.getCommand(input);
+	}
+	
+	@Test(expected = IncorrectInputException.class)
+	public void deleteInvalidIntervalOfTaskIdsEndBackslash() {
+		String input = "delete 1-\\";
+		parser.getCommand(input);
 	}
 	
 	//****************************************
@@ -63,13 +157,61 @@ public class ParserTest {
 		assertEquals(taskIdsInCommand, expectedTaskIds);
 	}
 	
+	@Test(expected = IncorrectInputException.class)
+	public void markInvalidSingleTaskIdAlphabet() {
+		String input = "mark a";
+		parser.getCommand(input);
+	}
+	
+	@Test(expected = IncorrectInputException.class)
+	public void markInvalidSingleTaskIdColon() {
+		String input = "mark :";
+		parser.getCommand(input);
+	}
+	
+	@Test(expected = IncorrectInputException.class)
+	public void markInvalidSingleTaskIdQuestionMark() {
+		String input = "mark ?";
+		parser.getCommand(input);
+	}
+	
+	@Test(expected = IncorrectInputException.class)
+	public void markInvalidSingleTaskIdEmptyString() {
+		String input = "mark ";
+		parser.getCommand(input);
+	}
+	
 	@Test
-	public void markMultipleTaskIds() {
+	public void markeMultipleTaskIds() {
 		String input = "mark 2 3 5 7 20 12";
 		Command command = parser.getCommand(input);
 		ArrayList<Integer> taskIdsInCommand = Whitebox.getInternalState(command, "markIds");
 		ArrayList<Integer> expectedTaskIds = new ArrayList<Integer>(Arrays.asList(2, 3, 5, 7, 20, 12));
 		assertEquals(taskIdsInCommand, expectedTaskIds);
+	}
+	
+	@Test(expected = IncorrectInputException.class)
+	public void markInvalidMultipleTaskIdsAlphabet() {
+		String input = "mark 2 a 5 7 20 12";
+		parser.getCommand(input);
+	}
+	
+	@Test(expected = IncorrectInputException.class)
+	public void markInvalidMultipleTaskIdsColon() {
+		String input = "mark 2 : 5 7 20 12";
+		parser.getCommand(input);
+	}
+	
+	@Test(expected = IncorrectInputException.class)
+	public void markInvalidMultipleTaskIdsBackslash() {
+		String input = "mark 2" + " \\ 5 7 20 12";
+		parser.getCommand(input);
+	}
+	
+	@Test(expected = IncorrectInputException.class)
+	public void markInvalidMultipleTaskIdsQuestionMark() {
+		String input = "mark 2 ? 5 7 20 12";
+		parser.getCommand(input);
 	}
 	
 	@Test
@@ -81,6 +223,48 @@ public class ParserTest {
 		assertEquals(taskIdsInCommand, expectedTaskIds);
 	}
 	
+	@Test(expected = IncorrectInputException.class)
+	public void markInvalidIntervalOfTaskIdsStartAlphabet() {
+		String input = "mark a-7";
+		parser.getCommand(input);
+	}
+	
+	@Test(expected = IncorrectInputException.class)
+	public void markInvalidIntervalOfTaskIdsEndAlphabet() {
+		String input = "mark 2-c";
+		parser.getCommand(input);
+	}
+	
+	@Test(expected = IncorrectInputException.class)
+	public void markInvalidIntervalOfTaskIdsStartAndEndAlphabet() {
+		String input = "mark a-z";
+		parser.getCommand(input);
+	}
+	
+	@Test(expected = IncorrectInputException.class)
+	public void markInvalidIntervalOfTaskIdsStartColon() {
+		String input = "mark :-3";
+		parser.getCommand(input);
+	}
+	
+	@Test(expected = IncorrectInputException.class)
+	public void markInvalidIntervalOfTaskIdsEndColon() {
+		String input = "mark 1-:";
+		parser.getCommand(input);
+	}
+	
+	@Test(expected = IncorrectInputException.class)
+	public void markInvalidIntervalOfTaskIdsStartBackslash() {
+		String input = "mark \\-3";
+		parser.getCommand(input);
+	}
+	
+	@Test(expected = IncorrectInputException.class)
+	public void markInvalidIntervalOfTaskIdsEndBackslash() {
+		String input = "mark 1-\\";
+		parser.getCommand(input);
+	}
+
 	//********************************************
 	//********* Tests for UnmarkParser ***********
 	//********************************************
@@ -93,13 +277,61 @@ public class ParserTest {
 		assertEquals(taskIdsInCommand, expectedTaskIds);
 	}
 	
+	@Test(expected = IncorrectInputException.class)
+	public void unmarkInvalidSingleTaskIdAlphabet() {
+		String input = "unmark a";
+		parser.getCommand(input);
+	}
+	
+	@Test(expected = IncorrectInputException.class)
+	public void unmarkInvalidSingleTaskIdColon() {
+		String input = "unmark :";
+		parser.getCommand(input);
+	}
+	
+	@Test(expected = IncorrectInputException.class)
+	public void unmarkInvalidSingleTaskIdQuestionMark() {
+		String input = "unmark ?";
+		parser.getCommand(input);
+	}
+	
+	@Test(expected = IncorrectInputException.class)
+	public void unmarkInvalidSingleTaskIdEmptyString() {
+		String input = "unmark ";
+		parser.getCommand(input);
+	}
+	
 	@Test
-	public void unmarkMultipleTaskIds() {
+	public void unmarkeMultipleTaskIds() {
 		String input = "unmark 2 3 5 7 20 12";
 		Command command = parser.getCommand(input);
 		ArrayList<Integer> taskIdsInCommand = Whitebox.getInternalState(command, "unmarkIds");
 		ArrayList<Integer> expectedTaskIds = new ArrayList<Integer>(Arrays.asList(2, 3, 5, 7, 20, 12));
 		assertEquals(taskIdsInCommand, expectedTaskIds);
+	}
+	
+	@Test(expected = IncorrectInputException.class)
+	public void unmarkInvalidMultipleTaskIdsAlphabet() {
+		String input = "unmark 2 a 5 7 20 12";
+		parser.getCommand(input);
+	}
+	
+	@Test(expected = IncorrectInputException.class)
+	public void unmarkInvalidMultipleTaskIdsColon() {
+		String input = "unmark 2 : 5 7 20 12";
+		parser.getCommand(input);
+	}
+	
+	@Test(expected = IncorrectInputException.class)
+	public void unmarkInvalidMultipleTaskIdsBackslash() {
+		String input = "unmark 2" + " \\ 5 7 20 12";
+		parser.getCommand(input);
+	}
+	
+	@Test(expected = IncorrectInputException.class)
+	public void unmarkInvalidMultipleTaskIdsQuestionMark() {
+		String input = "unmark 2 ? 5 7 20 12";
+		parser.getCommand(input);
 	}
 	
 	@Test
@@ -110,6 +342,49 @@ public class ParserTest {
 		ArrayList<Integer> expectedTaskIds = new ArrayList<Integer>(Arrays.asList(2, 3, 4, 5, 6, 7));
 		assertEquals(taskIdsInCommand, expectedTaskIds);
 	}
+	
+	@Test(expected = IncorrectInputException.class)
+	public void unmarkInvalidIntervalOfTaskIdsStartAlphabet() {
+		String input = "unmark a-7";
+		parser.getCommand(input);
+	}
+	
+	@Test(expected = IncorrectInputException.class)
+	public void unmarkInvalidIntervalOfTaskIdsEndAlphabet() {
+		String input = "unmark 2-c";
+		parser.getCommand(input);
+	}
+	
+	@Test(expected = IncorrectInputException.class)
+	public void unmarkInvalidIntervalOfTaskIdsStartAndEndAlphabet() {
+		String input = "unmark a-z";
+		parser.getCommand(input);
+	}
+	
+	@Test(expected = IncorrectInputException.class)
+	public void unmarkInvalidIntervalOfTaskIdsStartColon() {
+		String input = "unmark :-3";
+		parser.getCommand(input);
+	}
+	
+	@Test(expected = IncorrectInputException.class)
+	public void unmarkInvalidIntervalOfTaskIdsEndColon() {
+		String input = "unmark 1-:";
+		parser.getCommand(input);
+	}
+	
+	@Test(expected = IncorrectInputException.class)
+	public void unmarkInvalidIntervalOfTaskIdsStartBackslash() {
+		String input = "unmark \\-3";
+		parser.getCommand(input);
+	}
+	
+	@Test(expected = IncorrectInputException.class)
+	public void unmarkInvalidIntervalOfTaskIdsEndBackslash() {
+		String input = "unmark 1-\\";
+		parser.getCommand(input);
+	}
+	
 	
 	//******************************************
 	//********* Tests for MoveParser ***********
@@ -153,17 +428,18 @@ public class ParserTest {
 	//********************************************
 	//**** Tests for DeleteCategoryParser ********
 	//********************************************
+	//!!!!!!!!!!!!!!! TO DO LATER !!!!!!!!!!!!!!!!
 	
 	
 	//********************************************
 	//****** Tests for EditCategoryParser ********
 	//********************************************
+	//!!!!!!!!!!!!!!! TO DO LATER !!!!!!!!!!!!!!!!
 	
 	
 	//********************************************
 	//****** Tests for Change Skin Command *******
 	//********************************************
-	
 	
 	//********************************************
 	//****** Tests for Set Storage Command *******
@@ -185,6 +461,7 @@ public class ParserTest {
 	//********************************************
 	//************ Tests for EditParser **********
 	//********************************************
+	//!!!!!!!!!!!!!!! TO DO LATER !!!!!!!!!!!!!!!!
 	
 	
 	//********************************************

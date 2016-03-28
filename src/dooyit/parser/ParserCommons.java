@@ -25,6 +25,10 @@ public interface ParserCommons {
 		return ans[index] == UNINITIALIZED_INT;
 	}
 	
+	default boolean isUninitialized(int number) {
+		return number == UNINITIALIZED_INT;
+	}
+	
 	default boolean isNumber(String currWord) {
 		return currWord.matches("[0-9]+");
 	}

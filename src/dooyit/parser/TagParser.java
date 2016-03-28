@@ -72,7 +72,7 @@ public class TagParser implements ParserCommons {
 		String[] splitByDash = currWord.split(MARKER_FOR_INTERVAL_TAG_TYPE);
 		int start, end;
 		try {
-			start = Integer.parseInt(splitByDash[0]);
+			start = Integer.parseInt(splitByDash[0]); 
 			end = Integer.parseInt(splitByDash[1]);
 		} catch(NumberFormatException e) {
 			throw new IncorrectInputException(ERROR_MESSAGE_INVALID_TASK_ID);

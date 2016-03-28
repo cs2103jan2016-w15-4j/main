@@ -28,7 +28,7 @@ public class EditParser implements ParserCommons {
 		deadline = null;
 	}
 
-	public Command getCommand(String input) {
+	public Command getCommand(String input) { 
 		userInput = input.trim();
 		taskId = Integer.parseInt(userInput.split("\\s+")[0].trim());
 		
@@ -69,10 +69,9 @@ public class EditParser implements ParserCommons {
 			parseNameDeadline();
 			return CommandUtils.createEditCommandNameAndDeadline(taskId, taskName, deadline);
 
-		case INVALID:
+		default:
 			return CommandUtils.createInvalidCommand(ERROR_MESSAGE_INVALID_EDIT_COMMAND);
 		}
-		return null;
 	}
 
 	private void parseNameDeadline() {

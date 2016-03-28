@@ -231,10 +231,10 @@ public class EditParser implements ParserCommons {
 		int indexFrom = getIndexOfMarker(MARKER_TIME_START);
 		int indexTo = getIndexOfMarker(MARKER_TIME_END);
 		try {
-			if (isUninitialized(indexTo)) {
+			if (!isUninitialized(indexTo)) {
 				String timeString = getTimeString(indexFrom, indexTo, MARKER_TIME_START);
 				start = dateTimeParser.parse(timeString);
-			} else {
+			} else { 
 				String timeString = getTimeString(indexFrom, MARKER_TIME_START);
 				start = dateTimeParser.parse(timeString);
 			}
@@ -272,8 +272,8 @@ public class EditParser implements ParserCommons {
 		}
 	}
 
-	private String getTimeString(int indexDeadline, String marker) {
-		return userInput.substring(indexDeadline).replace(marker, EMPTY_STRING).trim();
+	private String getTimeString(int index, String marker) {
+		return userInput.substring(index).replace(marker, EMPTY_STRING).trim();
 	}
 
 	private void parseName() {
@@ -321,15 +321,15 @@ public class EditParser implements ParserCommons {
 	}
 
 	private boolean hasStart() {
-		return isUninitialized(getIndexOfMarker(MARKER_TIME_START));
+		return !isUninitialized(getIndexOfMarker(MARKER_TIME_START));
 	}
 
 	private boolean hasEnd() {
-		return isUninitialized(getIndexOfMarker(MARKER_TIME_END));
+		return !isUninitialized(getIndexOfMarker(MARKER_TIME_END));
 	}
 
 	private boolean hasDeadline() {
-		return isUninitialized(getIndexOfMarker(MARKER_DEADLINE));
+		return !isUninitialized(getIndexOfMarker(MARKER_DEADLINE));
 	}
 
 }

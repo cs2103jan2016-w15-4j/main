@@ -10,7 +10,6 @@ import dooyit.parser.ParserCommons;
 public class DateTime implements ParserCommons {
 	private static final String FORMAT_SPACE = " ";
 	private static final String TIME_SEPARATOR_COLON = ":";
-	private static final String TIME_SEPARATOR_DOT = ".";
 	private static final String PM = "pm";
 	private static final String AM = "am";
 	private static final String DUMMY_STR = "Dummy_Str";

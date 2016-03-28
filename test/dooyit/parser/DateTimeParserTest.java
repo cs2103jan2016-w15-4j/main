@@ -83,9 +83,9 @@ public class DateTimeParserTest {
 		String parsedDayString = userDate.getDayStr();
 		int parsedDayInt = userDate.getDayInt();
 		
-		assertEquals(parsedDate, REFERENCE_THIS_SATURDAY_DATE);
-		assertEquals(parsedDayString, REFERENCE_THIS_SATURDAY_DAY_STRING);
-		assertEquals(parsedDayInt, REFERENCE_THIS_SATURDAY_DAY_INT);
+		assertEquals(REFERENCE_THIS_SATURDAY_DATE, parsedDate);
+		assertEquals(REFERENCE_THIS_SATURDAY_DAY_STRING, parsedDayString);
+		assertEquals(REFERENCE_THIS_SATURDAY_DAY_INT, parsedDayInt);
 	}
 	
 	@Test
@@ -97,9 +97,9 @@ public class DateTimeParserTest {
 		String parsedDayString = userDate.getDayStr();
 		int parsedDayInt = userDate.getDayInt();
 		
-		assertEquals(parsedDate, REFERENCE_THIS_SATURDAY_DATE);
-		assertEquals(parsedDayString, REFERENCE_THIS_SATURDAY_DAY_STRING);
-		assertEquals(parsedDayInt, REFERENCE_THIS_SATURDAY_DAY_INT);
+		assertEquals(REFERENCE_THIS_SATURDAY_DATE, parsedDate);
+		assertEquals(REFERENCE_THIS_SATURDAY_DAY_STRING, parsedDayString);
+		assertEquals(REFERENCE_THIS_SATURDAY_DAY_INT, parsedDayInt);
 	}
 	
 	@Test
@@ -111,9 +111,9 @@ public class DateTimeParserTest {
 		String parsedDayString = userDate.getDayStr();
 		int parsedDayInt = userDate.getDayInt();
 		
-		assertEquals(parsedDate, REFERENCE_THIS_SATURDAY_DATE);
-		assertEquals(parsedDayString, REFERENCE_THIS_SATURDAY_DAY_STRING);
-		assertEquals(parsedDayInt, REFERENCE_THIS_SATURDAY_DAY_INT);
+		assertEquals(REFERENCE_THIS_SATURDAY_DATE, parsedDate);
+		assertEquals(REFERENCE_THIS_SATURDAY_DAY_STRING, parsedDayString);
+		assertEquals(REFERENCE_THIS_SATURDAY_DAY_INT, parsedDayInt);
 	}
 	
 	@Test
@@ -125,9 +125,9 @@ public class DateTimeParserTest {
 		String parsedDayString = userDate.getDayStr();
 		int parsedDayInt = userDate.getDayInt();
 		
-		assertEquals(parsedDate, REFERENCE_THIS_SATURDAY_DATE);
-		assertEquals(parsedDayString, REFERENCE_THIS_SATURDAY_DAY_STRING);
-		assertEquals(parsedDayInt, REFERENCE_THIS_SATURDAY_DAY_INT);
+		assertEquals(REFERENCE_THIS_SATURDAY_DATE, parsedDate);
+		assertEquals(REFERENCE_THIS_SATURDAY_DAY_STRING, parsedDayString);
+		assertEquals(REFERENCE_THIS_SATURDAY_DAY_INT, parsedDayInt);
 	}
 	
 	@Test
@@ -139,9 +139,9 @@ public class DateTimeParserTest {
 		String parsedDayString = userDate.getDayStr();
 		int parsedDayInt = userDate.getDayInt();
 		
-		assertEquals(parsedDate, REFERENCE_NEXT_SATURDAY_DATE);
-		assertEquals(parsedDayString, REFERENCE_NEXT_SATURDAY_DAY_STRING);
-		assertEquals(parsedDayInt, REFERENCE_NEXT_SATURDAY_DAY_INT);
+		assertEquals(REFERENCE_NEXT_SATURDAY_DATE, parsedDate);
+		assertEquals(REFERENCE_NEXT_SATURDAY_DAY_STRING, parsedDayString);
+		assertEquals(REFERENCE_NEXT_SATURDAY_DAY_INT, parsedDayInt);
 	}
 	
 	@Test
@@ -153,9 +153,9 @@ public class DateTimeParserTest {
 		String parsedDayString = userDate.getDayStr();
 		int parsedDayInt = userDate.getDayInt();
 		
-		assertEquals(parsedDate, REFERENCE_NEXT_SATURDAY_DATE);
-		assertEquals(parsedDayString, REFERENCE_NEXT_SATURDAY_DAY_STRING);
-		assertEquals(parsedDayInt, REFERENCE_NEXT_SATURDAY_DAY_INT);
+		assertEquals(REFERENCE_NEXT_SATURDAY_DATE, parsedDate);
+		assertEquals(REFERENCE_NEXT_SATURDAY_DAY_STRING, parsedDayString);
+		assertEquals(REFERENCE_NEXT_SATURDAY_DAY_INT, parsedDayInt);
 	}
 	
 	@Test
@@ -167,9 +167,9 @@ public class DateTimeParserTest {
 		String parsedDayString = userDate.getDayStr();
 		int parsedDayInt = userDate.getDayInt();
 		
-		assertEquals(parsedDate, REFERENCE_THIS_MONDAY_DATE);
-		assertEquals(parsedDayString, REFERENCE_THIS_MONDAY_DAY_STRING);
-		assertEquals(parsedDayInt, REFERENCE_THIS_MONDAY_DAY_INT);
+		assertEquals(REFERENCE_THIS_MONDAY_DATE, parsedDate);
+		assertEquals(REFERENCE_THIS_MONDAY_DAY_STRING, parsedDayString);
+		assertEquals(REFERENCE_THIS_MONDAY_DAY_INT, parsedDayInt);
 	}
 	
 	@Test
@@ -181,9 +181,9 @@ public class DateTimeParserTest {
 		String parsedDayString = userDate.getDayStr();
 		int parsedDayInt = userDate.getDayInt();
 		
-		assertEquals(parsedDate, REFERENCE_THIS_MONDAY_DATE);
-		assertEquals(parsedDayString, REFERENCE_THIS_MONDAY_DAY_STRING);
-		assertEquals(parsedDayInt, REFERENCE_THIS_MONDAY_DAY_INT);
+		assertEquals(REFERENCE_THIS_MONDAY_DATE, parsedDate);
+		assertEquals(REFERENCE_THIS_MONDAY_DAY_STRING, parsedDayString);
+		assertEquals(REFERENCE_THIS_MONDAY_DAY_INT, parsedDayInt);
 	}
 	
 	@Test
@@ -195,9 +195,9 @@ public class DateTimeParserTest {
 		String parsedDayString = userDate.getDayStr();
 		int parsedDayInt = userDate.getDayInt();
 		
-		assertEquals(parsedDate, REFERENCE_THIS_MONDAY_DATE);
-		assertEquals(parsedDayString, REFERENCE_THIS_MONDAY_DAY_STRING);
-		assertEquals(parsedDayInt, REFERENCE_THIS_MONDAY_DAY_INT);
+		assertEquals(REFERENCE_THIS_MONDAY_DATE, parsedDate);
+		assertEquals(REFERENCE_THIS_MONDAY_DAY_STRING, parsedDayString);
+		assertEquals(REFERENCE_THIS_MONDAY_DAY_INT, parsedDayInt);
 	}
 	
 	@Test
@@ -209,9 +209,9 @@ public class DateTimeParserTest {
 		String parsedDayString = userDate.getDayStr();
 		int parsedDayInt = userDate.getDayInt();
 		
-		assertEquals(parsedDate, REFERENCE_THIS_MONDAY_DATE);
-		assertEquals(parsedDayString, REFERENCE_THIS_MONDAY_DAY_STRING);
-		assertEquals(parsedDayInt, REFERENCE_THIS_MONDAY_DAY_INT);
+		assertEquals(REFERENCE_THIS_MONDAY_DATE, parsedDate);
+		assertEquals(REFERENCE_THIS_MONDAY_DAY_STRING, parsedDayString);
+		assertEquals(REFERENCE_THIS_MONDAY_DAY_INT, parsedDayInt);
 	}
 	
 	@Test
@@ -223,9 +223,9 @@ public class DateTimeParserTest {
 		String parsedDayString = userDate.getDayStr();
 		int parsedDayInt = userDate.getDayInt();
 		
-		assertEquals(parsedDate, REFERENCE_NEXT_MONDAY_DATE);
-		assertEquals(parsedDayString, REFERENCE_NEXT_MONDAY_DAY_STRING);
-		assertEquals(parsedDayInt, REFERENCE_NEXT_MONDAY_DAY_INT);
+		assertEquals(REFERENCE_NEXT_MONDAY_DATE, parsedDate);
+		assertEquals(REFERENCE_NEXT_MONDAY_DAY_STRING, parsedDayString);
+		assertEquals(REFERENCE_NEXT_MONDAY_DAY_INT, parsedDayInt);
 	}
 	
 	@Test
@@ -237,9 +237,9 @@ public class DateTimeParserTest {
 		String parsedDayString = userDate.getDayStr();
 		int parsedDayInt = userDate.getDayInt();
 		
-		assertEquals(parsedDate, REFERENCE_NEXT_MONDAY_DATE);
-		assertEquals(parsedDayString, REFERENCE_NEXT_MONDAY_DAY_STRING);
-		assertEquals(parsedDayInt, REFERENCE_NEXT_MONDAY_DAY_INT);
+		assertEquals(REFERENCE_NEXT_MONDAY_DATE, parsedDate);
+		assertEquals(REFERENCE_NEXT_MONDAY_DAY_STRING, parsedDayString);
+		assertEquals(REFERENCE_NEXT_MONDAY_DAY_INT, parsedDayInt);
 	}
 	
 	@Test
@@ -251,9 +251,9 @@ public class DateTimeParserTest {
 		String parsedDayString = userDate.getDayStr();
 		int parsedDayInt = userDate.getDayInt();
 		
-		assertEquals(parsedDate, REFERENCE_THIS_MONDAY_DATE);
-		assertEquals(parsedDayString, REFERENCE_THIS_MONDAY_DAY_STRING);
-		assertEquals(parsedDayInt, REFERENCE_THIS_MONDAY_DAY_INT);
+		assertEquals(REFERENCE_THIS_MONDAY_DATE, parsedDate);
+		assertEquals(REFERENCE_THIS_MONDAY_DAY_STRING, parsedDayString);
+		assertEquals(REFERENCE_THIS_MONDAY_DAY_INT, parsedDayInt);
 	}
 	
 	@Test
@@ -265,9 +265,9 @@ public class DateTimeParserTest {
 		String parsedDayString = userDate.getDayStr();
 		int parsedDayInt = userDate.getDayInt();
 		
-		assertEquals(parsedDate, REFERENCE_THIS_MONDAY_DATE);
-		assertEquals(parsedDayString, REFERENCE_THIS_MONDAY_DAY_STRING);
-		assertEquals(parsedDayInt, REFERENCE_THIS_MONDAY_DAY_INT);
+		assertEquals(REFERENCE_THIS_MONDAY_DATE, parsedDate);
+		assertEquals(REFERENCE_THIS_MONDAY_DAY_STRING, parsedDayString);
+		assertEquals(REFERENCE_THIS_MONDAY_DAY_INT, parsedDayInt);
 	}
 	
 	@Test
@@ -279,9 +279,9 @@ public class DateTimeParserTest {
 		String parsedDayString = userDate.getDayStr();
 		int parsedDayInt = userDate.getDayInt();
 		
-		assertEquals(parsedDate, REFERENCE_TWELVE_DAYS_LATER_DATE);
-		assertEquals(parsedDayString, REFERENCE_TWELVE_DAYS_LATER_DAY_STRING);
-		assertEquals(parsedDayInt, REFERENCE_TWELVE_DAYS_LATER_DAY_INT);
+		assertEquals(REFERENCE_TWELVE_DAYS_LATER_DATE, parsedDate);
+		assertEquals(REFERENCE_TWELVE_DAYS_LATER_DAY_STRING, parsedDayString);
+		assertEquals(REFERENCE_TWELVE_DAYS_LATER_DAY_INT, parsedDayInt);
 	}
 	
 	@Test
@@ -293,9 +293,9 @@ public class DateTimeParserTest {
 		String parsedDayString = userDate.getDayStr();
 		int parsedDayInt = userDate.getDayInt();
 		
-		assertEquals(parsedDate, REFERENCE_TWELVE_DAYS_LATER_DATE);
-		assertEquals(parsedDayString, REFERENCE_TWELVE_DAYS_LATER_DAY_STRING);
-		assertEquals(parsedDayInt, REFERENCE_TWELVE_DAYS_LATER_DAY_INT);
+		assertEquals(REFERENCE_TWELVE_DAYS_LATER_DATE, parsedDate);
+		assertEquals(REFERENCE_TWELVE_DAYS_LATER_DAY_STRING, parsedDayString);
+		assertEquals(REFERENCE_TWELVE_DAYS_LATER_DAY_INT, parsedDayInt);
 	}
 	
 	@Test
@@ -307,9 +307,9 @@ public class DateTimeParserTest {
 		String parsedDayString = userDate.getDayStr();
 		int parsedDayInt = userDate.getDayInt();
 		
-		assertEquals(parsedDate, REFERENCE_TWELVE_DAYS_LATER_DATE);
-		assertEquals(parsedDayString, REFERENCE_TWELVE_DAYS_LATER_DAY_STRING);
-		assertEquals(parsedDayInt, REFERENCE_TWELVE_DAYS_LATER_DAY_INT);
+		assertEquals(REFERENCE_TWELVE_DAYS_LATER_DATE, parsedDate);
+		assertEquals(REFERENCE_TWELVE_DAYS_LATER_DAY_STRING, parsedDayString);
+		assertEquals(REFERENCE_TWELVE_DAYS_LATER_DAY_INT, parsedDayInt);
 	}
 	
 	@Test
@@ -321,9 +321,9 @@ public class DateTimeParserTest {
 		String parsedDayString = userDate.getDayStr();
 		int parsedDayInt = userDate.getDayInt();
 		
-		assertEquals(parsedDate, REFERENCE_TWELVE_DAYS_LATER_DATE);
-		assertEquals(parsedDayString, REFERENCE_TWELVE_DAYS_LATER_DAY_STRING);
-		assertEquals(parsedDayInt, REFERENCE_TWELVE_DAYS_LATER_DAY_INT);
+		assertEquals(REFERENCE_TWELVE_DAYS_LATER_DATE, parsedDate);
+		assertEquals(REFERENCE_TWELVE_DAYS_LATER_DAY_STRING, parsedDayString);
+		assertEquals(REFERENCE_TWELVE_DAYS_LATER_DAY_INT, parsedDayInt);
 	}
 	
 	@Test
@@ -335,9 +335,9 @@ public class DateTimeParserTest {
 		String parsedDayString = userDate.getDayStr();
 		int parsedDayInt = userDate.getDayInt();
 		
-		assertEquals(parsedDate, REFERENCE_TWELVE_DAYS_LATER_DATE);
-		assertEquals(parsedDayString, REFERENCE_TWELVE_DAYS_LATER_DAY_STRING);
-		assertEquals(parsedDayInt, REFERENCE_TWELVE_DAYS_LATER_DAY_INT);
+		assertEquals(REFERENCE_TWELVE_DAYS_LATER_DATE, parsedDate);
+		assertEquals(REFERENCE_TWELVE_DAYS_LATER_DAY_STRING, parsedDayString);
+		assertEquals(REFERENCE_TWELVE_DAYS_LATER_DAY_INT, parsedDayInt);
 	}
 	
 	@Test
@@ -349,9 +349,9 @@ public class DateTimeParserTest {
 		String parsedDayString = userDate.getDayStr();
 		int parsedDayInt = userDate.getDayInt();
 		
-		assertEquals(parsedDate, REFERENCE_TWELVE_DAYS_LATER_DATE);
-		assertEquals(parsedDayString, REFERENCE_TWELVE_DAYS_LATER_DAY_STRING);
-		assertEquals(parsedDayInt, REFERENCE_TWELVE_DAYS_LATER_DAY_INT);
+		assertEquals(REFERENCE_TWELVE_DAYS_LATER_DATE, parsedDate);
+		assertEquals(REFERENCE_TWELVE_DAYS_LATER_DAY_STRING, parsedDayString);
+		assertEquals(REFERENCE_TWELVE_DAYS_LATER_DAY_INT, parsedDayInt);
 	}
 	
 	@Test
@@ -363,9 +363,9 @@ public class DateTimeParserTest {
 		String parsedDayString = userDate.getDayStr();
 		int parsedDayInt = userDate.getDayInt();
 		
-		assertEquals(parsedDate, REFERENCE_NEXT_WEEK_DATE);
-		assertEquals(parsedDayString, REFERENCE_NEXT_WEEK_DAY_STRING);
-		assertEquals(parsedDayInt, REFERENCE_NEXT_WEEK_DAY_INT);
+		assertEquals(REFERENCE_NEXT_WEEK_DATE, parsedDate);
+		assertEquals(REFERENCE_NEXT_WEEK_DAY_STRING, parsedDayString);
+		assertEquals(REFERENCE_NEXT_WEEK_DAY_INT, parsedDayInt);
 	}
 	
 	@Test
@@ -377,9 +377,9 @@ public class DateTimeParserTest {
 		String parsedDayString = userDate.getDayStr();
 		int parsedDayInt = userDate.getDayInt();
 		
-		assertEquals(parsedDate, REFERENCE_NEXT_WEEK_DATE);
-		assertEquals(parsedDayString, REFERENCE_NEXT_WEEK_DAY_STRING);
-		assertEquals(parsedDayInt, REFERENCE_NEXT_WEEK_DAY_INT);
+		assertEquals(REFERENCE_NEXT_WEEK_DATE, parsedDate);
+		assertEquals(REFERENCE_NEXT_WEEK_DAY_STRING, parsedDayString);
+		assertEquals(REFERENCE_NEXT_WEEK_DAY_INT, parsedDayInt);
 	}
 	
 	@Test
@@ -391,9 +391,9 @@ public class DateTimeParserTest {
 		String parsedDayString = userDate.getDayStr();
 		int parsedDayInt = userDate.getDayInt();
 		
-		assertEquals(parsedDate, REFERENCE_NEXT_WEEK_DATE);
-		assertEquals(parsedDayString, REFERENCE_NEXT_WEEK_DAY_STRING);
-		assertEquals(parsedDayInt, REFERENCE_NEXT_WEEK_DAY_INT);
+		assertEquals(REFERENCE_NEXT_WEEK_DATE, parsedDate);
+		assertEquals(REFERENCE_NEXT_WEEK_DAY_STRING, parsedDayString);
+		assertEquals(REFERENCE_NEXT_WEEK_DAY_INT, parsedDayInt);
 	}
 	
 	@Test
@@ -405,9 +405,9 @@ public class DateTimeParserTest {
 		String parsedDayString = userDate.getDayStr();
 		int parsedDayInt = userDate.getDayInt();
 		
-		assertEquals(parsedDate, REFERENCE_NEXT_WEEK_DATE);
-		assertEquals(parsedDayString, REFERENCE_NEXT_WEEK_DAY_STRING);
-		assertEquals(parsedDayInt, REFERENCE_NEXT_WEEK_DAY_INT);
+		assertEquals(REFERENCE_NEXT_WEEK_DATE, parsedDate);
+		assertEquals(REFERENCE_NEXT_WEEK_DAY_STRING, parsedDayString);
+		assertEquals(REFERENCE_NEXT_WEEK_DAY_INT, parsedDayInt);
 	}
 	
 	@Test
@@ -419,9 +419,9 @@ public class DateTimeParserTest {
 		String parsedDayString = userDate.getDayStr();
 		int parsedDayInt = userDate.getDayInt();
 		
-		assertEquals(parsedDate, REFERENCE_NEXT_WEEK_DATE);
-		assertEquals(parsedDayString, REFERENCE_NEXT_WEEK_DAY_STRING);
-		assertEquals(parsedDayInt, REFERENCE_NEXT_WEEK_DAY_INT);
+		assertEquals(REFERENCE_NEXT_WEEK_DATE, parsedDate);
+		assertEquals(REFERENCE_NEXT_WEEK_DAY_STRING, parsedDayString);
+		assertEquals(REFERENCE_NEXT_WEEK_DAY_INT, parsedDayInt);
 	}
 	
 	@Test
@@ -433,9 +433,9 @@ public class DateTimeParserTest {
 		String parsedDayString = userDate.getDayStr();
 		int parsedDayInt = userDate.getDayInt();
 		
-		assertEquals(parsedDate, REFERENCE_THREE_WEEKS_LATER_DATE);
-		assertEquals(parsedDayString, REFERENCE_THREE_WEEKS_LATER_DAY_STRING);
-		assertEquals(parsedDayInt, REFERENCE_THREE_WEEKS_LATER_DAY_INT);
+		assertEquals(REFERENCE_THREE_WEEKS_LATER_DATE, parsedDate);
+		assertEquals(REFERENCE_THREE_WEEKS_LATER_DAY_STRING, parsedDayString);
+		assertEquals(REFERENCE_THREE_WEEKS_LATER_DAY_INT, parsedDayInt);
 	}
 	
 	@Test
@@ -447,9 +447,9 @@ public class DateTimeParserTest {
 		String parsedDayString = userDate.getDayStr();
 		int parsedDayInt = userDate.getDayInt();
 		
-		assertEquals(parsedDate, REFERENCE_THREE_WEEKS_LATER_DATE);
-		assertEquals(parsedDayString, REFERENCE_THREE_WEEKS_LATER_DAY_STRING);
-		assertEquals(parsedDayInt, REFERENCE_THREE_WEEKS_LATER_DAY_INT);
+		assertEquals(REFERENCE_THREE_WEEKS_LATER_DATE, parsedDate);
+		assertEquals(REFERENCE_THREE_WEEKS_LATER_DAY_STRING, parsedDayString);
+		assertEquals(REFERENCE_THREE_WEEKS_LATER_DAY_INT, parsedDayInt);
 	}
 	
 	@Test
@@ -461,9 +461,9 @@ public class DateTimeParserTest {
 		String parsedDayString = userDate.getDayStr();
 		int parsedDayInt = userDate.getDayInt();
 		
-		assertEquals(parsedDate, REFERENCE_THREE_WEEKS_LATER_DATE);
-		assertEquals(parsedDayString, REFERENCE_THREE_WEEKS_LATER_DAY_STRING);
-		assertEquals(parsedDayInt, REFERENCE_THREE_WEEKS_LATER_DAY_INT);
+		assertEquals(REFERENCE_THREE_WEEKS_LATER_DATE, parsedDate);
+		assertEquals(REFERENCE_THREE_WEEKS_LATER_DAY_STRING, parsedDayString);
+		assertEquals(REFERENCE_THREE_WEEKS_LATER_DAY_INT, parsedDayInt);
 	}
 	
 	@Test
@@ -475,9 +475,9 @@ public class DateTimeParserTest {
 		String parsedDayString = userDate.getDayStr();
 		int parsedDayInt = userDate.getDayInt();
 		
-		assertEquals(parsedDate, REFERENCE_THREE_WEEKS_LATER_DATE);
-		assertEquals(parsedDayString, REFERENCE_THREE_WEEKS_LATER_DAY_STRING);
-		assertEquals(parsedDayInt, REFERENCE_THREE_WEEKS_LATER_DAY_INT);
+		assertEquals(REFERENCE_THREE_WEEKS_LATER_DATE, parsedDate);
+		assertEquals(REFERENCE_THREE_WEEKS_LATER_DAY_STRING, parsedDayString);
+		assertEquals(REFERENCE_THREE_WEEKS_LATER_DAY_INT, parsedDayInt);
 	}
 	
 	@Test
@@ -489,9 +489,9 @@ public class DateTimeParserTest {
 		String parsedDayString = userDate.getDayStr();
 		int parsedDayInt = userDate.getDayInt();
 		
-		assertEquals(parsedDate, REFERENCE_THREE_WEEKS_LATER_DATE);
-		assertEquals(parsedDayString, REFERENCE_THREE_WEEKS_LATER_DAY_STRING);
-		assertEquals(parsedDayInt, REFERENCE_THREE_WEEKS_LATER_DAY_INT);
+		assertEquals(REFERENCE_THREE_WEEKS_LATER_DATE, parsedDate);
+		assertEquals(REFERENCE_THREE_WEEKS_LATER_DAY_STRING, parsedDayString);
+		assertEquals(REFERENCE_THREE_WEEKS_LATER_DAY_INT, parsedDayInt);
 	}
 	
 	@Test
@@ -503,9 +503,9 @@ public class DateTimeParserTest {
 		String parsedDayString = userDate.getDayStr();
 		int parsedDayInt = userDate.getDayInt();
 		
-		assertEquals(parsedDate, REFERENCE_THREE_WEEKS_LATER_DATE);
-		assertEquals(parsedDayString, REFERENCE_THREE_WEEKS_LATER_DAY_STRING);
-		assertEquals(parsedDayInt, REFERENCE_THREE_WEEKS_LATER_DAY_INT);
+		assertEquals(REFERENCE_THREE_WEEKS_LATER_DATE, parsedDate);
+		assertEquals(REFERENCE_THREE_WEEKS_LATER_DAY_STRING, parsedDayString);
+		assertEquals(REFERENCE_THREE_WEEKS_LATER_DAY_INT, parsedDayInt);
 	}
 	
 	
@@ -517,9 +517,9 @@ public class DateTimeParserTest {
 		String dayStrParsed = todayParsed.getDayStr();
 		int dayIntParsed = todayParsed.getDayInt();
 		
-		assertEquals(dateParsed, todayDate);
-		assertEquals(dayStrParsed, todayDayString);
-		assertEquals(dayIntParsed, todayDayInt);
+		assertEquals(todayDate, dateParsed);
+		assertEquals(todayDayString, dayStrParsed);
+		assertEquals(todayDayInt, dayIntParsed);
 	}
 	
 	@Test
@@ -530,9 +530,9 @@ public class DateTimeParserTest {
 		String dayStrParsed = todayParsed.getDayStr();
 		int dayIntParsed = todayParsed.getDayInt();
 		
-		assertEquals(dateParsed, todayDate);
-		assertEquals(dayStrParsed, todayDayString);
-		assertEquals(dayIntParsed, todayDayInt);
+		assertEquals(todayDate, dateParsed);
+		assertEquals(todayDayString, dayStrParsed);
+		assertEquals(todayDayInt, dayIntParsed);
 	}
 	
 	@Test
@@ -543,9 +543,9 @@ public class DateTimeParserTest {
 		String dayStrParsed = todayParsed.getDayStr();
 		int dayIntParsed = todayParsed.getDayInt();
 		
-		assertEquals(dateParsed, todayDate);
-		assertEquals(dayStrParsed, todayDayString);
-		assertEquals(dayIntParsed, todayDayInt);
+		assertEquals(todayDate, dateParsed);
+		assertEquals(todayDayString, dayStrParsed);
+		assertEquals(todayDayInt, dayIntParsed);
 	}
 	
 	@Test
@@ -556,9 +556,9 @@ public class DateTimeParserTest {
 		String dayStrParsed = todayParsed.getDayStr();
 		int dayIntParsed = todayParsed.getDayInt();
 		
-		assertEquals(dateParsed, todayDate);
-		assertEquals(dayStrParsed, todayDayString);
-		assertEquals(dayIntParsed, todayDayInt);
+		assertEquals(todayDate, dateParsed);
+		assertEquals(todayDayString, dayStrParsed);
+		assertEquals(todayDayInt, dayIntParsed);
 	}
 	
 	@Test
@@ -569,9 +569,9 @@ public class DateTimeParserTest {
 		String dayStrParsed = parsedDateTimeObject.getDayStr();
 		int dayIntParsed = parsedDateTimeObject.getDayInt();
 		
-		assertEquals(dateParsed, REFERENCE_TOMORROW_DATE);
-		assertEquals(dayStrParsed, REFERENCE_TOMORROW_DAY_STRING);
-		assertEquals(dayIntParsed, REFERENCE_TOMORROW_DAY_INT);
+		assertEquals(REFERENCE_TOMORROW_DATE, dateParsed);
+		assertEquals(REFERENCE_TOMORROW_DAY_STRING, dayStrParsed);
+		assertEquals(REFERENCE_TOMORROW_DAY_INT, dayIntParsed);
 	}
 	
 	@Test
@@ -582,9 +582,9 @@ public class DateTimeParserTest {
 		String dayStrParsed = parsedDateTimeObject.getDayStr();
 		int dayIntParsed = parsedDateTimeObject.getDayInt();
 		
-		assertEquals(dateParsed, REFERENCE_TOMORROW_DATE);
-		assertEquals(dayStrParsed, REFERENCE_TOMORROW_DAY_STRING);
-		assertEquals(dayIntParsed, REFERENCE_TOMORROW_DAY_INT);
+		assertEquals(REFERENCE_TOMORROW_DATE, dateParsed);
+		assertEquals(REFERENCE_TOMORROW_DAY_STRING, dayStrParsed);
+		assertEquals(REFERENCE_TOMORROW_DAY_INT, dayIntParsed);
 	}
 	
 	@Test
@@ -595,9 +595,9 @@ public class DateTimeParserTest {
 		String dayStrParsed = parsedDateTimeObject.getDayStr();
 		int dayIntParsed = parsedDateTimeObject.getDayInt();
 		
-		assertEquals(dateParsed, REFERENCE_TOMORROW_DATE);
-		assertEquals(dayStrParsed, REFERENCE_TOMORROW_DAY_STRING);
-		assertEquals(dayIntParsed, REFERENCE_TOMORROW_DAY_INT);
+		assertEquals(REFERENCE_TOMORROW_DATE, dateParsed);
+		assertEquals(REFERENCE_TOMORROW_DAY_STRING, dayStrParsed);
+		assertEquals(REFERENCE_TOMORROW_DAY_INT, dayIntParsed);
 	}
 	
 	@Test
@@ -608,9 +608,9 @@ public class DateTimeParserTest {
 		String dayStrParsed = parsedDateTimeObject.getDayStr();
 		int dayIntParsed = parsedDateTimeObject.getDayInt();
 		
-		assertEquals(dateParsed, REFERENCE_TOMORROW_DATE);
-		assertEquals(dayStrParsed, REFERENCE_TOMORROW_DAY_STRING);
-		assertEquals(dayIntParsed, REFERENCE_TOMORROW_DAY_INT);
+		assertEquals(REFERENCE_TOMORROW_DATE, dateParsed);
+		assertEquals(REFERENCE_TOMORROW_DAY_STRING, dayStrParsed);
+		assertEquals(REFERENCE_TOMORROW_DAY_INT, dayIntParsed);
 	}
 	
 	
@@ -653,7 +653,7 @@ public class DateTimeParserTest {
 		
 		String parsedDate = userDate.getDate();
 		String expectedDate = "1 Oct 2016";
-		assertEquals(parsedDate, expectedDate);
+		assertEquals(expectedDate, parsedDate);
 	}
 	
 	@Test 
@@ -663,7 +663,7 @@ public class DateTimeParserTest {
 		
 		String parsedDate = userDate.getDate();
 		String expectedDate = "1 Oct 2016";
-		assertEquals(parsedDate, expectedDate);
+		assertEquals(expectedDate, parsedDate);
 	}
 	
 	@Test 
@@ -673,7 +673,7 @@ public class DateTimeParserTest {
 		
 		String parsedDate = userDate.getDate();
 		String expectedDate = "1 Feb 2017";
-		assertEquals(parsedDate, expectedDate);
+		assertEquals(expectedDate, parsedDate);
 	}
 	
 	@Test 
@@ -683,7 +683,7 @@ public class DateTimeParserTest {
 		
 		String parsedDate = userDate.getDate();
 		String expectedDate = "12 Dec 2016";
-		assertEquals(parsedDate, expectedDate);
+		assertEquals(expectedDate, parsedDate);
 	}
 	
 	@Test 
@@ -693,7 +693,7 @@ public class DateTimeParserTest {
 		
 		String parsedDate = userDate.getDate();
 		String expectedDate = "12 Mar 2017";
-		assertEquals(parsedDate, expectedDate);
+		assertEquals(expectedDate, parsedDate);
 	}
 	
 	@Test 
@@ -703,7 +703,7 @@ public class DateTimeParserTest {
 		
 		String parsedDate = userDate.getDate();
 		String expectedDate = "12 Sep 2016";
-		assertEquals(parsedDate, expectedDate);
+		assertEquals(expectedDate, parsedDate);
 	}
 	
 	@Test 
@@ -713,7 +713,7 @@ public class DateTimeParserTest {
 		
 		String parsedDate = userDate.getDate();
 		String expectedDate = "15 Sep 2016";
-		assertEquals(parsedDate, expectedDate);
+		assertEquals(expectedDate, parsedDate);
 	}
 	
 	@Test 
@@ -723,7 +723,7 @@ public class DateTimeParserTest {
 		
 		String parsedDate = userDate.getDate();
 		String expectedDate = "15 Feb 2017";
-		assertEquals(parsedDate, expectedDate);
+		assertEquals(expectedDate, parsedDate);
 	}
 
 	@Test(expected = IncorrectInputException.class) 
@@ -851,12 +851,18 @@ public class DateTimeParserTest {
 		String dayStrParsed = parsedDateTimeObject.getDayStr();
 		int dayIntParsed = parsedDateTimeObject.getDayInt();
 		int time24hParsed = parsedDateTimeObject.getTimeInt();
+		String time12hStringParsed = parsedDateTimeObject.getTime12hStr();
+		String time24hStringParsed = parsedDateTimeObject.getTime24hStr();
 		int expectedTime24H = 500;
+		String expected12hString = "5.00 am";
+		String expected24hString = "05:00";
 		
-		assertEquals(dateParsed, REFERENCE_TOMORROW_DATE);
-		assertEquals(dayStrParsed, REFERENCE_TOMORROW_DAY_STRING);
-		assertEquals(dayIntParsed, REFERENCE_TOMORROW_DAY_INT);
-		assertEquals(time24hParsed, expectedTime24H);
+		assertEquals(REFERENCE_TOMORROW_DATE, dateParsed);
+		assertEquals(REFERENCE_TOMORROW_DAY_STRING, dayStrParsed);
+		assertEquals(REFERENCE_TOMORROW_DAY_INT, dayIntParsed);
+		assertEquals(expectedTime24H, time24hParsed);
+		assertEquals(expected12hString, time12hStringParsed);
+		assertEquals(expected24hString, time24hStringParsed);
 	}
 	
 	@Test
@@ -874,12 +880,12 @@ public class DateTimeParserTest {
 		String expected12hString = "1.00 am";
 		String expected24hString = "01:00";
 		
-		assertEquals(dateParsed, REFERENCE_TOMORROW_DATE);
-		assertEquals(dayStrParsed, REFERENCE_TOMORROW_DAY_STRING);
-		assertEquals(dayIntParsed, REFERENCE_TOMORROW_DAY_INT);
-		assertEquals(time24hParsed, expectedTime24H);
-		assertEquals(time12hStringParsed, expected12hString);
-		assertEquals(time24hStringParsed, expected24hString);
+		assertEquals(REFERENCE_TOMORROW_DATE, dateParsed);
+		assertEquals(REFERENCE_TOMORROW_DAY_STRING, dayStrParsed);
+		assertEquals(REFERENCE_TOMORROW_DAY_INT, dayIntParsed);
+		assertEquals(expectedTime24H, time24hParsed);
+		assertEquals(expected12hString, time12hStringParsed);
+		assertEquals(expected24hString, time24hStringParsed);
 	}
 	
 	@Test
@@ -897,12 +903,12 @@ public class DateTimeParserTest {
 		String expected12hString = "1.30 am";
 		String expected24hString = "01:30";
 		
-		assertEquals(dateParsed, REFERENCE_TOMORROW_DATE);
-		assertEquals(dayStrParsed, REFERENCE_TOMORROW_DAY_STRING);
-		assertEquals(dayIntParsed, REFERENCE_TOMORROW_DAY_INT);
-		assertEquals(time24hParsed, expectedTime24H);
-		assertEquals(time12hStringParsed, expected12hString);
-		assertEquals(time24hStringParsed, expected24hString);
+		assertEquals(REFERENCE_TOMORROW_DATE, dateParsed);
+		assertEquals(REFERENCE_TOMORROW_DAY_STRING, dayStrParsed);
+		assertEquals(REFERENCE_TOMORROW_DAY_INT, dayIntParsed);
+		assertEquals(expectedTime24H, time24hParsed);
+		assertEquals(expected12hString, time12hStringParsed);
+		assertEquals(expected24hString, time24hStringParsed);
 	}
 	
 	@Test
@@ -920,12 +926,12 @@ public class DateTimeParserTest {
 		String expected12hString = "12.40 am";
 		String expected24hString = "00:40";
 		
-		assertEquals(dateParsed, REFERENCE_TOMORROW_DATE);
-		assertEquals(dayStrParsed, REFERENCE_TOMORROW_DAY_STRING);
-		assertEquals(dayIntParsed, REFERENCE_TOMORROW_DAY_INT);
-		assertEquals(time24hParsed, expectedTime24H);
-		assertEquals(time12hStringParsed, expected12hString);
-		assertEquals(time24hStringParsed, expected24hString);
+		assertEquals(REFERENCE_TOMORROW_DATE, dateParsed);
+		assertEquals(REFERENCE_TOMORROW_DAY_STRING, dayStrParsed);
+		assertEquals(REFERENCE_TOMORROW_DAY_INT, dayIntParsed);
+		assertEquals(expectedTime24H, time24hParsed);
+		assertEquals(expected12hString, time12hStringParsed);
+		assertEquals(expected24hString, time24hStringParsed);
 	}
 	
 	@Test
@@ -943,12 +949,12 @@ public class DateTimeParserTest {
 		String expected12hString = "1.00 am";
 		String expected24hString = "01:00";
 		
-		assertEquals(dateParsed, REFERENCE_TOMORROW_DATE);
-		assertEquals(dayStrParsed, REFERENCE_TOMORROW_DAY_STRING);
-		assertEquals(dayIntParsed, REFERENCE_TOMORROW_DAY_INT);
-		assertEquals(time24hParsed, expectedTime24H);
-		assertEquals(time12hStringParsed, expected12hString);
-		assertEquals(time24hStringParsed, expected24hString);
+		assertEquals(REFERENCE_TOMORROW_DATE, dateParsed);
+		assertEquals(REFERENCE_TOMORROW_DAY_STRING, dayStrParsed);
+		assertEquals(REFERENCE_TOMORROW_DAY_INT, dayIntParsed);
+		assertEquals(expectedTime24H, time24hParsed);
+		assertEquals(expected12hString, time12hStringParsed);
+		assertEquals(expected24hString, time24hStringParsed);
 	}
 	
 	@Test
@@ -966,12 +972,12 @@ public class DateTimeParserTest {
 		String expected12hString = "1.30 am";
 		String expected24hString = "01:30";
 		
-		assertEquals(dateParsed, REFERENCE_TOMORROW_DATE);
-		assertEquals(dayStrParsed, REFERENCE_TOMORROW_DAY_STRING);
-		assertEquals(dayIntParsed, REFERENCE_TOMORROW_DAY_INT);
-		assertEquals(time24hParsed, expectedTime24H);
-		assertEquals(time12hStringParsed, expected12hString);
-		assertEquals(time24hStringParsed, expected24hString);
+		assertEquals(REFERENCE_TOMORROW_DATE, dateParsed);
+		assertEquals(REFERENCE_TOMORROW_DAY_STRING, dayStrParsed);
+		assertEquals(REFERENCE_TOMORROW_DAY_INT, dayIntParsed);
+		assertEquals(expectedTime24H, time24hParsed);
+		assertEquals(expected12hString, time12hStringParsed);
+		assertEquals(expected24hString, time24hStringParsed);
 	}
 	
 	@Test
@@ -989,12 +995,12 @@ public class DateTimeParserTest {
 		String expected12hString = "12.40 am";
 		String expected24hString = "00:40";
 		
-		assertEquals(dateParsed, REFERENCE_TOMORROW_DATE);
-		assertEquals(dayStrParsed, REFERENCE_TOMORROW_DAY_STRING);
-		assertEquals(dayIntParsed, REFERENCE_TOMORROW_DAY_INT);
-		assertEquals(time24hParsed, expectedTime24H);
-		assertEquals(time12hStringParsed, expected12hString);
-		assertEquals(time24hStringParsed, expected24hString);
+		assertEquals(REFERENCE_TOMORROW_DATE, dateParsed);
+		assertEquals(REFERENCE_TOMORROW_DAY_STRING, dayStrParsed);
+		assertEquals(REFERENCE_TOMORROW_DAY_INT, dayIntParsed);
+		assertEquals(expectedTime24H, time24hParsed);
+		assertEquals(expected12hString, time12hStringParsed);
+		assertEquals(expected24hString, time24hStringParsed);
 	}
 	
 	@Test
@@ -1012,12 +1018,12 @@ public class DateTimeParserTest {
 		String expected12hString = "10.00 am";
 		String expected24hString = "10:00";
 		
-		assertEquals(dateParsed, REFERENCE_TODAY_DATE);
-		assertEquals(dayStrParsed, REFERENCE_TODAY_DAY_STRING);
-		assertEquals(dayIntParsed, REFERENCE_TODAY_DAY_INT);
-		assertEquals(time24hParsed, expectedTime24H);
-		assertEquals(time12hStringParsed, expected12hString);
-		assertEquals(time24hStringParsed, expected24hString);
+		assertEquals(REFERENCE_TODAY_DATE, dateParsed);
+		assertEquals(REFERENCE_TODAY_DAY_STRING, dayStrParsed);
+		assertEquals(REFERENCE_TODAY_DAY_INT, dayIntParsed);
+		assertEquals(expectedTime24H, time24hParsed);
+		assertEquals(expected12hString, time12hStringParsed);
+		assertEquals(expected24hString, time24hStringParsed);
 	}
 	
 	@Test
@@ -1035,12 +1041,12 @@ public class DateTimeParserTest {
 		String expected12hString = "10.00 am";
 		String expected24hString = "10:00";
 		
-		assertEquals(dateParsed, REFERENCE_TODAY_DATE);
-		assertEquals(dayStrParsed, REFERENCE_TODAY_DAY_STRING);
-		assertEquals(dayIntParsed, REFERENCE_TODAY_DAY_INT);
-		assertEquals(time24hParsed, expectedTime24H);
-		assertEquals(time12hStringParsed, expected12hString);
-		assertEquals(time24hStringParsed, expected24hString);
+		assertEquals(REFERENCE_TODAY_DATE, dateParsed);
+		assertEquals(REFERENCE_TODAY_DAY_STRING, dayStrParsed);
+		assertEquals(REFERENCE_TODAY_DAY_INT, dayIntParsed);
+		assertEquals(expectedTime24H, time24hParsed);
+		assertEquals(expected12hString, time12hStringParsed);
+		assertEquals(expected24hString, time24hStringParsed);
 	}
 	
 	@Test
@@ -1058,12 +1064,12 @@ public class DateTimeParserTest {
 		String expected12hString = "12.00 pm";
 		String expected24hString = "12:00";
 		
-		assertEquals(dateParsed, REFERENCE_TODAY_DATE);
-		assertEquals(dayStrParsed, REFERENCE_TODAY_DAY_STRING);
-		assertEquals(dayIntParsed, REFERENCE_TODAY_DAY_INT);
-		assertEquals(time24hParsed, expectedTime24H);
-		assertEquals(time12hStringParsed, expected12hString);
-		assertEquals(time24hStringParsed, expected24hString);
+		assertEquals(REFERENCE_TODAY_DATE, dateParsed);
+		assertEquals(REFERENCE_TODAY_DAY_STRING, dayStrParsed);
+		assertEquals(REFERENCE_TODAY_DAY_INT, dayIntParsed);
+		assertEquals(expectedTime24H, time24hParsed);
+		assertEquals(expected12hString, time12hStringParsed);
+		assertEquals(expected24hString, time24hStringParsed);
 	}
 	
 	@Test
@@ -1081,12 +1087,12 @@ public class DateTimeParserTest {
 		String expected12hString = "12.00 pm";
 		String expected24hString = "12:00";
 		
-		assertEquals(dateParsed, REFERENCE_TODAY_DATE);
-		assertEquals(dayStrParsed, REFERENCE_TODAY_DAY_STRING);
-		assertEquals(dayIntParsed, REFERENCE_TODAY_DAY_INT);
-		assertEquals(time24hParsed, expectedTime24H);
-		assertEquals(time12hStringParsed, expected12hString);
-		assertEquals(time24hStringParsed, expected24hString);
+		assertEquals(REFERENCE_TODAY_DATE, dateParsed);
+		assertEquals(REFERENCE_TODAY_DAY_STRING, dayStrParsed);
+		assertEquals(REFERENCE_TODAY_DAY_INT, dayIntParsed);
+		assertEquals(expectedTime24H, time24hParsed);
+		assertEquals(expected12hString, time12hStringParsed);
+		assertEquals(expected24hString, time24hStringParsed);
 	}
 	
 	@Test
@@ -1104,12 +1110,12 @@ public class DateTimeParserTest {
 		String expected12hString = "12.30 pm";
 		String expected24hString = "12:30";
 		
-		assertEquals(dateParsed, REFERENCE_TODAY_DATE);
-		assertEquals(dayStrParsed, REFERENCE_TODAY_DAY_STRING);
-		assertEquals(dayIntParsed, REFERENCE_TODAY_DAY_INT);
-		assertEquals(time24hParsed, expectedTime24H);
-		assertEquals(time12hStringParsed, expected12hString);
-		assertEquals(time24hStringParsed, expected24hString);
+		assertEquals(REFERENCE_TODAY_DATE, dateParsed);
+		assertEquals(REFERENCE_TODAY_DAY_STRING, dayStrParsed);
+		assertEquals(REFERENCE_TODAY_DAY_INT, dayIntParsed);
+		assertEquals(expectedTime24H, time24hParsed);
+		assertEquals(expected12hString, time12hStringParsed);
+		assertEquals(expected24hString, time24hStringParsed);
 	}
 	
 	@Test
@@ -1127,12 +1133,12 @@ public class DateTimeParserTest {
 		String expected12hString = "12.30 pm";
 		String expected24hString = "12:30";
 		
-		assertEquals(dateParsed, REFERENCE_TODAY_DATE);
-		assertEquals(dayStrParsed, REFERENCE_TODAY_DAY_STRING);
-		assertEquals(dayIntParsed, REFERENCE_TODAY_DAY_INT);
-		assertEquals(time24hParsed, expectedTime24H);
-		assertEquals(time12hStringParsed, expected12hString);
-		assertEquals(time24hStringParsed, expected24hString);
+		assertEquals(REFERENCE_TODAY_DATE, dateParsed);
+		assertEquals(REFERENCE_TODAY_DAY_STRING, dayStrParsed);
+		assertEquals(REFERENCE_TODAY_DAY_INT, dayIntParsed);
+		assertEquals(expectedTime24H, time24hParsed);
+		assertEquals(expected12hString, time12hStringParsed);
+		assertEquals(expected24hString, time24hStringParsed);
 	}
 	
 	@Test
@@ -1150,12 +1156,12 @@ public class DateTimeParserTest {
 		String expected12hString = "11.00 pm";
 		String expected24hString = "23:00";
 		
-		assertEquals(dateParsed, REFERENCE_TODAY_DATE);
-		assertEquals(dayStrParsed, REFERENCE_TODAY_DAY_STRING);
-		assertEquals(dayIntParsed, REFERENCE_TODAY_DAY_INT);
-		assertEquals(time24hParsed, expectedTime24H);
-		assertEquals(time12hStringParsed, expected12hString);
-		assertEquals(time24hStringParsed, expected24hString);
+		assertEquals(REFERENCE_TODAY_DATE, dateParsed);
+		assertEquals(REFERENCE_TODAY_DAY_STRING, dayStrParsed);
+		assertEquals(REFERENCE_TODAY_DAY_INT, dayIntParsed);
+		assertEquals(expectedTime24H, time24hParsed);
+		assertEquals(expected12hString, time12hStringParsed);
+		assertEquals(expected24hString, time24hStringParsed);
 	}
 	
 	@Test
@@ -1173,12 +1179,12 @@ public class DateTimeParserTest {
 		String expected12hString = "11.00 pm";
 		String expected24hString = "23:00";
 		
-		assertEquals(dateParsed, REFERENCE_TODAY_DATE);
-		assertEquals(dayStrParsed, REFERENCE_TODAY_DAY_STRING);
-		assertEquals(dayIntParsed, REFERENCE_TODAY_DAY_INT);
-		assertEquals(time24hParsed, expectedTime24H);
-		assertEquals(time12hStringParsed, expected12hString);
-		assertEquals(time24hStringParsed, expected24hString);
+		assertEquals(REFERENCE_TODAY_DATE, dateParsed);
+		assertEquals(REFERENCE_TODAY_DAY_STRING, dayStrParsed);
+		assertEquals(REFERENCE_TODAY_DAY_INT, dayIntParsed);
+		assertEquals(expectedTime24H, time24hParsed);
+		assertEquals(expected12hString, time12hStringParsed);
+		assertEquals(expected24hString, time24hStringParsed);
 	}
 	
 	@Test
@@ -1196,12 +1202,12 @@ public class DateTimeParserTest {
 		String expected12hString = "11.30 pm";
 		String expected24hString = "23:30";
 		
-		assertEquals(dateParsed, REFERENCE_TODAY_DATE);
-		assertEquals(dayStrParsed, REFERENCE_TODAY_DAY_STRING);
-		assertEquals(dayIntParsed, REFERENCE_TODAY_DAY_INT);
-		assertEquals(time24hParsed, expectedTime24H);
-		assertEquals(time12hStringParsed, expected12hString);
-		assertEquals(time24hStringParsed, expected24hString);
+		assertEquals(REFERENCE_TODAY_DATE, dateParsed);
+		assertEquals(REFERENCE_TODAY_DAY_STRING, dayStrParsed);
+		assertEquals(REFERENCE_TODAY_DAY_INT, dayIntParsed);
+		assertEquals(expectedTime24H, time24hParsed);
+		assertEquals(expected12hString, time12hStringParsed);
+		assertEquals(expected24hString, time24hStringParsed);
 	}
 	
 	@Test
@@ -1219,12 +1225,12 @@ public class DateTimeParserTest {
 		String expected12hString = "11.30 pm";
 		String expected24hString = "23:30";
 		
-		assertEquals(dateParsed, REFERENCE_TODAY_DATE);
-		assertEquals(dayStrParsed, REFERENCE_TODAY_DAY_STRING);
-		assertEquals(dayIntParsed, REFERENCE_TODAY_DAY_INT);
-		assertEquals(time24hParsed, expectedTime24H);
-		assertEquals(time12hStringParsed, expected12hString);
-		assertEquals(time24hStringParsed, expected24hString);
+		assertEquals(REFERENCE_TODAY_DATE, dateParsed);
+		assertEquals(REFERENCE_TODAY_DAY_STRING, dayStrParsed);
+		assertEquals(REFERENCE_TODAY_DAY_INT, dayIntParsed);
+		assertEquals(expectedTime24H, time24hParsed);
+		assertEquals(expected12hString, time12hStringParsed);
+		assertEquals(expected24hString, time24hStringParsed);
 	}
 	
 	@Test
@@ -1242,12 +1248,12 @@ public class DateTimeParserTest {
 		String expected12hString = "5.00 pm";
 		String expected24hString = "17:00";
 		
-		assertEquals(dateParsed, REFERENCE_TODAY_DATE);
-		assertEquals(dayStrParsed, REFERENCE_TODAY_DAY_STRING);
-		assertEquals(dayIntParsed, REFERENCE_TODAY_DAY_INT);
-		assertEquals(time24hParsed, expectedTime24H);
-		assertEquals(time12hStringParsed, expected12hString);
-		assertEquals(time24hStringParsed, expected24hString);
+		assertEquals(REFERENCE_TODAY_DATE, dateParsed);
+		assertEquals(REFERENCE_TODAY_DAY_STRING, dayStrParsed);
+		assertEquals(REFERENCE_TODAY_DAY_INT, dayIntParsed);
+		assertEquals(expectedTime24H, time24hParsed);
+		assertEquals(expected12hString, time12hStringParsed);
+		assertEquals(expected24hString, time24hStringParsed);
 	}
 	
 	@Test
@@ -1265,12 +1271,12 @@ public class DateTimeParserTest {
 		String expected12hString = "5.00 pm";
 		String expected24hString = "17:00";
 		
-		assertEquals(dateParsed, REFERENCE_TODAY_DATE);
-		assertEquals(dayStrParsed, REFERENCE_TODAY_DAY_STRING);
-		assertEquals(dayIntParsed, REFERENCE_TODAY_DAY_INT);
-		assertEquals(time24hParsed, expectedTime24H);
-		assertEquals(time12hStringParsed, expected12hString);
-		assertEquals(time24hStringParsed, expected24hString);
+		assertEquals(REFERENCE_TODAY_DATE, dateParsed);
+		assertEquals(REFERENCE_TODAY_DAY_STRING, dayStrParsed);
+		assertEquals(REFERENCE_TODAY_DAY_INT, dayIntParsed);
+		assertEquals(expectedTime24H, time24hParsed);
+		assertEquals(expected12hString, time12hStringParsed);
+		assertEquals(expected24hString, time24hStringParsed);
 	}
 	
 	@Test
@@ -1288,12 +1294,12 @@ public class DateTimeParserTest {
 		String expected12hString = "5.30 pm";
 		String expected24hString = "17:30";
 		
-		assertEquals(dateParsed, REFERENCE_TODAY_DATE);
-		assertEquals(dayStrParsed, REFERENCE_TODAY_DAY_STRING);
-		assertEquals(dayIntParsed, REFERENCE_TODAY_DAY_INT);
-		assertEquals(time24hParsed, expectedTime24H);
-		assertEquals(time12hStringParsed, expected12hString);
-		assertEquals(time24hStringParsed, expected24hString);
+		assertEquals(REFERENCE_TODAY_DATE, dateParsed);
+		assertEquals(REFERENCE_TODAY_DAY_STRING, dayStrParsed);
+		assertEquals(REFERENCE_TODAY_DAY_INT, dayIntParsed);
+		assertEquals(expectedTime24H, time24hParsed);
+		assertEquals(expected12hString, time12hStringParsed);
+		assertEquals(expected24hString, time24hStringParsed);
 	}
 	
 	@Test
@@ -1311,12 +1317,12 @@ public class DateTimeParserTest {
 		String expected12hString = "5.30 pm";
 		String expected24hString = "17:30";
 		
-		assertEquals(dateParsed, REFERENCE_TODAY_DATE);
-		assertEquals(dayStrParsed, REFERENCE_TODAY_DAY_STRING);
-		assertEquals(dayIntParsed, REFERENCE_TODAY_DAY_INT);
-		assertEquals(time24hParsed, expectedTime24H);
-		assertEquals(time12hStringParsed, expected12hString);
-		assertEquals(time24hStringParsed, expected24hString);
+		assertEquals(REFERENCE_TODAY_DATE, dateParsed);
+		assertEquals(REFERENCE_TODAY_DAY_STRING, dayStrParsed);
+		assertEquals(REFERENCE_TODAY_DAY_INT, dayIntParsed);
+		assertEquals(expectedTime24H, time24hParsed);
+		assertEquals(expected12hString, time12hStringParsed);
+		assertEquals(expected24hString, time24hStringParsed);
 	}
 	
 	@Test
@@ -1327,9 +1333,9 @@ public class DateTimeParserTest {
 		String dayStrParsed = parsedDateTimeObject.getDayStr();
 		int dayIntParsed = parsedDateTimeObject.getDayInt();
 		
-		assertEquals(dateParsed, referenceDateTimeObject.getDate());
-		assertEquals(dayStrParsed, referenceDayString);
-		assertEquals(dayIntParsed, referenceDayInt);
+		assertEquals(referenceDateTimeObject.getDate(), dateParsed);
+		assertEquals(referenceDayString, dayStrParsed);
+		assertEquals(referenceDayInt, dayIntParsed);
 		
 		int timeInt = parsedDateTimeObject.getTimeInt();
 		int expectedTimeInt = 1030;
@@ -1338,9 +1344,9 @@ public class DateTimeParserTest {
 		String expected24HTimeString = "10:30";
 		String expected12HTimeString = "10.30 am";
 		
-		assertEquals(timeInt, expectedTimeInt);
-		assertEquals(time24HString, expected24HTimeString);
-		assertEquals(time12HString, expected12HTimeString);
+		assertEquals(expectedTimeInt, timeInt);
+		assertEquals(expected24HTimeString, time24HString);
+		assertEquals(expected12HTimeString, time12HString);
 	}
 	
 	@Test
@@ -1351,9 +1357,9 @@ public class DateTimeParserTest {
 		String dayStrParsed = parsedDateTimeObject.getDayStr();
 		int dayIntParsed = parsedDateTimeObject.getDayInt();
 		
-		assertEquals(dateParsed, referenceDateTimeObject.getDate());
-		assertEquals(dayStrParsed, referenceDayString);
-		assertEquals(dayIntParsed, referenceDayInt);
+		assertEquals(referenceDateTimeObject.getDate(), dateParsed);
+		assertEquals(referenceDayString, dayStrParsed);
+		assertEquals(referenceDayInt, dayIntParsed);
 		
 		int timeInt = parsedDateTimeObject.getTimeInt();
 		int expectedTimeInt = 1030;
@@ -1362,9 +1368,9 @@ public class DateTimeParserTest {
 		String expected24HTimeString = "10:30";
 		String expected12HTimeString = "10.30 am";
 		
-		assertEquals(timeInt, expectedTimeInt);
-		assertEquals(time24HString, expected24HTimeString);
-		assertEquals(time12HString, expected12HTimeString);
+		assertEquals(expectedTimeInt, timeInt);
+		assertEquals(expected24HTimeString, time24HString);
+		assertEquals(expected12HTimeString, time12HString);
 	}
 	
 	
@@ -1376,9 +1382,9 @@ public class DateTimeParserTest {
 		String dayStrParsed = parsedDateTimeObject.getDayStr();
 		int dayIntParsed = parsedDateTimeObject.getDayInt();
 		
-		assertEquals(dateParsed, referenceDateTimeObject.getDate());
-		assertEquals(dayStrParsed, referenceDayString);
-		assertEquals(dayIntParsed, referenceDayInt);
+		assertEquals(referenceDateTimeObject.getDate(), dateParsed);
+		assertEquals(referenceDayString, dayStrParsed);
+		assertEquals(referenceDayInt, dayIntParsed);
 		
 		int timeInt = parsedDateTimeObject.getTimeInt();
 		int expectedTimeInt = 1030;
@@ -1387,9 +1393,9 @@ public class DateTimeParserTest {
 		String expected24HTimeString = "10:30";
 		String expected12HTimeString = "10.30 am";
 		
-		assertEquals(timeInt, expectedTimeInt);
-		assertEquals(time24HString, expected24HTimeString);
-		assertEquals(time12HString, expected12HTimeString);
+		assertEquals(expectedTimeInt, timeInt);
+		assertEquals(expected24HTimeString, time24HString);
+		assertEquals(expected12HTimeString, time12HString);
 	}
 	
 	@Test
@@ -1400,9 +1406,9 @@ public class DateTimeParserTest {
 		String dayStrParsed = parsedDateTimeObject.getDayStr();
 		int dayIntParsed = parsedDateTimeObject.getDayInt();
 		
-		assertEquals(dateParsed, referenceDateTimeObject.getDate());
-		assertEquals(dayStrParsed, referenceDayString);
-		assertEquals(dayIntParsed, referenceDayInt);
+		assertEquals(referenceDateTimeObject.getDate(), dateParsed);
+		assertEquals(referenceDayString, dayStrParsed);
+		assertEquals(referenceDayInt, dayIntParsed);
 		
 		int timeInt = parsedDateTimeObject.getTimeInt();
 		int expectedTimeInt = 1030;
@@ -1411,9 +1417,9 @@ public class DateTimeParserTest {
 		String expected24HTimeString = "10:30";
 		String expected12HTimeString = "10.30 am";
 		
-		assertEquals(timeInt, expectedTimeInt);
-		assertEquals(time24HString, expected24HTimeString);
-		assertEquals(time12HString, expected12HTimeString);
+		assertEquals(expectedTimeInt, timeInt);
+		assertEquals(expected24HTimeString, time24HString);
+		assertEquals(expected12HTimeString, time12HString);
 	}
 	
 	@Test
@@ -1424,9 +1430,9 @@ public class DateTimeParserTest {
 		String dayStrParsed = parsedDateTimeObject.getDayStr();
 		int dayIntParsed = parsedDateTimeObject.getDayInt();
 		
-		assertEquals(dateParsed, referenceDateTimeObject.getDate());
-		assertEquals(dayStrParsed, referenceDayString);
-		assertEquals(dayIntParsed, referenceDayInt);
+		assertEquals(referenceDateTimeObject.getDate(), dateParsed);
+		assertEquals(referenceDayString, dayStrParsed);
+		assertEquals(referenceDayInt, dayIntParsed);
 		
 		int timeInt = parsedDateTimeObject.getTimeInt();
 		int expectedTimeInt = 2230;
@@ -1435,9 +1441,9 @@ public class DateTimeParserTest {
 		String expected24HTimeString = "22:30";
 		String expected12HTimeString = "10.30 pm";
 		
-		assertEquals(timeInt, expectedTimeInt);
-		assertEquals(time24HString, expected24HTimeString);
-		assertEquals(time12HString, expected12HTimeString);
+		assertEquals(expectedTimeInt, timeInt);
+		assertEquals(expected24HTimeString, time24HString);
+		assertEquals(expected12HTimeString, time12HString);
 	}
 	
 	@Test
@@ -1448,9 +1454,9 @@ public class DateTimeParserTest {
 		String dayStrParsed = parsedDateTimeObject.getDayStr();
 		int dayIntParsed = parsedDateTimeObject.getDayInt();
 		
-		assertEquals(dateParsed, referenceDateTimeObject.getDate());
-		assertEquals(dayStrParsed, referenceDayString);
-		assertEquals(dayIntParsed, referenceDayInt);
+		assertEquals(referenceDateTimeObject.getDate(), dateParsed);
+		assertEquals(referenceDayString, dayStrParsed);
+		assertEquals(referenceDayInt, dayIntParsed);
 		
 		int timeInt = parsedDateTimeObject.getTimeInt();
 		int expectedTimeInt = 2230;
@@ -1459,9 +1465,9 @@ public class DateTimeParserTest {
 		String expected24HTimeString = "22:30";
 		String expected12HTimeString = "10.30 pm";
 		
-		assertEquals(timeInt, expectedTimeInt);
-		assertEquals(time24HString, expected24HTimeString);
-		assertEquals(time12HString, expected12HTimeString);
+		assertEquals(expectedTimeInt, timeInt);
+		assertEquals(expected24HTimeString, time24HString);
+		assertEquals(expected12HTimeString, time12HString);
 	}
 	
 	@Test
@@ -1472,9 +1478,9 @@ public class DateTimeParserTest {
 		String dayStrParsed = parsedDateTimeObject.getDayStr();
 		int dayIntParsed = parsedDateTimeObject.getDayInt();
 		
-		assertEquals(dateParsed, referenceDateTimeObject.getDate());
-		assertEquals(dayStrParsed, referenceDayString);
-		assertEquals(dayIntParsed, referenceDayInt);
+		assertEquals(referenceDateTimeObject.getDate(), dateParsed);
+		assertEquals(referenceDayString, dayStrParsed);
+		assertEquals(referenceDayInt, dayIntParsed);
 		
 		int timeInt = parsedDateTimeObject.getTimeInt();
 		int expectedTimeInt = 2230;
@@ -1483,9 +1489,9 @@ public class DateTimeParserTest {
 		String expected24HTimeString = "22:30";
 		String expected12HTimeString = "10.30 pm";
 		
-		assertEquals(timeInt, expectedTimeInt);
-		assertEquals(time24HString, expected24HTimeString);
-		assertEquals(time12HString, expected12HTimeString);
+		assertEquals(expectedTimeInt, timeInt);
+		assertEquals(expected24HTimeString, time24HString);
+		assertEquals(expected12HTimeString, time12HString);
 	}
 	
 	@Test
@@ -1496,9 +1502,9 @@ public class DateTimeParserTest {
 		String dayStrParsed = parsedDateTimeObject.getDayStr();
 		int dayIntParsed = parsedDateTimeObject.getDayInt();
 		
-		assertEquals(dateParsed, referenceDateTimeObject.getDate());
-		assertEquals(dayStrParsed, referenceDayString);
-		assertEquals(dayIntParsed, referenceDayInt);
+		assertEquals(referenceDateTimeObject.getDate(), dateParsed);
+		assertEquals(referenceDayString, dayStrParsed);
+		assertEquals(referenceDayInt, dayIntParsed);
 		
 		int timeInt = parsedDateTimeObject.getTimeInt();
 		int expectedTimeInt = 2230;
@@ -1507,9 +1513,9 @@ public class DateTimeParserTest {
 		String expected24HTimeString = "22:30";
 		String expected12HTimeString = "10.30 pm";
 		
-		assertEquals(timeInt, expectedTimeInt);
-		assertEquals(time24HString, expected24HTimeString);
-		assertEquals(time12HString, expected12HTimeString);
+		assertEquals(expectedTimeInt, timeInt);
+		assertEquals(expected24HTimeString, time24HString);
+		assertEquals(expected12HTimeString, time12HString);
 	}
 	
 	@Test
@@ -1520,9 +1526,9 @@ public class DateTimeParserTest {
 		String dayStrParsed = parsedDateTimeObject.getDayStr();
 		int dayIntParsed = parsedDateTimeObject.getDayInt();
 		
-		assertEquals(dateParsed, referenceDateTimeObject.getDate());
-		assertEquals(dayStrParsed, referenceDayString);
-		assertEquals(dayIntParsed, referenceDayInt);
+		assertEquals(referenceDateTimeObject.getDate(), dateParsed);
+		assertEquals(referenceDayString, dayStrParsed);
+		assertEquals(referenceDayInt, dayIntParsed);
 		
 		int timeInt = parsedDateTimeObject.getTimeInt();
 		int expectedTimeInt = 1030;
@@ -1531,9 +1537,9 @@ public class DateTimeParserTest {
 		String expected24HTimeString = "10:30";
 		String expected12HTimeString = "10.30 am";
 		
-		assertEquals(timeInt, expectedTimeInt);
-		assertEquals(time24HString, expected24HTimeString);
-		assertEquals(time12HString, expected12HTimeString);
+		assertEquals(expectedTimeInt, timeInt);
+		assertEquals(expected24HTimeString, time24HString);
+		assertEquals(expected12HTimeString, time12HString);
 	}
 	
 	@Test
@@ -1544,9 +1550,9 @@ public class DateTimeParserTest {
 		String dayStrParsed = parsedDateTimeObject.getDayStr();
 		int dayIntParsed = parsedDateTimeObject.getDayInt();
 		
-		assertEquals(dateParsed, referenceDateTimeObject.getDate());
-		assertEquals(dayStrParsed, referenceDayString);
-		assertEquals(dayIntParsed, referenceDayInt);
+		assertEquals(referenceDateTimeObject.getDate(), dateParsed);
+		assertEquals(referenceDayString, dayStrParsed);
+		assertEquals(referenceDayInt, dayIntParsed);
 		
 		int timeInt = parsedDateTimeObject.getTimeInt();
 		int expectedTimeInt = 1030;
@@ -1555,9 +1561,9 @@ public class DateTimeParserTest {
 		String expected24HTimeString = "10:30";
 		String expected12HTimeString = "10.30 am";
 		
-		assertEquals(timeInt, expectedTimeInt);
-		assertEquals(time24HString, expected24HTimeString);
-		assertEquals(time12HString, expected12HTimeString);
+		assertEquals(expectedTimeInt, timeInt);
+		assertEquals(expected24HTimeString, time24HString);
+		assertEquals(expected12HTimeString, time12HString);
 	}
 	
 	@Test
@@ -1568,9 +1574,9 @@ public class DateTimeParserTest {
 		String dayStrParsed = parsedDateTimeObject.getDayStr();
 		int dayIntParsed = parsedDateTimeObject.getDayInt();
 		
-		assertEquals(dateParsed, referenceDateTimeObject.getDate());
-		assertEquals(dayStrParsed, referenceDayString);
-		assertEquals(dayIntParsed, referenceDayInt);
+		assertEquals(referenceDateTimeObject.getDate(), dateParsed);
+		assertEquals(referenceDayString, dayStrParsed);
+		assertEquals(referenceDayInt, dayIntParsed);
 		
 		int timeInt = parsedDateTimeObject.getTimeInt();
 		int expectedTimeInt = 1030;
@@ -1579,9 +1585,9 @@ public class DateTimeParserTest {
 		String expected24HTimeString = "10:30";
 		String expected12HTimeString = "10.30 am";
 		
-		assertEquals(timeInt, expectedTimeInt);
-		assertEquals(time24HString, expected24HTimeString);
-		assertEquals(time12HString, expected12HTimeString);
+		assertEquals(expectedTimeInt, timeInt);
+		assertEquals(expected24HTimeString, time24HString);
+		assertEquals(expected12HTimeString, time12HString);
 	}
 	
 	@Test
@@ -1592,9 +1598,9 @@ public class DateTimeParserTest {
 		String dayStrParsed = parsedDateTimeObject.getDayStr();
 		int dayIntParsed = parsedDateTimeObject.getDayInt();
 		
-		assertEquals(dateParsed, referenceDateTimeObject.getDate());
-		assertEquals(dayStrParsed, referenceDayString);
-		assertEquals(dayIntParsed, referenceDayInt);
+		assertEquals(referenceDateTimeObject.getDate(), dateParsed);
+		assertEquals(referenceDayString, dayStrParsed);
+		assertEquals(referenceDayInt, dayIntParsed);
 		
 		int timeInt = parsedDateTimeObject.getTimeInt();
 		int expectedTimeInt = 1030;
@@ -1603,9 +1609,9 @@ public class DateTimeParserTest {
 		String expected24HTimeString = "10:30";
 		String expected12HTimeString = "10.30 am";
 		
-		assertEquals(timeInt, expectedTimeInt);
-		assertEquals(time24HString, expected24HTimeString);
-		assertEquals(time12HString, expected12HTimeString);
+		assertEquals(expectedTimeInt, timeInt);
+		assertEquals(expected24HTimeString, time24HString);
+		assertEquals(expected12HTimeString, time12HString);
 	}
 	
 	@Test
@@ -1616,9 +1622,9 @@ public class DateTimeParserTest {
 		String dayStrParsed = parsedDateTimeObject.getDayStr();
 		int dayIntParsed = parsedDateTimeObject.getDayInt();
 		
-		assertEquals(dateParsed, referenceDateTimeObject.getDate());
-		assertEquals(dayStrParsed, referenceDayString);
-		assertEquals(dayIntParsed, referenceDayInt);
+		assertEquals(referenceDateTimeObject.getDate(), dateParsed);
+		assertEquals(referenceDayString, dayStrParsed);
+		assertEquals(referenceDayInt, dayIntParsed);
 		
 		int timeInt = parsedDateTimeObject.getTimeInt();
 		int expectedTimeInt = 2230;
@@ -1627,9 +1633,9 @@ public class DateTimeParserTest {
 		String expected24HTimeString = "22:30";
 		String expected12HTimeString = "10.30 pm";
 		
-		assertEquals(timeInt, expectedTimeInt);
-		assertEquals(time24HString, expected24HTimeString);
-		assertEquals(time12HString, expected12HTimeString);
+		assertEquals(expectedTimeInt, timeInt);
+		assertEquals(expected24HTimeString, time24HString);
+		assertEquals(expected12HTimeString, time12HString);
 	}
 	
 	@Test
@@ -1640,9 +1646,9 @@ public class DateTimeParserTest {
 		String dayStrParsed = parsedDateTimeObject.getDayStr();
 		int dayIntParsed = parsedDateTimeObject.getDayInt();
 		
-		assertEquals(dateParsed, referenceDateTimeObject.getDate());
-		assertEquals(dayStrParsed, referenceDayString);
-		assertEquals(dayIntParsed, referenceDayInt);
+		assertEquals(referenceDateTimeObject.getDate(), dateParsed);
+		assertEquals(referenceDayString, dayStrParsed);
+		assertEquals(referenceDayInt, dayIntParsed);
 		
 		int timeInt = parsedDateTimeObject.getTimeInt();
 		int expectedTimeInt = 2230;
@@ -1651,9 +1657,9 @@ public class DateTimeParserTest {
 		String expected24HTimeString = "22:30";
 		String expected12HTimeString = "10.30 pm";
 		
-		assertEquals(timeInt, expectedTimeInt);
-		assertEquals(time24HString, expected24HTimeString);
-		assertEquals(time12HString, expected12HTimeString);
+		assertEquals(expectedTimeInt, timeInt);
+		assertEquals(expected24HTimeString, time24HString);
+		assertEquals(expected12HTimeString, time12HString);
 	}
 	
 	@Test
@@ -1664,9 +1670,9 @@ public class DateTimeParserTest {
 		String dayStrParsed = parsedDateTimeObject.getDayStr();
 		int dayIntParsed = parsedDateTimeObject.getDayInt();
 		
-		assertEquals(dateParsed, referenceDateTimeObject.getDate());
-		assertEquals(dayStrParsed, referenceDayString);
-		assertEquals(dayIntParsed, referenceDayInt);
+		assertEquals(referenceDateTimeObject.getDate(), dateParsed);
+		assertEquals(referenceDayString, dayStrParsed);
+		assertEquals(referenceDayInt, dayIntParsed);
 		
 		int timeInt = parsedDateTimeObject.getTimeInt();
 		int expectedTimeInt = 2230;
@@ -1675,9 +1681,9 @@ public class DateTimeParserTest {
 		String expected24HTimeString = "22:30";
 		String expected12HTimeString = "10.30 pm";
 		
-		assertEquals(timeInt, expectedTimeInt);
-		assertEquals(time24HString, expected24HTimeString);
-		assertEquals(time12HString, expected12HTimeString);
+		assertEquals(expectedTimeInt, timeInt);
+		assertEquals(expected24HTimeString, time24HString);
+		assertEquals(expected12HTimeString, time12HString);
 	}
 	
 	@Test
@@ -1688,9 +1694,9 @@ public class DateTimeParserTest {
 		String dayStrParsed = parsedDateTimeObject.getDayStr();
 		int dayIntParsed = parsedDateTimeObject.getDayInt();
 		
-		assertEquals(dateParsed, referenceDateTimeObject.getDate());
-		assertEquals(dayStrParsed, referenceDayString);
-		assertEquals(dayIntParsed, referenceDayInt);
+		assertEquals(referenceDateTimeObject.getDate(), dateParsed);
+		assertEquals(referenceDayString, dayStrParsed);
+		assertEquals(referenceDayInt, dayIntParsed);
 		
 		int timeInt = parsedDateTimeObject.getTimeInt();
 		int expectedTimeInt = 1030;
@@ -1699,9 +1705,9 @@ public class DateTimeParserTest {
 		String expected24HTimeString = "10:30";
 		String expected12HTimeString = "10.30 am";
 		
-		assertEquals(timeInt, expectedTimeInt);
-		assertEquals(time24HString, expected24HTimeString);
-		assertEquals(time12HString, expected12HTimeString);
+		assertEquals(expectedTimeInt, timeInt);
+		assertEquals(expected24HTimeString, time24HString);
+		assertEquals(expected12HTimeString, time12HString);
 	}
 	
 	@Test(expected = IncorrectInputException.class)
@@ -1900,10 +1906,10 @@ public class DateTimeParserTest {
 		int time24hParsed = parsedDateTimeObject.getTimeInt();
 		int expectedTime24H = 500;
 		
-		assertEquals(dateParsed, REFERENCE_TODAY_DATE);
-		assertEquals(dayStrParsed, REFERENCE_TODAY_DAY_STRING);
-		assertEquals(dayIntParsed, REFERENCE_TODAY_DAY_INT);
-		assertEquals(time24hParsed, expectedTime24H);
+		assertEquals(REFERENCE_TODAY_DATE, dateParsed);
+		assertEquals(REFERENCE_TODAY_DAY_STRING, dayStrParsed);
+		assertEquals(REFERENCE_TODAY_DAY_INT, dayIntParsed);
+		assertEquals(expectedTime24H, time24hParsed);
 	} 
 	
 	@Test
@@ -1918,12 +1924,12 @@ public class DateTimeParserTest {
 		int dayInt = dateTime.getDayInt();
 		int timeInt = dateTime.getTimeInt();
 		
-		assertEquals(date, "15 Jun 2016");
-		assertEquals(timeStr24H, "18:00");
-		assertEquals(timeStr12H, "6.00 pm");
-		assertEquals(dayStr, "Wednesday");
-		assertEquals(dayInt, 3);
-		assertEquals(timeInt, 1800);
+		assertEquals("15 Jun 2016", date);
+		assertEquals("18:00", timeStr24H);
+		assertEquals("6.00 pm", timeStr12H);
+		assertEquals("Wednesday", dayStr);
+		assertEquals(3, dayInt);
+		assertEquals(1800, timeInt);
 	}
 	
 	@Test
@@ -1938,12 +1944,12 @@ public class DateTimeParserTest {
 		int dayInt = dateTime.getDayInt();
 		int timeInt = dateTime.getTimeInt();
 		
-		assertEquals(date, "15 Jun 2016");
-		assertEquals(timeStr24H, "18:00");
-		assertEquals(timeStr12H, "6.00 pm");
-		assertEquals(dayStr, "Wednesday");
-		assertEquals(dayInt, 3);
-		assertEquals(timeInt, 1800);
+		assertEquals("15 Jun 2016", date);
+		assertEquals("18:00", timeStr24H);
+		assertEquals("6.00 pm", timeStr12H);
+		assertEquals("Wednesday", dayStr);
+		assertEquals(3, dayInt);
+		assertEquals(1800, timeInt);
 	}
 	
 	@Test
@@ -1958,12 +1964,12 @@ public class DateTimeParserTest {
 		int dayInt = dateTime.getDayInt();
 		int timeInt = dateTime.getTimeInt();
 		
-		assertEquals(date, "19 Feb 2020");
-		assertEquals(timeStr24H, "18:30");
-		assertEquals(timeStr12H, "6.30 pm");
-		assertEquals(dayStr, "Wednesday");
-		assertEquals(dayInt, 3);
-		assertEquals(timeInt, 1830);
+		assertEquals("19 Feb 2020", date);
+		assertEquals("18:30", timeStr24H);
+		assertEquals("6.30 pm", timeStr12H);
+		assertEquals("Wednesday", dayStr);
+		assertEquals(3, dayInt);
+		assertEquals(1830, timeInt);
 	}
 	
 	@Test
@@ -1978,12 +1984,12 @@ public class DateTimeParserTest {
 		int dayInt = dateTime.getDayInt();
 		int timeInt = dateTime.getTimeInt();
 		
-		assertEquals(date, "19 Feb 2020");
-		assertEquals(timeStr24H, "18:30");
-		assertEquals(timeStr12H, "6.30 pm");
-		assertEquals(dayStr, "Wednesday");
-		assertEquals(dayInt, 3);
-		assertEquals(timeInt, 1830);
+		assertEquals("19 Feb 2020", date);
+		assertEquals("18:30", timeStr24H);
+		assertEquals("6.30 pm", timeStr12H);
+		assertEquals("Wednesday", dayStr);
+		assertEquals(3, dayInt);
+		assertEquals(1830, timeInt);
 	}
 	
 	@Test
@@ -1998,12 +2004,12 @@ public class DateTimeParserTest {
 		int dayInt = dateTime.getDayInt();
 		int timeInt = dateTime.getTimeInt();
 		
-		assertEquals(date, "15 Sep 2016");
-		assertEquals(timeStr24H, "06:45");
-		assertEquals(timeStr12H, "6.45 am");
-		assertEquals(dayStr, "Thursday");
-		assertEquals(dayInt, 4);
-		assertEquals(timeInt, 645);
+		assertEquals("15 Sep 2016", date);
+		assertEquals("06:45", timeStr24H);
+		assertEquals("6.45 am", timeStr12H);
+		assertEquals("Thursday", dayStr);
+		assertEquals(4, dayInt);
+		assertEquals(645, timeInt);
 	}
 	
 	@Test
@@ -2018,12 +2024,12 @@ public class DateTimeParserTest {
 		int dayInt = dateTime.getDayInt();
 		int timeInt = dateTime.getTimeInt();
 		
-		assertEquals(date, "15 Sep 2016");
-		assertEquals(timeStr24H, "06:45");
-		assertEquals(timeStr12H, "6.45 am");
-		assertEquals(dayStr, "Thursday");
-		assertEquals(dayInt, 4);
-		assertEquals(timeInt, 645);
+		assertEquals("15 Sep 2016", date);
+		assertEquals("06:45", timeStr24H);
+		assertEquals("6.45 am", timeStr12H);
+		assertEquals("Thursday", dayStr);
+		assertEquals(4, dayInt);
+		assertEquals(645, timeInt);
 	}
 	
 	@Test
@@ -2038,12 +2044,12 @@ public class DateTimeParserTest {
 		int dayInt = dateTime.getDayInt();
 		int timeInt = dateTime.getTimeInt();
 		
-		assertEquals(date, "1 Jan 2017");
-		assertEquals(timeStr24H, "13:45");
-		assertEquals(timeStr12H, "1.45 pm");
-		assertEquals(dayStr, "Sunday");
-		assertEquals(dayInt, 7);
-		assertEquals(timeInt, 1345);
+		assertEquals("1 Jan 2017", date);
+		assertEquals("13:45", timeStr24H);
+		assertEquals("1.45 pm", timeStr12H);
+		assertEquals("Sunday", dayStr);
+		assertEquals(7, dayInt);
+		assertEquals(1345, timeInt);
 	}
 	
 	@Test
@@ -2058,12 +2064,12 @@ public class DateTimeParserTest {
 		int dayInt = dateTime.getDayInt();
 		int timeInt = dateTime.getTimeInt();
 		
-		assertEquals(date, "1 Jan 2017");
-		assertEquals(timeStr24H, "13:45");
-		assertEquals(timeStr12H, "1.45 pm");
-		assertEquals(dayStr, "Sunday");
-		assertEquals(dayInt, 7);
-		assertEquals(timeInt, 1345);
+		assertEquals("1 Jan 2017", date);
+		assertEquals("13:45", timeStr24H);
+		assertEquals("1.45 pm", timeStr12H);
+		assertEquals("Sunday", dayStr);
+		assertEquals(7, dayInt);
+		assertEquals(1345, timeInt);
 	}
 	
 	@Test
@@ -2078,12 +2084,12 @@ public class DateTimeParserTest {
 		int dayInt = dateTime.getDayInt();
 		int timeInt = dateTime.getTimeInt();
 		
-		assertEquals(date, "10 Feb 2017");
-		assertEquals(timeStr24H, "06:45");
-		assertEquals(timeStr12H, "6.45 am");
-		assertEquals(dayStr, "Friday");
-		assertEquals(dayInt, 5);
-		assertEquals(timeInt, 645);
+		assertEquals("10 Feb 2017", date);
+		assertEquals("06:45", timeStr24H);
+		assertEquals("6.45 am", timeStr12H);
+		assertEquals("Friday", dayStr);
+		assertEquals(5, dayInt);
+		assertEquals(645, timeInt);
 	}
 	
 	@Test
@@ -2098,12 +2104,12 @@ public class DateTimeParserTest {
 		int dayInt = dateTime.getDayInt();
 		int timeInt = dateTime.getTimeInt();
 		
-		assertEquals(date, "10 Feb 2017");
-		assertEquals(timeStr24H, "06:45");
-		assertEquals(timeStr12H, "6.45 am");
-		assertEquals(dayStr, "Friday");
-		assertEquals(dayInt, 5);
-		assertEquals(timeInt, 645);
+		assertEquals("10 Feb 2017", date);
+		assertEquals("06:45", timeStr24H);
+		assertEquals("6.45 am", timeStr12H);
+		assertEquals("Friday", dayStr);
+		assertEquals(5, dayInt);
+		assertEquals(645, timeInt);
 	}
 	
 	@Test
@@ -2118,12 +2124,12 @@ public class DateTimeParserTest {
 		int dayInt = dateTime.getDayInt();
 		int timeInt = dateTime.getTimeInt();
 		
-		assertEquals(date, "10 Oct 2016");
-		assertEquals(timeStr24H, "08:45");
-		assertEquals(timeStr12H, "8.45 am");
-		assertEquals(dayStr, "Monday");
-		assertEquals(dayInt, 1);
-		assertEquals(timeInt, 845);
+		assertEquals("10 Oct 2016", date);
+		assertEquals("08:45", timeStr24H);
+		assertEquals("8.45 am", timeStr12H);
+		assertEquals("Monday", dayStr);
+		assertEquals(1, dayInt);
+		assertEquals(845, timeInt);
 	}
 	
 	@Test
@@ -2138,12 +2144,12 @@ public class DateTimeParserTest {
 		int dayInt = dateTime.getDayInt();
 		int timeInt = dateTime.getTimeInt();
 		
-		assertEquals(date, "10 Oct 2016");
-		assertEquals(timeStr24H, "08:45");
-		assertEquals(timeStr12H, "8.45 am");
-		assertEquals(dayStr, "Monday");
-		assertEquals(dayInt, 1);
-		assertEquals(timeInt, 845);
+		assertEquals("10 Oct 2016", date);
+		assertEquals("08:45", timeStr24H);
+		assertEquals("8.45 am", timeStr12H);
+		assertEquals("Monday", dayStr);
+		assertEquals(1, dayInt);
+		assertEquals(845, timeInt);
 	}
 	
 	@Test
@@ -2158,12 +2164,12 @@ public class DateTimeParserTest {
 		int dayInt = dateTime.getDayInt();
 		int timeInt = dateTime.getTimeInt();
 		
-		assertEquals(date, "15 Oct 2016");
-		assertEquals(timeStr24H, "19:15");
-		assertEquals(timeStr12H, "7.15 pm");
-		assertEquals(dayStr, "Saturday");
-		assertEquals(dayInt, 6);
-		assertEquals(timeInt, 1915);
+		assertEquals("15 Oct 2016", date);
+		assertEquals("19:15", timeStr24H);
+		assertEquals("7.15 pm", timeStr12H);
+		assertEquals("Saturday", dayStr);
+		assertEquals(6, dayInt);
+		assertEquals(1915, timeInt);
 	}
 	
 	@Test
@@ -2178,12 +2184,12 @@ public class DateTimeParserTest {
 		int dayInt = dateTime.getDayInt();
 		int timeInt = dateTime.getTimeInt();
 		
-		assertEquals(date, "15 Oct 2016");
-		assertEquals(timeStr24H, "19:15");
-		assertEquals(timeStr12H, "7.15 pm");
-		assertEquals(dayStr, "Saturday");
-		assertEquals(dayInt, 6);
-		assertEquals(timeInt, 1915);
+		assertEquals("15 Oct 2016", date);
+		assertEquals("19:15", timeStr24H);
+		assertEquals("7.15 pm", timeStr12H);
+		assertEquals("Saturday", dayStr);
+		assertEquals(6, dayInt);
+		assertEquals(1915, timeInt);
 	}
 	
 	@Test
@@ -2198,12 +2204,12 @@ public class DateTimeParserTest {
 		int dayInt = dateTime.getDayInt();
 		int timeInt = dateTime.getTimeInt();
 		
-		assertEquals(date, "15 Jan 2017");
-		assertEquals(timeStr24H, "19:15");
-		assertEquals(timeStr12H, "7.15 pm");
-		assertEquals(dayStr, "Sunday");
-		assertEquals(dayInt, 7);
-		assertEquals(timeInt, 1915);
+		assertEquals("15 Jan 2017", date);
+		assertEquals("19:15", timeStr24H);
+		assertEquals("7.15 pm", timeStr12H);
+		assertEquals("Sunday", dayStr);
+		assertEquals(7, dayInt);
+		assertEquals(1915, timeInt);
 	}
 	
 	@Test
@@ -2218,12 +2224,12 @@ public class DateTimeParserTest {
 		int dayInt = dateTime.getDayInt();
 		int timeInt = dateTime.getTimeInt();
 		
-		assertEquals(date, "15 Jan 2017");
-		assertEquals(timeStr24H, "19:15");
-		assertEquals(timeStr12H, "7.15 pm");
-		assertEquals(dayStr, "Sunday");
-		assertEquals(dayInt, 7);
-		assertEquals(timeInt, 1915);
+		assertEquals("15 Jan 2017", date);
+		assertEquals("19:15", timeStr24H);
+		assertEquals("7.15 pm", timeStr12H);
+		assertEquals("Sunday", dayStr);
+		assertEquals(7, dayInt);
+		assertEquals(1915, timeInt);
 	}
 
 	@Test(expected = IncorrectInputException.class) 

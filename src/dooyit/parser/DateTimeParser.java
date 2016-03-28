@@ -65,7 +65,7 @@ public class DateTimeParser extends DateTimeParserCommon {
 	public DateTime parse(String input) throws IncorrectInputException {
 		String[] splitInput = input.toLowerCase().split("\\s+");
 		int[] combined = new int[] { currDayInWeekInt, UNINITIALIZED_INT, currDD, currMM, currYY, 0 };
-		
+		resetBooleanValues();
 		for(int i = 0; i < splitInput.length; i++) {
 			combined[COMBINED_INDEX_COUNTER] = i;
 			String currWord = splitInput[i];
@@ -103,7 +103,6 @@ public class DateTimeParser extends DateTimeParserCommon {
 			
 			i = combined[COMBINED_INDEX_COUNTER];
 		}
-		resetBooleanValues();
 		DateTime temp; 
 		try {
 			temp = getDateTimeObject(combined);

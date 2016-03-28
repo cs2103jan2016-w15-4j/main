@@ -590,7 +590,69 @@ public class ParserTest {
 	//********************************************
 	//************ Tests for AddParser ***********
 	//********************************************
+	@Test
+	public void addFloatingTask() {
+		String input = "add read book";
+		Command command = parser.getCommand(input);
+		
+		String taskName = Whitebox.getInternalState(command, "taskName");
+		String expectedTaskName = "read book";
+		assertEquals(expectedTaskName, taskName);
+	}
 	
+	@Test
+	public void addFloatingTaskWithDeadlineMarker() {
+		String input = "add gardens by the bay";
+		Command command = parser.getCommand(input);
+		
+		String taskName = Whitebox.getInternalState(command, "taskName");
+		String expectedTaskName = "gardens by the bay";
+		assertEquals(expectedTaskName, taskName);
+	}
+	
+	@Test
+	public void addFloatingTaskWithEventMarkers() {
+		String input = "add read book Harry Potter from chapter 1 to chapter 2";
+		Command command = parser.getCommand(input);
+		
+		String taskName = Whitebox.getInternalState(command, "taskName");
+		String expectedTaskName = "read book Harry Potter from chapter 1 to chapter 2";
+		assertEquals(expectedTaskName, taskName);
+	}
+	
+	@Test
+	public void addEvent() {
+		String input = "add read book Harry Potter from 12/2/2016 5pm to 14 feb 2016 7pm";
+		Command command = parser.getCommand(input);
+		
+		String taskName = Whitebox.getInternalState(command, "taskName");
+		String expectedTaskName = "read book Harry Potter";
+		
+		DateTimeParser dateTimeParser = new DateTimeParser();
+		DateTime expectedStart = dateTimeParser.parse("12/2/2016 5pm");
+		DateTime dateTimeStartInCommand = Whitebox.getInternalState(command, "dateTimeStart");
+		DateTime expectedEnd = dateTimeParser.parse("14 feb 2016 7pm");
+		DateTime dateTimeEndInCommand = Whitebox.getInternalState(command, "dateTimeEnd");
+		
+		assertEquals(expectedTaskName, taskName);
+		assertEquals(expectedStart, dateTimeStartInCommand);
+		assertEquals(expectedEnd, dateTimeEndInCommand);
+	}
+	
+	@Test
+	public void addDeadlineTask() {
+		String input = "add read book Harry Potter by 19/4/2017 3.30pm";
+		Command command = parser.getCommand(input);
+		String taskName = Whitebox.getInternalState(command, "taskName");
+		String expectedTaskName = "read book Harry Potter";
+		
+		DateTimeParser dateTimeParser = new DateTimeParser();
+		DateTime expectedDeadline = dateTimeParser.parse("19/4/2017 3.30pm");
+		DateTime dateTimeInCommand = Whitebox.getInternalState(command, "dateTimeDeadline");
+		
+		assertEquals(expectedTaskName, taskName);
+		assertEquals(expectedDeadline, dateTimeInCommand);
+	}
 	
 	//********************************************
 	//************ Tests for EditParser **********

@@ -9,7 +9,7 @@ public class MoveParser extends TagParser {
 	private static final int INDEX_NAME = 0;
 	private String catName;
 	private String taskIds;
-	private String userInput;
+	private String userInput; 
 	private Command command;
 	
 	public MoveParser() {
@@ -65,6 +65,7 @@ public class MoveParser extends TagParser {
 	}
 
 	private Command getSingleTypeMoveCommand() {
+		System.out.println("reached here in get single type move command");
 		return CommandUtils.createSetCategoryCommand(taskIdForTagging, catName);
 	}
 

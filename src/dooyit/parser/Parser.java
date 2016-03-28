@@ -137,7 +137,7 @@ public class Parser {
 			command = CommandUtils.createUndoCommand();
 			break;
 
-		case COMMAND_UNMARK:
+		case COMMAND_UNMARK: 
 			command = unmarkParser.getCommand(getInputWithoutCommand(input, COMMAND_UNMARK));
 			break;
 

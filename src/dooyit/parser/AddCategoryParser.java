@@ -81,7 +81,7 @@ public class AddCategoryParser extends TagParser{
 			setCreateCategoryWithManyTasksCommand();
 			break;
 
-		default:
+		default: 
 			setInvalidCmd();
 			break;
 		}

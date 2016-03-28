@@ -7,7 +7,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
+import dooyit.common.datatype.Category;
+import dooyit.common.datatype.DateTime;
 import dooyit.common.datatype.DeadlineTask;
 import dooyit.common.datatype.EventTask;
 import dooyit.common.datatype.FloatingTask;
@@ -34,23 +37,20 @@ public class TaskSaver {
 	}
 
 	protected String setFormat(Task task) {
-		Gson gson = new Gson();
+		Gson gson = gsonWithDateTimeSerializer();
 		String json = "";
 		
 		switch(task.getTaskType()) {
 		case DEADLINE :
-			DeadlineTask deadline = (DeadlineTask) task;
-			DeadlineTaskData deadlineData = new DeadlineTaskData(deadline);
-			json = gson.toJson(deadlineData);
+			DeadlineTaskData deadline = setDeadline((DeadlineTask)task);
+			json = gson.toJson(deadline);
 			break;
 		case EVENT :
-			EventTask event = (EventTask) task;
-			EventTaskData eventData = new EventTaskData(event);
-			json = gson.toJson(eventData);
+			EventTaskData event = setEvent((EventTask)task);
+			json = gson.toJson(event);
 			break;
 		case FLOATING :
-			FloatingTask floating = (FloatingTask) task;
-			FloatTaskData floatData = new FloatTaskData(floating);
+			FloatTaskData floatData = setFloating((FloatingTask)task);
 			json = gson.toJson(floatData);
 			break;
 		}
@@ -58,11 +58,57 @@ public class TaskSaver {
 		return json;
 	}
 
-	protected void setFileDestination(String path) {
-		this.filePath = path;
+	private FloatTaskData setFloating(FloatingTask floating) {
+		FloatTaskData floatData;
+		String name = floating.getName();
+		boolean isCompleted = floating.isCompleted();
+		
+		if(floating.hasCategory()) {
+			Category category = floating.getCategory();
+			floatData = new FloatTaskData(name, category, isCompleted);
+		} else {
+			floatData = new FloatTaskData(name, isCompleted);
+		}
+		return floatData;
+	}
+	
+	private DeadlineTaskData setDeadline(DeadlineTask deadline) {
+		DeadlineTaskData deadlineData;
+		String name = deadline.getName();
+		DateTime deadlineTime = deadline.getDateTimeDeadline();
+		
+		boolean isCompleted = deadline.isCompleted();
+		if(deadline.hasCategory()) {
+			Category category = deadline.getCategory();
+			deadlineData = new DeadlineTaskData(name, deadlineTime, category, isCompleted);
+		} else {
+			deadlineData = new DeadlineTaskData(name, deadlineTime, isCompleted);
+		}
+		
+		return deadlineData;
 	}
 
-	protected String getFilePath() {
-		return this.filePath;
+	private EventTaskData setEvent(EventTask event) {
+		EventTaskData eventData;
+		String name = event.getName();
+		DateTime start = event.getDateTimeStart();
+		DateTime end = event.getDateTimeEnd();
+		boolean isCompleted = event.isCompleted();
+		
+		if(event.hasCategory()) {
+			Category category = event.getCategory();
+			eventData = new EventTaskData(name, start, end, category, isCompleted);
+		} else {
+			eventData = new EventTaskData(name, start, end, isCompleted);
+		}
+		return eventData;
+	}
+	
+	private Gson gsonWithDateTimeSerializer() {
+		return new GsonBuilder().registerTypeAdapter(DateTime.class, new DateTimeSerializer()).create();
+	}
+
+	protected void setFileDestination(String path) {
+		this.filePath = path;
 	}
 }

@@ -32,18 +32,20 @@ public class TaskLoader {
 	private static final String NAME = "taskName";
 	private static final String CATEGORY = "category";
 	private static final String IS_COMPLETED = "isCompleted";
-	private static final int HOURS = 0;
-	private static final int MINUTES = 1;
+	private static final String DATE = "date";
+	private static final String TIME = "time";
+	private static final String PLACEHOLDER = "task %1$s";
 	private static final int DAY = 0;
 	private static final int MONTH = 1;
 	private static final int YEAR = 2;
 	private static final int DAY_OF_WEEK = 3;
-	private static final int TIME = 4;
+	private int count;
 
 	private String filePath;
 
 	TaskLoader(String filePath) {
 		this.filePath = filePath;
+		this.count = 0;
 	}
 
 	/**
@@ -150,7 +152,8 @@ public class TaskLoader {
 	public Task resolveTask(JsonObject jsonTask) {
 
 		Task task;
-		String name = jsonTask.get(NAME).getAsString();
+		String name = getName(jsonTask);
+	
 		boolean isCompleted = jsonTask.get(IS_COMPLETED).getAsBoolean();
 
 		if (jsonTask.has(DEADLINE)) {
@@ -175,27 +178,33 @@ public class TaskLoader {
 
 		return task;
 	}
+	
+	private String getName(JsonObject taskData) {
+		String name = "";
+		
+		if(taskData.has(NAME)) {
+			name = taskData.get(NAME).getAsString();
+		} else {
+			name = String.format(PLACEHOLDER, count++);
+		}
+		
+		return name;
+	}
 
 	private DateTime resolveDateTime(JsonObject taskInfo, String type) {
-		String dateTimeString = taskInfo.get(type).getAsString();
-		String[] parts = dateTimeString.split(" ");
+		JsonObject dateTimeJson = taskInfo.get(type).getAsJsonObject();
+		String dateString = dateTimeJson.get(DATE).getAsString();
+		int timeInt = dateTimeJson.get(TIME).getAsInt();
+		
+		String[] parts = dateString.split(" ");
 		int[] date = new int[] {Integer.valueOf(parts[DAY]),
 				Integer.valueOf(parts[MONTH]),
 				Integer.valueOf(parts[YEAR])};
 		
-		//temporary workaround for DateTime
-		String time = parts[TIME];
-		String[] timeParts = time.split(":");
-		int timeInt;
-		if(timeParts.length > 1) {
-			timeInt = Integer.parseInt(timeParts[HOURS]) * 100 
-						+ Integer.parseInt(timeParts[MINUTES]);
-		}
-		else {
-			timeInt = Integer.parseInt(timeParts[0]);
-		}
+		String dayStr = parts[DAY_OF_WEEK];
 		
-		DateTime dateTime = new DateTime(date, parts[DAY_OF_WEEK], timeInt);
+		
+		DateTime dateTime = new DateTime(date, dayStr, timeInt);
 
 		return dateTime;
 	}

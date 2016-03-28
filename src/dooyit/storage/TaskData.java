@@ -30,19 +30,19 @@ public class TaskData {
 		return task.hasCategory();
 	}
 	
-	protected String getCategory() {
+	public String getCategory() {
 		return this.category;
 	}
 	
-	protected String getName() {
+	public String getName() {
 		return this.taskName;
 	}
 	
-	protected boolean isCompleted() {
+	public boolean isCompleted() {
 		return this.isCompleted;
 	}
 	
-	protected boolean hasCategory() {
+	public boolean hasCategory() {
 		return category != null;
 	}
 }

@@ -4,6 +4,7 @@ public interface ParserCommons {
 	public static final int UNINITIALIZED_INT = -1;
 	public static final String UNINITIALIZED_STRING = "-1";
 	public static final String EMPTY_STRING = "";
+	public static final int NUMBER_OF_DAYS_IN_WEEK = 7;
 	
 	
 	default boolean isLeapYear(int currYear) {

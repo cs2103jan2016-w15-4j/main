@@ -9,12 +9,10 @@ import dooyit.parser.ParserCommons;
 
 public class DateTime implements ParserCommons {
 	private static final String FORMAT_SPACE = " ";
-	private static final String TWELVE = "12";
 	private static final String TIME_SEPARATOR_COLON = ":";
 	private static final String TIME_SEPARATOR_DOT = ".";
-	private static final String TWELVE_MIDNIGHT = "12 am";
-	private static final String PM = " pm";
-	private static final String AM = " am";
+	private static final String PM = "pm";
+	private static final String AM = "am";
 	private static final String DUMMY_STR = "Dummy_Str";
 	private static final String CALENDAR_DATE_FORMAT = "dd MM yyyy HH:mm E u";
 	private static final String CALENDAR_DEFAULT_TIME_ZONE = "UTC+08:00"; // Singapore Time Zone
@@ -29,12 +27,6 @@ public class DateTime implements ParserCommons {
 	private static final int COMPARISON_FIRST_IS_AFTER_SECOND = 1;
 	private static final int NUM_MONTHS_IN_A_YEAR = 12;
 	private static final int NUM_DAYS_IN_A_WEEK = 7;
-	private static final int FORMAT_24H_12AM = 0;
-	private static final int FORMAT_24H_12PM = 1200;
-	private static final int FORMAT_24H_1259PM = 1259;
-	private static final int FORMAT_24H_10AM = 1000;
-	private static final int FORMAT_24H_1AM = 100;
-	private static final int NUMBER_OF_DAYS_IN_WEEK = 7;	//Repeated
 	
 	private static String[] months = new String[] { DUMMY_STR, "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
 	private static String[] daysInWeek = new String[] { DUMMY_STR, "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
@@ -77,6 +69,18 @@ public class DateTime implements ParserCommons {
 		this.dayStr = daysInWeek[this.dayInt];
 		this.date = this.dd + FORMAT_SPACE + months[this.mm] + FORMAT_SPACE + this.yy;
 	}
+	
+	public DateTime(int[] date, int time) {
+		this.dd = date[INDEX_DD];
+		this.mm = date[INDEX_MM];
+		this.yy = date[INDEX_YY];
+		this.timeInt = time;
+		this.timeStr24H = convertTimeIntTo24hString(time);
+		this.timeStr12H = convertTimeIntTo12hString(time);
+		this.dayInt = getDayOfWeekFromADate(date);
+		this.dayStr = daysInWeek[this.dayInt];
+		this.date = this.dd + FORMAT_SPACE + months[this.mm] + FORMAT_SPACE + this.yy;
+	}
 
 	public DateTime(int[] date, String day, int time) {
 		this.dd = date[INDEX_DD];
@@ -86,7 +90,6 @@ public class DateTime implements ParserCommons {
 		this.timeStr24H = convertTimeIntTo24hString(time);
 		this.timeStr12H = convertTimeIntTo12hString(time);
 		this.dayStr = day;
-		
 		this.dayInt = setDayInt(dayStr);
 		this.date = this.dd + FORMAT_SPACE + months[this.mm] + FORMAT_SPACE + this.yy;
 	}
@@ -383,68 +386,12 @@ public class DateTime implements ParserCommons {
 		return ans;
 	}
 
-	// Converts the 24h time int to 12h String format
-	private String convertTimeIntTo12hString(int time) {
-		String timeString12H;
-		if (isUninitialized(time)) {
-			timeString12H = UNINITIALIZED_STRING;
-		} else if (isMidnight(time)) {
-			timeString12H = TWELVE_MIDNIGHT;
-		} else if (isAfter12amAndBefore1am(time)) {
-			timeString12H = TWELVE + TIME_SEPARATOR_DOT + time + AM;
-		} else if (isAfter1amAndBefore12pm(time)) {
-			timeString12H = getHourNumeralIn12HStringForMorningTiming(time) + TIME_SEPARATOR_DOT + getMinutesNumeralString(time) + AM;
-		} else if(isBetween12PmTo1259Pm(timeInt)) {
-			timeString12H = getHourNumeral(time) + TIME_SEPARATOR_DOT + getMinutesNumeralString(time) + PM;
-		} else {
-			timeString12H = getHourNumberalIn12HStringForAfternoonTiming(time) + TIME_SEPARATOR_DOT + getMinutesNumeralString(time) + PM;
-		}
-		return timeString12H;
-	}
-
-	private boolean isBetween12PmTo1259Pm(int time) {
-		return time >= FORMAT_24H_12PM && time <= FORMAT_24H_1259PM;
-	}
-
-	private int getHourNumeralIn12HStringForMorningTiming(int time) {
-		return getHourNumeral(time);
-	}
-
-	private int getHourNumberalIn12HStringForAfternoonTiming(int time) {
-		return getHourNumeral(time - FORMAT_24H_12PM);
-	}
-
 	private int getHourNumeral(int time) {
 		return time / 100;
 	}
 	
 	private int getMinutesNumeral(int time) {
 		return time % 100;
-	}
-
-	private boolean isAfter1amAndBefore12pm(int time) {
-		return time >= FORMAT_24H_1AM && time < FORMAT_24H_12PM;
-	}
-
-	private boolean isAfter12amAndBefore1am(int time) {
-		return time < FORMAT_24H_1AM && time > FORMAT_24H_12AM;
-	}
-
-	private boolean isMidnight(int time) {
-		return time == FORMAT_24H_12AM;
-	}
-	
-	private String getMinutesNumeralString(int time) {
-		int minutes = getMinutesNumeral(time);
-		String timeString = String.valueOf(minutes);
-		if(isSingleDigitMinute(minutes)) {
-			timeString = "0" + timeString;
-		}
-		return timeString;
-	}
-
-	private boolean isSingleDigitMinute(int minutes) {
-		return minutes < 10;
 	}
 
 	// This method calculates that day of the week that the date falls on
@@ -466,24 +413,29 @@ public class DateTime implements ParserCommons {
 
 	// Converts the 24h time int to 24h String format
 	private String convertTimeIntTo24hString(int time) {
-		String timeString24H;
-		if (isUninitialized(time)) {
-			timeString24H = UNINITIALIZED_STRING;
-		} else if (isMidnight(time)) {
-			timeString24H = "00:00";
-		} else if (isAfter12amAndBefore1am(time)) {
-			timeString24H = "00:" + time;
-		} else if (isAfter1amAndBefore10am(time)) {
-			timeString24H = "0" + getHourNumeral(time) + TIME_SEPARATOR_COLON + getMinutesNumeralString(time);
-		} else {
-			timeString24H = String.valueOf(time);
-			timeString24H = timeString24H.substring(0, 2) + TIME_SEPARATOR_COLON + timeString24H.substring(2);
-		}
+		int hour = getHourNumeral(timeInt);
+		int minute = getMinutesNumeral(timeInt);
+		String timeString24H = String.format("%02d:%02d", hour, minute);
 		return timeString24H;
 	}
-
-	private boolean isAfter1amAndBefore10am(int time) {
-		return time >= FORMAT_24H_1AM && time < FORMAT_24H_10AM;
+	
+	// Converts the 24h time int to 12h String format
+	private String convertTimeIntTo12hString(int time) {
+		int hour = getHourNumeral(timeInt);
+		int minute = getMinutesNumeral(timeInt);
+		String timeString12H;
+		if(hour == 0) {
+			hour += 12;
+			timeString12H = String.format("%d.%02d %s", hour, minute, AM);
+		} else if(hour < 12) {
+			timeString12H = String.format("%d.%02d %s", hour, minute, AM);
+		} else if(hour == 12) {
+			timeString12H = String.format("%d.%02d %s", hour, minute, PM);
+		} else {
+			hour -= 12;
+			timeString12H = String.format("%d.%02d %s", hour, minute, PM);
+		}
+		return timeString12H;
 	}
 
 	private int increaseDayIntByOne() {

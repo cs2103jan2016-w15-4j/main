@@ -27,8 +27,4 @@ public class TaskController {
 	protected ArrayList<Task> load() throws IOException {
 		return taskLoader.load();
 	}
-
-	protected String getFilePath() {
-		return taskSaver.getFilePath();
-	}
 }

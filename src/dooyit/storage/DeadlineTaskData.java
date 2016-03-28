@@ -1,16 +1,27 @@
 package dooyit.storage;
 
+import dooyit.common.datatype.Category;
+import dooyit.common.datatype.DateTime;
 import dooyit.common.datatype.DeadlineTask;
 
 public class DeadlineTaskData extends TaskData {
-	private String deadline;
+	private DateTime deadline;
 
-	public DeadlineTaskData(DeadlineTask task) {
-		this.taskName = task.getName();
-		this.isCompleted = task.isCompleted();
-		if (hasCategory(task)) {
-			this.category = getName(task.getCategory());
-		}
-		this.deadline = toReadableFormat(task.getDateTimeDeadline());
+	public DeadlineTaskData(String name, DateTime deadline, 
+							Category category, boolean isCompleted) {
+		this.taskName = name;
+		this.isCompleted = isCompleted;
+		this.category = getName(category);
+		this.deadline = deadline;
+	}
+
+	public DeadlineTaskData(String name, DateTime deadline, boolean isCompleted) {
+		this.taskName = name;
+		this.isCompleted = isCompleted;
+		this.deadline = deadline;
+	}
+	
+	public DateTime getDeadline() {
+		return this.deadline;
 	}
 }

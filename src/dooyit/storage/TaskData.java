@@ -29,4 +29,20 @@ public class TaskData {
 	protected boolean hasCategory(Task task) {
 		return task.hasCategory();
 	}
+	
+	protected String getCategory() {
+		return this.category;
+	}
+	
+	protected String getName() {
+		return this.taskName;
+	}
+	
+	protected boolean isCompleted() {
+		return this.isCompleted;
+	}
+	
+	protected boolean hasCategory() {
+		return category != null;
+	}
 }

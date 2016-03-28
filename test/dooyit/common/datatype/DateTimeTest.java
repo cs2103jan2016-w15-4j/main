@@ -18,65 +18,65 @@ public class DateTimeTest {
 	}
 	
 	@Test
-	public void testCompareTo(){
+	public void compareTo(){
 		assertEquals(dt1.compareTo(dt2), 1);
 		assertEquals(dt2.compareTo(dt3), -1);
 		assertEquals(dt2.compareTo(dt4), -1);
 	}
 	
 	@Test
-	public void testGetDayStr() {
+	public void getDayStr() {
 		assertEquals(dt1.getDayStr(), "Monday");
 		assertEquals(dt2.getDayStr(), "Monday");
 		assertEquals(dt3.getDayStr(), "Monday");
 	}
 
 	@Test
-	public void testGetDayInt() {
+	public void getDayInt() {
 		assertEquals(dt1.getDayInt(), 1);
 		assertEquals(dt2.getDayInt(), 1);
 	}
 
 	@Test
-	public void testGetDate() {
+	public void getDate() {
 		assertEquals(dt1.getDate(), "28 Mar 2016");
 	}
 
 	@Test
-	public void testGetTime24hStr() {
+	public void getTime24hStr() {
 		assertEquals(dt2.getTime24hStr(), "-1");
 		assertEquals(dt3.getTime24hStr(), "12:00");
 		assertEquals(dt4.getTime24hStr(), "00:00");
 	}
 
 	@Test
-	public void testGetTime12hStr() {
+	public void getTime12hStr() {
 		assertEquals(dt2.getTime12hStr(), "-1");
 		assertEquals(dt3.getTime12hStr(), "12.00 pm");
 		assertEquals(dt4.getTime12hStr(), "12 am");
 	}
 
 	@Test
-	public void testGetTimeInt() {
+	public void getTimeInt() {
 		assertEquals(dt2.getTimeInt(), -1);
 		assertEquals(dt3.getTimeInt(), 1200);
 		assertEquals(dt4.getTimeInt(), 0);
 	}
 
 	@Test
-	public void testGetDD() {
+	public void getDD() {
 		assertEquals(dt2.getDD(), 28);
 		assertEquals(dt3.getDD(), 28);
 	}
 
 	@Test
-	public void testGetMM() {
+	public void getMM() {
 		assertEquals(dt2.getMM(), 3);
 		assertEquals(dt3.getMM(), 3);
 	}
 
 	@Test
-	public void testGetYY() {
+	public void getYY() {
 		assertEquals(dt2.getYY(), 2016);
 		assertEquals(dt3.getYY(), 2016);
 	}
@@ -89,26 +89,26 @@ public class DateTimeTest {
 	}
 
 	@Test
-	public void testHasTime() {
+	public void hasTime() {
 		assertFalse(dt2.hasTime());
 		assertTrue(dt3.hasTime());
 		assertTrue(dt4.hasTime());
 	}
 
 	@Test
-	public void testIsTheSameDateAs() {
+	public void isTheSameDateAs() {
 		assertTrue(dt2.isTheSameDateAs(dt3));
 		assertTrue(dt3.isTheSameDateAs(dt4));
 	}
 
 	@Test
-	public void testIncreaseByOneDay() {
+	public void increaseByOneDay() {
 		dt1.increaseByOneDay();
 		assertEquals(dt1.getDD(), 29);
 	}
 
 	@Test
-	public void testConvertToSavableString() {
+	public void convertToSavableString() {
 		assertEquals(dt3.convertToSavableString(), "28 3 2016 Monday 12:00");
 	}
 }

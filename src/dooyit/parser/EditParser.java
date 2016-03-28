@@ -1,6 +1,7 @@
 package dooyit.parser;
 
 import dooyit.common.datatype.DateTime;
+import dooyit.common.exception.IncorrectInputException;
 import dooyit.logic.commands.Command;
 import dooyit.logic.commands.CommandUtils;
 
@@ -41,42 +42,82 @@ public class EditParser implements ParserCommons {
 			break;
 
 		case DEADLINE:
-			parseDeadline();
+			try {
+				parseDeadline();
+			} catch (IncorrectInputException e) {
+				setInvalidCommand(e.getMessage());
+				break;
+			}
 			setEditDeadlineCommand();
 			break;
 
 		case TIME_START_END:
-			parseTimeStartEnd();
-			setEditStartAndEventCommand();
+			try {
+				parseTimeStartEnd(); 
+			} catch (IncorrectInputException e) {
+				setInvalidCommand(e.getMessage());
+				break;
+			}
+			setEditEventCommand();
 			break;
 
 		case TIME_START:
-			parseTimeStart();
-			setEditStartAndEventCommand();
+			try {
+				parseTimeStart();
+			} catch (IncorrectInputException e) {
+				setInvalidCommand(e.getMessage());
+				break;
+			}
+			setEditEventCommand();
 			break;
 
 		case TIME_END:
-			parseTimeEnd();
-			setEditStartAndEventCommand();
+			try {
+				parseTimeEnd();
+			} catch (IncorrectInputException e) {
+				setInvalidCommand(e.getMessage());
+				break;
+			}
+			setEditEventCommand();
 			break;
 
 		case NAME_TIME_START_END:
-			parseNameTimeStartEnd();
+			try {
+				parseNameTimeStartEnd();
+			} catch (IncorrectInputException e) {
+				setInvalidCommand(e.getMessage());
+				break;
+			}
 			setEditNameAndEventCommand();
 			break;
 
 		case NAME_TIME_START:
-			parseNameTimeStart();
+			try {
+				parseNameTimeStart();
+			} catch (IncorrectInputException e) {
+				setInvalidCommand(e.getMessage());
+				break;
+			}
 			setEditNameAndEventCommand();
 			break;
 
 		case NAME_TIME_END:
-			parseNameTimeEnd();
+			try {
+				parseNameTimeEnd();
+			} catch (IncorrectInputException e) {
+				setInvalidCommand(e.getMessage());
+				break;
+			}
 			setEditNameAndEventCommand();
 			break;
 
 		case NAME_DEADLINE:
-			parseNameDeadline();
+			try {
+				parseNameDeadline();
+			} catch (IncorrectInputException e) {
+				setInvalidCommand(e.getMessage());
+				break;
+			}
 			setEditNameAndDeadlineCommand();
 			break;
 
@@ -85,6 +126,10 @@ public class EditParser implements ParserCommons {
 			break;
 		}
 		return command;
+	}
+
+	private void setInvalidCommand(String message) {
+		command = CommandUtils.createInvalidCommand(message);
 	}
 
 	private void setInvalidCommand() {
@@ -99,7 +144,7 @@ public class EditParser implements ParserCommons {
 		command = CommandUtils.createEditCommandNameAndEvent(taskId, taskName, start, end);
 	}
 
-	private void setEditStartAndEventCommand() {
+	private void setEditEventCommand() {
 		command = CommandUtils.createEditCommandEvent(taskId, start, end);
 	}
 
@@ -117,74 +162,122 @@ public class EditParser implements ParserCommons {
 	}
 
 	private void parseNameForDeadlineType() {
-		int indexDeadline = userInput.lastIndexOf(MARKER_DEADLINE);
-		int startOfName = userInput.indexOf(" ") + 1;
+		int indexDeadline = getIndexOfMarker(MARKER_DEADLINE);
+		int startOfName = getIndexOfName();
 		taskName = userInput.substring(startOfName, indexDeadline);
 	}
 
-	private void parseNameTimeEnd() {
+	private void parseNameTimeEnd() throws IncorrectInputException {
 		parseNameForTimeEndType();
-		parseTimeEnd();
+		try {
+			parseTimeEnd();
+		} catch (IncorrectInputException e) {
+			throw e;
+		}
 	}
 
 	private void parseNameForTimeEndType() {
-		int indexTo = userInput.lastIndexOf(MARKER_TIME_END);
-		int startOfName = userInput.indexOf(" ") + 1;
+		int indexTo = getIndexOfMarker(MARKER_TIME_END);
+		int startOfName = getIndexOfName();
 		taskName = userInput.substring(startOfName, indexTo);
 	}
 
-	private void parseNameTimeStart() {
+	private void parseNameTimeStart() throws IncorrectInputException {
 		parseNameForTimeStartType();
-		parseTimeStart();
+		try {
+			parseTimeStart();
+		} catch (IncorrectInputException e) {
+			throw e;
+		} 
 	}
 
 	private void parseNameForTimeStartType() {
-		int indexFrom = userInput.lastIndexOf(MARKER_TIME_START);
-		int startOfName = userInput.indexOf(" ") + 1;
+		int indexFrom = getIndexOfMarker(MARKER_TIME_START);
+		int startOfName = getIndexOfName();
 		taskName = userInput.substring(startOfName, indexFrom);
 	}
 
-	private void parseNameTimeStartEnd() {
+	private int getIndexOfName() {
+		return userInput.indexOf(" ") + 1;
+	}
+
+	private void parseNameTimeStartEnd() throws IncorrectInputException {
 		parseNameForTimeStartEndType();
-		parseTimeStart();
-		parseTimeEnd();
+		try {
+			parseTimeStart();
+			parseTimeEnd();
+		} catch (IncorrectInputException e) {
+			throw e;
+		}	
 	}
 
 	private void parseNameForTimeStartEndType() {
 		parseNameForTimeStartType();
 	}
 
-	private void parseTimeEnd() {
+	private void parseTimeEnd() throws IncorrectInputException {
 		DateTimeParser dateTimeParser = new DateTimeParser();
-		int indexTo = userInput.lastIndexOf(MARKER_TIME_END);
-		end = dateTimeParser.parse(userInput.substring(indexTo).replace(MARKER_TIME_END, "").trim());
-	}
-
-	private void parseTimeStart() {
-		DateTimeParser dateTimeParser = new DateTimeParser();
-		int indexFrom = userInput.lastIndexOf(MARKER_TIME_START);
-		int indexTo = userInput.lastIndexOf(MARKER_TIME_END);
-		if (indexTo != -1) {
-			start = dateTimeParser.parse(userInput.substring(indexFrom, indexTo).replace(MARKER_TIME_START, "").trim());
-		} else {
-			start = dateTimeParser.parse(userInput.substring(indexFrom).replace(MARKER_TIME_START, "").trim());
+		int indexTo = getIndexOfMarker(MARKER_TIME_END);
+		String timeString = getTimeString(indexTo, MARKER_TIME_END);
+		try {
+			end = dateTimeParser.parse(timeString);
+		} catch (IncorrectInputException e) {
+			throw e;
 		}
 	}
 
-	private void parseTimeStartEnd() {
-		parseName();
-		parseTimeEnd();
-		parseTimeStart();
+	private void parseTimeStart() throws IncorrectInputException {
+		DateTimeParser dateTimeParser = new DateTimeParser();
+		int indexFrom = getIndexOfMarker(MARKER_TIME_START);
+		int indexTo = getIndexOfMarker(MARKER_TIME_END);
+		try {
+			if (isUninitialized(indexTo)) {
+				String timeString = getTimeString(indexFrom, indexTo, MARKER_TIME_START);
+				start = dateTimeParser.parse(timeString);
+			} else {
+				String timeString = getTimeString(indexFrom, MARKER_TIME_START);
+				start = dateTimeParser.parse(timeString);
+			}
+		} catch (IncorrectInputException e) {
+			throw e;
+		}
 	}
 
-	private void parseDeadline() {
+	private int getIndexOfMarker(String marker) {
+		return userInput.lastIndexOf(marker);
+	}
+
+	private String getTimeString(int indexFrom, int indexTo, String marker) {
+		return userInput.substring(indexFrom, indexTo).replace(marker, EMPTY_STRING).trim();
+	}
+
+	private void parseTimeStartEnd() throws IncorrectInputException {
+		parseName();
+		try {
+			parseTimeEnd();
+			parseTimeStart();
+		} catch (IncorrectInputException e) {
+			throw e;
+		}
+	}
+
+	private void parseDeadline() throws IncorrectInputException {
 		DateTimeParser dateTimeParser = new DateTimeParser();
-		int indexDeadline = userInput.lastIndexOf(MARKER_DEADLINE);
-		deadline = dateTimeParser.parse(userInput.substring(indexDeadline).replace(MARKER_DEADLINE, "").trim());
+		int indexDeadline = getIndexOfMarker(MARKER_DEADLINE);
+		String deadlineString = getTimeString(indexDeadline, MARKER_DEADLINE);
+		try {
+			deadline = dateTimeParser.parse(deadlineString);
+		} catch (IncorrectInputException e) {
+			throw e;
+		}
+	}
+
+	private String getTimeString(int indexDeadline, String marker) {
+		return userInput.substring(indexDeadline).replace(marker, EMPTY_STRING).trim();
 	}
 
 	private void parseName() {
-		int startOfName = userInput.indexOf(" ") + 1;
+		int startOfName = getIndexOfName();
 		taskName = userInput.substring(startOfName);
 	}
 
@@ -198,9 +291,7 @@ public class EditParser implements ParserCommons {
 				return EDIT_TYPE.NAME_TIME_START;
 			} else if (!hasStart() && hasEnd() && !hasDeadline()) {
 				return EDIT_TYPE.NAME_TIME_END;
-			} else if (!hasStart() && !hasEnd() && hasDeadline()) { // !hasStart()
-																	// &&
-																	// !hasEnd()
+			} else if (!hasStart() && !hasEnd() && hasDeadline()) { 
 				return EDIT_TYPE.NAME_DEADLINE;
 			}
 
@@ -222,23 +313,23 @@ public class EditParser implements ParserCommons {
 		return null;
 	}
 
-	private static boolean hasName() {
+	private boolean hasName() {
 		String mayBeName = userInput.split("\\s+")[1];
 		// This means that the names cannot be "by", "to" or "from"
 		return !mayBeName.equals(MARKER_DEADLINE.trim()) && !mayBeName.equals(MARKER_TIME_END.trim())
 				&& !mayBeName.equals(MARKER_TIME_START.trim());
 	}
 
-	private static boolean hasStart() {
-		return userInput.lastIndexOf(MARKER_TIME_START) != -1;
+	private boolean hasStart() {
+		return isUninitialized(getIndexOfMarker(MARKER_TIME_START));
 	}
 
-	private static boolean hasEnd() {
-		return userInput.lastIndexOf(MARKER_TIME_END) != -1;
+	private boolean hasEnd() {
+		return isUninitialized(getIndexOfMarker(MARKER_TIME_END));
 	}
 
-	private static boolean hasDeadline() {
-		return userInput.lastIndexOf(MARKER_DEADLINE) != -1;
+	private boolean hasDeadline() {
+		return isUninitialized(getIndexOfMarker(MARKER_DEADLINE));
 	}
 
 }

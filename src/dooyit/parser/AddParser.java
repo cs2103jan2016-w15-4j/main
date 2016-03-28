@@ -20,7 +20,7 @@ public class AddParser implements ParserCommons {
 	private DateTime start;
 	private DateTime end;
 	private DateTime deadline;
-	private Command cmd;
+	private Command cmd; 
 
 	enum TASK_TYPE {
 		FLOATING, WORK, EVENT, INVALID, CATEGORY_AND_EVENT, CATEGORY_AND_WORK, CATEGORY_AND_FLOATING

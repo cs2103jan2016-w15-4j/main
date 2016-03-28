@@ -73,7 +73,7 @@ public class DateTimeParser extends DateTimeParserCommon {
 			case TYPE_RELATIVE_DATE:
 				try{
 					setHasDateBoolean();
-				} catch(IncorrectInputException e) {
+				} catch (IncorrectInputException e) {
 					throw e;
 				}
 				combined = relativeDateParser.parse(splitInput, combined, i);
@@ -91,7 +91,7 @@ public class DateTimeParser extends DateTimeParserCommon {
 			case TYPE_TIME:
 				try {
 					setHasTimeBoolean();
-				} catch(IncorrectInputException e) {
+				} catch (IncorrectInputException e) {
 					throw e;
 				}
 				combined = timeParser.parse(splitInput, combined, i);
@@ -103,6 +103,7 @@ public class DateTimeParser extends DateTimeParserCommon {
 			
 			i = combined[COMBINED_INDEX_COUNTER];
 		}
+		resetBooleanValues();
 		DateTime temp; 
 		try {
 			temp = getDateTimeObject(combined);
@@ -112,6 +113,11 @@ public class DateTimeParser extends DateTimeParserCommon {
 		return temp;
 	}
 	
+	private void resetBooleanValues() {
+		hasTime = false;
+		hasDate = false;
+	}
+
 	private void setHasTimeBoolean() throws IncorrectInputException {
 		if(!hasTime) {
 			hasTime = true;

@@ -16,6 +16,7 @@ public class EditParser implements ParserCommons {
 	private DateTime start;
 	private DateTime end;
 	private DateTime deadline;
+	Command command;
 
 	enum EDIT_TYPE {
 		NAME, DEADLINE, TIME_START_END, TIME_START, TIME_END, NAME_TIME_START_END, NAME_TIME_START, NAME_TIME_END, NAME_DEADLINE, INVALID
@@ -31,47 +32,83 @@ public class EditParser implements ParserCommons {
 	public Command getCommand(String input) { 
 		userInput = input.trim();
 		taskId = Integer.parseInt(userInput.split("\\s+")[0].trim());
+		command = null;
 		
 		switch (getEditType()) {
 		case NAME:
 			parseName();
-			return CommandUtils.createEditCommandName(taskId, taskName);
+			setEditNameCommand();
+			break;
 
 		case DEADLINE:
 			parseDeadline();
-			return CommandUtils.createEditCommandDeadline(taskId, deadline);
+			setEditDeadlineCommand();
+			break;
 
 		case TIME_START_END:
 			parseTimeStartEnd();
-			return CommandUtils.createEditCommandEvent(taskId, start, end);
+			setEditStartAndEventCommand();
+			break;
 
 		case TIME_START:
 			parseTimeStart();
-			return CommandUtils.createEditCommandEvent(taskId, start, end);
+			setEditStartAndEventCommand();
+			break;
 
 		case TIME_END:
 			parseTimeEnd();
-			return CommandUtils.createEditCommandEvent(taskId, start, end);
+			setEditStartAndEventCommand();
+			break;
 
 		case NAME_TIME_START_END:
 			parseNameTimeStartEnd();
-			return CommandUtils.createEditCommandNameAndEvent(taskId, taskName, start, end);
+			setEditNameAndEventCommand();
+			break;
 
 		case NAME_TIME_START:
 			parseNameTimeStart();
-			return CommandUtils.createEditCommandNameAndEvent(taskId, taskName, start, end);
+			setEditNameAndEventCommand();
+			break;
 
 		case NAME_TIME_END:
 			parseNameTimeEnd();
-			return CommandUtils.createEditCommandNameAndEvent(taskId, taskName, start, end);
+			setEditNameAndEventCommand();
+			break;
 
 		case NAME_DEADLINE:
 			parseNameDeadline();
-			return CommandUtils.createEditCommandNameAndDeadline(taskId, taskName, deadline);
+			setEditNameAndDeadlineCommand();
+			break;
 
 		default:
-			return CommandUtils.createInvalidCommand(ERROR_MESSAGE_INVALID_EDIT_COMMAND);
+			setInvalidCommand();
+			break;
 		}
+		return command;
+	}
+
+	private void setInvalidCommand() {
+		command = CommandUtils.createInvalidCommand(ERROR_MESSAGE_INVALID_EDIT_COMMAND);
+	}
+
+	private void setEditNameAndDeadlineCommand() {
+		command = CommandUtils.createEditCommandNameAndDeadline(taskId, taskName, deadline);
+	}
+
+	private void setEditNameAndEventCommand() {
+		command = CommandUtils.createEditCommandNameAndEvent(taskId, taskName, start, end);
+	}
+
+	private void setEditStartAndEventCommand() {
+		command = CommandUtils.createEditCommandEvent(taskId, start, end);
+	}
+
+	private void setEditDeadlineCommand() {
+		command = CommandUtils.createEditCommandDeadline(taskId, deadline);
+	}
+
+	private void setEditNameCommand() {
+		command = CommandUtils.createEditCommandName(taskId, taskName);
 	}
 
 	private void parseNameDeadline() {

@@ -5,7 +5,6 @@ import dooyit.logic.commands.CommandUtils;
 
 public class ShowParser {
 	private static final String ERROR_MESSAGE_INVALID_SHOW_COMMAND = "Error: Invalid show command";
-	private static String userInput;
 	private static final String TODAY = "today";
 	private static final String NEXT_SEVEN = "next7";
 	private static final String DONE = "done";
@@ -15,31 +14,41 @@ public class ShowParser {
 	private static final String COMPLETED = "completed";
 	private static final String FLOAT = "float";
 	private static final String OVERDUE = "overdue";
-
+	
+	private String userInput;
+	private Command command;
+	
 	public ShowParser() {
 	
 	}
 
 	public Command getCommand(String input) { 
 		userInput = input.toLowerCase();
+		command = null;
 		switch (userInput) {
 		case TODAY:
-			return CommandUtils.createShowTodayCommand();
+			setShowTodayCommand();
+			break;
 
 		case NEXT_SEVEN:
-			return CommandUtils.createShowNext7DaysCommand();
+			setShowNextSevenDaysCommand();
+			break;
 
 		case DONE:
-			return CommandUtils.createShowCompletedCommand();
+			setShowDoneCommand();
+			break;
 
 		case ALL:
-			return CommandUtils.createShowAllCommand();
+			setShowAllCommand();
+			break;
 			
 		case FLOAT:
-			return CommandUtils.createShowFloatCommand();
+			setShowFloatCommand();
+			break;
 
 		case COMPLETED:
-			return CommandUtils.createShowCompletedCommand();
+			setShowDoneCommand();
+			break;
 			
 		case OVERDUE:
 			//return CommandUtils.createShowOverdueCommand();
@@ -50,11 +59,42 @@ public class ShowParser {
 		// return CommandUtils.createShowCommand(COMMAND_DATE, date);
 
 		case CATEGORY:
-			return CommandUtils.createShowCategoryCommand(getCatName(userInput));
+			setShowCategoryCommand();
+			break;
 
 		default:
-			return CommandUtils.createInvalidCommand(ERROR_MESSAGE_INVALID_SHOW_COMMAND);
+			setShowInvalidMessageCommand();
+			break;
 		}
+		return command;
+	}
+
+	private void setShowInvalidMessageCommand() {
+		command = CommandUtils.createInvalidCommand(ERROR_MESSAGE_INVALID_SHOW_COMMAND);
+	}
+
+	private void setShowCategoryCommand() {
+		command = CommandUtils.createShowCategoryCommand(getCatName(userInput));
+	}
+
+	private void setShowFloatCommand() {
+		command = CommandUtils.createShowFloatCommand();
+	}
+
+	private void setShowAllCommand() {
+		command = CommandUtils.createShowAllCommand();
+	}
+
+	private void setShowDoneCommand() {
+		command = CommandUtils.createShowCompletedCommand();
+	}
+
+	private void setShowNextSevenDaysCommand() {
+		command = CommandUtils.createShowNext7DaysCommand();
+	}
+
+	private void setShowTodayCommand() {
+		command = CommandUtils.createShowTodayCommand();
 	}
 
 	private String getCatName(String userInput2) {

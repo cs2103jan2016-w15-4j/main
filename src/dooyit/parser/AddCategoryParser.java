@@ -46,7 +46,7 @@ public class AddCategoryParser extends TagParser{
 		}
 
 		return command;
-	}
+	} 
 
 	private void setInvalidCommand() {
 		command = CommandUtils.createInvalidCommand(ERROR_MESSAGE_INVALID_ADDCAT_COMMAND);

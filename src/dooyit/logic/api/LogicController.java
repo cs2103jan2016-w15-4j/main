@@ -206,12 +206,6 @@ public class LogicController {
 		isSaveOn = false;
 	}
 
-	public ArrayList<Task> clearTask() {
-		ArrayList<Task> clearedTasks = taskManager.clear();
-		//save();
-		return clearedTasks;
-	}
-
 	public void setActiveView(UIMainViewType uiMainViewType) {
 		if (uiController == null) {
 			return;
@@ -358,10 +352,12 @@ public class LogicController {
 		return isRemoved;
 	}
 	
-	public boolean containsCategory(String categoryName) {
-		return categoryManager.contains(categoryName);
+	public ArrayList<Task> clearTask() {
+		ArrayList<Task> clearedTasks = taskManager.clear();
+		//save();
+		return clearedTasks;
 	}
-
+	
 	public Category addCategory(String categoryName) {
 		Category addedCategory = categoryManager.addCategory(categoryName);
 		return addedCategory;
@@ -372,8 +368,18 @@ public class LogicController {
 		return addedCategory;
 	}
 
+	public boolean containsCategory(String categoryName) {
+		return categoryManager.contains(categoryName);
+	}
+	
 	public Category findCategory(String categoryName) {
 		return categoryManager.find(categoryName);
+	}
+	
+	public ArrayList<Category> clearCategory() {
+		ArrayList<Category> clearedCategories = categoryManager.clear();
+		//save();
+		return clearedCategories;
 	}
 
 	public boolean isTodayTask(Task task) {

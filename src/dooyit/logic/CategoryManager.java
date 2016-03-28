@@ -92,8 +92,10 @@ public class CategoryManager {
 		return categories;
 	}
 	
-	public void clear(){
+	public ArrayList<Category> clear(){
+		ArrayList<Category> clearedCategories = new ArrayList<Category>(categories);
 		this.categories.clear();
+		return clearedCategories;
 	}
 
 	public void load(ArrayList<Category> categories) {

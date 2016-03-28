@@ -28,7 +28,9 @@ public interface ParserCommons {
 	}
 	
 	default boolean isUninitialized(int number) {
-		return number == UNINITIALIZED_INT;
+		boolean ans = number == UNINITIALIZED_INT;
+		System.out.println(ans);
+		return ans;
 	}
 	
 	default boolean isNumber(String currWord) {

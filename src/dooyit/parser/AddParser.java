@@ -32,7 +32,7 @@ public class AddParser implements ParserCommons {
 
 	public Command getCommand(String input) throws IncorrectInputException {
 		userInput = input.trim();
-		switch (getTaskType()) {
+		switch (getTaskType()) { 
 		case FLOATING:
 			try {
 				parseFloat();
@@ -170,9 +170,8 @@ public class AddParser implements ParserCommons {
 	private void parseEvent() throws IncorrectInputException {
 		DateTimeParser dateTimeParser = new DateTimeParser();
 		int indexFrom = userInput.lastIndexOf(MARKER_START_EVENT);
-		int indexTo = userInput.lastIndexOf(MARKER_END_EVENT); // what if
-																// indexTo <
-																// indexFrom
+		int indexTo = userInput.lastIndexOf(MARKER_END_EVENT); 
+		// what if indexTo < indexFrom
 		taskName = userInput.substring(0, indexFrom);
 		try {
 			start = dateTimeParser.parse((userInput.substring(indexFrom, indexTo).replace(MARKER_START_EVENT, "").trim()));
@@ -199,6 +198,7 @@ public class AddParser implements ParserCommons {
 
 	private TASK_TYPE getTaskType() {
 		if (isEvent()) {
+			System.out.println("it fucking reached here");
 			return TASK_TYPE.EVENT;
 		} else if (isWork()) {
 			return TASK_TYPE.WORK;
@@ -236,11 +236,29 @@ public class AddParser implements ParserCommons {
 	}
 
 	private boolean isEvent() {
-		return !isUninitialized(userInput.lastIndexOf(MARKER_START_EVENT)) && 
-				!isUninitialized(userInput.lastIndexOf(MARKER_END_EVENT));
+		boolean ans = false;
+		if(!isUninitialized(userInput.lastIndexOf(MARKER_START_EVENT)) && 
+				!isUninitialized(userInput.lastIndexOf(MARKER_END_EVENT))) {
+			try {
+				parseEvent();
+				ans = true;
+			} catch (IncorrectInputException e) {
+				ans = false;
+			}
+		}
+		return ans;
 	}
 
 	private boolean isWork() {
-		return !isUninitialized(userInput.lastIndexOf(MARKER_WORK));
+		boolean ans = false;
+		if(!isUninitialized(userInput.lastIndexOf(MARKER_WORK))) {
+			try {
+				parseWork();
+				ans = true;
+			} catch (IncorrectInputException e) {
+				ans = false;
+			}
+		}
+		return ans;
 	}
 }

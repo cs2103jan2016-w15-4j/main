@@ -7,6 +7,8 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 
 public class UITaskBox {
@@ -17,7 +19,7 @@ public class UITaskBox {
 	private static final int PREFWIDTH_TASK_ID = 20;
 	private static final Font FONT_TASK_NAME = UIFont.SEGOE_M;
 	private static final String STYLECLASS_TASK_NAME = UIStyle.TASK_NAME;
-	private static final int TASK_NAME_WIDTH_TO_SUBTRACT = 100;
+	private static final int TASK_NAME_WIDTH_TO_SUBTRACT = 50;
 	private static final Font FONT_TASK_PERIOD = UIFont.VERDANA_M;
 	private static final String STYLECLASS_TASK_PERIOD = UIStyle.TASK_PERIOD;
 	private static final int PREFWIDTH_TASK_PERIOD = 100;
@@ -29,6 +31,7 @@ public class UITaskBox {
 	private static final int PREFWIDTH_TASK_CATEGORY_LABEL = 120;
 	private static final String STYLECLASS_TASK_BOX = UIStyle.DAY_TASK_BOX;
 	private static final int SPACING_TASK_BOX = 10;
+	private static final int RADIUS_CAT_CIRCLE = 4;
 	private static final int WIDTH_MENU = 180;
 	private static final int PAD_X = 20;
 	private static final String DOUBLE_SPACE = "  ";
@@ -40,6 +43,7 @@ public class UITaskBox {
 	private Label taskName;
 	private Label taskPeriod;
 	private Label taskCategoryLabel;
+	private Circle taskCategoryCircle;
 	private HBox taskBox;
 
 	public UITaskBox(UIDayBox parent, Task task) {
@@ -88,8 +92,11 @@ public class UITaskBox {
 		if (this.task.hasCategory()){
 			Category category = this.task.getCategory();
 			this.taskCategoryLabel.setText(category.getName());
-			this.taskCategoryLabel.setTextFill(category.getColour());
-		} 
+//			this.taskCategoryLabel.setTextFill(category.getColour());
+			this.taskCategoryCircle = new Circle(RADIUS_CAT_CIRCLE, category.getColour());
+		} else {
+			this.taskCategoryCircle = new Circle(RADIUS_CAT_CIRCLE, Color.TRANSPARENT);
+		}
 	    this.taskCategoryLabel.setFont(FONT_TASK_CATEGORY_LABEL);
 	    this.taskCategoryLabel.setAlignment(Pos.CENTER_RIGHT);
 	    this.taskCategoryLabel.getStyleClass().add(STYLECLASS_TASK_CATEGORY_LABEL);
@@ -111,7 +118,7 @@ public class UITaskBox {
 		 this.taskBox.setAlignment(Pos.CENTER_LEFT);
 		 this.taskBox.setSpacing(SPACING_TASK_BOX);
 		 this.taskBox.getStyleClass().add(STYLECLASS_TASK_BOX);
-		 this.taskBox.getChildren().addAll(this.taskCheckBox, this.taskId, this.taskPeriod, this.taskName, this.taskCategoryLabel);   
+		 this.taskBox.getChildren().addAll(this.taskCheckBox, this.taskId, this.taskPeriod, this.taskName, this.taskCategoryLabel, this.taskCategoryCircle);   
 	}
 	
 	private void initListeners(){
@@ -139,7 +146,8 @@ public class UITaskBox {
 		widthToSubtract += this.taskId.getWidth() + SPACING_TASK_BOX;
 		widthToSubtract += this.taskPeriod.getWidth() + SPACING_TASK_BOX;
 		widthToSubtract += this.taskCategoryLabel.getWidth() + 2 * SPACING_TASK_BOX;
-		widthToSubtract += 2*SPACING_TASK_BOX;
+		widthToSubtract += 2 * SPACING_TASK_BOX;
+		widthToSubtract += 2 * RADIUS_CAT_CIRCLE + 2 * SPACING_TASK_BOX ;
 		double width = stageWidth - widthToSubtract;
 		this.taskName.setMinWidth(width);
 		this.taskName.setPrefWidth(width);

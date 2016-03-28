@@ -180,7 +180,7 @@ public class LogicController {
 
 		try {
 			storage.saveTasks(taskManager.getAllTasks());
-			storage.saveCategory(categoryManager.getAllCategories());
+			//storage.saveCategory(categoryManager.getAllCategories());
 		} catch (IOException e) {
 			logger.log(Level.SEVERE, "ERROR: Fail to save");
 			uiController.displayMessage("ERROR: SAVING");

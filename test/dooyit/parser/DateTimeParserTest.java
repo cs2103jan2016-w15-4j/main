@@ -5,6 +5,8 @@ import dooyit.common.datatype.DateTime;
 import dooyit.common.exception.IncorrectInputException;
 
 import static org.junit.Assert.*;
+
+import org.junit.Before;
 import org.junit.Test;
 
 public class DateTimeParserTest {
@@ -46,21 +48,28 @@ public class DateTimeParserTest {
 	private static final String REFERENCE_NEXT_MONDAY_DATE = "29 Feb 2016";
 	private static final int REFERENCE_NEXT_MONDAY_DAY_INT = 1;
 	
-	DateTimeParser dateTimeParser = new DateTimeParser();
-	
+	DateTimeParser dateTimeParser, referenceDateTimeParser;
 	int[] referenceDate = new int[] {17, 2, 2016};
-	String referenceDayString = "Wednesday";
-	int referenceDayInt= 3;
-	int referenceTime = FORMAT_24H_6AM;
-	DateTime referenceDateTimeObject = new DateTime(referenceDate, referenceDayString, referenceTime);
-	DateTimeParser referenceDateTimeParser = new DateTimeParser(referenceDateTimeObject);
+	int referenceDayInt, referenceTime, todayDayInt;
+	DateTime referenceDateTimeObject, todayDateTimeObject;
+	String referenceDayString, todayDate, todayDayString;
 	
-	DateTime todayDateTimeObject = new DateTime();
-	String todayDate = todayDateTimeObject.getDate();
-	String todayDayString = todayDateTimeObject.getDayStr();
-	int todayDayInt = todayDateTimeObject.getDayInt();
-	
-	
+	@Before
+	public void setup() {
+		dateTimeParser = new DateTimeParser();
+		
+		referenceDate = new int[] {17, 2, 2016};
+		referenceDayString = "Wednesday";
+		referenceDayInt= 3;
+		referenceTime = FORMAT_24H_6AM;
+		referenceDateTimeObject = new DateTime(referenceDate, referenceDayString, referenceTime);
+		referenceDateTimeParser = new DateTimeParser(referenceDateTimeObject);
+		
+		todayDateTimeObject = new DateTime();
+		todayDate = todayDateTimeObject.getDate();
+		todayDayString = todayDateTimeObject.getDayStr();
+		todayDayInt = todayDateTimeObject.getDayInt();
+	}
 	
 	//********************************************
 	//******** Tests for RelativeDateParser ******

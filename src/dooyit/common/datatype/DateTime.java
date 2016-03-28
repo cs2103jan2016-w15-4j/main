@@ -422,10 +422,6 @@ public class DateTime implements ParserCommons {
 		return time % 100;
 	}
 
-	private boolean isUninitialized(int time) {
-		return time == UNINITIALIZED_INT;
-	}
-
 	private boolean isAfter1amAndBefore12pm(int time) {
 		return time >= FORMAT_24H_1AM && time < FORMAT_24H_12PM;
 	}

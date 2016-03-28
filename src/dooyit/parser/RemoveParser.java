@@ -12,14 +12,14 @@ public class RemoveParser extends TagParser {
 		super();
 	}
 
-	public Command getCommand(String input) {
+	public Command getCommand(String input) throws IncorrectInputException {
 		setVariables(input);
 		command = null;
 		
 		try {
 			parseTaskIds();
 		} catch(IncorrectInputException e) {
-			command = getInvalidCommand(e.getMessage());
+			setInvalidCommand(e.getMessage());
 		}
 		
 		if(command == null) {
@@ -32,40 +32,44 @@ public class RemoveParser extends TagParser {
 	private void setCorrectRemoveCommand(TAG_TYPE tagType) {
 		switch (tagType) {
 		case SINGLE:
-			command = getSingleTypeRemoveCommand();
+			setSingleTypeRemoveCommand();
 			break;
 
 		case MULTIPLE:
-			command = getMultipleTypeRemoveCommand();
+			setMultipleTypeRemoveCommand();
 			break;
 
 		case INTERVAL:
-			command = getIntervalTypeRemoveCommand();
+			setIntervalTypeRemoveCommand();
 			break;
 
 		default:
-			command = getInvalidCmd();
+			setInvalidCommand();
 			break;
 		}
 	}
 
-	private Command getIntervalTypeRemoveCommand() {
+	private void setIntervalTypeRemoveCommand() {
 		//return CommandUtils.createRemoveCommand(taskIdsForTagging);
-		return null;
+		command = null;
 	}
 
 	// Eg. delete 5 6 8
-	private Command getMultipleTypeRemoveCommand() {
+	private void setMultipleTypeRemoveCommand() {
 		//return CommandUtils.createRemoveCommand(taskIdsForTagging);
-		return null;
+		command = null;
 	}
 
-	private Command getSingleTypeRemoveCommand() {
+	private void setSingleTypeRemoveCommand() {
 		//return CommandUtils.createRemoveCommand(taskIdForTagging);
-		return null;
+		command = null;
 	}
-
-	private Command getInvalidCmd() {
-		return CommandUtils.createInvalidCommand(ERROR_MESSAGE_INVALID_REMOVE_COMMAND);
+	
+	private void setInvalidCommand(String message) {
+		command = CommandUtils.createInvalidCommand(message);
+	}
+	
+	private void setInvalidCommand() {
+		command = CommandUtils.createInvalidCommand(ERROR_MESSAGE_INVALID_REMOVE_COMMAND);
 	}
 }

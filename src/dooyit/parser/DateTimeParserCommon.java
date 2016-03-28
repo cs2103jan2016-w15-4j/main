@@ -91,5 +91,31 @@ public interface DateTimeParserCommon {
 		}
 		return ans;
 	}
+	
+	default int getNextDayInt(int day) {
+		int temp = incrementByOne(day);
+		temp %= NUMBER_OF_DAYS_IN_WEEK ;
+		return temp;
+	}
 
+	default int[] getDateAfterANumberOfDays(int fastForward, int day, int month, int year) {
+		int newDay = day + fastForward;
+		int newMonth = month;
+		int newYear = year;
+		
+		int[] daysInMonth = getDaysInMonthArray(year);
+
+		while (newDay > daysInMonth[newMonth]) {
+			newDay -= daysInMonth[newMonth];
+			newMonth += 1;
+		}
+
+		if (newMonth > NUMBER_OF_MONTHS_IN_A_YEAR) {
+			newMonth = 1;
+			newYear = incrementByOne(newYear);
+		}
+
+		int[] ans = new int[] { newDay, newMonth, newYear };
+		return ans;
+	}
 }

@@ -4,6 +4,7 @@ import dooyit.common.datatype.DateTime;
 import dooyit.common.exception.IncorrectInputException;
 
 public class RelativeDateParser implements DateTimeParserCommon {
+	private static final String ERROR_MESSAGE_INVALID_DATE_INPUT = "Error: Invalid date input!";
 	private static String[] validWordForDay = new String[] { "day", "days", "dd" };
 	private static String[] validWordForWeek = new String[] { "week", "weeks", "wk" };
 	private static String[] validWordForToday = new String[] { "today", "tdy"};
@@ -51,7 +52,7 @@ public class RelativeDateParser implements DateTimeParserCommon {
 			combined = getDateAfterOneWeek(splitInput, i, combined);
 			break;
 
-		case TYPE_NUM_DAYS:
+		case TYPE_NUM_DAYS: 
 			combined = getDateAndDayAfterANumberOfDays(splitInput, i, combined);
 			break;
 
@@ -69,7 +70,7 @@ public class RelativeDateParser implements DateTimeParserCommon {
 
 		default:
 			combined[COMBINED_INDEX_COUNTER] += 1;
-			throw new IncorrectInputException("Invalid date time input!");
+			throw new IncorrectInputException(ERROR_MESSAGE_INVALID_DATE_INPUT);
 		}
 			
 		return combined;
@@ -170,7 +171,7 @@ public class RelativeDateParser implements DateTimeParserCommon {
 		int numWeeksLater = convertStringToInt(splitInput[index]);
 		int day = currDayInWeekInt;
 		int fastForward = getFastForwardFromDayOfWeek(day) + NUMBER_OF_DAYS_IN_WEEK * numWeeksLater;
-		int[] date = getDateAfterANumberOfDays(fastForward);
+		int[] date = getDateAfterANumberOfDays(fastForward, currDD, currMM, currYY);
 		int[] ans = getNewCombinedArray(combined, date, day, incrementByOne(index));
 		return ans;
 	}
@@ -186,8 +187,8 @@ public class RelativeDateParser implements DateTimeParserCommon {
 	}
 	
 	private int[] getCombinedArrayForTomorrow(int[] combined) {
-		int day = getNextDayInt();
-		int[] date = getDateAfterANumberOfDays(NEXT_DAY);
+		int day = getNextDayInt(currDayInWeekInt);
+		int[] date = getDateAfterANumberOfDays(NEXT_DAY, currDD, currMM, currYY);
 		int[] ans = getNewCombinedArray(combined, date, day);
 		return ans;
 	}
@@ -200,7 +201,7 @@ public class RelativeDateParser implements DateTimeParserCommon {
 	private int[] getDateAndDayAfterANumberOfDays(String[] splitInput, int index, int[] combined) {
 		int numDaysLater = convertStringToInt(splitInput[index]);
 		int day = getDayOfWeekAfterANumberOfDays(numDaysLater);
-		int[] date = getDateAfterANumberOfDays(numDaysLater);
+		int[] date = getDateAfterANumberOfDays(numDaysLater, currDD, currMM, currYY);
 		return getNewCombinedArray(combined, date, day, incrementByOne(index));
 	}
 
@@ -208,7 +209,7 @@ public class RelativeDateParser implements DateTimeParserCommon {
 	private int[] getDateAfterOneWeek(String[] splitInput, int index, int[] combined) {
 		int day = currDayInWeekInt;
 		int fastForward = getFastForwardFromDayOfWeek(day) + NUMBER_OF_DAYS_IN_WEEK;
-		int[] date = getDateAfterANumberOfDays(fastForward);
+		int[] date = getDateAfterANumberOfDays(fastForward, currDD, currMM, currYY);
 		return getNewCombinedArray(combined, date, day, incrementByOne(index));
 	}
 
@@ -216,7 +217,7 @@ public class RelativeDateParser implements DateTimeParserCommon {
 	private int[] getDayOfWeek(String[] splitInput, int index, int[] combined) {
 		int day = convertDayStringToInt(splitInput[index]);
 		int fastForward = getFastForwardFromDayOfWeek(day);
-		int[] date = getDateAfterANumberOfDays(fastForward);
+		int[] date = getDateAfterANumberOfDays(fastForward, currDD, currMM, currYY);
 		return getNewCombinedArray(combined, date, day, index);
 	}
 
@@ -224,7 +225,7 @@ public class RelativeDateParser implements DateTimeParserCommon {
 	private int[] getNextDayOfWeek(String[] splitInput, int index, int[] combined) {
 		int day = convertDayStringToInt(splitInput[incrementByOne(index)]);
 		int fastForward = getFastForwardFromDayOfWeek(day) + NUMBER_OF_DAYS_IN_WEEK;
-		int[] date = getDateAfterANumberOfDays(fastForward);
+		int[] date = getDateAfterANumberOfDays(fastForward, currDD, currMM, currYY);
 		return getNewCombinedArray(combined, date, day, incrementByOne(index));
 	}
 
@@ -233,7 +234,7 @@ public class RelativeDateParser implements DateTimeParserCommon {
 		// splitInput[i].equals("this")
 		int day = convertDayStringToInt(splitInput[incrementByOne(index)]);
 		int fastForward = getFastForwardFromDayOfWeek(day);
-		int[] date = getDateAfterANumberOfDays(fastForward);
+		int[] date = getDateAfterANumberOfDays(fastForward, currDD, currMM, currYY);
 		return getNewCombinedArray(combined, date, day, incrementByOne(index));
 	}
 	
@@ -273,35 +274,9 @@ public class RelativeDateParser implements DateTimeParserCommon {
 		}
 		return fastForward;
 	}
-
-	private int[] getDateAfterANumberOfDays(int fastForward) {
-		int newDay = currDD + fastForward;
-		int newMonth = currMM;
-		int newYear = currYY;
-		int[] daysInMonth;
-		daysInMonth = getDaysInMonthArray(currYY);
-		while (newDay > daysInMonth[newMonth]) {
-			newDay -= daysInMonth[newMonth];
-			newMonth += 1;
-		}
-
-		if (newMonth > NUMBER_OF_MONTHS_IN_A_YEAR) {
-			newMonth = 1;
-			newYear = incrementByOne(newYear);
-		}
-
-		int[] ans = new int[] { newDay, newMonth, newYear };
-		return ans;
-	}
 	
 	private boolean isValidDay(String currWord) {
 		boolean ans = convertDayStringToInt(currWord) != -1;
 		return ans;
-	}
-	
-	private int getNextDayInt() {
-		int temp = incrementByOne(currDayInWeekInt);
-		temp %= NUMBER_OF_DAYS_IN_WEEK ;
-		return temp;
 	}
 }

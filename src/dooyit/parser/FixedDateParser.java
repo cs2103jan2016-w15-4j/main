@@ -4,6 +4,7 @@ import dooyit.common.datatype.DateTime;
 import dooyit.common.exception.IncorrectInputException;
 
 public class FixedDateParser implements DateTimeParserCommon {
+	private static final int MAX_NUMBER_OF_WORDS_IN_WORD_DATE = 2;
 	private static final int LAST_INDEX_OF_WORD_DATE = 2;
 	private static final String ERROR_MESSAGE_INVALID_DATE = "Invalid date!";
 	private static final String ERROR_MESSAGE_DATE_INPUTS_MUST_GREATER_THAN_ZERO = "Date Inputs must be greater than 0!";
@@ -19,7 +20,7 @@ public class FixedDateParser implements DateTimeParserCommon {
 	private int currDD;
 	private int currDayInWeekInt;
 	private String currDayInWeekString;
-	
+	 
 	public FixedDateParser(DateTime dateTime) {
 		currDayInWeekString = dateTime.getDayStr();
 		currDayInWeekInt = dateTime.getDayInt();
@@ -63,32 +64,31 @@ public class FixedDateParser implements DateTimeParserCommon {
 		return dayTable[sum % NUMBER_OF_DAYS_IN_WEEK];
 	}
 	
-	// To Do: include the check for valid dates
 	private int[] getDateAndAdvanceInt(String[] splitInput, int currIndexInSplitInput) throws IncorrectInputException {
 		String firstWord = splitInput[currIndexInSplitInput];
-		int[] dateAndAdvanceIntArray = new int[] { UNINITIALIZED_INT, UNINITIALIZED_INT, UNINITIALIZED_INT, UNINITIALIZED_INT };
+		int[] dateAndArrayIndex = new int[] { UNINITIALIZED_INT, UNINITIALIZED_INT, UNINITIALIZED_INT, UNINITIALIZED_INT };
 		
 		try {
 			if (firstWord.contains(DATE_SEPARATOR)) {
 				String[] userInputForDate = firstWord.split(DATE_SEPARATOR);
-				dateAndAdvanceIntArray = getNumberDate(dateAndAdvanceIntArray, userInputForDate);		
+				dateAndArrayIndex = getNumberDate(dateAndArrayIndex, userInputForDate);		
 			} else {
-				dateAndAdvanceIntArray = getWordDate(dateAndAdvanceIntArray, currIndexInSplitInput, splitInput);
+				dateAndArrayIndex = getWordDate(dateAndArrayIndex, currIndexInSplitInput, splitInput);
 			}
 		} catch (IncorrectInputException e) {
 			throw e;
 		}
 		
-		dateAndAdvanceIntArray = setUninitializedValuesToDefault(dateAndAdvanceIntArray);
+		dateAndArrayIndex = setUninitializedValuesToDefault(dateAndArrayIndex);
 
-		if (isInvalidDate(dateAndAdvanceIntArray)) {
+		if (isInvalidDate(dateAndArrayIndex)) {
 			throw new IncorrectInputException(ERROR_MESSAGE_INVALID_DATE);
 		}
 
-		return dateAndAdvanceIntArray;
+		return dateAndArrayIndex;
 	}
 
-	private int[] getWordDate(int[] dateAndAdvanceIntArray, int currIndexInSplitInput, String[] splitInput) throws IncorrectInputException {
+	private int[] getWordDate(int[] dateAndArrayIndex, int currIndexInSplitInput, String[] splitInput) throws IncorrectInputException {
 		int counter = 0;
 		for (int j = currIndexInSplitInput; j < splitInput.length; j++) {
 			if (counter > LAST_INDEX_OF_WORD_DATE) {
@@ -96,17 +96,17 @@ public class FixedDateParser implements DateTimeParserCommon {
 			} else {
 				String currWord = splitInput[j];
 				try {
-					dateAndAdvanceIntArray = setValuesInArray(currWord, dateAndAdvanceIntArray);
+					dateAndArrayIndex = setValuesInArray(currWord, dateAndArrayIndex);
 				} catch (IncorrectInputException e) {
 					throw e;
 				}
 			}
 			counter++;
 		}
-		return dateAndAdvanceIntArray;
+		return dateAndArrayIndex;
 	}
 
-	private int[] getNumberDate(int[] dateAndAdvanceIntArray, String[] userInputForDate) throws IncorrectInputException {
+	private int[] getNumberDate(int[] dateAndArrayIndex, String[] userInputForDate) throws IncorrectInputException {
 		if(userInputForDate.length > 3 || userInputForDate.length == 1) {
 			throw new IncorrectInputException(ERROR_MESSAGE_INVALID_NUMBER_OF_DATE_INPUTS);
 		}
@@ -115,14 +115,14 @@ public class FixedDateParser implements DateTimeParserCommon {
 				throw new IncorrectInputException(ERROR_MESSAGE_DATE_INPUTS_MUST_BE_NUMBERS);
 			}
 			
-			dateAndAdvanceIntArray[j] = convertStringToInt(userInputForDate[j]);
+			dateAndArrayIndex[j] = convertStringToInt(userInputForDate[j]);
 			
-			if(dateAndAdvanceIntArray[j] <= 0) {
+			if(dateAndArrayIndex[j] <= 0) {
 				throw new IncorrectInputException(ERROR_MESSAGE_DATE_INPUTS_MUST_GREATER_THAN_ZERO);
 			}
 		}
-		dateAndAdvanceIntArray[DATE_INDEX_OF_ADVANCE_INT] += 1;
-		return dateAndAdvanceIntArray;
+		dateAndArrayIndex[DATE_INDEX_OF_ADVANCE_INT] += 1;
+		return dateAndArrayIndex;
 	}
 	
 	private int[] setValuesInArray(String currWord, int[] dateAndAdvanceIntArray) throws IncorrectInputException {
@@ -220,25 +220,28 @@ public class FixedDateParser implements DateTimeParserCommon {
 
 	private boolean isValidDate(String currWord, String[] splitInput, int i) {
 		boolean ans = false;
-
 		if (currWord.contains(DATE_SEPARATOR)) { // Date is 11/2/2016
 			ans = true;
 		} else {
-			int numEntries = 0;
-			
-			for (int j = i; j < splitInput.length; j++) {
-				if (numEntries > 2) {
+			ans = checkIfInputIsAValidWordDate(splitInput, i, ans);
+		}
+		return ans;
+	}
+
+	private boolean checkIfInputIsAValidWordDate(String[] splitInput, int i, boolean ans) {
+		int numEntries = 0;
+		
+		for (int j = i; j < splitInput.length; j++) {
+			if (numEntries > MAX_NUMBER_OF_WORDS_IN_WORD_DATE) {
+				break;
+			} else {
+				String splitWord = splitInput[j]; 
+				if (!isNumber(splitWord) && isMonth(splitWord)) {
+					ans = true;
 					break;
-				} else {
-					String splitWord = splitInput[j]; // splitWord is "feb" of
-														// "feb 2015"
-					if (!isNumber(splitWord) && isMonth(splitWord)) {
-						ans = true;
-						break;
-					}
 				}
-				numEntries++;
 			}
+			numEntries++;
 		}
 		return ans;
 	}

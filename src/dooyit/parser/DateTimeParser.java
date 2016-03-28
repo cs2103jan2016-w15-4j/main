@@ -95,8 +95,6 @@ public class DateTimeParser implements DateTimeParserCommon {
 					throw e;
 				}
 				combined = timeParser.parse(splitInput, combined, i);
-				System.out.println("combined here is");
-				printArray(combined);
 				break;
 				
 			default:
@@ -105,7 +103,7 @@ public class DateTimeParser implements DateTimeParserCommon {
 			
 			i = combined[COMBINED_INDEX_COUNTER];
 		}
-		DateTime temp;
+		DateTime temp; 
 		try {
 			temp = getDateTimeObject(combined);
 		} catch (IncorrectInputException e) {
@@ -153,11 +151,9 @@ public class DateTimeParser implements DateTimeParserCommon {
 		int[] date = new int[] { combined[COMBINED_INDEX_DD], combined[COMBINED_INDEX_MM], combined[COMBINED_INDEX_YY] };
 		int time = combined[COMBINED_INDEX_TIME];
 		int day = combined[COMBINED_INDEX_DAY_OF_WEEK];
-		printArray(combined);
-
 		if (inputTimeIsOverToday(time, date) && !hasDate) {
-			date = getDateAfterANumberOfDays(NEXT_DAY);
-			dateTime = new DateTime(date, daysInWeekFull[getNextDayInt()], time);
+			date = getDateAfterANumberOfDays(NEXT_DAY, currDD, currMM, currYY);
+			dateTime = new DateTime(date, daysInWeekFull[getNextDayInt(currDayInWeekInt)], time);
 		} else {
 			dateTime = new DateTime(date, daysInWeekFull[day], time);
 		}
@@ -183,35 +179,6 @@ public class DateTimeParser implements DateTimeParserCommon {
 
 	private boolean dayIsOver(int[] date) {
 		return date[DATE_INDEX_OF_DD] < currDD && date[DATE_INDEX_OF_MM] == currMM && date[DATE_INDEX_OF_YY] == currYY;
-	}
-
-	//This method is repeated in relative date parser, i need to remove this
-	private int[] getDateAfterANumberOfDays(int fastForward) {
-		int newDay = currDD + fastForward;
-		int newMonth = currMM;
-		int newYear = currYY;
-		
-		int[] daysInMonth = getDaysInMonthArray(currYY);
-
-		while (newDay > daysInMonth[newMonth]) {
-			newDay -= daysInMonth[newMonth];
-			newMonth += 1;
-		}
-
-		if (newMonth > NUMBER_OF_MONTHS_IN_A_YEAR) {
-			newMonth = 1;
-			newYear = incrementByOne(newYear);
-		}
-
-		int[] ans = new int[] { newDay, newMonth, newYear };
-		return ans;
-	}
-	
-	//This method is repeated in relative date parser, i need to remove this
-	private int getNextDayInt() {
-		int temp = incrementByOne(currDayInWeekInt);
-		temp %= NUMBER_OF_DAYS_IN_WEEK ;
-		return temp;
 	}
 
 	private void printArray(int[] arr) {

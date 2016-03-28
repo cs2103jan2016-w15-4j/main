@@ -14,7 +14,6 @@ public class DateTime {
 	private static final String PM = " pm";
 	private static final String AM = " am";
 	private static final String DUMMY_STR = "Dummy_Str";
-	private static final String ONE_ZERO = "0";
 	private static final String CALENDAR_DATE_FORMAT = "dd MM yyyy HH:mm E u";
 	private static final String CALENDAR_DEFAULT_TIME_ZONE = "UTC+08:00"; // Singapore Time Zone
 	
@@ -103,7 +102,8 @@ public class DateTime {
 		this.mm = date[INDEX_MM];
 		this.yy = date[INDEX_YY];
 		this.timeStr24H = String.valueOf(UNINITIALIZED_INT);
-		this.timeStr12H = String.valueOf(UNINITIALIZED_INT);
+		this.timeStr12H = String.valueOf(UNINITIALIZED_INT); 
+		this.timeInt = UNINITIALIZED_INT;
 		this.dayStr = day;
 		this.dayInt = setDayInt(dayStr);
 		this.date = this.dd + FORMAT_SPACE + months[decrementByOne(this.mm)] + FORMAT_SPACE + this.yy;

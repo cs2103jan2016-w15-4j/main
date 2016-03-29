@@ -7,6 +7,7 @@ import dooyit.logic.commands.CommandUtils;
 
 public class AddParser implements ParserCommons {
 
+	private static final String ERROR_MESSAGE_END_BEFORE_START = "Error: End timing cannot be before Start timing";
 	private static final String ERROR_MESSAGE_INVALID_ADD_COMMAND = "Error: Invalid add command!";
 	private static final String MARKER_START_EVENT = " from ";
 	private static final String MARKER_END_EVENT = " to ";
@@ -34,6 +35,7 @@ public class AddParser implements ParserCommons {
 		userInput = input.trim();
 		switch (getTaskType()) { 
 		case FLOATING:
+			System.out.println("it reached floating");
 			try {
 				parseFloat();
 			} catch (IncorrectInputException e) {
@@ -56,6 +58,7 @@ public class AddParser implements ParserCommons {
 		case EVENT:
 			try {
 				parseEvent();
+				checkIfEndIsBeforeStart();
 			} catch (IncorrectInputException e) {
 				setToInvalidCommand(e.getMessage());
 				break;
@@ -179,6 +182,16 @@ public class AddParser implements ParserCommons {
 		} catch(IncorrectInputException e) {
 			throw e;
 		}
+		if(end.compareTo(start) == -1) {
+			end.setDate(start);
+		}
+	}
+
+	private void checkIfEndIsBeforeStart() {
+		if(end.compareTo(start) == -1) {
+			System.out.println("it reached here!");
+			throw new IncorrectInputException(ERROR_MESSAGE_END_BEFORE_START);
+		}
 	}
 
 	private void parseWork() throws IncorrectInputException {
@@ -198,7 +211,6 @@ public class AddParser implements ParserCommons {
 
 	private TASK_TYPE getTaskType() {
 		if (isEvent()) {
-			System.out.println("it fucking reached here");
 			return TASK_TYPE.EVENT;
 		} else if (isWork()) {
 			return TASK_TYPE.WORK;

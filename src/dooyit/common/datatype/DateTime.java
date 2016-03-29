@@ -355,4 +355,10 @@ public class DateTime {
 		}
 		return ans;
 	}
+
+	public void setDate(DateTime start) {
+		this.dd = start.getDD();
+		this.mm = start.getMM();
+		this.yy = start.getYY();
+	}
 }

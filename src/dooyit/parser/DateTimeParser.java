@@ -158,9 +158,9 @@ public class DateTimeParser extends DateTimeParserCommon {
 			dateTime = new DateTime(date, time);
 		}
 		
-		if(inputDateIsOver(date)) {
-			throw new IncorrectInputException(ERROR_MESSAGE_GOING_BACK_IN_TIME);
-		}
+		//if(inputDateIsOver(date)) {
+		//	throw new IncorrectInputException(ERROR_MESSAGE_GOING_BACK_IN_TIME);
+		//}
 		logger.log(Level.INFO, "Date is " + dateTime.toString());
 		return dateTime;
 	}

@@ -66,6 +66,11 @@ public class CommandUtils {
 		return addCategoryCommand;
 	}
 	
+	public static Command deleteCategoryCommand(String categoryName) {
+		DeleteCategoryCommand deleteCategoryCommand = new DeleteCategoryCommand(categoryName);
+		return deleteCategoryCommand;
+	}
+	
 	public static Command createShowTodayCommand() {
 		ShowCommand showCommand = new ShowCommand(UIMainViewType.TODAY);
 

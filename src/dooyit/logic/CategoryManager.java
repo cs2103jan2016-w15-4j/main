@@ -52,6 +52,16 @@ public class CategoryManager {
 		return category;
 	}
 
+	public Category remove(String categoryName) {
+		for (Category category : categories) {
+			if (category.equals(categoryName)) {
+				categories.remove(category);
+				return category;
+			}
+		}
+		return null;
+	}
+
 	public boolean contains(String categoryName) {
 		for (int i = 0; i < categories.size(); i++) {
 			if (categories.get(i).equals(categoryName)) {
@@ -91,8 +101,8 @@ public class CategoryManager {
 	public ArrayList<Category> getAllCategories() {
 		return categories;
 	}
-	
-	public ArrayList<Category> clear(){
+
+	public ArrayList<Category> clear() {
 		ArrayList<Category> clearedCategories = new ArrayList<Category>(categories);
 		this.categories.clear();
 		return clearedCategories;

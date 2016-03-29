@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import dooyit.common.datatype.Task;
 import dooyit.common.exception.IncorrectInputException;
 import dooyit.logic.TaskManager;
+import dooyit.logic.api.Action;
+import dooyit.logic.api.LogicAction;
 import dooyit.logic.api.LogicController;
 
 public class MarkCommand extends ReversibleCommand {
@@ -33,10 +35,11 @@ public class MarkCommand extends ReversibleCommand {
 	}
 	
 	@Override
-	public void execute(LogicController logic) throws IncorrectInputException {
+	public LogicAction execute(LogicController logic) throws IncorrectInputException {
 		TaskManager taskManager = logic.getTaskManager();
 		assert (taskManager != null);
-
+		LogicAction logicAction = null;
+		
 		String errorMessageBody = "";
 
 		for (int markId : markIds) {
@@ -44,14 +47,17 @@ public class MarkCommand extends ReversibleCommand {
 				taskManager.markTask(markId);
 				Task markedTask = taskManager.find(markId);
 				markedTasks.add(markedTask);
+				logicAction = new LogicAction(Action.MARK_TASK);
 			} else {
 				errorMessageBody += " " + markId;
 			}
 		}
 
 		if (errorMessageBody != "") {
+			logicAction = new LogicAction(Action.MARK_TASK);
 			throw new IncorrectInputException("Index" + errorMessageBody + " doesn't exists");
 		}
-
+		
+		return logicAction;
 	}
 }

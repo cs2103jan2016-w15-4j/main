@@ -4,6 +4,8 @@ import dooyit.common.datatype.DateTime;
 import dooyit.common.datatype.Task;
 import dooyit.common.exception.IncorrectInputException;
 import dooyit.logic.TaskManager;
+import dooyit.logic.api.Action;
+import dooyit.logic.api.LogicAction;
 import dooyit.logic.api.LogicController;
 import dooyit.ui.UIMainViewType;
 
@@ -41,9 +43,10 @@ public class AddCommand extends ReversibleCommand {
 	}
 
 	@Override
-	public void execute(LogicController logic) throws IncorrectInputException {
+	public LogicAction execute(LogicController logic) throws IncorrectInputException {
 		assert (logic != null);
-
+		LogicAction logicAction = null;
+		
 		switch (taskType) {
 		case FLOATING:
 			addedTask = logic.addFloatingTask(taskName);
@@ -52,27 +55,42 @@ public class AddCommand extends ReversibleCommand {
 
 		case DEADLINE:
 			addedTask = logic.addDeadlineTask(taskName, dateTimeDeadline);
-
-			if (logic.isTodayTask(addedTask)) {
-				logic.setActiveView(UIMainViewType.TODAY);
-			} else if (logic.isNext7daysTask(addedTask)) {
-				logic.setActiveView(UIMainViewType.EXTENDED);
-			} else {
-				logic.setActiveView(UIMainViewType.ALL);
-			}
 			break;
 
 		case EVENT:
 			addedTask = logic.addEventTask(taskName, dateTimeStart, dateTimeEnd);
-			
-			if (logic.isTodayTask(addedTask)) {
-				logic.setActiveView(UIMainViewType.TODAY);
-			} else if (logic.isNext7daysTask(addedTask)) {
-				logic.setActiveView(UIMainViewType.EXTENDED);
-			} else {
-				logic.setActiveView(UIMainViewType.ALL);
-			}
 			break;
 		}
+		
+		logicAction = getActionBasedOnAddedTask(logic, addedTask);
+		return logicAction;
 	}
+	
+	
+	public LogicAction getActionBasedOnAddedTask(LogicController logic, Task addedTask){
+		LogicAction logicAction;
+		
+		if (logic.isFloatingTask(addedTask)) {
+			logic.setActiveView(UIMainViewType.FLOAT);
+			logicAction = new LogicAction(Action.ADD_FLOATING_TASK);
+			
+		}
+		else if (logic.isTodayTask(addedTask)) {
+			logic.setActiveView(UIMainViewType.TODAY);
+			logicAction = new LogicAction(Action.ADD_TODAY_TASK);
+			
+		} else if (logic.isNext7daysTask(addedTask)) {
+			logic.setActiveView(UIMainViewType.EXTENDED);
+			logicAction = new LogicAction(Action.ADD_NEXT7DAY_TASK);
+			
+		} else {
+			logic.setActiveView(UIMainViewType.ALL);
+			logicAction = new LogicAction(Action.ADD_ALL_TASK);
+		}
+		
+		return logicAction;
+	}
+	
+	
+	
 }

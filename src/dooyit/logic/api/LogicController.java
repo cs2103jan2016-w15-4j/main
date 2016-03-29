@@ -94,10 +94,10 @@ public class LogicController {
 	 * 
 	 */
 	public void loadFromStorage() {
-		try{
+		try {
 			loadCategoryData();
 			loadTaskData();
-		}catch(IOException e){
+		} catch (IOException e) {
 			logger.log(Level.SEVERE, "ERROR: Fail to load task from storage");
 			uiController.displayMessage("ERROR: LOAD TASK");
 		}
@@ -110,7 +110,7 @@ public class LogicController {
 		taskManager.load(tasks);
 	}
 
-	public void setDefaultCategories(){
+	public void setDefaultCategories() {
 		categoryManager.setDefaultCategories();
 	}
 
@@ -119,32 +119,38 @@ public class LogicController {
 	 * 
 	 * @param input
 	 */
-	public void processInput(String input) {
+	public LogicAction processInput(String input) {
 		Command command = parser.getCommand(input);
 		assert (command != null);
-		processCommand(command);
+		LogicAction logicAction = processCommand(command);
+		return logicAction;
 	}
 
 	/**
 	 * @param command
 	 */
-	public void processCommand(Command command) {
-		executeCommand(command);
+	public LogicAction processCommand(Command command) {
+		LogicAction logicAction = executeCommand(command);
 		addCommandToHistory(command);
 		refreshUIController();
 		save();
 		displayInCommandline();
+		return logicAction;
 	}
 
 	/**
 	 * @param command
 	 */
-	private void executeCommand(Command command) {
+	private LogicAction executeCommand(Command command) {
+		LogicAction logicAction = null;
+
 		try {
-			command.execute(this);
+			logicAction = command.execute(this);
 		} catch (IncorrectInputException e) {
 			uiController.displayMessage(e.getMessage());
+			logicAction = new LogicAction(Action.ERROR);
 		}
+		return logicAction;
 	}
 
 	/**
@@ -177,8 +183,6 @@ public class LogicController {
 			uiController.displayMessage("ERROR: SAVING");
 		}
 
-		
-		
 	}
 
 	/**
@@ -198,41 +202,40 @@ public class LogicController {
 		isSaveOn = false;
 	}
 
-	
-	public ArrayList<TaskData> getTaskDatas(){
+	public ArrayList<TaskData> getTaskDatas() {
 		ArrayList<Task> tasks = taskManager.getAllTasks();
 		return convertTaskstoTaskDatas(tasks);
 	}
-	
-	public ArrayList<TaskData> convertTaskstoTaskDatas(ArrayList<Task> tasks){
+
+	public ArrayList<TaskData> convertTaskstoTaskDatas(ArrayList<Task> tasks) {
 		ArrayList<TaskData> taskDatas = new ArrayList<TaskData>();
-		
-		for(Task task : tasks){
+
+		for (Task task : tasks) {
 			TaskData taskData = task.convertToData();
 			taskDatas.add(taskData);
 		}
-		
+
 		return taskDatas;
 	}
-	
-	public ArrayList<CategoryData> getCategoryDatas(){
+
+	public ArrayList<CategoryData> getCategoryDatas() {
 		ArrayList<Category> categories = categoryManager.getAllCategories();
 		return convertCategorytoCategoryDatas(categories);
 	}
-	
-	public ArrayList<CategoryData> convertCategorytoCategoryDatas(ArrayList<Category> categories){
+
+	public ArrayList<CategoryData> convertCategorytoCategoryDatas(ArrayList<Category> categories) {
 		ArrayList<CategoryData> categoryDatas = new ArrayList<CategoryData>();
-		
-		for(Category category : categories){
+
+		for (Category category : categories) {
 			CategoryData categoryData = category.convertToData();
 			categoryDatas.add(categoryData);
 		}
-		
+
 		return categoryDatas;
 	}
-	
-	public void loadCategoryData() throws IOException{
-		ArrayList<CategoryData> categoryDatas = storage.loadCategory(); 
+
+	public void loadCategoryData() throws IOException {
+		ArrayList<CategoryData> categoryDatas = storage.loadCategory();
 
 		for (CategoryData categoryData : categoryDatas) {
 			categoryManager.addCategory(categoryData.getName(), categoryData.getColor());
@@ -241,7 +244,7 @@ public class LogicController {
 
 	public void loadTaskData() throws IOException {
 		ArrayList<TaskData> taskDatas = storage.loadTasks();
-		
+
 		for (TaskData taskData : taskDatas) {
 			Task task = null;
 
@@ -259,9 +262,9 @@ public class LogicController {
 				task = taskManager.addEventTask(eventTaskData.getName(), eventTaskData.getStart(),
 						eventTaskData.getEnd(), eventTaskData.isCompleted());
 			}
-			
+
 			boolean hasCategory = (taskData.hasCategory() && categoryManager.contains(taskData.getCategory()));
-			if(hasCategory){
+			if (hasCategory) {
 				Category category = categoryManager.find(taskData.getCategory());
 				task.setCategory(category);
 			}
@@ -413,8 +416,8 @@ public class LogicController {
 		boolean isRemoved = taskManager.remove(task);
 		return isRemoved;
 	}
-	
-	public ArrayList<Task> removeTasksWithCategory(Category category){
+
+	public ArrayList<Task> removeTasksWithCategory(Category category) {
 		ArrayList<Task> tasksWithCategoty = taskManager.removeTaskWithCategory(category);
 		return tasksWithCategoty;
 	}
@@ -435,11 +438,11 @@ public class LogicController {
 		return addedCategory;
 	}
 
-	public Category removeCategory(String categoryName){
+	public Category removeCategory(String categoryName) {
 		Category removedCategory = categoryManager.remove(categoryName);
 		return removedCategory;
 	}
-	
+
 	public boolean containsCategory(String categoryName) {
 		return categoryManager.contains(categoryName);
 	}
@@ -452,6 +455,10 @@ public class LogicController {
 		ArrayList<Category> clearedCategories = categoryManager.clear();
 		// save();
 		return clearedCategories;
+	}
+
+	public boolean isFloatingTask(Task task) {
+		return taskManager.isTodayTask(task);
 	}
 
 	public boolean isTodayTask(Task task) {

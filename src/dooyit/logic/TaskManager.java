@@ -404,6 +404,10 @@ public class TaskManager {
 
 		return overdueTasks;
 	}
+	
+	public boolean isFloatingTask(Task task){
+		return (task instanceof FloatingTask);
+	}
 
 	public boolean isTodayTask(Task task) {
 		DateTime currDate = new DateTime();

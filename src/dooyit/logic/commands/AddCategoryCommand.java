@@ -4,6 +4,8 @@ import dooyit.common.datatype.Category;
 import dooyit.common.datatype.CustomColor;
 import dooyit.common.exception.IncorrectInputException;
 import dooyit.logic.CategoryManager;
+import dooyit.logic.api.Action;
+import dooyit.logic.api.LogicAction;
 import dooyit.logic.api.LogicController;
 
 public class AddCategoryCommand extends Command {
@@ -26,17 +28,24 @@ public class AddCategoryCommand extends Command {
 	}
 
 	@Override
-	public void execute(LogicController logic) throws IncorrectInputException {
+	public LogicAction execute(LogicController logic) throws IncorrectInputException {
+		LogicAction logicAction;
+		
 		if(!logic.containsCategory(categoryName)){
 			if(hasColorString()){
 				addedCategory = logic.addCategory(categoryName, colorString);
 			}else{
 				addedCategory = logic.addCategory(categoryName);
 			}
+			
+			 logicAction = new LogicAction(Action.ADD_CATEGORY);
 		}
 		else{
+			 logicAction = new LogicAction(Action.ADD_CATEGORY);
 			throw new IncorrectInputException("Category: " + categoryName + " already exists.");
 		}
+		
+		return logicAction;
 	}
 
 }

@@ -1,6 +1,8 @@
 package dooyit.logic.commands;
 
 import dooyit.common.exception.IncorrectInputException;
+import dooyit.logic.api.Action;
+import dooyit.logic.api.LogicAction;
 import dooyit.logic.api.LogicController;
 
 public class SearchCommand extends Command {
@@ -11,8 +13,10 @@ public class SearchCommand extends Command {
 	}
 	
 	@Override
-	public void execute(LogicController logic) throws IncorrectInputException {
+	public LogicAction execute(LogicController logic) throws IncorrectInputException {
 		logic.setActiveViewSearch(searchString);
+		LogicAction logicAction = new LogicAction(Action.SEARCH);
+		return logicAction;
 	}
 
 }

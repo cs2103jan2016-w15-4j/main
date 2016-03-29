@@ -4,7 +4,10 @@ import dooyit.common.datatype.DateTime;
 import dooyit.common.datatype.Task;
 import dooyit.common.exception.IncorrectInputException;
 import dooyit.logic.TaskManager;
+import dooyit.logic.api.Action;
+import dooyit.logic.api.LogicAction;
 import dooyit.logic.api.LogicController;
+import dooyit.ui.UIMainViewType;
 
 public class EditCommand extends ReversibleCommand {
 
@@ -64,8 +67,9 @@ public class EditCommand extends ReversibleCommand {
 	}
 
 	@Override
-	public void execute(LogicController logic) throws IncorrectInputException {
+	public LogicAction execute(LogicController logic) throws IncorrectInputException {
 		assert (logic != null);
+		LogicAction logicAction;
 
 		if (!logic.containsTask(taskId)) {
 			throw new IncorrectInputException("Cant find task ID: " + taskId);
@@ -97,5 +101,34 @@ public class EditCommand extends ReversibleCommand {
 			newTask = logic.changeTaskToEvent(taskId, dateTimeStart, dateTimeEnd);
 			break;
 		}
+		
+		logicAction = getActionBasedOnEditedTask(logic, newTask);
+		return logicAction;
 	}
+	
+	public LogicAction getActionBasedOnEditedTask(LogicController logic, Task newTask){
+		LogicAction logicAction;
+		
+		if (logic.isFloatingTask(newTask)) {
+			logic.setActiveView(UIMainViewType.FLOAT);
+			logicAction = new LogicAction(Action.EDIT_FLOATING_TASK);
+			
+		}
+		else if (logic.isTodayTask(newTask)) {
+			logic.setActiveView(UIMainViewType.TODAY);
+			logicAction = new LogicAction(Action.EDIT_TODAY_TASK);
+			
+		} else if (logic.isNext7daysTask(newTask)) {
+			logic.setActiveView(UIMainViewType.EXTENDED);
+			logicAction = new LogicAction(Action.EDIT_NEXT7DAY_TASK);
+			
+		} else {
+			logic.setActiveView(UIMainViewType.ALL);
+			logicAction = new LogicAction(Action.EDIT_ALL_TASK);
+		}
+		
+		return logicAction;
+	}
+	
+	
 }

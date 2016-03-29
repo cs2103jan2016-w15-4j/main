@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import dooyit.common.datatype.Task;
 import dooyit.common.exception.IncorrectInputException;
 import dooyit.logic.TaskManager;
+import dooyit.logic.api.Action;
+import dooyit.logic.api.LogicAction;
 import dooyit.logic.api.LogicController;
 
 public class DeleteCommand extends ReversibleCommand {
@@ -34,8 +36,9 @@ public class DeleteCommand extends ReversibleCommand {
 	}
 
 	@Override
-	public void execute(LogicController logic) throws IncorrectInputException {
+	public LogicAction execute(LogicController logic) throws IncorrectInputException {
 		assert (logic != null);
+		LogicAction logicAction = null;
 		
 		String errorMessageBody = "";
 
@@ -43,13 +46,18 @@ public class DeleteCommand extends ReversibleCommand {
 			if (logic.containsTask(deleteId)) {
 				Task deletedTask = logic.removeTask(deleteId);
 				deletedTasks.add(deletedTask);
+				
+				logicAction = new LogicAction(Action.DELETE_TASK);
 			} else {
 				errorMessageBody += " " + "[" + deleteId + "]";
 			}
 		}
 
 		if (errorMessageBody != "") {
+			logicAction = new LogicAction(Action.DELETE_TASK);
 			throw new IncorrectInputException("Index" + errorMessageBody + " doesn't exists");
 		}
+		
+		return logicAction;
 	}
 }

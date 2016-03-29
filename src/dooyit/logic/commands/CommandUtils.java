@@ -66,7 +66,7 @@ public class CommandUtils {
 		return addCategoryCommand;
 	}
 	
-	public static Command deleteCategoryCommand(String categoryName) {
+	public static Command createDeleteCategoryCommand(String categoryName) {
 		DeleteCategoryCommand deleteCategoryCommand = new DeleteCategoryCommand(categoryName);
 		return deleteCategoryCommand;
 	}

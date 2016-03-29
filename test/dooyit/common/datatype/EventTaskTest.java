@@ -58,7 +58,7 @@ public class EventTaskTest {
 	
 	@Test
 	public void testToString(){
-		assertEquals(task2.toString(), "Hiking, Event: 21 Feb 2016 Monday 08:00 8.00 amto21 Feb 2016 Monday 18:00 6.00 pm");
+		assertEquals(task2.toString(), "Hiking, Event: 21 Feb 2016 Sunday 08:00 8.00 amto21 Feb 2016 Sunday 18:00 6.00 pm");
 	}
 
 	@Test

@@ -7,7 +7,7 @@ import dooyit.common.datatype.Task;
 import dooyit.common.exception.IncorrectInputException;
 import dooyit.logic.api.LogicController;
 
-public class DeleteCategoryCommand extends Command {
+public class DeleteCategoryCommand extends ReversibleCommand {
 
 	private String categoryName;
 	Category removedCategory;
@@ -17,6 +17,10 @@ public class DeleteCategoryCommand extends Command {
 		this.categoryName = categoryName;
 	}
 	
+	@Override
+	public void undo(LogicController logic) {
+		logic.loadTasks(removedTask);
+	}
 	
 	@Override
 	public void execute(LogicController logic) throws IncorrectInputException {

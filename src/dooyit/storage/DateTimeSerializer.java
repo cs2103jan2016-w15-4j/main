@@ -10,14 +10,11 @@ import com.google.gson.JsonSerializer;
 import dooyit.common.datatype.DateTime;
 
 public class DateTimeSerializer implements JsonSerializer<DateTime> {
-	
-	private static final String SPACE = " ";
 
 	@Override
 	public JsonElement serialize(DateTime dt, Type typeOfSrc, JsonSerializationContext context) {
 		JsonObject jsonObject = new JsonObject();
-		String date = "";
-		date = dt.getDD() + SPACE + dt.getMM() + SPACE + dt.getYY();
+		String date = "" + dt.getDD() + " " + dt.getMM() + " " + dt.getYY() + " " + dt.getDayStr();
 		jsonObject.addProperty("date", date);
 		jsonObject.addProperty("time", dt.getTimeInt());
 		return jsonObject;

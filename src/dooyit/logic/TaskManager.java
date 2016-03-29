@@ -183,7 +183,32 @@ public class TaskManager {
 		}
 		return null;
 	}
-
+	
+	public ArrayList<Task> findTasksWithCategory(Category category){
+		ArrayList<Task> taskWithCat = new ArrayList<Task>();
+		
+		for(Task task : tasks){
+			if(task.getCategory().equals(category)){
+				taskWithCat.add(task);
+			}
+		}
+		return taskWithCat;
+	}
+	
+	public ArrayList<Task> removeTaskWithCategory(Category category){
+		ArrayList<Task> taskWithCat = new ArrayList<Task>();
+		
+		for(Task task : tasks){
+			if(task.getCategory().equals(category)){
+				boolean isRemoved = taskWithCat.remove(task);
+				if(isRemoved){
+					taskWithCat.add(task);
+				}
+			}
+		}
+		return taskWithCat;
+	}
+	
 	public ArrayList<Task> clear() {
 		ArrayList<Task> clearedTasks = new ArrayList<Task>(tasks);
 		tasks.clear();

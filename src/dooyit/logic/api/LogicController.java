@@ -378,6 +378,11 @@ public class LogicController {
 		boolean isRemoved = taskManager.remove(task);
 		return isRemoved;
 	}
+	
+	public ArrayList<Task> removeTasksWithCategory(Category category){
+		ArrayList<Task> tasksWithCategoty = taskManager.removeTaskWithCategory(category);
+		return tasksWithCategoty;
+	}
 
 	public ArrayList<Task> clearTask() {
 		ArrayList<Task> clearedTasks = taskManager.clear();
@@ -395,6 +400,11 @@ public class LogicController {
 		return addedCategory;
 	}
 
+	public Category removeCategory(String categoryName){
+		Category removedCategory = categoryManager.remove(categoryName);
+		return removedCategory;
+	}
+	
 	public boolean containsCategory(String categoryName) {
 		return categoryManager.contains(categoryName);
 	}

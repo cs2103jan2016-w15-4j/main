@@ -14,7 +14,7 @@ public class CategoryController extends StorageConstants {
 		categorySaver = new CategorySaver(path);
 	}
 
-	public boolean save(ArrayList<Category> categories) throws IOException {
+	public boolean save(ArrayList<CategoryData> categories) throws IOException {
 		return categorySaver.save(categories);
 	}
 

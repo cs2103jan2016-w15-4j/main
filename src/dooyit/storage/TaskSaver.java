@@ -26,13 +26,13 @@ public class TaskSaver {
 		this.filePath = filePath;
 	}
 
-	public boolean save(ArrayList<Task> tasks) throws IOException {
+	public boolean save(ArrayList<TaskData> tasks) throws IOException {
 		File file = new File(filePath);
 		BufferedWriter bWriter = new BufferedWriter(new FileWriter(file));
 		//Gson gson = new GsonBuilder().registerTypeAdapter(DateTime.class, new DateTimeSerializer()).setPrettyPrinting().create();
 		//String json = gson.toJson(tasks);
 
-		for (Task existingTask : tasks) {
+		for (TaskData existingTask : tasks) {
 			//bWriter.append(json);
 			bWriter.append(setFormat(existingTask));
 			bWriter.newLine();
@@ -43,38 +43,35 @@ public class TaskSaver {
 		return true;
 	}
 
-	private void saveBackup(ArrayList<Task> tasks) throws IOException {
+	private void saveBackup(ArrayList<TaskData> tasks) throws IOException {
 		File backupFile = new File(backupPath);
 		BufferedWriter bWriter = new BufferedWriter(new FileWriter(backupFile));
-		for (Task existingTask : tasks) {
+		for (TaskData existingTask : tasks) {
 			bWriter.append(setFormat(existingTask));
 			bWriter.newLine();
 		}
 		bWriter.close();
 	}
 
-	private String setFormat(Task task) {
+	private String setFormat(TaskData task) {
 		Gson gson = gsonWithDateTimeSerializer();
 		String json = "";
 		
-		switch(task.getTaskType()) {
-		case DEADLINE :
-			DeadlineTaskData deadline = setDeadline((DeadlineTask)task);
+		if(task instanceof DeadlineTaskData) {
+			DeadlineTaskData deadline = (DeadlineTaskData)task;
 			json = gson.toJson(deadline);
-			break;
-		case EVENT :
-			EventTaskData event = setEvent((EventTask)task);
+		} else if(task instanceof EventTaskData) {
+			EventTaskData event = (EventTaskData)task;
 			json = gson.toJson(event);
-			break;
-		case FLOATING :
-			FloatTaskData floatData = setFloating((FloatingTask)task);
+		} else {
+			FloatTaskData floatData = (FloatTaskData)task;
 			json = gson.toJson(floatData);
-			break;
 		}
 
 		return json;
 	}
 
+	/*
 	private FloatTaskData setFloating(FloatingTask floating) {
 		FloatTaskData floatData;
 		String name = floating.getName();
@@ -119,7 +116,7 @@ public class TaskSaver {
 			eventData = new EventTaskData(name, start, end, isCompleted);
 		}
 		return eventData;
-	}
+	}*/
 	
 	private Gson gsonWithDateTimeSerializer() {
 		return new GsonBuilder().registerTypeAdapter(DateTime.class, new DateTimeSerializer()).create();

@@ -18,12 +18,12 @@ public class CategorySaver {
 		this.filePath = filePath;
 	}
 
-	protected boolean save(ArrayList<Category> categories) throws IOException {
+	protected boolean save(ArrayList<CategoryData> categories) throws IOException {
 		File file = new File(filePath);
 
 		BufferedWriter bWriter = new BufferedWriter(new FileWriter(file));
 
-		for (Category existingCategory : categories) {
+		for (CategoryData existingCategory : categories) {
 			bWriter.append(setFormat(existingCategory));
 			bWriter.newLine();
 		}
@@ -32,9 +32,9 @@ public class CategorySaver {
 		return true;
 	}
 
-	private String setFormat(Category category) {
+	private String setFormat(CategoryData category) {
 		String categoryName = category.getName();
-		String colorName = category.getCustomColourName();
+		String colorName = category.getColor();
 		CategoryData categoryFormat = new CategoryData(categoryName, colorName);
 		Gson gson = new Gson();
 		String json = gson.toJson(categoryFormat);

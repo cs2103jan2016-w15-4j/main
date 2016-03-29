@@ -1,6 +1,7 @@
 package dooyit.parser;
 
 import dooyit.logic.commands.Command;
+import dooyit.logic.commands.CommandUtils;
 
 public class DeleteCategoryParser {
 	public DeleteCategoryParser() {
@@ -8,7 +9,6 @@ public class DeleteCategoryParser {
 	}
 	
 	public Command getCommand(String input) {
-		//return CommandUtils.createDeleteCategoryCommand(input);
-		return null;
+		return CommandUtils.createDeleteCategoryCommand(input);
 	}
 }

@@ -15,9 +15,12 @@ import dooyit.common.datatype.DeadlineTask;
 import dooyit.common.datatype.EventTask;
 import dooyit.common.datatype.FloatingTask;
 import dooyit.common.datatype.Task;
+import dooyit.storage.StorageConstants;
 
 public class TaskSaver {
 	private String filePath;
+	
+	private static final String backupPath = StorageConstants.DEFAULT_BACKUP_DESTINATION;
 
 	protected TaskSaver(String filePath) {
 		this.filePath = filePath;
@@ -26,17 +29,31 @@ public class TaskSaver {
 	public boolean save(ArrayList<Task> tasks) throws IOException {
 		File file = new File(filePath);
 		BufferedWriter bWriter = new BufferedWriter(new FileWriter(file));
+		//Gson gson = new GsonBuilder().registerTypeAdapter(DateTime.class, new DateTimeSerializer()).setPrettyPrinting().create();
+		//String json = gson.toJson(tasks);
 
+		for (Task existingTask : tasks) {
+			//bWriter.append(json);
+			bWriter.append(setFormat(existingTask));
+			bWriter.newLine();
+		}
+		bWriter.close();
+		saveBackup(tasks);
+
+		return true;
+	}
+
+	private void saveBackup(ArrayList<Task> tasks) throws IOException {
+		File backupFile = new File(backupPath);
+		BufferedWriter bWriter = new BufferedWriter(new FileWriter(backupFile));
 		for (Task existingTask : tasks) {
 			bWriter.append(setFormat(existingTask));
 			bWriter.newLine();
 		}
 		bWriter.close();
-
-		return true;
 	}
 
-	protected String setFormat(Task task) {
+	private String setFormat(Task task) {
 		Gson gson = gsonWithDateTimeSerializer();
 		String json = "";
 		
@@ -65,7 +82,7 @@ public class TaskSaver {
 		
 		if(floating.hasCategory()) {
 			Category category = floating.getCategory();
-			floatData = new FloatTaskData(name, category, isCompleted);
+			floatData = new FloatTaskData(name, category.getName(), isCompleted);
 		} else {
 			floatData = new FloatTaskData(name, isCompleted);
 		}
@@ -80,7 +97,7 @@ public class TaskSaver {
 		boolean isCompleted = deadline.isCompleted();
 		if(deadline.hasCategory()) {
 			Category category = deadline.getCategory();
-			deadlineData = new DeadlineTaskData(name, deadlineTime, category, isCompleted);
+			deadlineData = new DeadlineTaskData(name, deadlineTime, category.getName(), isCompleted);
 		} else {
 			deadlineData = new DeadlineTaskData(name, deadlineTime, isCompleted);
 		}
@@ -97,7 +114,7 @@ public class TaskSaver {
 		
 		if(event.hasCategory()) {
 			Category category = event.getCategory();
-			eventData = new EventTaskData(name, start, end, category, isCompleted);
+			eventData = new EventTaskData(name, start, end, category.getName(), isCompleted);
 		} else {
 			eventData = new EventTaskData(name, start, end, isCompleted);
 		}

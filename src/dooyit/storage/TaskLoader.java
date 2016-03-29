@@ -7,14 +7,13 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.google.gson.JsonSyntaxException;
+import com.google.gson.reflect.TypeToken;
 
 import dooyit.common.datatype.DateTime;
-import dooyit.common.datatype.DeadlineTask;
-import dooyit.common.datatype.EventTask;
-import dooyit.common.datatype.FloatingTask;
-import dooyit.common.datatype.Task;
 import dooyit.common.exception.MissingFileException;
 
 /**
@@ -38,7 +37,6 @@ public class TaskLoader {
 	private static final int DAY = 0;
 	private static final int MONTH = 1;
 	private static final int YEAR = 2;
-	private static final int DAY_OF_WEEK = 3;
 	private int count;
 
 	private String filePath;
@@ -57,10 +55,10 @@ public class TaskLoader {
 	 * @throws IOException
 	 *             If loading fails
 	 */
-	public ArrayList<Task> load() throws IOException {
+	public ArrayList<TaskData> load() throws IOException {
 		File file = new File(filePath);
 		File directory = file.getParentFile();
-		ArrayList<Task> taskList = new ArrayList<Task>();
+		ArrayList<TaskData> taskList = new ArrayList<TaskData>();
 
 		if (directory.exists()) {
 			if (file.exists()) {
@@ -110,18 +108,27 @@ public class TaskLoader {
 	 * @throws IOException
 	 *             If unable to read from the save file
 	 */
-	private ArrayList<Task> loadFromFile(File file) throws IOException {
+	private ArrayList<TaskData> loadFromFile(File file) throws IOException {
 		FileReader fReader;
-		ArrayList<Task> taskList = new ArrayList<Task>();
+		ArrayList<TaskData> taskList = new ArrayList<TaskData>();
+		Gson gson = new Gson();
 
 		fReader = open(file);
 		BufferedReader bReader = new BufferedReader(fReader);
 		String taskInfo = bReader.readLine();
-
+		
+		JsonObject jsonTask;
 		while (taskInfo != null) {
-			JsonObject jsonTask = getAsJson(taskInfo);
-			Task existingTask = resolveTask(jsonTask);
-			taskList.add(existingTask);
+			try {
+				jsonTask = getAsJson(taskInfo);
+			} catch (JsonSyntaxException e) {
+				jsonTask = null;
+			}
+			
+			if(jsonTask != null) {
+				TaskData existingTask = resolveTask(jsonTask);
+				taskList.add(existingTask);
+			}
 			taskInfo = bReader.readLine();
 		}
 
@@ -149,62 +156,80 @@ public class TaskLoader {
 		return fReader;
 	}
 
-	public Task resolveTask(JsonObject jsonTask) {
+	public TaskData resolveTask(JsonObject jsonTask) {
 
-		Task task;
+		TaskData task;
+
 		String name = getName(jsonTask);
-	
-		boolean isCompleted = jsonTask.get(IS_COMPLETED).getAsBoolean();
+		boolean isCompleted = isCompleted(jsonTask);
+		String categoryName = getCategoryName(jsonTask);
 
 		if (jsonTask.has(DEADLINE)) {
 			DateTime deadline = resolveDateTime(jsonTask, DEADLINE);
-			task = (Task) new DeadlineTask(name, deadline);
+			task = (TaskData) new DeadlineTaskData(name, deadline, categoryName, isCompleted);
 		} else if (jsonTask.has(EVENT_START) && jsonTask.has(EVENT_END)) {
 			DateTime eventStart = resolveDateTime(jsonTask, EVENT_START);
 			DateTime eventEnd = resolveDateTime(jsonTask, EVENT_END);
-			task = (Task) new EventTask(name, eventStart, eventEnd);
+			task = (TaskData) new EventTaskData(name, eventStart, eventEnd, categoryName, isCompleted);
 		} else {
-			task = (Task) new FloatingTask(name);
-		}
-		
-		if(isCompleted) {
-			task.mark();
-		}
-		
-		if(jsonTask.has(CATEGORY)) {
-			String categoryName = jsonTask.get(CATEGORY).getAsString();
-			//task.setUncheckCategory(categoryName);
+			task = (TaskData) new FloatTaskData(name, categoryName, isCompleted);
 		}
 
 		return task;
 	}
+
+	/**
+	 * Checks if the task is completed
+	 * 
+	 * @param jsonTask JsonObject of TaskData
+	 * @return The boolean value of isCompleted, default false
+	 */
+	private boolean isCompleted(JsonObject jsonTask) {
+		boolean isCompleted = false;
+
+		if (jsonTask.has(IS_COMPLETED)) {
+			isCompleted = jsonTask.get(IS_COMPLETED).getAsBoolean();
+		}
+		return isCompleted;
+	}
 	
-	private String getName(JsonObject taskData) {
+	/**
+	 * Get the name of the task.
+	 * 
+	 * @param taskData JsonObject of TaskData
+	 * @return The name of the TaskData, otherwise returns a placeholder name
+	 */
+	private String getName(JsonObject jsonTask) {
 		String name = "";
-		
-		if(taskData.has(NAME)) {
-			name = taskData.get(NAME).getAsString();
+
+		if (jsonTask.has(NAME)) {
+			name = jsonTask.get(NAME).getAsString();
 		} else {
 			name = String.format(PLACEHOLDER, count++);
 		}
-		
+
 		return name;
+	}
+
+	private String getCategoryName(JsonObject taskData) {
+		String catName = null;
+		if (taskData.has(CATEGORY)) {
+			catName = taskData.get(CATEGORY).getAsString();
+		}
+
+		return catName;
 	}
 
 	private DateTime resolveDateTime(JsonObject taskInfo, String type) {
 		JsonObject dateTimeJson = taskInfo.get(type).getAsJsonObject();
 		String dateString = dateTimeJson.get(DATE).getAsString();
 		int timeInt = dateTimeJson.get(TIME).getAsInt();
-		
+
 		String[] parts = dateString.split(" ");
-		int[] date = new int[] {Integer.valueOf(parts[DAY]),
-				Integer.valueOf(parts[MONTH]),
-				Integer.valueOf(parts[YEAR])};
-		
-		String dayStr = parts[DAY_OF_WEEK];
-		
-		
-		DateTime dateTime = new DateTime(date, dayStr, timeInt);
+		int[] date = new int[] { Integer.valueOf(parts[DAY]), Integer.valueOf(parts[MONTH]),
+				Integer.valueOf(parts[YEAR]) };
+
+		DateTime dateTime = new DateTime(date, timeInt);
 
 		return dateTime;
 	}
@@ -212,11 +237,11 @@ public class TaskLoader {
 	protected void setFileDestination(String path) {
 		this.filePath = path;
 	}
-	
+
 	private JsonObject getAsJson(String format) {
 		JsonParser parser = new JsonParser();
 		JsonObject object = parser.parse(format).getAsJsonObject();
-		
+
 		return object;
 	}
 }

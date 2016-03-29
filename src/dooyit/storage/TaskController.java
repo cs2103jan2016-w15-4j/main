@@ -7,8 +7,8 @@ import dooyit.common.datatype.Task;
 import dooyit.logic.TaskManager;
 
 public class TaskController {
-	TaskSaver taskSaver;
-	TaskLoader taskLoader;
+	private TaskSaver taskSaver;
+	private TaskLoader taskLoader;
 
 	public TaskController(String filePath) {
 		taskLoader = new TaskLoader(filePath);
@@ -24,7 +24,7 @@ public class TaskController {
 		return taskSaver.save(tasks);
 	}
 
-	protected ArrayList<Task> load() throws IOException {
+	protected ArrayList<TaskData> load() throws IOException {
 		return taskLoader.load();
 	}
 }

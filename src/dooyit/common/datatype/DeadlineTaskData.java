@@ -1,24 +1,24 @@
 package dooyit.common.datatype;
 
 public class DeadlineTaskData extends TaskData {
-	private DateTime deadline;
+	private DateTime dateTimeDeadline;
 
 	public DeadlineTaskData(String name, DateTime deadline, 
 							String category, boolean isCompleted) {
 		this.taskName = name;
 		this.isCompleted = isCompleted;
 		this.category = category;
-		this.deadline = deadline;
+		this.dateTimeDeadline = deadline;
 	}
 
 	public DeadlineTaskData(String name, DateTime deadline, boolean isCompleted) {
 		this.taskName = name;
 		this.isCompleted = isCompleted;
-		this.deadline = deadline;
+		this.dateTimeDeadline = deadline;
 	}
 	
 	public DateTime getDeadline() {
-		return this.deadline;
+		return this.dateTimeDeadline;
 	}
 	
 	public boolean equals(Object o) {
@@ -27,19 +27,19 @@ public class DeadlineTaskData extends TaskData {
 			if(this.hasCategory()) {
 				return this.taskName.equals(data.getName())
 						&& this.isCompleted == data.isCompleted()
-						&& this.deadline.equals(data.getDeadline())
+						&& this.dateTimeDeadline.equals(data.getDeadline())
 						&& this.category.equals(data.getCategory());
 			}
 			return this.taskName.equals(data.getName())
 					&& this.isCompleted == data.isCompleted()
-					&& this.deadline.equals(data.getDeadline());
+					&& this.dateTimeDeadline.equals(data.getDeadline());
 		}
 		return false;
 	}
 	
 	@Override
 	public Task convertToTask() {
-		Task task = new DeadlineTask(taskName, deadline);
+		Task task = new DeadlineTask(taskName, dateTimeDeadline);
 		
 		if(isCompleted){
 			task.mark();

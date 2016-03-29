@@ -36,4 +36,15 @@ public class DeadlineTaskData extends TaskData {
 		}
 		return false;
 	}
+	
+	@Override
+	public Task convertToTask() {
+		Task task = new DeadlineTask(taskName, deadline);
+		
+		if(isCompleted){
+			task.mark();
+		}
+		
+		return task;
+	}
 }

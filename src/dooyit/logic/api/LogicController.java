@@ -246,28 +246,14 @@ public class LogicController {
 		ArrayList<TaskData> taskDatas = storage.loadTasks();
 
 		for (TaskData taskData : taskDatas) {
-			Task task = null;
+			Task task = taskData.convertToTask();
 
-			if (taskData instanceof FloatingTaskData) {
-				FloatingTaskData floatTaskData = (FloatingTaskData) taskData;
-				task = taskManager.addFloatingTask(floatTaskData.getName(), floatTaskData.isCompleted());
-
-			} else if (taskData instanceof DeadlineTaskData) {
-				DeadlineTaskData deadlineTaskData = (DeadlineTaskData) taskData;
-				task = taskManager.addDeadlineTask(deadlineTaskData.getName(), deadlineTaskData.getDeadline(),
-						deadlineTaskData.isCompleted());
-
-			} else if (taskData instanceof EventTaskData) {
-				EventTaskData eventTaskData = (EventTaskData) taskData;
-				task = taskManager.addEventTask(eventTaskData.getName(), eventTaskData.getStart(),
-						eventTaskData.getEnd(), eventTaskData.isCompleted());
-			}
-
-			boolean hasCategory = (taskData.hasCategory() && categoryManager.contains(taskData.getCategory()));
-			if (hasCategory) {
+			if (taskData.hasCategory()) {
 				Category category = categoryManager.find(taskData.getCategory());
 				task.setCategory(category);
 			}
+
+			taskManager.add(task);
 		}
 	}
 

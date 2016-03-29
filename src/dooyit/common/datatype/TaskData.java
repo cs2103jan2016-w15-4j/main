@@ -1,6 +1,6 @@
 package dooyit.common.datatype;
 
-public class TaskData {
+public abstract class TaskData {
 	protected String taskName;
 	protected String category;
 	protected boolean isCompleted;
@@ -24,4 +24,6 @@ public class TaskData {
 	public boolean hasCategory() {
 		return category != null;
 	}
+	
+	public abstract Task convertToTask();
 }

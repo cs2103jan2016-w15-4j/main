@@ -28,4 +28,15 @@ public class FloatingTaskData extends TaskData{
 		
 		return false;
 	}
+	
+	@Override
+	public Task convertToTask() {
+		Task task = new FloatingTask(taskName);
+		
+		if(isCompleted){
+			task.mark();
+		}
+		
+		return task;
+	}
 }

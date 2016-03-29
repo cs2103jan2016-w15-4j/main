@@ -46,4 +46,15 @@ public class EventTaskData extends TaskData {
 		}
 		return false;
 	}
+
+	@Override
+	public Task convertToTask() {
+		Task task = new EventTask(taskName, start, end);
+		
+		if(isCompleted){
+			task.mark();
+		}
+		
+		return task;
+	}
 }

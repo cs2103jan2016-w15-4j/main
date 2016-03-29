@@ -17,14 +17,12 @@ public class RelativeDateParser extends DateTimeParserCommon {
 	private int currYY;
 	private int currDD;
 	private int currDayInWeekInt;
-	private String currDayInWeekString;
 	
 	enum RELATIVE_DATE_FORMAT {
 		TYPE_THIS_DAY_OF_WEEK, TYPE_NEXT_DAY_OF_WEEK, TYPE_DAY_OF_WEEK, TYPE_NEXT_WEEK, TYPE_NUM_DAYS, TYPE_NUM_WEEKS, TYPE_TODAY, TYPE_TOMORROW, TYPE_INVALID
 	};
 	
 	public RelativeDateParser(DateTime dateTime) {
-		currDayInWeekString = dateTime.getDayStr();
 		currDayInWeekInt = dateTime.getDayInt();
 		currDD = dateTime.getDD();
 		currMM = dateTime.getMM();

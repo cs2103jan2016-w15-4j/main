@@ -1,4 +1,4 @@
-{"taskName":"abc","dateTimeDeadline":"10 12 2016 sat -1","isCompleted":false}
-{"taskName":"homework","dateTimeDeadline":"10 12 2016 sat 0800","isCompleted":false}
+{"deadline":{"date":"10 12 2016","time":-1},"taskName":"buy milk","isCompleted":false}
+{"deadline":{"date":"10 12 2016","time":800},"taskName":"homework","isCompleted":false}
 {"taskName":"float","isCompleted":false}
-{"taskName":"brunch","dateTimeStart":"10 12 2016 sat 1000","dateTimeEnd":"10 12 2016 sat 1200","isCompleted":false}
+{"start":{"date":"10 12 2016","time":1000},"end":{"date":"10 12 2016","time":1200},"taskName":"brunch","isCompleted":false}

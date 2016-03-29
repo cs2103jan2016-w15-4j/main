@@ -24,6 +24,7 @@ public class AddParserTest {
 	private static final String DEADLINE = "deadline";
 	private static final String CATEGORY_NAME = "categoryName";
 	private static final String INVALID_DATE_TIME = "Invalid Date Time!";
+	private static final String INVALID_ADD_COMMAND = "Error: Invalid add command!";
 	
 	@Before
 	public void setup() {
@@ -120,7 +121,7 @@ public class AddParserTest {
 		String empty = "";
 		Command command = parser.getCommand(empty);
 		String message = Whitebox.getInternalState(command, ERROR_MESSAGE);
-		Assert.assertEquals("Invalid input!", message);
+		Assert.assertEquals(INVALID_ADD_COMMAND, message);
 	}
 	
 	/*@Test

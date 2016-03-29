@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.google.gson.JsonSyntaxException;
 
 import dooyit.common.datatype.CustomColor;
 import dooyit.common.datatype.Category;
@@ -19,16 +20,6 @@ public class CategoryLoader {
 
 	private static final String CATEGORY_NAME = "name";
 	private static final String CATEGORY_COLOR = "color";
-	private static final String BLACK = "black";
-	private static final String BLUE = "blue";
-	private static final String CYAN = "cyan";
-	private static final String WHITE = "white";
-	private static final String GREY = "grey";
-	private static final String MAGENTA = "magenta";
-	private static final String GREEN = "green";
-	private static final String YELLOW = "yellow";
-	private static final String RED = "red";
-	private static final String PINK = "pink";
 
 	protected CategoryLoader(String filePath) {
 		this.filePath = filePath;
@@ -64,9 +55,18 @@ public class CategoryLoader {
 		BufferedReader bReader = new BufferedReader(fReader);
 		
 		String categoryData = bReader.readLine();
+		JsonObject jsonCategory;
 		while (categoryData != null) {
-			CategoryData category = resolveCategory(categoryData);
-			categories.add(category);
+			try {
+				jsonCategory = getAsJson(categoryData);
+			} catch (JsonSyntaxException e) {
+				jsonCategory = null;
+			}
+			
+			if(jsonCategory != null) {
+				CategoryData category = resolveCategory(jsonCategory);
+				categories.add(category);
+			}
 			categoryData = bReader.readLine();
 		}
 		bReader.close();
@@ -75,13 +75,10 @@ public class CategoryLoader {
 		return categories;
 	}
 	
-	private CategoryData resolveCategory(String categoryFormat) {
-		JsonObject categoryInfo = getAsJson(categoryFormat);
-		
+	private CategoryData resolveCategory(JsonObject jsonCategory) {
 		CategoryData category = null;
-		String name = categoryInfo.get(CATEGORY_NAME).getAsString();
-		String colorName = categoryInfo.get(CATEGORY_COLOR).getAsString();
-		//CustomColor color = resolveColor(colorName);
+		String name = jsonCategory.get(CATEGORY_NAME).getAsString();
+		String colorName = jsonCategory.get(CATEGORY_COLOR).getAsString();
 		category = new CategoryData(name, colorName);
 		
 		return category;
@@ -93,35 +90,4 @@ public class CategoryLoader {
 		
 		return object;
 	}
-	/*
-	private CustomColor resolveColor(String colorName) {
-		CustomColor color;
-		String name = colorName.toLowerCase();
-		
-		if(name.equals(BLACK)) {
-			color = CustomColor.BLACK;
-		} else if (name.equals(BLUE)) {
-			color = CustomColor.BLUE;
-		} else if (name.equals(CYAN)) {
-			color = CustomColor.CYAN;
-		} else if (name.equals(GREY)) {
-			color = CustomColor.GREY;
-		} else if (name.equals(GREEN)) {
-			color = CustomColor.GREEN;
-		} else if (name.equals(MAGENTA)) {
-			color = CustomColor.MAGENTA;
-		} else if (name.equals(PINK)){
-			color = CustomColor.PINK;
-		} else if (name.equals(RED)) {
-			color = CustomColor.RED;
-		} else if (name.equals(YELLOW)) {
-			color = CustomColor.YELLOW;
-		} else if (name.equals(WHITE)) {
-			color = CustomColor.WHITE;
-		} else {
-			color = CustomColor.BLUE;
-		}
-
-		return color;
-	}*/
 }

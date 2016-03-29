@@ -43,7 +43,7 @@ public class TaskLoader {
 
 	TaskLoader(String filePath) {
 		this.filePath = filePath;
-		this.count = 0;
+		this.count = 1;
 	}
 
 	/**
@@ -116,19 +116,20 @@ public class TaskLoader {
 		fReader = open(file);
 		BufferedReader bReader = new BufferedReader(fReader);
 		String taskInfo = bReader.readLine();
-		
 		JsonObject jsonTask;
 		while (taskInfo != null) {
 			try {
 				jsonTask = getAsJson(taskInfo);
 			} catch (JsonSyntaxException e) {
 				jsonTask = null;
+				System.out.println("Line " + count + " deleted for bad format");
 			}
 			
 			if(jsonTask != null) {
 				TaskData existingTask = resolveTask(jsonTask);
 				taskList.add(existingTask);
 			}
+			count++;
 			taskInfo = bReader.readLine();
 		}
 
@@ -201,7 +202,7 @@ public class TaskLoader {
 	 */
 	private String getName(JsonObject jsonTask) {
 		String name = "";
-
+		
 		if (jsonTask.has(NAME)) {
 			name = jsonTask.get(NAME).getAsString();
 		} else {
@@ -239,8 +240,12 @@ public class TaskLoader {
 	}
 
 	private JsonObject getAsJson(String format) {
-		JsonParser parser = new JsonParser();
-		JsonObject object = parser.parse(format).getAsJsonObject();
+		JsonObject object = null;
+		//System.out.println(format);
+		if(!format.equals("")) {
+			JsonParser parser = new JsonParser();
+			object = parser.parse(format).getAsJsonObject();
+		}
 
 		return object;
 	}

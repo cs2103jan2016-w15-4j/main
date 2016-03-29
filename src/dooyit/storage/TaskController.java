@@ -20,7 +20,7 @@ public class TaskController {
 		taskLoader.setFileDestination(newFilePath);
 	}
 
-	protected boolean save(ArrayList<Task> tasks) throws IOException {
+	protected boolean save(ArrayList<TaskData> tasks) throws IOException {
 		return taskSaver.save(tasks);
 	}
 

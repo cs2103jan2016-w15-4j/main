@@ -18,12 +18,8 @@ public class FixedDateParser extends DateTimeParserCommon {
 	private int currMM;
 	private int currYY;
 	private int currDD;
-	private int currDayInWeekInt;
-	private String currDayInWeekString;
 	 
 	public FixedDateParser(DateTime dateTime) {
-		currDayInWeekString = dateTime.getDayStr();
-		currDayInWeekInt = dateTime.getDayInt();
 		currDD = dateTime.getDD();
 		currMM = dateTime.getMM();
 		currYY = dateTime.getYY();

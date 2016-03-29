@@ -61,7 +61,7 @@ public class StorageController extends StorageConstants {
 		return true;
 	}
 
-	public boolean saveTasks(ArrayList<Task> tasks) throws IOException {
+	public boolean saveTasks(ArrayList<TaskData> tasks) throws IOException {
 		//logger.log(Level.INFO, "Attempting to save tasks to " + preferences[TASK_DESTINATION]);
 		assert tasks != null;
 
@@ -77,7 +77,7 @@ public class StorageController extends StorageConstants {
 
 	}
 
-	public boolean saveCategory(ArrayList<Category> categories) throws IOException {
+	public boolean saveCategory(ArrayList<CategoryData> categories) throws IOException {
 		assert categories != null;
 		return categoryControl.save(categories);
 	}

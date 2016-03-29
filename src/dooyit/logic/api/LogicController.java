@@ -45,7 +45,7 @@ public class LogicController {
 		initHistory();
 		initStorage();
 		loadFromStorage();
-		assignTaskToCategory();
+		setDefaultCategories();
 
 		logger.log(Level.INFO, "End of initialising logic class");
 	}
@@ -94,23 +94,6 @@ public class LogicController {
 	 * 
 	 */
 	public void loadFromStorage() {
-		// try {
-		// categoryManager.load(storage.loadCategory());
-		// } catch (IOException e) {
-		// System.out.println("ERROR: LOAD CATEGORY");
-		// uiController.displayMessage("ERROR: LOAD CATEGORY");
-		// }
-
-//		try {
-//			ArrayList<Task> tasks = storage.loadTasks();
-//			loadTasks(tasks);
-//			
-//			
-//		} catch (IOException e) {
-//			logger.log(Level.SEVERE, "ERROR: Fail to load task from storage");
-//			uiController.displayMessage("ERROR: LOAD TASK");
-//		}
-		
 		try{
 			loadCategoryData();
 			loadTaskData();
@@ -127,19 +110,7 @@ public class LogicController {
 		taskManager.load(tasks);
 	}
 
-	public void assignTaskToCategory() {
-		ArrayList<Task> tasks = taskManager.getAllTasks();
-
-		// for(Task task : tasks){
-		// if(task.hasUncheckCategory()){
-		// String uncheckCategory = task.getUncheckCategory();
-		// if(categoryManager.contains(uncheckCategory)){
-		// Category category = categoryManager.find(uncheckCategory);
-		// task.setCategory(category);
-		// }
-		// }
-		// }
-
+	public void setDefaultCategories(){
 		categoryManager.setDefaultCategories();
 	}
 

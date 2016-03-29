@@ -58,7 +58,6 @@ public class AddParser implements ParserCommons {
 		case EVENT:
 			try {
 				parseEvent();
-				checkIfEndIsBeforeStart();
 			} catch (IncorrectInputException e) {
 				setToInvalidCommand(e.getMessage());
 				break;
@@ -177,19 +176,15 @@ public class AddParser implements ParserCommons {
 		// what if indexTo < indexFrom
 		taskName = userInput.substring(0, indexFrom);
 		try {
-			start = dateTimeParser.parse((userInput.substring(indexFrom, indexTo).replace(MARKER_START_EVENT, "").trim()));
-			end = dateTimeParser.parse((userInput.substring(indexTo).replace(MARKER_END_EVENT, "").trim()));
+			start = dateTimeParser.parse(userInput.substring(indexFrom, indexTo).replace(MARKER_START_EVENT, "").trim());
+			end = dateTimeParser.parse(userInput.substring(indexTo).replace(MARKER_END_EVENT, "").trim());
 		} catch(IncorrectInputException e) {
 			throw e;
 		}
 		if(end.compareTo(start) == -1) {
 			end.setDate(start);
 		}
-	}
-
-	private void checkIfEndIsBeforeStart() {
 		if(end.compareTo(start) == -1) {
-			System.out.println("it reached here!");
 			throw new IncorrectInputException(ERROR_MESSAGE_END_BEFORE_START);
 		}
 	}
@@ -251,26 +246,36 @@ public class AddParser implements ParserCommons {
 		boolean ans = false;
 		if(!isUninitialized(userInput.lastIndexOf(MARKER_START_EVENT)) && 
 				!isUninitialized(userInput.lastIndexOf(MARKER_END_EVENT))) {
-			try {
-				parseEvent();
+			if(hasAValidDateTimeAfterEventMarkers()) {
 				ans = true;
-			} catch (IncorrectInputException e) {
-				ans = false;
 			}
 		}
 		return ans;
 	}
 
+	private boolean hasAValidDateTimeAfterEventMarkers() {
+		DateTimeParser dateTimeParser = new DateTimeParser();
+		int indexFrom = userInput.lastIndexOf(MARKER_START_EVENT);
+		int indexTo = userInput.lastIndexOf(MARKER_END_EVENT); 
+		String startTimeString = userInput.substring(indexFrom, indexTo).replace(MARKER_START_EVENT, "").trim();
+		String endTimeString = userInput.substring(indexTo).replace(MARKER_END_EVENT, "").trim();
+		return dateTimeParser.isValidDateTime(startTimeString) && dateTimeParser.isValidDateTime(endTimeString);
+	}
+
 	private boolean isWork() {
 		boolean ans = false;
 		if(!isUninitialized(userInput.lastIndexOf(MARKER_WORK))) {
-			try {
-				parseWork();
+			if(hasAValidDateTimeAfterWorkMarker()) {
 				ans = true;
-			} catch (IncorrectInputException e) {
-				ans = false;
 			}
 		}
 		return ans;
+	}
+
+	private boolean hasAValidDateTimeAfterWorkMarker() {
+		DateTimeParser dateTimeParser = new DateTimeParser();
+		int indexBy = userInput.lastIndexOf(MARKER_WORK);
+		String timeString = userInput.substring(indexBy).replace(MARKER_WORK, "").trim();
+		return dateTimeParser.isValidDateTime(timeString);
 	}
 }

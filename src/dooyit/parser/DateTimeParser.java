@@ -157,28 +157,9 @@ public class DateTimeParser extends DateTimeParserCommon {
 		} else {
 			dateTime = new DateTime(date, time);
 		}
-		
-		//if(inputDateIsOver(date)) {
-		//	throw new IncorrectInputException(ERROR_MESSAGE_GOING_BACK_IN_TIME);
-		//}
+
 		logger.log(Level.INFO, "Date is " + dateTime.toString());
 		return dateTime;
-	}
-	
-	private boolean inputDateIsOver(int[] date) {
-		return yearIsOver(date) || monthIsOver(date) || dayIsOver(date);
-	}
-
-	private boolean monthIsOver(int[] date) {
-		return date[DATE_INDEX_OF_MM] < currMM && date[DATE_INDEX_OF_YY] == currYY;
-	}
-
-	private boolean yearIsOver(int[] date) {
-		return date[DATE_INDEX_OF_YY] < currYY;
-	}
-
-	private boolean dayIsOver(int[] date) {
-		return date[DATE_INDEX_OF_DD] < currDD && date[DATE_INDEX_OF_MM] == currMM && date[DATE_INDEX_OF_YY] == currYY;
 	}
 
 	private boolean inputTimeIsOverToday(int inputTime, int[] date) {
@@ -187,5 +168,10 @@ public class DateTimeParser extends DateTimeParserCommon {
 	
 	private boolean inputDateIsToday(int[] date) {
 		return date[DATE_INDEX_OF_DD] == currDD && date[DATE_INDEX_OF_MM] == currMM && date[DATE_INDEX_OF_YY] == currYY;
+	}
+
+	public boolean isValidDateTime(String timeString) {
+		String[] splitInput = timeString.toLowerCase().split("\\s+");
+		return getDateTimeType(splitInput[0], splitInput, 0) != DATE_TIME_FORMAT.TYPE_INVALID;
 	}
 }

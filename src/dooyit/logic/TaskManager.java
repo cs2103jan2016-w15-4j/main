@@ -188,24 +188,25 @@ public class TaskManager {
 		ArrayList<Task> taskWithCat = new ArrayList<Task>();
 		
 		for(Task task : tasks){
-			if(task.getCategory().equals(category)){
+			if(task.hasCategory() && task.getCategory().equals(category)){
 				taskWithCat.add(task);
 			}
 		}
 		return taskWithCat;
 	}
 	
-	public ArrayList<Task> removeTaskWithCategory(Category category){
+	public ArrayList<Task> removeTasksWithCategory(Category category){
 		ArrayList<Task> taskWithCat = new ArrayList<Task>();
 		
-		for(Task task : tasks){
-			if(task.getCategory().equals(category)){
-				boolean isRemoved = taskWithCat.remove(task);
-				if(isRemoved){
-					taskWithCat.add(task);
+		for(int i=0; i<tasks.size(); i++){
+			if(tasks.get(i).hasCategory() && tasks.get(i).getCategory().equals(category)){
+				Task removedTask = tasks.remove(i);
+				if(removedTask != null){
+					taskWithCat.add(removedTask);
 				}
 			}
 		}
+		
 		return taskWithCat;
 	}
 	

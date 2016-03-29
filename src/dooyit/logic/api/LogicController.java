@@ -418,7 +418,7 @@ public class LogicController {
 	}
 
 	public ArrayList<Task> removeTasksWithCategory(Category category) {
-		ArrayList<Task> tasksWithCategoty = taskManager.removeTaskWithCategory(category);
+		ArrayList<Task> tasksWithCategoty = taskManager.removeTasksWithCategory(category);
 		return tasksWithCategoty;
 	}
 

@@ -19,7 +19,7 @@ public class TaskGroupTest {
 	@Before
 	public void setUp(){
 		int[] date = {22, 2, 2016};
-		dt = new DateTime(date, "Tuesday", 1800);
+		dt = new DateTime(date, 1800);
 		task1 = new DeadlineTask("Dinner at Tiffany's", dt);
 		task2 = new DeadlineTask("Shopping at Ion", dt);
 		task3 = new DeadlineTask("Movie date", dt);

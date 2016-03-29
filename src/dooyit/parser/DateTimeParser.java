@@ -158,9 +158,9 @@ public class DateTimeParser extends DateTimeParserCommon {
 		int day = combined[COMBINED_INDEX_DAY_OF_WEEK];
 		if (inputTimeIsOverToday(time, date) && !hasDate) {
 			date = getDateAfterANumberOfDays(NEXT_DAY, currDD, currMM, currYY);
-			dateTime = new DateTime(date, daysInWeekFull[getNextDayInt(currDayInWeekInt)], time);
+			dateTime = new DateTime(date, time);
 		} else {
-			dateTime = new DateTime(date, daysInWeekFull[day], time);
+			dateTime = new DateTime(date, time);
 		}
 		
 		if(inputDateIsOver(date)) {

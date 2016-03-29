@@ -12,9 +12,9 @@ public class DateTimeTest {
 	public void setUp(){
 		dt1 = new DateTime();
 		int[] date = {28, 3, 2016};
-		dt2 = new DateTime(date, "Monday");
-		dt3 = new DateTime(date, "Monday", 1200);
-		dt4 = new DateTime(date, "Monday", 0);
+		dt2 = new DateTime(date);
+		dt3 = new DateTime(date, 1200);
+		dt4 = new DateTime(date, 0);
 	}
 	
 	@Test

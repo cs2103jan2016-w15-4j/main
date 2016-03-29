@@ -15,7 +15,7 @@ public class DeadlineTaskTest {
 	@Before
 	public void setUp(){
 		int[] date = {22, 2, 2016};
-		dt1 = new DateTime(date, "Tuesday", 800);
+		dt1 = new DateTime(date, 800);
 		task1 = new DeadlineTask("Go shopping", dt1);
 		dt2 = new DateTime();
 		task2 = new DeadlineTask("Find a job", dt2);

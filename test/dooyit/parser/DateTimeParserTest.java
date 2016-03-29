@@ -62,7 +62,7 @@ public class DateTimeParserTest {
 		referenceDayString = "Wednesday";
 		referenceDayInt= 3;
 		referenceTime = FORMAT_24H_6AM;
-		referenceDateTimeObject = new DateTime(referenceDate, referenceDayString, referenceTime);
+		referenceDateTimeObject = new DateTime(referenceDate, referenceTime);
 		referenceDateTimeParser = new DateTimeParser(referenceDateTimeObject);
 		
 		todayDateTimeObject = new DateTime();

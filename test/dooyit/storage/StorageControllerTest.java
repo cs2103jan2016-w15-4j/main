@@ -100,11 +100,11 @@ public class StorageControllerTest extends StorageConstants{
 		int[] date = {10, 12, 2016};
 		
 		//{"taskName":"abc","dateTimeDeadline":"10 12 2016 sat -1","isCompleted":false}
-		DateTime deadline_no_time = new DateTime(date, "sat");
+		DateTime deadline_no_time = new DateTime(date);
 		tasks.add((Task)new DeadlineTask("abc", deadline_no_time));
 		
 		//{"taskName":"homework","dateTimeDeadline":"10 12 2016 sat 0800","isCompleted":false}
-		DateTime deadline = new DateTime(date, "sat", 800);
+		DateTime deadline = new DateTime(date, 800);
 		tasks.add((Task)new DeadlineTask("homework", deadline));
 		
 		//{"taskName":"float","isCompleted":true}
@@ -113,8 +113,8 @@ public class StorageControllerTest extends StorageConstants{
 		tasks.add(floating);
 		
 		//{"taskName":"brunch","dateTimeStart":"10 12 2016 sat 1000","dateTimeEnd":"10 12 2016 sat 1200","isCompleted":false}
-		DateTime event_start = new DateTime(date, "sat", 1000);
-		DateTime event_end = new DateTime(date, "sat", 1200);
+		DateTime event_start = new DateTime(date, 1000);
+		DateTime event_end = new DateTime(date, 1200);
 		tasks.add((Task)new EventTask("brunch", event_start, event_end));
 		Assert.assertTrue(storage.saveTasks(tasks));
 	}
@@ -130,11 +130,11 @@ public class StorageControllerTest extends StorageConstants{
 		int[] date = {10, 12, 2016};
 			
 		//{"taskName":"abc","dateTimeDeadline":"10 12 2016 sat -1","isCompleted":false}
-		DateTime deadline_no_time = new DateTime(date, "sat");
+		DateTime deadline_no_time = new DateTime(date);
 		tasks.add((Task)new DeadlineTask("abc", deadline_no_time));
 		
 		//{"taskName":"homework","dateTimeDeadline":"10 12 2016 sat 0800","isCompleted":false}
-		DateTime deadline = new DateTime(date, "sat", 800);
+		DateTime deadline = new DateTime(date, 800);
 		tasks.add((Task)new DeadlineTask("homework", deadline));
 		
 		//{"taskName":"float","isCompleted":true}
@@ -143,8 +143,8 @@ public class StorageControllerTest extends StorageConstants{
 		tasks.add(floating);
 		
 		//{"taskName":"brunch","dateTimeStart":"10 12 2016 sat 1000","dateTimeEnd":"10 12 2016 sat 1200","isCompleted":false}
-		DateTime event_start = new DateTime(date, "sat", 1000);
-		DateTime event_end = new DateTime(date, "sat", 1200);
+		DateTime event_start = new DateTime(date, 1000);
+		DateTime event_end = new DateTime(date, 1200);
 		tasks.add((Task)new EventTask("brunch", event_start, event_end));
 		ArrayList<Task> existingTasks = storage.loadTasks();
 		Assert.assertEquals(existingTasks.toString(), tasks.toString());

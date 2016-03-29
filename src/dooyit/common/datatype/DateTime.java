@@ -20,24 +20,17 @@ public class DateTime implements ParserCommons {
 	private static final int INDEX_MM = 1;
 	private static final int INDEX_YY = 2;
 	private static final int INDEX_TIME_INT = 3;
-	private static final int INDEX_DAY_INT = 5;
 	private static final int COMPARISON_FIRST_IS_BEFORE_SECOND = -1;
 	private static final int COMPARISON_FIRST_EQUALS_SECOND = 0;
 	private static final int COMPARISON_FIRST_IS_AFTER_SECOND = 1;
 	private static final int NUM_MONTHS_IN_A_YEAR = 12;
-	private static final int NUM_DAYS_IN_A_WEEK = 7;
 	
 	private static String[] months = new String[] { DUMMY_STR, "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
 	private static String[] daysInWeek = new String[] { DUMMY_STR, "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
 	private static int[] daysInMonth = new int[] { UNINITIALIZED_INT, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 
-	private String date; // 8 March 2016
-	private String timeStr24H; // 1300
-	private String timeStr12H; // 1 pm, 2 am, 3.30 am
-	private String dayStr; // Mon
-	private int dayInt; // 1
 	private int dd; // 8
-	private int mm;
+	private int mm;	// 2
 	private int yy; // 2016
 	private int timeInt;
 
@@ -50,11 +43,6 @@ public class DateTime implements ParserCommons {
 		this.mm = dt.getMM();
 		this.yy = dt.getYY();
 		this.timeInt = dt.getTimeInt();
-		this.timeStr12H = dt.getTime12hStr();
-		this.timeStr24H = dt.getTime24hStr();
-		this.dayStr = dt.getDayStr();
-		this.dayInt = setDayInt(this.dayStr);
-		this.date = this.dd + FORMAT_SPACE + months[this.mm] + FORMAT_SPACE + this.yy;
 	}
 	
 	public DateTime(int[] date) {
@@ -62,11 +50,6 @@ public class DateTime implements ParserCommons {
 		this.mm = date[INDEX_MM];
 		this.yy = date[INDEX_YY];
 		this.timeInt = UNINITIALIZED_INT;
-		this.timeStr12H = UNINITIALIZED_STRING;
-		this.timeStr24H = UNINITIALIZED_STRING;
-		this.dayInt = getDayOfWeekFromADate(date);
-		this.dayStr = daysInWeek[this.dayInt];
-		this.date = this.dd + FORMAT_SPACE + months[this.mm] + FORMAT_SPACE + this.yy;
 	}
 	
 	public DateTime(int[] date, int time) {
@@ -74,23 +57,6 @@ public class DateTime implements ParserCommons {
 		this.mm = date[INDEX_MM];
 		this.yy = date[INDEX_YY];
 		this.timeInt = time;
-		this.timeStr24H = convertTimeIntTo24hString(time);
-		this.timeStr12H = convertTimeIntTo12hString(time);
-		this.dayInt = getDayOfWeekFromADate(date);
-		this.dayStr = daysInWeek[this.dayInt];
-		this.date = this.dd + FORMAT_SPACE + months[this.mm] + FORMAT_SPACE + this.yy;
-	}
-
-	public DateTime(int[] date, String day, int time) {
-		this.dd = date[INDEX_DD];
-		this.mm = date[INDEX_MM];
-		this.yy = date[INDEX_YY];
-		this.timeInt = time;
-		this.timeStr24H = convertTimeIntTo24hString(time);
-		this.timeStr12H = convertTimeIntTo12hString(time);
-		this.dayStr = day;
-		this.dayInt = setDayInt(dayStr);
-		this.date = this.dd + FORMAT_SPACE + months[this.mm] + FORMAT_SPACE + this.yy;
 	}
 
 	public DateTime() {
@@ -104,48 +70,6 @@ public class DateTime implements ParserCommons {
 		this.mm = Integer.parseInt(splitDate[INDEX_MM]);
 		this.yy = Integer.parseInt(splitDate[INDEX_YY]);
 		this.timeInt = Integer.parseInt(splitDate[INDEX_TIME_INT].replace(TIME_SEPARATOR_COLON, ""));
-		this.dayInt = Integer.parseInt(splitDate[INDEX_DAY_INT]);
-		this.dayStr = daysInWeek[this.dayInt];
-		this.timeStr24H = convertTimeIntTo24hString(this.timeInt);
-		this.timeStr12H = convertTimeIntTo12hString(this.timeInt);
-		this.date = this.dd + FORMAT_SPACE + months[this.mm] + FORMAT_SPACE + this.yy;
-	}
-
-	public DateTime(int[] date, String day) {
-		this.dd = date[INDEX_DD];
-		this.mm = date[INDEX_MM];
-		this.yy = date[INDEX_YY];
-		this.timeStr24H = String.valueOf(UNINITIALIZED_INT);
-		this.timeStr12H = String.valueOf(UNINITIALIZED_INT); 
-		this.timeInt = UNINITIALIZED_INT;
-		this.dayStr = day;
-		this.dayInt = setDayInt(dayStr);
-		this.date = this.dd + FORMAT_SPACE + months[this.mm] + FORMAT_SPACE + this.yy;
-	}
-
-	public DateTime(int dd, int mm, int yy, String day, String time) {
-		this.dd = dd;
-		this.mm = mm;
-		this.yy = yy;
-		assert(isNumber(time));
-		
-		this.timeInt = Integer.parseInt(time);
-		this.timeStr24H = time;
-		this.timeStr12H = convertTimeIntTo12hString(Integer.parseInt(time));
-		this.dayStr = day;
-		this.dayInt = setDayInt(dayStr);
-		this.date = this.dd + FORMAT_SPACE + months[this.mm] + FORMAT_SPACE + this.yy;
-	}
-
-	public DateTime(String[] split, String day, int time2) {
-		this.dd = Integer.parseInt(split[INDEX_DD]);
-		this.mm = Integer.parseInt(split[INDEX_MM]);
-		this.yy = Integer.parseInt(split[INDEX_YY]);
-		this.timeStr24H = convertTimeIntTo24hString(time2);
-		this.timeStr12H = convertTimeIntTo12hString(time2);
-		this.dayStr = day;
-		this.dayInt = setDayInt(dayStr);
-		this.date = this.dd + FORMAT_SPACE + months[this.mm] + FORMAT_SPACE + this.yy;
 	}
 	
 	//********************************************
@@ -153,23 +77,47 @@ public class DateTime implements ParserCommons {
 	//********************************************
 	
 	public String getDayStr() {
-		return this.dayStr;
+		return daysInWeek[this.getDayInt()];
 	}
 
 	public int getDayInt() {
-		return this.dayInt;
+		return getDayOfWeekFromADate();
 	}
 
 	public String getDate() {
-		return this.date;
+		return this.dd + FORMAT_SPACE + months[this.mm] + FORMAT_SPACE + this.yy;
 	}
 
 	public String getTime24hStr() {
-		return this.timeStr24H;
+		String timeString24H;
+		if(isUninitialized(this.timeInt)) {
+			timeString24H = UNINITIALIZED_STRING;
+		} else {
+			int hour = getHourNumeral(this.timeInt);
+			int minute = getMinutesNumeral(this.timeInt);
+			timeString24H = String.format("%02d:%02d", hour, minute);
+		}
+		return timeString24H;
 	}
 
 	public String getTime12hStr() {
-		return this.timeStr12H;
+		int hour = getHourNumeral(this.timeInt);
+		int minute = getMinutesNumeral(this.timeInt);
+		String timeString12H;
+		if(isUninitialized(this.timeInt)) {
+			timeString12H = UNINITIALIZED_STRING;
+		} else if(hour == 0) {
+			hour += 12;
+			timeString12H = String.format("%d.%02d %s", hour, minute, AM);
+		} else if(hour < 12) {
+			timeString12H = String.format("%d.%02d %s", hour, minute, AM);
+		} else if(hour == 12) {
+			timeString12H = String.format("%d.%02d %s", hour, minute, PM);
+		} else {
+			hour -= 12;
+			timeString12H = String.format("%d.%02d %s", hour, minute, PM);
+		}
+		return timeString12H;
 	}
 
 	public int getTimeInt() {
@@ -332,7 +280,7 @@ public class DateTime implements ParserCommons {
 	//**********************************************
 
 	public String toString() {
-		String ans = this.date + FORMAT_SPACE + this.dayStr + FORMAT_SPACE + this.timeStr24H + FORMAT_SPACE + this.timeStr12H;
+		String ans = this.getDate() + FORMAT_SPACE + this.getDayStr() + FORMAT_SPACE + this.getTime24hStr() + FORMAT_SPACE + this.getTime12hStr();
 		return ans;
 	}
 
@@ -354,9 +302,6 @@ public class DateTime implements ParserCommons {
 			this.mm = 1;
 			this.yy += 1;
 		}
-		this.dayInt = increaseDayIntByOne();
-		this.dayStr = daysInWeek[this.dayInt];
-		this.date = this.dd + FORMAT_SPACE + months[this.mm] + FORMAT_SPACE + this.yy;
 	}
 
 	public String convertToSavableString() {
@@ -364,27 +309,12 @@ public class DateTime implements ParserCommons {
 		dateTimeString += String.valueOf(dd) + FORMAT_SPACE;
 		dateTimeString += String.valueOf(mm) + FORMAT_SPACE;
 		dateTimeString += String.valueOf(yy) + FORMAT_SPACE;
-		dateTimeString += dayStr + FORMAT_SPACE;
-		dateTimeString += timeStr24H;
-
 		return dateTimeString;
 	}
 	
 	//**********************************************
 	//************** Private Methods ***************
 	//**********************************************
-	
-	private int setDayInt(String str) {
-		int ans = UNINITIALIZED_INT;
-		for (int i = 0; i < daysInWeek.length; i++) {
-			if (str.equals(daysInWeek[i])) {
-				ans = i;
-				break;
-			}
-		}
-		return ans;
-	}
-
 	private int getHourNumeral(int time) {
 		return time / 100;
 	}
@@ -394,55 +324,16 @@ public class DateTime implements ParserCommons {
 	}
 
 	// This method calculates that day of the week that the date falls on
-	private int getDayOfWeekFromADate(int[] date) {
+	private int getDayOfWeekFromADate() {
 		int[] dayTable = new int[] { 7, 1, 2, 3, 4, 5, 6 };
 		int[] monthTable = new int[] {UNINITIALIZED_INT, 6, 2, 2, 5, 0, 3, 5, 1, 4, 6, 2, 4};
-		int dd = date[INDEX_DD];
-		int mm = date[INDEX_MM];
-		int yy = date[INDEX_YY];
 		
-		int lastTwoDigitsOfYear = yy % 1000;
+		int lastTwoDigitsOfYear = this.yy % 1000;
 		int divideLastTwoDigitsOfYearByFour = lastTwoDigitsOfYear / 4;
-		int sum = lastTwoDigitsOfYear + divideLastTwoDigitsOfYearByFour + dd + monthTable[mm];
-		if(isLeapYear(yy) && mm <= 2 && dd <= 31) {
+		int sum = lastTwoDigitsOfYear + divideLastTwoDigitsOfYearByFour + this.dd + monthTable[this.mm];
+		if(isLeapYear(this.yy) && this.mm <= 2 && this.dd <= 31) {
 			sum--;
 		}
 		return dayTable[sum % NUMBER_OF_DAYS_IN_WEEK];
-	}
-
-	// Converts the 24h time int to 24h String format
-	private String convertTimeIntTo24hString(int time) {
-		int hour = getHourNumeral(timeInt);
-		int minute = getMinutesNumeral(timeInt);
-		String timeString24H = String.format("%02d:%02d", hour, minute);
-		return timeString24H;
-	}
-	
-	// Converts the 24h time int to 12h String format
-	private String convertTimeIntTo12hString(int time) {
-		int hour = getHourNumeral(timeInt);
-		int minute = getMinutesNumeral(timeInt);
-		String timeString12H;
-		if(hour == 0) {
-			hour += 12;
-			timeString12H = String.format("%d.%02d %s", hour, minute, AM);
-		} else if(hour < 12) {
-			timeString12H = String.format("%d.%02d %s", hour, minute, AM);
-		} else if(hour == 12) {
-			timeString12H = String.format("%d.%02d %s", hour, minute, PM);
-		} else {
-			hour -= 12;
-			timeString12H = String.format("%d.%02d %s", hour, minute, PM);
-		}
-		return timeString12H;
-	}
-
-	private int increaseDayIntByOne() {
-		if (this.dayInt == NUM_DAYS_IN_A_WEEK) {
-			return 1;
-		} else {
-			this.dayInt += 1;
-			return this.dayInt;
-		}
 	}
 }

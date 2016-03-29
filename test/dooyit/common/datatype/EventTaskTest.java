@@ -19,13 +19,13 @@ public class EventTaskTest {
 	@Before
 	public void setUp(){
 		int[] date1 = {22, 2, 2016};
-		today = new DateTime(date1, "Tuesday", 0);
-		dt1_start = new DateTime(date1, "Tuesday", 800);
-		dt1_end = new DateTime(date1, "Tuesday", 1800);
+		today = new DateTime(date1, 0);
+		dt1_start = new DateTime(date1, 800);
+		dt1_end = new DateTime(date1, 1800);
 		task1 = new EventTask("Beach day", dt1_start, dt1_end);
 		int[] date2 = {21, 2, 2016};
-		dt2_start = new DateTime(date2, "Monday", 800);
-		dt2_end = new DateTime(date2, "Monday", 1800);
+		dt2_start = new DateTime(date2, 800);
+		dt2_end = new DateTime(date2, 1800);
 		task2 = new EventTask("Hiking", dt2_start, dt2_end);
 		task3 = new EventTask("Hiking", dt2_start, dt2_end);
 	}

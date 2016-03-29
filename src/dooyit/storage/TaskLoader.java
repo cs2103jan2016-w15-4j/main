@@ -204,7 +204,7 @@ public class TaskLoader {
 		String dayStr = parts[DAY_OF_WEEK];
 		
 		
-		DateTime dateTime = new DateTime(date, dayStr, timeInt);
+		DateTime dateTime = new DateTime(date, timeInt);
 
 		return dateTime;
 	}

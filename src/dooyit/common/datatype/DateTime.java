@@ -7,7 +7,7 @@ import java.util.TimeZone;
 
 import dooyit.parser.ParserCommons;
 
-public class DateTime implements ParserCommons {
+public class DateTime {
 	private static final String FORMAT_SPACE = " ";
 	private static final String TIME_SEPARATOR_COLON = ":";
 	private static final String PM = "pm";
@@ -24,6 +24,9 @@ public class DateTime implements ParserCommons {
 	private static final int COMPARISON_FIRST_EQUALS_SECOND = 0;
 	private static final int COMPARISON_FIRST_IS_AFTER_SECOND = 1;
 	private static final int NUM_MONTHS_IN_A_YEAR = 12;
+	private static final int NUMBER_OF_DAYS_IN_WEEK = 7;
+	private static final int UNINITIALIZED_INT = -1;
+	private static final String UNINITIALIZED_STRING = "-1";
 	
 	private static String[] months = new String[] { DUMMY_STR, "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
 	private static String[] daysInWeek = new String[] { DUMMY_STR, "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
@@ -90,7 +93,7 @@ public class DateTime implements ParserCommons {
 
 	public String getTime24hStr() {
 		String timeString24H;
-		if(isUninitialized(this.timeInt)) {
+		if(this.timeInt == UNINITIALIZED_INT) {
 			timeString24H = UNINITIALIZED_STRING;
 		} else {
 			int hour = getHourNumeral(this.timeInt);
@@ -104,7 +107,7 @@ public class DateTime implements ParserCommons {
 		int hour = getHourNumeral(this.timeInt);
 		int minute = getMinutesNumeral(this.timeInt);
 		String timeString12H;
-		if(isUninitialized(this.timeInt)) {
+		if(this.timeInt == UNINITIALIZED_INT) {
 			timeString12H = UNINITIALIZED_STRING;
 		} else if(hour == 0) {
 			hour += 12;
@@ -331,9 +334,25 @@ public class DateTime implements ParserCommons {
 		int lastTwoDigitsOfYear = this.yy % 1000;
 		int divideLastTwoDigitsOfYearByFour = lastTwoDigitsOfYear / 4;
 		int sum = lastTwoDigitsOfYear + divideLastTwoDigitsOfYearByFour + this.dd + monthTable[this.mm];
-		if(isLeapYear(this.yy) && this.mm <= 2 && this.dd <= 31) {
+		if(isLeapYear() && this.mm <= 2 && this.dd <= 31) {
 			sum--;
 		}
 		return dayTable[sum % NUMBER_OF_DAYS_IN_WEEK];
+	}
+	
+	private boolean isLeapYear() {
+		int[] listOfLeapYears = new int[] { 2016, 2020, 2024, 2028, 2032, 2036, 2040, 2044, 2048, 2052, 2056, 2060, 2064, 2068, 2072, 2076, 2080, 2084, 2088, 2092, 2096 };
+
+		boolean ans = false;
+		for (int i = 0; i < listOfLeapYears.length; i++) {
+			if (this.yy < listOfLeapYears[i]) {
+				break;
+			}
+			if (this.yy == listOfLeapYears[i]) {
+				ans = true;
+				break;
+			}
+		}
+		return ans;
 	}
 }

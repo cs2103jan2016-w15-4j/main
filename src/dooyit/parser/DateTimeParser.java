@@ -17,14 +17,12 @@ public class DateTimeParser extends DateTimeParserCommon {
 	private TimeParser timeParser;
 	private FixedDateParser fixedDateParser;
 	private static Logger logger = Logger.getLogger("DateTimeParser");
-	private static String[] daysInWeekFull = new String[] { EMPTY_STRING, "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
 
 	private int currMM;
 	private int currYY;
 	private int currDD;
 	private int currDayInWeekInt;
 	private int currTime;
-	private String currDayInWeekString;
 	private boolean hasDate, hasTime;
 
 	enum DATE_TIME_FORMAT {
@@ -34,7 +32,6 @@ public class DateTimeParser extends DateTimeParserCommon {
 	public DateTimeParser() {
 		dateTime = new DateTime();
 		currTime = dateTime.getTimeInt();
-		currDayInWeekString = dateTime.getDayStr();
 		currDayInWeekInt = dateTime.getDayInt();
 		currDD = dateTime.getDD();
 		currMM = dateTime.getMM();
@@ -49,7 +46,6 @@ public class DateTimeParser extends DateTimeParserCommon {
 	public DateTimeParser(DateTime dateTime) {
 		this.dateTime = dateTime;
 		currTime = dateTime.getTimeInt();
-		currDayInWeekString = dateTime.getDayStr();
 		currDayInWeekInt = dateTime.getDayInt();
 		currDD = dateTime.getDD();
 		currMM = dateTime.getMM();
@@ -155,7 +151,6 @@ public class DateTimeParser extends DateTimeParserCommon {
 		DateTime dateTime;
 		int[] date = new int[] { combined[COMBINED_INDEX_DD], combined[COMBINED_INDEX_MM], combined[COMBINED_INDEX_YY] };
 		int time = combined[COMBINED_INDEX_TIME];
-		int day = combined[COMBINED_INDEX_DAY_OF_WEEK];
 		if (inputTimeIsOverToday(time, date) && !hasDate) {
 			date = getDateAfterANumberOfDays(NEXT_DAY, currDD, currMM, currYY);
 			dateTime = new DateTime(date, time);
@@ -184,15 +179,6 @@ public class DateTimeParser extends DateTimeParserCommon {
 
 	private boolean dayIsOver(int[] date) {
 		return date[DATE_INDEX_OF_DD] < currDD && date[DATE_INDEX_OF_MM] == currMM && date[DATE_INDEX_OF_YY] == currYY;
-	}
-
-	private void printArray(int[] arr) {
-		String temp = EMPTY_STRING;
-		for (int i = 0; i < arr.length; i++) {
-			temp += arr[i];
-			temp += " ";
-		}
-		System.out.println(temp);
 	}
 
 	private boolean inputTimeIsOverToday(int inputTime, int[] date) {

@@ -29,6 +29,7 @@ public class EventTaskData extends TaskData {
 		return this.dateTimeEnd;
 	}
 	
+	@Override
 	public boolean equals(Object o) {
 		if(o instanceof EventTaskData) {
 			EventTaskData data = (EventTaskData) o;

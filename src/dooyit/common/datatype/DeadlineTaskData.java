@@ -21,6 +21,7 @@ public class DeadlineTaskData extends TaskData {
 		return this.dateTimeDeadline;
 	}
 	
+	@Override
 	public boolean equals(Object o) {
 		if(o instanceof DeadlineTaskData) {
 			DeadlineTaskData data = (DeadlineTaskData) o;

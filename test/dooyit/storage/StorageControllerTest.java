@@ -17,6 +17,7 @@ import dooyit.common.datatype.DeadlineTask;
 import dooyit.common.datatype.EventTask;
 import dooyit.common.datatype.FloatingTask;
 import dooyit.common.datatype.Task;
+import dooyit.common.datatype.TaskData;
 import dooyit.common.exception.InvalidFilePathException;
 
 public class StorageControllerTest extends StorageConstants{

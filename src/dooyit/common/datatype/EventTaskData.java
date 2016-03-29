@@ -1,7 +1,4 @@
-package dooyit.storage;
-
-import dooyit.common.datatype.Category;
-import dooyit.common.datatype.DateTime;
+package dooyit.common.datatype;
 
 public class EventTaskData extends TaskData {
 	private DateTime start;

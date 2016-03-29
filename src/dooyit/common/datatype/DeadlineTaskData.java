@@ -1,8 +1,4 @@
-package dooyit.storage;
-
-import dooyit.common.datatype.Category;
-import dooyit.common.datatype.DateTime;
-import dooyit.common.datatype.DeadlineTask;
+package dooyit.common.datatype;
 
 public class DeadlineTaskData extends TaskData {
 	private DateTime deadline;

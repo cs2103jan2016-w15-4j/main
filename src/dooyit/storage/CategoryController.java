@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import dooyit.common.datatype.Category;
+import dooyit.common.datatype.CategoryData;
 
 public class CategoryController extends StorageConstants {
 	private CategorySaver categorySaver;

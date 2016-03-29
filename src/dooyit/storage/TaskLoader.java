@@ -14,6 +14,10 @@ import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 
 import dooyit.common.datatype.DateTime;
+import dooyit.common.datatype.DeadlineTaskData;
+import dooyit.common.datatype.EventTaskData;
+import dooyit.common.datatype.FloatTaskData;
+import dooyit.common.datatype.TaskData;
 import dooyit.common.exception.MissingFileException;
 
 /**

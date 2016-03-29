@@ -1,10 +1,4 @@
-package dooyit.storage;
-
-import dooyit.common.datatype.Category;
-import dooyit.common.datatype.DateTime;
-import dooyit.common.datatype.DeadlineTask;
-import dooyit.common.datatype.EventTask;
-import dooyit.common.datatype.Task;
+package dooyit.common.datatype;
 
 public class TaskData {
 	protected String taskName;

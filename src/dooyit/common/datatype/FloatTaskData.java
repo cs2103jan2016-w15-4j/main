@@ -1,6 +1,4 @@
-package dooyit.storage;
-
-import dooyit.common.datatype.Category;
+package dooyit.common.datatype;
 
 public class FloatTaskData extends TaskData{
 	

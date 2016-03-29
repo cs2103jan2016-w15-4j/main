@@ -1,11 +1,6 @@
 package dooyit.logic.api;
 
-import dooyit.storage.CategoryData;
-import dooyit.storage.DeadlineTaskData;
-import dooyit.storage.EventTaskData;
-import dooyit.storage.FloatTaskData;
 import dooyit.storage.StorageController;
-import dooyit.storage.TaskData;
 import dooyit.ui.UIController;
 import dooyit.ui.UIMainViewType;
 import dooyit.parser.Parser;
@@ -20,8 +15,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import dooyit.common.datatype.Category;
+import dooyit.common.datatype.CategoryData;
 import dooyit.common.datatype.DateTime;
+import dooyit.common.datatype.DeadlineTaskData;
+import dooyit.common.datatype.EventTaskData;
+import dooyit.common.datatype.FloatTaskData;
 import dooyit.common.datatype.Task;
+import dooyit.common.datatype.TaskData;
 
 public class LogicController {
 

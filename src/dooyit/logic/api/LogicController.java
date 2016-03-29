@@ -458,7 +458,7 @@ public class LogicController {
 	}
 
 	public boolean isFloatingTask(Task task) {
-		return taskManager.isTodayTask(task);
+		return taskManager.isFloatingTask(task);
 	}
 
 	public boolean isTodayTask(Task task) {

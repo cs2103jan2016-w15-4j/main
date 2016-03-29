@@ -53,6 +53,10 @@ public abstract class Task {
 		return category;
 	}
 	
+	public void removeCategory(){
+		category = null;
+	}
+	
 	public boolean hasCategory(){
 		return category != null;
 	}

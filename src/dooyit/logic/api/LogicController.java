@@ -101,10 +101,20 @@ public class LogicController {
 		// uiController.displayMessage("ERROR: LOAD CATEGORY");
 		// }
 
-		try {
-			ArrayList<Task> tasks = storage.loadTasks();
-			loadTasks(tasks);
-		} catch (IOException e) {
+//		try {
+//			ArrayList<Task> tasks = storage.loadTasks();
+//			loadTasks(tasks);
+//			
+//			
+//		} catch (IOException e) {
+//			logger.log(Level.SEVERE, "ERROR: Fail to load task from storage");
+//			uiController.displayMessage("ERROR: LOAD TASK");
+//		}
+		
+		try{
+			loadCategoryData();
+			loadTaskData();
+		}catch(IOException e){
 			logger.log(Level.SEVERE, "ERROR: Fail to load task from storage");
 			uiController.displayMessage("ERROR: LOAD TASK");
 		}
@@ -215,17 +225,17 @@ public class LogicController {
 		isSaveOn = false;
 	}
 
-	public void loadCategoryData() {
-		ArrayList<CategoryData> categoryDatas = new ArrayList<CategoryData>(); //TODO load categoryData from storage
+	public void loadCategoryData() throws IOException{
+		ArrayList<CategoryData> categoryDatas = storage.loadCategory(); 
 
 		for (CategoryData categoryData : categoryDatas) {
 			categoryManager.addCategory(categoryData.getName(), categoryData.getColor());
 		}
 	}
 
-	public void loadTaskData() {
-		ArrayList<TaskData> taskDatas = new ArrayList<TaskData>(); //TODO load taskdata from storage
-
+	public void loadTaskData() throws IOException {
+		ArrayList<TaskData> taskDatas = storage.loadTasks();
+		
 		for (TaskData taskData : taskDatas) {
 			Task task = null;
 

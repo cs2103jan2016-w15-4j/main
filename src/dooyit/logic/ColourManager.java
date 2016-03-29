@@ -34,7 +34,7 @@ public class ColourManager {
 		recommendedColours.add(CustomColor.PINK);
 		recommendedColours.add(CustomColor.RED);
 		recommendedColours.add(CustomColor.YELLOW);
-		recommendedColours.add(CustomColor.GREY);
+		//recommendedColours.add(CustomColor.GREY);
 
 		colourPool = new ArrayList<CustomColor>(recommendedColours);
 	}

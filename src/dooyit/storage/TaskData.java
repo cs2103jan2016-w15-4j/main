@@ -11,7 +11,7 @@ public class TaskData {
 	protected String category;
 	protected boolean isCompleted;
 	
-	protected String toReadableFormat(DateTime dt) {
+/*	protected String toReadableFormat(DateTime dt) {
 		String format = "";
 		format += String.valueOf(dt.getDD()) + " ";
 		format += String.valueOf(dt.getMM()) + " ";
@@ -20,13 +20,9 @@ public class TaskData {
 		format += dt.getTime24hStr();
 		
 		return format;
-	}
+	}*/
 	
-	protected String getName(Category category) {
-		return category.getName();
-	}
-	
-	protected boolean hasCategory(Task task) {
+	public boolean hasCategory(Task task) {
 		return task.hasCategory();
 	}
 	

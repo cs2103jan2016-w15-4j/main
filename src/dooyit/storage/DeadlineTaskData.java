@@ -8,10 +8,10 @@ public class DeadlineTaskData extends TaskData {
 	private DateTime deadline;
 
 	public DeadlineTaskData(String name, DateTime deadline, 
-							Category category, boolean isCompleted) {
+							String category, boolean isCompleted) {
 		this.taskName = name;
 		this.isCompleted = isCompleted;
-		this.category = getName(category);
+		this.category = category;
 		this.deadline = deadline;
 	}
 
@@ -23,5 +23,21 @@ public class DeadlineTaskData extends TaskData {
 	
 	public DateTime getDeadline() {
 		return this.deadline;
+	}
+	
+	public boolean equals(Object o) {
+		if(o instanceof DeadlineTaskData) {
+			DeadlineTaskData data = (DeadlineTaskData) o;
+			if(this.hasCategory()) {
+				return this.taskName.equals(data.getName())
+						&& this.isCompleted == data.isCompleted()
+						&& this.deadline.equals(data.getDeadline())
+						&& this.category.equals(data.getCategory());
+			}
+			return this.taskName.equals(data.getName())
+					&& this.isCompleted == data.isCompleted()
+					&& this.deadline.equals(data.getDeadline());
+		}
+		return false;
 	}
 }

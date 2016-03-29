@@ -102,7 +102,7 @@ public class Main extends Application {
 		while (true) {
 			showToUser(MESAGE_COMMAND);
 			String userInput = sc.nextLine();
-			logic.processCommand(userInput);
+			logic.processInput(userInput);
 		}
 	}
 

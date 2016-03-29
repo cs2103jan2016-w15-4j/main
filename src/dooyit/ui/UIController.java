@@ -104,23 +104,23 @@ public class UIController {
 		switch(userData){
 			case UIData.USERDATA_TODAY:
 		    	activeMainView = UIMainViewType.TODAY;
-		    	logic.processCommand(UIData.CMD_SHOW_TODAY);
+		    	logic.processInput(UIData.CMD_SHOW_TODAY);
 		        break;
 		    case UIData.USERDATA_EXTENDED:
 		    	activeMainView = UIMainViewType.EXTENDED;
-		    	logic.processCommand(UIData.CMD_SHOW_EXTENDED);
+		    	logic.processInput(UIData.CMD_SHOW_EXTENDED);
 		        break;
 		    case UIData.USERDATA_FLOAT:
 		    	activeMainView = UIMainViewType.FLOAT;
-		    	logic.processCommand(UIData.CMD_SHOW_FLOAT);
+		    	logic.processInput(UIData.CMD_SHOW_FLOAT);
 		    	break;
 		    case UIData.USERDATA_ALL:
 		    	activeMainView = UIMainViewType.ALL;
-		    	logic.processCommand(UIData.CMD_SHOW_ALL);
+		    	logic.processInput(UIData.CMD_SHOW_ALL);
 		    	break;
 		    case UIData.USERDATA_COMPLETED:
 		    	activeMainView = UIMainViewType.COMPLETED;
-		    	logic.processCommand(UIData.CMD_SHOW_COMPLETED);
+		    	logic.processInput(UIData.CMD_SHOW_COMPLETED);
 		    	break;
 		    case UIData.USERDATA_CATEGORY:
 		    	activeMainView = UIMainViewType.CATEGORY;
@@ -174,7 +174,7 @@ public class UIController {
 			System.out.println(commandString);
 			commandBox.getCommandTextField().setText(UIData.EMP_STR);
 
-			this.logic.processCommand(commandString);
+			this.logic.processInput(commandString);
 			
 			if (commandString.equals("help")){
 				showHelp();
@@ -221,15 +221,15 @@ public class UIController {
 		if (keyEvent.isControlDown()) {
 			KeyCode key = keyEvent.getCode();
 			if (key == KeyCode.T){
-				logic.processCommand(UIData.CMD_SHOW_TODAY);
+				logic.processInput(UIData.CMD_SHOW_TODAY);
 			} else if (key == KeyCode.E){
-				logic.processCommand(UIData.CMD_SHOW_EXTENDED);
+				logic.processInput(UIData.CMD_SHOW_EXTENDED);
 			} else if (key == KeyCode.F){
-				logic.processCommand(UIData.CMD_SHOW_FLOAT);
+				logic.processInput(UIData.CMD_SHOW_FLOAT);
 			} else if (key == KeyCode.A){
-				logic.processCommand(UIData.CMD_SHOW_ALL);
+				logic.processInput(UIData.CMD_SHOW_ALL);
 			} else if (key == KeyCode.D){
-				logic.processCommand(UIData.CMD_SHOW_COMPLETED);
+				logic.processInput(UIData.CMD_SHOW_COMPLETED);
 			}
 		} else {
 			if (!commandBox.isSelected()){
@@ -312,7 +312,7 @@ public class UIController {
 	}
 	
 	protected void markTask(int taskId){
-		this.logic.processCommand(UIData.CMD_MARK + Integer.toString(taskId));
+		this.logic.processInput(UIData.CMD_MARK + Integer.toString(taskId));
 	}
 
 	public void refreshMainView(ArrayList<TaskGroup> taskGroupList){

@@ -138,10 +138,16 @@ public class LogicController {
 	 * 
 	 * @param input
 	 */
-	public void processCommand(String input) {
+	public void processInput(String input) {
 		Command command = parser.getCommand(input);
 		assert (command != null);
+		processCommand(command);
+	}
 
+	/**
+	 * @param command
+	 */
+	public void processCommand(Command command) {
 		executeCommand(command);
 		addCommandToHistory(command);
 		refreshUIController();

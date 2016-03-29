@@ -238,7 +238,11 @@ public class LogicController {
 		ArrayList<CategoryData> categoryDatas = storage.loadCategory();
 
 		for (CategoryData categoryData : categoryDatas) {
-			categoryManager.addCategory(categoryData.getName(), categoryData.getColor());
+			try{
+				categoryManager.addCategory(categoryData.getName(), categoryData.getColor());
+			}catch(IncorrectInputException e){
+				
+			}
 		}
 	}
 

@@ -8,10 +8,6 @@ import dooyit.logic.api.LogicController;
 import dooyit.ui.UIMainViewType;
 
 public abstract class Command {
-
-	public static enum CommandType {
-
-	}
 	
 	public Command() {
 

@@ -46,7 +46,8 @@ public class LogicController {
 		initStorage();
 		loadFromStorage();
 		setDefaultCategories();
-
+		save();
+		
 		logger.log(Level.INFO, "End of initialising logic class");
 	}
 

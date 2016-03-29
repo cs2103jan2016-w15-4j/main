@@ -1,4 +1,4 @@
-package dooyit.storage;
+package dooyit.common.datatype;
 
 public class CategoryData {
 	private String name;

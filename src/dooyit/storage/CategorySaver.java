@@ -34,14 +34,10 @@ public class CategorySaver {
 
 	private String setFormat(Category category) {
 		String categoryName = category.getName();
-		String colorName = getName(category.getCustomColour());
+		String colorName = category.getCustomColourName();
 		CategoryData categoryFormat = new CategoryData(categoryName, colorName);
 		Gson gson = new Gson();
 		String json = gson.toJson(categoryFormat);
 		return json;
-	}
-	
-	private String getName(CustomColor color) {
-		return color.getName();
 	}
 }

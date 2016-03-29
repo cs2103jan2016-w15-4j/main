@@ -34,9 +34,9 @@ public class CategoryLoader {
 		this.filePath = filePath;
 	}
 
-	public ArrayList<Category> load() throws IOException {
+	public ArrayList<CategoryData> load() throws IOException {
 		File categoryFile = new File(filePath);
-		ArrayList<Category> categories = new ArrayList<Category> ();
+		ArrayList<CategoryData> categories = new ArrayList<CategoryData> ();
 
 		if (categoryFile.exists()) {
 			categories = loadFromFile(categoryFile);
@@ -56,16 +56,16 @@ public class CategoryLoader {
 		return fReader;
 	}
 
-	private ArrayList<Category> loadFromFile(File categoryFile) throws IOException {
+	private ArrayList<CategoryData> loadFromFile(File categoryFile) throws IOException {
 		FileReader fReader;
-		ArrayList<Category> categories = new ArrayList<Category> ();
+		ArrayList<CategoryData> categories = new ArrayList<CategoryData> ();
 		
 		fReader = open(categoryFile);
 		BufferedReader bReader = new BufferedReader(fReader);
 		
 		String categoryData = bReader.readLine();
 		while (categoryData != null) {
-			Category category = resolveCategory(categoryData);
+			CategoryData category = resolveCategory(categoryData);
 			categories.add(category);
 			categoryData = bReader.readLine();
 		}
@@ -75,16 +75,16 @@ public class CategoryLoader {
 		return categories;
 	}
 	
-	private Category resolveCategory(String categoryFormat) {
+	private CategoryData resolveCategory(String categoryFormat) {
 		JsonObject categoryInfo = getAsJson(categoryFormat);
 		
-		Category category = null;
+		CategoryData category = null;
 		String name = categoryInfo.get(CATEGORY_NAME).getAsString();
 		String colorName = categoryInfo.get(CATEGORY_COLOR).getAsString();
-		CustomColor color = resolveColor(colorName);
-		category = new Category(name, color);
-		return category;
+		//CustomColor color = resolveColor(colorName);
+		category = new CategoryData(name, colorName);
 		
+		return category;
 	}
 	
 	private JsonObject getAsJson(String format) {
@@ -93,7 +93,7 @@ public class CategoryLoader {
 		
 		return object;
 	}
-	
+	/*
 	private CustomColor resolveColor(String colorName) {
 		CustomColor color;
 		String name = colorName.toLowerCase();
@@ -123,5 +123,5 @@ public class CategoryLoader {
 		}
 
 		return color;
-	}
+	}*/
 }

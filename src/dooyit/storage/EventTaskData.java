@@ -8,10 +8,10 @@ public class EventTaskData extends TaskData {
 	private DateTime end;
 
 	public EventTaskData(String name, DateTime start, DateTime end,
-						Category category, boolean isCompleted) {
+						String category, boolean isCompleted) {
 		this.taskName = name;
 		this.isCompleted = isCompleted;
-		this.category = getName(category);
+		this.category = category;
 		this.start = start;
 		this.end = end;
 	}
@@ -30,5 +30,23 @@ public class EventTaskData extends TaskData {
 	
 	public DateTime getEnd() {
 		return this.end;
+	}
+	
+	public boolean equals(Object o) {
+		if(o instanceof EventTaskData) {
+			EventTaskData data = (EventTaskData) o;
+			if(this.hasCategory()) {
+				return this.taskName.equals(data.getName())
+						&& this.isCompleted == data.isCompleted()
+						&& this.start.equals(data.getStart())
+						&& this.end.equals(data.getEnd())
+						&& this.category.equals(data.getCategory());
+			}
+			return this.taskName.equals(data.getName())
+					&& this.isCompleted == data.isCompleted()
+					&& this.start.equals(data.getStart())
+					&& this.end.equals(data.getEnd());
+		}
+		return false;
 	}
 }

@@ -68,9 +68,9 @@ public class StorageController extends StorageConstants {
 		return taskControl.save(tasks);
 	}
 
-	public ArrayList<Task> loadTasks() throws IOException {
+	public ArrayList<TaskData> loadTasks() throws IOException {
 		//logger.log(Level.INFO, "Attempting to load tasks from " + preferences[TASK_DESTINATION]);
-		ArrayList<Task> taskList = taskControl.load();
+		ArrayList<TaskData> taskList = taskControl.load();
 		assert taskList != null;
 
 		return taskList;
@@ -82,8 +82,8 @@ public class StorageController extends StorageConstants {
 		return categoryControl.save(categories);
 	}
 
-	public ArrayList<Category> loadCategory() throws IOException {
-		ArrayList<Category> categories = categoryControl.load();
+	public ArrayList<CategoryData> loadCategory() throws IOException {
+		ArrayList<CategoryData> categories = categoryControl.load();
 		assert categories != null;
 		
 		return categories;

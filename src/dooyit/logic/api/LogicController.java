@@ -169,13 +169,13 @@ public class LogicController {
 			return;
 		}
 
-/*		try {
-			storage.saveTasks(taskManager.getAllTasks());
-			storage.saveCategory(categoryManager.getAllCategories());
+		try {
+			storage.saveTasks(getTaskDatas());
+			storage.saveCategory(getCategoryDatas());
 		} catch (IOException e) {
 			logger.log(Level.SEVERE, "ERROR: Fail to save");
 			uiController.displayMessage("ERROR: SAVING");
-		}*/
+		}
 
 		
 		
@@ -198,6 +198,39 @@ public class LogicController {
 		isSaveOn = false;
 	}
 
+	
+	public ArrayList<TaskData> getTaskDatas(){
+		ArrayList<Task> tasks = taskManager.getAllTasks();
+		return convertTaskstoTaskDatas(tasks);
+	}
+	
+	public ArrayList<TaskData> convertTaskstoTaskDatas(ArrayList<Task> tasks){
+		ArrayList<TaskData> taskDatas = new ArrayList<TaskData>();
+		
+		for(Task task : tasks){
+			TaskData taskData = task.convertToData();
+			taskDatas.add(taskData);
+		}
+		
+		return taskDatas;
+	}
+	
+	public ArrayList<CategoryData> getCategoryDatas(){
+		ArrayList<Category> categories = categoryManager.getAllCategories();
+		return convertCategorytoCategoryDatas(categories);
+	}
+	
+	public ArrayList<CategoryData> convertCategorytoCategoryDatas(ArrayList<Category> categories){
+		ArrayList<CategoryData> categoryDatas = new ArrayList<CategoryData>();
+		
+		for(Category category : categories){
+			CategoryData categoryData = category.convertToData();
+			categoryDatas.add(categoryData);
+		}
+		
+		return categoryDatas;
+	}
+	
 	public void loadCategoryData() throws IOException{
 		ArrayList<CategoryData> categoryDatas = storage.loadCategory(); 
 

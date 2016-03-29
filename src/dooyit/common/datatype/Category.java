@@ -48,4 +48,10 @@ public class Category {
 	public String toString() {
 		return name + " " + customColor.toString();
 	}
+	
+	public CategoryData convertToData(){
+		CategoryData categoryData;
+		categoryData = new CategoryData(name, getCustomColourName());
+		return categoryData;
+	}
 }

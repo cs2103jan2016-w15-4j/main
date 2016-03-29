@@ -226,19 +226,9 @@ public class TaskLoader {
 		int timeInt = dateTimeJson.get(TIME).getAsInt();
 
 		String[] parts = dateString.split(" ");
-<<<<<<< HEAD
-		int[] date = new int[] {Integer.valueOf(parts[DAY]),
-				Integer.valueOf(parts[MONTH]),
-				Integer.valueOf(parts[YEAR])};
-		
-		String dayStr = parts[DAY_OF_WEEK];
-		
-		
-=======
 		int[] date = new int[] { Integer.valueOf(parts[DAY]), Integer.valueOf(parts[MONTH]),
 				Integer.valueOf(parts[YEAR]) };
 
->>>>>>> e49544bec27d3da09d4787a64acf265812a60e65
 		DateTime dateTime = new DateTime(date, timeInt);
 
 		return dateTime;

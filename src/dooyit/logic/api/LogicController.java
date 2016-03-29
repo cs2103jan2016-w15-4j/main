@@ -19,7 +19,7 @@ import dooyit.common.datatype.CategoryData;
 import dooyit.common.datatype.DateTime;
 import dooyit.common.datatype.DeadlineTaskData;
 import dooyit.common.datatype.EventTaskData;
-import dooyit.common.datatype.FloatTaskData;
+import dooyit.common.datatype.FloatingTaskData;
 import dooyit.common.datatype.Task;
 import dooyit.common.datatype.TaskData;
 
@@ -177,6 +177,8 @@ public class LogicController {
 			uiController.displayMessage("ERROR: SAVING");
 		}*/
 
+		
+		
 	}
 
 	/**
@@ -210,8 +212,8 @@ public class LogicController {
 		for (TaskData taskData : taskDatas) {
 			Task task = null;
 
-			if (taskData instanceof FloatTaskData) {
-				FloatTaskData floatTaskData = (FloatTaskData) taskData;
+			if (taskData instanceof FloatingTaskData) {
+				FloatingTaskData floatTaskData = (FloatingTaskData) taskData;
 				task = taskManager.addFloatingTask(floatTaskData.getName(), floatTaskData.isCompleted());
 
 			} else if (taskData instanceof DeadlineTaskData) {

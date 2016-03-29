@@ -59,4 +59,17 @@ public class EventTask extends Task {
 		}
 		return false;
 	}
+	
+	@Override
+	public TaskData convertToData(){
+		EventTaskData eventTaskData;
+		
+		if(!hasCategory()){
+			eventTaskData = new EventTaskData(taskName, dateTimeStart, dateTimeEnd, isCompleted);
+		}else{
+			eventTaskData = new EventTaskData(taskName, dateTimeStart, dateTimeEnd, category.getName(), isCompleted);
+		}
+		
+		return eventTaskData;
+	}
 }

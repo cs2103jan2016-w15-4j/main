@@ -13,7 +13,7 @@ import dooyit.common.datatype.DeadlineTask;
 import dooyit.common.datatype.DeadlineTaskData;
 import dooyit.common.datatype.EventTask;
 import dooyit.common.datatype.EventTaskData;
-import dooyit.common.datatype.FloatTaskData;
+import dooyit.common.datatype.FloatingTaskData;
 import dooyit.common.datatype.FloatingTask;
 import dooyit.common.datatype.Task;
 import dooyit.common.datatype.TaskData;
@@ -47,7 +47,7 @@ public class TaskControllerTest extends StorageConstants {
 		tasks.add(dlData2);
 
 		// {"taskName":"float","isCompleted":false}
-		FloatTaskData floatData = new FloatTaskData("float", false);
+		FloatingTaskData floatData = new FloatingTaskData("float", false);
 		tasks.add(floatData);
 
 		// {"start":{"date":"10 12 2016","time":1000},"end":{"date":"10 12
@@ -104,7 +104,7 @@ public class TaskControllerTest extends StorageConstants {
 		Assert.assertTrue(loadedTasks.get(1).equals(dlData2));
 
 		// {"taskName":"float","isCompleted":false}
-		FloatTaskData floatData = new FloatTaskData("float", false);
+		FloatingTaskData floatData = new FloatingTaskData("float", false);
 		Assert.assertTrue(loadedTasks.get(2).equals(floatData));
 
 		// {"start":{"date":"10 12 2016","time":1000},"end":{"date":"10 12

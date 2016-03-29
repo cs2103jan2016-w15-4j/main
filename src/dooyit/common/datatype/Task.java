@@ -103,6 +103,8 @@ public abstract class Task {
 	
 	public abstract String getDateString();
 	
+	public abstract TaskData convertToData();
+	
 	public abstract boolean isOverDue(DateTime dateTime);
 	
 	public abstract boolean isToday(DateTime dateTime);

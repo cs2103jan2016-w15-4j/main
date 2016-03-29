@@ -15,7 +15,7 @@ import dooyit.common.datatype.DeadlineTask;
 import dooyit.common.datatype.DeadlineTaskData;
 import dooyit.common.datatype.EventTask;
 import dooyit.common.datatype.EventTaskData;
-import dooyit.common.datatype.FloatTaskData;
+import dooyit.common.datatype.FloatingTaskData;
 import dooyit.common.datatype.FloatingTask;
 import dooyit.common.datatype.Task;
 import dooyit.common.datatype.TaskData;
@@ -68,7 +68,7 @@ public class TaskSaver {
 			EventTaskData event = (EventTaskData)task;
 			json = gson.toJson(event);
 		} else {
-			FloatTaskData floatData = (FloatTaskData)task;
+			FloatingTaskData floatData = (FloatingTaskData)task;
 			json = gson.toJson(floatData);
 		}
 

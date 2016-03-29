@@ -57,4 +57,17 @@ public class DeadlineTask extends Task {
 		}
 		return false;
 	}
+	
+	@Override
+	public TaskData convertToData(){
+		DeadlineTaskData deadlineTaskData;
+		
+		if(!hasCategory()){
+			deadlineTaskData = new DeadlineTaskData(taskName, dateTimeDeadline, isCompleted);
+		}else{
+			deadlineTaskData = new DeadlineTaskData(taskName, dateTimeDeadline, category.getName(), isCompleted);
+		}
+		
+		return deadlineTaskData;
+	}
 }

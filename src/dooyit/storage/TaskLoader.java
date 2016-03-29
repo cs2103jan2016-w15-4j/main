@@ -16,7 +16,7 @@ import com.google.gson.reflect.TypeToken;
 import dooyit.common.datatype.DateTime;
 import dooyit.common.datatype.DeadlineTaskData;
 import dooyit.common.datatype.EventTaskData;
-import dooyit.common.datatype.FloatTaskData;
+import dooyit.common.datatype.FloatingTaskData;
 import dooyit.common.datatype.TaskData;
 import dooyit.common.exception.MissingFileException;
 
@@ -177,7 +177,7 @@ public class TaskLoader {
 			DateTime eventEnd = resolveDateTime(jsonTask, EVENT_END);
 			task = (TaskData) new EventTaskData(name, eventStart, eventEnd, categoryName, isCompleted);
 		} else {
-			task = (TaskData) new FloatTaskData(name, categoryName, isCompleted);
+			task = (TaskData) new FloatingTaskData(name, categoryName, isCompleted);
 		}
 
 		return task;

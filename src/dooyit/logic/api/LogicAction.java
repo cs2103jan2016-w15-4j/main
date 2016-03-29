@@ -33,9 +33,17 @@ public class LogicAction {
 		this.action = action;
 	}
 	
-	
-	public void setMessage(){
-		
+	public LogicAction(Action action, String message){
+		this.action = action;
+		this.message = message;
 	}
 	
+	public void setMessage(String message){
+		this.message = message;
+	}
+	
+	public boolean hasMessage(){
+		return !message.equals("");
+	}
 }
+

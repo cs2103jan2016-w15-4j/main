@@ -45,4 +45,17 @@ public class FloatingTask extends Task {
 		}
 		return false;
 	}
+	
+	@Override
+	public TaskData convertToData(){
+		FloatingTaskData floatingTaskData;
+		
+		if(!hasCategory()){
+			floatingTaskData = new FloatingTaskData(taskName, isCompleted);
+		}else{
+			floatingTaskData = new FloatingTaskData(taskName, category.getName(), isCompleted);
+		}
+		
+		return floatingTaskData;
+	}
 }

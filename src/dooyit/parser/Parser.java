@@ -43,6 +43,7 @@ public class Parser {
 		editParser = new EditParser();
 		addCatParser = new AddCategoryParser();
 		deleteParser = new DeleteParser();
+		deleteCatParser = new DeleteCategoryParser();
 		markParser = new MarkParser();
 		unmarkParser = new UnmarkParser();
 		editCatParser = new EditCategoryParser();

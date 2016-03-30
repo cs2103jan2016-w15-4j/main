@@ -8,6 +8,7 @@ import dooyit.common.datatype.Task;
 import javafx.geometry.Pos;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
@@ -22,7 +23,7 @@ public class UITaskBox {
 	private static final int PREFWIDTH_TASK_ID = 20;
 	private static final Font FONT_TASK_NAME = UIFont.SEGOE_M;
 	private static final String STYLECLASS_TASK_NAME = UIStyle.TASK_NAME;
-	private static final int TASK_NAME_WIDTH_TO_SUBTRACT = 50;
+	private static final int WIDTH_TO_SUBTRACT = 55;
 	private static final Font FONT_TASK_PERIOD = UIFont.VERDANA_M;
 	private static final String STYLECLASS_TASK_PERIOD = UIStyle.TASK_PERIOD;
 	private static final int PREFWIDTH_TASK_PERIOD = 100;
@@ -45,9 +46,11 @@ public class UITaskBox {
 	private Label taskId;
 	private Label taskName;
 	private Label taskPeriod;
+	private HBox taskDetailBox;
 	private Label taskCategoryLabel;
 	private Circle taskCategoryCircle;
-	private HBox taskBox;
+	private HBox taskCategoryBox;
+	private AnchorPane taskBox;
 
 	public UITaskBox(UIDayBox parent, Task task) {
 		this.task = task;
@@ -61,8 +64,16 @@ public class UITaskBox {
 		initTaskCategoryLabel();
 		initTaskPeriod();
 		initTaskName();
+		this.taskDetailBox = new HBox();
+		this.taskDetailBox.getChildren().addAll(this.taskCheckBox, this.taskId, this.taskPeriod, this.taskName);
+		this.taskDetailBox.setAlignment(Pos.CENTER_LEFT);
+		this.taskCategoryBox = new HBox();
+		this.taskCategoryBox.getChildren().addAll(this.taskCategoryLabel, this.taskCategoryCircle);
+		this.taskCategoryBox.setAlignment(Pos.CENTER_RIGHT);
 		initTaskBox();
 		initListeners();
+		double width = this.parent.getStageWidth();
+	    updateTaskBoxWidth(width);
 	}
 	
 	private void initTaskCheckBox(){
@@ -109,20 +120,16 @@ public class UITaskBox {
 		this.taskName = new Label(this.task.getName());
 	    this.taskName.setFont(FONT_TASK_NAME);
 	    this.taskName.getStyleClass().add(STYLECLASS_TASK_NAME);
-	    double width = this.parent.getStageWidth();
-	    width -= PREFWIDTH_TASK_CATEGORY_LABEL;
-	    FontLoader fontLoader = Toolkit.getToolkit().getFontLoader();
-	    width -= 1.2 * fontLoader.computeStringWidth(this.task.getDateString(), FONT_TASK_PERIOD);
-	    width -= 3 * SPACING_TASK_BOX;
-	    updateTaskNameWidth(width);
 	}
 	
 	private void initTaskBox(){
-		 this.taskBox = new HBox();
-		 this.taskBox.setAlignment(Pos.CENTER_LEFT);
-		 this.taskBox.setSpacing(SPACING_TASK_BOX);
+		 this.taskBox = new AnchorPane();
+		 AnchorPane.setTopAnchor(this.taskDetailBox, (double) 5);
+		 AnchorPane.setTopAnchor(this.taskCategoryBox, (double) 5);
+		 AnchorPane.setLeftAnchor(this.taskDetailBox, (double) 0);
+		 AnchorPane.setRightAnchor(this.taskCategoryBox, (double) 0);
 		 this.taskBox.getStyleClass().add(STYLECLASS_TASK_BOX);
-		 this.taskBox.getChildren().addAll(this.taskCheckBox, this.taskId, this.taskPeriod, this.taskName, this.taskCategoryLabel, this.taskCategoryCircle);   
+		 this.taskBox.getChildren().addAll(this.taskDetailBox, this.taskCategoryBox);
 	}
 	
 	private void initListeners(){
@@ -134,27 +141,22 @@ public class UITaskBox {
 
 	}
 
-	public HBox getView() {
+	public AnchorPane getView() {
 		return this.taskBox;
 	}
 
 	public void updatePosition(double stageWidth) {
-		updateTaskNameWidth(stageWidth);
+		updateTaskBoxWidth(stageWidth);
 	}
 
-	private void updateTaskNameWidth(double stageWidth) {
+	private void updateTaskBoxWidth(double stageWidth) {
 		double widthToSubtract = 0;
 		widthToSubtract += WIDTH_MENU;
 		widthToSubtract += 2 * PAD_X;
-		widthToSubtract += this.taskCheckBox.getWidth() + 2 * SPACING_TASK_BOX;
-		widthToSubtract += this.taskId.getWidth() + SPACING_TASK_BOX;
-		widthToSubtract += this.taskPeriod.prefWidth(-1) + SPACING_TASK_BOX;
-		widthToSubtract += this.taskCategoryLabel.getWidth() + 2 * SPACING_TASK_BOX;
-		widthToSubtract += 2 * SPACING_TASK_BOX;
-		widthToSubtract += 2 * RADIUS_CAT_CIRCLE + 2 * SPACING_TASK_BOX ;
+		widthToSubtract += WIDTH_TO_SUBTRACT;
 		double width = stageWidth - widthToSubtract;
-		this.taskName.setMinWidth(width);
-		this.taskName.setPrefWidth(width);
-		this.taskName.setMaxWidth(width);
+		this.taskBox.setMinWidth(width);
+		this.taskBox.setPrefWidth(width);
+		this.taskBox.setMaxWidth(width);
 	}
 }

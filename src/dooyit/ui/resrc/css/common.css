@@ -99,12 +99,13 @@
 }
 
 .day-task-box {
-	-fx-padding: 13 0 13 0;
+	-fx-padding: 10 0 10 0;
 	-fx-border-color: transparent transparent #f0f0f0 transparent;
 }
 
 .task-name {
-	-fx-padding: 0 0 0 -10;
+	/*-fx-padding: 0 0 0 -10;*/
+	-fx-padding: 0 0 0 0;
 }
 
 .task-period {

@@ -239,6 +239,13 @@ public class TaskManager {
 
 		Task task = remove(taskId);
 		Task newTask = addDeadlineTask(task.getName(), dateTimeDeadline);
+		
+		newTask.setCategory(task.getCategory());
+		
+		if(task.isCompleted()){
+			newTask.mark();
+		}
+		
 		return newTask;
 	}
 
@@ -249,6 +256,12 @@ public class TaskManager {
 
 		Task task = remove(taskId);
 		Task newTask = addEventTask(task.getName(), dateTimeStart, dateTimeEnd);
+		newTask.setCategory(task.getCategory());
+	
+		if(task.isCompleted()){
+			newTask.mark();
+		}
+		
 		return newTask;
 	}
 

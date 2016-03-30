@@ -23,7 +23,11 @@ public class CategoryManager {
 		}
 	}
 
-	public void addCategory(Category category){
+	public void addCategory(Category category) throws IncorrectInputException {
+		if (contains(category)) {
+			throw new IncorrectInputException("Category: " + category.getName() + " already exists.");
+		}
+		
 		categories.add(category);
 	}
 	

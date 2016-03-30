@@ -23,6 +23,11 @@ public class EventTask extends Task {
 	}
 
 	@Override
+	public Task copy(){
+		return new EventTask(taskName, new DateTime(dateTimeStart), new DateTime(dateTimeEnd));
+	}
+	
+	@Override
 	public boolean isToday(DateTime dateTime){
 		return dateTimeStart.isTheSameDateAs(dateTime);
 	}

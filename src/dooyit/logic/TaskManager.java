@@ -224,9 +224,11 @@ public class TaskManager {
 		if (!contains(taskId)) {
 			return null;
 		}
-
-		remove(taskId);
-		Task newTask = addFloatingTask(newName);
+		
+		Task removedTask = remove(taskId);
+		Task newTask = removedTask.copy();
+		newTask.changeName(newName);
+		add(newTask);
 		return newTask;
 	}
 

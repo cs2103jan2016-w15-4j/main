@@ -17,6 +17,11 @@ public class DeadlineTask extends Task {
 	}
 	
 	@Override
+	public Task copy(){
+		return new DeadlineTask(taskName, new DateTime(dateTimeDeadline));
+	}
+	
+	@Override
 	public boolean isToday(DateTime dateTime){
 		return dateTimeDeadline.isTheSameDateAs(dateTime);
 	}

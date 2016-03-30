@@ -10,6 +10,11 @@ public class FloatingTask extends Task {
 	}
 	
 	@Override
+	public Task copy(){
+		return new FloatingTask(taskName);
+	}
+	
+	@Override
 	public boolean isToday(DateTime dateTime){
 		return false;
 	}

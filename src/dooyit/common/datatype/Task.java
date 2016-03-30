@@ -101,6 +101,8 @@ public abstract class Task {
 	
 	public abstract String toString();
 	
+	public abstract Task copy();
+	
 	public abstract String getDateString();
 	
 	public abstract TaskData convertToData();

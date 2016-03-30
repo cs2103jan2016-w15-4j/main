@@ -316,8 +316,8 @@ public class LogicController {
 
 	private void refreshUIController() {
 		// uiController.refreshMainView(taskManager.getTaskGroupsToday());
-		// if (uiController == null)
-		// return;
+		 if (uiController == null)
+			 return;
 
 		UIMainViewType uiMainViewType = uiController.getActiveViewType();
 
@@ -406,6 +406,10 @@ public class LogicController {
 	public boolean removeTask(Task task) {
 		boolean isRemoved = taskManager.remove(task);
 		return isRemoved;
+	}
+	
+	public int noOfTask(){
+		return taskManager.size();
 	}
 
 	public ArrayList<Task> removeTasksWithCategory(Category category) {

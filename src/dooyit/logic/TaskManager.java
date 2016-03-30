@@ -183,6 +183,10 @@ public class TaskManager {
 		}
 		return null;
 	}
+	
+	public int size(){
+		return tasks.size();
+	}
 
 	public ArrayList<Task> findTasksWithCategory(Category category) {
 		ArrayList<Task> taskWithCat = new ArrayList<Task>();

@@ -41,7 +41,7 @@ public class FloatingTask extends Task {
 	public boolean equals(Object o){
 		if(o instanceof FloatingTask){
 			FloatingTask floatingTask = (FloatingTask)o;
-			return this.getName() == floatingTask.getName();
+			return this.getName().equals(floatingTask.getName());
 		}
 		return false;
 	}

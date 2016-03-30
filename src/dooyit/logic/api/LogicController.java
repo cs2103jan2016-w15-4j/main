@@ -181,7 +181,7 @@ public class LogicController {
 			storage.saveCategory(getCategoryDatas());
 		} catch (IOException e) {
 			logger.log(Level.SEVERE, "ERROR: Fail to save");
-			uiController.displayMessage("ERROR: SAVING");
+			// uiController.displayMessage("ERROR: SAVING");
 		}
 
 	}

@@ -80,9 +80,8 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) throws IOException {
 
-		logic = new LogicController();
-
 		try {
+			logic = new LogicController();
 			this.ui = new UIController(primaryStage, logic);
 			Scene scene = this.ui.getScene();
 			primaryStage.setScene(scene);
@@ -92,7 +91,7 @@ public class Main extends Application {
 			primaryStage.setMinHeight(MINHEIGHT_STAGE);
 			primaryStage.show();
 			logic.setUIController(this.ui);
-			ui.updatePositions();
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

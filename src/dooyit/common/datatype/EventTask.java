@@ -14,6 +14,16 @@ public class EventTask extends Task {
 		this.dateTimeEnd = end;
 	}
 
+	public EventTask(String taskName, DateTime start, DateTime end, Category category) {
+		assert (taskName != null && start != null && end != null);
+
+		taskType = TaskType.EVENT;
+		this.taskName = taskName;
+		this.dateTimeStart = start;
+		this.dateTimeEnd = end;
+		this.category = category;
+	}
+	
 	public DateTime getDateTimeStart() {
 		return dateTimeStart;
 	}
@@ -24,7 +34,7 @@ public class EventTask extends Task {
 
 	@Override
 	public Task copy(){
-		return new EventTask(taskName, new DateTime(dateTimeStart), new DateTime(dateTimeEnd));
+		return new EventTask(taskName, new DateTime(dateTimeStart), new DateTime(dateTimeEnd), category);
 	}
 	
 	@Override

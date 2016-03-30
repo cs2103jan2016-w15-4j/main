@@ -144,7 +144,7 @@ public class LogicController {
 	 */
 	private LogicAction executeCommand(Command command) {
 		LogicAction logicAction = null;
-
+		
 		try {
 			logicAction = command.execute(this);
 		} catch (IncorrectInputException e) {

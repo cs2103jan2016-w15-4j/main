@@ -135,8 +135,7 @@ public class CommandUtils {
 
 	public static Command createStorageCommand(String path) {
 		StorageCommand storageCommand = new StorageCommand(path);
-		//return storageCommand;
-		return createSearchCommand(path);
+		return storageCommand;
 	}
 	
 	public static Command createChangeThemeCommand(String themeString){

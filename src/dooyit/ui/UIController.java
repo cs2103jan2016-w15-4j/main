@@ -64,6 +64,7 @@ public class UIController {
 		initRoot();
 		initScene();
 		initListeners();
+		updatePositions();
 	}
 	
 	private void initCss(){
@@ -250,6 +251,10 @@ public class UIController {
 				}
 			}
 		});
+	}
+	
+	public void updatePositions(){
+		this.dayBoxContainer.updatePosition(this.primaryStage.getWidth());
 	}
 	
 	public Scene getScene(){

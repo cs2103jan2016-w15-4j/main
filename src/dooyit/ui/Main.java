@@ -92,7 +92,7 @@ public class Main extends Application {
 			primaryStage.setMinHeight(MINHEIGHT_STAGE);
 			primaryStage.show();
 			logic.setUIController(this.ui);
-			
+			ui.updatePositions();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

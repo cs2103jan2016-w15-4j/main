@@ -1,5 +1,8 @@
 package dooyit.ui;
 
+import com.sun.javafx.tk.FontLoader;
+import com.sun.javafx.tk.Toolkit;
+
 import dooyit.common.datatype.Category;
 import dooyit.common.datatype.Task;
 import javafx.geometry.Pos;
@@ -92,7 +95,6 @@ public class UITaskBox {
 		if (this.task.hasCategory()){
 			Category category = this.task.getCategory();
 			this.taskCategoryLabel.setText(category.getName());
-//			this.taskCategoryLabel.setTextFill(category.getColour());
 			this.taskCategoryCircle = new Circle(RADIUS_CAT_CIRCLE, category.getColour());
 		} else {
 			this.taskCategoryCircle = new Circle(RADIUS_CAT_CIRCLE, Color.TRANSPARENT);
@@ -109,7 +111,9 @@ public class UITaskBox {
 	    this.taskName.getStyleClass().add(STYLECLASS_TASK_NAME);
 	    double width = this.parent.getStageWidth();
 	    width -= PREFWIDTH_TASK_CATEGORY_LABEL;
-	    width -= TASK_NAME_WIDTH_TO_SUBTRACT;
+	    FontLoader fontLoader = Toolkit.getToolkit().getFontLoader();
+	    width -= 1.2 * fontLoader.computeStringWidth(this.task.getDateString(), FONT_TASK_PERIOD);
+	    width -= 3 * SPACING_TASK_BOX;
 	    updateTaskNameWidth(width);
 	}
 	
@@ -144,7 +148,7 @@ public class UITaskBox {
 		widthToSubtract += 2 * PAD_X;
 		widthToSubtract += this.taskCheckBox.getWidth() + 2 * SPACING_TASK_BOX;
 		widthToSubtract += this.taskId.getWidth() + SPACING_TASK_BOX;
-		widthToSubtract += this.taskPeriod.getWidth() + SPACING_TASK_BOX;
+		widthToSubtract += this.taskPeriod.prefWidth(-1) + SPACING_TASK_BOX;
 		widthToSubtract += this.taskCategoryLabel.getWidth() + 2 * SPACING_TASK_BOX;
 		widthToSubtract += 2 * SPACING_TASK_BOX;
 		widthToSubtract += 2 * RADIUS_CAT_CIRCLE + 2 * SPACING_TASK_BOX ;

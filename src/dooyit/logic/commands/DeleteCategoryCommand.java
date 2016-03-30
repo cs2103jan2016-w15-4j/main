@@ -22,6 +22,7 @@ public class DeleteCategoryCommand extends ReversibleCommand {
 	@Override
 	public void undo(LogicController logic) {
 		logic.loadTasks(removedTask);
+		logic.addCategory(removedCategory);
 	}
 	
 	@Override

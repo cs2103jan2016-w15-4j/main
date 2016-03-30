@@ -17,9 +17,19 @@ public class FloatingTask extends Task {
 		this.category = category;
 	}
 	
+	public FloatingTask(FloatingTask floatingTask){
+		assert(floatingTask != null);
+		
+		this.taskType = floatingTask.taskType;
+		this.uniqueId = floatingTask.uniqueId;
+		this.taskName = floatingTask.taskName;
+		this.category = floatingTask.category;
+		this.isCompleted = floatingTask.isCompleted;
+	}
+	
 	@Override
 	public Task copy(){
-		return new FloatingTask(taskName, category);
+		return new FloatingTask(this);
 	}
 	
 	@Override

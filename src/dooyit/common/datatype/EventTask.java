@@ -24,6 +24,18 @@ public class EventTask extends Task {
 		this.category = category;
 	}
 	
+	public EventTask(EventTask eventTask){
+		assert(eventTask != null);
+		
+		this.taskType = eventTask.taskType;
+		this.uniqueId = eventTask.uniqueId;
+		this.taskName = eventTask.taskName;
+		this.dateTimeStart = eventTask.dateTimeStart;
+		this.dateTimeEnd = eventTask.dateTimeEnd;
+		this.category = eventTask.category;
+		this.isCompleted = eventTask.isCompleted;
+	}
+	
 	public DateTime getDateTimeStart() {
 		return dateTimeStart;
 	}
@@ -34,7 +46,7 @@ public class EventTask extends Task {
 
 	@Override
 	public Task copy(){
-		return new EventTask(taskName, new DateTime(dateTimeStart), new DateTime(dateTimeEnd), category);
+		return new EventTask(this);
 	}
 	
 	@Override

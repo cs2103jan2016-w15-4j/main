@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import dooyit.common.datatype.Task;
 import dooyit.common.datatype.TaskGroup;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
@@ -16,6 +17,7 @@ public class UIDayBox {
 
 	private UIDayBoxContainer parent;
 	private VBox dayBox;
+	private AnchorPane anchorPane;
 	private Label dayTitle;
 	private ArrayList<Task> taskList;
 	private ArrayList<UITaskBox> taskBoxList;
@@ -76,7 +78,7 @@ public class UIDayBox {
 	private void addTask(Task task){
 		UITaskBox taskBox = new UITaskBox(this, task);
 		this.taskBoxList.add(taskBox);
-        HBox taskBoxView = taskBox.getView();
+		AnchorPane taskBoxView = taskBox.getView();
         this.dayBox.getChildren().add(taskBoxView);
 	}
 	

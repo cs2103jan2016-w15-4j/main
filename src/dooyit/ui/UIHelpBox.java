@@ -1,8 +1,12 @@
 package dooyit.ui;
 
 import java.util.ArrayList;
+
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -25,17 +29,22 @@ public class UIHelpBox {
 	private static final int SPACING_CONTENT = 10;
 
 	private static final String STYLECLASS_HELP_BOX_WRAPPER = UIStyle.HELP_BOX_WRAPPER;
-	private static final int SPACING_HELP_BOX_WRAPPER = 100;
+	private static final int SPACING_HELP_BOX_WRAPPER = 60;
+	
+	private static final String STYLECLASS_CLOSE_LABEL = "help-box-close-label";
 
 	private Popup helpBox;
 	private VBox helpBoxWrapper;
 	private Label title;
-
+	private boolean isOn;
 	private HBox contentWrapper;
 	private VBox leftContent;
 	private VBox rightContent;
+	private Label closeLabel;
 
 	public UIHelpBox() {
+		this.isOn = false;
+		
 		this.title = new Label(LABEL_TITLE);
 		this.title.setFont(FONT_TITLE);
 		this.title.setAlignment(Pos.CENTER);
@@ -54,6 +63,9 @@ public class UIHelpBox {
 		cmdNameList.forEach((cmdName) -> {
 			Label cmdNameLabel = new Label(cmdName);
 			cmdNameLabel.getStyleClass().add(STYLECLASS_CONTENT_LABEL);
+			cmdNameLabel.setMaxHeight(20);
+			cmdNameLabel.setPrefHeight(20);
+			cmdNameLabel.setMinHeight(20);
 			cmdNameLabel.setFont(FONT_CMD_NAME);
 			this.leftContent.getChildren().add(cmdNameLabel);
 		});
@@ -71,6 +83,9 @@ public class UIHelpBox {
 		cmdDescList.forEach((cmdDesc) -> {
 			Label cmdDescLabel = new Label(cmdDesc);
 			cmdDescLabel.getStyleClass().add(STYLECLASS_CONTENT_LABEL);
+			cmdDescLabel.setMaxHeight(20);
+			cmdDescLabel.setPrefHeight(20);
+			cmdDescLabel.setMinHeight(20);
 			cmdDescLabel.setFont(FONT_CMD_DESC);
 			this.rightContent.getChildren().add(cmdDescLabel);
 		});
@@ -79,9 +94,21 @@ public class UIHelpBox {
 		this.contentWrapper.setSpacing(SPACING_CONTENT_WRAPPER);
 		this.contentWrapper.getChildren().addAll(this.leftContent, this.rightContent);
 
+		this.closeLabel = new Label("CLOSE");
+		this.closeLabel.getStyleClass().add(STYLECLASS_CLOSE_LABEL);
+		this.closeLabel.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				hide();
+				event.consume();
+			}
+		});
+		this.closeLabel.setFont(UIFont.EUPHEMIA_L);
+		
 		this.helpBoxWrapper = new VBox();
 		this.helpBoxWrapper.setSpacing(SPACING_HELP_BOX_WRAPPER);
-		this.helpBoxWrapper.getChildren().addAll(this.title, this.contentWrapper);
+		this.helpBoxWrapper.setAlignment(Pos.CENTER);
+		this.helpBoxWrapper.getChildren().addAll(this.title, this.contentWrapper, this.closeLabel);
 		this.helpBoxWrapper.getStyleClass().add(STYLECLASS_HELP_BOX_WRAPPER);
 
 		this.helpBox = new Popup();
@@ -100,14 +127,24 @@ public class UIHelpBox {
 	}
 
 	public void show(Stage primaryStage) {
+		this.isOn = true;
 		this.helpBoxWrapper.setPrefSize(WIDTH, HEIGHT);
 		this.helpBox.setX(primaryStage.getX() + primaryStage.getWidth() / 2 - WIDTH / 2);
 		this.helpBox.setY(primaryStage.getY() + primaryStage.getHeight() / 2 - HEIGHT / 2);
 		this.helpBox.show(primaryStage);
 	}
+	
+	public void tempHide(){
+		this.helpBox.hide();
+	}
 
 	public void hide() {
+		this.isOn = false;
 		this.helpBox.hide();
+	}
+	
+	public boolean isOn() {
+		return this.isOn;
 	}
 
 }

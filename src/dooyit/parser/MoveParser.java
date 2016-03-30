@@ -39,13 +39,13 @@ public class MoveParser extends TagParser {
 			setSingleTypeMoveCommand();
 			break;
 
-		case MULTIPLE:
+		/*case MULTIPLE:
 			setMultipleTypeMoveCommand();
 			break;
 
 		case INTERVAL:
 			setIntervalTypeMoveCommand();
-			break;
+			break;*/
 
 		default:
 			setInvalidCommand();

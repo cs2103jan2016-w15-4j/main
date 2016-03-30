@@ -146,7 +146,7 @@
 }
 
 .help-box-wrapper {
-	-fx-background-color: rgba(10, 10, 10, 0.8);
+	-fx-background-color: rgba(10, 10, 10, 0.95);
 	-fx-background-radius: 10;
 	-fx-text-fill: #f0f0f0;
 	-fx-padding: 30 30 30 30;
@@ -162,6 +162,9 @@
 	-fx-text-fill: #f0f0f0;	
 }
 
+.help-box-close-label {
+	-fx-text-fill: #5AC8FB;
+}
 
 
 

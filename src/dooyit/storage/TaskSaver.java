@@ -32,12 +32,28 @@ public class TaskSaver {
 
 	public boolean save(ArrayList<TaskData> tasks) throws IOException {
 		File file = new File(filePath);
+		File directory = file.getParentFile();
+		boolean isSaved = false;
+		
+		if(directory.exists()) {
+			if(file.exists()) {
+				isSaved = saveTasks(file, tasks);
+			} else {
+				createFile(file);
+				isSaved = saveTasks(file, tasks);
+			}
+		} else {
+			createFile(directory, file);
+			isSaved = saveTasks(file, tasks);
+		}
+		
+		return isSaved;
+	}
+	
+	private boolean saveTasks(File file, ArrayList<TaskData> tasks) throws IOException {
 		BufferedWriter bWriter = new BufferedWriter(new FileWriter(file));
-		//Gson gson = new GsonBuilder().registerTypeAdapter(DateTime.class, new DateTimeSerializer()).setPrettyPrinting().create();
-		//String json = gson.toJson(tasks);
 
 		for (TaskData existingTask : tasks) {
-			//bWriter.append(json);
 			bWriter.append(setFormat(existingTask));
 			bWriter.newLine();
 		}
@@ -56,6 +72,7 @@ public class TaskSaver {
 		}
 		bWriter.close();
 	}
+	
 
 	private String setFormat(TaskData task) {
 		Gson gson = gsonWithDateTimeSerializer();
@@ -74,53 +91,21 @@ public class TaskSaver {
 
 		return json;
 	}
-
-	/*
-	private FloatTaskData setFloating(FloatingTask floating) {
-		FloatTaskData floatData;
-		String name = floating.getName();
-		boolean isCompleted = floating.isCompleted();
-		
-		if(floating.hasCategory()) {
-			Category category = floating.getCategory();
-			floatData = new FloatTaskData(name, category.getName(), isCompleted);
-		} else {
-			floatData = new FloatTaskData(name, isCompleted);
+	
+	private void createFile(File file) throws IOException {
+		try {
+			file.createNewFile();
+		} catch (IOException e) {
+			throw new IOException("Failed to create " + file.getName());
 		}
-		return floatData;
 	}
 	
-	private DeadlineTaskData setDeadline(DeadlineTask deadline) {
-		DeadlineTaskData deadlineData;
-		String name = deadline.getName();
-		DateTime deadlineTime = deadline.getDateTimeDeadline();
-		
-		boolean isCompleted = deadline.isCompleted();
-		if(deadline.hasCategory()) {
-			Category category = deadline.getCategory();
-			deadlineData = new DeadlineTaskData(name, deadlineTime, category.getName(), isCompleted);
-		} else {
-			deadlineData = new DeadlineTaskData(name, deadlineTime, isCompleted);
-		}
-		
-		return deadlineData;
+	
+	private void createFile(File parent, File file) throws IOException {
+		// creates the parent directories
+		parent.mkdirs();
+		createFile(file);
 	}
-
-	private EventTaskData setEvent(EventTask event) {
-		EventTaskData eventData;
-		String name = event.getName();
-		DateTime start = event.getDateTimeStart();
-		DateTime end = event.getDateTimeEnd();
-		boolean isCompleted = event.isCompleted();
-		
-		if(event.hasCategory()) {
-			Category category = event.getCategory();
-			eventData = new EventTaskData(name, start, end, category.getName(), isCompleted);
-		} else {
-			eventData = new EventTaskData(name, start, end, isCompleted);
-		}
-		return eventData;
-	}*/
 	
 	private Gson gsonWithDateTimeSerializer() {
 		return new GsonBuilder().registerTypeAdapter(DateTime.class, new DateTimeSerializer()).create();

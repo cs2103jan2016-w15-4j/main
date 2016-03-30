@@ -76,6 +76,7 @@ public class TaskControllerTest extends StorageConstants {
 			taskInfo = bReader.readLine();
 		}
 		bReader.close();
+		System.out.println(saved);
 
 		Assert.assertEquals(expected, saved);
 	}
@@ -95,23 +96,27 @@ public class TaskControllerTest extends StorageConstants {
 		// milk","isCompleted":false}
 		DateTime deadline_no_time = new DateTime(date);
 		DeadlineTaskData dlData1 = new DeadlineTaskData("buy milk", deadline_no_time, false);
-		Assert.assertTrue(loadedTasks.get(0).equals(dlData1));
+		DeadlineTaskData expectedDL1 = (DeadlineTaskData) loadedTasks.get(0);
+		Assert.assertTrue(expectedDL1.equals(dlData1));
 
 		// {"deadline":{"date":"10 12
 		// 2016","time":800},"taskName":"homework","isCompleted":false}
 		DateTime deadline = new DateTime(date, 800);
 		DeadlineTaskData dlData2 = new DeadlineTaskData("homework", deadline, false);
-		Assert.assertTrue(loadedTasks.get(1).equals(dlData2));
+		DeadlineTaskData expectedDL2 = (DeadlineTaskData) loadedTasks.get(1);
+		Assert.assertTrue(expectedDL2.equals(dlData2));
 
 		// {"taskName":"float","isCompleted":false}
 		FloatingTaskData floatData = new FloatingTaskData("float", false);
-		Assert.assertTrue(loadedTasks.get(2).equals(floatData));
+		FloatingTaskData expectedFloat = (FloatingTaskData) loadedTasks.get(2);
+		Assert.assertTrue(expectedFloat.equals(floatData));
 
 		// {"start":{"date":"10 12 2016","time":1000},"end":{"date":"10 12
 		// 2016","time":1200},"taskName":"brunch","isCompleted":false}
 		DateTime event_start = new DateTime(date, 1000);
 		DateTime event_end = new DateTime(date, 1200);
 		EventTaskData eventData = new EventTaskData("brunch", event_start, event_end, false);
-		Assert.assertTrue(loadedTasks.get(3).equals(eventData));
+		EventTaskData expectedEvent = (EventTaskData) loadedTasks.get(3);
+		Assert.assertTrue(expectedEvent.equals(eventData));
 	}
 }

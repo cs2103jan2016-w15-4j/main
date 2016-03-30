@@ -29,9 +29,9 @@ import dooyit.common.exception.MissingFileException;
  */
 public class TaskLoader {
 
-	private static final String DEADLINE = "deadline";
-	private static final String EVENT_START = "start";
-	private static final String EVENT_END = "end";
+	private static final String DEADLINE = "dateTimeDeadline";
+	private static final String EVENT_START = "dateTimeStart";
+	private static final String EVENT_END = "dateTimeEnd";
 	private static final String NAME = "taskName";
 	private static final String CATEGORY = "category";
 	private static final String IS_COMPLETED = "isCompleted";

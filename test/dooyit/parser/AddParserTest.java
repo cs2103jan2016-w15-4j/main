@@ -23,7 +23,7 @@ public class AddParserTest {
 	private static final String EVENT_END = "end";
 	private static final String DEADLINE = "deadline";
 	private static final String CATEGORY_NAME = "categoryName";
-	private static final String INVALID_DATE_TIME = "Invalid Date Time!";
+	private static final String INVALID_DATE_TIME = "Error: Invalid Date Time!";
 	private static final String INVALID_ADD_COMMAND = "Error: Invalid add command!";
 	
 	@Before
@@ -83,27 +83,27 @@ public class AddParserTest {
 	}
 	
 	@Test
-	public void Event_InvalidToDateTime_InvalidCommand() {
-		String brunch = "brunch from 10/12/2016 10am to 1212332";
-		Command command = parser.getCommand(brunch);
-		String message = Whitebox.getInternalState(command, ERROR_MESSAGE);
-		Assert.assertEquals(INVALID_DATE_TIME, message);
+	public void Event_InvalidToDateTime_FloatingTask() {
+		String brunchInvalidTo = "brunch from 10/12/2016 10am to 1212332";
+		Command command = parser.getCommand(brunchInvalidTo);
+		String name = Whitebox.getInternalState(parser, TASK_NAME);
+		Assert.assertEquals(brunchInvalidTo, name);
 	}
 	
 	@Test
-	public void Event_InvalidFromDateTime_InvalidCommand() {
-		String brunch = "brunch from 123123123 to 10/12/2016 12pm";
-		Command command = parser.getCommand(brunch);
-		String message = Whitebox.getInternalState(command, ERROR_MESSAGE);
-		Assert.assertEquals(INVALID_DATE_TIME, message);
+	public void Event_InvalidFromDateTime_FloatingTask() {
+		String brunchInvalidFrom = "brunch from 123123123 to 10/12/2016 12pm";
+		Command command = parser.getCommand(brunchInvalidFrom);
+		String name = Whitebox.getInternalState(parser, TASK_NAME);
+		Assert.assertEquals(brunchInvalidFrom, name);
 	}
 	
 	@Test
-	public void Event_EmptyFromDateTime_InvalidCommand() {
+	public void Event_EmptyFromDateTime_FloatingTask() {
 		String brunch = "brunch from to 10/12/2016 12pm";
 		Command command = parser.getCommand(brunch);
-		String message = Whitebox.getInternalState(command, ERROR_MESSAGE);
-		Assert.assertEquals(INVALID_DATE_TIME, message);
+		String name = Whitebox.getInternalState(parser, TASK_NAME);
+		Assert.assertEquals(brunch, name);
 		
 	}
 	

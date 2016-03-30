@@ -1,6 +1,7 @@
 package dooyit.parser;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -674,8 +675,8 @@ public class ParserTest {
 		DateTime dateTimeEndInCommand = Whitebox.getInternalState(command, "dateTimeEnd");
 		
 		assertEquals(expectedTaskName, taskName);
-		assertEquals(expectedStart, dateTimeStartInCommand);
-		assertEquals(expectedEnd, dateTimeEndInCommand);
+		assertTrue(expectedStart.equals(dateTimeStartInCommand));
+		assertTrue(expectedEnd.equals(dateTimeEndInCommand));
 	}
 	
 	@Test
@@ -690,7 +691,7 @@ public class ParserTest {
 		DateTime dateTimeInCommand = Whitebox.getInternalState(command, "dateTimeDeadline");
 		
 		assertEquals(expectedTaskName, taskName);
-		assertEquals(expectedDeadline, dateTimeInCommand);
+		assertTrue(expectedDeadline.equals(dateTimeInCommand));
 	}
 	
 	//********************************************

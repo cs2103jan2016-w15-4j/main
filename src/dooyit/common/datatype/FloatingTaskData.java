@@ -13,6 +13,7 @@ public class FloatingTaskData extends TaskData{
 		this.category = category;
 	}
 	
+	@Override
 	public boolean equals(Object o) {
 		if(o instanceof FloatingTaskData) {
 			FloatingTaskData data = (FloatingTaskData) o;
@@ -27,5 +28,16 @@ public class FloatingTaskData extends TaskData{
 		}
 		
 		return false;
+	}
+	
+	@Override
+	public Task convertToTask() {
+		Task task = new FloatingTask(taskName);
+		
+		if(isCompleted){
+			task.mark();
+		}
+		
+		return task;
 	}
 }

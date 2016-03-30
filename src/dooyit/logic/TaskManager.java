@@ -125,7 +125,7 @@ public class TaskManager {
 		// tell user if task is already marked.
 		return false;
 	}
-	
+
 	public boolean unMarkTask(int id) {
 		for (int i = 0; i < tasks.size(); i++) {
 			if (tasks.get(i).getId() == id) {
@@ -183,32 +183,33 @@ public class TaskManager {
 		}
 		return null;
 	}
-	
-	public ArrayList<Task> findTasksWithCategory(Category category){
+
+	public ArrayList<Task> findTasksWithCategory(Category category) {
 		ArrayList<Task> taskWithCat = new ArrayList<Task>();
-		
-		for(Task task : tasks){
-			if(task.getCategory().equals(category)){
+
+		for (Task task : tasks) {
+			if (task.hasCategory() && task.getCategory().equals(category)) {
 				taskWithCat.add(task);
 			}
 		}
 		return taskWithCat;
 	}
-	
-	public ArrayList<Task> removeTaskWithCategory(Category category){
+
+	public ArrayList<Task> removeTasksWithCategory(Category category) {
 		ArrayList<Task> taskWithCat = new ArrayList<Task>();
-		
-		for(Task task : tasks){
-			if(task.getCategory().equals(category)){
-				boolean isRemoved = taskWithCat.remove(task);
-				if(isRemoved){
-					taskWithCat.add(task);
+
+		for (int i = 0; i < tasks.size(); i++) {
+			if (tasks.get(i).hasCategory() && tasks.get(i).getCategory().equals(category)) {
+				Task removedTask = tasks.remove(i);
+				if (removedTask != null) {
+					taskWithCat.add(removedTask);
 				}
 			}
 		}
+
 		return taskWithCat;
 	}
-	
+
 	public ArrayList<Task> clear() {
 		ArrayList<Task> clearedTasks = new ArrayList<Task>(tasks);
 		tasks.clear();
@@ -249,9 +250,9 @@ public class TaskManager {
 		return tasks;
 	}
 
-	public ArrayList<Task> searchTask(String searchString){
+	public ArrayList<Task> searchTask(String searchString) {
 		ArrayList<Task> searchedTasks = new ArrayList<Task>();
-		
+
 		for (Task task : tasks) {
 			String taskName = task.getName();
 			taskName = taskName.toLowerCase();
@@ -261,10 +262,10 @@ public class TaskManager {
 				searchedTasks.add(task);
 			}
 		}
-		
+
 		return searchedTasks;
 	}
-	
+
 	public ArrayList<Task> getIncompletedTasks() {
 		ArrayList<Task> allIncompleteTask = new ArrayList<Task>();
 
@@ -276,6 +277,17 @@ public class TaskManager {
 		return allIncompleteTask;
 	}
 
+	public ArrayList<Task> getIncompletedTasks(DateTime overdueTime) {
+		ArrayList<Task> allIncompleteTask = new ArrayList<Task>();
+
+		for (Task task : tasks) {
+			if (!task.isCompleted() && !task.isOverDue(overdueTime)) {
+				allIncompleteTask.add(task);
+			}
+		}
+		return allIncompleteTask;
+	}
+	
 	public ArrayList<Task> getCompletedTasks() {
 		ArrayList<Task> allCompletedTask = new ArrayList<Task>();
 
@@ -404,8 +416,8 @@ public class TaskManager {
 
 		return overdueTasks;
 	}
-	
-	public boolean isFloatingTask(Task task){
+
+	public boolean isFloatingTask(Task task) {
 		return (task instanceof FloatingTask);
 	}
 
@@ -429,11 +441,20 @@ public class TaskManager {
 
 	public ArrayList<TaskGroup> getTaskGroupsAll() {
 		ArrayList<TaskGroup> taskGroups = new ArrayList<TaskGroup>();
+		TaskGroup taskGroup;
+		DateTime currDate = new DateTime();
 		
-		TaskGroup taskGroup = new TaskGroup("All");
-		taskGroup.addTasks(getIncompletedTasks());
+		ArrayList<Task> overdueTasks = getOverdueTasks(currDate);
+		if (!overdueTasks.isEmpty()) {
+			taskGroup = new TaskGroup("Overdue");
+			taskGroup.addTasks(getOverdueTasks(currDate));
+			taskGroups.add(taskGroup);
+		}
+		
+		taskGroup = new TaskGroup("All");
+		taskGroup.addTasks(getIncompletedTasks(currDate));
 		taskGroups.add(taskGroup);
-		
+
 		resetTasksId(taskGroups);
 		return taskGroups;
 	}
@@ -454,29 +475,29 @@ public class TaskManager {
 		taskGroup.addTasks(getIncompleteDeadlineTasks(currDate));
 		taskGroup.addTasks(getIncompleteEventTasks(currDate));
 		taskGroups.add(taskGroup);
-		
+
 		resetTasksId(taskGroups);
 		return taskGroups;
 	}
 
 	public ArrayList<TaskGroup> getTaskGroupsFloating() {
 		ArrayList<TaskGroup> taskGroups = new ArrayList<TaskGroup>();
-		
+
 		TaskGroup taskGroup = new TaskGroup("Float");
 		taskGroup.addTasks(getIncompleteFloatingTasks());
 		taskGroups.add(taskGroup);
-		
+
 		resetTasksId(taskGroups);
 		return taskGroups;
 	}
 
 	public ArrayList<TaskGroup> getTaskGroupsCompleted() {
 		ArrayList<TaskGroup> taskGroups = new ArrayList<TaskGroup>();
-		
+
 		TaskGroup taskGroup = new TaskGroup("Completed");
 		taskGroup.addTasks(getCompletedTasks());
 		taskGroups.add(taskGroup);
-		
+
 		resetTasksId(taskGroups);
 		return taskGroups;
 	}
@@ -485,18 +506,25 @@ public class TaskManager {
 		DateTime currDate = new DateTime();
 		ArrayList<TaskGroup> taskGroups = new ArrayList<TaskGroup>();
 		TaskGroup taskGroup;
-		
+
+		ArrayList<Task> overdueTasks = getOverdueTasks(currDate);
+		if (!overdueTasks.isEmpty()) {
+			taskGroup = new TaskGroup("Overdue");
+			taskGroup.addTasks(getOverdueTasks(currDate));
+			taskGroups.add(taskGroup);
+		}
+
 		taskGroup = new TaskGroup("Today", new DateTime(currDate));
 		taskGroup.addTasks(getIncompleteDeadlineTasks(currDate));
 		taskGroup.addTasks(getIncompleteEventTasks(currDate));
 		taskGroups.add(taskGroup);
-		
+
 		currDate.increaseByOneDay();
 		taskGroup = new TaskGroup("Tomorrow", new DateTime(currDate));
 		taskGroup.addTasks(getIncompleteDeadlineTasks(currDate));
 		taskGroup.addTasks(getIncompleteEventTasks(currDate));
 		taskGroups.add(taskGroup);
-		
+
 		currDate.increaseByOneDay();
 		for (int i = 0; i < 5; i++) {
 			taskGroup = new TaskGroup(currDate.getDayStr(), new DateTime(currDate));
@@ -516,14 +544,14 @@ public class TaskManager {
 
 		TaskGroup taskGroup = new TaskGroup("Search List");
 		taskGroup.addTasks(searchedTasks);
-		
+
 		taskGroups.add(taskGroup);
 
 		resetTasksId(taskGroups);
 		return taskGroups;
 	}
-	
-	public void resetTasksId(ArrayList<TaskGroup> taskGroups){
+
+	public void resetTasksId(ArrayList<TaskGroup> taskGroups) {
 		clearOldId();
 		assignNewId(taskGroups);
 	}
@@ -532,7 +560,7 @@ public class TaskManager {
 	 * 
 	 */
 	public void clearOldId() {
-		for(Task task : tasks){
+		for (Task task : tasks) {
 			task.resetId();
 		}
 	}
@@ -542,15 +570,15 @@ public class TaskManager {
 	 */
 	public void assignNewId(ArrayList<TaskGroup> taskGroups) {
 		int taskId = 1;
-		
-		for(TaskGroup taskGroup: taskGroups){
+
+		for (TaskGroup taskGroup : taskGroups) {
 			ArrayList<Task> tasks = taskGroup.getTasks();
-			for(Task task : tasks){
+			for (Task task : tasks) {
 				task.setId(taskId++);
 			}
 		}
 	}
-	
+
 	public void display() {
 		System.out.println();
 		System.out.println("Task List");

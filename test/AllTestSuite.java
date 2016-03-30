@@ -7,9 +7,9 @@ import dooyit.logic.commands.LogicCommandTestSuite;
 import dooyit.parser.ParserTestSuite;
 import dooyit.storage.StorageTestSuite;
 
-
 @RunWith(Suite.class)
-@Suite.SuiteClasses({ LogicCommandTestSuite.class, LogicTestSuite.class, ParserTestSuite.class, StorageTestSuite.class, DataTypeTestSuite.class})
+@Suite.SuiteClasses({ IntegrationTestSuite.class, LogicCommandTestSuite.class, LogicTestSuite.class,
+		ParserTestSuite.class, StorageTestSuite.class, DataTypeTestSuite.class })
 
 public class AllTestSuite {
 

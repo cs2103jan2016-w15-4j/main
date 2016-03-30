@@ -53,7 +53,7 @@ public class EventTask extends Task {
 	public boolean equals(Object o) {
 		if (o instanceof EventTask) {
 			EventTask eventTask = (EventTask) o;
-			return this.getName() == eventTask.getName() 
+			return this.getName().equals(eventTask.getName()) 
 					&& this.getDateTimeStart().equals(eventTask.getDateTimeStart())
 					&& this.getDateTimeEnd().equals(eventTask.getDateTimeEnd());
 		}

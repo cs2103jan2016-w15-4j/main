@@ -171,7 +171,7 @@ public class DateTime {
 		int firstTimeInt = first.getTimeInt();
 		int secondTimeInt = second.getTimeInt();
 		if(firstTimeInt != secondTimeInt) {
-			if(firstTimeInt < secondTimeInt) {
+			if(firstTimeInt < secondTimeInt && firstTimeInt != UNINITIALIZED_INT) {
 				comparison = COMPARISON_FIRST_IS_BEFORE_SECOND;
 			} else {
 				comparison = COMPARISON_FIRST_IS_AFTER_SECOND;
@@ -352,7 +352,7 @@ public class DateTime {
 				ans = true;
 				break;
 			}
-		}
+		} 
 		return ans;
 	}
 

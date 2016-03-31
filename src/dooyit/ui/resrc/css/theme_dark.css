@@ -80,7 +80,8 @@
 }
 
 .task-id {
-	-fx-text-fill: #585858;
+	/*-fx-text-fill: #585858;*/
+	-fx-text-fill: #ff6c57;
 }
 
 .task-name {
@@ -88,7 +89,9 @@
 }
 
 .task-period {
-	-fx-text-fill: #f7f7f7;
+	/*-fx-text-fill: #87FC70;*/
+	-fx-text-fill: #C7C7CC;
+	-fx-font-style: italic;
 }
 
 .task-category-label {

@@ -30,7 +30,7 @@ public class UITaskBox {
 	private static final String TASK_PERIOD_TO = " to ";
 	private static final String TASK_PERIOD_BEGINS = "Begins ";
 	private static final String TASK_PERIOD_ENDS = "Ends ";
-	private static final Font FONT_TASK_CATEGORY_LABEL = UIFont.SEGOE_M;
+	private static final Font FONT_TASK_CATEGORY_LABEL = UIFont.SEGOE_S;
 	private static final String STYLECLASS_TASK_CATEGORY_LABEL = UIStyle.TASK_CATEGORY_LABEL;
 	private static final int PREFWIDTH_TASK_CATEGORY_LABEL = 120;
 	private static final String STYLECLASS_TASK_BOX = UIStyle.DAY_TASK_BOX;

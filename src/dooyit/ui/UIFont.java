@@ -3,6 +3,7 @@ package dooyit.ui;
 import javafx.scene.text.Font;
 
 public class UIFont {
+	protected static final Font SEGOE_S = Font.font("Segoe UI", 12);
 	protected static final Font SEGOE_M = Font.font("Segoe UI", 14);
 	protected static final Font SEGOE_L = Font.font("Segoe UI", 18);
 	protected static final Font CONSOLAS_M = Font.font("Consolas", 14);

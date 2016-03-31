@@ -29,10 +29,12 @@ public class StorageCommand implements Command, ReversibleCommand {
 		try {
 			previousPath = logic.getFilePath();
 			logic.setFileDestinationPath(path);
+			logic.loadFromStorage();
 		} catch (IncorrectInputException e) {
 			logicAction = new LogicAction(Action.ERROR);
 			throw new IncorrectInputException("Invalid path: " + path);
 		}
+		
 		
 		logicAction = new LogicAction(Action.SET_STORAGE_PATH);
 		return logicAction;

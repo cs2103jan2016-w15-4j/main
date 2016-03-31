@@ -6,6 +6,7 @@ import dooyit.ui.UIMainViewType;
 import dooyit.parser.Parser;
 import dooyit.common.exception.IncorrectInputException;
 import dooyit.logic.CategoryManager;
+import dooyit.logic.DataManager;
 import dooyit.logic.HistoryManager;
 import dooyit.logic.TaskManager;
 import dooyit.logic.commands.*;
@@ -32,6 +33,7 @@ public class LogicController {
 	private CategoryManager categoryManager;
 	private StorageController storage;
 	private HistoryManager historyManager;
+	private DataManager dataManager;
 	private UIController uiController;
 	private static Logger logger = Logger.getLogger("Logic");
 
@@ -48,6 +50,7 @@ public class LogicController {
 		initCategoryManager();
 		initHistoryManager();
 		initStorage();
+		initDataManager();
 		loadFromStorage();
 		setDefaultCategories();
 		save();
@@ -93,6 +96,10 @@ public class LogicController {
 			logger.log(Level.SEVERE, "ERROR: Fail to create storage");
 			uiController.displayMessage("ERROR: CREATING STORAGE");
 		}
+	}
+	
+	private void initDataManager(){
+		dataManager = new DataManager();
 	}
 
 	/**
@@ -207,61 +214,22 @@ public class LogicController {
 
 	public ArrayList<TaskData> getTaskDatas() {
 		ArrayList<Task> tasks = taskManager.getAllTasks();
-		return convertTaskstoTaskDatas(tasks);
-	}
-
-	public ArrayList<TaskData> convertTaskstoTaskDatas(ArrayList<Task> tasks) {
-		ArrayList<TaskData> taskDatas = new ArrayList<TaskData>();
-
-		for (Task task : tasks) {
-			TaskData taskData = task.convertToData();
-			taskDatas.add(taskData);
-		}
-
-		return taskDatas;
+		return dataManager.convertTaskstoTaskDatas(tasks);
 	}
 
 	public ArrayList<CategoryData> getCategoryDatas() {
 		ArrayList<Category> categories = categoryManager.getAllCategories();
-		return convertCategorytoCategoryDatas(categories);
-	}
-
-	public ArrayList<CategoryData> convertCategorytoCategoryDatas(ArrayList<Category> categories) {
-		ArrayList<CategoryData> categoryDatas = new ArrayList<CategoryData>();
-
-		for (Category category : categories) {
-			CategoryData categoryData = category.convertToData();
-			categoryDatas.add(categoryData);
-		}
-
-		return categoryDatas;
+		return dataManager.convertCategorytoCategoryDatas(categories);
 	}
 
 	public void loadCategoryData() throws IOException {
 		ArrayList<CategoryData> categoryDatas = storage.loadCategory();
-
-		for (CategoryData categoryData : categoryDatas) {
-			try{
-				categoryManager.addCategory(categoryData.getName(), categoryData.getColor());
-			}catch(IncorrectInputException e){
-				
-			}
-		}
+		dataManager.loadCategoryData(this, categoryDatas);
 	}
 
 	public void loadTaskData() throws IOException {
 		ArrayList<TaskData> taskDatas = storage.loadTasks();
-
-		for (TaskData taskData : taskDatas) {
-			Task task = taskData.convertToTask();
-
-			if (taskData.hasCategory()) {
-				Category category = categoryManager.find(taskData.getCategory());
-				task.setCategory(category);
-			}
-
-			taskManager.add(task);
-		}
+		dataManager.loadTaskData(this, taskDatas);
 	}
 
 	public void setSelectedCategory(Category category){
@@ -510,7 +478,6 @@ public class LogicController {
 
 	public ArrayList<Category> clearCategory() {
 		ArrayList<Category> clearedCategories = categoryManager.clear();
-		// save();
 		return clearedCategories;
 	}
 

@@ -1,6 +1,7 @@
 package dooyit.logic;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import dooyit.common.datatype.Category;
 import dooyit.common.datatype.DateTime;
@@ -183,8 +184,8 @@ public class TaskManager {
 		}
 		return null;
 	}
-	
-	public int size(){
+
+	public int size() {
 		return tasks.size();
 	}
 
@@ -202,12 +203,13 @@ public class TaskManager {
 	public ArrayList<Task> removeTasksWithCategory(Category category) {
 		ArrayList<Task> taskWithCat = new ArrayList<Task>();
 
-		for (int i = 0; i < tasks.size(); i++) {
-			if (tasks.get(i).hasCategory() && tasks.get(i).getCategory().equals(category)) {
-				Task removedTask = tasks.remove(i);
-				if (removedTask != null) {
-					taskWithCat.add(removedTask);
-				}
+		Iterator<Task> itr = tasks.iterator();
+		while (itr.hasNext()) {
+			Task task = itr.next();
+
+			if (task.hasCategory() && task.getCategory().equals(category)) {
+				itr.remove();
+				taskWithCat.add(task);
 			}
 		}
 
@@ -224,7 +226,7 @@ public class TaskManager {
 		if (!contains(taskId)) {
 			return null;
 		}
-		
+
 		Task removedTask = remove(taskId);
 		Task newTask = removedTask.copy();
 		newTask.changeName(newName);
@@ -240,7 +242,7 @@ public class TaskManager {
 		Task task = remove(taskId);
 		Task newTask = addDeadlineTask(task.getName(), dateTimeDeadline, task.isCompleted());
 		newTask.setCategory(task.getCategory());
-		
+
 		return newTask;
 	}
 
@@ -252,7 +254,7 @@ public class TaskManager {
 		Task task = remove(taskId);
 		Task newTask = addEventTask(task.getName(), dateTimeStart, dateTimeEnd, task.isCompleted());
 		newTask.setCategory(task.getCategory());
-		
+
 		return newTask;
 	}
 
@@ -297,7 +299,7 @@ public class TaskManager {
 		}
 		return allIncompleteTask;
 	}
-	
+
 	public ArrayList<Task> getCompletedTasks() {
 		ArrayList<Task> allCompletedTask = new ArrayList<Task>();
 
@@ -453,14 +455,14 @@ public class TaskManager {
 		ArrayList<TaskGroup> taskGroups = new ArrayList<TaskGroup>();
 		TaskGroup taskGroup;
 		DateTime currDate = new DateTime();
-		
+
 		ArrayList<Task> overdueTasks = getOverdueTasks(currDate);
 		if (!overdueTasks.isEmpty()) {
 			taskGroup = new TaskGroup("Overdue");
 			taskGroup.addTasks(getOverdueTasks(currDate));
 			taskGroups.add(taskGroup);
 		}
-		
+
 		taskGroup = new TaskGroup("All");
 		taskGroup.addTasks(getIncompletedTasks(currDate));
 		taskGroups.add(taskGroup);

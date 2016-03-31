@@ -130,7 +130,7 @@ public class TaskManager {
 		return false;
 	}
 
-	public boolean unMarkTask(int id) {
+	public boolean unmarkTask(int id) {
 		for (int i = 0; i < tasks.size(); i++) {
 			if (tasks.get(i).getId() == id) {
 				tasks.get(i).unMark();
@@ -141,7 +141,7 @@ public class TaskManager {
 		return false;
 	}
 
-	public boolean unMarkTask(Task task) {
+	public boolean unmarkTask(Task task) {
 		for (int i = 0; i < tasks.size(); i++) {
 			if (tasks.get(i).equals(task)) {
 				tasks.get(i).unMark();

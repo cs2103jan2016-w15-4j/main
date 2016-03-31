@@ -26,24 +26,21 @@ public class MarkCommand implements Command, ReversibleCommand {
 	}
 
 	public void undo(LogicController logic){
-		TaskManager taskManager = logic.getTaskManager();
-		
 		for(Task markedTask : markedTasks){
-			taskManager.unMarkTask(markedTask);
+			logic.unmarkTask(markedTask);
 		}
 	}
 	
 	public LogicAction execute(LogicController logic) throws IncorrectInputException {
-		TaskManager taskManager = logic.getTaskManager();
-		assert (taskManager != null);
+		assert (logic != null);
 		LogicAction logicAction = null;
 		
 		String errorMessageBody = "";
 
 		for (int markId : markIds) {
-			if (taskManager.contains(markId)) {
-				taskManager.markTask(markId);
-				Task markedTask = taskManager.find(markId);
+			if (logic.containsTask(markId)) {
+				logic.markTask(markId);
+				Task markedTask = logic.findTask(markId);
 				markedTasks.add(markedTask);
 				logicAction = new LogicAction(Action.MARK_TASK);
 			} else {

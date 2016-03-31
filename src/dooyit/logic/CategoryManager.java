@@ -69,6 +69,16 @@ public class CategoryManager {
 		}
 		return null;
 	}
+	
+	public boolean remove(Category inCategory){
+		for (Category category : categories) {
+			if (category.equals(inCategory)) {
+				categories.remove(category);
+				return true;
+			}
+		}
+		return false;
+	}
 
 	public boolean contains(String categoryName) {
 		for (int i = 0; i < categories.size(); i++) {

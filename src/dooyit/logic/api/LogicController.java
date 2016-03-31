@@ -447,6 +447,22 @@ public class LogicController {
 		return isRemoved;
 	}
 	
+	public void markTask(Task task){
+		taskManager.markTask(task);
+	}
+	
+	public void markTask(int taskId){
+		taskManager.markTask(taskId);
+	}
+	
+	public void unmarkTask(Task task){
+		taskManager.unmarkTask(task);
+	}
+	
+	public void unmarkTask(int taskId){
+		taskManager.unmarkTask(taskId);
+	}
+	
 	public int noOfTask(){
 		return taskManager.size();
 	}
@@ -481,6 +497,10 @@ public class LogicController {
 		return removedCategory;
 	}
 
+	public boolean removeCategory(Category category) {
+		return categoryManager.remove(category);
+	}
+	
 	public boolean containsCategory(String categoryName) {
 		return categoryManager.contains(categoryName);
 	}

@@ -27,24 +27,22 @@ public class UnMarkCommand implements Command, ReversibleCommand{
 	}
 	
 	public void undo(LogicController logic){
-		TaskManager taskManager = logic.getTaskManager();
 		
 		for(Task unmarkedTask : unmarkedTasks){
-			taskManager.markTask(unmarkedTask);
+			logic.markTask(unmarkedTask);
 		}
 	}
 
 	public LogicAction execute(LogicController logic) throws IncorrectInputException {
-		TaskManager taskManager = logic.getTaskManager();
-		assert (taskManager != null);
+		assert (logic != null);
 		LogicAction logicAction = null;
 		
 		String errorMessageBody = "";
 
 		for (int unmarkId : unmarkIds) {
 			if (logic.containsTask(unmarkId)) {
-				taskManager.unMarkTask(unmarkId);
-				Task unmarkedTask = taskManager.find(unmarkId);
+				logic.unmarkTask(unmarkId);
+				Task unmarkedTask = logic.findTask(unmarkId);
 				unmarkedTasks.add(unmarkedTask);
 				logicAction = new LogicAction(Action.UNMARK_TASK);
 			} else {

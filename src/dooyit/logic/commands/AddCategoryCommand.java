@@ -8,7 +8,7 @@ import dooyit.logic.api.Action;
 import dooyit.logic.api.LogicAction;
 import dooyit.logic.api.LogicController;
 
-public class AddCategoryCommand implements Command {
+public class AddCategoryCommand implements Command, ReversibleCommand {
 
 	private String categoryName;
 	private String colorString;
@@ -25,6 +25,10 @@ public class AddCategoryCommand implements Command {
 	
 	private boolean hasColorString(){
 		return colorString != null;
+	}
+	
+	public void undo(LogicController logic){
+		logic.removeCategory(addedCategory);
 	}
 
 	public LogicAction execute(LogicController logic) throws IncorrectInputException {

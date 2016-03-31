@@ -38,15 +38,8 @@ public abstract class Task {
 		return isCompleted;
 	}
 	
-	public boolean setCategory(Category category) {
-		assert (category != null);
-
-		if(hasCategory()){
-			return false;
-		}else{
-			this.category = category;
-			return true;
-		}
+	public void setCategory(Category category) {
+		this.category = category;
 	}
 	
 	public Category getCategory(){

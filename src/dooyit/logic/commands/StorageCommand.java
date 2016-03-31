@@ -16,6 +16,7 @@ public class StorageCommand implements Command, ReversibleCommand {
 
 	public void undo(LogicController logic){
 		logic.setFileDestinationPath(previousPath);
+		logic.loadFromStorage();
 	}
 	
 	public void redo(LogicController logic){

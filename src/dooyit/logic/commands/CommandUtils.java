@@ -103,7 +103,7 @@ public class CommandUtils {
 
 	public static Command createShowCategoryCommand(String categoryName) {
 		// temp
-		ShowCommand showCommand = new ShowCommand(UIMainViewType.COMPLETED, categoryName);
+		ShowCommand showCommand = new ShowCommand(UIMainViewType.CATEGORY, categoryName);
 
 		return showCommand;
 	}

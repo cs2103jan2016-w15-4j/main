@@ -14,8 +14,8 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.reflect.Whitebox;
 
 import dooyit.common.datatype.DateTime;
-import dooyit.common.exception.IncorrectInputException;
 import dooyit.logic.commands.Command;
+import dooyit.ui.UIMainViewType;
 
 @PrepareForTest(AddParser.class)
 public class ParserTest {
@@ -614,7 +614,35 @@ public class ParserTest {
 	//********************************************
 	//****** Tests for Change Skin Command *******
 	//********************************************
+	@Test
+	public void changeSkinToDark() {
+		String input = "skin dark";
+		Command command = parser.getCommand(input);
+		
+		String theme = Whitebox.getInternalState(command, "themeString");
+		String expectedTheme = "dark";
+		assertEquals(expectedTheme, theme);
+	}
 	
+	@Test
+	public void changeSkinToAqua() {
+		String input = "skin aqua";
+		Command command = parser.getCommand(input);
+		
+		String theme = Whitebox.getInternalState(command, "themeString");
+		String expectedTheme = "aqua";
+		assertEquals(expectedTheme, theme);
+	}
+	
+	@Test
+	public void changeSkinToDefault() {
+		String input = "skin light";
+		Command command = parser.getCommand(input);
+		
+		String theme = Whitebox.getInternalState(command, "themeString");
+		String expectedTheme = "light";
+		assertEquals(expectedTheme, theme);
+	}
 	//********************************************
 	//****** Tests for Set Storage Command *******
 	//********************************************
@@ -622,10 +650,81 @@ public class ParserTest {
 	//********************************************
 	//******** Tests for Search Command **********
 	//********************************************
+	@Test
+	public void search() {
+		String input = "search hello";
+		Command command = parser.getCommand(input);
+		
+		String keyword = Whitebox.getInternalState(command, "searchString");
+		String expectedKeyword = "hello";
+		assertEquals(expectedKeyword, keyword);
+	}
 	
 	//********************************************
 	//********* Tests for ShowParser *************
 	//********************************************
+	@Test
+	public void showToday() {
+		String input = "show today";
+		Command command = parser.getCommand(input);
+		
+		UIMainViewType view = Whitebox.getInternalState(command, "uiMainViewtype");
+		UIMainViewType expectedView = UIMainViewType.TODAY;
+		assertEquals(expectedView, view);
+	}
+	
+	@Test
+	public void showNextSeven() {
+		String input = "show next7";
+		Command command = parser.getCommand(input);
+		
+		UIMainViewType view = Whitebox.getInternalState(command, "uiMainViewtype");
+		UIMainViewType expectedView = UIMainViewType.EXTENDED;
+		assertEquals(expectedView, view);
+	}
+	
+	@Test
+	public void showAll() {
+		String input = "show all";
+		Command command = parser.getCommand(input);
+		
+		UIMainViewType view = Whitebox.getInternalState(command, "uiMainViewtype");
+		UIMainViewType expectedView = UIMainViewType.ALL;
+		assertEquals(expectedView, view);
+	}
+	
+	@Test
+	public void showFloat() {
+		String input = "show float";
+		Command command = parser.getCommand(input);
+		
+		UIMainViewType view = Whitebox.getInternalState(command, "uiMainViewtype");
+		UIMainViewType expectedView = UIMainViewType.FLOAT;
+		assertEquals(expectedView, view);
+	}
+	
+	@Test
+	public void showCompleted() {
+		String input = "show completed";
+		Command command = parser.getCommand(input);
+		
+		UIMainViewType view = Whitebox.getInternalState(command, "uiMainViewtype");
+		UIMainViewType expectedView = UIMainViewType.COMPLETED;
+		assertEquals(expectedView, view);
+	}
+	
+	@Test
+	public void showCategory() {
+		String input = "show cat helloWorld";
+		Command command = parser.getCommand(input);
+		
+		UIMainViewType view = Whitebox.getInternalState(command, "uiMainViewtype");
+		UIMainViewType expectedView = UIMainViewType.CATEGORY;
+		String categoryName = Whitebox.getInternalState(command, "categoryName");
+		String expectedCategoryName = "helloworld";
+		assertEquals(expectedView, view);
+		assertEquals(expectedCategoryName, categoryName);
+	}
 	
 	//********************************************
 	//************ Tests for AddParser ***********
@@ -694,6 +793,100 @@ public class ParserTest {
 		assertTrue(expectedDeadline.equals(dateTimeInCommand));
 	}
 	
+	
+	@Test
+	public void Deadline_ValidOnADate_ExpectedTrue() {
+		String homeworkTmr = "add assignment by 30/3 5pm";
+		Command command = parser.getCommand(homeworkTmr);
+		String name = Whitebox.getInternalState(command, "taskName");
+		assertEquals("assignment", name);
+		
+		DateTime deadline = Whitebox.getInternalState(command, "dateTimeDeadline");
+		DateTimeParser dtParser = new DateTimeParser();
+		DateTime expectedDeadline = dtParser.parse("30/3 5pm");
+		Assert.assertTrue(expectedDeadline.equals(deadline));
+	}
+	
+	@Test
+	public void DeadlineTmr_Invalid_InvalidCommand() {
+		String proposalTmrInvalid = "add proposal by tmr 21312312";
+		Command command = parser.getCommand(proposalTmrInvalid);
+		
+		//Getting error message from InvalidCommand
+		String message = Whitebox.getInternalState(command, "errorMessage");
+		String expectedErrorMessage = DateTimeParser.ERROR_MESSAGE_INVALID_DATE_TIME;
+		assertEquals(expectedErrorMessage, message);
+	}
+	
+	@Test
+	public void Event_ValidDateTimeLong_ExpectedTrue() {
+		String brunch = "add brunch from 10/12/2016 10am to 10/12/2016 1pm";
+		Command command = parser.getCommand(brunch);
+		
+		//Setting expected results
+		String expectedName = "brunch";
+		DateTimeParser dtParser = new DateTimeParser();
+		DateTime expectedStart = dtParser.parse("10/12/2016 10am");
+		DateTime expectedEnd = dtParser.parse("10/12/2016 1pm");
+		
+		//Getting private attributes from AddParser
+		String name = Whitebox.getInternalState(command, "taskName");
+		DateTime start = Whitebox.getInternalState(command,"dateTimeStart");
+		DateTime end = Whitebox.getInternalState(command, "dateTimeEnd");
+		
+		//Comparison with expected results
+		Assert.assertEquals(expectedName, name);
+		Assert.assertTrue(expectedStart.equals(start));
+		Assert.assertTrue(expectedEnd.equals(end));
+	}
+	
+	@Test
+	public void Event_InvalidToDateTime_FloatingTask() {
+		String brunchInvalidTo = "add brunch from 10/12/2016 10am to 1212332";
+		Command command = parser.getCommand(brunchInvalidTo);
+		String name = Whitebox.getInternalState(command, "taskName");
+		String expectedName = "brunch from 10/12/2016 10am to 1212332";
+		Assert.assertEquals(expectedName, name);
+	}
+	
+	@Test
+	public void Event_InvalidFromDateTime_FloatingTask() {
+		String brunchInvalidFrom = "add brunch from 123123123 to 10/12/2016 12pm";
+		Command command = parser.getCommand(brunchInvalidFrom);
+		String name = Whitebox.getInternalState(command, "taskName");
+		String expectedName = "brunch from 123123123 to 10/12/2016 12pm";
+		Assert.assertEquals(expectedName, name);
+	}
+	
+	@Test
+	public void Event_EmptyFromDateTime_FloatingTask() {
+		String brunch = "add brunch from to 10/12/2016 12pm";
+		Command command = parser.getCommand(brunch);
+		String name = Whitebox.getInternalState(command, "taskName");
+		String expectedName = "brunch from to 10/12/2016 12pm";
+		Assert.assertEquals(expectedName, name);
+	}
+	
+	@Test
+	public void Event_EmptyToDateTime_FloatingTask() {
+		String brunch = "add brunch from 10/12/2016 12pm to ";
+		Command command = parser.getCommand(brunch);
+		String name = Whitebox.getInternalState(command, "taskName");
+		String expectedName = "brunch from 10/12/2016 12pm to";
+		Assert.assertEquals(expectedName, name);
+	}
+	
+	
+	@Test
+	public void Event_EmptyFromToDateTime_AddFloat() {
+		String brunch = "add brunch from to";
+		Command command = parser.getCommand(brunch);
+		
+		String name = Whitebox.getInternalState(command, "taskName");
+		String expectedName = "brunch from to";
+		Assert.assertEquals(expectedName, name);
+	}
+	
 	//********************************************
 	//************ Tests for EditParser **********
 	//********************************************
@@ -704,4 +897,23 @@ public class ParserTest {
 	//********* Tests for Invalid Command ********
 	//********************************************
 	
+	@Test
+	public void EmptyString_InvalidCommand() {
+		String empty = "";
+		Command command = parser.getCommand(empty);
+		
+		String message = Whitebox.getInternalState(command, "errorMessage");
+		String expectedErrorMessage = Parser.ERROR_MESSAGE_INVALID_COMMAND + empty;
+		Assert.assertEquals(expectedErrorMessage, message);
+	}
+	
+	@Test
+	public void parseGibberishInvalidCommand() {
+		String gibberish = "dhasjkfhsbdk";
+		Command command = parser.getCommand(gibberish);
+		
+		String message = Whitebox.getInternalState(command, "errorMessage");
+		String expectedErrorMessage = Parser.ERROR_MESSAGE_INVALID_COMMAND + gibberish;
+		Assert.assertEquals(expectedErrorMessage, message);
+	}
 }

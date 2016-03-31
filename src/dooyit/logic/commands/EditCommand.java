@@ -51,6 +51,8 @@ public class EditCommand extends ReversibleCommand {
 	}
 
 	public EditCommand(int taskId, String taskName, DateTime start, DateTime end) {
+		assert(start != null && end != null);
+		
 		editCommandType = EditCommandType.NAME_N_EVENT;
 		this.taskName = taskName;
 		this.dateTimeStart = start;

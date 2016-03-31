@@ -21,10 +21,23 @@ public class DeadlineTask extends Task {
 		this.category = category;
 	}
 	
+	public DeadlineTask(Task task, DateTime dateTimeDeadline){
+		assert(task != null);
+		
+		this.taskType = TaskType.DEADLINE;
+		this.taskId = task.taskId;
+		this.uniqueId = task.uniqueId;
+		this.taskName = task.taskName;
+		this.category = task.category;
+		this.isCompleted = task.isCompleted;
+		this.dateTimeDeadline = dateTimeDeadline;
+	}
+	
 	public DeadlineTask(DeadlineTask deadlineTask){
 		assert(deadlineTask != null);
 		
-		this.taskType = deadlineTask.taskType;
+		this.taskType = TaskType.DEADLINE;
+		this.taskId = deadlineTask.taskId;
 		this.uniqueId = deadlineTask.uniqueId;
 		this.taskName = deadlineTask.taskName;
 		this.dateTimeDeadline = deadlineTask.dateTimeDeadline;

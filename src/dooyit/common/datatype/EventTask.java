@@ -24,10 +24,24 @@ public class EventTask extends Task {
 		this.category = category;
 	}
 	
+	public EventTask(Task task, DateTime start, DateTime end){
+		assert(task != null);
+		
+		this.taskType = TaskType.EVENT;
+		this.taskId = task.taskId;
+		this.uniqueId = task.uniqueId;
+		this.taskName = task.taskName;
+		this.category = task.category;
+		this.isCompleted = task.isCompleted;
+		this.dateTimeStart = start;
+		this.dateTimeEnd = end;
+	}
+
 	public EventTask(EventTask eventTask){
 		assert(eventTask != null);
 		
-		this.taskType = eventTask.taskType;
+		this.taskType = TaskType.EVENT;
+		this.taskId = eventTask.taskId;
 		this.uniqueId = eventTask.uniqueId;
 		this.taskName = eventTask.taskName;
 		this.dateTimeStart = eventTask.dateTimeStart;

@@ -28,13 +28,14 @@ public class DeleteCommand extends ReversibleCommand {
 	
 	@Override
 	public void undo(LogicController logic){
-		TaskManager taskManager = logic.getTaskManager();
 		
 		for(Task deletedTask : deletedTasks){
-			taskManager.add(deletedTask);
+			logic.addTask(deletedTask);
 		}
 	}
 
+	
+	
 	@Override
 	public LogicAction execute(LogicController logic) throws IncorrectInputException {
 		assert (logic != null);

@@ -240,8 +240,10 @@ public class TaskManager {
 		}
 
 		Task task = remove(taskId);
-		Task newTask = addDeadlineTask(task.getName(), dateTimeDeadline, task.isCompleted());
+		//Task newTask = addDeadlineTask(task.getName(), dateTimeDeadline, task.isCompleted());
+		Task newTask = new DeadlineTask(task, dateTimeDeadline);
 		newTask.setCategory(task.getCategory());
+		add(newTask);
 
 		return newTask;
 	}
@@ -252,8 +254,10 @@ public class TaskManager {
 		}
 
 		Task task = remove(taskId);
-		Task newTask = addEventTask(task.getName(), dateTimeStart, dateTimeEnd, task.isCompleted());
+		//Task newTask = addEventTask(task.getName(), dateTimeStart, dateTimeEnd, task.isCompleted());
+		Task newTask = new EventTask(task, dateTimeStart, dateTimeEnd);
 		newTask.setCategory(task.getCategory());
+		add(newTask);
 
 		return newTask;
 	}

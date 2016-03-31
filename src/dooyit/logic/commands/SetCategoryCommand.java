@@ -12,32 +12,48 @@ import dooyit.logic.api.Action;
 import dooyit.logic.api.LogicAction;
 import dooyit.logic.api.LogicController;
 
-public class SetCategoryCommand implements Command {
+public class SetCategoryCommand implements Command, ReversibleCommand {
 
 	private String categoryName;
 	private ArrayList<Integer> taskIds;
+	private ArrayList<Task> tasksWithCategory;
 
 	public SetCategoryCommand(int taskId, String categoryName) {
 		this.taskIds = new ArrayList<Integer>();
 		this.taskIds.add(taskId);
 		this.categoryName = categoryName;
 	}
+	
+	public SetCategoryCommand(ArrayList<Integer> taskIds, String categoryName) {
+		this.taskIds = new ArrayList<Integer>();
+		this.taskIds.addAll(taskIds);
+		this.categoryName = categoryName;
+	}
+	
+	public void undo(LogicController logic){
+		for (Task task : tasksWithCategory) {
+			task.setCategory(null);
+		}
+	}
 
 	public LogicAction execute(LogicController logic) throws IncorrectInputException {
 		assert(logic != null);
 		LogicAction logicAction = null;
+		tasksWithCategory = new ArrayList<Task>();
 		
-		for (Integer taskId : taskIds) {
+		for (int taskId : taskIds) {
 			if (logic.containsTask(taskId)) {
 				if (logic.containsCategory(categoryName)) {
 					Category category = logic.findCategory(categoryName);
 					Task task = logic.findTask(taskId);
 					task.setCategory(category);
+					tasksWithCategory.add(task);
 					logicAction = new LogicAction(Action.SET_CATEGORY);
 				} else {
 					Category category = logic.addCategory(categoryName);
 					Task task = logic.findTask(taskId);
 					task.setCategory(category);
+					tasksWithCategory.add(task);
 					logicAction = new LogicAction(Action.ADD_CATEGORY);
 					throw new IncorrectInputException("Category: " + categoryName + " is created.");
 				}

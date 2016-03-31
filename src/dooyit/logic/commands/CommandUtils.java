@@ -66,6 +66,11 @@ public class CommandUtils {
 		return addCategoryCommand;
 	}
 	
+	public static Command createSetCategoryCommand(ArrayList<Integer> taskIDs, String categoryName) {
+		SetCategoryCommand addCategoryCommand = new SetCategoryCommand(taskIDs, categoryName);
+		return addCategoryCommand;
+	}
+	
 	public static Command createDeleteCategoryCommand(String categoryName) {
 		DeleteCategoryCommand deleteCategoryCommand = new DeleteCategoryCommand(categoryName);
 		return deleteCategoryCommand;

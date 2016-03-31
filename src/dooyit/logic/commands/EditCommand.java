@@ -9,7 +9,7 @@ import dooyit.logic.api.LogicAction;
 import dooyit.logic.api.LogicController;
 import dooyit.ui.UIMainViewType;
 
-public class EditCommand extends ReversibleCommand {
+public class EditCommand implements Command, ReversibleCommand {
 
 	private enum EditCommandType {
 		NAME, DEADLINE, EVENT, NAME_N_DEADLINE, NAME_N_EVENT
@@ -60,7 +60,6 @@ public class EditCommand extends ReversibleCommand {
 		this.taskId = taskId;
 	}
 
-	@Override
 	public void undo(LogicController logic) {
 		assert (logic != null);
 		
@@ -68,7 +67,6 @@ public class EditCommand extends ReversibleCommand {
 		logic.addTask(originalTask);
 	}
 
-	@Override
 	public LogicAction execute(LogicController logic) throws IncorrectInputException {
 		assert (logic != null);
 		LogicAction logicAction;

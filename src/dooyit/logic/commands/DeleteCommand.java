@@ -9,7 +9,7 @@ import dooyit.logic.api.Action;
 import dooyit.logic.api.LogicAction;
 import dooyit.logic.api.LogicController;
 
-public class DeleteCommand extends ReversibleCommand {
+public class DeleteCommand implements Command, ReversibleCommand {
 
 	private ArrayList<Integer> deleteIds;
 	private ArrayList<Task> deletedTasks;
@@ -26,7 +26,6 @@ public class DeleteCommand extends ReversibleCommand {
 		this.deleteIds.addAll(deleteIds);
 	}
 	
-	@Override
 	public void undo(LogicController logic){
 		
 		for(Task deletedTask : deletedTasks){
@@ -34,9 +33,6 @@ public class DeleteCommand extends ReversibleCommand {
 		}
 	}
 
-	
-	
-	@Override
 	public LogicAction execute(LogicController logic) throws IncorrectInputException {
 		assert (logic != null);
 		LogicAction logicAction = null;

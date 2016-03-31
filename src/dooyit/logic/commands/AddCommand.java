@@ -9,7 +9,7 @@ import dooyit.logic.api.LogicAction;
 import dooyit.logic.api.LogicController;
 import dooyit.ui.UIMainViewType;
 
-public class AddCommand extends ReversibleCommand {
+public class AddCommand implements Command, ReversibleCommand {
 
 	private String taskName;
 	private Task.TaskType taskType;
@@ -36,12 +36,10 @@ public class AddCommand extends ReversibleCommand {
 		taskType = Task.TaskType.EVENT;
 	}
 
-	@Override
 	public void undo(LogicController logic) {
 		logic.removeTask(addedTask);
 	}
 
-	@Override
 	public LogicAction execute(LogicController logic) throws IncorrectInputException {
 		assert (logic != null);
 		LogicAction logicAction = null;

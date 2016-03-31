@@ -6,13 +6,12 @@ import dooyit.logic.api.LogicAction;
 import dooyit.logic.api.LogicController;
 import dooyit.ui.UIController;
 
-public class HelpCommand extends Command {
+public class HelpCommand implements Command {
 
 	public HelpCommand(){
 		
 	}
 	
-	@Override
 	public LogicAction execute(LogicController logic) throws IncorrectInputException {
 		UIController uiController = logic.getUIController();
 		LogicAction logicAction = new LogicAction(Action.HELP);

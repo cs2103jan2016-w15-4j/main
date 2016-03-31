@@ -5,7 +5,7 @@ import dooyit.logic.api.Action;
 import dooyit.logic.api.LogicAction;
 import dooyit.logic.api.LogicController;
 
-public class StorageCommand extends ReversibleCommand {
+public class StorageCommand implements Command, ReversibleCommand {
 
 	private String path;
 	private String previousPath;
@@ -14,12 +14,10 @@ public class StorageCommand extends ReversibleCommand {
 		this.path = path;
 	}
 
-	@Override
 	public void undo(LogicController logic){
 		logic.setFileDestinationPath(previousPath);
 	}
 	
-	@Override
 	public LogicAction execute(LogicController logic) throws IncorrectInputException {
 		assert(logic != null);
 		LogicAction logicAction;

@@ -12,7 +12,7 @@ import dooyit.logic.api.Action;
 import dooyit.logic.api.LogicAction;
 import dooyit.logic.api.LogicController;
 
-public class SetCategoryCommand extends Command {
+public class SetCategoryCommand implements Command {
 
 	private String categoryName;
 	private ArrayList<Integer> taskIds;
@@ -23,7 +23,6 @@ public class SetCategoryCommand extends Command {
 		this.categoryName = categoryName;
 	}
 
-	@Override
 	public LogicAction execute(LogicController logic) throws IncorrectInputException {
 		assert(logic != null);
 		LogicAction logicAction = null;

@@ -9,16 +9,14 @@ import dooyit.logic.api.Action;
 import dooyit.logic.api.LogicAction;
 import dooyit.logic.api.LogicController;
 
-public class ClearCommand extends ReversibleCommand {
+public class ClearCommand implements Command, ReversibleCommand {
 
 	ArrayList<Task> clearedTasks;
 	
-	@Override
 	public void undo(LogicController logic) {
 		logic.loadTasks(clearedTasks);
 	}
 	
-	@Override
 	public LogicAction execute(LogicController logic) throws IncorrectInputException {
 		assert(logic != null);
 		LogicAction logicAction;

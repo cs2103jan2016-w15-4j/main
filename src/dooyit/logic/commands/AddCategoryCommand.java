@@ -8,7 +8,7 @@ import dooyit.logic.api.Action;
 import dooyit.logic.api.LogicAction;
 import dooyit.logic.api.LogicController;
 
-public class AddCategoryCommand extends Command {
+public class AddCategoryCommand implements Command {
 
 	private String categoryName;
 	private String colorString;
@@ -27,7 +27,6 @@ public class AddCategoryCommand extends Command {
 		return colorString != null;
 	}
 
-	@Override
 	public LogicAction execute(LogicController logic) throws IncorrectInputException {
 		LogicAction logicAction;
 		

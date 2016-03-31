@@ -7,14 +7,7 @@ import dooyit.logic.api.LogicAction;
 import dooyit.logic.api.LogicController;
 import dooyit.ui.UIMainViewType;
 
-public abstract class Command {
-	
-	public Command() {
+public interface Command {
 
-	}
-
-	public abstract LogicAction execute(LogicController logic) throws IncorrectInputException;
-	
-	
-	
+	public LogicAction execute(LogicController logic) throws IncorrectInputException;
 }

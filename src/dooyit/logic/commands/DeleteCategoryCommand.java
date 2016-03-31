@@ -9,7 +9,7 @@ import dooyit.logic.api.Action;
 import dooyit.logic.api.LogicAction;
 import dooyit.logic.api.LogicController;
 
-public class DeleteCategoryCommand extends ReversibleCommand {
+public class DeleteCategoryCommand implements Command, ReversibleCommand {
 
 	private String categoryName;
 	Category removedCategory;
@@ -19,13 +19,11 @@ public class DeleteCategoryCommand extends ReversibleCommand {
 		this.categoryName = categoryName;
 	}
 	
-	@Override
 	public void undo(LogicController logic) {
 		logic.loadTasks(removedTask);
 		logic.addCategory(removedCategory);
 	}
 	
-	@Override
 	public LogicAction execute(LogicController logic) throws IncorrectInputException {
 		assert(logic != null);
 		LogicAction logicAction;

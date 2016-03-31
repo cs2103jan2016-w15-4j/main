@@ -2,7 +2,8 @@ package dooyit.logic.commands;
 
 import dooyit.logic.api.LogicController;
 
-public abstract class ReversibleCommand extends Command {
+public interface ReversibleCommand {
 	
-	public abstract void undo(LogicController logic);
+	public void undo(LogicController logic);
+	
 }

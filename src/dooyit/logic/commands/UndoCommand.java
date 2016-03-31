@@ -5,9 +5,8 @@ import dooyit.logic.api.Action;
 import dooyit.logic.api.LogicAction;
 import dooyit.logic.api.LogicController;
 
-public class UndoCommand extends Command {
+public class UndoCommand implements Command {
 
-	@Override
 	public LogicAction execute(LogicController logic) throws IncorrectInputException {
 		assert(logic != null);
 		LogicAction logicAction;

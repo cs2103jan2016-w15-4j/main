@@ -10,7 +10,7 @@ import dooyit.logic.api.LogicController;
 import dooyit.ui.UIController;
 import dooyit.ui.UIMainViewType;
 
-public class ShowCommand extends Command {
+public class ShowCommand implements Command {
 
 	String categoryName;
 	UIMainViewType uiMainViewtype;
@@ -24,11 +24,8 @@ public class ShowCommand extends Command {
 		this.categoryName = categoryName;
 	}
 
-	@Override
 	public LogicAction execute(LogicController logic) throws IncorrectInputException {
 		assert (logic != null);
-
-		
 
 		LogicAction logicAction = null;
 

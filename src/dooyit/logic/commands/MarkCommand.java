@@ -9,7 +9,7 @@ import dooyit.logic.api.Action;
 import dooyit.logic.api.LogicAction;
 import dooyit.logic.api.LogicController;
 
-public class MarkCommand extends ReversibleCommand {
+public class MarkCommand implements Command, ReversibleCommand {
 	private ArrayList<Integer> markIds;
 	private ArrayList<Task> markedTasks;
 	
@@ -25,7 +25,6 @@ public class MarkCommand extends ReversibleCommand {
 		this.markIds.addAll(markIds);
 	}
 
-	@Override
 	public void undo(LogicController logic){
 		TaskManager taskManager = logic.getTaskManager();
 		
@@ -34,7 +33,6 @@ public class MarkCommand extends ReversibleCommand {
 		}
 	}
 	
-	@Override
 	public LogicAction execute(LogicController logic) throws IncorrectInputException {
 		TaskManager taskManager = logic.getTaskManager();
 		assert (taskManager != null);

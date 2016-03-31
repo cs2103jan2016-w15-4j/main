@@ -6,14 +6,13 @@ import dooyit.logic.api.Action;
 import dooyit.logic.api.LogicAction;
 import dooyit.logic.api.LogicController;
 
-public class InvalidCommand extends Command {
+public class InvalidCommand implements Command {
 	String errorMessage;
 
 	public InvalidCommand(String errorMessage) {
 		this.errorMessage = errorMessage;
 	}
 
-	@Override
 	public LogicAction execute(LogicController logic) throws IncorrectInputException {
 		LogicAction logicAction= new LogicAction(Action.ERROR);
 		throw new IncorrectInputException(errorMessage);

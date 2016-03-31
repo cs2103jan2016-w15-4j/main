@@ -7,7 +7,7 @@ import dooyit.logic.api.LogicController;
 import dooyit.ui.UIController;
 import dooyit.ui.UITheme;
 
-public class ChangeThemeCommand extends Command {
+public class ChangeThemeCommand implements Command {
 
 	String themeString;
 	UITheme theme;
@@ -16,7 +16,6 @@ public class ChangeThemeCommand extends Command {
 		this.themeString = themeString;
 	}
 	
-	@Override
 	public LogicAction execute(LogicController logic) throws IncorrectInputException {
 		UIController uicontroller = logic.getUIController();
 		LogicAction logicAction = null;

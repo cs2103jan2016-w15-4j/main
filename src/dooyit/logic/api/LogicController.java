@@ -6,6 +6,7 @@ import dooyit.ui.UIMainViewType;
 import dooyit.parser.Parser;
 import dooyit.common.exception.IncorrectInputException;
 import dooyit.logic.CategoryManager;
+import dooyit.logic.HistoryManager;
 import dooyit.logic.TaskManager;
 import dooyit.logic.commands.*;
 import java.io.IOException;
@@ -30,8 +31,7 @@ public class LogicController {
 	private TaskManager taskManager;
 	private CategoryManager categoryManager;
 	private StorageController storage;
-	private Stack<ReversibleCommand> undoHistory;
-	private Stack<ReversibleCommand> redoHistory;
+	private HistoryManager historyManager;
 	private UIController uiController;
 	private static Logger logger = Logger.getLogger("Logic");
 
@@ -46,7 +46,7 @@ public class LogicController {
 		initParser();
 		initTaskManager();
 		initCategoryManager();
-		initHistory();
+		initHistoryManager();
 		initStorage();
 		loadFromStorage();
 		setDefaultCategories();
@@ -79,8 +79,8 @@ public class LogicController {
 	/**
 	 * 
 	 */
-	public void initHistory() {
-		undoHistory = new Stack<ReversibleCommand>();
+	public void initHistoryManager() {
+		historyManager = new HistoryManager();		
 	}
 
 	/**
@@ -162,27 +162,15 @@ public class LogicController {
 	 * @param command
 	 */
 	private void addCommandToHistory(Command command) {
-		if (command instanceof ReversibleCommand) {
-			undoHistory.push((ReversibleCommand) command);
-		}
+		historyManager.addCommand(command);
 	}
 
-	public void undoLatestCommand() {
-		ReversibleCommand reversibleCommand;
-		if (!undoHistory.isEmpty()) {
-			reversibleCommand = undoHistory.pop();
-			reversibleCommand.undo(this);
-			redoHistory.push(reversibleCommand);
-		}
+	public void undoCommand() {
+		historyManager.undoCommand(this);
 	}
 	
-	public void redoLatestCommand(){
-		ReversibleCommand reversibleCommand;
-		if (!redoHistory.isEmpty()) {
-			reversibleCommand = redoHistory.pop();
-			reversibleCommand.redo(this);
-			undoHistory.push(reversibleCommand);
-		}
+	public void redoCommand(){
+		historyManager.redoCommand(this);
 	}
 
 	private void save() {
@@ -596,7 +584,7 @@ public class LogicController {
 		return categoryManager;
 	}
 
-	public Stack<ReversibleCommand> getHistory() {
-		return undoHistory;
+	public HistoryManager getHistoryManager() {
+		return historyManager;
 	}
 }

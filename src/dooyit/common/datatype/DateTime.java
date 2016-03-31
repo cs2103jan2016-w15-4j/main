@@ -158,11 +158,16 @@ public class DateTime {
 	
 	private int getComparison(int dateComparison, int timeComparison) {
 		int comparison;
-		if(dateComparison != 0) {
+		System.out.println("dateComparison is " + dateComparison);
+		System.out.println("timeComparison is " + timeComparison);
+		if(dateComparison != COMPARISON_FIRST_EQUALS_SECOND) {
 			comparison = dateComparison;
 		} else {
+			System.out.println("A");
 			comparison = timeComparison;
 		}
+		System.out.println("getComparison returns " + comparison);
+		System.out.println();
 		return comparison;
 	}
 
@@ -171,12 +176,28 @@ public class DateTime {
 		int firstTimeInt = first.getTimeInt();
 		int secondTimeInt = second.getTimeInt();
 		if(firstTimeInt != secondTimeInt) {
-			if(firstTimeInt < secondTimeInt && firstTimeInt != UNINITIALIZED_INT) {
+			if(firstTimeInt == UNINITIALIZED_INT || secondTimeInt == UNINITIALIZED_INT) {
+				comparison = compareAgainstUninitializedTime(firstTimeInt, secondTimeInt);
+			} else if(firstTimeInt < secondTimeInt) {
 				comparison = COMPARISON_FIRST_IS_BEFORE_SECOND;
 			} else {
 				comparison = COMPARISON_FIRST_IS_AFTER_SECOND;
 			}
 		} 
+		System.out.println("first.toString() is " + first.toString());
+		System.out.println("second.toString() is " + second.toString());
+		System.out.println("compareTime(first, second) is " + comparison);
+		
+		return comparison;
+	}
+
+	private int compareAgainstUninitializedTime(int firstTimeInt, int secondTimeInt) {
+		int comparison;
+		if(firstTimeInt == UNINITIALIZED_INT) {
+			comparison = COMPARISON_FIRST_IS_AFTER_SECOND;
+		} else {
+			comparison = COMPARISON_FIRST_IS_BEFORE_SECOND;
+		}
 		return comparison;
 	}
 

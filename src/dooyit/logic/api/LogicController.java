@@ -35,6 +35,8 @@ public class LogicController {
 
 	private boolean isSaveOn = true;
 	private boolean displayCommandline = true;
+	private Category selectedCategory;
+	
 
 	public LogicController() {
 		logger.log(Level.INFO, "Initialising logic class");
@@ -262,6 +264,10 @@ public class LogicController {
 		}
 	}
 
+	public void setSelectedCategory(Category category){
+		this.selectedCategory = category;
+	}
+	
 	public void setActiveView(UIMainViewType uiMainViewType) {
 		if (uiController == null) {
 			return;
@@ -290,7 +296,11 @@ public class LogicController {
 		case FLOAT:
 			uiController.refreshMainView(taskManager.getTaskGroupsFloating());
 			break;
-
+			
+		case CATEGORY:
+			uiController.refreshMainView(taskManager.getTaskGroupCategory(selectedCategory), selectedCategory);
+			break;
+			
 		default:
 			assert (true);
 		}
@@ -302,7 +312,7 @@ public class LogicController {
 		}
 
 		uiController.setActiveViewType(UIMainViewType.CATEGORY);
-		uiController.refreshMainView(taskManager.getTaskGroupsCompleted(), category);
+		uiController.refreshMainView(taskManager.getTaskGroupCategory(selectedCategory), category);
 	}
 
 	public void setActiveViewSearch(String searchString) {

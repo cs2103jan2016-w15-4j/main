@@ -158,16 +158,11 @@ public class DateTime {
 	
 	private int getComparison(int dateComparison, int timeComparison) {
 		int comparison;
-		System.out.println("dateComparison is " + dateComparison);
-		System.out.println("timeComparison is " + timeComparison);
 		if(dateComparison != COMPARISON_FIRST_EQUALS_SECOND) {
 			comparison = dateComparison;
 		} else {
-			System.out.println("A");
 			comparison = timeComparison;
 		}
-		System.out.println("getComparison returns " + comparison);
-		System.out.println();
 		return comparison;
 	}
 
@@ -184,10 +179,6 @@ public class DateTime {
 				comparison = COMPARISON_FIRST_IS_AFTER_SECOND;
 			}
 		} 
-		System.out.println("first.toString() is " + first.toString());
-		System.out.println("second.toString() is " + second.toString());
-		System.out.println("compareTime(first, second) is " + comparison);
-		
 		return comparison;
 	}
 

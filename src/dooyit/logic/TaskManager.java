@@ -435,6 +435,18 @@ public class TaskManager {
 
 		return overdueTasks;
 	}
+	
+	public ArrayList<Task> getTasksWithCategory(Category category){
+		ArrayList<Task> tasksWithCat = new ArrayList<Task>();
+		
+		for(Task task : tasks){
+			if(task.hasCategory() && task.getCategory().equals(category)){
+				tasksWithCat.add(task);
+			}
+		}
+		
+		return tasksWithCat;
+	}
 
 	public boolean isFloatingTask(Task task) {
 		return (task instanceof FloatingTask);
@@ -564,6 +576,15 @@ public class TaskManager {
 		}
 
 		resetTasksId(taskGroups);
+		return taskGroups;
+	}
+	
+	public ArrayList<TaskGroup> getTaskGroupCategory(Category category){
+		ArrayList<TaskGroup> taskGroups = new ArrayList<TaskGroup>();
+		TaskGroup taskGroup = new TaskGroup(category.getName());
+		taskGroup.addTasks(getTasksWithCategory(category));
+		taskGroups.add(taskGroup);
+		
 		return taskGroups;
 	}
 

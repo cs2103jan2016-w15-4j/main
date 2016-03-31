@@ -16,6 +16,7 @@ import org.powermock.reflect.Whitebox;
 import dooyit.common.datatype.DateTime;
 import dooyit.common.exception.IncorrectInputException;
 import dooyit.logic.commands.Command;
+import dooyit.ui.UIMainViewType;
 
 @PrepareForTest(AddParser.class)
 public class ParserTest {
@@ -622,18 +623,80 @@ public class ParserTest {
 	//********************************************
 	//******** Tests for Search Command **********
 	//********************************************
+	@Test
+	public void search() {
+		String input = "search hello";
+		Command command = parser.getCommand(input);
+		
+		UIMainViewType view = Whitebox.getInternalState(command, "uiMainViewtype");
+		UIMainViewType expectedView = UIMainViewType.TODAY;
+		assertEquals(expectedView, view);
+	}
 	
 	//********************************************
 	//********* Tests for ShowParser *************
 	//********************************************
 	@Test
-	public void addFloatingTask() {
-		String input = "add read book";
+	public void showToday() {
+		String input = "show today";
 		Command command = parser.getCommand(input);
 		
-		String taskName = Whitebox.getInternalState(command, "taskName");
-		String expectedTaskName = "read book";
-		assertEquals(expectedTaskName, taskName);
+		UIMainViewType view = Whitebox.getInternalState(command, "uiMainViewtype");
+		UIMainViewType expectedView = UIMainViewType.TODAY;
+		assertEquals(expectedView, view);
+	}
+	
+	@Test
+	public void showNextSeven() {
+		String input = "show next7";
+		Command command = parser.getCommand(input);
+		
+		UIMainViewType view = Whitebox.getInternalState(command, "uiMainViewtype");
+		UIMainViewType expectedView = UIMainViewType.EXTENDED;
+		assertEquals(expectedView, view);
+	}
+	
+	@Test
+	public void showAll() {
+		String input = "show all";
+		Command command = parser.getCommand(input);
+		
+		UIMainViewType view = Whitebox.getInternalState(command, "uiMainViewtype");
+		UIMainViewType expectedView = UIMainViewType.ALL;
+		assertEquals(expectedView, view);
+	}
+	
+	@Test
+	public void showFloat() {
+		String input = "show float";
+		Command command = parser.getCommand(input);
+		
+		UIMainViewType view = Whitebox.getInternalState(command, "uiMainViewtype");
+		UIMainViewType expectedView = UIMainViewType.FLOAT;
+		assertEquals(expectedView, view);
+	}
+	
+	@Test
+	public void showCompleted() {
+		String input = "show completed";
+		Command command = parser.getCommand(input);
+		
+		UIMainViewType view = Whitebox.getInternalState(command, "uiMainViewtype");
+		UIMainViewType expectedView = UIMainViewType.COMPLETED;
+		assertEquals(expectedView, view);
+	}
+	
+	@Test
+	public void showCategory() {
+		String input = "show helloWorld";
+		Command command = parser.getCommand(input);
+		
+		UIMainViewType view = Whitebox.getInternalState(command, "uiMainViewtype");
+		UIMainViewType expectedView = UIMainViewType.CATEGORY;
+		String categoryName = Whitebox.getInternalState(command, "categoryName");
+		String expectedCategoryName = "helloWorld";
+		assertEquals(expectedView, view);
+		assertEquals(expectedCategoryName, categoryName);
 	}
 	
 	//********************************************

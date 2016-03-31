@@ -25,7 +25,7 @@ public class ShowParser {
 	public Command getCommand(String input) { 
 		userInput = input.toLowerCase();
 		command = null;
-		switch (userInput) {
+		switch (getShowType()) { 
 		case TODAY:
 			setShowTodayCommand();
 			break;
@@ -69,12 +69,22 @@ public class ShowParser {
 		return command;
 	}
 
+	private String getShowType() {
+		String type;
+		if(!userInput.contains(CATEGORY)) {
+			type = userInput;
+		} else {
+			type = CATEGORY;
+		}
+		return type;
+	}
+
 	private void setShowInvalidMessageCommand() {
 		command = CommandUtils.createInvalidCommand(ERROR_MESSAGE_INVALID_SHOW_COMMAND);
 	}
 
 	private void setShowCategoryCommand() {
-		command = CommandUtils.createShowCategoryCommand(getCatName(userInput));
+		command = CommandUtils.createShowCategoryCommand(getCatName());
 	}
 
 	private void setShowFloatCommand() {
@@ -97,8 +107,8 @@ public class ShowParser {
 		command = CommandUtils.createShowTodayCommand();
 	}
 
-	private String getCatName(String userInput2) {
-		int index = userInput.indexOf(" ");
+	private String getCatName() {
+		int index = userInput.indexOf(CATEGORY) + CATEGORY.length();
 		String ans = userInput.substring(index).trim();
 		return ans;
 	}

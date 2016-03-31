@@ -49,7 +49,7 @@ public class DateTimeParserTest {
 	private static final int REFERENCE_NEXT_MONDAY_DAY_INT = 1;
 	
 	DateTimeParser dateTimeParser, referenceDateTimeParser;
-	int[] referenceDate = new int[] {17, 2, 2016};
+	int[] referenceDate;
 	int referenceDayInt, referenceTime, todayDayInt;
 	DateTime referenceDateTimeObject, todayDateTimeObject;
 	String referenceDayString, todayDate, todayDayString;

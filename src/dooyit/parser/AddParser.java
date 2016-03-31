@@ -21,7 +21,7 @@ public class AddParser implements ParserCommons {
 	private DateTime start;
 	private DateTime end;
 	private DateTime deadline;
-	private Command cmd; 
+	private Command command; 
 
 	enum TASK_TYPE {
 		FLOATING, WORK, EVENT, INVALID, CATEGORY_AND_EVENT, CATEGORY_AND_WORK, CATEGORY_AND_FLOATING
@@ -35,7 +35,6 @@ public class AddParser implements ParserCommons {
 		userInput = input.trim();
 		switch (getTaskType()) { 
 		case FLOATING:
-			System.out.println("it reached floating");
 			try {
 				parseFloat();
 			} catch (IncorrectInputException e) {
@@ -98,7 +97,7 @@ public class AddParser implements ParserCommons {
 			setToInvalidCommand(ERROR_MESSAGE_INVALID_ADD_COMMAND);
 		}
 
-		return cmd;
+		return command;
 	}
 
 	private void parseCategoryAndFloating() throws IncorrectInputException {
@@ -154,19 +153,19 @@ public class AddParser implements ParserCommons {
 	}
 
 	private void setToInvalidCommand(String message) {
-		cmd = CommandUtils.createInvalidCommand(message);
+		command = CommandUtils.createInvalidCommand(message);
 	}
 
 	private void setToEventCommand() {
-		cmd = CommandUtils.createAddCommandEvent(taskName, start, end);
+		command = CommandUtils.createAddCommandEvent(taskName, start, end);
 	}
 
 	private void setToWorkCommand() {
-		cmd = CommandUtils.createAddCommandDeadline(taskName, deadline);
+		command = CommandUtils.createAddCommandDeadline(taskName, deadline);
 	}
 
 	private void setToFloatCommand() {
-		cmd = CommandUtils.createAddCommandFloat(taskName);
+		command = CommandUtils.createAddCommandFloat(taskName);
 	}
 
 	private void parseEvent() throws IncorrectInputException {

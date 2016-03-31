@@ -17,9 +17,41 @@ public class FloatingTask extends Task {
 		this.category = category;
 	}
 	
+	public FloatingTask(FloatingTask floatingTask){
+		assert(floatingTask != null);
+		
+		this.taskType = floatingTask.taskType;
+		this.taskId = floatingTask.taskId;
+		this.uniqueId = floatingTask.uniqueId;
+		this.taskName = floatingTask.taskName;
+		this.category = floatingTask.category;
+		this.isCompleted = floatingTask.isCompleted;
+	}
+	
+	public FloatingTask(Task task){
+		assert(task != null);
+		
+		this.taskType = TaskType.FLOATING;
+		this.taskId = task.taskId;
+		this.uniqueId = task.uniqueId;
+		this.taskName = task.taskName;
+		this.category = task.category;
+		this.isCompleted = task.isCompleted;
+	}
+	
+	@Override
+	public DateTime getDateTime(){
+		return null;
+	}
+	
+	@Override
+	public int compareDateTo(Task task){
+		return 1;
+	}
+	
 	@Override
 	public Task copy(){
-		return new FloatingTask(taskName, category);
+		return new FloatingTask(this);
 	}
 	
 	@Override

@@ -7,13 +7,16 @@ import dooyit.logic.commands.CommandUtils;
 public class RemoveParser extends TagParser {
 	private static final String ERROR_MESSAGE_INVALID_REMOVE_COMMAND = "Error: Invalid remove Command!";
 	private Command command;
+	private String categoryName;
+	private String taskIds;
 
 	public RemoveParser() {
 		super();
 	}
 
 	public Command getCommand(String input) throws IncorrectInputException {
-		setVariables(input);
+		parseInput(input);
+		setVariables(taskIds);
 		command = null;
 		
 		try {
@@ -27,6 +30,13 @@ public class RemoveParser extends TagParser {
 		}
 		
 		return command;
+	}
+
+	private void parseInput(String input) {
+		command = null;
+		int indexOfCategoryName = input.lastIndexOf(" ");
+		categoryName = input.substring(indexOfCategoryName).trim();
+		taskIds = input.replace(categoryName, "").trim();
 	}
 
 	private void setCorrectRemoveCommand(TAG_TYPE tagType) {

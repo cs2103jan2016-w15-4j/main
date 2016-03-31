@@ -103,7 +103,7 @@ public class CommandUtils {
 
 	public static Command createShowCategoryCommand(String categoryName) {
 		// temp
-		ShowCommand showCommand = new ShowCommand(UIMainViewType.COMPLETED, categoryName);
+		ShowCommand showCommand = new ShowCommand(UIMainViewType.CATEGORY, categoryName);
 
 		return showCommand;
 	}
@@ -135,8 +135,7 @@ public class CommandUtils {
 
 	public static Command createStorageCommand(String path) {
 		StorageCommand storageCommand = new StorageCommand(path);
-		//return storageCommand;
-		return createSearchCommand(path);
+		return storageCommand;
 	}
 	
 	public static Command createChangeThemeCommand(String themeString){

@@ -5,6 +5,7 @@ import dooyit.logic.commands.CommandUtils;
 import dooyit.ui.Main;
 
 public class Parser {
+	public static final String ERROR_MESSAGE_INVALID_COMMAND = "Invalid Command: ";
 	private static final String COMMAND_ADD = "add";
 	private static final String COMMAND_ADD_CAT = "addcat";
 	private static final String COMMAND_CLEAR = "clear";
@@ -54,22 +55,18 @@ public class Parser {
 	public Command getCommand(String input) {
 		input = input.trim();
 
-		if (input == "") {
-			Main.showToUser(Main.MESAGE_EMPTY_COMMAND);
-			return null;
-		}
-
 		String[] splittedInput = input.split("\\s+", 2);
 		String commandString = splittedInput[0].toLowerCase();
+		String commandInput = getInputWithoutCommand(input, commandString);
 
 		Command command = null; 
 		switch (commandString) {
 		case COMMAND_ADD:
-			command = addParser.getCommand(getInputWithoutCommand(input, COMMAND_ADD));
+			command = addParser.getCommand(commandInput);
 			break;
 			
 		case COMMAND_ADD_CAT:
-			command = addCatParser.getCommand(getInputWithoutCommand(input, COMMAND_ADD_CAT));
+			command = addCatParser.getCommand(commandInput);
 			break;
 			
 		case COMMAND_CLEAR:
@@ -81,19 +78,19 @@ public class Parser {
 			break;
 
 		case COMMAND_DELETE:
-			command = deleteParser.getCommand(getInputWithoutCommand(input, COMMAND_DELETE));
+			command = deleteParser.getCommand(commandInput);
 			break;
 			
 		case COMMAND_DELETE_CAT:
-			command = deleteCatParser.getCommand(getInputWithoutCommand(input, COMMAND_DELETE_CAT));
+			command = deleteCatParser.getCommand(commandInput);
 			break;
 			
 		case COMMAND_EDIT:
-			command = editParser.getCommand(getInputWithoutCommand(input, COMMAND_EDIT));
+			command = editParser.getCommand(commandInput);
 			break;
 			
 		case COMMAND_EDIT_CAT:
-			command = editCatParser.getCommand(getInputWithoutCommand(input, COMMAND_EDIT_CAT));
+			command = editCatParser.getCommand(commandInput);
 			break;
 
 		case COMMAND_EXIT:
@@ -105,33 +102,31 @@ public class Parser {
 			break;
 			
 		case COMMAND_MARK:
-			command = markParser.getCommand(getInputWithoutCommand(input, COMMAND_MARK));
+			command = markParser.getCommand(commandInput);
 			break;
 			
 		case COMMAND_MOVE_TO_CAT:
-			command = moveParser.getCommand(getInputWithoutCommand(input, COMMAND_MOVE_TO_CAT));
+			command = moveParser.getCommand(commandInput);
 			break;
 			
 		case COMMAND_REMOVE_FROM_CAT:
-			command = removeParser.getCommand(getInputWithoutCommand(input, COMMAND_REMOVE_FROM_CAT));
+			command = removeParser.getCommand(commandInput);
 			break;
 			
 		case COMMAND_SEARCH:
-			command = CommandUtils.createSearchCommand(getInputWithoutCommand(input, COMMAND_SEARCH));
+			command = CommandUtils.createSearchCommand(commandInput);
 			break;
 			
 		case COMMAND_SHOW:
-			command = showParser.getCommand(getInputWithoutCommand(input, COMMAND_SHOW));
-			break;
+			command = showParser.getCommand(commandInput);
+			break; 
 
 		case COMMAND_SKIN:
-			String colour = getInputWithoutCommand(input, COMMAND_SKIN);
-			command = CommandUtils.createChangeThemeCommand(colour);
+			command = CommandUtils.createChangeThemeCommand(commandInput);
 			break;
 
 		case COMMAND_STORAGE:
-			String filePath = getInputWithoutCommand(input, COMMAND_STORAGE);
-			command = CommandUtils.createStorageCommand(filePath);
+			command = CommandUtils.createStorageCommand(commandInput);
 			break;
 			
 		case COMMAND_UNDO:
@@ -139,11 +134,11 @@ public class Parser {
 			break;
 
 		case COMMAND_UNMARK: 
-			command = unmarkParser.getCommand(getInputWithoutCommand(input, COMMAND_UNMARK));
+			command = unmarkParser.getCommand(commandInput);
 			break;
 
 		default:
-			command = CommandUtils.createInvalidCommand("Invalid Command: " + input);
+			command = CommandUtils.createInvalidCommand(ERROR_MESSAGE_INVALID_COMMAND + input);
 		}
 
 		return command;

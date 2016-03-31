@@ -28,39 +28,48 @@ public class ShowCommand extends Command {
 	public LogicAction execute(LogicController logic) throws IncorrectInputException {
 		assert (logic != null);
 
-		logic.setActiveView(uiMainViewtype);
+		
 
 		LogicAction logicAction = null;
 
 		switch (uiMainViewtype) {
 		case TODAY:
+			logic.setActiveView(uiMainViewtype);
 			logicAction = new LogicAction(Action.SHOW_TODAY_TASK);
 			break;
 
 		case EXTENDED:
+			logic.setActiveView(uiMainViewtype);
 			logicAction = new LogicAction(Action.SHOW_NEXT7DAY_TASK);
 			break;
 			
 		case FLOAT:
+			logic.setActiveView(uiMainViewtype);
 			logicAction = new LogicAction(Action.SHOW_FLOATING_TASK);
 			break;
 			
 		case ALL:
+			logic.setActiveView(uiMainViewtype);
 			logicAction = new LogicAction(Action.SHOW_ALL_TASK);
 			break;
 			
 		case COMPLETED:
+			logic.setActiveView(uiMainViewtype);
 			logicAction = new LogicAction(Action.SHOW_COMPLETED);
 			break;
 			
 		case CATEGORY:
 			if (logic.containsCategory(categoryName)) {
 				Category category = logic.findCategory(categoryName);
+				logic.setSelectedCategory(category);
 				logic.setActiveView(uiMainViewtype);
 				logic.setActiveViewCategory(category);
+				
+				logicAction = new LogicAction(Action.SHOW_CATEGORY);
 			}
-
-			logicAction = new LogicAction(Action.SHOW_CATEGORY);
+			else{
+				logicAction = new LogicAction(Action.ERROR, "Category not found.");
+			}
 			break;
 		}
 

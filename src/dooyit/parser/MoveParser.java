@@ -6,10 +6,8 @@ import dooyit.logic.commands.CommandUtils;
 
 public class MoveParser extends TagParser {
 	private static final String ERROR_MESSAGE_INVALID_MOVE_COMMAND = "Error: Invalid move Command!";
-	private static final int INDEX_NAME = 0;
-	private String catName;
+	private String categoryName;
 	private String taskIds;
-	private String userInput; 
 	private Command command;
 	
 	public MoveParser() {
@@ -65,7 +63,7 @@ public class MoveParser extends TagParser {
 	}
 
 	private void setSingleTypeMoveCommand() {
-		command = CommandUtils.createSetCategoryCommand(taskIdForTagging, catName);
+		command = CommandUtils.createSetCategoryCommand(taskIdForTagging, categoryName);
 	}
 
 	private void setInvalidCommand() {
@@ -74,14 +72,12 @@ public class MoveParser extends TagParser {
 	
 	private void setInvalidCommand(String message) {
 		command = CommandUtils.createInvalidCommand(message);
-	}
+	} 
 
 	private void parse(String input) {
 		command = null;
-		userInput = input;
-		String[] inputArr = userInput.split("\\s+");
-		catName = inputArr[INDEX_NAME];
-		int indexOfTaskIds = userInput.indexOf(catName) + catName.length();
-		taskIds = userInput.substring(indexOfTaskIds).trim();
+		int indexOfCategoryName = input.lastIndexOf(" ");
+		categoryName = input.substring(indexOfCategoryName).trim();
+		taskIds = input.replace(categoryName, "").trim();
 	}
 }

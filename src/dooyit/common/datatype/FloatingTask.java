@@ -9,9 +9,27 @@ public class FloatingTask extends Task {
 		this.taskName = taskName;
 	}
 	
+	public FloatingTask(String taskName, Category category){
+		assert(taskName != null);
+		
+		taskType = TaskType.FLOATING;
+		this.taskName = taskName;
+		this.category = category;
+	}
+	
+	public FloatingTask(FloatingTask floatingTask){
+		assert(floatingTask != null);
+		
+		this.taskType = floatingTask.taskType;
+		this.uniqueId = floatingTask.uniqueId;
+		this.taskName = floatingTask.taskName;
+		this.category = floatingTask.category;
+		this.isCompleted = floatingTask.isCompleted;
+	}
+	
 	@Override
 	public Task copy(){
-		return new FloatingTask(taskName);
+		return new FloatingTask(this);
 	}
 	
 	@Override

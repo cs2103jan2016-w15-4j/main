@@ -249,6 +249,12 @@ public class UIController {
 				} else if (newValue && messageBox.isOn()) {
 					messageBox.display();
 				}
+				
+				if (!newValue && helpBox.isOn()){
+					helpBox.tempHide();
+				} else if (newValue && helpBox.isOn()){
+					helpBox.show(primaryStage);
+				}
 			}
 		});
 	}

@@ -144,7 +144,7 @@ public class LogicController {
 	 */
 	private LogicAction executeCommand(Command command) {
 		LogicAction logicAction = null;
-
+		
 		try {
 			logicAction = command.execute(this);
 		} catch (IncorrectInputException e) {
@@ -423,6 +423,10 @@ public class LogicController {
 		return clearedTasks;
 	}
 
+	public void addCategory(Category category) {
+		categoryManager.addCategory(category);
+	}
+	
 	public Category addCategory(String categoryName) {
 		Category addedCategory = categoryManager.addCategory(categoryName);
 		return addedCategory;

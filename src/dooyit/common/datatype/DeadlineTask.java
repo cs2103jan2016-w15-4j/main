@@ -12,13 +12,33 @@ public class DeadlineTask extends Task {
 		this.dateTimeDeadline = deadline;
 	}
 	
+	public DeadlineTask(String taskName, DateTime deadline, Category category){
+		assert (taskName != null && deadline != null);
+
+		taskType = TaskType.DEADLINE;
+		this.taskName = taskName;
+		this.dateTimeDeadline = deadline;
+		this.category = category;
+	}
+	
+	public DeadlineTask(DeadlineTask deadlineTask){
+		assert(deadlineTask != null);
+		
+		this.taskType = deadlineTask.taskType;
+		this.uniqueId = deadlineTask.uniqueId;
+		this.taskName = deadlineTask.taskName;
+		this.dateTimeDeadline = deadlineTask.dateTimeDeadline;
+		this.category = deadlineTask.category;
+		this.isCompleted = deadlineTask.isCompleted;
+	}
+	
 	public DateTime getDateTimeDeadline() {
 		return dateTimeDeadline;
 	}
 	
 	@Override
 	public Task copy(){
-		return new DeadlineTask(taskName, new DateTime(dateTimeDeadline));
+		return new DeadlineTask(this);
 	}
 	
 	@Override

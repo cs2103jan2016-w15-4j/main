@@ -221,15 +221,15 @@ public class UIController {
 	private void processKeyEvent(final KeyEvent keyEvent){
 		if (keyEvent.isControlDown()) {
 			KeyCode key = keyEvent.getCode();
-			if (key == KeyCode.T){
+			if (key == KeyCode.DIGIT1){
 				logic.processInput(UIData.CMD_SHOW_TODAY);
-			} else if (key == KeyCode.E){
+			} else if (key == KeyCode.DIGIT2){
 				logic.processInput(UIData.CMD_SHOW_EXTENDED);
-			} else if (key == KeyCode.F){
+			} else if (key == KeyCode.DIGIT3){
 				logic.processInput(UIData.CMD_SHOW_FLOAT);
-			} else if (key == KeyCode.A){
+			} else if (key == KeyCode.DIGIT4){
 				logic.processInput(UIData.CMD_SHOW_ALL);
-			} else if (key == KeyCode.D){
+			} else if (key == KeyCode.DIGIT5){
 				logic.processInput(UIData.CMD_SHOW_COMPLETED);
 			}
 		} else {

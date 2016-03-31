@@ -18,6 +18,10 @@ public class StorageCommand implements Command, ReversibleCommand {
 		logic.setFileDestinationPath(previousPath);
 	}
 	
+	public void redo(LogicController logic){
+		
+	}
+
 	public LogicAction execute(LogicController logic) throws IncorrectInputException {
 		assert(logic != null);
 		LogicAction logicAction;

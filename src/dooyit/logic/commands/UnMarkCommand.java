@@ -33,6 +33,10 @@ public class UnMarkCommand implements Command, ReversibleCommand{
 		}
 	}
 
+	public void redo(LogicController logic){
+		
+	}
+	
 	public LogicAction execute(LogicController logic) throws IncorrectInputException {
 		assert (logic != null);
 		LogicAction logicAction = null;

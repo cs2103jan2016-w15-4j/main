@@ -30,7 +30,8 @@ public class LogicController {
 	private TaskManager taskManager;
 	private CategoryManager categoryManager;
 	private StorageController storage;
-	private Stack<ReversibleCommand> history;
+	private Stack<ReversibleCommand> undoHistory;
+	private Stack<ReversibleCommand> redoHistory;
 	private UIController uiController;
 	private static Logger logger = Logger.getLogger("Logic");
 
@@ -79,7 +80,7 @@ public class LogicController {
 	 * 
 	 */
 	public void initHistory() {
-		history = new Stack<ReversibleCommand>();
+		undoHistory = new Stack<ReversibleCommand>();
 	}
 
 	/**
@@ -162,15 +163,25 @@ public class LogicController {
 	 */
 	private void addCommandToHistory(Command command) {
 		if (command instanceof ReversibleCommand) {
-			history.push((ReversibleCommand) command);
+			undoHistory.push((ReversibleCommand) command);
 		}
 	}
 
 	public void undoLatestCommand() {
 		ReversibleCommand reversibleCommand;
-		if (!history.isEmpty()) {
-			reversibleCommand = history.pop();
+		if (!undoHistory.isEmpty()) {
+			reversibleCommand = undoHistory.pop();
 			reversibleCommand.undo(this);
+			redoHistory.push(reversibleCommand);
+		}
+	}
+	
+	public void redoLatestCommand(){
+		ReversibleCommand reversibleCommand;
+		if (!redoHistory.isEmpty()) {
+			reversibleCommand = redoHistory.pop();
+			reversibleCommand.redo(this);
+			undoHistory.push(reversibleCommand);
 		}
 	}
 
@@ -586,6 +597,6 @@ public class LogicController {
 	}
 
 	public Stack<ReversibleCommand> getHistory() {
-		return history;
+		return undoHistory;
 	}
 }

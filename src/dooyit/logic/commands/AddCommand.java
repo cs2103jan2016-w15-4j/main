@@ -40,6 +40,10 @@ public class AddCommand implements Command, ReversibleCommand {
 		logic.removeTask(addedTask);
 	}
 
+	public void redo(LogicController logic){
+		
+	}
+
 	public LogicAction execute(LogicController logic) throws IncorrectInputException {
 		assert (logic != null);
 		LogicAction logicAction = null;

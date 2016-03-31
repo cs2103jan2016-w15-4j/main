@@ -30,6 +30,10 @@ public class AddCategoryCommand implements Command, ReversibleCommand {
 	public void undo(LogicController logic){
 		logic.removeCategory(addedCategory);
 	}
+	
+	public void redo(LogicController logic){
+		
+	}
 
 	public LogicAction execute(LogicController logic) throws IncorrectInputException {
 		LogicAction logicAction;

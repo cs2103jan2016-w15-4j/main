@@ -46,7 +46,7 @@
 }
 
 .day-title {
-	-fx-text-fill: #ff6c57;
+	-fx-text-fill: #FF5E3A;
 }
 
 .task-id {
@@ -58,7 +58,8 @@
 }
 
 .task-period {
-	-fx-text-fill: black;
+	-fx-font-size: 13px;
+	-fx-text-fill: #FF3B30;
 }
 
 .task-checkbox .box {

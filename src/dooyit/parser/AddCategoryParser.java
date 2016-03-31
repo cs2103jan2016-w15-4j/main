@@ -120,7 +120,7 @@ public class AddCategoryParser extends TagParser{
 			int indexOfTaskIds = userInput.indexOf(catName) + catName.length();
 			String taskIdString = userInput.substring(indexOfTaskIds).trim();
 			setVariables(taskIdString);
-		}
+		} 
 	}
 
 	private ADD_CATEGORY_TYPE getCommandType() {

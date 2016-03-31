@@ -37,13 +37,13 @@ public class MoveParser extends TagParser {
 			setSingleTypeMoveCommand();
 			break;
 
-		/*case MULTIPLE:
+		case MULTIPLE:
 			setMultipleTypeMoveCommand();
 			break;
 
 		case INTERVAL:
 			setIntervalTypeMoveCommand();
-			break;*/
+			break;
 
 		default:
 			setInvalidCommand();
@@ -52,14 +52,11 @@ public class MoveParser extends TagParser {
 	}
 
 	private void setIntervalTypeMoveCommand() {
-		//comamnd = CommandUtils.createMoveCommand(catName, taskIdsForTagging);
-		command = null;
+		command = CommandUtils.createSetCategoryCommand(taskIdsForTagging, categoryName);
 	}
 
-	// Eg. delete 5 6 8
 	private void setMultipleTypeMoveCommand() {
-		//command = CommandUtils.createMoveCommand(catName, taskIdsForTagging);
-		command = null;
+		command = CommandUtils.createSetCategoryCommand(taskIdsForTagging, categoryName);
 	}
 
 	private void setSingleTypeMoveCommand() {

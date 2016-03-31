@@ -646,6 +646,15 @@ public class ParserTest {
 	//********************************************
 	//****** Tests for Set Storage Command *******
 	//********************************************
+	@Test
+	public void setStoragePath() {
+		String input = "storage documents/Dooyit/Data";
+		Command command = parser.getCommand(input);
+		
+		String filePath = Whitebox.getInternalState(command, "path");
+		String expectedFilePath = "documents/Dooyit/Data";
+		assertEquals(expectedFilePath, filePath);
+	}
 	
 	//********************************************
 	//******** Tests for Search Command **********

@@ -7,10 +7,10 @@ import dooyit.common.datatype.DateTime;
 import dooyit.common.exception.IncorrectInputException;
 
 public class DateTimeParser extends DateTimeParserCommon {
-	private static final String ERROR_MESSAGE_ONLY_ONE_DATE = "Error: You can only key in ONE date!";
-	private static final String ERROR_MESSAGE_ONLY_ONE_TIMING = "Error: You can only key in ONE timing!";
-	private static final String ERROR_MESSAGE_GOING_BACK_IN_TIME = "Error: You can't go back in time to add a task or event!";
-	private static final String ERROR_MESSAGE_INVALID_DATE_TIME = "Error: Invalid Date Time!";
+	public static final String ERROR_MESSAGE_ONLY_ONE_DATE = "Error: You can only key in ONE date!";
+	public static final String ERROR_MESSAGE_ONLY_ONE_TIMING = "Error: You can only key in ONE timing!";
+	public static final String ERROR_MESSAGE_GOING_BACK_IN_TIME = "Error: You can't go back in time to add a task or event!";
+	public static final String ERROR_MESSAGE_INVALID_DATE_TIME = "Error: Invalid Date Time!";
 	
 	private DateTime dateTime;
 	private RelativeDateParser relativeDateParser;

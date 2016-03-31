@@ -626,6 +626,15 @@ public class ParserTest {
 	//********************************************
 	//********* Tests for ShowParser *************
 	//********************************************
+	@Test
+	public void addFloatingTask() {
+		String input = "add read book";
+		Command command = parser.getCommand(input);
+		
+		String taskName = Whitebox.getInternalState(command, "taskName");
+		String expectedTaskName = "read book";
+		assertEquals(expectedTaskName, taskName);
+	}
 	
 	//********************************************
 	//************ Tests for AddParser ***********
@@ -694,6 +703,121 @@ public class ParserTest {
 		assertTrue(expectedDeadline.equals(dateTimeInCommand));
 	}
 	
+	
+	@Test
+	public void Deadline_ValidTmr_ExpectedTrue() {
+		String homeworkTmr = "add assignment by 30/3 5pm";
+		Command command = parser.getCommand(homeworkTmr);
+		String name = Whitebox.getInternalState(command, "taskName");
+		assertEquals("assignment", name);
+		
+		DateTime deadline = Whitebox.getInternalState(command, "deadline");
+		DateTimeParser dtParser = new DateTimeParser();
+		DateTime expectedDeadline = dtParser.parse("30/3 5pm");
+		Assert.assertTrue(expectedDeadline.equals(deadline));
+	}
+	
+	@Test
+	public void DeadlineTmr_Invalid_InvalidCommand() {
+		String proposalTmrInvalid = "proposal by tmr 21312312";
+		Command command = parser.getCommand(proposalTmrInvalid);
+		
+		//Getting error message from InvalidCommand
+		String message = Whitebox.getInternalState(command, "errorMessage");
+		String expectedErrorMessage = DateTimeParser.ERROR_MESSAGE_INVALID_DATE_TIME;
+		assertEquals(expectedErrorMessage, message);
+	}
+	
+	@Test
+	public void Event_ValidDateTimeLong_ExpectedTrue() {
+		String brunch = "brunch from 10/12/2016 10am to 10/12/2016 1pm";
+		Command command = parser.getCommand(brunch);
+		
+		//Setting expected results
+		String expectedName = "brunch";
+		DateTimeParser dtParser = new DateTimeParser();
+		DateTime expectedStart = dtParser.parse("10/12/2016 10am");
+		DateTime expectedEnd = dtParser.parse("10/12/2016 1pm");
+		
+		//Getting private attributes from AddParser
+		String name = Whitebox.getInternalState(command, "taskName");
+		DateTime start = Whitebox.getInternalState(command,"eventStart");
+		DateTime end = Whitebox.getInternalState(command, "eventEnd");
+		
+		//Comparison with expected results
+		Assert.assertEquals(expectedName, name);
+		Assert.assertTrue(expectedStart.equals(start));
+		Assert.assertTrue(expectedEnd.equals(end));
+	}
+	
+	@Test
+	public void Event_InvalidToDateTime_FloatingTask() {
+		String brunchInvalidTo = "brunch from 10/12/2016 10am to 1212332";
+		Command command = parser.getCommand(brunchInvalidTo);
+		
+		//String name = Whitebox.getInternalState(parser, TASK_NAME);
+		//Assert.assertEquals(brunchInvalidTo, name);
+		
+		//Getting error message from InvalidCommand
+		String message = Whitebox.getInternalState(command, "errorMessage");
+		String expectedErrorMessage = DateTimeParser.ERROR_MESSAGE_INVALID_DATE_TIME;
+		assertEquals(expectedErrorMessage, message);
+	}
+	
+	@Test
+	public void Event_InvalidFromDateTime_FloatingTask() {
+		String brunchInvalidFrom = "brunch from 123123123 to 10/12/2016 12pm";
+		Command command = parser.getCommand(brunchInvalidFrom);
+		//String name = Whitebox.getInternalState(parser, TASK_NAME);
+		//Assert.assertEquals(brunchInvalidFrom, name);
+		
+		//Getting error message from InvalidCommand
+		String message = Whitebox.getInternalState(command, "errorMessage");
+		String expectedErrorMessage = DateTimeParser.ERROR_MESSAGE_INVALID_DATE_TIME;
+		assertEquals(expectedErrorMessage, message);
+	}
+	
+	@Test
+	public void Event_EmptyFromDateTime_FloatingTask() {
+		String brunch = "brunch from to 10/12/2016 12pm";
+		Command command = parser.getCommand(brunch);
+		//String name = Whitebox.getInternalState(parser, TASK_NAME);
+		//Assert.assertEquals(brunch, name);
+		
+		//Getting error message from InvalidCommand
+		String message = Whitebox.getInternalState(command, "errorMessage");
+		String expectedErrorMessage = DateTimeParser.ERROR_MESSAGE_INVALID_DATE_TIME;
+		assertEquals(expectedErrorMessage, message);
+	}
+	
+	@Test
+	public void Event_EmptyToDateTime_FloatingTask() {
+		String brunch = "brunch from 10/12/2016 12pm to ";
+		Command command = parser.getCommand(brunch);
+		//String name = Whitebox.getInternalState(parser, TASK_NAME);
+		//Assert.assertEquals(brunch, name);
+		
+		//Getting error message from InvalidCommand
+		String message = Whitebox.getInternalState(command, "errorMessage");
+		String expectedErrorMessage = DateTimeParser.ERROR_MESSAGE_INVALID_DATE_TIME;
+		assertEquals(expectedErrorMessage, message);
+	}
+	
+	
+	@Test
+	public void Event_EmptyFromToDateTime_AddFloat() {
+		String brunch = "brunch from to";
+		Command command = parser.getCommand(brunch);
+		
+		//String name = Whitebox.getInternalState(command, TASK_NAME);
+		//Assert.assertEquals(brunch, name);
+		
+		//Getting error message from InvalidCommand
+		String message = Whitebox.getInternalState(command, "errorMessage");
+		String expectedErrorMessage = DateTimeParser.ERROR_MESSAGE_INVALID_DATE_TIME;
+		assertEquals(expectedErrorMessage, message);
+	}
+	
 	//********************************************
 	//************ Tests for EditParser **********
 	//********************************************
@@ -704,4 +828,23 @@ public class ParserTest {
 	//********* Tests for Invalid Command ********
 	//********************************************
 	
+	@Test
+	public void EmptyString_InvalidCommand() {
+		String empty = "";
+		Command command = parser.getCommand(empty);
+		
+		String message = Whitebox.getInternalState(command, "errorMessage");
+		String expectedErrorMessage = Parser.ERROR_MESSAGE_INVALID_COMMAND + empty;
+		Assert.assertEquals(expectedErrorMessage, message);
+	}
+	
+	@Test
+	public void parseGibberishInvalidCommand() {
+		String gibberish = "dhasjkfhsbdk";
+		Command command = parser.getCommand(gibberish);
+		
+		String message = Whitebox.getInternalState(command, "errorMessage");
+		String expectedErrorMessage = Parser.ERROR_MESSAGE_INVALID_COMMAND + gibberish;
+		Assert.assertEquals(expectedErrorMessage, message);
+	}
 }

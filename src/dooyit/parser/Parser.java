@@ -5,6 +5,7 @@ import dooyit.logic.commands.CommandUtils;
 import dooyit.ui.Main;
 
 public class Parser {
+	public static final String ERROR_MESSAGE_INVALID_COMMAND = "Invalid Command: ";
 	private static final String COMMAND_ADD = "add";
 	private static final String COMMAND_ADD_CAT = "addcat";
 	private static final String COMMAND_CLEAR = "clear";
@@ -122,7 +123,7 @@ public class Parser {
 			
 		case COMMAND_SHOW:
 			command = showParser.getCommand(getInputWithoutCommand(input, COMMAND_SHOW));
-			break;
+			break; 
 
 		case COMMAND_SKIN:
 			String colour = getInputWithoutCommand(input, COMMAND_SKIN);
@@ -143,7 +144,7 @@ public class Parser {
 			break;
 
 		default:
-			command = CommandUtils.createInvalidCommand("Invalid Command: " + input);
+			command = CommandUtils.createInvalidCommand(ERROR_MESSAGE_INVALID_COMMAND + input);
 		}
 
 		return command;

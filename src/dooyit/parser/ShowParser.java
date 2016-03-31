@@ -25,7 +25,7 @@ public class ShowParser {
 	public Command getCommand(String input) { 
 		userInput = input.toLowerCase();
 		command = null;
-		switch (userInput) {
+		switch (userInput) { 
 		case TODAY:
 			setShowTodayCommand();
 			break;

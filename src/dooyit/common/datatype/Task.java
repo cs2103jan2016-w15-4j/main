@@ -94,6 +94,10 @@ public abstract class Task {
 	
 	public abstract String toString();
 	
+	public abstract DateTime getDateTime();
+	
+	public abstract int compareDateTo(Task task);
+	
 	public abstract Task copy();
 	
 	public abstract String getDateString();

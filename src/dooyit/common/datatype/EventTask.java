@@ -50,6 +50,16 @@ public class EventTask extends Task {
 		this.isCompleted = eventTask.isCompleted;
 	}
 	
+	@Override
+	public DateTime getDateTime(){
+		return dateTimeStart;
+	}
+	
+	@Override
+	public int compareDateTo(Task task){
+		return this.dateTimeStart.compareTo(task.getDateTime());
+	}
+	
 	public DateTime getDateTimeStart() {
 		return dateTimeStart;
 	}

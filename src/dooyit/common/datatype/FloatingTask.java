@@ -40,6 +40,16 @@ public class FloatingTask extends Task {
 	}
 	
 	@Override
+	public DateTime getDateTime(){
+		return null;
+	}
+	
+	@Override
+	public int compareDateTo(Task task){
+		return 1;
+	}
+	
+	@Override
 	public Task copy(){
 		return new FloatingTask(this);
 	}

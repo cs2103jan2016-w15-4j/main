@@ -50,6 +50,21 @@ public class DeadlineTask extends Task {
 	}
 	
 	@Override
+	public DateTime getDateTime(){
+		return dateTimeDeadline;
+	}
+	
+	@Override
+	public int compareDateTo(Task task){
+		if(task instanceof FloatingTask){
+			return -1;
+		}
+			
+		
+		return this.dateTimeDeadline.compareTo(task.getDateTime());
+	}
+	
+	@Override
 	public Task copy(){
 		return new DeadlineTask(this);
 	}

@@ -38,8 +38,7 @@ public class AddCommand extends ReversibleCommand {
 
 	@Override
 	public void undo(LogicController logic) {
-		TaskManager taskManager = logic.getTaskManager();
-		taskManager.remove(addedTask);
+		logic.removeTask(addedTask);
 	}
 
 	@Override

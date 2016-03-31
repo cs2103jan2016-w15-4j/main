@@ -1,6 +1,7 @@
 package dooyit.logic;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 
 import dooyit.common.datatype.Category;
@@ -10,7 +11,9 @@ import dooyit.common.datatype.EventTask;
 import dooyit.common.datatype.FloatingTask;
 import dooyit.common.datatype.Task;
 import dooyit.common.datatype.TaskGroup;
+import dooyit.common.datatype.TaskUniqueIdComparator;
 import dooyit.common.datatype.Task.TaskType;
+import dooyit.common.datatype.TaskDateComparator;
 
 public class TaskManager {
 	private ArrayList<Task> tasks;
@@ -456,6 +459,8 @@ public class TaskManager {
 	}
 
 	public ArrayList<TaskGroup> getTaskGroupsAll() {
+		sortTask();
+		
 		ArrayList<TaskGroup> taskGroups = new ArrayList<TaskGroup>();
 		TaskGroup taskGroup;
 		DateTime currDate = new DateTime();
@@ -476,6 +481,8 @@ public class TaskManager {
 	}
 
 	public ArrayList<TaskGroup> getTaskGroupsToday() {
+		sortTask();
+		
 		ArrayList<TaskGroup> taskGroups = new ArrayList<TaskGroup>();
 		TaskGroup taskGroup;
 		DateTime currDate = new DateTime();
@@ -497,6 +504,8 @@ public class TaskManager {
 	}
 
 	public ArrayList<TaskGroup> getTaskGroupsFloating() {
+		sortTask();
+		
 		ArrayList<TaskGroup> taskGroups = new ArrayList<TaskGroup>();
 
 		TaskGroup taskGroup = new TaskGroup("Float");
@@ -508,6 +517,8 @@ public class TaskManager {
 	}
 
 	public ArrayList<TaskGroup> getTaskGroupsCompleted() {
+		sortTask();
+		
 		ArrayList<TaskGroup> taskGroups = new ArrayList<TaskGroup>();
 
 		TaskGroup taskGroup = new TaskGroup("Completed");
@@ -519,6 +530,8 @@ public class TaskManager {
 	}
 
 	public ArrayList<TaskGroup> getTaskGroupsNext7Days() {
+		sortTask();
+		
 		DateTime currDate = new DateTime();
 		ArrayList<TaskGroup> taskGroups = new ArrayList<TaskGroup>();
 		TaskGroup taskGroup;
@@ -567,6 +580,14 @@ public class TaskManager {
 		return taskGroups;
 	}
 
+	public void sortTask(){
+		TaskUniqueIdComparator uniqueIdComparator = new TaskUniqueIdComparator();
+		Collections.sort(tasks, uniqueIdComparator);
+		
+		TaskDateComparator dateComparator = new TaskDateComparator();
+		Collections.sort(tasks, dateComparator);
+	}
+	
 	public void resetTasksId(ArrayList<TaskGroup> taskGroups) {
 		clearOldId();
 		assignNewId(taskGroups);

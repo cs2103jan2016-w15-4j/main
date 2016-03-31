@@ -14,7 +14,6 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.reflect.Whitebox;
 
 import dooyit.common.datatype.DateTime;
-import dooyit.common.exception.IncorrectInputException;
 import dooyit.logic.commands.Command;
 import dooyit.ui.UIMainViewType;
 
@@ -716,13 +715,13 @@ public class ParserTest {
 	
 	@Test
 	public void showCategory() {
-		String input = "show helloWorld";
+		String input = "show cat helloWorld";
 		Command command = parser.getCommand(input);
 		
 		UIMainViewType view = Whitebox.getInternalState(command, "uiMainViewtype");
 		UIMainViewType expectedView = UIMainViewType.CATEGORY;
 		String categoryName = Whitebox.getInternalState(command, "categoryName");
-		String expectedCategoryName = "helloWorld";
+		String expectedCategoryName = "helloworld";
 		assertEquals(expectedView, view);
 		assertEquals(expectedCategoryName, categoryName);
 	}
@@ -796,13 +795,13 @@ public class ParserTest {
 	
 	
 	@Test
-	public void Deadline_ValidTmr_ExpectedTrue() {
+	public void Deadline_ValidOnADate_ExpectedTrue() {
 		String homeworkTmr = "add assignment by 30/3 5pm";
 		Command command = parser.getCommand(homeworkTmr);
 		String name = Whitebox.getInternalState(command, "taskName");
 		assertEquals("assignment", name);
 		
-		DateTime deadline = Whitebox.getInternalState(command, "deadline");
+		DateTime deadline = Whitebox.getInternalState(command, "dateTimeDeadline");
 		DateTimeParser dtParser = new DateTimeParser();
 		DateTime expectedDeadline = dtParser.parse("30/3 5pm");
 		Assert.assertTrue(expectedDeadline.equals(deadline));
@@ -810,7 +809,7 @@ public class ParserTest {
 	
 	@Test
 	public void DeadlineTmr_Invalid_InvalidCommand() {
-		String proposalTmrInvalid = "proposal by tmr 21312312";
+		String proposalTmrInvalid = "add proposal by tmr 21312312";
 		Command command = parser.getCommand(proposalTmrInvalid);
 		
 		//Getting error message from InvalidCommand
@@ -821,7 +820,7 @@ public class ParserTest {
 	
 	@Test
 	public void Event_ValidDateTimeLong_ExpectedTrue() {
-		String brunch = "brunch from 10/12/2016 10am to 10/12/2016 1pm";
+		String brunch = "add brunch from 10/12/2016 10am to 10/12/2016 1pm";
 		Command command = parser.getCommand(brunch);
 		
 		//Setting expected results
@@ -832,8 +831,8 @@ public class ParserTest {
 		
 		//Getting private attributes from AddParser
 		String name = Whitebox.getInternalState(command, "taskName");
-		DateTime start = Whitebox.getInternalState(command,"eventStart");
-		DateTime end = Whitebox.getInternalState(command, "eventEnd");
+		DateTime start = Whitebox.getInternalState(command,"dateTimeStart");
+		DateTime end = Whitebox.getInternalState(command, "dateTimeEnd");
 		
 		//Comparison with expected results
 		Assert.assertEquals(expectedName, name);
@@ -843,70 +842,49 @@ public class ParserTest {
 	
 	@Test
 	public void Event_InvalidToDateTime_FloatingTask() {
-		String brunchInvalidTo = "brunch from 10/12/2016 10am to 1212332";
+		String brunchInvalidTo = "add brunch from 10/12/2016 10am to 1212332";
 		Command command = parser.getCommand(brunchInvalidTo);
-		
-		//String name = Whitebox.getInternalState(parser, TASK_NAME);
-		//Assert.assertEquals(brunchInvalidTo, name);
-		
-		//Getting error message from InvalidCommand
-		String message = Whitebox.getInternalState(command, "errorMessage");
-		String expectedErrorMessage = DateTimeParser.ERROR_MESSAGE_INVALID_DATE_TIME;
-		assertEquals(expectedErrorMessage, message);
+		String name = Whitebox.getInternalState(command, "taskName");
+		String expectedName = "brunch from 10/12/2016 10am to 1212332";
+		Assert.assertEquals(expectedName, name);
 	}
 	
 	@Test
 	public void Event_InvalidFromDateTime_FloatingTask() {
-		String brunchInvalidFrom = "brunch from 123123123 to 10/12/2016 12pm";
+		String brunchInvalidFrom = "add brunch from 123123123 to 10/12/2016 12pm";
 		Command command = parser.getCommand(brunchInvalidFrom);
-		//String name = Whitebox.getInternalState(parser, TASK_NAME);
-		//Assert.assertEquals(brunchInvalidFrom, name);
-		
-		//Getting error message from InvalidCommand
-		String message = Whitebox.getInternalState(command, "errorMessage");
-		String expectedErrorMessage = DateTimeParser.ERROR_MESSAGE_INVALID_DATE_TIME;
-		assertEquals(expectedErrorMessage, message);
+		String name = Whitebox.getInternalState(command, "taskName");
+		String expectedName = "brunch from 123123123 to 10/12/2016 12pm";
+		Assert.assertEquals(expectedName, name);
 	}
 	
 	@Test
 	public void Event_EmptyFromDateTime_FloatingTask() {
-		String brunch = "brunch from to 10/12/2016 12pm";
+		String brunch = "add brunch from to 10/12/2016 12pm";
 		Command command = parser.getCommand(brunch);
-		//String name = Whitebox.getInternalState(parser, TASK_NAME);
-		//Assert.assertEquals(brunch, name);
-		
-		//Getting error message from InvalidCommand
-		String message = Whitebox.getInternalState(command, "errorMessage");
-		String expectedErrorMessage = DateTimeParser.ERROR_MESSAGE_INVALID_DATE_TIME;
-		assertEquals(expectedErrorMessage, message);
+		String name = Whitebox.getInternalState(command, "taskName");
+		String expectedName = "brunch from to 10/12/2016 12pm";
+		Assert.assertEquals(expectedName, name);
 	}
 	
 	@Test
 	public void Event_EmptyToDateTime_FloatingTask() {
-		String brunch = "brunch from 10/12/2016 12pm to ";
+		String brunch = "add brunch from 10/12/2016 12pm to ";
 		Command command = parser.getCommand(brunch);
-		//String name = Whitebox.getInternalState(parser, TASK_NAME);
-		//Assert.assertEquals(brunch, name);
-		
-		//Getting error message from InvalidCommand
-		String message = Whitebox.getInternalState(command, "errorMessage");
-		String expectedErrorMessage = DateTimeParser.ERROR_MESSAGE_INVALID_DATE_TIME;
-		assertEquals(expectedErrorMessage, message);
+		String name = Whitebox.getInternalState(command, "taskName");
+		String expectedName = "brunch from 10/12/2016 12pm to";
+		Assert.assertEquals(expectedName, name);
 	}
 	
 	
 	@Test
 	public void Event_EmptyFromToDateTime_AddFloat() {
-		String brunch = "brunch from to";
+		String brunch = "add brunch from to";
 		Command command = parser.getCommand(brunch);
 		
-		//String name = Whitebox.getInternalState(command, TASK_NAME);
-		//Assert.assertEquals(brunch, name);
-		
-		//Getting error message from InvalidCommand
-		String message = Whitebox.getInternalState(command, "errorMessage");
-		String expectedErrorMessage = DateTimeParser.ERROR_MESSAGE_INVALID_DATE_TIME;
-		assertEquals(expectedErrorMessage, message);
+		String name = Whitebox.getInternalState(command, "taskName");
+		String expectedName = "brunch from to";
+		Assert.assertEquals(expectedName, name);
 	}
 	
 	//********************************************

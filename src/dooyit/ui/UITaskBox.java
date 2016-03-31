@@ -97,7 +97,7 @@ public class UITaskBox {
 			dateString += DOUBLE_SPACE;
 		} 
 		this.taskPeriod = new Label(dateString);
-		this.taskPeriod.setFont(FONT_TASK_PERIOD);
+		//this.taskPeriod.setFont(FONT_TASK_PERIOD);
 	    this.taskPeriod.getStyleClass().add(STYLECLASS_TASK_PERIOD);
 	}
 	

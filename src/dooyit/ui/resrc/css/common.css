@@ -109,6 +109,8 @@
 }
 
 .task-period {
+	-fx-font-family: "Verdana";
+	-fx-font-size: 14;
 	-fx-padding: 0 0 0 0;
 }
 

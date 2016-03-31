@@ -57,6 +57,10 @@ public class EventTask extends Task {
 	
 	@Override
 	public int compareDateTo(Task task){
+		if(task instanceof FloatingTask){
+			return -1;
+		}
+		
 		return this.dateTimeStart.compareTo(task.getDateTime());
 	}
 	

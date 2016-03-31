@@ -9,7 +9,7 @@
 }
 
 .header-view {
-	-fx-background-color: #333F50;
+	-fx-background-color: #353535;
 }
 
 .header-title {
@@ -25,11 +25,12 @@
 }
 
 .btn-select-view:selected {
-	-fx-background-color: linear-gradient(from 15% 15% to 75% 75%, #2e75b6, #314e79);
+	/*-fx-background-color: linear-gradient(from 15% 15% to 75% 75%, #2e75b6, #314e79);*/
+	-fx-background-color: #2e75b6;
 }
 
 .category-title {
-	-fx-text-fill: #deebf7;
+	-fx-text-fill: #52e8e5;
 }
 
 .category-name {
@@ -37,7 +38,8 @@
 }
 
 .menu-view {
-	-fx-background-color: linear-gradient(from 25% 25% to 75% 75%, #222a35, #1f4e79);
+	/*-fx-background-color: linear-gradient(from 25% 25% to 75% 75%, #222a35, #1f4e79);*/
+	-fx-background-color: #3b3b3b;
 }
 
 .command-box {
@@ -54,12 +56,12 @@
 }
 
 .day-title {
-	-fx-text-fill: #deebf7;
+	-fx-text-fill: #52e8e5;
 }
 
 .day-task-box {
 	-fx-padding: 13 0 13 0;
-	-fx-border-color: transparent transparent #404040 transparent;
+	-fx-border-color: transparent transparent #353535 transparent;
 }
 
 .task-checkbox .box {
@@ -74,7 +76,7 @@
 }
 
 .task-message {
-	
+	-fx-text-fill: #ebebeb;
 }
 
 .task-id {
@@ -82,9 +84,13 @@
 }
 
 .task-name {
-	-fx-text-fill: #e1e1e1;
+	-fx-text-fill: #ebebeb;
 }
 
 .task-period {
-	-fx-text-fill: #bdd7ee;
+	-fx-text-fill: #f7f7f7;
+}
+
+.task-category-label {
+	-fx-text-fill: #ebebeb;
 }

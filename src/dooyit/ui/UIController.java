@@ -160,7 +160,7 @@ public class UIController {
 	
 	private void initScene(){
 		this.scene = new Scene(root, WIDTH_SCENE, HEIGHT_SCENE);
-		this.scene.getStylesheets().addAll(this.urlCssCommon, this.urlCssThemeLight);
+		this.scene.getStylesheets().addAll(this.urlCssCommon, this.urlCssThemeDark);
 	}
 	
 	private void initListeners(){

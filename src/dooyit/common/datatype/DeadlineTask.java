@@ -60,7 +60,6 @@ public class DeadlineTask extends Task {
 			return -1;
 		}
 			
-		
 		return this.dateTimeDeadline.compareTo(task.getDateTime());
 	}
 	

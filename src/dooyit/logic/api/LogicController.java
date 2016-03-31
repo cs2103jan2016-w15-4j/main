@@ -22,6 +22,7 @@ import dooyit.common.datatype.EventTaskData;
 import dooyit.common.datatype.FloatingTaskData;
 import dooyit.common.datatype.Task;
 import dooyit.common.datatype.TaskData;
+import dooyit.common.datatype.TaskGroup;
 
 public class LogicController {
 
@@ -266,6 +267,34 @@ public class LogicController {
 
 	public void setSelectedCategory(Category category){
 		this.selectedCategory = category;
+	}
+	
+	public Category getSelectedCategory(){
+		return selectedCategory;
+	}
+	
+	public ArrayList<TaskGroup> getTaskGroupsToday(){
+		return taskManager.getTaskGroupsToday();
+	}
+	
+	public ArrayList<TaskGroup> getTaskGroupsNext7Days(){
+		return taskManager.getTaskGroupsNext7Days();
+	}
+	
+	public ArrayList<TaskGroup> getTaskGroupsAll(){
+		return taskManager.getTaskGroupsAll();
+	}
+	
+	public ArrayList<TaskGroup> getTaskGroupsCompleted(){
+		return taskManager.getTaskGroupsCompleted();
+	}
+	
+	public ArrayList<TaskGroup> getTaskGroupsFloating(){
+		return taskManager.getTaskGroupsFloating();
+	}
+	
+	public ArrayList<TaskGroup> getTaskGroupCategory(){
+		return taskManager.getTaskGroupCategory(selectedCategory);
 	}
 	
 	public void setActiveView(UIMainViewType uiMainViewType) {

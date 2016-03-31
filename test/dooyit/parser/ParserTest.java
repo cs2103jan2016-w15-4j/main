@@ -615,7 +615,35 @@ public class ParserTest {
 	//********************************************
 	//****** Tests for Change Skin Command *******
 	//********************************************
+	@Test
+	public void changeSkinToDark() {
+		String input = "skin dark";
+		Command command = parser.getCommand(input);
+		
+		String theme = Whitebox.getInternalState(command, "themeString");
+		String expectedTheme = "dark";
+		assertEquals(expectedTheme, theme);
+	}
 	
+	@Test
+	public void changeSkinToAqua() {
+		String input = "skin aqua";
+		Command command = parser.getCommand(input);
+		
+		String theme = Whitebox.getInternalState(command, "themeString");
+		String expectedTheme = "aqua";
+		assertEquals(expectedTheme, theme);
+	}
+	
+	@Test
+	public void changeSkinToDefault() {
+		String input = "skin light";
+		Command command = parser.getCommand(input);
+		
+		String theme = Whitebox.getInternalState(command, "themeString");
+		String expectedTheme = "light";
+		assertEquals(expectedTheme, theme);
+	}
 	//********************************************
 	//****** Tests for Set Storage Command *******
 	//********************************************
@@ -628,9 +656,9 @@ public class ParserTest {
 		String input = "search hello";
 		Command command = parser.getCommand(input);
 		
-		UIMainViewType view = Whitebox.getInternalState(command, "uiMainViewtype");
-		UIMainViewType expectedView = UIMainViewType.TODAY;
-		assertEquals(expectedView, view);
+		String keyword = Whitebox.getInternalState(command, "searchString");
+		String expectedKeyword = "hello";
+		assertEquals(expectedKeyword, keyword);
 	}
 	
 	//********************************************

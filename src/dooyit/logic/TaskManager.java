@@ -265,6 +265,15 @@ public class TaskManager {
 		return newTask;
 	}
 
+	public int getNoOfIncompleteEventAndDeadlineTask(){
+		int size = 0;
+		
+		size += getIncompleteDeadlineTasks().size();
+		size += getIncompleteEventTasks().size();
+		
+		return size;
+	}
+	
 	public ArrayList<Task> getAllTasks() {
 		return tasks;
 	}
@@ -367,6 +376,21 @@ public class TaskManager {
 		return deadlineTasks;
 	}
 
+	public ArrayList<Task> getIncompleteDeadlineTasks() {
+
+		ArrayList<Task> deadlineTasks = new ArrayList<Task>();
+
+		for (Task task : tasks) {
+			if (task.getTaskType() == TaskType.DEADLINE) {
+				DeadlineTask deadlineTask = (DeadlineTask) task;
+				if (!task.isCompleted()) {
+					deadlineTasks.add(task);
+				}
+			}
+		}
+		return deadlineTasks;
+	}
+	
 	public ArrayList<Task> getIncompleteDeadlineTasks(DateTime dateTime) {
 
 		ArrayList<Task> deadlineTasks = new ArrayList<Task>();
@@ -409,6 +433,21 @@ public class TaskManager {
 		return eventTasks;
 	}
 
+	public ArrayList<Task> getIncompleteEventTasks() {
+
+		ArrayList<Task> eventTasks = new ArrayList<Task>();
+
+		for (Task task : tasks) {
+			if (task.getTaskType() == TaskType.EVENT) {
+				EventTask eventTask = (EventTask) task;
+				if (!task.isCompleted()) {
+					eventTasks.add(task);
+				}
+			}
+		}
+		return eventTasks;
+	}
+	
 	public ArrayList<Task> getIncompleteEventTasks(DateTime dateTime) {
 
 		ArrayList<Task> eventTasks = new ArrayList<Task>();
@@ -474,22 +513,51 @@ public class TaskManager {
 		ArrayList<TaskGroup> taskGroups = new ArrayList<TaskGroup>();
 		TaskGroup taskGroup;
 		DateTime currDate = new DateTime();
+		
+		addOverDueTaskGroup(taskGroups, currDate);
 
-		ArrayList<Task> overdueTasks = getOverdueTasks(currDate);
-		if (!overdueTasks.isEmpty()) {
-			taskGroup = new TaskGroup("Overdue");
-			taskGroup.addTasks(getOverdueTasks(currDate));
-			sortTask(taskGroup.getTasks());
-			taskGroups.add(taskGroup);
-		}
+//		taskGroup = new TaskGroup("All");
+//		taskGroup.addTasks(getIncompletedTasks(currDate));
+//		sortTask(taskGroup.getTasks());
+//		taskGroups.add(taskGroup);
 
-		taskGroup = new TaskGroup("All");
-		taskGroup.addTasks(getIncompletedTasks(currDate));
+		int totalSize = getNoOfIncompleteEventAndDeadlineTask() - taskGroups.get(0).size();
+		
+		taskGroup = new TaskGroup("Float");
+		taskGroup.addTasks(getIncompleteFloatingTasks());
 		sortTask(taskGroup.getTasks());
 		taskGroups.add(taskGroup);
-
+		
+		taskGroup = new TaskGroup("Today", currDate);
+		taskGroup.addTasks(getIncompleteDeadlineTasks(currDate));
+		taskGroup.addTasks(getIncompleteEventTasks(currDate));
+		sortTask(taskGroup.getTasks());
+		taskGroups.add(taskGroup);
+		totalSize -= taskGroup.size();
+		currDate.increaseByOneDay();
+		
+		taskGroup = new TaskGroup("Tomorrow", currDate);
+		taskGroup.addTasks(getIncompleteDeadlineTasks(currDate));
+		taskGroup.addTasks(getIncompleteEventTasks(currDate));
+		sortTask(taskGroup.getTasks());
+		taskGroups.add(taskGroup);
+		totalSize -= taskGroup.size();
+		currDate.increaseByOneDay();
+		
+		
+		while(totalSize != 0){
+			taskGroup = new TaskGroup(currDate.getDayStr(), currDate);
+			taskGroup.addTasks(getIncompleteDeadlineTasks(currDate));
+			taskGroup.addTasks(getIncompleteEventTasks(currDate));
+			sortTask(taskGroup.getTasks());
+			taskGroups.add(taskGroup);
+			totalSize -= taskGroup.size();
+			currDate.increaseByOneDay();
+		}
+		
 		resetTasksId(taskGroups);
 		return taskGroups;
+		
 	}
 
 	public ArrayList<TaskGroup> getTaskGroupsToday() {
@@ -497,13 +565,7 @@ public class TaskManager {
 		TaskGroup taskGroup;
 		DateTime currDate = new DateTime();
 
-		ArrayList<Task> overdueTasks = getOverdueTasks(currDate);
-		if (!overdueTasks.isEmpty()) {
-			taskGroup = new TaskGroup("Overdue");
-			taskGroup.addTasks(getOverdueTasks(currDate));
-			sortTask(taskGroup.getTasks());
-			taskGroups.add(taskGroup);
-		}
+		addOverDueTaskGroup(taskGroups, currDate);
 
 		taskGroup = new TaskGroup("Today", currDate);
 		taskGroup.addTasks(getIncompleteDeadlineTasks(currDate));
@@ -544,40 +606,19 @@ public class TaskManager {
 		ArrayList<TaskGroup> taskGroups = new ArrayList<TaskGroup>();
 		TaskGroup taskGroup;
 
-		ArrayList<Task> overdueTasks = getOverdueTasks(currDate);
-		if (!overdueTasks.isEmpty()) {
-			taskGroup = new TaskGroup("Overdue");
-			taskGroup.addTasks(getOverdueTasks(currDate));
-			sortTask(taskGroup.getTasks());
-			taskGroups.add(taskGroup);
-		}
-
-//		taskGroup = new TaskGroup("Today", new DateTime(currDate));
-//		taskGroup.addTasks(getIncompleteDeadlineTasks(currDate));
-//		taskGroup.addTasks(getIncompleteEventTasks(currDate));
-//		sortTask(taskGroup.getTasks());
-//		taskGroups.add(taskGroup);
-//
-//		currDate.increaseByOneDay();
-//		taskGroup = new TaskGroup("Tomorrow", new DateTime(currDate));
-//		taskGroup.addTasks(getIncompleteDeadlineTasks(currDate));
-//		taskGroup.addTasks(getIncompleteEventTasks(currDate));
-//		sortTask(taskGroup.getTasks());
-//		taskGroups.add(taskGroup);
-//
-//		currDate.increaseByOneDay();
-//		
+		addOverDueTaskGroup(taskGroups, currDate);
+		
 		String title;
-		for (int i = 0; i < 7; i++) {
-			if(i == 0){
+		for (int i = 1; i <= 7; i++) {
+			if(i == 1){
 				title = "Today";
-			}else if (i==1){
+			}else if (i==2){
 				title = "Tomorrow";
 			}else{
 				title = currDate.getDayStr();
 			}
 			
-			taskGroup = new TaskGroup(currDate.getDayStr(), new DateTime(currDate));
+			taskGroup = new TaskGroup(title, new DateTime(currDate));
 			taskGroup.addTasks(getIncompleteDeadlineTasks(currDate));
 			taskGroup.addTasks(getIncompleteEventTasks(currDate));
 			sortTask(taskGroup.getTasks());
@@ -611,6 +652,26 @@ public class TaskManager {
 		return taskGroups;
 	}
 
+	public void addOverDueTaskGroup(ArrayList<TaskGroup> taskGroups, DateTime currDate){
+		ArrayList<Task> overdueTasks = getOverdueTasks(currDate);
+		if (!overdueTasks.isEmpty()) {
+			TaskGroup taskGroup = new TaskGroup("Overdue");
+			taskGroup.addTasks(getOverdueTasks(currDate));
+			sortTask(taskGroup.getTasks());
+			taskGroups.add(taskGroup);
+		}
+	}
+	
+	public void addTodayTaskGroup(ArrayList<TaskGroup> taskGroups, DateTime currDate){
+		ArrayList<Task> overdueTasks = getOverdueTasks(currDate);
+		if (!overdueTasks.isEmpty()) {
+			TaskGroup taskGroup = new TaskGroup("Overdue");
+			taskGroup.addTasks(getOverdueTasks(currDate));
+			sortTask(taskGroup.getTasks());
+			taskGroups.add(taskGroup);
+		}
+	}
+	
 	public void sortTask(ArrayList<Task> tasks){
 		TaskUniqueIdComparator uniqueIdComparator = new TaskUniqueIdComparator();
 		Collections.sort(tasks, uniqueIdComparator);

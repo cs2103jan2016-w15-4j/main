@@ -50,6 +50,10 @@ public class TaskGroup {
 		return tasks;
 	}
 
+	public int size(){
+		return tasks.size();
+	}
+	
 	public boolean hasDateTime() {
 		return dateTime != null;
 	}

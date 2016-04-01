@@ -497,9 +497,9 @@ public class LogicController {
 		return storage.getFilePath();
 	}
 
-	public void setFileDestinationPath(String path) throws IncorrectInputException {
+	public boolean setFileDestinationPath(String path) throws IncorrectInputException {
 		try {
-			storage.setFileDestination(path);
+			return storage.setFileDestination(path);
 		} catch (IOException e) {
 			throw new IncorrectInputException("Invalid path: " + path);
 		}

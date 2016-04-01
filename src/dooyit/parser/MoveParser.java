@@ -73,8 +73,9 @@ public class MoveParser extends TagParser {
 
 	private void parse(String input) {
 		command = null;
-		int indexOfCategoryName = input.lastIndexOf(" ");
-		categoryName = input.substring(indexOfCategoryName).trim();
+		String[] splitInput = input.split("\\s+");
+		int indexOfCategoryName = splitInput.length - 1;
+		categoryName = splitInput[indexOfCategoryName];
 		taskIds = input.replace(categoryName, "").trim();
 	}
 }

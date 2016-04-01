@@ -2,6 +2,7 @@ package dooyit.common.datatype;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.TimeZone;
 
@@ -82,7 +83,7 @@ public class DateTime {
 	public String getDayStr() {
 		return daysInWeek[this.getDayInt()];
 	}
-
+ 
 	public int getDayInt() {
 		return getDayOfWeekFromADate();
 	}
@@ -139,9 +140,9 @@ public class DateTime {
 		return this.yy;
 	}
 	
-	//********************************************
-	//****** Methods to 2 DateTime objects *******
-	//********************************************
+	//****************************************************
+	//****** Methods to compare 2 DateTime objects *******
+	//****************************************************
 	
 	// Returns 0 if this DateTime object has the same date and time as the DateTime object passed in as argument
 	// Returns 1 if this DateTime object lies after DateTime object passed in as argument
@@ -156,7 +157,7 @@ public class DateTime {
 		return comparison;
 	}
 	
-	private int getComparison(int dateComparison, int timeComparison) {
+	private static int getComparison(int dateComparison, int timeComparison) {
 		int comparison;
 		if(dateComparison != COMPARISON_FIRST_EQUALS_SECOND) {
 			comparison = dateComparison;
@@ -166,7 +167,7 @@ public class DateTime {
 		return comparison;
 	}
 
-	private int compareTime(DateTime first, DateTime second) {
+	private static int compareTime(DateTime first, DateTime second) {
 		int comparison = COMPARISON_FIRST_EQUALS_SECOND;
 		int firstTimeInt = first.getTimeInt();
 		int secondTimeInt = second.getTimeInt();
@@ -182,7 +183,7 @@ public class DateTime {
 		return comparison;
 	}
 
-	private int compareAgainstUninitializedTime(int firstTimeInt, int secondTimeInt) {
+	private static int compareAgainstUninitializedTime(int firstTimeInt, int secondTimeInt) {
 		int comparison;
 		if(firstTimeInt == UNINITIALIZED_INT) {
 			comparison = COMPARISON_FIRST_IS_AFTER_SECOND;
@@ -192,7 +193,7 @@ public class DateTime {
 		return comparison;
 	}
 
-	private int compareDates(DateTime first, DateTime second) {
+	private static int compareDates(DateTime first, DateTime second) {
 		boolean isSameDate = compareDateStrings(first, second);
 		int yearComparison = compareYear(first, second);
 		int monthComparison = compareMonth(first, second);
@@ -207,7 +208,7 @@ public class DateTime {
 		return comparison;
 			
 	}
-	private int compareYearMonthDay(int yearComparison, int monthComparison, int dayComparison) {
+	private static int compareYearMonthDay(int yearComparison, int monthComparison, int dayComparison) {
 		int comparison;
 		if(isSameYear(yearComparison)) {
 			comparison = compareMonthDay(monthComparison, dayComparison);
@@ -217,7 +218,7 @@ public class DateTime {
 		return comparison;
 	}
 
-	private int compareMonthDay(int monthComparison, int dayComparison) {
+	private static int compareMonthDay(int monthComparison, int dayComparison) {
 		int comparison;
 		if(isSameMonth(monthComparison)) {
 			comparison = dayComparison;
@@ -227,15 +228,15 @@ public class DateTime {
 		return comparison;
 	}
 
-	private boolean isSameMonth(int monthComparison) {
+	private static boolean isSameMonth(int monthComparison) {
 		return monthComparison == COMPARISON_FIRST_EQUALS_SECOND;
 	}
 
-	private boolean isSameYear(int yearComparison) {
+	private static boolean isSameYear(int yearComparison) {
 		return yearComparison == COMPARISON_FIRST_EQUALS_SECOND;
 	}
 
-	private int compareDay(DateTime first, DateTime second) {
+	private static int compareDay(DateTime first, DateTime second) {
 		int comparison = COMPARISON_FIRST_EQUALS_SECOND;
 		int firstDD = first.getDD();
 		int secondDD = second.getDD();
@@ -249,7 +250,7 @@ public class DateTime {
 		return comparison;
 	}
 
-	private int compareMonth(DateTime first, DateTime second) {
+	private static int compareMonth(DateTime first, DateTime second) {
 		int comparison = COMPARISON_FIRST_EQUALS_SECOND;
 		int firstMM = first.getMM();
 		int secondMM = second.getMM();
@@ -263,7 +264,7 @@ public class DateTime {
 		return comparison;
 	}
 
-	private int compareYear(DateTime first, DateTime second) {
+	private static int compareYear(DateTime first, DateTime second) {
 		int comparison = COMPARISON_FIRST_EQUALS_SECOND;
 		int firstYY = first.getYY();
 		int secondYY = second.getYY();
@@ -277,7 +278,7 @@ public class DateTime {
 		return comparison;
 	}
 
-	private boolean compareDateStrings(DateTime first, DateTime second) {
+	private static boolean compareDateStrings(DateTime first, DateTime second) {
 		return first.getDate().equals(second.getDate());
 	}
 
@@ -346,28 +347,59 @@ public class DateTime {
 		int lastTwoDigitsOfYear = this.yy % 1000;
 		int divideLastTwoDigitsOfYearByFour = lastTwoDigitsOfYear / 4;
 		int sum = lastTwoDigitsOfYear + divideLastTwoDigitsOfYearByFour + this.dd + monthTable[this.mm];
-		if(isLeapYear() && this.mm <= 2 && this.dd <= 31) {
+		if(DateTime.isLeapYear(this.yy) && this.mm <= 2 && this.dd <= 31) {
 			sum--;
 		}
 		return dayTable[sum % NUMBER_OF_DAYS_IN_WEEK];
 	}
 	
-	private boolean isLeapYear() {
+	public static boolean isLeapYear(int year) {
 		int[] listOfLeapYears = new int[] { 2016, 2020, 2024, 2028, 2032, 2036, 2040, 2044, 2048, 2052, 2056, 2060, 2064, 2068, 2072, 2076, 2080, 2084, 2088, 2092, 2096 };
 
 		boolean ans = false;
 		for (int i = 0; i < listOfLeapYears.length; i++) {
-			if (this.yy < listOfLeapYears[i]) {
+			if (year < listOfLeapYears[i]) {
 				break;
 			}
-			if (this.yy == listOfLeapYears[i]) {
+			if (year == listOfLeapYears[i]) {
 				ans = true;
 				break;
 			}
 		} 
 		return ans;
 	}
-
+	
+	public static ArrayList<String> getMultiDayString(DateTime start, DateTime end) {
+		ArrayList<String> listOfTimings = new ArrayList<String>();
+		
+		String startTimeString = start.getTime12hStr();
+		String endTimeString = end.getTime12hStr();
+		String beforeMidnight = "11.59 pm";
+		String midnight = "12.00 am";
+		String timeToBeAdded = startTimeString + " - " + beforeMidnight;
+		listOfTimings.add(timeToBeAdded);
+		
+		while(compareDates(start, end) != COMPARISON_FIRST_EQUALS_SECOND) {
+			start.increaseByOneDay();
+			timeToBeAdded = midnight + " - " + beforeMidnight;
+			listOfTimings.add(timeToBeAdded);
+		}
+		timeToBeAdded = midnight + " - " + endTimeString;
+		listOfTimings.add(timeToBeAdded);
+		
+		return listOfTimings;
+	}
+	
+	public static boolean hasMultiDay(DateTime start, DateTime end) {
+		return !start.isTheSameDateAs(end);
+	}
+	
+	public static boolean isWithin(DateTime dt, DateTime start, DateTime end) {
+		boolean dtIsAfterStart = dt.compareTo(start) != COMPARISON_FIRST_IS_BEFORE_SECOND;
+		boolean dtIsBeforeEnd = dt.compareTo(end) != COMPARISON_FIRST_IS_AFTER_SECOND;
+		return dtIsAfterStart && dtIsBeforeEnd;
+	}
+	
 	public void setDate(DateTime start) {
 		this.dd = start.getDD();
 		this.mm = start.getMM();

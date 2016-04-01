@@ -1,5 +1,7 @@
 package dooyit.parser;
 
+import dooyit.common.datatype.DateTime;
+
 public class DateTimeParserCommon implements ParserCommons{
 	public static final int COMBINED_INDEX_DAY_OF_WEEK = 0;
 	public static final int COMBINED_INDEX_TIME = 1;
@@ -59,7 +61,7 @@ public class DateTimeParserCommon implements ParserCommons{
 	
 	public int[] getDaysInMonthArray(int yy) {
 		int[] ans;
-		if(isLeapYear(yy)) {
+		if(DateTime.isLeapYear(yy)) {
 			ans = daysInMonthLeapYear;
 		} else {
 			ans = daysInMonthNonLeapYear;

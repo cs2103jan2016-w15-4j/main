@@ -454,14 +454,14 @@ public class TaskManager {
 
 	public boolean isTodayTask(Task task) {
 		DateTime currDate = new DateTime();
-		return task.isToday(currDate);
+		return task.isSameDate(currDate);
 	}
 
 	public boolean isNext7DaysTask(Task task) {
 		DateTime currDate = new DateTime();
 
 		for (int i = 0; i < 7; i++) {
-			if (task.isToday(currDate)) {
+			if (task.isSameDate(currDate)) {
 				return true;
 			}
 			currDate.increaseByOneDay();
@@ -552,21 +552,31 @@ public class TaskManager {
 			taskGroups.add(taskGroup);
 		}
 
-		taskGroup = new TaskGroup("Today", new DateTime(currDate));
-		taskGroup.addTasks(getIncompleteDeadlineTasks(currDate));
-		taskGroup.addTasks(getIncompleteEventTasks(currDate));
-		sortTask(taskGroup.getTasks());
-		taskGroups.add(taskGroup);
-
-		currDate.increaseByOneDay();
-		taskGroup = new TaskGroup("Tomorrow", new DateTime(currDate));
-		taskGroup.addTasks(getIncompleteDeadlineTasks(currDate));
-		taskGroup.addTasks(getIncompleteEventTasks(currDate));
-		sortTask(taskGroup.getTasks());
-		taskGroups.add(taskGroup);
-
-		currDate.increaseByOneDay();
-		for (int i = 0; i < 5; i++) {
+//		taskGroup = new TaskGroup("Today", new DateTime(currDate));
+//		taskGroup.addTasks(getIncompleteDeadlineTasks(currDate));
+//		taskGroup.addTasks(getIncompleteEventTasks(currDate));
+//		sortTask(taskGroup.getTasks());
+//		taskGroups.add(taskGroup);
+//
+//		currDate.increaseByOneDay();
+//		taskGroup = new TaskGroup("Tomorrow", new DateTime(currDate));
+//		taskGroup.addTasks(getIncompleteDeadlineTasks(currDate));
+//		taskGroup.addTasks(getIncompleteEventTasks(currDate));
+//		sortTask(taskGroup.getTasks());
+//		taskGroups.add(taskGroup);
+//
+//		currDate.increaseByOneDay();
+//		
+		String title;
+		for (int i = 0; i < 7; i++) {
+			if(i == 0){
+				title = "Today";
+			}else if (i==1){
+				title = "Tomorrow";
+			}else{
+				title = currDate.getDayStr();
+			}
+			
 			taskGroup = new TaskGroup(currDate.getDayStr(), new DateTime(currDate));
 			taskGroup.addTasks(getIncompleteDeadlineTasks(currDate));
 			taskGroup.addTasks(getIncompleteEventTasks(currDate));

@@ -42,7 +42,7 @@ public class EventTaskTest {
 
 	@Test
 	public void isToday(){
-		assertTrue(task1.isToday(today));
+		assertTrue(task1.isSameDate(today));
 	}
 	
 	@Test

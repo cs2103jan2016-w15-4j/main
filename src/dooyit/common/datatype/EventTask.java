@@ -78,13 +78,13 @@ public class EventTask extends Task {
 	}
 	
 	@Override
-	public boolean isToday(DateTime dateTime){
+	public boolean isSameDate(DateTime dateTime){
 		return dateTimeStart.isTheSameDateAs(dateTime);
 	}
 	
 	@Override
 	public boolean isOverDue(DateTime dateTime){
-		return !isToday(dateTime) && !isCompleted && dateTimeEnd.compareTo(dateTime) == -1;
+		return !isSameDate(dateTime) && !isCompleted && dateTimeEnd.compareTo(dateTime) == -1;
 	}
 	
 	@Override

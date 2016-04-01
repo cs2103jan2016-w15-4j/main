@@ -372,10 +372,10 @@ public class DateTime {
 	public static ArrayList<String> getMultiDayString(DateTime start, DateTime end) {
 		ArrayList<String> listOfTimings = new ArrayList<String>();
 		
-		String startTimeString = start.getTime12hStr();
-		String endTimeString = end.getTime12hStr();
-		String beforeMidnight = "11.59 pm";
-		String midnight = "12.00 am";
+		String startTimeString = start.getTime24hStr();
+		String endTimeString = end.getTime24hStr();
+		String beforeMidnight = "23:59";
+		String midnight = "00:00";
 		String timeToBeAdded = startTimeString + " - " + beforeMidnight;
 		listOfTimings.add(timeToBeAdded);
 		

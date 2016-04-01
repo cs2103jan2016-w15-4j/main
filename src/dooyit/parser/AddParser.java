@@ -247,9 +247,7 @@ public class AddParser implements ParserCommons {
 		boolean ans = false;
 		if(!isUninitialized(userInput.lastIndexOf(MARKER_START_EVENT)) && 
 				!isUninitialized(userInput.lastIndexOf(MARKER_END_EVENT))) {
-			if(hasAValidDateTimeAfterEventMarkers()) {
-				ans = true;
-			}
+			ans = hasAValidDateTimeAfterEventMarkers();
 		}
 		return ans;
 	}

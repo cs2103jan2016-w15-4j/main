@@ -282,35 +282,38 @@ public class EditParser implements ParserCommons {
 	}
 
 	private EDIT_TYPE getEditType() {
+		EDIT_TYPE type;
 		if (hasName()) {
 			if (!hasStart() && !hasEnd() && !hasDeadline()) {
-				return EDIT_TYPE.NAME;
+				type = EDIT_TYPE.NAME;
 			} else if (hasStart() && hasEnd() && !hasDeadline()) {
-				return EDIT_TYPE.NAME_TIME_START_END;
+				type = EDIT_TYPE.NAME_TIME_START_END;
 			} else if (hasStart() && !hasEnd() && !hasDeadline()) {
-				return EDIT_TYPE.NAME_TIME_START;
+				type = EDIT_TYPE.NAME_TIME_START;
 			} else if (!hasStart() && hasEnd() && !hasDeadline()) {
-				return EDIT_TYPE.NAME_TIME_END;
+				type = EDIT_TYPE.NAME_TIME_END;
 			} else if (!hasStart() && !hasEnd() && hasDeadline()) { 
-				return EDIT_TYPE.NAME_DEADLINE;
+				type = EDIT_TYPE.NAME_DEADLINE;
+			} else {
+				type = EDIT_TYPE.INVALID;
 			}
 
 		} else if (hasDeadline() && !hasStart() && !hasEnd()) {
-			return EDIT_TYPE.DEADLINE;
+			type = EDIT_TYPE.DEADLINE;
 
 		} else if (hasStart() || hasEnd()) {
 			if (hasStart() && hasEnd()) {
-				return EDIT_TYPE.TIME_START_END;
+				type = EDIT_TYPE.TIME_START_END;
 			} else if (hasStart() && !hasEnd()) {
-				return EDIT_TYPE.TIME_START;
+				type = EDIT_TYPE.TIME_START;
 			} else { // !hasStart() && hasEnd()
-				return EDIT_TYPE.TIME_END;
+				type = EDIT_TYPE.TIME_END;
 			}
 
 		} else {
-			// Invalid command
+			type = EDIT_TYPE.INVALID;
 		}
-		return null;
+		return type;
 	}
 
 	private boolean hasName() {

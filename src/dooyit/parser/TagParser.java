@@ -106,14 +106,16 @@ public class TagParser implements ParserCommons {
 	}
 
 	public TAG_TYPE getTagType() {
+		TAG_TYPE type;
 		if (userInput.contains(MARKER_FOR_INTERVAL_TAG_TYPE)) {
-			return TAG_TYPE.INTERVAL;
+			type = TAG_TYPE.INTERVAL;
 		} else if (splitInput.length == 1) {
-			return TAG_TYPE.SINGLE;
+			type = TAG_TYPE.SINGLE;
 		} else if (splitInput.length > 1) {
-			return TAG_TYPE.MULTIPLE;
+			type = TAG_TYPE.MULTIPLE;
 		} else {
-			return TAG_TYPE.INVALID;
+			type = TAG_TYPE.INVALID;
 		}
+		return type;
 	}
 }

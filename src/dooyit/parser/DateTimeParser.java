@@ -131,18 +131,20 @@ public class DateTimeParser extends DateTimeParserCommon {
 
 
 	private DATE_TIME_FORMAT getDateTimeType(String currWord, String[] splitUserInput, int index) {
+		DATE_TIME_FORMAT type;
 		if(timeParser.isValidTime(currWord, splitUserInput, index)) {
-			return DATE_TIME_FORMAT.TYPE_TIME;
+			type = DATE_TIME_FORMAT.TYPE_TIME;
 			
 		} else if(relativeDateParser.isRelativeDate(currWord, splitUserInput, index)) {
-			return DATE_TIME_FORMAT.TYPE_RELATIVE_DATE;
+			type = DATE_TIME_FORMAT.TYPE_RELATIVE_DATE;
 			
 		} else if(fixedDateParser.isFixedDate(currWord, splitUserInput, index)) {
-			return DATE_TIME_FORMAT.TYPE_FIXED_DATE;
+			type = DATE_TIME_FORMAT.TYPE_FIXED_DATE;
 			
 		} else {
-			return DATE_TIME_FORMAT.TYPE_INVALID; 
+			type = DATE_TIME_FORMAT.TYPE_INVALID; 
 		}
+		return type;
 	}
 	
 

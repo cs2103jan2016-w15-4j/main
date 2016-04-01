@@ -565,7 +565,7 @@ public class ParserTest {
 	//******************************************
 	@Test
 	public void moveSingleTaskId() {
-		String input = "move movies 2";
+		String input = "move 2 movies";
 		Command command = parser.getCommand(input);
 		ArrayList<Integer> taskIdsInCommand = Whitebox.getInternalState(command, "taskIds");
 		String categoryNameInCommand = Whitebox.getInternalState(command, "categoryName");
@@ -575,15 +575,102 @@ public class ParserTest {
 		assertEquals(expectedCategoryName, categoryNameInCommand);
 	}
 	
+	@Test
+	public void moveMultipleTaskIds() {
+		String input = "move 2 3 12 17 6 movies";
+		Command command = parser.getCommand(input);
+		ArrayList<Integer> taskIdsInCommand = Whitebox.getInternalState(command, "taskIds");
+		String categoryNameInCommand = Whitebox.getInternalState(command, "categoryName");
+		ArrayList<Integer> expectedTaskIds = new ArrayList<Integer>(Arrays.asList(2, 3, 12, 17, 6));
+		String expectedCategoryName = "movies";
+		assertEquals(expectedTaskIds, taskIdsInCommand);
+		assertEquals(expectedCategoryName, categoryNameInCommand);
+	}
+	
+	@Test
+	public void moveIntervalTaskIds() {
+		String input = "move 2-6 movies";
+		Command command = parser.getCommand(input);
+		ArrayList<Integer> taskIdsInCommand = Whitebox.getInternalState(command, "taskIds");
+		String categoryNameInCommand = Whitebox.getInternalState(command, "categoryName");
+		ArrayList<Integer> expectedTaskIds = new ArrayList<Integer>(Arrays.asList(2, 3, 4, 5, 6));
+		String expectedCategoryName = "movies";
+		assertEquals(expectedTaskIds, taskIdsInCommand);
+		assertEquals(expectedCategoryName, categoryNameInCommand);
+	}
+	
+	
 	//******************************************
 	//********* Tests for RemoveParser *********
 	//******************************************
+	@Test
+	public void removeSingleTaskId() {
+		String input = "remove 2 movies";
+		Command command = parser.getCommand(input);
+		ArrayList<Integer> taskIdsInCommand = Whitebox.getInternalState(command, "taskIds");
+		String categoryNameInCommand = Whitebox.getInternalState(command, "categoryName");
+		ArrayList<Integer> expectedTaskIds = new ArrayList<Integer>(Arrays.asList(2));
+		String expectedCategoryName = "movies";
+		assertEquals(expectedTaskIds, taskIdsInCommand);
+		assertEquals(expectedCategoryName, categoryNameInCommand);
+	}
+	
+	@Test
+	public void removeMultipleTaskIds() {
+		String input = "remove 2 3 12 17 6 movies";
+		Command command = parser.getCommand(input);
+		ArrayList<Integer> taskIdsInCommand = Whitebox.getInternalState(command, "taskIds");
+		String categoryNameInCommand = Whitebox.getInternalState(command, "categoryName");
+		ArrayList<Integer> expectedTaskIds = new ArrayList<Integer>(Arrays.asList(2, 3, 12, 17, 6));
+		String expectedCategoryName = "movies";
+		assertEquals(expectedTaskIds, taskIdsInCommand);
+		assertEquals(expectedCategoryName, categoryNameInCommand);
+	}
+	
+	@Test
+	public void removeIntervalTaskIds() {
+		String input = "remove 2-6 movies";
+		Command command = parser.getCommand(input);
+		ArrayList<Integer> taskIdsInCommand = Whitebox.getInternalState(command, "taskIds");
+		String categoryNameInCommand = Whitebox.getInternalState(command, "categoryName");
+		ArrayList<Integer> expectedTaskIds = new ArrayList<Integer>(Arrays.asList(2, 3, 4, 5, 6));
+		String expectedCategoryName = "movies";
+		assertEquals(expectedTaskIds, taskIdsInCommand);
+		assertEquals(expectedCategoryName, categoryNameInCommand);
+	}
+	
+	@Test
+	public void removeAsDeleteSingleTaskId() {
+		String input = "remove 2";
+		Command command = parser.getCommand(input);
+		ArrayList<Integer> taskIdsInCommand = Whitebox.getInternalState(command, "taskIds");
+		ArrayList<Integer> expectedTaskIds = new ArrayList<Integer>(Arrays.asList(2));
+		assertEquals(expectedTaskIds, taskIdsInCommand);
+	}
+	
+	@Test
+	public void removeAsDeleteMultipleTaskIds() {
+		String input = "remove 2 3 12 17 6";
+		Command command = parser.getCommand(input);
+		ArrayList<Integer> taskIdsInCommand = Whitebox.getInternalState(command, "taskIds");
+		ArrayList<Integer> expectedTaskIds = new ArrayList<Integer>(Arrays.asList(2, 3, 12, 17, 6));
+		assertEquals(expectedTaskIds, taskIdsInCommand);
+	}
+	
+	@Test
+	public void removeAsDeleteIntervalTaskIds() {
+		String input = "remove 2-6";
+		Command command = parser.getCommand(input);
+		ArrayList<Integer> taskIdsInCommand = Whitebox.getInternalState(command, "taskIds");
+		ArrayList<Integer> expectedTaskIds = new ArrayList<Integer>(Arrays.asList(2, 3, 4, 5, 6));
+		assertEquals(expectedTaskIds, taskIdsInCommand);
+	}
 	
 	//*******************************************
 	//**** Tests for AddCategoryParser **********
 	//*******************************************
 	@Test
-	public void addcatName() {
+	public void addcategoryName() {
 		String input = "addcat CS2103T";
 		Command command = parser.getCommand(input);
 		String categoryNameInCommand = Whitebox.getInternalState(command, "categoryName");
@@ -592,7 +679,7 @@ public class ParserTest {
 	}
 	
 	@Test
-	public void addcatNameWithColour() {
+	public void addcategoryNameWithColour() {
 		String input = "addcat CS2103T blue";
 		Command command = parser.getCommand(input);
 		String categoryNameInCommand = Whitebox.getInternalState(command, "categoryName");
@@ -606,7 +693,14 @@ public class ParserTest {
 	//********************************************
 	//**** Tests for DeleteCategoryParser ********
 	//********************************************
-	//!!!!!!!!!!!!!!! TO DO LATER !!!!!!!!!!!!!!!!
+	@Test
+	public void deleteCategory() {
+		String input = "deletecat CS2103T";
+		Command command = parser.getCommand(input);
+		String categoryNameInCommand = Whitebox.getInternalState(command, "categoryName");
+		String expectedCategoryName = "CS2103T";
+		assertEquals(expectedCategoryName, categoryNameInCommand);
+	}
 	
 	
 	//********************************************

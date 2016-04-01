@@ -514,8 +514,8 @@ public class TaskManager {
 		TaskGroup taskGroup;
 		DateTime currDate = new DateTime();
 		
-		int noOverdueTask = getOverdueTasks(currDate).size();
-		int totalSize = getNoOfIncompleteEventAndDeadlineTask() - noOverdueTask;
+		int numOverdueTask = getOverdueTasks(currDate).size();
+		int totalSize = getNoOfIncompleteEventAndDeadlineTask() - numOverdueTask;
 		
 		addOverDueTaskGroup(taskGroups, currDate);
 		

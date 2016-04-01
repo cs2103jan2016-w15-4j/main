@@ -514,21 +514,17 @@ public class TaskManager {
 		TaskGroup taskGroup;
 		DateTime currDate = new DateTime();
 		
+		int noOverdueTask = getOverdueTasks(currDate).size();
+		int totalSize = getNoOfIncompleteEventAndDeadlineTask() - noOverdueTask;
+		
 		addOverDueTaskGroup(taskGroups, currDate);
-
-//		taskGroup = new TaskGroup("All");
-//		taskGroup.addTasks(getIncompletedTasks(currDate));
-//		sortTask(taskGroup.getTasks());
-//		taskGroups.add(taskGroup);
-
-		int totalSize = getNoOfIncompleteEventAndDeadlineTask() - taskGroups.get(0).size();
 		
 		taskGroup = new TaskGroup("Float");
 		taskGroup.addTasks(getIncompleteFloatingTasks());
 		sortTask(taskGroup.getTasks());
 		taskGroups.add(taskGroup);
 		
-		taskGroup = new TaskGroup("Today", currDate);
+		taskGroup = new TaskGroup("Today", new DateTime(currDate));
 		taskGroup.addTasks(getIncompleteDeadlineTasks(currDate));
 		taskGroup.addTasks(getIncompleteEventTasks(currDate));
 		sortTask(taskGroup.getTasks());
@@ -536,7 +532,7 @@ public class TaskManager {
 		totalSize -= taskGroup.size();
 		currDate.increaseByOneDay();
 		
-		taskGroup = new TaskGroup("Tomorrow", currDate);
+		taskGroup = new TaskGroup("Tomorrow", new DateTime(currDate));
 		taskGroup.addTasks(getIncompleteDeadlineTasks(currDate));
 		taskGroup.addTasks(getIncompleteEventTasks(currDate));
 		sortTask(taskGroup.getTasks());
@@ -546,7 +542,7 @@ public class TaskManager {
 		
 		
 		while(totalSize != 0){
-			taskGroup = new TaskGroup(currDate.getDayStr(), currDate);
+			taskGroup = new TaskGroup(currDate.getDayStr(), new DateTime(currDate));
 			taskGroup.addTasks(getIncompleteDeadlineTasks(currDate));
 			taskGroup.addTasks(getIncompleteEventTasks(currDate));
 			sortTask(taskGroup.getTasks());

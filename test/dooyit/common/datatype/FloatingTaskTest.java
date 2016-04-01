@@ -22,7 +22,7 @@ public class FloatingTaskTest {
 	
 	@Test
 	public void isToday(){
-		assertFalse(task1.isToday(today));
+		assertFalse(task1.isSameDate(today));
 	}
 	
 	@Test

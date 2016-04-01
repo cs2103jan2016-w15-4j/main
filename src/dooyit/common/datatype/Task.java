@@ -106,5 +106,5 @@ public abstract class Task {
 	
 	public abstract boolean isOverDue(DateTime dateTime);
 	
-	public abstract boolean isToday(DateTime dateTime);
+	public abstract boolean isSameDate(DateTime dateTime);
 }

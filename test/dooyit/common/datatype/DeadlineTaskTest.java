@@ -29,7 +29,7 @@ public class DeadlineTaskTest {
 	
 	@Test
 	public void isToday(){
-		assertTrue(task2.isToday(dt2));
+		assertTrue(task2.isSameDate(dt2));
 	}
 	
 	@Test

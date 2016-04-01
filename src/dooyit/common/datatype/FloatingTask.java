@@ -55,7 +55,7 @@ public class FloatingTask extends Task {
 	}
 	
 	@Override
-	public boolean isToday(DateTime dateTime){
+	public boolean isSameDate(DateTime dateTime){
 		return false;
 	}
 	

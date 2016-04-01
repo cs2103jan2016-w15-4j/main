@@ -55,12 +55,16 @@ public class StorageController extends StorageConstants {
 		//logger.log(Level.INFO, "Changing save destination");
 		boolean isValid = isValidPath(newFilePath);
 		assert isValid;
-
+		
 		preferences[TASK_DESTINATION] = newFilePath;
 		modifyConfig(preferences);
 		taskControl.setFileDestination(newFilePath);
-
-		return true;
+		File file = new File(newFilePath);
+		if(file.exists()) {
+			return true;
+		}
+		
+		return false;
 	}
 
 	public boolean saveTasks(ArrayList<TaskData> tasks) throws IOException {

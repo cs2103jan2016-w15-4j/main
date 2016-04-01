@@ -75,33 +75,35 @@ public class RelativeDateParser extends DateTimeParserCommon {
 	}
 	
 	private RELATIVE_DATE_FORMAT getRelativeDateType(String currWord, String[] splitUserInput, int index) {
+		RELATIVE_DATE_FORMAT type;
 		if (isThisMonday(currWord, splitUserInput, index)) {
-			return RELATIVE_DATE_FORMAT.TYPE_THIS_DAY_OF_WEEK;
+			type = RELATIVE_DATE_FORMAT.TYPE_THIS_DAY_OF_WEEK;
 
 		} else if (isNextWeek(currWord, splitUserInput, index)) {
-			return RELATIVE_DATE_FORMAT.TYPE_NEXT_WEEK;
+			type = RELATIVE_DATE_FORMAT.TYPE_NEXT_WEEK;
 
 		} else if (isNextWeekday(currWord, splitUserInput, index)) {
-			return RELATIVE_DATE_FORMAT.TYPE_NEXT_DAY_OF_WEEK;
+			type = RELATIVE_DATE_FORMAT.TYPE_NEXT_DAY_OF_WEEK;
 
 		} else if (isValidDay(currWord)) {
-			return RELATIVE_DATE_FORMAT.TYPE_DAY_OF_WEEK;
+			type = RELATIVE_DATE_FORMAT.TYPE_DAY_OF_WEEK;
 
 		} else if (isToday(currWord)) {
-			return RELATIVE_DATE_FORMAT.TYPE_TODAY;
+			type = RELATIVE_DATE_FORMAT.TYPE_TODAY;
 
 		} else if (isTomorrow(currWord)) {
-			return RELATIVE_DATE_FORMAT.TYPE_TOMORROW;
+			type = RELATIVE_DATE_FORMAT.TYPE_TOMORROW;
 
 		} else if (isNumberOfDays(currWord, splitUserInput, index)) {
-			return RELATIVE_DATE_FORMAT.TYPE_NUM_DAYS;
+			type = RELATIVE_DATE_FORMAT.TYPE_NUM_DAYS;
 
 		} else if (isNumberOfWeeks(currWord, splitUserInput, index)) {
-			return RELATIVE_DATE_FORMAT.TYPE_NUM_WEEKS;
+			type = RELATIVE_DATE_FORMAT.TYPE_NUM_WEEKS;
 
 		} else {
-			return RELATIVE_DATE_FORMAT.TYPE_INVALID;
+			type = RELATIVE_DATE_FORMAT.TYPE_INVALID;
 		}
+		return type;
 	}
 	
 	public boolean isRelativeDate(String currWord, String[] splitUserInput, int index) {

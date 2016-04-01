@@ -2,7 +2,6 @@ package dooyit.parser;
 
 import dooyit.logic.commands.Command;
 import dooyit.logic.commands.CommandUtils;
-import dooyit.ui.Main;
 
 public class Parser {
 	public static final String ERROR_MESSAGE_INVALID_COMMAND = "Invalid Command: ";
@@ -18,8 +17,8 @@ public class Parser {
 	private static final String COMMAND_HELP = "help";
 	private static final String COMMAND_MARK = "mark";
 	private static final String COMMAND_MOVE_TO_CAT = "move";
-	private static final String COMMAND_REMOVE_FROM_CAT = "rm";
 	private static final String COMMAND_REDO = "redo";
+	private static final String COMMAND_REMOVE_FROM_CAT = "rm";
 	private static final String COMMAND_SEARCH = "search";
 	private static final String COMMAND_SHOW = "show";
 	private static final String COMMAND_SKIN = "skin";

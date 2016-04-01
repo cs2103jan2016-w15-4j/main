@@ -68,7 +68,7 @@ public class RemoveParser extends TagParser {
 	private void setMultipleTypeRemoveCommand() {
 		//return CommandUtils.createRemoveCommand(taskIdsForTagging);
 		command = null;
-	}
+	} 
 
 	private void setSingleTypeRemoveCommand() {
 		//return CommandUtils.createRemoveCommand(taskIdForTagging);

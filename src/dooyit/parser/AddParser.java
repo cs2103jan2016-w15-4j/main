@@ -9,9 +9,6 @@ public class AddParser implements ParserCommons {
 
 	private static final String ERROR_MESSAGE_END_BEFORE_START = "Error: End timing cannot be before Start timing";
 	private static final String ERROR_MESSAGE_INVALID_ADD_COMMAND = "Error: Invalid add command!";
-	private static final String MARKER_START_EVENT = " from ";
-	private static final String MARKER_END_EVENT = " to ";
-	private static final String MARKER_WORK = " by ";
 	private static final String MARKER_CATEGORY = " @ ";
 
 	private String userInput;
@@ -172,11 +169,12 @@ public class AddParser implements ParserCommons {
 		DateTimeParser dateTimeParser = new DateTimeParser();
 		int indexFrom = userInput.lastIndexOf(MARKER_START_EVENT);
 		int indexTo = userInput.lastIndexOf(MARKER_END_EVENT); 
-		// what if indexTo < indexFrom
-		taskName = userInput.substring(0, indexFrom);
+		taskName = getTaskName(userInput, indexFrom, indexTo);
+		String startTimeString = getStartTimeString(userInput, indexFrom, indexTo);
+		String endTimeString = getEndTimeString(userInput, indexFrom, indexTo);
 		try {
-			start = dateTimeParser.parse(userInput.substring(indexFrom, indexTo).replace(MARKER_START_EVENT, "").trim());
-			end = dateTimeParser.parse(userInput.substring(indexTo).replace(MARKER_END_EVENT, "").trim());
+			start = dateTimeParser.parse(startTimeString);
+			end = dateTimeParser.parse(endTimeString);
 		} catch(IncorrectInputException e) {
 			throw e;
 		}
@@ -210,7 +208,7 @@ public class AddParser implements ParserCommons {
 		} else if (isWork()) {
 			type = TASK_TYPE.WORK;
 		} else if (isFloating()) {
-			type = TASK_TYPE.FLOATING;
+			type = TASK_TYPE.FLOATING; 
 		} else if (isCategoryAndEvent()) {
 			type = TASK_TYPE.CATEGORY_AND_EVENT;
 		} else if (isCategoryAndWork()) {
@@ -256,9 +254,10 @@ public class AddParser implements ParserCommons {
 		DateTimeParser dateTimeParser = new DateTimeParser();
 		int indexFrom = userInput.lastIndexOf(MARKER_START_EVENT);
 		int indexTo = userInput.lastIndexOf(MARKER_END_EVENT); 
-		String startTimeString = userInput.substring(indexFrom, indexTo).replace(MARKER_START_EVENT, "").trim();
-		String endTimeString = userInput.substring(indexTo).replace(MARKER_END_EVENT, "").trim();
 		boolean ans = true;
+		String startTimeString = getStartTimeString(userInput, indexFrom, indexTo);
+		String endTimeString = getEndTimeString(userInput, indexFrom, indexTo);
+		
 		try {
 			dateTimeParser.parse(startTimeString);
 			dateTimeParser.parse(endTimeString);

@@ -8,13 +8,13 @@ public class EditCategoryParser implements ParserCommons {
 	private static final int INDEX_ORIGINAL_NAME = 0;
 	private static final int INDEX_NEW_NAME = 1;
 	private static final int LENGTH_OF_COLOUR_MARKER = 5;
-	private static final int UNINITIALIZED_INT = -1;
 	
 	private static final int EDIT_NAME_AND_COLOUR = 1;
 	private static final int EDIT_NAME_ONLY = 2;
 	private static final int EDIT_COLOUR_ONLY = 3;
 	private static final int INVALID_TOO_MANY_WORDS = 4;
 	private static final int INVALID_TOO_FEW_ARGUMENTS = 5;
+	private static final int EDIT_INVALID = 6;
 	
 	private String originalName;
 	private String newName;
@@ -62,7 +62,7 @@ public class EditCategoryParser implements ParserCommons {
 	}
 
 	private int getEditType() {
-		int editType = UNINITIALIZED_INT;
+		int editType;
 		if(hasTooManyWordsInNewCategoryName) {
 			editType = INVALID_TOO_MANY_WORDS;
 		} else if(hasInsufficientArguments) {
@@ -74,7 +74,7 @@ public class EditCategoryParser implements ParserCommons {
 		} else if(newName != null && newColour == null) {
 			editType = EDIT_NAME_ONLY;
 		} else {
-			
+			editType = EDIT_INVALID;
 		}
 		return editType;
 	}

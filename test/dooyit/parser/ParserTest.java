@@ -49,7 +49,7 @@ public class ParserTest {
 	}
 	
 	@Test
-	public void deleteInvalidSingleTaskIdColon() {
+	public void deleteInvalidSingleTaskIdColon() { 
 		String input = "delete :";
 		Command command = parser.getCommand(input);
 		String commandErrorMessage = Whitebox.getInternalState(command, "errorMessage");
@@ -603,7 +603,7 @@ public class ParserTest {
 	//******************************************
 	//********* Tests for RemoveParser *********
 	//******************************************
-	@Test
+	/*@Test
 	public void removeSingleTaskId() {
 		String input = "remove 2 movies";
 		Command command = parser.getCommand(input);
@@ -664,7 +664,7 @@ public class ParserTest {
 		ArrayList<Integer> taskIdsInCommand = Whitebox.getInternalState(command, "taskIds");
 		ArrayList<Integer> expectedTaskIds = new ArrayList<Integer>(Arrays.asList(2, 3, 4, 5, 6));
 		assertEquals(expectedTaskIds, taskIdsInCommand);
-	}
+	}*/
 	
 	//*******************************************
 	//**** Tests for AddCategoryParser **********
@@ -869,6 +869,25 @@ public class ParserTest {
 	@Test
 	public void addEvent() {
 		String input = "add read book Harry Potter from 12/2/2016 5pm to 14 feb 2016 7pm";
+		Command command = parser.getCommand(input);
+		
+		String taskName = Whitebox.getInternalState(command, "taskName");
+		String expectedTaskName = "read book Harry Potter";
+		
+		DateTimeParser dateTimeParser = new DateTimeParser();
+		DateTime expectedStart = dateTimeParser.parse("12/2/2016 5pm");
+		DateTime dateTimeStartInCommand = Whitebox.getInternalState(command, "dateTimeStart");
+		DateTime expectedEnd = dateTimeParser.parse("14 feb 2016 7pm");
+		DateTime dateTimeEndInCommand = Whitebox.getInternalState(command, "dateTimeEnd");
+		
+		assertEquals(expectedTaskName, taskName);
+		assertTrue(expectedStart.equals(dateTimeStartInCommand));
+		assertTrue(expectedEnd.equals(dateTimeEndInCommand));
+	}
+	
+	@Test
+	public void addEventSwitchPositionsEventMarkers() {
+		String input = "add read book Harry Potter to 14 feb 2016 7pm from 12/2/2016 5pm";
 		Command command = parser.getCommand(input);
 		
 		String taskName = Whitebox.getInternalState(command, "taskName");
@@ -1092,6 +1111,29 @@ public class ParserTest {
 	}
 	
 	@Test
+	public void editNameStartAndEndDateTimeFlipEventMarkers() {
+		String input = "edit 15 buy healthy snacks from 30/3 4pm to 30/3 5pm";
+		Command command = parser.getCommand(input);
+		
+		String newName = Whitebox.getInternalState(command, "taskName");
+		String expectedName = "buy healthy snacks";
+		assertEquals(expectedName, newName);
+		
+		int taskId = Whitebox.getInternalState(command, "taskId");
+		int expectedTaskId = 15;
+		assertEquals(expectedTaskId, taskId);
+		
+		DateTime startDateTime = Whitebox.getInternalState(command, "dateTimeStart");
+		DateTimeParser dtParser = new DateTimeParser();
+		DateTime expectedStartDateTime = dtParser.parse("30/3 4pm");
+		assertTrue(expectedStartDateTime.equals(startDateTime));
+		
+		DateTime endDateTime = Whitebox.getInternalState(command, "dateTimeEnd");
+		DateTime expectedEndDateTime = dtParser.parse("30/3 5pm");
+		assertTrue(expectedEndDateTime.equals(endDateTime));
+	}
+	
+	@Test
 	public void editDeadline() {
 		String input = "edit 12 by 30/3 5pm";
 		Command command = parser.getCommand(input);
@@ -1109,6 +1151,25 @@ public class ParserTest {
 	@Test
 	public void editStartAndEndDateTime() {
 		String input = "edit 15 from 30/3 4pm to 30/3 5pm";
+		Command command = parser.getCommand(input);
+		
+		int taskId = Whitebox.getInternalState(command, "taskId");
+		int expectedTaskId = 15;
+		assertEquals(expectedTaskId, taskId);
+		
+		DateTime startDateTime = Whitebox.getInternalState(command, "dateTimeStart");
+		DateTimeParser dtParser = new DateTimeParser();
+		DateTime expectedStartDateTime = dtParser.parse("30/3 4pm");
+		assertTrue(expectedStartDateTime.equals(startDateTime));
+		
+		DateTime endDateTime = Whitebox.getInternalState(command, "dateTimeEnd");
+		DateTime expectedEndDateTime = dtParser.parse("30/3 5pm");
+		assertTrue(expectedEndDateTime.equals(endDateTime));
+	}
+	
+	@Test
+	public void editStartAndEndDateTimeFlipEventMarkers() {
+		String input = "edit 15 to 30/3 5pm from 30/3 4pm";
 		Command command = parser.getCommand(input);
 		
 		int taskId = Whitebox.getInternalState(command, "taskId");

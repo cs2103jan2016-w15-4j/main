@@ -208,7 +208,7 @@ public class AddParser implements ParserCommons {
 		} else if (isWork()) {
 			type = TASK_TYPE.WORK;
 		} else if (isFloating()) {
-			type = TASK_TYPE.FLOATING;
+			type = TASK_TYPE.FLOATING; 
 		} else if (isCategoryAndEvent()) {
 			type = TASK_TYPE.CATEGORY_AND_EVENT;
 		} else if (isCategoryAndWork()) {

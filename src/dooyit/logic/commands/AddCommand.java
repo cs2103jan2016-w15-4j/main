@@ -41,7 +41,7 @@ public class AddCommand implements Command, ReversibleCommand {
 	}
 
 	public void redo(LogicController logic){
-		
+		logic.addTask(addedTask);
 	}
 
 	public LogicAction execute(LogicController logic) throws IncorrectInputException {

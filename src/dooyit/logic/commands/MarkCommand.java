@@ -32,7 +32,9 @@ public class MarkCommand implements Command, ReversibleCommand {
 	}
 	
 	public void redo(LogicController logic){
-		
+		for(Task markedTask : markedTasks){
+			logic.markTask(markedTask);
+		}
 	}
 	
 	public LogicAction execute(LogicController logic) throws IncorrectInputException {

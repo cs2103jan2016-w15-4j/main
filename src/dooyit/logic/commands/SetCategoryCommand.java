@@ -17,6 +17,7 @@ public class SetCategoryCommand implements Command, ReversibleCommand {
 	private String categoryName;
 	private ArrayList<Integer> taskIds;
 	private ArrayList<Task> tasksWithCategory;
+	private Category category;
 
 	public SetCategoryCommand(int taskId, String categoryName) {
 		this.taskIds = new ArrayList<Integer>();
@@ -37,7 +38,9 @@ public class SetCategoryCommand implements Command, ReversibleCommand {
 	}
 
 	public void redo(LogicController logic){
-		
+		for (Task task : tasksWithCategory) {
+			task.setCategory(category);
+		}
 	}
 	
 	public LogicAction execute(LogicController logic) throws IncorrectInputException {
@@ -48,7 +51,7 @@ public class SetCategoryCommand implements Command, ReversibleCommand {
 		for (int taskId : taskIds) {
 			if (logic.containsTask(taskId)) {
 				if (logic.containsCategory(categoryName)) {
-					Category category = logic.findCategory(categoryName);
+					category = logic.findCategory(categoryName);
 					Task task = logic.findTask(taskId);
 					task.setCategory(category);
 					tasksWithCategory.add(task);

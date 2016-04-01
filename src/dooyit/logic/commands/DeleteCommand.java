@@ -34,7 +34,9 @@ public class DeleteCommand implements Command, ReversibleCommand {
 	}
 
 	public void redo(LogicController logic){
-		
+		for(Task deletedTask : deletedTasks){
+			logic.removeTask(deletedTask);
+		}
 	}
 	
 	public LogicAction execute(LogicController logic) throws IncorrectInputException {

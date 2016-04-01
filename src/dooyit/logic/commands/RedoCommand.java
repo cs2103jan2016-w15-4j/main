@@ -11,7 +11,7 @@ public class RedoCommand implements Command{
 		assert(logic != null);
 		LogicAction logicAction;
 		
-		logic.redoCommand();
+		logic.redo();
 		
 		logicAction = new LogicAction(Action.REDO);
 		return logicAction;

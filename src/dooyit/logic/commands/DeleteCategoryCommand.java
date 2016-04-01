@@ -25,7 +25,10 @@ public class DeleteCategoryCommand implements Command, ReversibleCommand {
 	}
 	
 	public void redo(LogicController logic){
-		
+		logic.removeCategory(removedCategory);
+		for(Task task : removedTask){
+			logic.removeTask(task);
+		}
 	}
 	
 	public LogicAction execute(LogicController logic) throws IncorrectInputException {

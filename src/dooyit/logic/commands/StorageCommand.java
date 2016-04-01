@@ -36,7 +36,6 @@ public class StorageCommand implements Command, ReversibleCommand {
 			throw new IncorrectInputException("Invalid path: " + path);
 		}
 		
-		
 		logicAction = new LogicAction(Action.SET_STORAGE_PATH);
 		return logicAction;
 	}

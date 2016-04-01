@@ -32,7 +32,7 @@ public class AddCategoryCommand implements Command, ReversibleCommand {
 	}
 	
 	public void redo(LogicController logic){
-		
+		logic.addCategory(addedCategory);
 	}
 
 	public LogicAction execute(LogicController logic) throws IncorrectInputException {

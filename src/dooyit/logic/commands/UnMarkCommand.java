@@ -34,7 +34,9 @@ public class UnMarkCommand implements Command, ReversibleCommand{
 	}
 
 	public void redo(LogicController logic){
-		
+		for(Task unmarkedTask : unmarkedTasks){
+			logic.unmarkTask(unmarkedTask);
+		}
 	}
 	
 	public LogicAction execute(LogicController logic) throws IncorrectInputException {

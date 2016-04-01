@@ -172,11 +172,11 @@ public class LogicController {
 		historyManager.addCommand(command);
 	}
 
-	public void undoCommand() {
+	public void undo() {
 		historyManager.undoCommand(this);
 	}
 	
-	public void redoCommand(){
+	public void redo(){
 		historyManager.redoCommand(this);
 	}
 

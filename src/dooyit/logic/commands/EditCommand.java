@@ -68,7 +68,8 @@ public class EditCommand implements Command, ReversibleCommand {
 	}
 
 	public void redo(LogicController logic){
-		
+		logic.addTask(newTask);
+		logic.removeTask(originalTask);
 	}
 	
 	public LogicAction execute(LogicController logic) throws IncorrectInputException {

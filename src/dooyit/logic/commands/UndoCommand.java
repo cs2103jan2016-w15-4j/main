@@ -11,7 +11,7 @@ public class UndoCommand implements Command {
 		assert(logic != null);
 		LogicAction logicAction;
 		
-		logic.undoCommand();
+		logic.undo();
 		
 		logicAction = new LogicAction(Action.UNDO);
 		return logicAction;

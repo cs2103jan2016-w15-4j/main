@@ -153,6 +153,11 @@ public class CommandUtils {
 		return undoCommand;
 	}
 	
+	public static Command createRedoCommand() {
+		RedoCommand undoCommand = new RedoCommand();
+		return undoCommand;
+	}
+	
 	public static Command createSearchCommand(String searchString) {
 		SearchCommand searchCommand = new SearchCommand(searchString);
 		return searchCommand;

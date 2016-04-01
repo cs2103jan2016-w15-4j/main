@@ -204,21 +204,23 @@ public class AddParser implements ParserCommons {
 	}
 
 	private TASK_TYPE getTaskType() {
+		TASK_TYPE type;
 		if (isEvent()) {
-			return TASK_TYPE.EVENT;
+			type = TASK_TYPE.EVENT;
 		} else if (isWork()) {
-			return TASK_TYPE.WORK;
+			type = TASK_TYPE.WORK;
 		} else if (isFloating()) {
-			return TASK_TYPE.FLOATING;
+			type = TASK_TYPE.FLOATING;
 		} else if (isCategoryAndEvent()) {
-			return TASK_TYPE.CATEGORY_AND_EVENT;
+			type = TASK_TYPE.CATEGORY_AND_EVENT;
 		} else if (isCategoryAndWork()) {
-			return TASK_TYPE.CATEGORY_AND_WORK;
+			type = TASK_TYPE.CATEGORY_AND_WORK;
 		} else if (isCategoryAndFloating()) {
-			return TASK_TYPE.CATEGORY_AND_FLOATING;
+			type = TASK_TYPE.CATEGORY_AND_FLOATING;
 		} else {
-			return TASK_TYPE.INVALID;
+			type = TASK_TYPE.INVALID;
 		}
+		return type;
 	}
 
 	private boolean isCategory() {
@@ -258,15 +260,20 @@ public class AddParser implements ParserCommons {
 		int indexTo = userInput.lastIndexOf(MARKER_END_EVENT); 
 		String startTimeString = userInput.substring(indexFrom, indexTo).replace(MARKER_START_EVENT, "").trim();
 		String endTimeString = userInput.substring(indexTo).replace(MARKER_END_EVENT, "").trim();
-		return dateTimeParser.isValidDateTime(startTimeString) && dateTimeParser.isValidDateTime(endTimeString);
+		boolean ans = true;
+		try {
+			dateTimeParser.parse(startTimeString);
+			dateTimeParser.parse(endTimeString);
+		} catch (IncorrectInputException e) {
+			ans = false;
+		}
+		return ans;
 	}
 
 	private boolean isWork() {
 		boolean ans = false;
 		if(!isUninitialized(userInput.lastIndexOf(MARKER_WORK))) {
-			if(hasAValidDateTimeAfterWorkMarker()) {
-				ans = true;
-			}
+			ans = hasAValidDateTimeAfterWorkMarker();
 		}
 		return ans;
 	}
@@ -275,6 +282,12 @@ public class AddParser implements ParserCommons {
 		DateTimeParser dateTimeParser = new DateTimeParser();
 		int indexBy = userInput.lastIndexOf(MARKER_WORK);
 		String timeString = userInput.substring(indexBy).replace(MARKER_WORK, "").trim();
-		return dateTimeParser.isValidDateTime(timeString);
+		boolean ans = true;
+		try {
+			dateTimeParser.parse(timeString);
+		} catch (IncorrectInputException e) {
+			ans = false;
+		}
+		return ans;
 	}
 }

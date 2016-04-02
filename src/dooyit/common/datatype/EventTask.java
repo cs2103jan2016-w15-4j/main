@@ -23,10 +23,10 @@ public class EventTask extends Task {
 		this.dateTimeEnd = end;
 		this.category = category;
 	}
-	
-	public EventTask(Task task, DateTime start, DateTime end){
-		assert(task != null);
-		
+
+	public EventTask(Task task, DateTime start, DateTime end) {
+		assert (task != null);
+
 		this.taskType = TaskType.EVENT;
 		this.taskId = task.taskId;
 		this.uniqueId = task.uniqueId;
@@ -37,9 +37,9 @@ public class EventTask extends Task {
 		this.dateTimeEnd = end;
 	}
 
-	public EventTask(EventTask eventTask){
-		assert(eventTask != null);
-		
+	public EventTask(EventTask eventTask) {
+		assert (eventTask != null);
+
 		this.taskType = TaskType.EVENT;
 		this.taskId = eventTask.taskId;
 		this.uniqueId = eventTask.uniqueId;
@@ -49,21 +49,21 @@ public class EventTask extends Task {
 		this.category = eventTask.category;
 		this.isCompleted = eventTask.isCompleted;
 	}
-	
+
 	@Override
-	public DateTime getDateTime(){
+	public DateTime getDateTime() {
 		return dateTimeStart;
 	}
-	
+
 	@Override
-	public int compareDateTo(Task task){
-		if(task instanceof FloatingTask){
+	public int compareDateTo(Task task) {
+		if (task instanceof FloatingTask) {
 			return -1;
 		}
-		
+
 		return this.dateTimeStart.compareTo(task.getDateTime());
 	}
-	
+
 	public DateTime getDateTimeStart() {
 		return dateTimeStart;
 	}
@@ -73,20 +73,20 @@ public class EventTask extends Task {
 	}
 
 	@Override
-	public Task copy(){
+	public Task copy() {
 		return new EventTask(this);
 	}
-	
+
 	@Override
-	public boolean isSameDate(DateTime dateTime){
+	public boolean isSameDate(DateTime dateTime) {
 		return dateTimeStart.isTheSameDateAs(dateTime);
 	}
-	
+
 	@Override
-	public boolean isOverDue(DateTime dateTime){
+	public boolean isOverDue(DateTime dateTime) {
 		return !isSameDate(dateTime) && !isCompleted && dateTimeEnd.compareTo(dateTime) == -1;
 	}
-	
+
 	@Override
 	public String getDateString() {
 		return dateTimeStart.getTime24hStr() + " - " + dateTimeEnd.getTime24hStr();
@@ -96,11 +96,11 @@ public class EventTask extends Task {
 	public String toString() {
 		String taskString = taskName + ", Event: " + dateTimeStart.toString() + "to" + dateTimeEnd.toString();
 		String categoryString = "";
-		
-		if(hasCategory()){
+
+		if (hasCategory()) {
 			categoryString = ", Cat: " + category.getName() + "-" + category.getCustomColourName();
 		}
-		
+
 		return taskString + categoryString;
 	}
 
@@ -108,23 +108,24 @@ public class EventTask extends Task {
 	public boolean equals(Object o) {
 		if (o instanceof EventTask) {
 			EventTask eventTask = (EventTask) o;
-			return this.getName().equals(eventTask.getName()) 
+			return this.uniqueId == eventTask.uniqueId 
+					&& this.getName().equals(eventTask.getName())
 					&& this.getDateTimeStart().equals(eventTask.getDateTimeStart())
 					&& this.getDateTimeEnd().equals(eventTask.getDateTimeEnd());
 		}
 		return false;
 	}
-	
+
 	@Override
-	public TaskData convertToData(){
+	public TaskData convertToData() {
 		EventTaskData eventTaskData;
-		
-		if(!hasCategory()){
+
+		if (!hasCategory()) {
 			eventTaskData = new EventTaskData(taskName, dateTimeStart, dateTimeEnd, isCompleted);
-		}else{
+		} else {
 			eventTaskData = new EventTaskData(taskName, dateTimeStart, dateTimeEnd, category.getName(), isCompleted);
 		}
-		
+
 		return eventTaskData;
 	}
 }

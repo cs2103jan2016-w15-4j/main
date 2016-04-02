@@ -317,7 +317,6 @@ public class EditParser implements ParserCommons {
 		} else {
 			type = EDIT_TYPE.INVALID;
 		}
-		System.out.println(type);
 		return type;
 	}
 

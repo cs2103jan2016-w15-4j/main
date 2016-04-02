@@ -56,7 +56,6 @@ public class FixedDateParser implements DateTimeParserCommons {
 			if (firstWord.contains(DATE_SEPARATOR)) {
 				String[] userInputForDate = firstWord.split(DATE_SEPARATOR);
 				dateAndArrayIndex = getNumberDate(dateAndArrayIndex, userInputForDate);	
-				System.out.println(dateAndArrayIndex[2]);
 			} else {
 				dateAndArrayIndex = getWordDate(dateAndArrayIndex, currIndexInSplitInput, splitInput);
 			}
@@ -65,7 +64,6 @@ public class FixedDateParser implements DateTimeParserCommons {
 		}
 		
 		dateAndArrayIndex = setUninitializedValuesToDefault(dateAndArrayIndex);
-		System.out.println(dateAndArrayIndex[2]);
 		if (isInvalidDate(dateAndArrayIndex)) {
 			throw new IncorrectInputException(ERROR_MESSAGE_INVALID_DATE);
 		}
@@ -138,7 +136,6 @@ public class FixedDateParser implements DateTimeParserCommons {
 		} catch (IncorrectInputException e) {
 			throw e;
 		}
-		System.out.println("newDate[2] is " + newDate[2]);
 		
 		if(isInvalidDate(newDate)) {
 			throw new IncorrectInputException();
@@ -148,12 +145,10 @@ public class FixedDateParser implements DateTimeParserCommons {
 	}
 
 	private int[] setDayAndYearValues(int[] dateAdvanceIntArray, int currInt) throws IncorrectInputException {
-		System.out.println("reached here C");
 		if (currInt <= MAX_NUM_OF_DAYS_IN_A_MONTH && ParserCommons.isUninitialized(dateAdvanceIntArray, DATE_INDEX_OF_DD)) {
 			dateAdvanceIntArray[DATE_INDEX_OF_DD] = currInt;
 
 		} else if (currInt >= YEARY_2000 && ParserCommons.isUninitialized(dateAdvanceIntArray, DATE_INDEX_OF_YY)) {
-			System.out.println("reached here A");
 			dateAdvanceIntArray[DATE_INDEX_OF_YY] = currInt;
 			
 		} else {
@@ -164,9 +159,7 @@ public class FixedDateParser implements DateTimeParserCommons {
 
 	private int[] setUninitializedValuesToDefault(int[] dateAdvanceIntArray) {
 		if (ParserCommons.isUninitialized(dateAdvanceIntArray, DATE_INDEX_OF_YY)) {
-			System.out.println("part A");
 			dateAdvanceIntArray[DATE_INDEX_OF_YY] = getCorrectYear(dateAdvanceIntArray);
-			System.out.println("dateAdvanceIntArray[DATE_INDEX_OF_YY] is " + dateAdvanceIntArray[DATE_INDEX_OF_YY] );
 		}
 
 		if (ParserCommons.isUninitialized(dateAdvanceIntArray, DATE_INDEX_OF_DD)) {

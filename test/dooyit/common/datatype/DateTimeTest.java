@@ -2,6 +2,9 @@ package dooyit.common.datatype;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -16,6 +19,21 @@ public class DateTimeTest {
 		dt3 = new DateTime(date, 1200);
 		dt4 = new DateTime(date, 0);
 		currDT = new DateTime();
+	}
+	
+	@Test
+	public void getMultiDayString() {
+		int[] startDate = new int[]{3, 4, 2016};
+		int startTime = 900;
+		DateTime start = new DateTime(startDate, startTime);
+		
+		int[] endDate = new int[]{4, 4, 2016};
+		int endTime = 1600;
+		DateTime end = new DateTime(endDate, endTime);
+		
+		ArrayList<String> listOfString = DateTime.getMultiDayString(start, end);
+		ArrayList<String> expected = new ArrayList<String>(Arrays.asList("09:00 - 23:59", "00:00 - 16:00"));
+		assertEquals(expected, listOfString);
 	}
 	
 	@Test

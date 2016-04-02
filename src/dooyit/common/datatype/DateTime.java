@@ -378,7 +378,7 @@ public class DateTime {
 		String midnight = "00:00";
 		String timeToBeAdded = startTimeString + " - " + beforeMidnight;
 		listOfTimings.add(timeToBeAdded);
-		
+		start.increaseByOneDay();
 		while(compareDates(start, end) != COMPARISON_FIRST_EQUALS_SECOND) {
 			start.increaseByOneDay();
 			timeToBeAdded = midnight + " - " + beforeMidnight;

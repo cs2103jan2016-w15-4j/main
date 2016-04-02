@@ -1,0 +1,4 @@
+{"name":"A","color":"blue"}
+{"name":"B","color":"red"}
+{"name":"C","color":"pink"}
+{"name":"D","color":"yellow"}

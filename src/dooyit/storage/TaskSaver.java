@@ -23,11 +23,13 @@ import dooyit.storage.StorageConstants;
 
 public class TaskSaver {
 	private String filePath;
+	private static int count;
 	
 	private static final String backupPath = StorageConstants.DEFAULT_BACKUP_DESTINATION;
 
 	protected TaskSaver(String filePath) {
 		this.filePath = filePath;
+		this.count = 0;
 	}
 
 	public boolean save(ArrayList<TaskData> tasks) throws IOException {
@@ -37,15 +39,14 @@ public class TaskSaver {
 		
 		if(directory.exists()) {
 			if(file.exists()) {
-				isSaved = saveTasks(file, tasks);
 			} else {
 				createFile(file);
-				isSaved = saveTasks(file, tasks);
 			}
 		} else {
 			createFile(directory, file);
-			isSaved = saveTasks(file, tasks);
 		}
+		
+		isSaved = saveTasks(file, tasks);
 		
 		return isSaved;
 	}
@@ -58,7 +59,12 @@ public class TaskSaver {
 			bWriter.newLine();
 		}
 		bWriter.close();
-		saveBackup(tasks);
+		count++;
+		
+		if(count > 5) {
+			saveBackup(tasks);
+			count = 0;
+		}
 
 		return true;
 	}
@@ -73,6 +79,9 @@ public class TaskSaver {
 		bWriter.close();
 	}
 	
+	protected void setFileDestination(String path) {
+		this.filePath = path;
+	}	
 
 	private String setFormat(TaskData task) {
 		Gson gson = gsonWithDateTimeSerializer();
@@ -104,14 +113,11 @@ public class TaskSaver {
 	private void createFile(File parent, File file) throws IOException {
 		// creates the parent directories
 		parent.mkdirs();
+		
 		createFile(file);
 	}
 	
 	private Gson gsonWithDateTimeSerializer() {
 		return new GsonBuilder().registerTypeAdapter(DateTime.class, new DateTimeSerializer()).create();
-	}
-
-	protected void setFileDestination(String path) {
-		this.filePath = path;
 	}
 }

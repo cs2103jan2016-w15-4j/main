@@ -304,16 +304,6 @@ public class TaskManagerTest {
 	}
 	
 	@Test
-	public void GetIncompleteDeadlineTasks() {
-		setupTasks();
-		
-		ArrayList<Task> tasks = new ArrayList<Task> ();
-		tasks.add(task6);
-		
-		assertTrue(tasks.equals(taskManager.getIncompleteDeadlineTasks()));
-	}
-	
-	@Test
 	public void GetIncompleteDeadlineTaskToday() {
 		setupTasks();
 		

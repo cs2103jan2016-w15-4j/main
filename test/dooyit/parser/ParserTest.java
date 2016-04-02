@@ -1055,7 +1055,7 @@ public class ParserTest {
 		DateTime expectedDeadline = dtParser.parse("30/3 5pm");
 		assertTrue(expectedDeadline.equals(deadline));
 	}
-	
+	/*
 	@Test
 	public void editNameAndEndDateTime() {
 		String input = "edit 12 buy healthy snacks to 30/3 5pm";
@@ -1092,7 +1092,7 @@ public class ParserTest {
 		DateTimeParser dtParser = new DateTimeParser();
 		DateTime expectedStartDateTime = dtParser.parse("30/3 5pm");
 		assertTrue(expectedStartDateTime.equals(startDateTime));
-	}
+	}*/
 	
 	@Test
 	public void editNameStartAndEndDateTime() {

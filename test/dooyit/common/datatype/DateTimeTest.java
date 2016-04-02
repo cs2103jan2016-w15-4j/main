@@ -10,39 +10,39 @@ import org.junit.Test;
 
 public class DateTimeTest {
 	DateTime dt1, dt2, dt3, dt4, currDT;
-	
+
 	@Before
-	public void setUp(){
+	public void setUp() {
 		dt1 = new DateTime();
-		int[] date = {28, 3, 2016};
+		int[] date = { 28, 3, 2016 };
 		dt2 = new DateTime(date);
 		dt3 = new DateTime(date, 1200);
 		dt4 = new DateTime(date, 0);
 		currDT = new DateTime();
 	}
-	
+
 	@Test
 	public void getMultiDayString() {
-		int[] startDate = new int[]{3, 4, 2016};
+		int[] startDate = new int[] { 3, 4, 2016 };
 		int startTime = 900;
 		DateTime start = new DateTime(startDate, startTime);
-		
-		int[] endDate = new int[]{4, 4, 2016};
+
+		int[] endDate = new int[] { 4, 4, 2016 };
 		int endTime = 1600;
 		DateTime end = new DateTime(endDate, endTime);
-		
+
 		ArrayList<String> listOfString = DateTime.getMultiDayString(start, end);
 		ArrayList<String> expected = new ArrayList<String>(Arrays.asList("09:00 - 23:59", "00:00 - 16:00"));
 		assertEquals(expected, listOfString);
 	}
-	
+
 	@Test
-	public void compareTo(){
+	public void compareTo() {
 		assertEquals(dt1.compareTo(dt2), 1);
 		assertEquals(dt2.compareTo(dt3), 1);
 		assertEquals(dt2.compareTo(dt4), 1);
 	}
-	
+
 	@Test
 	public void getDayStr() {
 		assertEquals(dt1.getDayStr(), currDT.getDayStr());
@@ -127,8 +127,8 @@ public class DateTimeTest {
 		assertEquals(dt1.getDD(), currDT.getDD());
 	}
 
-	/*@Test
-	public void convertToSavableString() {
-		assertEquals(dt3.convertToSavableString(), "28 3 2016");
-	}*/
+	/*
+	 * @Test public void convertToSavableString() {
+	 * assertEquals(dt3.convertToSavableString(), "28 3 2016"); }
+	 */
 }

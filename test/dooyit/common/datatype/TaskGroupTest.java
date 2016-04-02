@@ -8,17 +8,17 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class TaskGroupTest {
-	
+
 	TaskGroup taskGroup;
 	TaskGroup taskGroup2;
 	ArrayList<Task> taskGroupTasks;
 	ArrayList<Task> tasks;
 	DeadlineTask task1, task2, task3;
 	DateTime dt;
-	
+
 	@Before
-	public void setUp(){
-		int[] date = {22, 2, 2016};
+	public void setUp() {
+		int[] date = { 22, 2, 2016 };
 		dt = new DateTime(date, 1800);
 		task1 = new DeadlineTask("Dinner at Tiffany's", dt);
 		task2 = new DeadlineTask("Shopping at Ion", dt);
@@ -56,7 +56,7 @@ public class TaskGroupTest {
 	public void getTitle() {
 		assertEquals(taskGroup.getTitle(), "Today, 22 Feb");
 	}
-	
+
 	@Test
 	public void setTitle() {
 		taskGroup.setTitle("This day");
@@ -71,7 +71,7 @@ public class TaskGroupTest {
 		assertTrue(taskGroupTasks.get(0).equals(task2));
 		assertTrue(taskGroupTasks.get(1).equals(task3));
 	}
-	
+
 	@Test
 	public void hasDateTime() {
 		assertTrue(taskGroup.hasDateTime());

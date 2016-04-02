@@ -39,8 +39,8 @@ public class DateTimeTest {
 	@Test
 	public void compareTo(){
 		assertEquals(dt1.compareTo(dt2), 1);
-		assertEquals(dt2.compareTo(dt3), -1);
-		assertEquals(dt2.compareTo(dt4), -1);
+		assertEquals(dt2.compareTo(dt3), 1);
+		assertEquals(dt2.compareTo(dt4), 1);
 	}
 	
 	@Test

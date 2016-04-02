@@ -115,8 +115,7 @@ public class AddCommandTest {
 	
 	private Task getMostRecentTask() {
 		TaskManager manager = logic.getTaskManager();
-		ArrayList<Task> tasks = manager.getAllTasks();
-		Task task = tasks.get(tasks.size()-1);
+		Task task = manager.getMostRecentTask();
 		
 		return task;
 	}

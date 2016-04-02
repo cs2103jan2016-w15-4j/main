@@ -373,16 +373,17 @@ public class DateTime {
 	
 	public static ArrayList<String> getMultiDayString(DateTime start, DateTime end) {
 		ArrayList<String> listOfTimings = new ArrayList<String>();
+		DateTime startCopy = new DateTime(start);
 		
-		String startTimeString = start.getTime24hStr();
+		String startTimeString = startCopy.getTime24hStr();
 		String endTimeString = end.getTime24hStr();
 		String beforeMidnight = "23:59";
 		String midnight = "00:00";
 		String timeToBeAdded = startTimeString + " - " + beforeMidnight;
 		listOfTimings.add(timeToBeAdded);
-		start.increaseByOneDay();
-		while(compareDates(start, end) != COMPARISON_FIRST_EQUALS_SECOND) {
-			start.increaseByOneDay();
+		startCopy.increaseByOneDay();
+		while(compareDates(startCopy, end) != COMPARISON_FIRST_EQUALS_SECOND) {
+			startCopy.increaseByOneDay();
 			timeToBeAdded = midnight + " - " + beforeMidnight;
 			listOfTimings.add(timeToBeAdded);
 		}

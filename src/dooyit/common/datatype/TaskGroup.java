@@ -54,6 +54,10 @@ public class TaskGroup {
 		return tasks.size();
 	}
 	
+	public boolean isEmpty(){
+		return tasks.isEmpty();
+	}
+	
 	public boolean hasDateTime() {
 		return dateTime != null;
 	}

@@ -369,8 +369,7 @@ public class TaskManager {
 
 		for (Task task : tasks) {
 			if (task.getTaskType() == TaskType.DEADLINE) {
-				DeadlineTask deadlineTask = (DeadlineTask) task;
-				if (deadlineTask.getDateTimeDeadline().isTheSameDateAs(dateTime)) {
+				if (task.isSameDate(dateTime)) {
 					deadlineTasks.add(task);
 				}
 			}
@@ -384,7 +383,6 @@ public class TaskManager {
 
 		for (Task task : tasks) {
 			if (task.getTaskType() == TaskType.DEADLINE) {
-				DeadlineTask deadlineTask = (DeadlineTask) task;
 				if (!task.isCompleted()) {
 					deadlineTasks.add(task);
 				}
@@ -399,8 +397,7 @@ public class TaskManager {
 
 		for (Task task : tasks) {
 			if (task.getTaskType() == TaskType.DEADLINE) {
-				DeadlineTask deadlineTask = (DeadlineTask) task;
-				if (deadlineTask.getDateTimeDeadline().isTheSameDateAs(dateTime) && !task.isCompleted()) {
+				if (task.isSameDate(dateTime) && !task.isCompleted()) {
 					deadlineTasks.add(task);
 				}
 			}
@@ -426,8 +423,7 @@ public class TaskManager {
 
 		for (Task task : tasks) {
 			if (task.getTaskType() == TaskType.EVENT) {
-				EventTask eventTask = (EventTask) task;
-				if (eventTask.getDateTimeStart().isTheSameDateAs(dateTime)) {
+				if (task.isSameDate(dateTime)) {
 					eventTasks.add(task);
 				}
 			}
@@ -441,7 +437,6 @@ public class TaskManager {
 
 		for (Task task : tasks) {
 			if (task.getTaskType() == TaskType.EVENT) {
-				EventTask eventTask = (EventTask) task;
 				if (!task.isCompleted()) {
 					eventTasks.add(task);
 				}
@@ -456,8 +451,7 @@ public class TaskManager {
 
 		for (Task task : tasks) {
 			if (task.getTaskType() == TaskType.EVENT) {
-				EventTask eventTask = (EventTask) task;
-				if (eventTask.getDateTimeStart().isTheSameDateAs(dateTime) && !task.isCompleted()) {
+				if (task.isSameDate(dateTime) && !task.isCompleted()) {
 					eventTasks.add(task);
 				}
 			}

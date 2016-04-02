@@ -1,10 +1,16 @@
 package dooyit.common.datatype;
 
+import java.util.ArrayList;
+
 public class EventTask extends Task {
 
 	private DateTime dateTimeStart;
 	private DateTime dateTimeEnd;
-
+	private boolean hasMultiDay = false;
+	private int currentMultiDay = 0;
+	private ArrayList<String> multiDayString;
+	
+	
 	public EventTask(String taskName, DateTime start, DateTime end) {
 		assert (taskName != null && start != null && end != null);
 
@@ -12,6 +18,13 @@ public class EventTask extends Task {
 		this.taskName = taskName;
 		this.dateTimeStart = start;
 		this.dateTimeEnd = end;
+		
+		if(DateTime.hasMultiDay(start, end)){
+			multiDayString = DateTime.getMultiDayString(start, end);
+			System.out.println(multiDayString);
+			hasMultiDay = false;
+		}
+		
 	}
 
 	public EventTask(String taskName, DateTime start, DateTime end, Category category) {
@@ -50,6 +63,10 @@ public class EventTask extends Task {
 		this.isCompleted = eventTask.isCompleted;
 	}
 
+	public void resetMultiDay(){
+		currentMultiDay = 0;
+	}
+	
 	@Override
 	public DateTime getDateTime() {
 		return dateTimeStart;
@@ -79,7 +96,11 @@ public class EventTask extends Task {
 
 	@Override
 	public boolean isSameDate(DateTime dateTime) {
-		return dateTimeStart.isTheSameDateAs(dateTime);
+		if(hasMultiDay){
+			return dateTimeStart.isTheSameDateAs(dateTime) || DateTime.isWithin(dateTime, dateTimeStart, dateTimeEnd) || dateTimeEnd.isTheSameDateAs(dateTime);
+		}else{
+			return dateTimeStart.isTheSameDateAs(dateTime);
+		}
 	}
 
 	@Override
@@ -89,12 +110,17 @@ public class EventTask extends Task {
 
 	@Override
 	public String getDateString() {
+		if(hasMultiDay){
+			
+			return multiDayString.get((currentMultiDay++)%multiDayString.size());
+		}
+		
 		return dateTimeStart.getTime24hStr() + " - " + dateTimeEnd.getTime24hStr();
 	}
 
 	@Override
 	public String toString() {
-		String taskString = taskName + ", Event: " + dateTimeStart.toString() + "to" + dateTimeEnd.toString();
+		String taskString = taskName + ", Event: " + dateTimeStart.toString() + " to " + dateTimeEnd.toString();
 		String categoryString = "";
 
 		if (hasCategory()) {

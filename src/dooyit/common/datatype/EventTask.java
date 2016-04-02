@@ -20,13 +20,10 @@ public class EventTask extends Task {
 		this.dateTimeStart = start;
 		this.dateTimeEnd = end;
 		
-		if(DateTime.hasMultiDay(start, end)){
-			multiDayString = DateTime.getMultiDayString(start, end);
-			System.out.println(multiDayString);
-			hasMultiDay = true;
-		}
-		
+		checkMultiDay(start, end);
 	}
+
+	
 
 	public EventTask(String taskName, DateTime start, DateTime end, Category category) {
 		assert (taskName != null && start != null && end != null);
@@ -36,6 +33,8 @@ public class EventTask extends Task {
 		this.dateTimeStart = start;
 		this.dateTimeEnd = end;
 		this.category = category;
+		
+		checkMultiDay(start, end);
 	}
 
 	public EventTask(Task task, DateTime start, DateTime end) {
@@ -49,6 +48,8 @@ public class EventTask extends Task {
 		this.isCompleted = task.isCompleted;
 		this.dateTimeStart = start;
 		this.dateTimeEnd = end;
+		
+		checkMultiDay(start, end);
 	}
 
 	public EventTask(EventTask eventTask) {
@@ -62,8 +63,21 @@ public class EventTask extends Task {
 		this.dateTimeEnd = eventTask.dateTimeEnd;
 		this.category = eventTask.category;
 		this.isCompleted = eventTask.isCompleted;
+		
+		checkMultiDay(dateTimeStart, dateTimeEnd);
 	}
 
+	/**
+	 * @param start
+	 * @param end
+	 */
+	public void checkMultiDay(DateTime start, DateTime end) {
+		if(DateTime.hasMultiDay(start, end)){
+			multiDayString = DateTime.getMultiDayString(start, end);
+			hasMultiDay = true;
+		}
+	}
+	
 	public void onMultiDay(){
 		isMultiDayOn = true;
 		currentMultiDay = 0;

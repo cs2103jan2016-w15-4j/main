@@ -225,6 +225,19 @@ public class TaskManager {
 		return clearedTasks;
 	}
 
+	public Task getMostRecentTask(){
+		int latestId = Integer.MIN_VALUE;
+		Task latestTask = null;
+		
+		for(Task task : tasks){
+			if(task.getUniqueId() > latestId){
+				latestId = task.getUniqueId();
+				latestTask = task;
+			}
+		}
+		return latestTask;
+	}
+	
 	public Task changeTaskName(int taskId, String newName) {
 		if (!contains(taskId)) {
 			return null;

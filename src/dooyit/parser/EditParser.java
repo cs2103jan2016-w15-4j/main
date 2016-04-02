@@ -235,11 +235,11 @@ public class EditParser implements ParserCommons {
 		int indexTo = getIndexOfMarker(MARKER_END_EVENT);
 		
 		try {
-			if (!isUninitialized(indexTo)) {
-				String timeString = getStartTimeString(userInput, indexFrom, indexTo);
+			if (!ParserCommons.isUninitialized(indexTo)) {
+				String timeString = ParserCommons.getStartTimeString(userInput, indexFrom, indexTo);
 				start = dateTimeParser.parse(timeString);
 			} else { 
-				String timeString = getStartTimeString(userInput, indexFrom, indexTo);
+				String timeString = ParserCommons.getStartTimeString(userInput, indexFrom, indexTo);
 				start = dateTimeParser.parse(timeString);
 			}
 		} catch (IncorrectInputException e) {
@@ -255,8 +255,8 @@ public class EditParser implements ParserCommons {
 		DateTimeParser dateTimeParser = new DateTimeParser();
 		int indexFrom = getIndexOfMarker(MARKER_START_EVENT);
 		int indexTo = getIndexOfMarker(MARKER_END_EVENT);
-		String startTimeString = getStartTimeString(userInput, indexFrom, indexTo);
-		String endTimeString = getEndTimeString(userInput, indexFrom, indexTo);
+		String startTimeString = ParserCommons.getStartTimeString(userInput, indexFrom, indexTo);
+		String endTimeString = ParserCommons.getEndTimeString(userInput, indexFrom, indexTo);
 		try {
 			start = dateTimeParser.parse(startTimeString);
 			end = dateTimeParser.parse(endTimeString);
@@ -329,15 +329,15 @@ public class EditParser implements ParserCommons {
 	}
 
 	private boolean hasStart() {
-		return !isUninitialized(getIndexOfMarker(MARKER_START_EVENT));
+		return !ParserCommons.isUninitialized(getIndexOfMarker(MARKER_START_EVENT));
 	}
 
 	private boolean hasEnd() {
-		return !isUninitialized(getIndexOfMarker(MARKER_END_EVENT));
+		return !ParserCommons.isUninitialized(getIndexOfMarker(MARKER_END_EVENT));
 	}
 
 	private boolean hasDeadline() {
-		return !isUninitialized(getIndexOfMarker(MARKER_WORK));
+		return !ParserCommons.isUninitialized(getIndexOfMarker(MARKER_WORK));
 	}
 
 }

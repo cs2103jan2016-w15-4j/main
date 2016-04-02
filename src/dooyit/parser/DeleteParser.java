@@ -30,7 +30,6 @@ public class DeleteParser extends TagParser {
 
 	private void setInvalidCommand(String message) {
 		command = CommandUtils.createInvalidCommand(message);
-		
 	}
 
 	private void setCorrectDeleteCommand(TAG_TYPE tagType) {

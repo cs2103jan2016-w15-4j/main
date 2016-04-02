@@ -3,7 +3,7 @@ package dooyit.parser;
 import dooyit.common.datatype.DateTime;
 import dooyit.common.exception.IncorrectInputException;
 
-public class FixedDateParser extends DateTimeParserCommon {
+public class FixedDateParser implements DateTimeParserCommon {
 	private static final int MAX_NUMBER_OF_WORDS_IN_WORD_DATE = 2;
 	private static final int LAST_INDEX_OF_WORD_DATE = 2;
 	private static final String ERROR_MESSAGE_INVALID_DATE = "Invalid date!";
@@ -95,11 +95,11 @@ public class FixedDateParser extends DateTimeParserCommon {
 			throw new IncorrectInputException(ERROR_MESSAGE_INVALID_NUMBER_OF_DATE_INPUTS);
 		}
 		for (int j = 0; j < userInputForDate.length; j++) {
-			if(!isNumber(userInputForDate[j])) {
+			if(!ParserCommons.isNumber(userInputForDate[j])) {
 				throw new IncorrectInputException(ERROR_MESSAGE_DATE_INPUTS_MUST_BE_NUMBERS);
 			}
 			
-			dateAndArrayIndex[j] = convertStringToInt(userInputForDate[j]);
+			dateAndArrayIndex[j] = Integer.parseInt(userInputForDate[j]);
 			
 			if(dateAndArrayIndex[j] <= 0) {
 				throw new IncorrectInputException(ERROR_MESSAGE_DATE_INPUTS_MUST_GREATER_THAN_ZERO);
@@ -110,19 +110,19 @@ public class FixedDateParser extends DateTimeParserCommon {
 	}
 	
 	private int[] setValuesInArray(String currWord, int[] dateAndAdvanceIntArray) throws IncorrectInputException {
-		if (isNumber(currWord)) {			//currWord is either DD or YY
-			int currInt = convertStringToInt(currWord);
+		if (ParserCommons.isNumber(currWord)) {			//currWord is either DD or YY
+			int currInt = Integer.parseInt(currWord);
 			 try {
 				 dateAndAdvanceIntArray = setDayAndYearValues(dateAndAdvanceIntArray, currInt);
 				 dateAndAdvanceIntArray[DATE_INDEX_OF_ADVANCE_INT] += 1;
 			 } catch (IncorrectInputException e) {
 				 throw e;
 			 }
-		} else if (isMonth(currWord) && isUninitialized(dateAndAdvanceIntArray, DATE_INDEX_OF_MM)) {
+		} else if (isMonth(currWord) && ParserCommons.isUninitialized(dateAndAdvanceIntArray, DATE_INDEX_OF_MM)) {
 			dateAndAdvanceIntArray[DATE_INDEX_OF_MM] = convertMonthStrToInt(currWord);
 			dateAndAdvanceIntArray[DATE_INDEX_OF_ADVANCE_INT] += 1;
 		} else {
-			if(!isValidTime(currWord)) {
+			if(!DateTimeParserCommon.isValidTime(currWord)) {
 				throw new IncorrectInputException(ERROR_MESSAGE_INVALID_DATE);
 			}
 		}
@@ -142,14 +142,14 @@ public class FixedDateParser extends DateTimeParserCommon {
 			throw new IncorrectInputException();
 		}
 		
-		return getNewCombinedArray(combined, newDate, getDayOfWeekFromADate(newDate), getAdvanceInt(newDate, combined[COMBINED_INDEX_COUNTER]));
+		return DateTimeParserCommon.getNewCombinedArray(combined, newDate, getDayOfWeekFromADate(newDate), getAdvanceInt(newDate, combined[COMBINED_INDEX_COUNTER]));
 	}
 
 	private int[] setDayAndYearValues(int[] dateAdvanceIntArray, int currInt) throws IncorrectInputException {
-		if (currInt <= MAX_NUM_OF_DAYS_IN_A_MONTH && isUninitialized(dateAdvanceIntArray, DATE_INDEX_OF_DD)) {
+		if (currInt <= MAX_NUM_OF_DAYS_IN_A_MONTH && ParserCommons.isUninitialized(dateAdvanceIntArray, DATE_INDEX_OF_DD)) {
 			dateAdvanceIntArray[DATE_INDEX_OF_DD] = currInt;
 
-		} else if (currInt >= YEARY_2000 && isUninitialized(dateAdvanceIntArray, DATE_INDEX_OF_YY)) {
+		} else if (currInt >= YEARY_2000 && ParserCommons.isUninitialized(dateAdvanceIntArray, DATE_INDEX_OF_YY)) {
 			dateAdvanceIntArray[DATE_INDEX_OF_YY] = currInt;
 			
 		} else {
@@ -159,11 +159,11 @@ public class FixedDateParser extends DateTimeParserCommon {
 	}
 
 	private int[] setUninitializedValuesToDefault(int[] dateAdvanceIntArray) {
-		if (isUninitialized(dateAdvanceIntArray, DATE_INDEX_OF_YY)) {
+		if (ParserCommons.isUninitialized(dateAdvanceIntArray, DATE_INDEX_OF_YY)) {
 			dateAdvanceIntArray[DATE_INDEX_OF_YY] = getCorrectYear(dateAdvanceIntArray);
 		}
 
-		if (isUninitialized(dateAdvanceIntArray, DATE_INDEX_OF_DD)) {
+		if (ParserCommons.isUninitialized(dateAdvanceIntArray, DATE_INDEX_OF_DD)) {
 			dateAdvanceIntArray[DATE_INDEX_OF_DD] = DEFAULT_DD_IN_MONTH; // Default
 		}
 		return dateAdvanceIntArray;
@@ -174,18 +174,16 @@ public class FixedDateParser extends DateTimeParserCommon {
 		int newMM = dateAdvanceIntArray[DATE_INDEX_OF_MM];
 		int newYY = UNINITIALIZED_INT;
 		if(newMM <= currMM && newDD < currDD) {		// Date has passed
-			newYY = incrementByOne(currYY);			// Increase the year by one
+			newYY = currYY + 1;			// Increase the year by one
 		} else {				// Date has not passed
 			newYY = currYY;		// Set the year to current year
 		}
 		return newYY;
 	}
 
-
-
 	// Checks that the num of months does not exceed the max num of days in that month,
 	// Eg. 30 Feb will return an error
-	private boolean isInvalidDate(int[] ans) {
+	private static boolean isInvalidDate(int[] ans) {
 		int[] daysInMonth;
 		int mm = ans[DATE_INDEX_OF_MM];
 		
@@ -194,13 +192,11 @@ public class FixedDateParser extends DateTimeParserCommon {
 			output = true;
 		} else {
 			int yy = ans[DATE_INDEX_OF_YY];
-			daysInMonth = getDaysInMonthArray(yy);
+			daysInMonth = DateTimeParserCommon.getDaysInMonthArray(yy);
 			output = ans[DATE_INDEX_OF_DD] > daysInMonth[mm];
 		}
 		return output;
 	}
-
-
 
 	private boolean isValidDate(String currWord, String[] splitInput, int i) {
 		boolean ans = false;
@@ -220,7 +216,7 @@ public class FixedDateParser extends DateTimeParserCommon {
 				break;
 			} else {
 				String splitWord = splitInput[j]; 
-				if (!isNumber(splitWord) && isMonth(splitWord)) {
+				if (!ParserCommons.isNumber(splitWord) && isMonth(splitWord)) {
 					ans = true;
 					break;
 				}
@@ -230,7 +226,7 @@ public class FixedDateParser extends DateTimeParserCommon {
 		return ans;
 	}
 
-	private boolean isMonth(String currWord) {
+	private static boolean isMonth(String currWord) {
 		boolean ans = false;
 		for (int i = STARTING_VALUE_OF_ARRAY_CONSTANTS; i < monthsInYear.length; i++) {
 			if (currWord.contains(monthsInYear[i])) {
@@ -241,7 +237,7 @@ public class FixedDateParser extends DateTimeParserCommon {
 		return ans;
 	}
 
-	private int convertMonthStrToInt(String monthInput) {
+	private static int convertMonthStrToInt(String monthInput) {
 		int monthInt = UNINITIALIZED_INT;
 		for (int j = 1; j < monthsInYear.length; j++) {
 			if (monthInput.contains(monthsInYear[j])) {

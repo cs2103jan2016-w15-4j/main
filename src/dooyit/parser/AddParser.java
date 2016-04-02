@@ -127,7 +127,7 @@ public class AddParser implements ParserCommons {
 	private void parseCategory() {
 		int indexCategory = userInput.lastIndexOf(MARKER_CATEGORY);
 		String category = userInput.substring(indexCategory).replace(MARKER_CATEGORY, "").trim();
-		if (isNumber(category)) {
+		if (ParserCommons.isNumber(category)) {
 			categoryId = Integer.parseInt(category);
 		} else {
 			categoryName = category;
@@ -169,9 +169,9 @@ public class AddParser implements ParserCommons {
 		DateTimeParser dateTimeParser = new DateTimeParser();
 		int indexFrom = userInput.lastIndexOf(MARKER_START_EVENT);
 		int indexTo = userInput.lastIndexOf(MARKER_END_EVENT); 
-		taskName = getTaskName(userInput, indexFrom, indexTo);
-		String startTimeString = getStartTimeString(userInput, indexFrom, indexTo);
-		String endTimeString = getEndTimeString(userInput, indexFrom, indexTo);
+		taskName = ParserCommons.getTaskName(userInput, indexFrom, indexTo);
+		String startTimeString = ParserCommons.getStartTimeString(userInput, indexFrom, indexTo);
+		String endTimeString = ParserCommons.getEndTimeString(userInput, indexFrom, indexTo);
 		try {
 			start = dateTimeParser.parse(startTimeString);
 			end = dateTimeParser.parse(endTimeString);
@@ -222,7 +222,7 @@ public class AddParser implements ParserCommons {
 	}
 
 	private boolean isCategory() {
-		return !isUninitialized(userInput.lastIndexOf(MARKER_CATEGORY));
+		return !ParserCommons.isUninitialized(userInput.lastIndexOf(MARKER_CATEGORY));
 	}
 
 	private boolean isCategoryAndFloating() {
@@ -243,8 +243,8 @@ public class AddParser implements ParserCommons {
 
 	private boolean isEvent() {
 		boolean ans = false;
-		if(!isUninitialized(userInput.lastIndexOf(MARKER_START_EVENT)) && 
-				!isUninitialized(userInput.lastIndexOf(MARKER_END_EVENT))) {
+		if(!ParserCommons.isUninitialized(userInput.lastIndexOf(MARKER_START_EVENT)) && 
+				!ParserCommons.isUninitialized(userInput.lastIndexOf(MARKER_END_EVENT))) {
 			ans = hasAValidDateTimeAfterEventMarkers();
 		}
 		return ans;
@@ -255,8 +255,8 @@ public class AddParser implements ParserCommons {
 		int indexFrom = userInput.lastIndexOf(MARKER_START_EVENT);
 		int indexTo = userInput.lastIndexOf(MARKER_END_EVENT); 
 		boolean ans = true;
-		String startTimeString = getStartTimeString(userInput, indexFrom, indexTo);
-		String endTimeString = getEndTimeString(userInput, indexFrom, indexTo);
+		String startTimeString = ParserCommons.getStartTimeString(userInput, indexFrom, indexTo);
+		String endTimeString = ParserCommons.getEndTimeString(userInput, indexFrom, indexTo);
 		
 		try {
 			dateTimeParser.parse(startTimeString);
@@ -269,7 +269,7 @@ public class AddParser implements ParserCommons {
 
 	private boolean isWork() {
 		boolean ans = false;
-		if(!isUninitialized(userInput.lastIndexOf(MARKER_WORK))) {
+		if(!ParserCommons.isUninitialized(userInput.lastIndexOf(MARKER_WORK))) {
 			ans = hasAValidDateTimeAfterWorkMarker();
 		}
 		return ans;

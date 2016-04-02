@@ -2,7 +2,7 @@ package dooyit.parser;
 
 import dooyit.common.exception.IncorrectInputException;
 
-public class TimeParser extends DateTimeParserCommon {
+public class TimeParser implements DateTimeParserCommon {
 	private static final String ERROR_MESSAGE_INVALID_TIME = "Error: Invalid time!";
 	private static final String ERROR_MESSAGE_INVALID_HOURS_OR_MINUTES = "Error: Invalid Time! Hours must fall within the 24h range and Minutes must be between 0 to 59 inclusive";
 	private static final String ERROR_MESSAGE_TIME_EXCEEDS_24H = "Error: Invalid Time! Time must not exceed 24 hours!";
@@ -43,17 +43,17 @@ public class TimeParser extends DateTimeParserCommon {
 
 		} else if (currWord.contains(TIME_SEPARATOR_COLON)) { // 24Hour formats eg: 23:30
 			currWord = removeTimeSeparators(currWord);
-			if (isNumber(currWord)) {
+			if (ParserCommons.isNumber(currWord)) {
 				ans = true;
 			}
 			
-		} else if (isNumber(removeTimeSeparators(currWord)) && hasAWordAfterCurrWord(userInput, index)) { // Eg.9.30 pm, 9
-			String nextWord = userInput[incrementByOne(index)];
+		} else if (ParserCommons.isNumber(removeTimeSeparators(currWord)) && DateTimeParserCommon.hasAWordAfterCurrWord(userInput, index)) { // Eg.9.30 pm, 9
+			String nextWord = userInput[index + 1];
 			if (nextWord.equals(AM) ^ nextWord.equals(PM)) {
 				ans = true;
 			}
 		}  else {
-			// Invalid command here
+			ans = false;
 		}
 		return ans;
 	}
@@ -74,10 +74,10 @@ public class TimeParser extends DateTimeParserCommon {
 		}
 
 		timeString = removeAmAndPmFromTimeString(timeString, isAm, isPm);
-		if(!isNumber(timeString)) {
+		if(!ParserCommons.isNumber(timeString)) {
 			throw new IncorrectInputException(ERROR_MESSAGE_INVALID_TIME);
 		} else {
-			timeInt = convertStringToInt(timeString);
+			timeInt = Integer.parseInt(timeString);
 		} 
 		
 		if(hasInvalidHoursOrMinutes(timeInt, splitInput, index, isAm, isPm)) {
@@ -104,8 +104,8 @@ public class TimeParser extends DateTimeParserCommon {
 	private boolean hasInvalidHours(int timeInt, String[] splitInput, int index, boolean isAm, boolean isPm) {
 		String nextWord;
 		boolean isAmOrPm = false, ans = false;
-		if(hasAWordAfterCurrWord(splitInput, index)) {
-			nextWord = splitInput[incrementByOne(index)];
+		if(DateTimeParserCommon.hasAWordAfterCurrWord(splitInput, index)) {
+			nextWord = splitInput[index + 1];
 			isAmOrPm = nextWord.contains(PM) || nextWord.contains(AM);
 		}
 		
@@ -135,8 +135,8 @@ public class TimeParser extends DateTimeParserCommon {
 	}
 	
 	private int getNewIndex(String[] splitInput, int index) {
-		if (hasAWordAfterCurrWord(splitInput, index)) {
-			String nextWord = splitInput[incrementByOne(index)];
+		if (DateTimeParserCommon.hasAWordAfterCurrWord(splitInput, index)) {
+			String nextWord = splitInput[index + 1];
 			if (nextWord.equals(PM) || nextWord.equals(AM)) {
 				index += 1; // To skip the next word
 			}
@@ -145,8 +145,9 @@ public class TimeParser extends DateTimeParserCommon {
 	}
 	
 	private int getTimeIntByAssumingTwoWordsTimeInput(String[] splitInput, int index, int timeInt) {
-		if (incrementByOne(index) < splitInput.length) {
-			String indicator = splitInput[incrementByOne(index)];
+		index += 1;
+		if (index < splitInput.length) {
+			String indicator = splitInput[index];
 			if (indicator.equals(PM) && !timeIsBetween1200And1259Inclusive(timeInt)) {
 				timeInt += TWELVE_HOURS;
 			}

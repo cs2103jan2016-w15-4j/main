@@ -146,18 +146,18 @@ public class AddCategoryParser extends TagParser{
 		catName = inputArr[INDEX_NAME];
 		if(!isOneWordInput(inputArr)) {
 			catColour = inputArr[INDEX_COLOUR];
-			hasColour = !isNumber(catColour);
+			hasColour = !ParserCommons.isNumber(catColour);
 		}
 		
 		for(int i = INDEX_COLOUR; i < inputArr.length; i++) {
-			if(isNumber(inputArr[i])) {
+			if(ParserCommons.isNumber(inputArr[i])) {
 				hasTasks = true;
 				break;
 			}
 		}
 	}
 
-	private boolean isOneWordInput(String[] inputArr) {
+	private static boolean isOneWordInput(String[] inputArr) {
 		return inputArr.length == 1;
 	}
 }

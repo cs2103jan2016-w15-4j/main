@@ -6,7 +6,7 @@ import java.util.logging.*;
 import dooyit.common.datatype.DateTime;
 import dooyit.common.exception.IncorrectInputException;
 
-public class DateTimeParser extends DateTimeParserCommon {
+public class DateTimeParser implements DateTimeParserCommon {
 	public static final String ERROR_MESSAGE_ONLY_ONE_DATE = "Error: You can only key in ONE date!";
 	public static final String ERROR_MESSAGE_ONLY_ONE_TIMING = "Error: You can only key in ONE timing!";
 	public static final String ERROR_MESSAGE_GOING_BACK_IN_TIME = "Error: You can't go back in time to add a task or event!";
@@ -62,9 +62,11 @@ public class DateTimeParser extends DateTimeParserCommon {
 		String[] splitInput = input.toLowerCase().split("\\s+");
 		int[] combined = new int[] { currDayInWeekInt, UNINITIALIZED_INT, currDD, currMM, currYY, 0 };
 		resetBooleanValues();
+		
 		for(int i = 0; i < splitInput.length; i++) {
 			combined[COMBINED_INDEX_COUNTER] = i;
 			String currWord = splitInput[i];
+			
 			switch(getDateTimeType(currWord, splitInput, i)) {
 			case TYPE_RELATIVE_DATE:
 				try{
@@ -153,14 +155,14 @@ public class DateTimeParser extends DateTimeParserCommon {
 		DateTime dateTime;
 		int[] date = new int[] { combined[COMBINED_INDEX_DD], combined[COMBINED_INDEX_MM], combined[COMBINED_INDEX_YY] };
 		int time = combined[COMBINED_INDEX_TIME];
+		
 		if (inputTimeIsOverToday(time, date) && !hasDate) {
-			date = getDateAfterANumberOfDays(NEXT_DAY, currDD, currMM, currYY);
+			date = DateTimeParserCommon.getDateAfterANumberOfDays(NEXT_DAY, currDD, currMM, currYY);
 			dateTime = new DateTime(date, time);
 		} else {
 			dateTime = new DateTime(date, time);
 		}
 
-		logger.log(Level.INFO, "Date is " + dateTime.toString());
 		return dateTime;
 	}
 
@@ -170,10 +172,5 @@ public class DateTimeParser extends DateTimeParserCommon {
 	
 	private boolean inputDateIsToday(int[] date) {
 		return date[DATE_INDEX_OF_DD] == currDD && date[DATE_INDEX_OF_MM] == currMM && date[DATE_INDEX_OF_YY] == currYY;
-	}
-
-	public boolean isValidDateTime(String timeString) {
-		String[] splitInput = timeString.toLowerCase().split("\\s+");
-		return getDateTimeType(splitInput[0], splitInput, 0) != DATE_TIME_FORMAT.TYPE_INVALID;
 	}
 }

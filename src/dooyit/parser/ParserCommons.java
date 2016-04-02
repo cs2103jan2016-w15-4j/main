@@ -8,19 +8,19 @@ public interface ParserCommons {
 	public static final String MARKER_END_EVENT = " to ";
 	public static final String MARKER_WORK = " by ";
 	
-	default boolean isUninitialized(int[] ans, int index) {
+	static boolean isUninitialized(int[] ans, int index) {
 		return ans[index] == UNINITIALIZED_INT;
 	}
 	
-	default boolean isUninitialized(int number) {
+	static boolean isUninitialized(int number) {
 		return number == UNINITIALIZED_INT;
 	}
 	
-	default boolean isNumber(String currWord) {
+	static boolean isNumber(String currWord) {
 		return currWord.matches("[0-9]+");
 	}
 	
-	default String getEndTimeString(String userInput, int indexFrom, int indexTo) {
+	static String getEndTimeString(String userInput, int indexFrom, int indexTo) {
 		String endTimeString;
 		if(indexFrom > indexTo) {
 			endTimeString = userInput.substring(indexTo, indexFrom).replace(MARKER_END_EVENT, "").trim();
@@ -30,7 +30,7 @@ public interface ParserCommons {
 		return endTimeString;
 	}
 
-	default String getStartTimeString(String userInput, int indexFrom, int indexTo) {
+	static String getStartTimeString(String userInput, int indexFrom, int indexTo) {
 		String startTimeString;
 		if(indexFrom > indexTo) {
 			startTimeString = userInput.substring(indexFrom).replace(MARKER_START_EVENT, "").trim();
@@ -41,7 +41,7 @@ public interface ParserCommons {
 	}
 	
 
-	default String getTaskName(String userInput, int indexFrom, int indexTo) {
+	static String getTaskName(String userInput, int indexFrom, int indexTo) {
 		String name;
 		if(indexFrom < indexTo) {
 			name = userInput.substring(0, indexFrom);

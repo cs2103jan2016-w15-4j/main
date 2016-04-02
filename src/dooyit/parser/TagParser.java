@@ -85,7 +85,7 @@ public class TagParser implements ParserCommons {
 	public void parseMultipleType() throws IncorrectInputException {
 		for (int i = 0; i < splitInput.length; i++) {
 			String currWord = splitInput[i];
-			if (!isNumber(currWord)) {
+			if (!ParserCommons.isNumber(currWord)) {
 				throw new IncorrectInputException(ERROR_MESSAGE_INVALID_TASK_ID);
 			} else {
 				taskIdsForTagging.add(Integer.parseInt(currWord));
@@ -98,7 +98,7 @@ public class TagParser implements ParserCommons {
 	}
 
 	public void parseSingleType() throws IncorrectInputException {
-		if (isNumber(splitInput[INDEX_SINGLE])) {
+		if (ParserCommons.isNumber(splitInput[INDEX_SINGLE])) {
 			taskIdForTagging = Integer.parseInt(splitInput[INDEX_SINGLE]);
 		} else {
 			throw new IncorrectInputException(ERROR_MESSAGE_INVALID_TASK_ID);

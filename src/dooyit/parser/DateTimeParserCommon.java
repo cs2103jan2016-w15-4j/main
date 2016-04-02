@@ -2,7 +2,7 @@ package dooyit.parser;
 
 import dooyit.common.datatype.DateTime;
 
-public class DateTimeParserCommon implements ParserCommons{
+public interface DateTimeParserCommon {
 	public static final int COMBINED_INDEX_DAY_OF_WEEK = 0;
 	public static final int COMBINED_INDEX_TIME = 1;
 	public static final int COMBINED_INDEX_DD = 2;
@@ -13,6 +13,7 @@ public class DateTimeParserCommon implements ParserCommons{
 	public static final int DATE_INDEX_OF_DD = 0;
 	public static final int DATE_INDEX_OF_MM = 1;
 	public static final int DATE_INDEX_OF_YY = 2;
+	public static final int UNINITIALIZED_INT = -1;
 	
 	public static final int NEXT_DAY = 1;
 	public static final String EMPTY_STRING = "";
@@ -33,33 +34,25 @@ public class DateTimeParserCommon implements ParserCommons{
 	public static final String PM = "pm";
 	public static final String AM = "am";
 	
-	public int convertStringToInt(String timeString) {
-		return Integer.parseInt(timeString);
-	}
-	
-	public int incrementByOne(int index) {
-		return index + 1;
-	}
-	
-	public boolean hasAWordAfterCurrWord(String[] arr, int index) {
+	static boolean hasAWordAfterCurrWord(String[] arr, int index) {
 		return index < arr.length - 1;
 	}
 	
-	public int[] getNewCombinedArray(int[] combined, int[] date, int day ) {
+	static int[] getNewCombinedArray(int[] combined, int[] date, int day ) {
 		return new int[] { day, combined[COMBINED_INDEX_TIME], date[DATE_INDEX_OF_DD], date[DATE_INDEX_OF_MM], date[DATE_INDEX_OF_YY], combined[COMBINED_INDEX_COUNTER] };
 	}
 	
-	public int[] getNewCombinedArray(int[] combined, int[] date, int day, int index) {
+	static int[] getNewCombinedArray(int[] combined, int[] date, int day, int index) {
 		return new int[] { day, combined[COMBINED_INDEX_TIME], date[DATE_INDEX_OF_DD], date[DATE_INDEX_OF_MM], date[DATE_INDEX_OF_YY], index };
 	}
 	
-	public boolean isValidTime(String currWord) {
+	static boolean isValidTime(String currWord) {
 		boolean ans = currWord.contains(PM) || currWord.contains(AM);
 		ans = ans || currWord.contains(TIME_SEPARATOR_COLON) || currWord.contains(TIME_SEPARATOR_DOT);
 		return ans;
 	}
 	
-	public int[] getDaysInMonthArray(int yy) {
+	static int[] getDaysInMonthArray(int yy) {
 		int[] ans;
 		if(DateTime.isLeapYear(yy)) {
 			ans = daysInMonthLeapYear;
@@ -69,13 +62,13 @@ public class DateTimeParserCommon implements ParserCommons{
 		return ans;
 	}
 	
-	public int getNextDayInt(int day) {
-		int temp = incrementByOne(day);
-		temp %= NUMBER_OF_DAYS_IN_WEEK ;
-		return temp;
+	static int getNextDayInt(int day) {
+		day += 1;
+		day %= NUMBER_OF_DAYS_IN_WEEK ;
+		return day;
 	}
 
-	public int[] getDateAfterANumberOfDays(int fastForward, int day, int month, int year) {
+	static int[] getDateAfterANumberOfDays(int fastForward, int day, int month, int year) {
 		int newDay = day + fastForward;
 		int newMonth = month;
 		int newYear = year;
@@ -89,7 +82,7 @@ public class DateTimeParserCommon implements ParserCommons{
 
 		if (newMonth > NUMBER_OF_MONTHS_IN_A_YEAR) {
 			newMonth = 1;
-			newYear = incrementByOne(newYear);
+			newYear += 1;
 		}
 
 		int[] ans = new int[] { newDay, newMonth, newYear };

@@ -269,20 +269,6 @@ public class TaskManager {
 		return newTask;
 	}
 
-	public void offEventTaskMultiDayString(Task task) {
-		if (task.getTaskType() == TaskType.EVENT) {
-			EventTask eventTask = (EventTask) task;
-			eventTask.offMultiDay();
-		}
-	}
-
-	public void onEventTaskMultiDayString(Task task) {
-		if (task.getTaskType() == TaskType.EVENT) {
-			EventTask eventTask = (EventTask) task;
-			eventTask.onMultiDay();
-		}
-	}
-
 	public void offAllEventTasksMultiDayString() {
 		for (Task task : tasks) {
 			if (task.getTaskType() == TaskType.EVENT) {

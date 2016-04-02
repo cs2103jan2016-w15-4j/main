@@ -28,6 +28,7 @@ public class StorageControllerTest extends StorageConstants{
 	static final String FOLDER_TEST_STORAGE = FOLDER_TEST + "storage" + SEPARATOR_CHAR;
 	
 	static final String TEST_VALID_EXTENSION = "testSave.txt";
+	static final String TEST_MISSING_FILE = "missing.txt";
 	static final String TEST_INVALID_EXTENSION = "abc.css";
 	
 	static final String NAME_FILE_CONFIG = SEPARATOR_CHAR + "config.txt";
@@ -42,8 +43,7 @@ public class StorageControllerTest extends StorageConstants{
 	
 	//Case for negative partition - folder
 	@Test(expected = AssertionError.class)
-	public void testFolderSetFileDestination() throws IOException {
-		//StorageController storage = new StorageController();
+	public void SetFileDestination_InvalidAsFolder_AssertionError() throws IOException {
 		
 		//filePath is expected to end with .txt extension, this should throw exception
 		String filePath = FOLDER_TEST_STORAGE;
@@ -53,24 +53,47 @@ public class StorageControllerTest extends StorageConstants{
 	//Case for negative partition - file extension
 	@Test(expected = AssertionError.class)
 	public void testBadExtensionSetFileDestination() throws IOException {
-		//StorageController storage = new StorageController();
 		
-		//filePath is expected to end with .txt extension, this should throw exception
+		//filePath is expected to end with .txt extension
 		String filePath = FOLDER_TEST_STORAGE + TEST_INVALID_EXTENSION;
 		storage.setFileDestination(filePath);
 	}
 	
 	@Test
-	public void testValidSetFileDestination() throws IOException {
-		//StorageController storage = new StorageController();
+	public void setFileDestination_ValidMissingFile_ExpectedPass() throws IOException {
 		
-		//get the original path
 		String originalPath = storage.getFilePath();
 		
 		//filePath ending with .txt extension
-		String filePath = FOLDER_TEST_STORAGE + TEST_VALID_EXTENSION;
-		storage.setFileDestination(filePath);
+		String filePath = FOLDER_TEST_STORAGE + TEST_MISSING_FILE;
 		
+		//Expected false if file does not exist
+		Assert.assertFalse(storage.setFileDestination(filePath));
+		
+		//Read file path from config
+		BufferedReader bReader = new BufferedReader(new FileReader(CURRENT_DIRECTORY + NAME_FILE_CONFIG));
+		String taskPath = bReader.readLine();
+		bReader.close();
+		
+		//Checking if the file contains the same path as application
+		Assert.assertEquals(taskPath, filePath);
+		
+		//Revert to original path
+		Assert.assertTrue(storage.setFileDestination(originalPath));
+		Assert.assertEquals(storage.getFilePath(), originalPath);
+		
+	}
+	
+	@Test
+	public void setFileDestination_ValidExistingFile_ExpectedPass() throws IOException {
+		
+		String originalPath = storage.getFilePath();
+		
+		String filePath = FOLDER_TEST_STORAGE + TEST_VALID_EXTENSION;
+		
+		//Expected true since file exists
+		Assert.assertTrue(storage.setFileDestination(filePath));
+
 		//Checking if file path is saved correctly on application
 		Assert.assertEquals(storage.getFilePath(), filePath);
 		
@@ -87,67 +110,8 @@ public class StorageControllerTest extends StorageConstants{
 	}
 	
 	@Test (expected = AssertionError.class)
-	public void testBadTaskArraySaving() throws IOException {
+	public void save_NullArray_AssertionError() throws IOException {
 		ArrayList<TaskData> tasks = null;
 		storage.saveTasks(tasks);
-	}
-	
-	@Test
-	public void testTaskControllerSave() throws IOException {
-		ArrayList<Task> tasks = new ArrayList<Task> ();
-		//TaskController taskControl = new TaskController(FOLDER_TEST_STORAGE + SAVE);
-		
-		//10 December 2016 is a Saturday
-		int[] date = {10, 12, 2016};
-		
-		//{"taskName":"abc","dateTimeDeadline":"10 12 2016 sat -1","isCompleted":false}
-		DateTime deadline_no_time = new DateTime(date);
-		tasks.add((Task)new DeadlineTask("abc", deadline_no_time));
-		
-		//{"taskName":"homework","dateTimeDeadline":"10 12 2016 sat 0800","isCompleted":false}
-		DateTime deadline = new DateTime(date, 800);
-		tasks.add((Task)new DeadlineTask("homework", deadline));
-		
-		//{"taskName":"float","isCompleted":true}
-		Task floating = (Task)new FloatingTask("float");
-		floating.mark();
-		tasks.add(floating);
-		
-		//{"taskName":"brunch","dateTimeStart":"10 12 2016 sat 1000","dateTimeEnd":"10 12 2016 sat 1200","isCompleted":false}
-		DateTime event_start = new DateTime(date, 1000);
-		DateTime event_end = new DateTime(date, 1200);
-		tasks.add((Task)new EventTask("brunch", event_start, event_end));
-	//	Assert.assertTrue(storage.saveTasks(tasks));
-	}
-	
-	@Test
-	public void testTaskControllerLoad() throws IOException {
-		StorageController storage = new StorageController();
-		
-		//Test case of tasks
-		ArrayList<Task> tasks = new ArrayList<Task> ();
-		
-		//10 December 2016 is a Saturday
-		int[] date = {10, 12, 2016};
-			
-		//{"taskName":"abc","dateTimeDeadline":"10 12 2016 sat -1","isCompleted":false}
-		DateTime deadline_no_time = new DateTime(date);
-		tasks.add((Task)new DeadlineTask("abc", deadline_no_time));
-		
-		//{"taskName":"homework","dateTimeDeadline":"10 12 2016 sat 0800","isCompleted":false}
-		DateTime deadline = new DateTime(date, 800);
-		tasks.add((Task)new DeadlineTask("homework", deadline));
-		
-		//{"taskName":"float","isCompleted":true}
-		Task floating = (Task)new FloatingTask("float");
-		floating.mark();
-		tasks.add(floating);
-		
-		//{"taskName":"brunch","dateTimeStart":"10 12 2016 sat 1000","dateTimeEnd":"10 12 2016 sat 1200","isCompleted":false}
-		DateTime event_start = new DateTime(date, 1000);
-		DateTime event_end = new DateTime(date, 1200);
-		tasks.add((Task)new EventTask("brunch", event_start, event_end));
-		//ArrayList<Task> existingTasks = storage.loadTasks();
-		//Assert.assertEquals(existingTasks.toString(), tasks.toString());
 	}
 }

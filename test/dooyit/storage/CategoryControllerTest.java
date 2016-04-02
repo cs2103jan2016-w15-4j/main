@@ -35,12 +35,9 @@ public class CategoryControllerTest extends StorageConstants {
 	private static final String RED = "red";
 	private static final String PINK = "pink";
 	
-	//private CategoryController categoryController = new CategoryController(FOLDER_TEST_STORAGE + "testSaveCat.txt");
-	
 	@Test
-	public void testSave() throws IOException {
+	public void Save_ContentComparison_ExpectedPass() throws IOException {
 		CategoryController categoryController = new CategoryController(FOLDER_TEST_STORAGE + "testSaveCat.txt");
-		//System.out.println(FOLDER_TEST_STORAGE + "testSaveCat.txt");
 		ArrayList<Category> categories = new ArrayList<Category>();
 
 		categories.add(new Category("A", CustomColor.BLUE));
@@ -70,7 +67,7 @@ public class CategoryControllerTest extends StorageConstants {
 	}
 	
 	@Test
-	public void testLoad() throws IOException {
+	public void Load_ContentComparison_ExpectedPass() throws IOException {
 		CategoryController categoryController = new CategoryController(FOLDER_TEST_STORAGE + "testSaveCat.txt");
 		ArrayList<Category> categories = new ArrayList<Category>();
 
@@ -88,18 +85,7 @@ public class CategoryControllerTest extends StorageConstants {
 		Assert.assertTrue(categories.equals(existingCat));
 	}
 	
-	
-	@Test
-	public void load_InvalidColor_DefaultBlue() throws IOException {
-		CategoryController categoryController = new CategoryController(FOLDER_TEST_STORAGE + "testInvalidColor.txt");
-		
-		//{"name":"Heheh","color":"pasdasdpkdsdp"}
-		ArrayList<CategoryData> loaded = categoryController.load();
-		CategoryData existing = loaded.get(0);
-		Category invalidCategory = new Category(existing.getName(), resolveColor(existing.getColor()));
-		Assert.assertTrue(invalidCategory.getCustomColour().equals(CustomColor.BLUE));
-	}
-	
+	//Referenced from CustomColor class
 	private CustomColor resolveColor(String colorName) {
 		CustomColor color;
 		String name = colorName.toLowerCase();
@@ -125,6 +111,7 @@ public class CategoryControllerTest extends StorageConstants {
 		} else if (name.equals(WHITE)) {
 			color = CustomColor.WHITE;
 		} else {
+			//Random color generated but assume blue
 			color = CustomColor.BLUE;
 		}
 

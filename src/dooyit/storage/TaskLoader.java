@@ -8,10 +8,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
-import com.google.gson.reflect.TypeToken;
 
 import dooyit.common.datatype.DateTime;
 import dooyit.common.datatype.DeadlineTaskData;
@@ -29,35 +29,25 @@ import dooyit.common.exception.MissingFileException;
  */
 public class TaskLoader {
 
-	private static final String DEADLINE = "dateTimeDeadline";
-	private static final String EVENT_START = "dateTimeStart";
-	private static final String EVENT_END = "dateTimeEnd";
-	private static final String NAME = "taskName";
-	private static final String CATEGORY = "category";
-	private static final String IS_COMPLETED = "isCompleted";
-	private static final String DATE = "date";
-	private static final String TIME = "time";
-	private static final String PLACEHOLDER = "task %1$s";
-	private static final int DAY = 0;
-	private static final int MONTH = 1;
-	private static final int YEAR = 2;
-	private int count;
-
+	private static final String EMPTY_STRING = "";
+	
 	private String filePath;
+	private JsonParser parser;
+	private Gson gson;
+	private int count;
 
 	TaskLoader(String filePath) {
 		this.filePath = filePath;
+		this.parser = new JsonParser();
+		this.gson = gsonWithTaskDataDeserializer();
 		this.count = 1;
 	}
 
 	/**
-	 * Loads tasks to the Task Manager.
+	 * Loads TaskData from the saved file after checking if the path exists
 	 * 
-	 * @param taskManager
-	 *            The task manager
-	 * @return Returns true if tasks are successfully loaded
-	 * @throws IOException
-	 *             If loading fails
+	 * @return ArrayList of TaskData
+	 * @throws IOException If unable to generate missing save file
 	 */
 	public ArrayList<TaskData> load() throws IOException {
 		File file = new File(filePath);
@@ -67,16 +57,31 @@ public class TaskLoader {
 		if (directory.exists()) {
 			if (file.exists()) {
 				taskList = loadFromFile(file);
-			} else {
+			} else { //create the file before finishing load
 				createFile(file);
 			}
-		} else {
+		} else { //create parent directories and file before finishing load
 			createFile(directory, file);
 		}
 
 		return taskList;
 	}
-
+	
+	/** 
+	 * Replaces the current filePath with path
+	 * 
+	 * @param path String representation of the save file path
+	 */
+	protected void setFileDestination(String path) {
+		this.filePath = path;
+	}
+	
+	/**
+	 * Creates the save file
+	 * 
+	 * @param file File instance of save file
+	 * @throws IOException If unable to create file
+	 */
 	private void createFile(File file) throws IOException {
 		try {
 			file.createNewFile();
@@ -86,40 +91,31 @@ public class TaskLoader {
 	}
 
 	/**
-	 * Creates the file specified and its parent directories if they do not
-	 * exist.
+	 * Creates the parent directories before creating the file
 	 * 
-	 * @param parent
-	 *            The parent abstract pathname
-	 * @param file
-	 *            The save file
-	 * @throws IOException
-	 *             If unable to create file or parent directories
+	 * @param parent File instance of the parent directories
+	 * @param file File instance of the save file
+	 * @throws IOException If unable to create file
 	 */
 	private void createFile(File parent, File file) throws IOException {
-		// creates the parent directories
 		parent.mkdirs();
 		createFile(file);
 	}
 
 	/**
-	 * Attempts to load tasks from File to TaskManager.
+	 * Loads TaskData from an existing file
 	 * 
-	 * @param file
-	 *            The save file
-	 * @param taskManager
-	 *            The task manager
-	 * @throws IOException
-	 *             If unable to read from the save file
+	 * @param file File instance of the existing save file
+	 * @return ArrayList of TaskData from the save file
+	 * @throws IOException If unable to read from the save file
 	 */
 	private ArrayList<TaskData> loadFromFile(File file) throws IOException {
-		FileReader fReader;
+		FileReader fReader = open(file);
 		ArrayList<TaskData> taskList = new ArrayList<TaskData>();
-		Gson gson = new Gson();
 
-		fReader = open(file);
 		BufferedReader bReader = new BufferedReader(fReader);
 		String taskInfo = bReader.readLine();
+		
 		JsonObject jsonTask;
 		while (taskInfo != null) {
 			try {
@@ -128,12 +124,12 @@ public class TaskLoader {
 				jsonTask = null;
 				System.out.println("Line " + count + " deleted for bad format");
 			}
-			
-			if(jsonTask != null) {
-				TaskData existingTask = resolveTask(jsonTask);
+
+			if (jsonTask != null) {
+				TaskData existingTask = gson.fromJson(jsonTask, TaskData.class);
 				taskList.add(existingTask);
 			}
-			count++;
+			
 			taskInfo = bReader.readLine();
 		}
 
@@ -141,13 +137,11 @@ public class TaskLoader {
 	}
 
 	/**
-	 * Attempts to create the FileReader, given the File to read from.
+	 * Creates a new FileReader given the File to read from
 	 * 
-	 * @param file
-	 *            The save file
-	 * @return The FileReader associated with the File specified.
-	 * @throws FileNotFoundException
-	 *             If the save file is missing
+	 * @param file File to read from
+	 * @return FileReader instance of the File to read from
+	 * @throws FileNotFoundException If the file is not found
 	 */
 	private FileReader open(File file) throws FileNotFoundException {
 		FileReader fReader = null;
@@ -161,96 +155,30 @@ public class TaskLoader {
 		return fReader;
 	}
 
-	public TaskData resolveTask(JsonObject jsonTask) {
-
-		TaskData task;
-
-		String name = getName(jsonTask);
-		boolean isCompleted = isCompleted(jsonTask);
-		String categoryName = getCategoryName(jsonTask);
-
-		if (jsonTask.has(DEADLINE)) {
-			DateTime deadline = resolveDateTime(jsonTask, DEADLINE);
-			task = (TaskData) new DeadlineTaskData(name, deadline, categoryName, isCompleted);
-		} else if (jsonTask.has(EVENT_START) && jsonTask.has(EVENT_END)) {
-			DateTime eventStart = resolveDateTime(jsonTask, EVENT_START);
-			DateTime eventEnd = resolveDateTime(jsonTask, EVENT_END);
-			task = (TaskData) new EventTaskData(name, eventStart, eventEnd, categoryName, isCompleted);
-		} else {
-			task = (TaskData) new FloatingTaskData(name, categoryName, isCompleted);
-		}
-
-		return task;
-	}
-
 	/**
-	 * Checks if the task is completed
+	 * Converts the Json String to a JsonObject
 	 * 
-	 * @param jsonTask JsonObject of TaskData
-	 * @return The boolean value of isCompleted, default false
+	 * @param format
+	 *            The String representation of the JsonObject
+	 * @return JsonObject from String representation if it is not an empty
+	 *         string. Otherwise return null
 	 */
-	private boolean isCompleted(JsonObject jsonTask) {
-		boolean isCompleted = false;
-
-		if (jsonTask.has(IS_COMPLETED)) {
-			isCompleted = jsonTask.get(IS_COMPLETED).getAsBoolean();
-		}
-		return isCompleted;
-	}
-	
-	/**
-	 * Get the name of the task.
-	 * 
-	 * @param taskData JsonObject of TaskData
-	 * @return The name of the TaskData, otherwise returns a placeholder name
-	 */
-	private String getName(JsonObject jsonTask) {
-		String name = "";
-		
-		if (jsonTask.has(NAME)) {
-			name = jsonTask.get(NAME).getAsString();
-		} else {
-			name = String.format(PLACEHOLDER, count++);
-		}
-
-		return name;
-	}
-
-	private String getCategoryName(JsonObject taskData) {
-		String catName = null;
-		if (taskData.has(CATEGORY)) {
-			catName = taskData.get(CATEGORY).getAsString();
-		}
-
-		return catName;
-	}
-
-	private DateTime resolveDateTime(JsonObject taskInfo, String type) {
-		JsonObject dateTimeJson = taskInfo.get(type).getAsJsonObject();
-		String dateString = dateTimeJson.get(DATE).getAsString();
-		int timeInt = dateTimeJson.get(TIME).getAsInt();
-
-		String[] parts = dateString.split(" ");
-		int[] date = new int[] { Integer.valueOf(parts[DAY]), Integer.valueOf(parts[MONTH]),
-				Integer.valueOf(parts[YEAR]) };
-
-		DateTime dateTime = new DateTime(date, timeInt);
-
-		return dateTime;
-	}
-
-	protected void setFileDestination(String path) {
-		this.filePath = path;
-	}
-
 	private JsonObject getAsJson(String format) {
 		JsonObject object = null;
-		//System.out.println(format);
-		if(!format.equals("")) {
-			JsonParser parser = new JsonParser();
+	
+		if (!format.equals(EMPTY_STRING)) {
 			object = parser.parse(format).getAsJsonObject();
 		}
 
 		return object;
+	}
+	
+	/**
+	 * Registers TaskDataDeserializer when creating Gson object
+	 * 
+	 * @return Gson object with registered TaskDataDeserializer
+	 */
+	private Gson gsonWithTaskDataDeserializer() {
+		return new GsonBuilder().registerTypeAdapter(TaskData.class, new TaskDataDeserializer()).create();
 	}
 }

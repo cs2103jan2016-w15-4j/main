@@ -192,17 +192,6 @@ public class TaskManager {
 		return tasks.size();
 	}
 
-	public ArrayList<Task> findTasksWithCategory(Category category) {
-		ArrayList<Task> taskWithCat = new ArrayList<Task>();
-
-		for (Task task : tasks) {
-			if (task.hasCategory() && task.getCategory().equals(category)) {
-				taskWithCat.add(task);
-			}
-		}
-		return taskWithCat;
-	}
-
 	public ArrayList<Task> removeTasksWithCategory(Category category) {
 		ArrayList<Task> taskWithCat = new ArrayList<Task>();
 

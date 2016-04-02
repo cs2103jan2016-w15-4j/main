@@ -267,11 +267,43 @@ public class TaskManager {
 		return newTask;
 	}
 
+	public void offEventTaskMultiDayString(Task task) {
+		if (task.getTaskType() == TaskType.EVENT) {
+			EventTask eventTask = (EventTask) task;
+			eventTask.offMultiDay();
+		}
+	}
+
+	public void onEventTaskMultiDayString(Task task) {
+		if (task.getTaskType() == TaskType.EVENT) {
+			EventTask eventTask = (EventTask) task;
+			eventTask.onMultiDay();
+		}
+	}
+
+	public void offAllEventTasksMultiDayString() {
+		for (Task task : tasks) {
+			if (task.getTaskType() == TaskType.EVENT) {
+				EventTask eventTask = (EventTask) task;
+				eventTask.offMultiDay();
+			}
+		}
+	}
+
+	public void onAllEventTasksMultiDayString() {
+		for (Task task : tasks) {
+			if (task.getTaskType() == TaskType.EVENT) {
+				EventTask eventTask = (EventTask) task;
+				eventTask.onMultiDay();
+			}
+		}
+	}
+
 	public int getNoOfIncompleteEventAndDeadlineTask() {
 		int size = 0;
 
 		size += getIncompleteDeadlineTasks().size();
-		size += getIncompleteEventTasks().size();
+		size += getIncompleteEventTasksSize();
 
 		return size;
 	}
@@ -431,6 +463,21 @@ public class TaskManager {
 		return eventTasks;
 	}
 
+	public int getIncompleteEventTasksSize() {
+
+		int size = 0;
+
+		for (Task task : tasks) {
+			if (task.getTaskType() == TaskType.EVENT) {
+				EventTask eventTask = (EventTask) task;
+				if (!eventTask.isCompleted()) {
+					size += eventTask.size();
+				}
+			}
+		}
+		return size;
+	}
+
 	public ArrayList<Task> getIncompleteEventTasks() {
 
 		ArrayList<Task> eventTasks = new ArrayList<Task>();
@@ -471,6 +518,24 @@ public class TaskManager {
 		return overdueTasks;
 	}
 
+	public int getOverdueTasksSize(DateTime dateTime) {
+		int size = 0;
+
+		for (Task task : tasks) {
+
+			if (task.isOverDue(dateTime)) {
+				if(task.getTaskType() == TaskType.EVENT){
+					EventTask eventTask = (EventTask)task;
+					size += eventTask.size();
+				}else{
+					size++;
+				}
+			}
+		}
+
+		return size;
+	}
+
 	public ArrayList<Task> getTasksWithCategory(Category category) {
 		ArrayList<Task> tasksWithCat = new ArrayList<Task>();
 
@@ -506,11 +571,12 @@ public class TaskManager {
 	}
 
 	public ArrayList<TaskGroup> getTaskGroupsAll() {
+		onAllEventTasksMultiDayString();
 		ArrayList<TaskGroup> taskGroups = new ArrayList<TaskGroup>();
 		TaskGroup taskGroup;
 		DateTime currDate = new DateTime();
 
-		int numOverdueTask = getOverdueTasks(currDate).size();
+		int numOverdueTask = getOverdueTasksSize(currDate);
 		int totalSize = getNoOfIncompleteEventAndDeadlineTask() - numOverdueTask;
 
 		addOverDueTaskGroup(taskGroups, currDate);
@@ -560,6 +626,7 @@ public class TaskManager {
 	}
 
 	public ArrayList<TaskGroup> getTaskGroupsToday() {
+		onAllEventTasksMultiDayString();
 		ArrayList<TaskGroup> taskGroups = new ArrayList<TaskGroup>();
 		TaskGroup taskGroup;
 		DateTime currDate = new DateTime();
@@ -589,6 +656,7 @@ public class TaskManager {
 	}
 
 	public ArrayList<TaskGroup> getTaskGroupsCompleted() {
+		offAllEventTasksMultiDayString();
 		ArrayList<TaskGroup> taskGroups = new ArrayList<TaskGroup>();
 
 		TaskGroup taskGroup = new TaskGroup("Completed");
@@ -601,6 +669,7 @@ public class TaskManager {
 	}
 
 	public ArrayList<TaskGroup> getTaskGroupsNext7Days() {
+		onAllEventTasksMultiDayString();
 		DateTime currDate = new DateTime();
 		ArrayList<TaskGroup> taskGroups = new ArrayList<TaskGroup>();
 		TaskGroup taskGroup;

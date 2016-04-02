@@ -7,6 +7,7 @@ public class EventTask extends Task {
 	private DateTime dateTimeStart;
 	private DateTime dateTimeEnd;
 	private boolean hasMultiDay = false;
+	private boolean isMultiDayOn = false;
 	private int currentMultiDay = 0;
 	private ArrayList<String> multiDayString;
 	
@@ -22,7 +23,7 @@ public class EventTask extends Task {
 		if(DateTime.hasMultiDay(start, end)){
 			multiDayString = DateTime.getMultiDayString(start, end);
 			System.out.println(multiDayString);
-			hasMultiDay = false;
+			hasMultiDay = true;
 		}
 		
 	}
@@ -63,8 +64,27 @@ public class EventTask extends Task {
 		this.isCompleted = eventTask.isCompleted;
 	}
 
-	public void resetMultiDay(){
+	public void onMultiDay(){
+		isMultiDayOn = true;
 		currentMultiDay = 0;
+	}
+	
+	public void offMultiDay(){
+		isMultiDayOn = false;
+	}
+	
+//	@Override
+//	public boolean isCompleted(){
+//		//offMultiDay();
+//		return super.isCompleted();
+//	}
+	
+	public int size(){
+		if(hasMultiDay){
+			return multiDayString.size();
+		}
+		
+		return 1;
 	}
 	
 	@Override
@@ -96,8 +116,8 @@ public class EventTask extends Task {
 
 	@Override
 	public boolean isSameDate(DateTime dateTime) {
-		if(hasMultiDay){
-			return dateTimeStart.isTheSameDateAs(dateTime) || DateTime.isWithin(dateTime, dateTimeStart, dateTimeEnd) || dateTimeEnd.isTheSameDateAs(dateTime);
+		if(hasMultiDay && isMultiDayOn){
+			return dateTimeStart.isTheSameDateAs(dateTime) || DateTime.isWithin(dateTime, dateTimeStart, dateTimeEnd)||dateTimeEnd.isTheSameDateAs(dateTime);
 		}else{
 			return dateTimeStart.isTheSameDateAs(dateTime);
 		}
@@ -105,12 +125,19 @@ public class EventTask extends Task {
 
 	@Override
 	public boolean isOverDue(DateTime dateTime) {
-		return !isSameDate(dateTime) && !isCompleted && dateTimeEnd.compareTo(dateTime) == -1;
+		//return !isSameDate(dateTime) && !isCompleted && dateTimeEnd.compareTo(dateTime) == -1;
+		boolean isOverDue =  !dateTimeStart.isTheSameDateAs(dateTime) && dateTimeStart.compareTo(dateTime) == -1 && !isCompleted;
+		
+		if(isOverDue){
+			hasMultiDay = false;
+		}
+		
+		return isOverDue;
 	}
 
 	@Override
 	public String getDateString() {
-		if(hasMultiDay){
+		if(hasMultiDay && isMultiDayOn){
 			
 			return multiDayString.get((currentMultiDay++)%multiDayString.size());
 		}

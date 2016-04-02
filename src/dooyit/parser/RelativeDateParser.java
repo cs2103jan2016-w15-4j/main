@@ -3,7 +3,7 @@ package dooyit.parser;
 import dooyit.common.datatype.DateTime;
 import dooyit.common.exception.IncorrectInputException;
 
-public class RelativeDateParser implements DateTimeParserCommon {
+public class RelativeDateParser implements DateTimeParserCommons {
 	private static final String ERROR_MESSAGE_INVALID_DATE_INPUT = "Error: Invalid date input!";
 	private static String[] validWordForDay = new String[] { "day", "days", "dd" };
 	private static String[] validWordForWeek = new String[] { "week", "weeks", "wk" };
@@ -113,7 +113,7 @@ public class RelativeDateParser implements DateTimeParserCommon {
 	
 	private boolean isNumberOfDays(String currWord, String[] splitUserInput, int index) {
 		boolean ans = false;
-		if (ParserCommons.isNumber(currWord) && DateTimeParserCommon.hasAWordAfterCurrWord(splitUserInput, index)) {
+		if (ParserCommons.isNumber(currWord) && DateTimeParserCommons.hasAWordAfterCurrWord(splitUserInput, index)) {
 			String nextWord = splitUserInput[index + 1];
 			ans = checkIfWordIsInArray(nextWord, validWordForDay);
 		}
@@ -122,7 +122,7 @@ public class RelativeDateParser implements DateTimeParserCommon {
 
 	private boolean isNumberOfWeeks(String currWord, String[] arr, int index) {
 		boolean ans = false;
-		if (ParserCommons.isNumber(currWord) && DateTimeParserCommon.hasAWordAfterCurrWord(arr, index)) {
+		if (ParserCommons.isNumber(currWord) && DateTimeParserCommons.hasAWordAfterCurrWord(arr, index)) {
 			String nextWord = arr[index + 1];
 			ans = checkIfWordIsInArray(nextWord, validWordForWeek);
 		}
@@ -150,7 +150,7 @@ public class RelativeDateParser implements DateTimeParserCommon {
 	
 	private boolean isNextWeekday(String currWord, String[] userInput, int index) {
 		boolean ans = false;
-		if (currWord.equals(NEXT) && DateTimeParserCommon.hasAWordAfterCurrWord(userInput, index)) { 
+		if (currWord.equals(NEXT) && DateTimeParserCommons.hasAWordAfterCurrWord(userInput, index)) { 
 			ans = isValidDay(userInput[index + 1]);
 		}
 		return ans;
@@ -158,7 +158,7 @@ public class RelativeDateParser implements DateTimeParserCommon {
 
 	private boolean isNextWeek(String currentWord, String[] userInput, int index) {
 		boolean ans = false;
-		if (currentWord.equals(NEXT) && DateTimeParserCommon.hasAWordAfterCurrWord(userInput, index)) {
+		if (currentWord.equals(NEXT) && DateTimeParserCommons.hasAWordAfterCurrWord(userInput, index)) {
 			int indexOfNextWord = index + 1;
 			String nextWord = userInput[indexOfNextWord];
 			ans = checkIfWordIsInArray(nextWord, validWordForWeek);
@@ -171,14 +171,14 @@ public class RelativeDateParser implements DateTimeParserCommon {
 		int numWeeksLater = Integer.parseInt(splitInput[index]);
 		int day = currDayInWeekInt;
 		int fastForward = getFastForwardFromDayOfWeek(day) + NUMBER_OF_DAYS_IN_WEEK * numWeeksLater;
-		int[] date = DateTimeParserCommon.getDateAfterANumberOfDays(fastForward, currDD, currMM, currYY);
-		int[] ans = DateTimeParserCommon.getNewCombinedArray(combined, date, day, index + 1);
+		int[] date = DateTimeParserCommons.getDateAfterANumberOfDays(fastForward, currDD, currMM, currYY);
+		int[] ans = DateTimeParserCommons.getNewCombinedArray(combined, date, day, index + 1);
 		return ans;
 	}
 
 	private boolean isThisMonday(String currentWord, String[] userInput, int index) {
 		boolean ans = false;
-		if (currentWord.equals(THIS) && DateTimeParserCommon.hasAWordAfterCurrWord(userInput, index)) { 
+		if (currentWord.equals(THIS) && DateTimeParserCommons.hasAWordAfterCurrWord(userInput, index)) { 
 			int indexOfNextWord = index + 1;
 			String nextWord = userInput[indexOfNextWord];
 			ans = isValidDay(nextWord);
@@ -187,9 +187,9 @@ public class RelativeDateParser implements DateTimeParserCommon {
 	}
 	
 	private int[] getCombinedArrayForTomorrow(int[] combined) {
-		int day = DateTimeParserCommon.getNextDayInt(currDayInWeekInt);
-		int[] date = DateTimeParserCommon.getDateAfterANumberOfDays(NEXT_DAY, currDD, currMM, currYY);
-		int[] ans = DateTimeParserCommon.getNewCombinedArray(combined, date, day);
+		int day = DateTimeParserCommons.getNextDayInt(currDayInWeekInt);
+		int[] date = DateTimeParserCommons.getDateAfterANumberOfDays(NEXT_DAY, currDD, currMM, currYY);
+		int[] ans = DateTimeParserCommons.getNewCombinedArray(combined, date, day);
 		return ans;
 	}
 	
@@ -201,32 +201,32 @@ public class RelativeDateParser implements DateTimeParserCommon {
 	private int[] getDateAndDayAfterANumberOfDays(String[] splitInput, int index, int[] combined) {
 		int numDaysLater = Integer.parseInt(splitInput[index]);
 		int day = getDayOfWeekAfterANumberOfDays(numDaysLater);
-		int[] date = DateTimeParserCommon.getDateAfterANumberOfDays(numDaysLater, currDD, currMM, currYY);
-		return DateTimeParserCommon.getNewCombinedArray(combined, date, day, index + 1);
+		int[] date = DateTimeParserCommons.getDateAfterANumberOfDays(numDaysLater, currDD, currMM, currYY);
+		return DateTimeParserCommons.getNewCombinedArray(combined, date, day, index + 1);
 	}
 
 	// Eg. next week
 	private int[] getDateAfterOneWeek(String[] splitInput, int index, int[] combined) {
 		int day = currDayInWeekInt;
 		int fastForward = getFastForwardFromDayOfWeek(day) + NUMBER_OF_DAYS_IN_WEEK;
-		int[] date = DateTimeParserCommon.getDateAfterANumberOfDays(fastForward, currDD, currMM, currYY);
-		return DateTimeParserCommon.getNewCombinedArray(combined, date, day, index + 1);
+		int[] date = DateTimeParserCommons.getDateAfterANumberOfDays(fastForward, currDD, currMM, currYY);
+		return DateTimeParserCommons.getNewCombinedArray(combined, date, day, index + 1);
 	}
 
 	// Eg. monday, wed
 	private int[] getDayOfWeek(String[] splitInput, int index, int[] combined) {
 		int day = convertDayStringToInt(splitInput[index]);
 		int fastForward = getFastForwardFromDayOfWeek(day);
-		int[] date = DateTimeParserCommon.getDateAfterANumberOfDays(fastForward, currDD, currMM, currYY);
-		return DateTimeParserCommon.getNewCombinedArray(combined, date, day, index);
+		int[] date = DateTimeParserCommons.getDateAfterANumberOfDays(fastForward, currDD, currMM, currYY);
+		return DateTimeParserCommons.getNewCombinedArray(combined, date, day, index);
 	}
 
 	// Eg. next monday, next wed
 	private int[] getNextDayOfWeek(String[] splitInput, int index, int[] combined) {
 		int day = convertDayStringToInt(splitInput[index + 1]);
 		int fastForward = getFastForwardFromDayOfWeek(day) + NUMBER_OF_DAYS_IN_WEEK;
-		int[] date = DateTimeParserCommon.getDateAfterANumberOfDays(fastForward, currDD, currMM, currYY);
-		return DateTimeParserCommon.getNewCombinedArray(combined, date, day, index + 1);
+		int[] date = DateTimeParserCommons.getDateAfterANumberOfDays(fastForward, currDD, currMM, currYY);
+		return DateTimeParserCommons.getNewCombinedArray(combined, date, day, index + 1);
 	}
 
 	// Eg. this monday, this wed, this wednesday
@@ -234,8 +234,8 @@ public class RelativeDateParser implements DateTimeParserCommon {
 		// splitInput[i].equals("this")
 		int day = convertDayStringToInt(splitInput[index + 1]);
 		int fastForward = getFastForwardFromDayOfWeek(day);
-		int[] date = DateTimeParserCommon.getDateAfterANumberOfDays(fastForward, currDD, currMM, currYY);
-		return DateTimeParserCommon.getNewCombinedArray(combined, date, day, index + 1);
+		int[] date = DateTimeParserCommons.getDateAfterANumberOfDays(fastForward, currDD, currMM, currYY);
+		return DateTimeParserCommons.getNewCombinedArray(combined, date, day, index + 1);
 	}
 	
 	private int convertDayStringToInt(String string) {

@@ -2,7 +2,7 @@ package dooyit.parser;
 
 import dooyit.common.datatype.DateTime;
 
-public interface DateTimeParserCommon {
+public interface DateTimeParserCommons {
 	public static final int COMBINED_INDEX_DAY_OF_WEEK = 0;
 	public static final int COMBINED_INDEX_TIME = 1;
 	public static final int COMBINED_INDEX_DD = 2;

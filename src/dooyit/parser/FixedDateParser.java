@@ -3,7 +3,7 @@ package dooyit.parser;
 import dooyit.common.datatype.DateTime;
 import dooyit.common.exception.IncorrectInputException;
 
-public class FixedDateParser implements DateTimeParserCommon {
+public class FixedDateParser implements DateTimeParserCommons {
 	private static final int MAX_NUMBER_OF_WORDS_IN_WORD_DATE = 2;
 	private static final int LAST_INDEX_OF_WORD_DATE = 2;
 	private static final String ERROR_MESSAGE_INVALID_DATE = "Invalid date!";
@@ -55,7 +55,8 @@ public class FixedDateParser implements DateTimeParserCommon {
 		try {
 			if (firstWord.contains(DATE_SEPARATOR)) {
 				String[] userInputForDate = firstWord.split(DATE_SEPARATOR);
-				dateAndArrayIndex = getNumberDate(dateAndArrayIndex, userInputForDate);		
+				dateAndArrayIndex = getNumberDate(dateAndArrayIndex, userInputForDate);	
+				System.out.println(dateAndArrayIndex[2]);
 			} else {
 				dateAndArrayIndex = getWordDate(dateAndArrayIndex, currIndexInSplitInput, splitInput);
 			}
@@ -64,7 +65,7 @@ public class FixedDateParser implements DateTimeParserCommon {
 		}
 		
 		dateAndArrayIndex = setUninitializedValuesToDefault(dateAndArrayIndex);
-
+		System.out.println(dateAndArrayIndex[2]);
 		if (isInvalidDate(dateAndArrayIndex)) {
 			throw new IncorrectInputException(ERROR_MESSAGE_INVALID_DATE);
 		}
@@ -122,7 +123,7 @@ public class FixedDateParser implements DateTimeParserCommon {
 			dateAndAdvanceIntArray[DATE_INDEX_OF_MM] = convertMonthStrToInt(currWord);
 			dateAndAdvanceIntArray[DATE_INDEX_OF_ADVANCE_INT] += 1;
 		} else {
-			if(!DateTimeParserCommon.isValidTime(currWord)) {
+			if(!DateTimeParserCommons.isValidTime(currWord)) {
 				throw new IncorrectInputException(ERROR_MESSAGE_INVALID_DATE);
 			}
 		}
@@ -137,19 +138,22 @@ public class FixedDateParser implements DateTimeParserCommon {
 		} catch (IncorrectInputException e) {
 			throw e;
 		}
+		System.out.println("newDate[2] is " + newDate[2]);
 		
 		if(isInvalidDate(newDate)) {
 			throw new IncorrectInputException();
 		}
 		
-		return DateTimeParserCommon.getNewCombinedArray(combined, newDate, getDayOfWeekFromADate(newDate), getAdvanceInt(newDate, combined[COMBINED_INDEX_COUNTER]));
+		return DateTimeParserCommons.getNewCombinedArray(combined, newDate, getDayOfWeekFromADate(newDate), getAdvanceInt(newDate, combined[COMBINED_INDEX_COUNTER]));
 	}
 
 	private int[] setDayAndYearValues(int[] dateAdvanceIntArray, int currInt) throws IncorrectInputException {
+		System.out.println("reached here C");
 		if (currInt <= MAX_NUM_OF_DAYS_IN_A_MONTH && ParserCommons.isUninitialized(dateAdvanceIntArray, DATE_INDEX_OF_DD)) {
 			dateAdvanceIntArray[DATE_INDEX_OF_DD] = currInt;
 
 		} else if (currInt >= YEARY_2000 && ParserCommons.isUninitialized(dateAdvanceIntArray, DATE_INDEX_OF_YY)) {
+			System.out.println("reached here A");
 			dateAdvanceIntArray[DATE_INDEX_OF_YY] = currInt;
 			
 		} else {
@@ -160,7 +164,9 @@ public class FixedDateParser implements DateTimeParserCommon {
 
 	private int[] setUninitializedValuesToDefault(int[] dateAdvanceIntArray) {
 		if (ParserCommons.isUninitialized(dateAdvanceIntArray, DATE_INDEX_OF_YY)) {
+			System.out.println("part A");
 			dateAdvanceIntArray[DATE_INDEX_OF_YY] = getCorrectYear(dateAdvanceIntArray);
+			System.out.println("dateAdvanceIntArray[DATE_INDEX_OF_YY] is " + dateAdvanceIntArray[DATE_INDEX_OF_YY] );
 		}
 
 		if (ParserCommons.isUninitialized(dateAdvanceIntArray, DATE_INDEX_OF_DD)) {
@@ -173,7 +179,9 @@ public class FixedDateParser implements DateTimeParserCommon {
 		int newDD = dateAdvanceIntArray[DATE_INDEX_OF_DD];
 		int newMM = dateAdvanceIntArray[DATE_INDEX_OF_MM];
 		int newYY = UNINITIALIZED_INT;
-		if(newMM <= currMM && newDD < currDD) {		// Date has passed
+		DateTime newDateTime = new DateTime(new int[]{newDD, newMM, currYY});
+		DateTime currDateTime = new DateTime(new int[]{currDD, currMM, currYY});
+		if(newDateTime.compareTo(currDateTime) == -1) {		// Date has passed
 			newYY = currYY + 1;			// Increase the year by one
 		} else {				// Date has not passed
 			newYY = currYY;		// Set the year to current year
@@ -192,7 +200,7 @@ public class FixedDateParser implements DateTimeParserCommon {
 			output = true;
 		} else {
 			int yy = ans[DATE_INDEX_OF_YY];
-			daysInMonth = DateTimeParserCommon.getDaysInMonthArray(yy);
+			daysInMonth = DateTimeParserCommons.getDaysInMonthArray(yy);
 			output = ans[DATE_INDEX_OF_DD] > daysInMonth[mm];
 		}
 		return output;

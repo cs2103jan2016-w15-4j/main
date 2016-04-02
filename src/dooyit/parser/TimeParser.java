@@ -2,7 +2,7 @@ package dooyit.parser;
 
 import dooyit.common.exception.IncorrectInputException;
 
-public class TimeParser implements DateTimeParserCommon {
+public class TimeParser implements DateTimeParserCommons {
 	private static final String ERROR_MESSAGE_INVALID_TIME = "Error: Invalid time!";
 	private static final String ERROR_MESSAGE_INVALID_HOURS_OR_MINUTES = "Error: Invalid Time! Hours must fall within the 24h range and Minutes must be between 0 to 59 inclusive";
 	private static final String ERROR_MESSAGE_TIME_EXCEEDS_24H = "Error: Invalid Time! Time must not exceed 24 hours!";
@@ -47,7 +47,7 @@ public class TimeParser implements DateTimeParserCommon {
 				ans = true;
 			}
 			
-		} else if (ParserCommons.isNumber(removeTimeSeparators(currWord)) && DateTimeParserCommon.hasAWordAfterCurrWord(userInput, index)) { // Eg.9.30 pm, 9
+		} else if (ParserCommons.isNumber(removeTimeSeparators(currWord)) && DateTimeParserCommons.hasAWordAfterCurrWord(userInput, index)) { // Eg.9.30 pm, 9
 			String nextWord = userInput[index + 1];
 			if (nextWord.equals(AM) ^ nextWord.equals(PM)) {
 				ans = true;
@@ -104,7 +104,7 @@ public class TimeParser implements DateTimeParserCommon {
 	private boolean hasInvalidHours(int timeInt, String[] splitInput, int index, boolean isAm, boolean isPm) {
 		String nextWord;
 		boolean isAmOrPm = false, ans = false;
-		if(DateTimeParserCommon.hasAWordAfterCurrWord(splitInput, index)) {
+		if(DateTimeParserCommons.hasAWordAfterCurrWord(splitInput, index)) {
 			nextWord = splitInput[index + 1];
 			isAmOrPm = nextWord.contains(PM) || nextWord.contains(AM);
 		}
@@ -135,7 +135,7 @@ public class TimeParser implements DateTimeParserCommon {
 	}
 	
 	private int getNewIndex(String[] splitInput, int index) {
-		if (DateTimeParserCommon.hasAWordAfterCurrWord(splitInput, index)) {
+		if (DateTimeParserCommons.hasAWordAfterCurrWord(splitInput, index)) {
 			String nextWord = splitInput[index + 1];
 			if (nextWord.equals(PM) || nextWord.equals(AM)) {
 				index += 1; // To skip the next word

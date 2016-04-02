@@ -938,10 +938,9 @@ public class ParserTest {
 		String proposalTmrInvalid = "add proposal by tmr 21312312";
 		Command command = parser.getCommand(proposalTmrInvalid);
 		
-		//Getting error message from InvalidCommand
-		String message = Whitebox.getInternalState(command, "errorMessage");
-		String expectedErrorMessage = DateTimeParser.ERROR_MESSAGE_INVALID_DATE_TIME;
-		assertEquals(expectedErrorMessage, message);
+		String taskName = Whitebox.getInternalState(command, "taskName");
+		String expectedTaskName = "proposal by tmr 21312312";
+		assertEquals(expectedTaskName, taskName);
 	}
 	
 	@Test
@@ -1012,6 +1011,14 @@ public class ParserTest {
 		String expectedName = "brunch from to";
 		Assert.assertEquals(expectedName, name);
 	}
+	
+	/*@Test
+	public void EventWithCat_Valid_ExpectedTrue(){
+		String marathon = "marathon from 10/4/2016 6am to 10/4/2016 9am @ Run";
+		Command command = parser.getCommand(marathon);
+		String categoryName = Whitebox.getInternalState(command, CATEGORY_NAME);
+		Assert.assertEquals("Run", categoryName);
+	}*/
 	
 	//********************************************
 	//************ Tests for EditParser **********

@@ -1,3 +1,4 @@
+//@@author A0124586Y
 package dooyit.storage;
 
 import java.util.ArrayList;
@@ -14,22 +15,16 @@ import java.io.IOException;
 
 import dooyit.storage.TaskController;
 import dooyit.storage.CategoryController;
-import dooyit.common.datatype.Category;
 import dooyit.common.datatype.CategoryData;
-import dooyit.common.datatype.Task;
 import dooyit.common.datatype.TaskData;
-import dooyit.common.exception.InvalidFilePathException;
-import dooyit.logic.CategoryManager;
-import dooyit.logic.TaskManager;
 
-//@@author A0124586Y
 public class StorageController extends StorageConstants {
 
 	private String configFilePath;
 	private String[] preferences;
 	private CategoryController categoryControl;
 	private TaskController taskControl;
-	//private static Logger logger = Logger.getLogger("Storage");
+	private static Logger logger = Logger.getLogger("Storage");
 
 	private static final String NAME_FILE_CONFIG = "config.txt";
 	private static final int TASK_DESTINATION = 0;
@@ -47,12 +42,12 @@ public class StorageController extends StorageConstants {
 	}
 
 	private String getConfigPath(String currentPath) {
-		//logger.log(Level.INFO, "Getting save destination");
+		logger.log(Level.INFO, "Getting save destination");
 		return currentPath + SEPARATOR_CHAR + NAME_FILE_CONFIG;
 	}
 
 	public boolean setFileDestination(String newFilePath) throws IOException {
-		//logger.log(Level.INFO, "Changing save destination");
+		logger.log(Level.INFO, "Changing save destination");
 		boolean isValid = isValidPath(newFilePath);
 		assert isValid;
 		
@@ -68,14 +63,14 @@ public class StorageController extends StorageConstants {
 	}
 
 	public boolean saveTasks(ArrayList<TaskData> tasks) throws IOException {
-		//logger.log(Level.INFO, "Attempting to save tasks to " + preferences[TASK_DESTINATION]);
+		logger.log(Level.INFO, "Attempting to save tasks");
 		assert tasks != null;
 
 		return taskControl.save(tasks);
 	}
 
 	public ArrayList<TaskData> loadTasks() throws IOException {
-		//logger.log(Level.INFO, "Attempting to load tasks from " + preferences[TASK_DESTINATION]);
+		logger.log(Level.INFO, "Attempting to load tasks");
 		ArrayList<TaskData> taskList = taskControl.load();
 		assert taskList != null;
 

@@ -9,48 +9,42 @@ import java.util.ArrayList;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import dooyit.common.datatype.Category;
 import dooyit.common.datatype.DateTime;
-import dooyit.common.datatype.DeadlineTask;
 import dooyit.common.datatype.DeadlineTaskData;
-import dooyit.common.datatype.EventTask;
 import dooyit.common.datatype.EventTaskData;
 import dooyit.common.datatype.FloatingTaskData;
-import dooyit.common.datatype.FloatingTask;
-import dooyit.common.datatype.Task;
 import dooyit.common.datatype.TaskData;
 import dooyit.storage.StorageConstants;
 
 public class TaskSaver {
 	private String filePath;
-	private static int count;
-	
+	private static int count = 0;
+
 	private static final String backupPath = StorageConstants.DEFAULT_BACKUP_DESTINATION;
 
 	protected TaskSaver(String filePath) {
 		this.filePath = filePath;
-		this.count = 0;
 	}
 
 	public boolean save(ArrayList<TaskData> tasks) throws IOException {
 		File file = new File(filePath);
 		File directory = file.getParentFile();
 		boolean isSaved = false;
-		
-		if(directory.exists()) {
-			if(file.exists()) {
+
+		if (directory.exists()) {
+			if (file.exists()) {
 			} else {
 				createFile(file);
 			}
 		} else {
 			createFile(directory, file);
 		}
-		
+
 		isSaved = saveTasks(file, tasks);
-		
+
 		return isSaved;
 	}
-	
+
 	private boolean saveTasks(File file, ArrayList<TaskData> tasks) throws IOException {
 		BufferedWriter bWriter = new BufferedWriter(new FileWriter(file));
 
@@ -60,8 +54,8 @@ public class TaskSaver {
 		}
 		bWriter.close();
 		count++;
-		
-		if(count > 5) {
+
+		if (count > 5) {
 			saveBackup(tasks);
 			count = 0;
 		}
@@ -78,29 +72,29 @@ public class TaskSaver {
 		}
 		bWriter.close();
 	}
-	
+
 	protected void setFileDestination(String path) {
 		this.filePath = path;
-	}	
+	}
 
 	private String setFormat(TaskData task) {
 		Gson gson = gsonWithDateTimeSerializer();
 		String json = "";
-		
-		if(task instanceof DeadlineTaskData) {
-			DeadlineTaskData deadline = (DeadlineTaskData)task;
+
+		if (task instanceof DeadlineTaskData) {
+			DeadlineTaskData deadline = (DeadlineTaskData) task;
 			json = gson.toJson(deadline);
-		} else if(task instanceof EventTaskData) {
-			EventTaskData event = (EventTaskData)task;
+		} else if (task instanceof EventTaskData) {
+			EventTaskData event = (EventTaskData) task;
 			json = gson.toJson(event);
 		} else {
-			FloatingTaskData floatData = (FloatingTaskData)task;
+			FloatingTaskData floatData = (FloatingTaskData) task;
 			json = gson.toJson(floatData);
 		}
 
 		return json;
 	}
-	
+
 	private void createFile(File file) throws IOException {
 		try {
 			file.createNewFile();
@@ -108,15 +102,14 @@ public class TaskSaver {
 			throw new IOException("Failed to create " + file.getName());
 		}
 	}
-	
-	
+
 	private void createFile(File parent, File file) throws IOException {
 		// creates the parent directories
 		parent.mkdirs();
-		
+
 		createFile(file);
 	}
-	
+
 	private Gson gsonWithDateTimeSerializer() {
 		return new GsonBuilder().registerTypeAdapter(DateTime.class, new DateTimeSerializer()).create();
 	}

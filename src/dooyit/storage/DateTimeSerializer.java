@@ -10,7 +10,7 @@ import com.google.gson.JsonSerializer;
 import dooyit.common.datatype.DateTime;
 
 public class DateTimeSerializer implements JsonSerializer<DateTime> {
-	
+
 	private static final String SPACE = " ";
 
 	@Override

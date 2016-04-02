@@ -13,10 +13,6 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
 
-import dooyit.common.datatype.DateTime;
-import dooyit.common.datatype.DeadlineTaskData;
-import dooyit.common.datatype.EventTaskData;
-import dooyit.common.datatype.FloatingTaskData;
 import dooyit.common.datatype.TaskData;
 import dooyit.common.exception.MissingFileException;
 
@@ -25,12 +21,11 @@ import dooyit.common.exception.MissingFileException;
  * tasks.
  * 
  * @author Dex
- *
  */
 public class TaskLoader {
 
 	private static final String EMPTY_STRING = "";
-	
+
 	private String filePath;
 	private JsonParser parser;
 	private Gson gson;
@@ -47,7 +42,8 @@ public class TaskLoader {
 	 * Loads TaskData from the saved file after checking if the path exists
 	 * 
 	 * @return ArrayList of TaskData
-	 * @throws IOException If unable to generate missing save file
+	 * @throws IOException
+	 *             If unable to generate missing save file
 	 */
 	public ArrayList<TaskData> load() throws IOException {
 		File file = new File(filePath);
@@ -57,30 +53,33 @@ public class TaskLoader {
 		if (directory.exists()) {
 			if (file.exists()) {
 				taskList = loadFromFile(file);
-			} else { //create the file before finishing load
+			} else { // create the file before finishing load
 				createFile(file);
 			}
-		} else { //create parent directories and file before finishing load
+		} else { // create parent directories and file before finishing load
 			createFile(directory, file);
 		}
 
 		return taskList;
 	}
-	
-	/** 
+
+	/**
 	 * Replaces the current filePath with path
 	 * 
-	 * @param path String representation of the save file path
+	 * @param path
+	 *            String representation of the save file path
 	 */
 	protected void setFileDestination(String path) {
 		this.filePath = path;
 	}
-	
+
 	/**
 	 * Creates the save file
 	 * 
-	 * @param file File instance of save file
-	 * @throws IOException If unable to create file
+	 * @param file
+	 *            File instance of save file
+	 * @throws IOException
+	 *             If unable to create file
 	 */
 	private void createFile(File file) throws IOException {
 		try {
@@ -93,9 +92,12 @@ public class TaskLoader {
 	/**
 	 * Creates the parent directories before creating the file
 	 * 
-	 * @param parent File instance of the parent directories
-	 * @param file File instance of the save file
-	 * @throws IOException If unable to create file
+	 * @param parent
+	 *            File instance of the parent directories
+	 * @param file
+	 *            File instance of the save file
+	 * @throws IOException
+	 *             If unable to create file
 	 */
 	private void createFile(File parent, File file) throws IOException {
 		parent.mkdirs();
@@ -105,9 +107,11 @@ public class TaskLoader {
 	/**
 	 * Loads TaskData from an existing file
 	 * 
-	 * @param file File instance of the existing save file
+	 * @param file
+	 *            File instance of the existing save file
 	 * @return ArrayList of TaskData from the save file
-	 * @throws IOException If unable to read from the save file
+	 * @throws IOException
+	 *             If unable to read from the save file
 	 */
 	private ArrayList<TaskData> loadFromFile(File file) throws IOException {
 		FileReader fReader = open(file);
@@ -115,7 +119,7 @@ public class TaskLoader {
 
 		BufferedReader bReader = new BufferedReader(fReader);
 		String taskInfo = bReader.readLine();
-		
+
 		JsonObject jsonTask;
 		while (taskInfo != null) {
 			try {
@@ -129,7 +133,7 @@ public class TaskLoader {
 				TaskData existingTask = gson.fromJson(jsonTask, TaskData.class);
 				taskList.add(existingTask);
 			}
-			
+
 			taskInfo = bReader.readLine();
 		}
 
@@ -139,9 +143,11 @@ public class TaskLoader {
 	/**
 	 * Creates a new FileReader given the File to read from
 	 * 
-	 * @param file File to read from
+	 * @param file
+	 *            File to read from
 	 * @return FileReader instance of the File to read from
-	 * @throws FileNotFoundException If the file is not found
+	 * @throws FileNotFoundException
+	 *             If the file is not found
 	 */
 	private FileReader open(File file) throws FileNotFoundException {
 		FileReader fReader = null;
@@ -165,14 +171,14 @@ public class TaskLoader {
 	 */
 	private JsonObject getAsJson(String format) {
 		JsonObject object = null;
-	
+
 		if (!format.equals(EMPTY_STRING)) {
 			object = parser.parse(format).getAsJsonObject();
 		}
 
 		return object;
 	}
-	
+
 	/**
 	 * Registers TaskDataDeserializer when creating Gson object
 	 * 

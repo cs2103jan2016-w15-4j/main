@@ -16,9 +16,8 @@ import dooyit.common.datatype.DateTime;
 import dooyit.common.datatype.DeadlineTaskData;
 import dooyit.common.datatype.EventTaskData;
 
+public class TaskDataDeserializer implements JsonDeserializer<TaskData> {
 
-public class TaskDataDeserializer implements JsonDeserializer<TaskData>{
-	
 	private static final String DEADLINE = "dateTimeDeadline";
 	private static final String EVENT_START = "dateTimeStart";
 	private static final String EVENT_END = "dateTimeEnd";
@@ -31,11 +30,11 @@ public class TaskDataDeserializer implements JsonDeserializer<TaskData>{
 			throws JsonParseException {
 		TaskData task = null;
 		JsonObject jsonTask = (JsonObject) object;
-		
+
 		String name = getName(jsonTask);
 		boolean isCompleted = isCompleted(jsonTask);
 		String categoryName = getCategoryName(jsonTask);
-		
+
 		if (jsonTask.has(DEADLINE)) {
 			DateTime deadline = resolveDateTime(jsonTask, DEADLINE);
 			task = (TaskData) new DeadlineTaskData(name, deadline, categoryName, isCompleted);
@@ -49,7 +48,7 @@ public class TaskDataDeserializer implements JsonDeserializer<TaskData>{
 
 		return task;
 	}
-	
+
 	private boolean isCompleted(JsonObject jsonTask) {
 		boolean isCompleted = false;
 
@@ -58,7 +57,7 @@ public class TaskDataDeserializer implements JsonDeserializer<TaskData>{
 		}
 		return isCompleted;
 	}
-	
+
 	private String getName(JsonObject jsonTask) {
 		String name = "";
 
@@ -68,7 +67,7 @@ public class TaskDataDeserializer implements JsonDeserializer<TaskData>{
 
 		return name;
 	}
-	
+
 	private String getCategoryName(JsonObject jsonTask) {
 		String categoryName = null;
 		if (jsonTask.has(CATEGORY)) {
@@ -77,7 +76,7 @@ public class TaskDataDeserializer implements JsonDeserializer<TaskData>{
 
 		return categoryName;
 	}
-	
+
 	private DateTime resolveDateTime(JsonObject jsonTask, String type) {
 		Gson gson = gsonWithDateTimeDeserializer();
 		JsonObject dateTimeJson = jsonTask.get(type).getAsJsonObject();
@@ -85,7 +84,7 @@ public class TaskDataDeserializer implements JsonDeserializer<TaskData>{
 
 		return dateTime;
 	}
-	
+
 	private Gson gsonWithDateTimeDeserializer() {
 		return new GsonBuilder().registerTypeAdapter(DateTime.class, new DateTimeDeserializer()).create();
 	}

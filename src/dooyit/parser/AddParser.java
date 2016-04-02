@@ -184,6 +184,16 @@ public class AddParser implements ParserCommons {
 		if(end.compareTo(start) == -1) {
 			throw new IncorrectInputException(ERROR_MESSAGE_END_BEFORE_START);
 		}
+		setUninitializedTimeToDefault();
+	}
+
+	private void setUninitializedTimeToDefault() {
+		if(start.getTimeInt() == UNINITIALIZED_INT) {
+			start.setTimeToMidnight();
+		}
+		if(end.getTimeInt() == UNINITIALIZED_INT) {
+			end.setTimeToRightBeforeMidnight();
+		}
 	}
 
 	private void parseWork() throws IncorrectInputException {

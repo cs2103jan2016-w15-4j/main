@@ -28,6 +28,8 @@ public class DateTime {
 	private static final int NUMBER_OF_DAYS_IN_WEEK = 7;
 	private static final int UNINITIALIZED_INT = -1;
 	private static final String UNINITIALIZED_STRING = "-1";
+	private static final int MIDNIGHT_INT = 0;
+	private static final int RIGHT_BEFORE_MIDNIGHT_INT = 2359;
 	
 	private static String[] months = new String[] { DUMMY_STR, "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
 	private static String[] daysInWeek = new String[] { DUMMY_STR, "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
@@ -405,4 +407,13 @@ public class DateTime {
 		this.mm = start.getMM();
 		this.yy = start.getYY();
 	}
+
+	public void setTimeToMidnight() {
+		this.timeInt = MIDNIGHT_INT;
+	}
+
+	public void setTimeToRightBeforeMidnight() {
+		this.timeInt = RIGHT_BEFORE_MIDNIGHT_INT;
+	}
+	
 }

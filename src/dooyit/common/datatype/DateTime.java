@@ -372,6 +372,7 @@ public class DateTime {
 	}
 	
 	public static ArrayList<String> getMultiDayString(DateTime start, DateTime end) {
+		assert start.compareTo(end) == COMPARISON_FIRST_IS_BEFORE_SECOND;
 		ArrayList<String> listOfTimings = new ArrayList<String>();
 		DateTime startCopy = new DateTime(start);
 		
@@ -383,9 +384,9 @@ public class DateTime {
 		listOfTimings.add(timeToBeAdded);
 		startCopy.increaseByOneDay();
 		while(compareDates(startCopy, end) != COMPARISON_FIRST_EQUALS_SECOND) {
-			startCopy.increaseByOneDay();
 			timeToBeAdded = midnight + " - " + beforeMidnight;
 			listOfTimings.add(timeToBeAdded);
+			startCopy.increaseByOneDay();
 		}
 		timeToBeAdded = midnight + " - " + endTimeString;
 		listOfTimings.add(timeToBeAdded);

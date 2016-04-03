@@ -7,7 +7,6 @@ import dooyit.logic.commands.CommandUtils;
 
 public class AddParser implements ParserCommons {
 
-	private static final String ERROR_MESSAGE_END_BEFORE_START = "Error: End timing cannot be before Start timing";
 	private static final String ERROR_MESSAGE_INVALID_ADD_COMMAND = "Error: Invalid add command!";
 	private static final String MARKER_CATEGORY = " @ ";
 
@@ -178,6 +177,7 @@ public class AddParser implements ParserCommons {
 		} catch(IncorrectInputException e) {
 			throw e;
 		}
+		
 		if(end.compareTo(start) == -1) {
 			end.setDate(start);
 		}

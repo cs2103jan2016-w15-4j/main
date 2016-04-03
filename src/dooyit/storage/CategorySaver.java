@@ -8,9 +8,7 @@ import java.util.ArrayList;
 
 import com.google.gson.Gson;
 
-import dooyit.common.datatype.Category;
 import dooyit.common.datatype.CategoryData;
-import dooyit.common.datatype.CustomColor;
 
 public class CategorySaver {
 	private String filePath;

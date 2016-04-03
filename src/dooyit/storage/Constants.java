@@ -2,7 +2,7 @@ package dooyit.storage;
 
 import java.io.File;
 
-public class StorageConstants {
+public class Constants {
 
 	static final char SEPARATOR_CHAR = File.separatorChar;
 
@@ -15,7 +15,7 @@ public class StorageConstants {
 	static final String DEFAULT_TASKS_DESTINATION = FOLDER_DATA + "tasks.txt";
 	static final String DEFAULT_THEME_DESTINATION = FOLDER_DATA + "custom.css";
 
-	public StorageConstants() {
+	public Constants() {
 
 	}
 }

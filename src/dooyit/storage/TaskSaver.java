@@ -14,13 +14,13 @@ import dooyit.common.datatype.DeadlineTaskData;
 import dooyit.common.datatype.EventTaskData;
 import dooyit.common.datatype.FloatingTaskData;
 import dooyit.common.datatype.TaskData;
-import dooyit.storage.StorageConstants;
+import dooyit.storage.Constants;
 
 public class TaskSaver {
 	private String filePath;
 	private static int count = 0;
 
-	private static final String backupPath = StorageConstants.DEFAULT_BACKUP_DESTINATION;
+	private static final int BACKUP_LIMIT = 5;
 
 	protected TaskSaver(String filePath) {
 		this.filePath = filePath;
@@ -55,7 +55,7 @@ public class TaskSaver {
 		bWriter.close();
 		count++;
 
-		if (count > 5) {
+		if (count > BACKUP_LIMIT) {
 			saveBackup(tasks);
 			count = 0;
 		}
@@ -64,7 +64,7 @@ public class TaskSaver {
 	}
 
 	private void saveBackup(ArrayList<TaskData> tasks) throws IOException {
-		File backupFile = new File(backupPath);
+		File backupFile = new File(Constants.DEFAULT_BACKUP_DESTINATION);
 		BufferedWriter bWriter = new BufferedWriter(new FileWriter(backupFile));
 		for (TaskData existingTask : tasks) {
 			bWriter.append(setFormat(existingTask));

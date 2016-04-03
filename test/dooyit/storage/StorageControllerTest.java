@@ -11,20 +11,15 @@ import org.junit.Before;
 import org.junit.Test;
 
 import dooyit.storage.StorageController;
-import dooyit.storage.StorageConstants;
-import dooyit.common.datatype.DateTime;
-import dooyit.common.datatype.DeadlineTask;
-import dooyit.common.datatype.EventTask;
-import dooyit.common.datatype.FloatingTask;
-import dooyit.common.datatype.Task;
 import dooyit.common.datatype.TaskData;
-import dooyit.common.exception.InvalidFilePathException;
+import dooyit.common.exception.IncorrectInputException;
 
-public class StorageControllerTest extends StorageConstants{
+public class StorageControllerTest extends Constants {
 	
 	static final String FOLDER_TEST = CURRENT_DIRECTORY + SEPARATOR_CHAR 
 									+ "test" + SEPARATOR_CHAR + "dooyit" 
 									+ SEPARATOR_CHAR;
+	
 	static final String FOLDER_TEST_STORAGE = FOLDER_TEST + "storage" + SEPARATOR_CHAR;
 	
 	static final String TEST_VALID_EXTENSION = "testSave.txt";
@@ -42,7 +37,7 @@ public class StorageControllerTest extends StorageConstants{
 	
 	
 	//Case for negative partition - folder
-	@Test(expected = AssertionError.class)
+	@Test(expected = IncorrectInputException.class)
 	public void SetFileDestination_InvalidAsFolder_AssertionError() throws IOException {
 		
 		//filePath is expected to end with .txt extension, this should throw exception
@@ -51,7 +46,7 @@ public class StorageControllerTest extends StorageConstants{
 	}
 	
 	//Case for negative partition - file extension
-	@Test(expected = AssertionError.class)
+	@Test(expected = IncorrectInputException.class)
 	public void testBadExtensionSetFileDestination() throws IOException {
 		
 		//filePath is expected to end with .txt extension

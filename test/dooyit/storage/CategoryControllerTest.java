@@ -6,17 +6,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
-//import org.powermock.core.classloader.annotations.PrepareForTest;
 
 import dooyit.common.datatype.Category;
 import dooyit.common.datatype.CategoryData;
 import dooyit.common.datatype.CustomColor;
-import dooyit.storage.StorageConstants;
+import dooyit.storage.Constants;
 
-//@PrepareForTest(CategoryController.class)
-public class CategoryControllerTest extends StorageConstants {
+public class CategoryControllerTest extends Constants {
 
 	static final String FOLDER_TEST = CURRENT_DIRECTORY + SEPARATOR_CHAR + "test" + SEPARATOR_CHAR + "dooyit"
 			+ SEPARATOR_CHAR;

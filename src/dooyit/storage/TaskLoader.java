@@ -14,7 +14,6 @@ import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
 
 import dooyit.common.datatype.TaskData;
-import dooyit.common.exception.MissingFileException;
 
 /**
  * The TaskLoader class contains attributes and methods necessary for loading
@@ -154,8 +153,8 @@ public class TaskLoader {
 		if (file.exists()) {
 			try {
 				fReader = new FileReader(file);
-			} catch (MissingFileException mfe) {
-				throw new MissingFileException(file.getName());
+			} catch (FileNotFoundException e) {
+				throw new FileNotFoundException(file.getName());
 			}
 		}
 		return fReader;

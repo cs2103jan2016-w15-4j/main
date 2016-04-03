@@ -18,6 +18,7 @@ public class SetCategoryCommand implements Command, ReversibleCommand {
 	private ArrayList<Integer> taskIds;
 	private ArrayList<Task> tasksWithCategory;
 	private Category category;
+	private boolean isNewCatCreated;
 
 	public SetCategoryCommand(int taskId, String categoryName) {
 		this.taskIds = new ArrayList<Integer>();
@@ -35,11 +36,19 @@ public class SetCategoryCommand implements Command, ReversibleCommand {
 		for (Task task : tasksWithCategory) {
 			task.setCategory(null);
 		}
+		
+		if(isNewCatCreated){
+			logic.removeCategory(category);
+		}
 	}
 
 	public void redo(LogicController logic){
 		for (Task task : tasksWithCategory) {
 			task.setCategory(category);
+		}
+		
+		if(isNewCatCreated){
+			logic.addCategory(category);
 		}
 	}
 	
@@ -51,13 +60,15 @@ public class SetCategoryCommand implements Command, ReversibleCommand {
 		for (int taskId : taskIds) {
 			if (logic.containsTask(taskId)) {
 				if (logic.containsCategory(categoryName)) {
+					isNewCatCreated = false;
 					category = logic.findCategory(categoryName);
 					Task task = logic.findTask(taskId);
 					task.setCategory(category);
 					tasksWithCategory.add(task);
 					logicAction = new LogicAction(Action.SET_CATEGORY);
 				} else {
-					Category category = logic.addCategory(categoryName);
+					isNewCatCreated = true;
+					category = logic.addCategory(categoryName);
 					Task task = logic.findTask(taskId);
 					task.setCategory(category);
 					tasksWithCategory.add(task);

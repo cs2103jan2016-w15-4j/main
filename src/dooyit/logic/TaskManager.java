@@ -690,6 +690,7 @@ public class TaskManager {
 		ArrayList<TaskGroup> taskGroups = new ArrayList<TaskGroup>();
 		TaskGroup taskGroup = new TaskGroup(category.getName());
 		taskGroup.addTasks(getTasksWithCategory(category));
+		sortTask(taskGroup.getTasks());
 		taskGroups.add(taskGroup);
 		
 		resetTasksId(taskGroups);

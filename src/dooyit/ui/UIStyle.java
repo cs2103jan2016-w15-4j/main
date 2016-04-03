@@ -5,9 +5,8 @@ public class UIStyle {
 	protected static final String URL_CSS_THEME_LIGHT = "resrc/css/theme_light.css";
 	protected static final String URL_CSS_THEME_DARK = "resrc/css/theme_dark.css";
 	protected static final String URL_CSS_THEME_AQUA = "resrc/css/theme_aqua.css";
-
+	
 	protected static final String MAIN_VIEW = "main-view";
-
 	protected static final String HEADER_VIEW = "header-view";
 	protected static final String HEADER_TITLE = "header-title";
 
@@ -30,12 +29,12 @@ public class UIStyle {
 	protected static final String TASK_PERIOD = "task-period";
 	protected static final String TASK_CATEGORY_LABEL = "task-category-label";
 	protected static final String DAY_TASK_BOX = "day-task-box";
+	protected static final String TASK_MESSAGE = "task-message";
 
 	protected static final String COMMAND_TEXTFIELD = "command-textfield";
 	protected static final String COMMAND_BOX = "command-box";
 
 	protected static final String MESSAGE_BOX_LABEL = "message-box-label";
-
 	protected static final String HELP_BOX_TITLE = "help-box-title";
 	protected static final String HELP_BOX_CONTENT_LABEL = "help-box-content-label";
 	protected static final String HELP_BOX_WRAPPER = "help-box-wrapper";

@@ -24,7 +24,6 @@ public class UICommandBox {
 	private void initCommandTextField(){
 		this.commandTextField = new TextField();
 		this.commandTextField.setPrefWidth(PREFWIDTH_CMD_TEXT_FIELD);
-		this.commandTextField.setFont(UIFont.CONSOLAS_M);
 		this.commandTextField.setPromptText(CMD_TEXT_FIELD_PROMPT);
 		this.commandTextField.getStyleClass().add(STYLECLASS_CMD_TEXT_FIELD);
 	}

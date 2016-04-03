@@ -9,19 +9,15 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import javafx.scene.text.Font;
 
 public class UITaskBox {
 
 	private static final String STYLECLASS_TASK_CHECKBOX = UIStyle.TASK_CHECKBOX;
-	private static final Font FONT_TASK_ID = UIFont.TAHOMA_S;
 	private static final String STYLECLASS_TASK_ID = UIStyle.TASK_ID;
 	private static final int PREFWIDTH_TASK_ID = 20;
-	private static final Font FONT_TASK_NAME = UIFont.SEGOE_M;
 	private static final String STYLECLASS_TASK_NAME = UIStyle.TASK_NAME;
 	private static final int WIDTH_TO_SUBTRACT = 55;
 	private static final String STYLECLASS_TASK_PERIOD = UIStyle.TASK_PERIOD;
-	private static final Font FONT_TASK_CATEGORY_LABEL = UIFont.SEGOE_S;
 	private static final String STYLECLASS_TASK_CATEGORY_LABEL = UIStyle.TASK_CATEGORY_LABEL;
 	private static final int PREFWIDTH_TASK_CATEGORY_LABEL = 120;
 	private static final String STYLECLASS_TASK_BOX = UIStyle.DAY_TASK_BOX;
@@ -29,6 +25,9 @@ public class UITaskBox {
 	private static final int WIDTH_MENU = 180;
 	private static final int PAD_X = 20;
 	private static final String DOUBLE_SPACE = "  ";
+	private static final double ANCHOR_TOP = 5.0;
+	private static final double ANCHOR_LEFT = 0.0;
+	private static final double ANCHOR_RIGHT = 0.0;
 
 	private UIDayBox parent;
 	private Task task;
@@ -71,7 +70,6 @@ public class UITaskBox {
 	
 	private void initTaskId(){
 		this.taskId = new Label(Integer.toString(this.task.getId()));
-		this.taskId.setFont(FONT_TASK_ID);
 	    this.taskId.getStyleClass().add(STYLECLASS_TASK_ID);
 	    this.taskId.setPrefWidth(PREFWIDTH_TASK_ID);
 	}
@@ -90,9 +88,8 @@ public class UITaskBox {
 	}
 	
 	private void initTaskCategoryLabel(){
-		setCategoryCircle();
 		this.taskCategoryLabel = new Label();
-	    this.taskCategoryLabel.setFont(FONT_TASK_CATEGORY_LABEL);
+		setCategoryCircle();
 	    this.taskCategoryLabel.setAlignment(Pos.CENTER_RIGHT);
 	    this.taskCategoryLabel.getStyleClass().add(STYLECLASS_TASK_CATEGORY_LABEL);
 	    this.taskCategoryLabel.setPrefWidth(PREFWIDTH_TASK_CATEGORY_LABEL);
@@ -110,7 +107,6 @@ public class UITaskBox {
 	
 	private void initTaskName(){
 		this.taskName = new Label(this.task.getName());
-	    this.taskName.setFont(FONT_TASK_NAME);
 	    this.taskName.getStyleClass().add(STYLECLASS_TASK_NAME);
 	}
 	
@@ -128,10 +124,10 @@ public class UITaskBox {
 	
 	private void initTaskBox(){
 		 this.taskBox = new AnchorPane();
-		 AnchorPane.setTopAnchor(this.taskDetailBox, (double) 5);
-		 AnchorPane.setTopAnchor(this.taskCategoryBox, (double) 5);
-		 AnchorPane.setLeftAnchor(this.taskDetailBox, (double) 0);
-		 AnchorPane.setRightAnchor(this.taskCategoryBox, (double) 0);
+		 AnchorPane.setTopAnchor(this.taskDetailBox, ANCHOR_TOP);
+		 AnchorPane.setTopAnchor(this.taskCategoryBox, ANCHOR_TOP);
+		 AnchorPane.setLeftAnchor(this.taskDetailBox, ANCHOR_LEFT);
+		 AnchorPane.setRightAnchor(this.taskCategoryBox, ANCHOR_RIGHT);
 		 this.taskBox.getStyleClass().add(STYLECLASS_TASK_BOX);
 		 this.taskBox.getChildren().addAll(this.taskDetailBox, this.taskCategoryBox);
 	}

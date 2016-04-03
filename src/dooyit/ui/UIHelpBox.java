@@ -8,7 +8,6 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
 
@@ -17,11 +16,9 @@ public class UIHelpBox {
 	private static final int WIDTH = 500;
 	private static final int HEIGHT = 450;
 	private static final String STYLECLASS_TITLE = UIStyle.HELP_BOX_TITLE;
-	private static final Font FONT_TITLE = UIFont.EUPHEMIA_L;
 	private static final String LABEL_TITLE = "Hola! Here are some tips to get you started.";
 	private static final int LABEL_HEIGHT = 20;
 	private static final String STYLECLASS_CONTENT_LABEL = UIStyle.HELP_BOX_CONTENT_LABEL;
-	private static final Font FONT_CMD_DESC = UIFont.CONSOLAS_M;
 	private static final int SPACING_CONTENT_WRAPPER = 80;
 	private static final int SPACING_CONTENT = 10;
 	private static final String STYLECLASS_HELP_BOX_WRAPPER = UIStyle.HELP_BOX_WRAPPER;
@@ -80,7 +77,6 @@ public class UIHelpBox {
 	
 	private void initTitle(){
 		this.title = new Label(LABEL_TITLE);
-		this.title.setFont(FONT_TITLE);
 		this.title.setAlignment(Pos.CENTER);
 		this.title.getStyleClass().add(STYLECLASS_TITLE);
 	}
@@ -121,7 +117,6 @@ public class UIHelpBox {
 				event.consume();
 			}
 		});
-		this.closeLabel.setFont(UIFont.EUPHEMIA_L);
 	}
 	
 	private void initHelpBox(){
@@ -140,7 +135,6 @@ public class UIHelpBox {
 		label.setMaxHeight(LABEL_HEIGHT);
 		label.setPrefHeight(LABEL_HEIGHT);
 		label.setMinHeight(LABEL_HEIGHT);
-		label.setFont(FONT_CMD_DESC);
 		return label;
 	}
 

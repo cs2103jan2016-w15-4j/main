@@ -12,7 +12,6 @@ import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
 
 public class UISideMenu {
 
@@ -24,9 +23,7 @@ public class UISideMenu {
 	private static final String STYLECLASS_MENU = UIStyle.MENU_VIEW;
 	private static final int SPACING_MENU = 8;
 	private static final String LABEL_CATEGORY_TITLE = "CATEGORIES";
-	private static final Font FONT_CATEGORY_TITLE = UIFont.TAHOMA_S;
 	private static final String STYLECLASS_CATEGORY_TITLE = UIStyle.CATEGORY_TITLE;
-	private static final Font FONT_BTN_LABEL = UIFont.SEGOE_M;
 	private static final String STYLECLASS_BTN_LABEL = UIStyle.BTN_SELECT_LABEL;
 	private static final String COLOR_BTN_ICON = MaterialColor.GREY_400;
 	private static final int SPACING_BTN_CONTENT = 8;
@@ -69,7 +66,6 @@ public class UISideMenu {
 	
 	private void initCategoryButtons(){
 		 this.categoryTitle = new Label(LABEL_CATEGORY_TITLE);
-	     this.categoryTitle.setFont(FONT_CATEGORY_TITLE);
 	     this.categoryTitle.getStyleClass().add(STYLECLASS_CATEGORY_TITLE);	
 	     this.categoryBoxContainer = new UICategoryBoxContainer(this, new ArrayList<Category>());
 	}
@@ -104,7 +100,6 @@ public class UISideMenu {
 	
 	private Label getMenuBtnLabel(String title){
 		Label btnLabel = new Label(title);
-		btnLabel.setFont(FONT_BTN_LABEL);
 		btnLabel.getStyleClass().add(STYLECLASS_BTN_LABEL);
 		return btnLabel;
 	}

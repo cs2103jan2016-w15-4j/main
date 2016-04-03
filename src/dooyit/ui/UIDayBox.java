@@ -43,7 +43,6 @@ public class UIDayBox {
 	
 	private void initDayTitle(){
         this.dayTitle = new Label(this.taskGroup.getTitle());
-        this.dayTitle.setFont(UIFont.SEGOE_L);
         this.dayTitle.getStyleClass().add(STYLECLASS_DAY_TITLE);
         if (taskList.size() == 0 && !this.taskGroup.getTitle().equals(UIData.TODAY)){
         	this.dayTitle.getStyleClass().add(STYLECLASS_DAY_TITLE_FADED);

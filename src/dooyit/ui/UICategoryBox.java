@@ -39,7 +39,6 @@ public class UICategoryBox {
 	
 	private void initCategoryName(){
 		this.categoryName = new Label(this.category.getName());
-		this.categoryName.setFont(UIFont.SEGOE_M);
 		this.categoryName.getStyleClass().add(STYLECLASS_CAT_NAME);
 	}
 	

@@ -3,10 +3,9 @@ package dooyit.storage;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import dooyit.common.datatype.Category;
 import dooyit.common.datatype.CategoryData;
 
-public class CategoryController extends StorageConstants {
+public class CategoryController {
 	private CategorySaver categorySaver;
 	private CategoryLoader categoryLoader;
 

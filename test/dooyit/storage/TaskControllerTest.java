@@ -18,7 +18,7 @@ import dooyit.common.datatype.FloatingTask;
 import dooyit.common.datatype.Task;
 import dooyit.common.datatype.TaskData;
 
-public class TaskControllerTest extends StorageConstants {
+public class TaskControllerTest extends Constants {
 
 	static final String FOLDER_TEST = CURRENT_DIRECTORY + SEPARATOR_CHAR + "test" + SEPARATOR_CHAR + "dooyit"
 			+ SEPARATOR_CHAR;
@@ -76,7 +76,6 @@ public class TaskControllerTest extends StorageConstants {
 			taskInfo = bReader.readLine();
 		}
 		bReader.close();
-		System.out.println(saved);
 
 		Assert.assertEquals(expected, saved);
 	}

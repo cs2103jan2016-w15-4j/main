@@ -3,9 +3,7 @@ package dooyit.storage;
 
 import java.util.ArrayList;
 import java.util.logging.Logger;
-
 import java.util.logging.Level;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -15,10 +13,12 @@ import java.io.IOException;
 
 import dooyit.storage.TaskController;
 import dooyit.storage.CategoryController;
+import dooyit.storage.Constants;
 import dooyit.common.datatype.CategoryData;
 import dooyit.common.datatype.TaskData;
+import dooyit.common.exception.IncorrectInputException;
 
-public class StorageController extends StorageConstants {
+public class StorageController {
 
 	private String configFilePath;
 	private String[] preferences;
@@ -27,38 +27,42 @@ public class StorageController extends StorageConstants {
 	private static Logger logger = Logger.getLogger("Storage");
 
 	private static final String NAME_FILE_CONFIG = "config.txt";
+	
+	private static final String CSS = ".css";
+	private static final String TXT = ".txt";
+	
+	private static final String ERROR_MESSAGE_FILEPATH = "Invalid Path: %1$s - Path needs to end with .txt";
+	
 	private static final int TASK_DESTINATION = 0;
 	private static final int THEME_DESTINATION = 1;
 	private static final int PREFERENCES_SIZE = 2;
-	private static final String CSS = ".css";
-	private static final String TXT = ".txt";
 
 	public StorageController() throws IOException {
 		preferences = new String[PREFERENCES_SIZE];
-		configFilePath = getConfigPath(CURRENT_DIRECTORY);
+		configFilePath = getConfigPath(Constants.CURRENT_DIRECTORY);
 		preferences = loadPreferences(configFilePath);
-		categoryControl = new CategoryController(DEFAULT_CATEGORIES_DESTINATION);
+		categoryControl = new CategoryController(Constants.DEFAULT_CATEGORIES_DESTINATION);
 		taskControl = new TaskController(preferences[TASK_DESTINATION]);
 	}
 
 	private String getConfigPath(String currentPath) {
 		logger.log(Level.INFO, "Getting save destination");
-		return currentPath + SEPARATOR_CHAR + NAME_FILE_CONFIG;
+		return currentPath + Constants.SEPARATOR_CHAR + NAME_FILE_CONFIG;
 	}
 
 	public boolean setFileDestination(String newFilePath) throws IOException {
 		logger.log(Level.INFO, "Changing save destination");
-		boolean isValid = isValidPath(newFilePath);
-		assert isValid;
-		
-		preferences[TASK_DESTINATION] = newFilePath;
-		modifyConfig(preferences);
-		taskControl.setFileDestination(newFilePath);
-		File file = new File(newFilePath);
-		if(file.exists()) {
-			return true;
+
+		if (isValidPath(newFilePath)) {
+			preferences[TASK_DESTINATION] = newFilePath;
+			modifyConfig(preferences);
+			taskControl.setFileDestination(newFilePath);
+			File file = new File(newFilePath);
+			if (file.exists()) {
+				return true;
+			}
 		}
-		
+
 		return false;
 	}
 
@@ -86,7 +90,7 @@ public class StorageController extends StorageConstants {
 	public ArrayList<CategoryData> loadCategory() throws IOException {
 		ArrayList<CategoryData> categories = categoryControl.load();
 		assert categories != null;
-		
+
 		return categories;
 	}
 
@@ -102,10 +106,10 @@ public class StorageController extends StorageConstants {
 		}
 
 		if (isInvalidPath(preferences[TASK_DESTINATION], TXT)) {
-			preferences[TASK_DESTINATION] = DEFAULT_TASKS_DESTINATION;
+			preferences[TASK_DESTINATION] = Constants.DEFAULT_TASKS_DESTINATION;
 		}
 		if (isInvalidPath(preferences[THEME_DESTINATION], CSS)) {
-			preferences[THEME_DESTINATION] = DEFAULT_THEME_DESTINATION;
+			preferences[THEME_DESTINATION] = Constants.DEFAULT_THEME_DESTINATION;
 		}
 
 		modifyConfig(preferences);
@@ -113,10 +117,10 @@ public class StorageController extends StorageConstants {
 		return preferences;
 	}
 
-	private boolean isValidPath(String filePath) {
+	private boolean isValidPath(String filePath) throws IncorrectInputException {
 		if (!filePath.endsWith(TXT)) {
-			System.out.println("Error: Invalid path");
-			return false;
+			String errorMessage = String.format(ERROR_MESSAGE_FILEPATH, filePath);
+			throw new IncorrectInputException(errorMessage);
 		}
 
 		return true;
@@ -145,7 +149,7 @@ public class StorageController extends StorageConstants {
 		} catch (IOException e) {
 			throw new IOException("Error: Cannot open config");
 		}
-		
+
 		assert fileWriter != null;
 		BufferedWriter bWriter = new BufferedWriter(fileWriter);
 		for (String path : preferences) {

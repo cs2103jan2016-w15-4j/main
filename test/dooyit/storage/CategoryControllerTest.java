@@ -6,17 +6,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
-//import org.powermock.core.classloader.annotations.PrepareForTest;
 
 import dooyit.common.datatype.Category;
 import dooyit.common.datatype.CategoryData;
 import dooyit.common.datatype.CustomColor;
-import dooyit.storage.StorageConstants;
+import dooyit.storage.Constants;
 
-//@PrepareForTest(CategoryController.class)
-public class CategoryControllerTest extends StorageConstants {
+public class CategoryControllerTest extends Constants {
 
 	static final String FOLDER_TEST = CURRENT_DIRECTORY + SEPARATOR_CHAR + "test" + SEPARATOR_CHAR + "dooyit"
 			+ SEPARATOR_CHAR;
@@ -38,13 +35,13 @@ public class CategoryControllerTest extends StorageConstants {
 	@Test
 	public void Save_ContentComparison_ExpectedPass() throws IOException {
 		CategoryController categoryController = new CategoryController(FOLDER_TEST_STORAGE + "testSaveCat.txt");
-		ArrayList<Category> categories = new ArrayList<Category>();
-
-		categories.add(new Category("A", CustomColor.BLUE));
-		categories.add(new Category("B", CustomColor.RED));
-		categories.add(new Category("C", CustomColor.PINK));
-		categories.add(new Category("D", CustomColor.YELLOW));
-		//Assert.assertTrue(categoryController.save(categories));
+		ArrayList<CategoryData> categories = new ArrayList<CategoryData>();
+		categories.add(new CategoryData("A", BLUE));
+		categories.add(new CategoryData("B", RED));
+		categories.add(new CategoryData("C", PINK));
+		categories.add(new CategoryData("D", YELLOW));
+		
+		Assert.assertTrue(categoryController.save(categories));
 
 		String expected = "", saved = "";
 		BufferedReader bReader = new BufferedReader(new FileReader(FOLDER_TEST_STORAGE + "expectedSaveCat.txt"));

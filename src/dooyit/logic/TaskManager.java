@@ -596,7 +596,7 @@ public class TaskManager {
 		}
 		currDate.increaseByOneDay();
 
-		while (totalSize != 0) {
+		while (totalSize > 0) {
 			taskGroup = new TaskGroup(currDate.getDayStr(), new DateTime(currDate));
 			taskGroup.addTasks(getIncompleteDeadlineTasks(currDate));
 			taskGroup.addTasks(getIncompleteEventTasks(currDate));

@@ -46,12 +46,21 @@ public class UIController {
 	private Stage primaryStage;
 	private UIMainViewType activeMainView;
 	
-	public UIController(Stage primaryStage, LogicController logic){
+	private static UIController instance = null;
+	
+	private UIController(Stage primaryStage, LogicController logic){
 	    this.logic = logic;
 	    this.primaryStage = primaryStage;
 	    this.activeMainView = UIMainViewType.TODAY;
 	    initialize();
 	}
+	
+	public static synchronized UIController getInstance(Stage primaryStage, LogicController logic) {
+        if (instance == null) {
+            instance = new UIController(primaryStage, logic);
+        }
+        return instance;
+    }
 	
 	private void initialize(){
 		initCss();

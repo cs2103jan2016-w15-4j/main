@@ -82,7 +82,7 @@ public class Main extends Application {
 
 		try {
 			logic = new LogicController();
-			this.ui = new UIController(primaryStage, logic);
+			this.ui = UIController.getInstance(primaryStage, logic);
 			Scene scene = this.ui.getScene();
 			primaryStage.setScene(scene);
 			primaryStage.getIcons().add(new Image(APP_ICON));

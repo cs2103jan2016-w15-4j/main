@@ -7,21 +7,25 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
 
 import dooyit.common.datatype.CategoryData;
-import dooyit.common.exception.MissingFileException;
 
 public class CategoryLoader {
+	private static final String EMPTY_STRING = "";
+	
 	private String filePath;
-
-	private static final String CATEGORY_NAME = "name";
-	private static final String CATEGORY_COLOR = "color";
+	private JsonParser parser;
+	private Gson gson;
 
 	protected CategoryLoader(String filePath) {
 		this.filePath = filePath;
+		this.parser = new JsonParser();
+		this.gson = gsonWithCategoryDataDeserializer();
 	}
 
 	public ArrayList<CategoryData> load() throws IOException {
@@ -39,8 +43,8 @@ public class CategoryLoader {
 		if (file.exists()) {
 			try {
 				fReader = new FileReader(file);
-			} catch (MissingFileException mfe) {
-				throw new MissingFileException(file.getName());
+			} catch (FileNotFoundException e) {
+				throw new FileNotFoundException(file.getName());
 			}
 		}
 		return fReader;
@@ -75,18 +79,23 @@ public class CategoryLoader {
 	}
 	
 	private CategoryData resolveCategory(JsonObject jsonCategory) {
-		CategoryData category = null;
-		String name = jsonCategory.get(CATEGORY_NAME).getAsString();
-		String colorName = jsonCategory.get(CATEGORY_COLOR).getAsString();
-		category = new CategoryData(name, colorName);
+		CategoryData category = gson.fromJson(jsonCategory, CategoryData.class);
 		
 		return category;
 	}
 	
 	private JsonObject getAsJson(String format) {
-		JsonParser parser = new JsonParser();
-		JsonObject object = parser.parse(format).getAsJsonObject();
+		JsonObject object = null;
 		
+		if (!format.equals(EMPTY_STRING)) {
+			object = parser.parse(format).getAsJsonObject();
+		}
+
 		return object;
+	}
+
+	private Gson gsonWithCategoryDataDeserializer() {
+		return new GsonBuilder().registerTypeAdapter(CategoryData.class,
+													new CategoryDataDeserializer()).create();
 	}
 }

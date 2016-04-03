@@ -17,13 +17,16 @@ import dooyit.common.datatype.TaskData;
 import dooyit.storage.Constants;
 
 public class TaskSaver {
-	private String filePath;
-	private static int count = 0;
-
 	private static final int BACKUP_LIMIT = 5;
+	
+	private String filePath;
+	private Gson gson;
+	
+	private static int count = 0;
 
 	protected TaskSaver(String filePath) {
 		this.filePath = filePath;
+		this.gson = gsonWithDateTimeSerializer();
 	}
 
 	public boolean save(ArrayList<TaskData> tasks) throws IOException {
@@ -78,7 +81,6 @@ public class TaskSaver {
 	}
 
 	private String setFormat(TaskData task) {
-		Gson gson = gsonWithDateTimeSerializer();
 		String json = "";
 
 		if (task instanceof DeadlineTaskData) {

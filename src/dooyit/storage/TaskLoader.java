@@ -22,19 +22,16 @@ import dooyit.common.datatype.TaskData;
  * @author Dex
  */
 public class TaskLoader {
-
 	private static final String EMPTY_STRING = "";
 
 	private String filePath;
 	private JsonParser parser;
 	private Gson gson;
-	private int count;
 
 	TaskLoader(String filePath) {
 		this.filePath = filePath;
 		this.parser = new JsonParser();
 		this.gson = gsonWithTaskDataDeserializer();
-		this.count = 1;
 	}
 
 	/**
@@ -52,10 +49,12 @@ public class TaskLoader {
 		if (directory.exists()) {
 			if (file.exists()) {
 				taskList = loadFromFile(file);
-			} else { // create the file before finishing load
+			} else {
+				// create the file before finishing load
 				createFile(file);
 			}
-		} else { // create parent directories and file before finishing load
+		} else {
+			// create parent directories and file before finishing load
 			createFile(directory, file);
 		}
 
@@ -125,7 +124,6 @@ public class TaskLoader {
 				jsonTask = getAsJson(taskInfo);
 			} catch (JsonSyntaxException e) {
 				jsonTask = null;
-				System.out.println("Line " + count + " deleted for bad format");
 			}
 
 			if (jsonTask != null) {
@@ -135,6 +133,7 @@ public class TaskLoader {
 
 			taskInfo = bReader.readLine();
 		}
+		bReader.close();
 
 		return taskList;
 	}

@@ -12,9 +12,11 @@ import dooyit.common.datatype.CategoryData;
 
 public class CategorySaver {
 	private String filePath;
+	private Gson gson;
 
 	protected CategorySaver(String filePath) {
 		this.filePath = filePath;
+		this.gson = new Gson();
 	}
 
 	protected boolean save(ArrayList<CategoryData> categories) throws IOException {
@@ -35,8 +37,8 @@ public class CategorySaver {
 		String categoryName = category.getName();
 		String colorName = category.getColor();
 		CategoryData categoryFormat = new CategoryData(categoryName, colorName);
-		Gson gson = new Gson();
 		String json = gson.toJson(categoryFormat);
+		
 		return json;
 	}
 }

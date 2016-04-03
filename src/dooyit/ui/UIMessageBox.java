@@ -16,6 +16,9 @@ public class UIMessageBox {
 	private static final int PREFHEIGHT = 40;
 	private static final int PAD_X = 0;
 	private static final int PAD_Y = 105;
+	private static final double FT_INITIAL_VAL = 1.0;
+	private static final double FT_FINAL_VAL = 0.0;
+	private static final int FT_CYCLE_COUNT = 1;
 
 	private Stage primaryStage;
 	private Popup messageBox;
@@ -23,7 +26,7 @@ public class UIMessageBox {
 	private boolean isOn;
 	private FadeTransition ft;
 
-	public UIMessageBox(Stage primaryStage) {
+	protected UIMessageBox(Stage primaryStage) {
 		this.primaryStage = primaryStage;
 		initialize();
 	}
@@ -47,9 +50,9 @@ public class UIMessageBox {
 	
 	private void initTransitions(){
 		this.ft = new FadeTransition(Duration.millis(FADE_TIME), this.messageLabel);
-		this.ft.setFromValue(1.0);
-		this.ft.setToValue(0.0);
-		this.ft.setCycleCount(1);
+		this.ft.setFromValue(FT_INITIAL_VAL);
+		this.ft.setToValue(FT_FINAL_VAL);
+		this.ft.setCycleCount(FT_CYCLE_COUNT);
 		this.ft.setAutoReverse(false);
 		this.ft.setOnFinished(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent t) {
@@ -65,42 +68,39 @@ public class UIMessageBox {
 		this.messageLabel.setPrefSize(width, height);
 	}
 	
-	public boolean isShowing(){
+	protected boolean isShowing(){
 		return this.messageBox.isShowing();
 	}
 	
-	public void updatePosition(){
+	protected void updatePosition(){
 		double x = this.primaryStage.getX() + PAD_X;
 		double y = this.primaryStage.getY() + this.primaryStage.getHeight() - PAD_Y;
 		double width = this.primaryStage.getWidth() - 2*PAD_X;
 		update(x, y, width, PREFHEIGHT);
 	}
 	
-	public void display(){
-		double x = this.primaryStage.getX() + PAD_X;
-		double y = this.primaryStage.getY() + this.primaryStage.getHeight() - PAD_Y;
-		double width = this.primaryStage.getWidth() - 2*PAD_X;
-		update(x, y, width, PREFHEIGHT);
+	protected void display(){
+		updatePosition();
 		this.messageBox.show(this.primaryStage);
 	}
 	
 	
-	public void show(String msg){
+	protected void show(String msg){
 		this.isOn = true;
 		this.messageLabel.setText(msg);
 		display();
 		this.ft.playFromStart();
 	}
 
-	public void tempHide() {
+	protected void tempHide() {
 		this.messageBox.hide();
 	}
 
-	public void hide() {
+	protected void hide() {
 		this.ft.play();
 	}
 
-	public boolean isOn() {
+	protected boolean isOn() {
 		return this.isOn;
 	}
 }

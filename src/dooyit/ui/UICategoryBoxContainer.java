@@ -14,7 +14,7 @@ public class UICategoryBoxContainer {
 	private ArrayList<UICategoryBox> categoryBoxList;
 	private ArrayList<Category> categoryList;
 	
-	public UICategoryBoxContainer(UISideMenu parent, ArrayList<Category> categoryList){
+	protected UICategoryBoxContainer(UISideMenu parent, ArrayList<Category> categoryList){
 		this.parent = parent;
 		this.categoryList = categoryList;
 		initialize();
@@ -47,11 +47,24 @@ public class UICategoryBoxContainer {
 		return this.parent.getMainViewToggleGroup();
 	}
 	
-	public VBox getView() {
+	protected void processCommand(String cmd){
+		this.parent.processCommand(cmd);
+	}
+	
+	protected void setActiveCategoryButton(Category category){
+		for (UICategoryBox categoryBox : this.categoryBoxList){
+			if (categoryBox.getCategory().equals(category)){
+				categoryBox.getView().setSelected(true);
+				break;
+			}
+		}
+	}
+	
+	protected VBox getView() {
 		return this.categoryBoxContainerView;
 	}
 
-	public void refresh(ArrayList<Category> categoryList) {
+	protected void refresh(ArrayList<Category> categoryList) {
 		this.categoryBoxContainerView.getChildren().clear();
 		this.categoryBoxList.clear();
 		for (int i = 0; i < categoryList.size(); i++){

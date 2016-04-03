@@ -28,12 +28,16 @@ public class UIHeader {
 	private void initTitle(){
 		this.title = new Label(LABEL_TITLE);
 		try {
-			this.customFont = Font.loadFont(getClass().getResourceAsStream(PATH_FONT_AVENIR_MEDIUM), FONTSIZE_TITLE);
-			this.title.setFont(this.customFont);
+			initTitleFont();
 		} catch (Exception e) {
 			this.title.setFont(UIFont.HELVETICA_L);
 		}
 		this.title.getStyleClass().add(STYLECLASS_TITLE);
+	}
+	
+	private void initTitleFont() throws Exception {
+		this.customFont = Font.loadFont(getClass().getResourceAsStream(PATH_FONT_AVENIR_MEDIUM), FONTSIZE_TITLE);
+		this.title.setFont(this.customFont);
 	}
 	
 	private void initHeader(){
@@ -43,7 +47,7 @@ public class UIHeader {
 		this.header.setAlignment(Pos.CENTER);
 	}
 
-	public HBox getView() {
+	protected HBox getView() {
 		return this.header;
 	}
 }

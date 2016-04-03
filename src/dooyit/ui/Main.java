@@ -1,39 +1,11 @@
 package dooyit.ui;
 
-import java.util.Scanner;
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.stage.Popup;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ContentDisplay;
-import javafx.scene.control.Label;
-import javafx.scene.control.Labeled;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Toggle;
 import javafx.scene.image.Image;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontPosture;
-import javafx.scene.text.TextAlignment;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.geometry.Pos;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import dooyit.logic.api.LogicController;
-import dooyit.ui.*;
 
 /**
  * 
@@ -64,22 +36,14 @@ public class Main extends Application {
 	private static final int MINHEIGHT_STAGE = 620;
 
 	// scanner for receiving user input
-	private Scanner sc;
 	private UIController ui;
 	LogicController logic;
 
 	public Main() {
 	}
-	
-	public void init(Scanner sc) throws IOException {
-		this.sc = sc;
-		logic = new LogicController();
-		UI(logic);
-	}
 
 	@Override
 	public void start(Stage primaryStage) throws IOException {
-
 		try {
 			logic = new LogicController();
 			this.ui = UIController.getInstance(primaryStage, logic);
@@ -97,23 +61,10 @@ public class Main extends Application {
 		}
 	}
 
-	private void UI(LogicController logic) throws IOException {
-		while (true) {
-			showToUser(MESAGE_COMMAND);
-			String userInput = sc.nextLine();
-			logic.processInput(userInput);
-		}
-	}
-
 	public static void main(String[] args) {
 		launch(args);
 	}
 
-	/**
-	 * Display message to user
-	 * 
-	 * @param message
-	 */
 	public static void showToUser(String message) {
 		System.out.println(message);
 	}

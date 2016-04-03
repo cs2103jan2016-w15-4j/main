@@ -7,13 +7,13 @@ public class UITaskMessage {
 	private static final String STYLESHEET_TASK_MESSAGE = "task-message";
 	private Label taskMessage;
 	
-	public UITaskMessage(String message){
+	protected UITaskMessage(String message){
 		this.taskMessage = new Label(message);
 		this.taskMessage.setFont(UIFont.SEGOE_M);
 		this.taskMessage.getStyleClass().add(STYLESHEET_TASK_MESSAGE);
 	}
 	
-	public Label getView(){
+	protected Label getView(){
 		return this.taskMessage;
 	}
 	

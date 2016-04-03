@@ -10,23 +10,23 @@ public class UIDayBoxContainer {
 	private ArrayList<UIDayBox> dayBoxList;
 	private VBox dayBoxContainer;
 	
-	public UIDayBoxContainer(UIController parent){
+	protected UIDayBoxContainer(UIController parent){
 		this.parent = parent;
 		this.dayBoxContainer = new VBox();
 		this.dayBoxList = new ArrayList<UIDayBox>();
-	}
-
-	public void refresh(ArrayList<TaskGroup> taskGroupList) {
-		this.dayBoxContainer.getChildren().clear();
-		taskGroupList.forEach((taskGroup)->{
-			addDayBox(taskGroup);
-		});
 	}
 	
 	private void addDayBox(TaskGroup taskGroup){
 		UIDayBox dayBox = new UIDayBox(this, taskGroup);
 		this.dayBoxList.add(dayBox);
 		this.dayBoxContainer.getChildren().add(dayBox.getView());
+	}
+	
+	protected void refresh(ArrayList<TaskGroup> taskGroupList) {
+		this.dayBoxContainer.getChildren().clear();
+		taskGroupList.forEach((taskGroup)->{
+			addDayBox(taskGroup);
+		});
 	}
 
 	protected double getStageWidth() {
@@ -42,11 +42,11 @@ public class UIDayBoxContainer {
 		return this.parent.getActiveViewType();
 	}
 	
-	public VBox getView(){
+	protected VBox getView(){
 		return this.dayBoxContainer;
 	}
 
-	public void updatePosition(double stageWidth) {
+	protected void updatePosition(double stageWidth) {
 		this.dayBoxList.forEach((dayBox) -> {
 			dayBox.updatePosition(stageWidth);
 		});

@@ -1,8 +1,5 @@
 package dooyit.ui;
 
-import com.sun.javafx.tk.FontLoader;
-import com.sun.javafx.tk.Toolkit;
-
 import dooyit.common.datatype.Category;
 import dooyit.common.datatype.Task;
 import javafx.geometry.Pos;
@@ -11,7 +8,6 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 
@@ -24,17 +20,11 @@ public class UITaskBox {
 	private static final Font FONT_TASK_NAME = UIFont.SEGOE_M;
 	private static final String STYLECLASS_TASK_NAME = UIStyle.TASK_NAME;
 	private static final int WIDTH_TO_SUBTRACT = 55;
-	private static final Font FONT_TASK_PERIOD = UIFont.VERDANA_M;
 	private static final String STYLECLASS_TASK_PERIOD = UIStyle.TASK_PERIOD;
-	private static final int PREFWIDTH_TASK_PERIOD = 100;
-	private static final String TASK_PERIOD_TO = " to ";
-	private static final String TASK_PERIOD_BEGINS = "Begins ";
-	private static final String TASK_PERIOD_ENDS = "Ends ";
 	private static final Font FONT_TASK_CATEGORY_LABEL = UIFont.SEGOE_S;
 	private static final String STYLECLASS_TASK_CATEGORY_LABEL = UIStyle.TASK_CATEGORY_LABEL;
 	private static final int PREFWIDTH_TASK_CATEGORY_LABEL = 120;
 	private static final String STYLECLASS_TASK_BOX = UIStyle.DAY_TASK_BOX;
-	private static final int SPACING_TASK_BOX = 10;
 	private static final int RADIUS_CAT_CIRCLE = 4;
 	private static final int WIDTH_MENU = 180;
 	private static final int PAD_X = 20;
@@ -64,16 +54,11 @@ public class UITaskBox {
 		initTaskCategoryLabel();
 		initTaskPeriod();
 		initTaskName();
-		this.taskDetailBox = new HBox();
-		this.taskDetailBox.getChildren().addAll(this.taskCheckBox, this.taskId, this.taskPeriod, this.taskName);
-		this.taskDetailBox.setAlignment(Pos.CENTER_LEFT);
-		this.taskCategoryBox = new HBox();
-		this.taskCategoryBox.getChildren().addAll(this.taskCategoryLabel, this.taskCategoryCircle);
-		this.taskCategoryBox.setAlignment(Pos.CENTER_RIGHT);
+		initTaskDetailBox();
+		initTaskCategoryBox();
 		initTaskBox();
 		initListeners();
-		double width = this.parent.getStageWidth();
-	    updateTaskBoxWidth(width);
+		updateTaskBoxWidth();
 	}
 	
 	private void initTaskCheckBox(){
@@ -92,17 +77,28 @@ public class UITaskBox {
 	}
 	
 	private void initTaskPeriod(){
-		String dateString = this.task.getDateString();
-		if (!dateString.isEmpty()){
-			dateString += DOUBLE_SPACE;
-		} 
-		this.taskPeriod = new Label(dateString);
-		//this.taskPeriod.setFont(FONT_TASK_PERIOD);
+		this.taskPeriod = new Label(getTaskPeriodString());
 	    this.taskPeriod.getStyleClass().add(STYLECLASS_TASK_PERIOD);
 	}
 	
+	private String getTaskPeriodString(){
+		String s = this.task.getDateString();
+		if (!s.isEmpty()){
+			s += DOUBLE_SPACE;
+		} 
+		return s;
+	}
+	
 	private void initTaskCategoryLabel(){
+		setCategoryCircle();
 		this.taskCategoryLabel = new Label();
+	    this.taskCategoryLabel.setFont(FONT_TASK_CATEGORY_LABEL);
+	    this.taskCategoryLabel.setAlignment(Pos.CENTER_RIGHT);
+	    this.taskCategoryLabel.getStyleClass().add(STYLECLASS_TASK_CATEGORY_LABEL);
+	    this.taskCategoryLabel.setPrefWidth(PREFWIDTH_TASK_CATEGORY_LABEL);
+	}
+	
+	private void setCategoryCircle(){
 		if (this.task.hasCategory()){
 			Category category = this.task.getCategory();
 			this.taskCategoryLabel.setText(category.getName());
@@ -110,16 +106,24 @@ public class UITaskBox {
 		} else {
 			this.taskCategoryCircle = new Circle(RADIUS_CAT_CIRCLE, Color.TRANSPARENT);
 		}
-	    this.taskCategoryLabel.setFont(FONT_TASK_CATEGORY_LABEL);
-	    this.taskCategoryLabel.setAlignment(Pos.CENTER_RIGHT);
-	    this.taskCategoryLabel.getStyleClass().add(STYLECLASS_TASK_CATEGORY_LABEL);
-	    this.taskCategoryLabel.setPrefWidth(PREFWIDTH_TASK_CATEGORY_LABEL);
 	}
 	
 	private void initTaskName(){
 		this.taskName = new Label(this.task.getName());
 	    this.taskName.setFont(FONT_TASK_NAME);
 	    this.taskName.getStyleClass().add(STYLECLASS_TASK_NAME);
+	}
+	
+	private void initTaskDetailBox(){
+		this.taskDetailBox = new HBox();
+		this.taskDetailBox.getChildren().addAll(this.taskCheckBox, this.taskId, this.taskPeriod, this.taskName);
+		this.taskDetailBox.setAlignment(Pos.CENTER_LEFT);
+	}
+	
+	private void initTaskCategoryBox(){
+		this.taskCategoryBox = new HBox();
+		this.taskCategoryBox.getChildren().addAll(this.taskCategoryLabel, this.taskCategoryCircle);
+		this.taskCategoryBox.setAlignment(Pos.CENTER_RIGHT);
 	}
 	
 	private void initTaskBox(){
@@ -138,15 +142,6 @@ public class UITaskBox {
 	    		this.parent.markTask(this.task.getId());
 	    	}
 	    });
-
-	}
-
-	public AnchorPane getView() {
-		return this.taskBox;
-	}
-
-	public void updatePosition(double stageWidth) {
-		updateTaskBoxWidth(stageWidth);
 	}
 
 	private void updateTaskBoxWidth(double stageWidth) {
@@ -158,5 +153,18 @@ public class UITaskBox {
 		this.taskBox.setMinWidth(width);
 		this.taskBox.setPrefWidth(width);
 		this.taskBox.setMaxWidth(width);
+	}
+	
+	private void updateTaskBoxWidth(){
+		double width = this.parent.getStageWidth();
+	    updateTaskBoxWidth(width);
+	}
+	
+	protected AnchorPane getView() {
+		return this.taskBox;
+	}
+
+	protected void updatePosition(double stageWidth) {
+		updateTaskBoxWidth(stageWidth);
 	}
 }

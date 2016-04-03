@@ -23,7 +23,7 @@ public class UICategoryBox {
 	private Circle categoryCircle;
 	private ToggleButton categoryBox;
 
-	public UICategoryBox(UICategoryBoxContainer parent, Category category) {
+	protected UICategoryBox(UICategoryBoxContainer parent, Category category) {
 		this.parent = parent;
 		this.category = category;
 		initialize();
@@ -61,7 +61,6 @@ public class UICategoryBox {
 		this.categoryBox.getStyleClass().add(STYLECLASS_CAT_BOX);
 		this.categoryBox.setPrefWidth(PREFWIDTH_CAT_BOX);
 		this.categoryBox.setToggleGroup(this.parent.getMainViewToggleGroup());
-		this.categoryBox.setSelected(false);
 		this.categoryBox.setUserData(UIData.USERDATA_CATEGORY);
 	}
 	
@@ -69,14 +68,18 @@ public class UICategoryBox {
 		this.categoryBox.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				// categoryBoxContainer.getLogic().processCommand("show " +
-				// categoryName.getText());
+				categoryBox.setSelected(true);
+				parent.processCommand(UIData.CMD_SHOW_CAT + categoryName.getText());
 				event.consume();
 			}
 		});
 	}
-
-	public ToggleButton getView() {
+	
+	protected Category getCategory(){
+		return this.category;
+	}
+	
+	protected ToggleButton getView() {
 		return this.categoryBox;
 	}
 }

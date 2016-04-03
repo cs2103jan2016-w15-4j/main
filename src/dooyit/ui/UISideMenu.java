@@ -21,7 +21,6 @@ public class UISideMenu {
 	private static final String LABEL_FLOAT = "Float";
 	private static final String LABEL_ALL = "All";
 	private static final String LABEL_COMPLETED = "Completed";
-
 	private static final String STYLECLASS_MENU = UIStyle.MENU_VIEW;
 	private static final int SPACING_MENU = 8;
 	private static final String LABEL_CATEGORY_TITLE = "CATEGORIES";
@@ -46,7 +45,7 @@ public class UISideMenu {
 	private UICategoryBoxContainer categoryBoxContainer;
 	private UIController parent;
 
-	public UISideMenu(UIController parent) {
+	protected UISideMenu(UIController parent) {
 		this.parent = parent;
 		initialize();
 	}
@@ -123,37 +122,45 @@ public class UISideMenu {
 		return menuBtn;
 	}
 	
+	protected void setActiveCategoryButton(Category category){
+		this.categoryBoxContainer.setActiveCategoryButton(category);
+	}
+	
 
-	public ScrollPane getView() {
+	protected ScrollPane getView() {
 		return this.menuPane;
 	}
 
-	public ToggleButton getTodayBtn() {
+	protected ToggleButton getTodayBtn() {
 		return this.todayBtn;
 	}
 
-	public ToggleButton getExtendedBtn() {
+	protected ToggleButton getExtendedBtn() {
 		return this.extendedBtn;
 	}
 	
-	public ToggleButton getFloatBtn() {
+	protected ToggleButton getFloatBtn() {
 		return this.floatBtn;
 	}
 
-	public ToggleButton getAllBtn() {
+	protected ToggleButton getAllBtn() {
 		return this.allBtn;
 	}
 
-	public ToggleButton getCompletedBtn() {
+	protected ToggleButton getCompletedBtn() {
 		return this.completedBtn;
 	}
 
-	public ToggleGroup getMainViewToggleGroup() {
+	protected ToggleGroup getMainViewToggleGroup() {
 		return this.mainViewToggleGroup;
 	}
 
-	public void refreshCategoryMenuView(ArrayList<Category> categoryList) {
+	protected void refreshCategoryMenuView(ArrayList<Category> categoryList) {
 		this.categoryBoxContainer.refresh(categoryList);
+	}
+	
+	protected void processCommand(String cmd){
+		this.parent.processCommand(cmd);
 	}
 
 }

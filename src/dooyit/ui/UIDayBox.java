@@ -6,7 +6,6 @@ import dooyit.common.datatype.Task;
 import dooyit.common.datatype.TaskGroup;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 public class UIDayBox {
@@ -17,13 +16,12 @@ public class UIDayBox {
 
 	private UIDayBoxContainer parent;
 	private VBox dayBox;
-	private AnchorPane anchorPane;
 	private Label dayTitle;
 	private ArrayList<Task> taskList;
 	private ArrayList<UITaskBox> taskBoxList;
 	private TaskGroup taskGroup;
 	
-	public UIDayBox(UIDayBoxContainer parent, TaskGroup taskGroup){
+	protected UIDayBox(UIDayBoxContainer parent, TaskGroup taskGroup){
 		this.parent = parent;
 		this.taskGroup = taskGroup;
 		initialize();
@@ -99,11 +97,11 @@ public class UIDayBox {
 		this.parent.markTask(taskId);
 	}
 	
-	public VBox getView() {
+	protected VBox getView() {
 		return this.dayBox;
 	}
 
-	public void updatePosition(double stageWidth) {
+	protected void updatePosition(double stageWidth) {
 		this.taskBoxList.forEach((taskBox) -> {
 			taskBox.updatePosition(stageWidth);
 		});

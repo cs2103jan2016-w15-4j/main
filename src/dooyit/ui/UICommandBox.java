@@ -12,7 +12,7 @@ public class UICommandBox {
 	private HBox commandBox;
 	private TextField commandTextField;
 	
-	public UICommandBox(){
+	protected UICommandBox(){
 		initialize();
 	}
 	
@@ -35,23 +35,23 @@ public class UICommandBox {
 		this.commandBox.getChildren().addAll(commandTextField);
 	}
 
-	public HBox getView() {
+	protected HBox getView() {
 		return this.commandBox;
 	}
 
-	public TextField getCommandTextField() {
+	protected TextField getCommandTextField() {
 		return this.commandTextField;
 	}
 	
-	public boolean isSelected(){
+	protected boolean isSelected(){
 		return this.commandTextField.isFocused();
 	}
 	
-	public void select(){
+	protected void select(){
 		this.commandTextField.requestFocus();
 	}
 	
-	public void empty(){
+	protected void empty(){
 		this.commandTextField.clear();
 	}
 }

@@ -10,8 +10,6 @@ import javafx.scene.control.Toggle;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.web.WebEngine;
-import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import dooyit.common.datatype.Category;
 import dooyit.common.datatype.TaskGroup;
@@ -39,9 +37,6 @@ public class UIController {
 	private UIHelpBox helpBox;
 	private ChangeListener<Number> resizeListener;
 	private ChangeListener<Boolean> maximizeListener;
-	private WebView webView;
-	private WebEngine webEngine;
-	private Stage secWindow;
 	private LogicController logic;
 	private Stage primaryStage;
 	private UIMainViewType activeMainView;
@@ -96,11 +91,16 @@ public class UIController {
 		setActiveMenuButton(this.activeMainView);
 		ChangeListener<Toggle> toggleListener = new ChangeListener<Toggle>(){
 			public void changed(ObservableValue<? extends Toggle> ov, Toggle old_toggle, Toggle new_toggle) {
-				if (new_toggle == null){
-					sideMenu.getMainViewToggleGroup().selectToggle(old_toggle);
+				Toggle toggle = new_toggle;
+				if (toggle == null){
+					toggle = old_toggle;
 				}
-			    String userData = getSideMenuUserData();
-		        showSelectedSideMenu(userData);
+				//sideMenu.getMainViewToggleGroup().selectToggle(old_toggle);
+			    toggle.setSelected(true);
+				String userData = getSideMenuUserData();
+				if (!userData.equals(UIData.USERDATA_CATEGORY)){
+					showSelectedSideMenu(userData);
+				}
 	        }
 		};
 		this.sideMenu.getMainViewToggleGroup().selectedToggleProperty().addListener(toggleListener);
@@ -132,9 +132,6 @@ public class UIController {
 		    	activeMainView = UIMainViewType.COMPLETED;
 		    	logic.processInput(UIData.CMD_SHOW_COMPLETED);
 		    	break;
-		    case UIData.USERDATA_CATEGORY:
-		    	activeMainView = UIMainViewType.CATEGORY;
-		    	// call logic processCommand from category box listener
 		}
 		mainView.setContent(dayBoxContainer.getView());
 	}
@@ -181,14 +178,8 @@ public class UIController {
 	private void initCommandBoxListeners(){
 		this.commandBox.getCommandTextField().setOnAction((event) -> {
 			String commandString = commandBox.getCommandTextField().getText();
-			System.out.println(commandString);
-			commandBox.getCommandTextField().setText(UIData.EMP_STR);
-
+			this.commandBox.getCommandTextField().setText(UIData.EMP_STR);
 			this.logic.processInput(commandString);
-			
-			if (commandString.equals("help")){
-				showHelp();
-			}
 		});
 	}
 	
@@ -300,19 +291,19 @@ public class UIController {
 	private void setActiveMenuButton(UIMainViewType mainViewType){
 		switch(mainViewType){
 			case TODAY:
-				this.sideMenu.getMainViewToggleGroup().selectToggle(this.sideMenu.getTodayBtn());
+				this.sideMenu.getTodayBtn().setSelected(true);
 				break;
 			case EXTENDED:
-				this.sideMenu.getMainViewToggleGroup().selectToggle(this.sideMenu.getExtendedBtn());
+				this.sideMenu.getExtendedBtn().setSelected(true);
 				break;
 			case FLOAT:
-				this.sideMenu.getMainViewToggleGroup().selectToggle(this.sideMenu.getFloatBtn());
+				this.sideMenu.getFloatBtn().setSelected(true);
 				break;
 			case ALL:
-				this.sideMenu.getMainViewToggleGroup().selectToggle(this.sideMenu.getAllBtn());
+				this.sideMenu.getAllBtn().setSelected(true);
 				break;
 			case COMPLETED:
-				this.sideMenu.getMainViewToggleGroup().selectToggle(this.sideMenu.getCompletedBtn());
+				this.sideMenu.getCompletedBtn().setSelected(true);
 				break;
 			default:
 				break;
@@ -320,7 +311,7 @@ public class UIController {
 	}
 	
 //	private void setActiveMenuButton(Category category){
-//		
+//		this.sideMenu.setActiveCategoryButton(category);
 //	}
 	
 	protected Stage getStage(){
@@ -335,6 +326,10 @@ public class UIController {
 		this.logic.processInput(UIData.CMD_MARK + Integer.toString(taskId));
 	}
 
+	protected void processCommand(String cmd){
+		this.logic.processInput(cmd);
+	}
+	
 	public void refreshMainView(ArrayList<TaskGroup> taskGroupList){
 		this.dayBoxContainer.refresh(taskGroupList);
 		this.mainView.setContent(this.dayBoxContainer.getView());
@@ -348,7 +343,7 @@ public class UIController {
 	
 	public void refreshMainView(ArrayList<TaskGroup> taskGroupList, Category category){
 		this.activeMainView = UIMainViewType.CATEGORY;
-		// set category button to active
+		//setActiveMenuButton(category);
 		refreshMainView(taskGroupList);
 	}
 	
@@ -367,16 +362,6 @@ public class UIController {
 	
 	public void showHelp(){
 		this.helpBox.show(this.primaryStage);
-	}
-	
-	public void showUserGuide(){
-		this.webView = new WebView();
-		this.webEngine = webView.getEngine();
-		this.webEngine.load(getClass().getResource("htdocs/user_guide.html").toExternalForm());
-		this.secWindow = new Stage();
-        this.secWindow.setTitle("User Guide");
-        this.secWindow.setScene(new Scene(this.webView, 600, 600));
-        this.secWindow.show();
 	}
 
 }

@@ -32,6 +32,10 @@
 	-fx-background-color: #f6f6f6;
 }
 
+.menu-pane > .viewport {
+	-fx-background-color: #f6f6f6;
+}
+
 .command-box {
 	-fx-background-color: #f7f7f7;
 }

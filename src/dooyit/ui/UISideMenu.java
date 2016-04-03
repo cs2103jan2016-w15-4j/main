@@ -7,6 +7,7 @@ import com.pepperonas.fxiconics.MaterialColor;
 import com.pepperonas.fxiconics.cmd.FxFontCommunity;
 import dooyit.common.datatype.Category;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.HBox;
@@ -33,6 +34,7 @@ public class UISideMenu {
 	private static final String STYLECLASS_MENU_BTN = UIStyle.BTN_SELECT_VIEW;
 	private static final int PREFWIDTH_MENU_BTN = 200;
 
+	private ScrollPane menuPane;
 	private VBox menu;
 	private ToggleGroup mainViewToggleGroup;
 	private ToggleButton todayBtn;
@@ -54,6 +56,7 @@ public class UISideMenu {
 		initMenuButtons();
 		initCategoryButtons();
 		initMenu();
+		initMenuPane();
 	}
 	
 	private void initMenuButtons(){
@@ -77,6 +80,14 @@ public class UISideMenu {
 		this.menu.setSpacing(SPACING_MENU);
 		this.menu.getStyleClass().add(STYLECLASS_MENU);
 		this.menu.getChildren().addAll(this.todayBtn, this.extendedBtn, this.floatBtn, this.allBtn, this.completedBtn, this.categoryTitle, this.categoryBoxContainer.getView());
+	}
+	
+	private void initMenuPane(){
+		this.menuPane = new ScrollPane();
+		this.menuPane.getStyleClass().add("menu-pane");
+		this.menuPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+		this.menuPane.setFitToWidth(true);
+		this.menuPane.setContent(this.menu);
 	}
 	
 	private ToggleButton getMenuButton(String title, String userData, FxFontCommunity.Icons icon){
@@ -113,8 +124,8 @@ public class UISideMenu {
 	}
 	
 
-	public VBox getView() {
-		return this.menu;
+	public ScrollPane getView() {
+		return this.menuPane;
 	}
 
 	public ToggleButton getTodayBtn() {

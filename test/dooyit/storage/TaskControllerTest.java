@@ -76,7 +76,6 @@ public class TaskControllerTest extends Constants {
 			taskInfo = bReader.readLine();
 		}
 		bReader.close();
-		System.out.println(saved);
 
 		Assert.assertEquals(expected, saved);
 	}

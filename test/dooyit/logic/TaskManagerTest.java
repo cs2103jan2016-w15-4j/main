@@ -70,7 +70,7 @@ public class TaskManagerTest {
 		DateTime dateTimeDeadline = new DateTime();
 		DateTime dateTimeStart = new DateTime();
 		DateTime dateTimeEnd = new DateTime();
-
+		
 		Task task1 = new FloatingTask("hi");
 		Task task2 = new DeadlineTask("hello", dateTimeDeadline);
 		Task task3 = new EventTask("car", dateTimeStart, dateTimeEnd);
@@ -279,6 +279,19 @@ public class TaskManagerTest {
 	}
 	
 	@Test
+	public void GetEventTasksToday() {
+		setupTasks();
+		
+		ArrayList<Task> tasks = new ArrayList<Task> ();
+		
+		DateTime dateTime = new DateTime();
+		tasks.add(task1);
+		tasks.add(task4);
+		
+		assertTrue(tasks.equals(taskManager.getEventTasks(dateTime)));
+	}
+	
+	@Test
 	public void GetDeadlineTasks() {
 		setupTasks();
 		
@@ -352,5 +365,54 @@ public class TaskManagerTest {
 		tasks.add(task5);
 		
 		assertTrue(tasks.equals(taskManager.getAllTasks()));
+	}
+	
+	@Test
+	public void MarkTask_MarkWithIncompleteTaskObject() {
+		setupTasks();
+		
+		ArrayList<Task> tasks = taskManager.getIncompleteDeadlineTasks();
+		assertEquals(1, tasks.size());
+		taskManager.markTask(tasks.get(0));
+		tasks = taskManager.getIncompleteDeadlineTasks();
+		assertEquals(0, tasks.size());
+	}
+	
+	@Test
+	public void UnmarkTask_UnmarkWithCompletedTaskObject() {
+		setupTasks();
+		
+		ArrayList<Task> tasks = taskManager.getCompletedTasks();
+		assertEquals(3, tasks.size());
+		taskManager.unmarkTask(tasks.get(0));
+		tasks = taskManager.getCompletedTasks();
+		assertEquals(2, tasks.size());
+	}
+	
+	@Test
+	public void RemoveTasksWithCategory() {
+		setupTasks();
+		
+		ArrayList<Task> allTasks = taskManager.getAllTasks();
+		Category personal = new Category("Personal", CustomColor.BLUE);
+		Task task1 = allTasks.get(0);
+		task1.setCategory(personal);
+		
+		ArrayList<Task> removedTasks = taskManager.removeTasksWithCategory(personal);
+		assertEquals(1, removedTasks.size());
+	}
+	
+	@Test
+	public void GetOverDueTasks() {
+		setupTasks();
+		int[] date = {20, 10, 2016};
+		DateTime overdue = new DateTime(date, 800);
+		
+		ArrayList<Task> expectedOverdue = new ArrayList<Task> ();
+		expectedOverdue.add(task1);
+		expectedOverdue.add(task6);
+		ArrayList<Task> overdueTasks = taskManager.getOverdueTasks(overdue);
+		assertTrue(expectedOverdue.equals(overdueTasks));
+		assertEquals(expectedOverdue.size(), taskManager.getOverdueTasksSize(overdue));
 	}
 }

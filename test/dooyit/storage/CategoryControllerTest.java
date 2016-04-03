@@ -35,13 +35,13 @@ public class CategoryControllerTest extends Constants {
 	@Test
 	public void Save_ContentComparison_ExpectedPass() throws IOException {
 		CategoryController categoryController = new CategoryController(FOLDER_TEST_STORAGE + "testSaveCat.txt");
-		ArrayList<Category> categories = new ArrayList<Category>();
-
-		categories.add(new Category("A", CustomColor.BLUE));
-		categories.add(new Category("B", CustomColor.RED));
-		categories.add(new Category("C", CustomColor.PINK));
-		categories.add(new Category("D", CustomColor.YELLOW));
-		//Assert.assertTrue(categoryController.save(categories));
+		ArrayList<CategoryData> categories = new ArrayList<CategoryData>();
+		categories.add(new CategoryData("A", BLUE));
+		categories.add(new CategoryData("B", RED));
+		categories.add(new CategoryData("C", PINK));
+		categories.add(new CategoryData("D", YELLOW));
+		
+		Assert.assertTrue(categoryController.save(categories));
 
 		String expected = "", saved = "";
 		BufferedReader bReader = new BufferedReader(new FileReader(FOLDER_TEST_STORAGE + "expectedSaveCat.txt"));

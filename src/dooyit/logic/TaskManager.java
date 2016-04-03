@@ -691,7 +691,8 @@ public class TaskManager {
 		TaskGroup taskGroup = new TaskGroup(category.getName());
 		taskGroup.addTasks(getTasksWithCategory(category));
 		taskGroups.add(taskGroup);
-
+		
+		resetTasksId(taskGroups);
 		return taskGroups;
 	}
 

@@ -154,7 +154,7 @@ public class LogicController {
 		try {
 			logicAction = command.execute(this);
 		} catch (IncorrectInputException e) {
-			logicAction = new LogicAction(Action.ERROR, "INVALID COMMAND");
+			logicAction = new LogicAction(Action.ERROR, "Incorrect Input.");
 		}
 		return logicAction;
 	}
@@ -166,12 +166,12 @@ public class LogicController {
 		historyManager.addCommand(command);
 	}
 
-	public void undo() {
-		historyManager.undoCommand(this);
+	public boolean undo() {
+		return historyManager.undoCommand(this);
 	}
 
-	public void redo() {
-		historyManager.redoCommand(this);
+	public boolean redo() {
+		return historyManager.redoCommand(this);
 	}
 
 	private void save() {

@@ -27,21 +27,25 @@ public class HistoryManager {
 		}
 	}
 
-	public void undoCommand(LogicController logic) {
+	public boolean undoCommand(LogicController logic) {
 		ReversibleCommand reversibleCommand;
 		if (!undoHistory.isEmpty()) {
 			reversibleCommand = undoHistory.pop();
 			reversibleCommand.undo(logic);
 			redoHistory.push(reversibleCommand);
+			return true;
 		}
+		return false;
 	}
 
-	public void redoCommand(LogicController logic) {
+	public boolean redoCommand(LogicController logic) {
 		ReversibleCommand reversibleCommand;
 		if (!redoHistory.isEmpty()) {
 			reversibleCommand = redoHistory.pop();
 			reversibleCommand.redo(logic);
 			undoHistory.push(reversibleCommand);
+			return true;
 		}
+		return false;
 	}
 }

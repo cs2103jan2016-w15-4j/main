@@ -1,6 +1,10 @@
+//@@author A0126356E
+
 package dooyit.common.exception;
 
 public class IncorrectInputException extends RuntimeException {
+
+	private static final long serialVersionUID = 1L;
 
 	public IncorrectInputException() {
 		super();

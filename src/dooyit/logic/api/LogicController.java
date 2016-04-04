@@ -94,7 +94,7 @@ public class LogicController {
 			storage = new StorageController();
 		} catch (IOException e) {
 			logger.log(Level.SEVERE, "ERROR: Fail to create storage");
-			uiController.displayMessage("ERROR: CREATING STORAGE");
+			// uiController.displayMessage("ERROR: CREATING STORAGE");
 		}
 	}
 
@@ -111,7 +111,7 @@ public class LogicController {
 			loadTaskDataFromStorage();
 		} catch (IOException e) {
 			logger.log(Level.SEVERE, "ERROR: Fail to load task from storage");
-			uiController.displayMessage("ERROR: LOAD TASK");
+			//uiController.displayMessage("ERROR: LOAD TASK");
 		}
 	}
 
@@ -159,7 +159,7 @@ public class LogicController {
 		try {
 			logicAction = command.execute(this);
 		} catch (IncorrectInputException e) {
-			uiController.displayMessage(e.getMessage());
+			//uiController.displayMessage(e.getMessage());
 			logicAction = new LogicAction(Action.ERROR);
 		}
 		return logicAction;

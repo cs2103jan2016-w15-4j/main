@@ -54,7 +54,7 @@ public class ChangeThemeCommand implements Command {
 			throw new IncorrectInputException(themeString + " is not available, try LIGHT, DARK, AQUA or CUSTOM");
 		}
 		
-		uicontroller.changeTheme(theme);
+		//uicontroller.changeTheme(theme);
 		
 		return logicAction;
 	}

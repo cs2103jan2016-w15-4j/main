@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import dooyit.common.datatype.Category;
 import dooyit.common.datatype.Task;
 import dooyit.common.exception.IncorrectInputException;
+import dooyit.logic.Constants;
 import dooyit.logic.api.Action;
 import dooyit.logic.api.LogicAction;
 import dooyit.logic.api.LogicController;
@@ -44,9 +45,9 @@ public class DeleteCategoryCommand implements Command, ReversibleCommand {
 		if (logic.containsCategory(categoryName)) {
 			removedCategory = logic.removeCategory(categoryName);
 			removedTask = logic.removeTasksWithCategory(removedCategory);
-			logicAction = new LogicAction(Action.DELETE_CATEGORY, String.format("CATEGORY: %1$s has been deleted. All tasks with CATEGORY: %1%s has been removed.", categoryName));
+			logicAction = new LogicAction(Action.DELETE_CATEGORY, String.format(Constants.FEEDBACK_DELETE_CATEGORY, categoryName));
 		} else {
-			logicAction = new LogicAction(Action.ERROR, String.format("CATEGORY: %1$s cannot be found.", categoryName));
+			logicAction = new LogicAction(Action.ERROR, String.format(Constants.FEEDBACK_CATEGORY_NOT_FOUND, categoryName));
 			hasError = true;
 		}
 		return logicAction;

@@ -4,6 +4,7 @@ package dooyit.logic.commands;
 import dooyit.common.datatype.DateTime;
 import dooyit.common.datatype.Task;
 import dooyit.common.exception.IncorrectInputException;
+import dooyit.logic.Constants;
 import dooyit.logic.api.Action;
 import dooyit.logic.api.LogicAction;
 import dooyit.logic.api.LogicController;
@@ -73,17 +74,20 @@ public class AddTaskCommand implements Command, ReversibleCommand {
 	public LogicAction getActionBasedOnAddedTask(LogicController logic, Task addedTask) {
 		LogicAction logicAction;
 
+		String taskName = addedTask.getName();
+		String feedBackMsg = String.format(Constants.FEEDBACK_TASK_ADDED, taskName);
+		
 		if (logic.isFloatingTask(addedTask)) {
-			logicAction = new LogicAction(Action.ADD_FLOATING_TASK);
+			logicAction = new LogicAction(Action.ADD_FLOATING_TASK, feedBackMsg);
 
 		} else if (logic.isTodayTask(addedTask)) {
-			logicAction = new LogicAction(Action.ADD_TODAY_TASK);
+			logicAction = new LogicAction(Action.ADD_TODAY_TASK, feedBackMsg);
 
 		} else if (logic.isNext7daysTask(addedTask)) {
-			logicAction = new LogicAction(Action.ADD_NEXT7DAY_TASK);
+			logicAction = new LogicAction(Action.ADD_NEXT7DAY_TASK, feedBackMsg);
 
 		} else {
-			logicAction = new LogicAction(Action.ADD_ALL_TASK);
+			logicAction = new LogicAction(Action.ADD_ALL_TASK, feedBackMsg);
 		}
 
 		return logicAction;

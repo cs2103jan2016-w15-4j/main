@@ -2,6 +2,7 @@
 package dooyit.logic.commands;
 
 import dooyit.common.exception.IncorrectInputException;
+import dooyit.logic.Constants;
 import dooyit.logic.api.Action;
 import dooyit.logic.api.LogicAction;
 import dooyit.logic.api.LogicController;
@@ -22,9 +23,14 @@ public class UndoCommand implements Command {
 		assert (logic != null);
 		LogicAction logicAction;
 
-		logic.undo();
+		boolean isSuccuss = logic.undo();
 
-		logicAction = new LogicAction(Action.UNDO);
+		if (isSuccuss) {
+			logicAction = new LogicAction(Action.UNDO, Constants.FEEDBACK_SUCCESS_UNDO);
+		} else {
+			logicAction = new LogicAction(Action.UNDO, Constants.FEEDBACK_FAIL_UNDO);
+		}
+
 		return logicAction;
 	}
 

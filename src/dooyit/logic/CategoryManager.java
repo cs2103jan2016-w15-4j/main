@@ -19,8 +19,8 @@ public class CategoryManager {
 
 	public void setDefaultCategories() {
 		if (categories.size() == 0) {
-			addCategory("School");
-			addCategory("Entertainment");
+			addCategory(Constants.DEFAULT_CATEGORY_SCHOOL);
+			addCategory(Constants.DEFAULT_CATEGORY_ENTERTAINMENT);
 		}
 	}
 

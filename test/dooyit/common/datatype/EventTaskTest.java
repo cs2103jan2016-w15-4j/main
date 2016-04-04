@@ -7,6 +7,12 @@ import org.junit.Test;
 
 import dooyit.common.datatype.Task.TaskType;
 
+/**
+ * 
+ * @author Wu Wenqi A0124278A
+ *
+ */
+
 public class EventTaskTest {
 
 	EventTask task1;

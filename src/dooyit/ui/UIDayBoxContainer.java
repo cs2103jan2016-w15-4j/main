@@ -5,6 +5,12 @@ import java.util.ArrayList;
 import dooyit.common.datatype.TaskGroup;
 import javafx.scene.layout.VBox;
 
+/**
+ * 
+ * @author Wu Wenqi A0124278A
+ *
+ */
+
 public class UIDayBoxContainer {
 	private UIController parent;
 	private ArrayList<UIDayBox> dayBoxList;

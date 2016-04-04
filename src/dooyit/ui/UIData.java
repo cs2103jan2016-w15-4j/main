@@ -1,5 +1,11 @@
 package dooyit.ui;
 
+/**
+ * 
+ * @author Wu Wenqi A0124278A
+ *
+ */
+
 public class UIData {
 	protected static final String USERDATA_TODAY = "day";
 	protected static final String USERDATA_EXTENDED = "extended";

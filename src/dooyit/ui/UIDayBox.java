@@ -8,6 +8,12 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
+/**
+ * 
+ * @author Wu Wenqi A0124278A
+ *
+ */
+
 public class UIDayBox {
 	private static final String STYLECLASS_DAY_BOX = UIStyle.DAY_BOX;
 	private static final String STYLECLASS_DAY_TITLE = UIStyle.DAY_TITLE;

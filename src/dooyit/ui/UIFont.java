@@ -2,6 +2,12 @@ package dooyit.ui;
 
 import javafx.scene.text.Font;
 
+/**
+ * 
+ * @author Wu Wenqi A0124278A
+ *
+ */
+
 public class UIFont {
 	protected static final Font SEGOE_S = Font.font("Segoe UI", 12);
 	protected static final Font SEGOE_M = Font.font("Segoe UI", 14);

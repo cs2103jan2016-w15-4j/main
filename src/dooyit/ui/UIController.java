@@ -15,6 +15,11 @@ import dooyit.common.datatype.Category;
 import dooyit.common.datatype.TaskGroup;
 import dooyit.logic.api.*;
 
+/**
+ * 
+ * @author Wu Wenqi A0124278A
+ */
+
 public class UIController {
 
 	static final int WIDTH_SCENE = 720;

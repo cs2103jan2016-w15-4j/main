@@ -300,6 +300,9 @@ public class UIController {
 			refreshMainView(this.logic.getTaskGroupCategory(), this.logic.getSelectedCategory());
 			setActiveCategoryButton(this.logic.getSelectedCategory());
 			break;
+		case DELETE_CATEGORY:
+		case CLEAR_CATEGORY:
+			refreshCategoryMenuView();
 		case DELETE_TASK:
 		case SET_CATEGORY:
 		case CLEAR_TASK:
@@ -323,12 +326,6 @@ public class UIController {
 			}
 			break;
 		case ADD_CATEGORY:
-			refreshCategoryMenuView();
-			break;
-		case DELETE_CATEGORY:
-			refreshCategoryMenuView();
-			break;
-		case CLEAR_CATEGORY:
 			refreshCategoryMenuView();
 			break;
 		case SEARCH:

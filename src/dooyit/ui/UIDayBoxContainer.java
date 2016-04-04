@@ -30,8 +30,7 @@ public class UIDayBoxContainer {
 	}
 
 	protected double getStageWidth() {
-		double width = this.parent.getStageWidth();
-		return width;
+		return this.parent.getStageWidth();
 	}
 
 	protected void markTask(int taskId) {

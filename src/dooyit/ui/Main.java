@@ -46,19 +46,25 @@ public class Main extends Application {
 	public void start(Stage primaryStage) throws IOException {
 		try {
 			logic = new LogicController();
+			initStage(primaryStage);
 			this.ui = UIController.getInstance(primaryStage, logic);
 			Scene scene = this.ui.getScene();
 			primaryStage.setScene(scene);
-			primaryStage.getIcons().add(new Image(APP_ICON));
-			primaryStage.setTitle(APP_TITLE);
-			primaryStage.setMinWidth(MINWIDTH_STAGE);
-			primaryStage.setMinHeight(MINHEIGHT_STAGE);
 			primaryStage.show();
 			logic.setUIController(this.ui);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	private void initStage(Stage primaryStage){
+		primaryStage.getIcons().add(new Image(APP_ICON));
+		primaryStage.setTitle(APP_TITLE);
+		primaryStage.setMinWidth(MINWIDTH_STAGE);
+		primaryStage.setWidth(MINWIDTH_STAGE);
+		primaryStage.setMinHeight(MINHEIGHT_STAGE);
+		primaryStage.setHeight(MINHEIGHT_STAGE);
 	}
 
 	public static void main(String[] args) {

@@ -9,8 +9,6 @@ import dooyit.logic.api.LogicController;
 
 public class StorageCommand implements Command, ReversibleCommand {
 
-	private static final String FEEDBACK_SET_NEW_PATH_WITH_LOAD = "New data has been loaded from the new path.";
-	private static final String FEEDBACK_SET_NEW_PATH = "New path has been set.";
 	private String path;
 	private String previousPath;
 	private boolean hasError = false;
@@ -47,11 +45,11 @@ public class StorageCommand implements Command, ReversibleCommand {
 			previousPath = logic.getFilePath();
 			boolean fileExist = logic.setFileDestinationPath(path);
 			
-			logicAction = new LogicAction(Action.SET_STORAGE_PATH, FEEDBACK_SET_NEW_PATH);
+			logicAction = new LogicAction(Action.SET_STORAGE_PATH, Constants.FEEDBACK_SET_NEW_PATH);
 			
 			if (fileExist) {
 				logic.loadFromStorage();
-				logicAction = new LogicAction(Action.SET_STORAGE_PATH, FEEDBACK_SET_NEW_PATH_WITH_LOAD);
+				logicAction = new LogicAction(Action.SET_STORAGE_PATH, Constants.FEEDBACK_SET_NEW_PATH_WITH_LOAD);
 			}
 		} catch (IncorrectInputException e) {
 			logicAction = new LogicAction(Action.ERROR, Constants.FEEDBACK_INVALID_PATH);

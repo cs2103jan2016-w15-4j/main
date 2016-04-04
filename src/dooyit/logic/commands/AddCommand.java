@@ -17,6 +17,7 @@ public class AddCommand implements Command, ReversibleCommand {
 	private DateTime dateTimeStart;
 	private DateTime dateTimeEnd;
 	private Task addedTask;
+	private boolean hasError = false;
 
 	public AddCommand(String taskName) {
 		this.taskName = taskName;
@@ -36,6 +37,10 @@ public class AddCommand implements Command, ReversibleCommand {
 		taskType = Task.TaskType.EVENT;
 	}
 
+	public boolean hasError(){
+		return hasError;
+	}
+	
 	public void undo(LogicController logic) {
 		logic.removeTask(addedTask);
 	}

@@ -13,6 +13,7 @@ public class AddCategoryCommand implements Command, ReversibleCommand {
 	private String categoryName;
 	private String colorString;
 	Category addedCategory;
+	private boolean hasError = false;
 
 	public AddCategoryCommand(String categoryName) {
 		this.categoryName = categoryName;
@@ -25,6 +26,10 @@ public class AddCategoryCommand implements Command, ReversibleCommand {
 	
 	private boolean hasColorString(){
 		return colorString != null;
+	}
+	
+	public boolean hasError(){
+		return hasError;
 	}
 	
 	public void undo(LogicController logic){
@@ -49,6 +54,7 @@ public class AddCategoryCommand implements Command, ReversibleCommand {
 		}
 		else{
 			 logicAction = new LogicAction(Action.ERROR);
+			 hasError = true;
 			throw new IncorrectInputException("Category: " + categoryName + " already exists.");
 		}
 		

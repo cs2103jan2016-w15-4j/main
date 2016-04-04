@@ -14,9 +14,14 @@ public class DeleteCategoryCommand implements Command, ReversibleCommand {
 	private String categoryName;
 	Category removedCategory;
 	ArrayList<Task> removedTask;
+	private boolean hasError = false;
 	
 	public DeleteCategoryCommand(String categoryName){
 		this.categoryName = categoryName;
+	}
+	
+	public boolean hasError(){
+		return hasError;
 	}
 	
 	public void undo(LogicController logic) {
@@ -41,6 +46,7 @@ public class DeleteCategoryCommand implements Command, ReversibleCommand {
 			logicAction = new LogicAction(Action.DELETE_CATEGORY);
 		}else{
 			logicAction = new LogicAction(Action.ERROR);
+			hasError = true;
 			throw new IncorrectInputException("Category: " + categoryName + " doesn't exist.");
 		}
 		return logicAction;

@@ -14,6 +14,7 @@ public class ShowCommand implements Command {
 
 	String categoryName;
 	UIMainViewType uiMainViewtype;
+	private boolean hasError = false;
 
 	public ShowCommand(UIMainViewType uiMainViewtype) {
 		this.uiMainViewtype = uiMainViewtype;
@@ -24,6 +25,10 @@ public class ShowCommand implements Command {
 		this.categoryName = categoryName;
 	}
 
+	public boolean hasError(){
+		return hasError;
+	}
+	
 	public LogicAction execute(LogicController logic) throws IncorrectInputException {
 		assert (logic != null);
 

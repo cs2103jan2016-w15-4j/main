@@ -9,11 +9,16 @@ public class StorageCommand implements Command, ReversibleCommand {
 
 	private String path;
 	private String previousPath;
+	private boolean hasError = false;
 
 	public StorageCommand(String path) {
 		this.path = path;
 	}
 
+	public boolean hasError(){
+		return hasError;
+	}
+	
 	public void undo(LogicController logic){
 		boolean fileExist = logic.setFileDestinationPath(previousPath);
 		
@@ -42,6 +47,7 @@ public class StorageCommand implements Command, ReversibleCommand {
 			}
 		} catch (IncorrectInputException e) {
 			logicAction = new LogicAction(Action.ERROR);
+			hasError = true;
 			throw new IncorrectInputException("Invalid path: " + path);
 		}
 		

@@ -13,7 +13,8 @@ public class DeleteCommand implements Command, ReversibleCommand {
 
 	private ArrayList<Integer> deleteIds;
 	private ArrayList<Task> deletedTasks;
-
+	private boolean hasError = false;
+	
 	public DeleteCommand(int deleteId) {
 		this.deleteIds = new ArrayList<Integer>();
 		this.deletedTasks = new ArrayList<Task>();
@@ -24,6 +25,10 @@ public class DeleteCommand implements Command, ReversibleCommand {
 		this.deleteIds = new ArrayList<Integer>();
 		this.deletedTasks = new ArrayList<Task>();
 		this.deleteIds.addAll(deleteIds);
+	}
+	
+	public boolean hasError(){
+		return hasError;
 	}
 	
 	public void undo(LogicController logic){

@@ -13,12 +13,17 @@ public class RemoveCategoryFromTaskCommand implements Command, ReversibleCommand
 	private int taskId;
 	private Task taskWithoutCat;
 	private Category category;
+	private boolean hasError = false;
 
 	public RemoveCategoryFromTaskCommand(String categoryName, int taskId) {
 		this.categoryName = categoryName;
 		this.taskId = taskId;
 	}
 
+	public boolean hasError(){
+		return hasError;
+	}
+	
 	public void undo(LogicController logic) {
 		taskWithoutCat.removeCategory();
 	}
@@ -32,11 +37,13 @@ public class RemoveCategoryFromTaskCommand implements Command, ReversibleCommand
 		LogicAction logicAction;
 
 		if (!logic.containsTask(taskId)) {
+			hasError = true;
 			logicAction = new LogicAction(Action.ERROR, "Index: " + taskId + "doesn't exist.");
 			return logicAction;
 		}
 
 		if (!logic.containsCategory(categoryName)) {
+			hasError = true;
 			logicAction = new LogicAction(Action.ERROR, "Category: " + categoryName + " doesn't exist.");
 			return logicAction;
 		}

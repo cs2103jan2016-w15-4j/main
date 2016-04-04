@@ -8,13 +8,19 @@ import dooyit.logic.api.LogicController;
 
 public class InvalidCommand implements Command {
 	String errorMessage;
+	private boolean hasError = false;
 
 	public InvalidCommand(String errorMessage) {
 		this.errorMessage = errorMessage;
 	}
 
+	public boolean hasError(){
+		return hasError;
+	}
+	
 	public LogicAction execute(LogicController logic) throws IncorrectInputException {
 		LogicAction logicAction= new LogicAction(Action.ERROR);
+		hasError = true;
 		throw new IncorrectInputException(errorMessage);
 		
 		//return logicAction;

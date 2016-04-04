@@ -19,6 +19,7 @@ public class SetCategoryCommand implements Command, ReversibleCommand {
 	private ArrayList<Task> tasksWithCategory;
 	private Category category;
 	private boolean isNewCatCreated;
+	private boolean hasError = false;
 
 	public SetCategoryCommand(int taskId, String categoryName) {
 		this.taskIds = new ArrayList<Integer>();
@@ -30,6 +31,10 @@ public class SetCategoryCommand implements Command, ReversibleCommand {
 		this.taskIds = new ArrayList<Integer>();
 		this.taskIds.addAll(taskIds);
 		this.categoryName = categoryName;
+	}
+	
+	public boolean hasError(){
+		return hasError;
 	}
 	
 	public void undo(LogicController logic){
@@ -77,6 +82,7 @@ public class SetCategoryCommand implements Command, ReversibleCommand {
 				}
 			} else {
 				logicAction = new LogicAction(Action.ERROR);
+				hasError = true;
 				throw new IncorrectInputException("TaskID: " + taskId + " doesn't exist.");
 			}
 		}

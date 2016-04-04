@@ -7,7 +7,4 @@ public interface ReversibleCommand {
 	public void undo(LogicController logic);
 	
 	public void redo(LogicController logic);
-	
-	//public void hasError();
-	
 }

@@ -8,8 +8,14 @@ import dooyit.ui.UIController;
 
 public class HelpCommand implements Command {
 
+	private boolean hasError = false;
+	
 	public HelpCommand(){
 		
+	}
+	
+	public boolean hasError(){
+		return hasError;
 	}
 	
 	public LogicAction execute(LogicController logic) throws IncorrectInputException {

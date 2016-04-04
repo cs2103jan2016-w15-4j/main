@@ -12,8 +12,6 @@ import dooyit.logic.api.LogicController;
 
 public class DeleteTaskCommand implements Command, ReversibleCommand {
 
-	private static final String FEEDBACK_TASKS_DELETED = "Tasks%1$s has been deleted.";
-	private static final String FEEDBACK_TASK_DELETED = "Task%1$s has been deleted.";
 	private ArrayList<Integer> deleteIds;
 	private ArrayList<Task> deletedTasks;
 	private boolean hasError = false;
@@ -53,8 +51,7 @@ public class DeleteTaskCommand implements Command, ReversibleCommand {
 
 		String errorMsgBody = Constants.EMPTY_STRING;
 		String deletedTaskMsg = Constants.EMPTY_STRING;
-		
-		
+
 		for (Integer deleteId : deleteIds) {
 			if (logic.containsTask(deleteId)) {
 				Task deletedTask = logic.removeTask(deleteId);
@@ -64,18 +61,17 @@ public class DeleteTaskCommand implements Command, ReversibleCommand {
 				errorMsgBody += " " + deleteId;
 			}
 		}
-		
-		if(!deletedTasks.isEmpty()){
-			if(deletedTasks.size() == 1){
-				logicAction = new LogicAction(Action.DELETE_TASK, String.format(FEEDBACK_TASK_DELETED, deletedTaskMsg));
-			}else{
-				logicAction = new LogicAction(Action.DELETE_TASK, String.format(FEEDBACK_TASKS_DELETED, deletedTaskMsg));
+
+		if (!deletedTasks.isEmpty()) {
+			if (deletedTasks.size() == 1) {
+				logicAction = new LogicAction(Action.DELETE_TASK, String.format(Constants.FEEDBACK_TASK_DELETED, deletedTaskMsg));
+			} else {
+				logicAction = new LogicAction(Action.DELETE_TASK, String.format(Constants.FEEDBACK_TASKS_DELETED, deletedTaskMsg));
 			}
-			
-		}else{
+
+		} else {
 			if (errorMsgBody != Constants.EMPTY_STRING) {
-				logicAction = new LogicAction(Action.ERROR, String.format("Index %1$s doesn't exists", errorMsgBody));
-				//throw new IncorrectInputException("Index" + errorMessageBody + " doesn't exists");
+				logicAction = new LogicAction(Action.ERROR, String.format(Constants.FEEDBACK_INVALID_IDS, errorMsgBody));
 			}
 		}
 

@@ -69,6 +69,7 @@ public class UIController {
 		initScene();
 		initListeners();
 		updatePositions();
+		initPopulate();
 	}
 	
 	private void initCss(){
@@ -259,6 +260,11 @@ public class UIController {
 		});
 	}
 	
+	private void initPopulate(){
+		refreshCategoryMenuView();
+		processInput(UIData.CMD_SHOW_TODAY);
+	}
+	
 	private void processInput(String s){
 		processLogicAction(logic.processInput(s));
 	}
@@ -315,15 +321,16 @@ public class UIController {
 			}
 			break;
 		case ADD_CATEGORY:
-			//
+			refreshCategoryMenuView();
 			break;
 		case DELETE_CATEGORY:
-			//
+			refreshCategoryMenuView();
 			break;
 		case CLEAR_CATEGORY:
-			//
+			refreshCategoryMenuView();
 			break;
 		case SEARCH:
+			//
 			break;
 		case HELP:
 			showHelp();
@@ -429,23 +436,23 @@ public class UIController {
 		processInput(cmd);
 	}
 	
-	public void refreshMainView(ArrayList<TaskGroup> taskGroupList){
+	private void refreshMainView(ArrayList<TaskGroup> taskGroupList){
 		this.dayBoxContainer.refresh(taskGroupList);
 		this.mainView.setContent(this.dayBoxContainer.getView());
 	}
 	
-	public void refreshMainView(ArrayList<TaskGroup> taskGroupList, UIMainViewType mainViewType){
+	private void refreshMainView(ArrayList<TaskGroup> taskGroupList, UIMainViewType mainViewType){
 		this.activeMainView = mainViewType;
 		setActiveMenuButton(mainViewType);
 		refreshMainView(taskGroupList);
 	}
 	
-	public void refreshMainView(ArrayList<TaskGroup> taskGroupList, Category category){
+	private void refreshMainView(ArrayList<TaskGroup> taskGroupList, Category category){
 		this.activeMainView = UIMainViewType.CATEGORY;
 		refreshMainView(taskGroupList);
 	}
 	
-	public void setActiveViewType(UIMainViewType activeMainView){
+	private void setActiveViewType(UIMainViewType activeMainView){
 		this.activeMainView = activeMainView;
 		setActiveMenuButton(activeMainView);
 	}
@@ -454,11 +461,11 @@ public class UIController {
 		return this.activeMainView;
 	}
 	
-	public void refreshCategoryMenuView(ArrayList<Category> categoryList){
-		this.sideMenu.refreshCategoryMenuView(categoryList);
+	private void refreshCategoryMenuView(){
+		this.sideMenu.refreshCategoryMenuView(this.logic.getAllCategories());
 	}
 	
-	public void showHelp(){
+	private void showHelp(){
 		this.helpBox.show(this.primaryStage);
 	}
 

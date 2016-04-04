@@ -10,7 +10,7 @@ import javafx.util.Duration;
 
 /**
  * 
- * @author Wu Wenqi A0124278A
+ * @@author Wu Wenqi <A0124278A>
  *
  */
 

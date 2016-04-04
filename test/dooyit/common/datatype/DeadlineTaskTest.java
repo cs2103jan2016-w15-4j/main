@@ -9,7 +9,7 @@ import dooyit.common.datatype.Task.TaskType;
 
 /**
  * 
- * @author Wu Wenqi A0124278A
+ * @@author Wu Wenqi <A0124278A>
  *
  */
 

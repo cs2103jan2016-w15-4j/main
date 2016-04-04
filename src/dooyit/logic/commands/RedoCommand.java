@@ -2,6 +2,7 @@
 package dooyit.logic.commands;
 
 import dooyit.common.exception.IncorrectInputException;
+import dooyit.logic.Constants;
 import dooyit.logic.api.Action;
 import dooyit.logic.api.LogicAction;
 import dooyit.logic.api.LogicController;
@@ -22,8 +23,14 @@ public class RedoCommand implements Command {
 		assert (logic != null);
 		LogicAction logicAction;
 
-		logic.redo();
+		boolean isSuccuss = logic.redo();
 
+		if (isSuccuss) {
+			logicAction = new LogicAction(Action.UNDO, Constants.FEEDBACK_SUCCESS_REDO);
+		} else {
+			logicAction = new LogicAction(Action.UNDO, Constants.FEEDBACK_FAIL_REDO);
+		}
+		
 		logicAction = new LogicAction(Action.REDO);
 		return logicAction;
 	}

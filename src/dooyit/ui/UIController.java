@@ -259,6 +259,115 @@ public class UIController {
 		});
 	}
 	
+	private void processInput(String s){
+		processLogicAction(logic.processInput(s));
+	}
+	
+	private void processLogicAction(LogicAction logicAction){
+		Action action = logicAction.getAction();
+		switch(action){
+		case ADD_TODAY_TASK:
+			refreshMainView(this.logic.getTaskGroupsToday(), UIMainViewType.TODAY);
+			break;
+		case ADD_NEXT7DAY_TASK:
+			refreshMainView(this.logic.getTaskGroupsNext7Days(), UIMainViewType.EXTENDED);
+			break;
+		case ADD_FLOATING_TASK:
+			refreshMainView(this.logic.getTaskGroupsFloating(), UIMainViewType.FLOAT);
+			break;
+		case ADD_ALL_TASK:
+			refreshMainView(this.logic.getTaskGroupsAll(), UIMainViewType.ALL);
+			break;
+		case DELETE_TASK:
+			if (this.activeMainView == UIMainViewType.TODAY){
+				refreshMainView(this.logic.getTaskGroupsToday(), UIMainViewType.TODAY);
+			} else if (this.activeMainView == UIMainViewType.EXTENDED){
+				refreshMainView(this.logic.getTaskGroupsNext7Days(), UIMainViewType.EXTENDED);
+			} else if (this.activeMainView == UIMainViewType.FLOAT){
+				refreshMainView(this.logic.getTaskGroupsFloating(), UIMainViewType.FLOAT);
+			} else if (this.activeMainView == UIMainViewType.ALL){
+				refreshMainView(this.logic.getTaskGroupsAll(), UIMainViewType.ALL);
+			} else if (this.activeMainView == UIMainViewType.COMPLETED){
+				refreshMainView(this.logic.getTaskGroupsCompleted(), UIMainViewType.COMPLETED);
+			} else if (this.activeMainView == UIMainViewType.CATEGORY){
+				refreshMainView(this.logic.getTaskGroupCategory());
+			}
+			break;
+		case ADD_CATEGORY:
+			//
+			break;
+		case DELETE_CATEGORY:
+			//
+			break;
+		case REMOVE_CAT_FROM_TASK:
+			refreshMainView(this.logic.getTaskGroupCategory());
+			break;
+		case SET_CATEGORY:
+		case CLEAR_TASK:
+		case MARK_TASK:
+		case UNMARK_TASK:
+			if (this.activeMainView == UIMainViewType.TODAY){
+				refreshMainView(this.logic.getTaskGroupsToday(), UIMainViewType.TODAY);
+			} else if (this.activeMainView == UIMainViewType.EXTENDED){
+				refreshMainView(this.logic.getTaskGroupsNext7Days(), UIMainViewType.EXTENDED);
+			} else if (this.activeMainView == UIMainViewType.FLOAT){
+				refreshMainView(this.logic.getTaskGroupsFloating(), UIMainViewType.FLOAT);
+			} else if (this.activeMainView == UIMainViewType.ALL){
+				refreshMainView(this.logic.getTaskGroupsAll(), UIMainViewType.ALL);
+			} else if (this.activeMainView == UIMainViewType.COMPLETED){
+				refreshMainView(this.logic.getTaskGroupsCompleted(), UIMainViewType.COMPLETED);
+			} else if (this.activeMainView == UIMainViewType.CATEGORY){
+				refreshMainView(this.logic.getTaskGroupCategory());
+			}
+			break;
+		case CLEAR_CATEGORY:
+			
+			break;
+		case EDIT_TODAY_TASK:
+			break;
+		case EDIT_NEXT7DAY_TASK:
+			break;
+		case EDIT_FLOATING_TASK:
+			break;
+		case EDIT_ALL_TASK:
+			break;
+		case SHOW_TODAY_TASK:
+			break;
+		case SHOW_NEXT7DAY_TASK:
+			break;
+		case SHOW_FLOATING_TASK:
+			break;
+		case SHOW_ALL_TASK:
+			break;
+		case SHOW_COMPLETED:
+			break;
+		case SHOW_CATEGORY:
+			break;
+		case SEARCH:
+			break;
+		case HELP:
+			break;
+		case UNDO:
+			break;
+		case REDO:
+			break;
+		case CHANGE_THEME_DEFAULT:
+			break;
+		case CHANGE_THEME_DARK:
+			break;
+		case CHANGE_THEME_AQUA:
+			break;
+		case CHANGE_THEME_CUSTOM:
+			break;
+		case SET_STORAGE_PATH:
+			break;
+		case ERROR:
+			break;
+		case EXIT:
+			break;
+		}
+	}
+	
 	public void updatePositions(){
 		this.dayBoxContainer.updatePosition(this.primaryStage.getWidth());
 	}

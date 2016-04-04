@@ -116,20 +116,20 @@ public class EditCommand implements Command, ReversibleCommand {
 		
 		if (logic.isFloatingTask(newTask)) {
 			logic.setActiveView(UIMainViewType.FLOAT);
-			logicAction = new LogicAction(Action.EDIT_FLOATING_TASK);
+			logicAction = new LogicAction(Action.EDIT_TO_FLOATING_TASK);
 			
 		}
 		else if (logic.isTodayTask(newTask)) {
 			logic.setActiveView(UIMainViewType.TODAY);
-			logicAction = new LogicAction(Action.EDIT_TODAY_TASK);
+			logicAction = new LogicAction(Action.EDIT_TO_TODAY_TASK);
 			
 		} else if (logic.isNext7daysTask(newTask)) {
 			logic.setActiveView(UIMainViewType.EXTENDED);
-			logicAction = new LogicAction(Action.EDIT_NEXT7DAY_TASK);
+			logicAction = new LogicAction(Action.EDIT_TO_NEXT7DAY_TASK);
 			
 		} else {
 			logic.setActiveView(UIMainViewType.ALL);
-			logicAction = new LogicAction(Action.EDIT_ALL_TASK);
+			logicAction = new LogicAction(Action.EDIT_TO_ALL_TASK);
 		}
 		
 		return logicAction;

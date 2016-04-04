@@ -48,7 +48,7 @@ public class AddCategoryCommand implements Command, ReversibleCommand {
 			 logicAction = new LogicAction(Action.ADD_CATEGORY);
 		}
 		else{
-			 logicAction = new LogicAction(Action.ADD_CATEGORY);
+			 logicAction = new LogicAction(Action.ERROR);
 			throw new IncorrectInputException("Category: " + categoryName + " already exists.");
 		}
 		

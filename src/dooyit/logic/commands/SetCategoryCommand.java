@@ -79,12 +79,12 @@ public class SetCategoryCommand implements Command, ReversibleCommand {
 					task.setCategory(settedCategory);
 					tasksWithCategory.add(task);
 					logicAction = new LogicAction(Action.ADD_CATEGORY);
-					throw new IncorrectInputException("Category: " + categoryName + " is created.");
+					//throw new IncorrectInputException("Category: " + categoryName + " is created.");
 				}
 			} else {
 				logicAction = new LogicAction(Action.ERROR);
 				hasError = true;
-				throw new IncorrectInputException("TaskID: " + taskId + " doesn't exist.");
+				//throw new IncorrectInputException("TaskID: " + taskId + " doesn't exist.");
 			}
 		}
 

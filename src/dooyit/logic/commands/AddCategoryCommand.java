@@ -40,19 +40,25 @@ public class AddCategoryCommand implements Command, ReversibleCommand {
 		logic.addCategory(addedCategory);
 	}
 
-	public LogicAction execute(LogicController logic){
+	public LogicAction execute(LogicController logic) throws IncorrectInputException {
 		LogicAction logicAction;
+
+		String feedbackMsgColor = "";
 
 		if (!logic.containsCategory(categoryName)) {
 			if (hasColorString()) {
-				addedCategory = logic.addCategory(categoryName, colorString);
+				try {
+					addedCategory = logic.addCategory(categoryName, colorString);
+				} catch (IncorrectInputException e) {
+					feedbackMsgColor += e.getMessage();
+				}
 			} else {
 				addedCategory = logic.addCategory(categoryName);
 			}
 
-			logicAction = new LogicAction(Action.ADD_CATEGORY, String.format("CATEGORY: %1$s has been added.", categoryName));
+			logicAction = new LogicAction(Action.ADD_CATEGORY, String.format(Constants.FEEDBACK_CATEGORY_ADDED, categoryName, feedbackMsgColor));
 		} else {
-			logicAction = new LogicAction(Action.ERROR, String.format("CATEGORY: %1$s already exists.", categoryName));
+			logicAction = new LogicAction(Action.ERROR, String.format(Constants.FEEDBACK_FAIL_CATEGORY_EXISTS, categoryName));
 			hasError = true;
 		}
 

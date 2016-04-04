@@ -1,3 +1,4 @@
+//@@author A0126356E
 package dooyit.logic.commands;
 
 import dooyit.common.datatype.DateTime;
@@ -50,8 +51,8 @@ public class EditCommand implements Command, ReversibleCommand {
 	}
 
 	public EditCommand(int taskId, String taskName, DateTime start, DateTime end) {
-		assert(start != null && end != null);
-		
+		assert (start != null && end != null);
+
 		editCommandType = EditCommandType.NAME_N_EVENT;
 		this.taskName = taskName;
 		this.dateTimeStart = start;
@@ -59,22 +60,22 @@ public class EditCommand implements Command, ReversibleCommand {
 		this.taskId = taskId;
 	}
 
-	public boolean hasError(){
+	public boolean hasError() {
 		return hasError;
 	}
-	
+
 	public void undo(LogicController logic) {
 		assert (logic != null);
-		
+
 		logic.removeTask(newTask);
 		logic.addTask(originalTask);
 	}
 
-	public void redo(LogicController logic){
+	public void redo(LogicController logic) {
 		logic.addTask(newTask);
 		logic.removeTask(originalTask);
 	}
-	
+
 	public LogicAction execute(LogicController logic) throws IncorrectInputException {
 		assert (logic != null);
 		LogicAction logicAction = null;
@@ -115,28 +116,26 @@ public class EditCommand implements Command, ReversibleCommand {
 			logicAction = getActionBasedOnEditedTask(logic, newTask);
 			break;
 		}
-		
+
 		return logicAction;
 	}
-	
-	public LogicAction getActionBasedOnEditedTask(LogicController logic, Task newTask){
+
+	public LogicAction getActionBasedOnEditedTask(LogicController logic, Task newTask) {
 		LogicAction logicAction;
-		
+
 		if (logic.isFloatingTask(newTask)) {
 			logicAction = new LogicAction(Action.EDIT_TO_FLOATING_TASK);
-		}
-		else if (logic.isTodayTask(newTask)) {
+		} else if (logic.isTodayTask(newTask)) {
 			logicAction = new LogicAction(Action.EDIT_TO_TODAY_TASK);
-			
+
 		} else if (logic.isNext7daysTask(newTask)) {
 			logicAction = new LogicAction(Action.EDIT_TO_NEXT7DAY_TASK);
-			
+
 		} else {
 			logicAction = new LogicAction(Action.EDIT_TO_ALL_TASK);
 		}
-		
+
 		return logicAction;
 	}
-	
-	
+
 }

@@ -8,12 +8,12 @@ public class CategoryData {
 		this.name = categoryName;
 		this.color = colorName;
 	}
-	
-	public String getName(){
+
+	public String getName() {
 		return name;
 	}
-	
-	public String getColor(){
+
+	public String getColor() {
 		return color;
 	}
 }

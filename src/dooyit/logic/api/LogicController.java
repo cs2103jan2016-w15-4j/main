@@ -1,3 +1,4 @@
+//@@author A0126356E
 package dooyit.logic.api;
 
 import dooyit.storage.StorageController;
@@ -106,7 +107,7 @@ public class LogicController {
 			loadTaskDataFromStorage();
 		} catch (IOException e) {
 			logger.log(Level.SEVERE, "ERROR: Fail to load task from storage");
-			//uiController.displayMessage("ERROR: LOAD TASK");
+			// uiController.displayMessage("ERROR: LOAD TASK");
 		}
 	}
 
@@ -153,7 +154,7 @@ public class LogicController {
 		try {
 			logicAction = command.execute(this);
 		} catch (IncorrectInputException e) {
-			//uiController.displayMessage(e.getMessage());
+			// uiController.displayMessage(e.getMessage());
 			logicAction = new LogicAction(Action.ERROR);
 		}
 		return logicAction;
@@ -233,7 +234,7 @@ public class LogicController {
 	public Category getSelectedCategory() {
 		return selectedCategory;
 	}
-	
+
 	public void setSearchKey(String searchString) {
 		this.currentSearch = searchString;
 	}

@@ -1,3 +1,4 @@
+//@@author A0126356E
 package dooyit.logic.commands;
 
 import dooyit.common.exception.IncorrectInputException;
@@ -13,12 +14,12 @@ public class InvalidCommand implements Command {
 		this.errorMessage = errorMessage;
 	}
 
-	public boolean hasError(){
+	public boolean hasError() {
 		return hasError;
 	}
-	
+
 	public LogicAction execute(LogicController logic) throws IncorrectInputException {
-		LogicAction logicAction= new LogicAction(Action.ERROR, errorMessage);
+		LogicAction logicAction = new LogicAction(Action.ERROR, errorMessage);
 		hasError = true;
 		return logicAction;
 	}

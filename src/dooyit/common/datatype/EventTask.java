@@ -11,8 +11,7 @@ public class EventTask extends Task {
 	private boolean isMultiDayOn = false;
 	private int currentMultiDay = 0;
 	private ArrayList<String> multiDayString;
-	
-	
+
 	public EventTask(String taskName, DateTime start, DateTime end) {
 		assert (taskName != null && start != null && end != null);
 
@@ -20,11 +19,9 @@ public class EventTask extends Task {
 		this.taskName = taskName;
 		this.dateTimeStart = start;
 		this.dateTimeEnd = end;
-		
+
 		checkMultiDay(start, end);
 	}
-
-	
 
 	public EventTask(String taskName, DateTime start, DateTime end, Category category) {
 		assert (taskName != null && start != null && end != null);
@@ -34,7 +31,7 @@ public class EventTask extends Task {
 		this.dateTimeStart = start;
 		this.dateTimeEnd = end;
 		this.category = category;
-		
+
 		checkMultiDay(start, end);
 	}
 
@@ -49,7 +46,7 @@ public class EventTask extends Task {
 		this.isCompleted = task.isCompleted;
 		this.dateTimeStart = start;
 		this.dateTimeEnd = end;
-		
+
 		checkMultiDay(start, end);
 	}
 
@@ -64,7 +61,7 @@ public class EventTask extends Task {
 		this.dateTimeEnd = eventTask.dateTimeEnd;
 		this.category = eventTask.category;
 		this.isCompleted = eventTask.isCompleted;
-		
+
 		checkMultiDay(dateTimeStart, dateTimeEnd);
 	}
 
@@ -73,35 +70,35 @@ public class EventTask extends Task {
 	 * @param end
 	 */
 	public void checkMultiDay(DateTime start, DateTime end) {
-		if(DateTime.hasMultiDay(start, end)){
+		if (DateTime.hasMultiDay(start, end)) {
 			multiDayString = DateTime.getMultiDayString(start, end);
 			hasMultiDay = true;
 		}
 	}
-	
-	public void onMultiDay(){
+
+	public void onMultiDay() {
 		isMultiDayOn = true;
 		currentMultiDay = 0;
 	}
-	
-	public void offMultiDay(){
+
+	public void offMultiDay() {
 		isMultiDayOn = false;
 	}
-	
-//	@Override
-//	public boolean isCompleted(){
-//		//offMultiDay();
-//		return super.isCompleted();
-//	}
-	
-	public int size(){
-		if(hasMultiDay){
+
+	// @Override
+	// public boolean isCompleted(){
+	// //offMultiDay();
+	// return super.isCompleted();
+	// }
+
+	public int size() {
+		if (hasMultiDay) {
 			return multiDayString.size();
 		}
-		
+
 		return 1;
 	}
-	
+
 	@Override
 	public DateTime getDateTime() {
 		return dateTimeStart;
@@ -131,32 +128,35 @@ public class EventTask extends Task {
 
 	@Override
 	public boolean isSameDate(DateTime dateTime) {
-		if(hasMultiDay && isMultiDayOn){
-			return dateTimeStart.isTheSameDateAs(dateTime) || DateTime.isWithin(dateTime, dateTimeStart, dateTimeEnd)||dateTimeEnd.isTheSameDateAs(dateTime);
-		}else{
+		if (hasMultiDay && isMultiDayOn) {
+			return dateTimeStart.isTheSameDateAs(dateTime) || DateTime.isWithin(dateTime, dateTimeStart, dateTimeEnd)
+					|| dateTimeEnd.isTheSameDateAs(dateTime);
+		} else {
 			return dateTimeStart.isTheSameDateAs(dateTime);
 		}
 	}
 
 	@Override
 	public boolean isOverDue(DateTime dateTime) {
-		//return !isSameDate(dateTime) && !isCompleted && dateTimeEnd.compareTo(dateTime) == -1;
-		boolean isOverDue =  !dateTimeStart.isTheSameDateAs(dateTime) && dateTimeStart.compareTo(dateTime) == -1 && !isCompleted;
-		
-		if(isOverDue){
+		// return !isSameDate(dateTime) && !isCompleted &&
+		// dateTimeEnd.compareTo(dateTime) == -1;
+		boolean isOverDue = !dateTimeStart.isTheSameDateAs(dateTime) && dateTimeStart.compareTo(dateTime) == -1
+				&& !isCompleted;
+
+		if (isOverDue) {
 			hasMultiDay = false;
 		}
-		
+
 		return isOverDue;
 	}
 
 	@Override
 	public String getDateString() {
-		if(hasMultiDay && isMultiDayOn){
-			
-			return multiDayString.get((currentMultiDay++)%multiDayString.size());
+		if (hasMultiDay && isMultiDayOn) {
+
+			return multiDayString.get((currentMultiDay++) % multiDayString.size());
 		}
-		
+
 		return dateTimeStart.getTime24hStr() + " - " + dateTimeEnd.getTime24hStr();
 	}
 
@@ -176,8 +176,7 @@ public class EventTask extends Task {
 	public boolean equals(Object o) {
 		if (o instanceof EventTask) {
 			EventTask eventTask = (EventTask) o;
-			return this.uniqueId == eventTask.uniqueId 
-					&& this.getName().equals(eventTask.getName())
+			return this.uniqueId == eventTask.uniqueId && this.getName().equals(eventTask.getName())
 					&& this.getDateTimeStart().equals(eventTask.getDateTimeStart())
 					&& this.getDateTimeEnd().equals(eventTask.getDateTimeEnd());
 		}

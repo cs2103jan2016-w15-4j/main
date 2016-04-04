@@ -1,3 +1,4 @@
+//@@author A0126356E
 package dooyit.logic.commands;
 
 import java.util.ArrayList;
@@ -12,29 +13,29 @@ public class ClearCommand implements Command, ReversibleCommand {
 
 	ArrayList<Task> clearedTasks;
 	private boolean hasError = false;
-	
-	public ClearCommand(){
-		
+
+	public ClearCommand() {
+
 	}
-	
-	public boolean hasError(){
+
+	public boolean hasError() {
 		return hasError;
 	}
-	
+
 	public void undo(LogicController logic) {
 		logic.loadTasks(clearedTasks);
 	}
-	
-	public void redo(LogicController logic){
+
+	public void redo(LogicController logic) {
 		clearedTasks = logic.clearTask();
 	}
 
 	public LogicAction execute(LogicController logic) throws IncorrectInputException {
-		assert(logic != null);
+		assert (logic != null);
 		LogicAction logicAction;
-		
+
 		clearedTasks = logic.clearTask();
-		
+
 		logicAction = new LogicAction(Action.CLEAR_TASK, "All tasks are CLEARED!");
 		return logicAction;
 	}

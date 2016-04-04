@@ -1,3 +1,4 @@
+//@@author A0126356E
 package dooyit.logic.commands;
 
 import java.util.ArrayList;
@@ -24,42 +25,42 @@ public class SetCategoryCommand implements Command, ReversibleCommand {
 		this.taskIds.add(taskId);
 		this.categoryName = categoryName;
 	}
-	
+
 	public SetCategoryCommand(ArrayList<Integer> taskIds, String categoryName) {
 		this.taskIds = new ArrayList<Integer>();
 		this.taskIds.addAll(taskIds);
 		this.categoryName = categoryName;
 	}
-	
-	public boolean hasError(){
+
+	public boolean hasError() {
 		return hasError;
 	}
-	
-	public void undo(LogicController logic){
+
+	public void undo(LogicController logic) {
 		for (Task task : tasksWithCategory) {
 			task.setCategory(prevCategory);
 		}
-		
-		if(isNewCatCreated){
+
+		if (isNewCatCreated) {
 			logic.removeCategory(settedCategory);
 		}
 	}
 
-	public void redo(LogicController logic){
+	public void redo(LogicController logic) {
 		for (Task task : tasksWithCategory) {
 			task.setCategory(settedCategory);
 		}
-		
-		if(isNewCatCreated){
+
+		if (isNewCatCreated) {
 			logic.addCategory(settedCategory);
 		}
 	}
-	
+
 	public LogicAction execute(LogicController logic) throws IncorrectInputException {
-		assert(logic != null);
+		assert (logic != null);
 		LogicAction logicAction = null;
 		tasksWithCategory = new ArrayList<Task>();
-		
+
 		for (int taskId : taskIds) {
 			if (logic.containsTask(taskId)) {
 				if (logic.containsCategory(categoryName)) {
@@ -86,7 +87,7 @@ public class SetCategoryCommand implements Command, ReversibleCommand {
 				throw new IncorrectInputException("TaskID: " + taskId + " doesn't exist.");
 			}
 		}
-		
+
 		return logicAction;
 	}
 

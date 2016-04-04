@@ -1,3 +1,4 @@
+//@@author A0126356E
 package dooyit.logic;
 
 import java.util.ArrayList;
@@ -37,14 +38,13 @@ public class DataManager {
 		return categoryDatas;
 	}
 
-	
-	public void loadCategoryData(LogicController logic, ArrayList<CategoryData> categoryDatas){
+	public void loadCategoryData(LogicController logic, ArrayList<CategoryData> categoryDatas) {
 		for (CategoryData categoryData : categoryDatas) {
 			logic.addCategory(categoryData.getName(), categoryData.getColor());
 		}
 	}
-	
-	public void loadTaskData(LogicController logic, ArrayList<TaskData> taskDatas){
+
+	public void loadTaskData(LogicController logic, ArrayList<TaskData> taskDatas) {
 		for (TaskData taskData : taskDatas) {
 			Task task = taskData.convertToTask();
 
@@ -56,6 +56,5 @@ public class DataManager {
 			logic.addTask(task);
 		}
 	}
-	
-	
+
 }

@@ -13,7 +13,7 @@ public class TaskGroup {
 		this.title = title;
 		tasks = new ArrayList<Task>();
 	}
-	
+
 	public TaskGroup(String title, DateTime dateTime) {
 		this.title = title;
 		this.dateTime = dateTime;
@@ -35,13 +35,13 @@ public class TaskGroup {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	
+
 	public String getTitle() {
-		if(hasDateTime()){
+		if (hasDateTime()) {
 			String dateString = dateTime.getDate();
 			dateString = dateString.substring(0, dateString.length() - 5);
 			return title + ", " + dateString;
-		}else{
+		} else {
 			return title;
 		}
 	}
@@ -51,14 +51,14 @@ public class TaskGroup {
 		return tasks;
 	}
 
-	public int size(){
+	public int size() {
 		return tasks.size();
 	}
-	
-	public boolean isEmpty(){
+
+	public boolean isEmpty() {
 		return tasks.isEmpty();
 	}
-	
+
 	public boolean hasDateTime() {
 		return dateTime != null;
 	}

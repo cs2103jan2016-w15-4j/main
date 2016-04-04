@@ -1,3 +1,4 @@
+//@@author A0126356E
 package dooyit.logic.commands;
 
 import dooyit.common.datatype.Category;
@@ -20,10 +21,10 @@ public class RemoveCategoryFromTaskCommand implements Command, ReversibleCommand
 		this.taskId = taskId;
 	}
 
-	public boolean hasError(){
+	public boolean hasError() {
 		return hasError;
 	}
-	
+
 	public void undo(LogicController logic) {
 		taskWithoutCat.removeCategory();
 	}

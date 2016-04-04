@@ -1,3 +1,4 @@
+//@@author A0126356E
 package dooyit.logic;
 
 import java.util.Stack;
@@ -10,17 +11,17 @@ public class HistoryManager {
 
 	private Stack<ReversibleCommand> undoHistory;
 	private Stack<ReversibleCommand> redoHistory;
-	
-	public HistoryManager(){
+
+	public HistoryManager() {
 		undoHistory = new Stack<ReversibleCommand>();
 		redoHistory = new Stack<ReversibleCommand>();
 	}
-	
-	public void addCommand(Command command){
-		if(command.hasError()){
+
+	public void addCommand(Command command) {
+		if (command.hasError()) {
 			return;
 		}
-		
+
 		if (command instanceof ReversibleCommand) {
 			undoHistory.push((ReversibleCommand) command);
 		}
@@ -34,8 +35,8 @@ public class HistoryManager {
 			redoHistory.push(reversibleCommand);
 		}
 	}
-	
-	public void redoCommand(LogicController logic){
+
+	public void redoCommand(LogicController logic) {
 		ReversibleCommand reversibleCommand;
 		if (!redoHistory.isEmpty()) {
 			reversibleCommand = redoHistory.pop();

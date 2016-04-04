@@ -1,3 +1,4 @@
+//@@author A0126356E
 package dooyit.logic.commands;
 
 import dooyit.common.exception.IncorrectInputException;
@@ -15,34 +16,34 @@ public class StorageCommand implements Command, ReversibleCommand {
 		this.path = path;
 	}
 
-	public boolean hasError(){
+	public boolean hasError() {
 		return hasError;
 	}
-	
-	public void undo(LogicController logic){
+
+	public void undo(LogicController logic) {
 		boolean fileExist = logic.setFileDestinationPath(previousPath);
-		
-		if(fileExist){
+
+		if (fileExist) {
 			logic.loadFromStorage();
 		}
 	}
-	
-	public void redo(LogicController logic){
+
+	public void redo(LogicController logic) {
 		boolean fileExist = logic.setFileDestinationPath(path);
-		
-		if(fileExist){
+
+		if (fileExist) {
 			logic.loadFromStorage();
 		}
 	}
 
 	public LogicAction execute(LogicController logic) throws IncorrectInputException {
-		assert(logic != null);
+		assert (logic != null);
 		LogicAction logicAction;
-		
+
 		try {
 			previousPath = logic.getFilePath();
 			boolean fileExist = logic.setFileDestinationPath(path);
-			if(fileExist){
+			if (fileExist) {
 				logic.loadFromStorage();
 			}
 		} catch (IncorrectInputException e) {
@@ -50,7 +51,7 @@ public class StorageCommand implements Command, ReversibleCommand {
 			hasError = true;
 			throw new IncorrectInputException("Invalid path: " + path);
 		}
-		
+
 		logicAction = new LogicAction(Action.SET_STORAGE_PATH);
 		return logicAction;
 	}

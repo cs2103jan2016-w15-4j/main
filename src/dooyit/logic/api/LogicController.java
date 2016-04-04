@@ -271,50 +271,50 @@ public class LogicController {
 	}
 	
 	public void setActiveView(UIMainViewType uiMainViewType) {
-		if (uiController == null) {
-			return;
-		}
-
-		uiController.setActiveViewType(uiMainViewType);
-
-		switch (uiMainViewType) {
-
-		case TODAY:
-			uiController.refreshMainView(taskManager.getTaskGroupsToday());
-			break;
-
-		case EXTENDED:
-			uiController.refreshMainView(taskManager.getTaskGroupsNext7Days());
-			break;
-
-		case ALL:
-			uiController.refreshMainView(taskManager.getTaskGroupsAll());
-			break;
-
-		case COMPLETED:
-			uiController.refreshMainView(taskManager.getTaskGroupsCompleted());
-			break;
-
-		case FLOAT:
-			uiController.refreshMainView(taskManager.getTaskGroupsFloating());
-			break;
-			
-		case CATEGORY:
-			uiController.refreshMainView(taskManager.getTaskGroupCategory(selectedCategory), selectedCategory);
-			break;
-			
-		default:
-			assert (true);
-		}
+//		if (uiController == null) {
+//			return;
+//		}
+//
+//		uiController.setActiveViewType(uiMainViewType);
+//
+//		switch (uiMainViewType) {
+//
+//		case TODAY:
+//			uiController.refreshMainView(taskManager.getTaskGroupsToday());
+//			break;
+//
+//		case EXTENDED:
+//			uiController.refreshMainView(taskManager.getTaskGroupsNext7Days());
+//			break;
+//
+//		case ALL:
+//			uiController.refreshMainView(taskManager.getTaskGroupsAll());
+//			break;
+//
+//		case COMPLETED:
+//			uiController.refreshMainView(taskManager.getTaskGroupsCompleted());
+//			break;
+//
+//		case FLOAT:
+//			uiController.refreshMainView(taskManager.getTaskGroupsFloating());
+//			break;
+//			
+//		case CATEGORY:
+//			uiController.refreshMainView(taskManager.getTaskGroupCategory(selectedCategory), selectedCategory);
+//			break;
+//			
+//		default:
+//			assert (true);
+//		}
 	}
 
 	public void setActiveViewCategory(Category category) {
-		if (uiController == null) {
-			return;
-		}
-
-		uiController.setActiveViewType(UIMainViewType.CATEGORY);
-		uiController.refreshMainView(taskManager.getTaskGroupCategory(selectedCategory), category);
+//		if (uiController == null) {
+//			return;
+//		}
+//
+//		uiController.setActiveViewType(UIMainViewType.CATEGORY);
+//		uiController.refreshMainView(taskManager.getTaskGroupCategory(selectedCategory), category);
 	}
 
 	public void setActiveViewSearch(String searchString) {
@@ -327,44 +327,43 @@ public class LogicController {
 	}
 
 	private void refreshUIController() {
-		// uiController.refreshMainView(taskManager.getTaskGroupsToday());
-		 if (uiController == null)
-			 return;
-
-		UIMainViewType uiMainViewType = uiController.getActiveViewType();
-
-		switch (uiMainViewType) {
-
-		case TODAY:
-			uiController.refreshMainView(taskManager.getTaskGroupsToday());
-			break;
-
-		case EXTENDED:
-			uiController.refreshMainView(taskManager.getTaskGroupsNext7Days());
-			break;
-
-		case ALL:
-			uiController.refreshMainView(taskManager.getTaskGroupsAll());
-			break;
-
-		case COMPLETED:
-			uiController.refreshMainView(taskManager.getTaskGroupsCompleted());
-			break;
-
-		case FLOAT:
-			uiController.refreshMainView(taskManager.getTaskGroupsFloating());
-			break;
-
-		case CATEGORY:
-
-			break;
-
-		case SEARCH:
-
-			break;
-		}
-
-		uiController.refreshCategoryMenuView(categoryManager.getAllCategories());
+//		 if (uiController == null)
+//			 return;
+//
+//		UIMainViewType uiMainViewType = uiController.getActiveViewType();
+//
+//		switch (uiMainViewType) {
+//
+//		case TODAY:
+//			uiController.refreshMainView(taskManager.getTaskGroupsToday());
+//			break;
+//
+//		case EXTENDED:
+//			uiController.refreshMainView(taskManager.getTaskGroupsNext7Days());
+//			break;
+//
+//		case ALL:
+//			uiController.refreshMainView(taskManager.getTaskGroupsAll());
+//			break;
+//
+//		case COMPLETED:
+//			uiController.refreshMainView(taskManager.getTaskGroupsCompleted());
+//			break;
+//
+//		case FLOAT:
+//			uiController.refreshMainView(taskManager.getTaskGroupsFloating());
+//			break;
+//
+//		case CATEGORY:
+//
+//			break;
+//
+//		case SEARCH:
+//
+//			break;
+//		}
+//
+//		uiController.refreshCategoryMenuView(categoryManager.getAllCategories());
 	}
 
 	public void addTask(Task task) {

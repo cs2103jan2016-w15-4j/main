@@ -9,19 +9,19 @@ import dooyit.logic.api.Action;
 import dooyit.logic.api.LogicAction;
 import dooyit.logic.api.LogicController;
 
-public class UnMarkCommand implements Command, ReversibleCommand {
+public class UnmarkTaskCommand implements Command, ReversibleCommand {
 
 	private ArrayList<Integer> unmarkIds;
 	private ArrayList<Task> unmarkedTasks;
 	private boolean hasError = false;
 
-	public UnMarkCommand(int unMarkId) {
+	public UnmarkTaskCommand(int unMarkId) {
 		this.unmarkIds = new ArrayList<Integer>();
 		this.unmarkedTasks = new ArrayList<Task>();
 		this.unmarkIds.add(unMarkId);
 	}
 
-	public UnMarkCommand(ArrayList<Integer> unMarkIds) {
+	public UnmarkTaskCommand(ArrayList<Integer> unMarkIds) {
 		this.unmarkIds = new ArrayList<Integer>();
 		this.unmarkedTasks = new ArrayList<Task>();
 		this.unmarkIds.addAll(unMarkIds);

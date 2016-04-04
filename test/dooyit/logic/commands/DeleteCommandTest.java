@@ -19,7 +19,7 @@ import dooyit.logic.api.LogicController;
 public class DeleteCommandTest {
 
 	LogicController logic;
-	DeleteCommand deleteCommand;
+	DeleteTaskCommand deleteCommand;
 
 	Task floatingTask1;
 	Task floatingTask2;
@@ -62,7 +62,7 @@ public class DeleteCommandTest {
 		assertTrue(logic.containsTask(floatingTask1));
 
 		// delete task1
-		deleteCommand = new DeleteCommand(floatingTask1.getId());
+		deleteCommand = new DeleteTaskCommand(floatingTask1.getId());
 		deleteCommand.execute(logic);
 		// try to find task1
 		assertFalse(logic.containsTask(floatingTask1));
@@ -84,7 +84,7 @@ public class DeleteCommandTest {
 		assertTrue(logic.containsTask(deadlineTask));
 
 		// delete task1
-		deleteCommand = new DeleteCommand(deadlineTask.getId());
+		deleteCommand = new DeleteTaskCommand(deadlineTask.getId());
 		deleteCommand.execute(logic);
 		// try to find task1
 		assertFalse(logic.containsTask(deadlineTask));
@@ -106,7 +106,7 @@ public class DeleteCommandTest {
 		assertTrue(logic.containsTask(eventTask));
 
 		// delete task1
-		deleteCommand = new DeleteCommand(eventTask.getId());
+		deleteCommand = new DeleteTaskCommand(eventTask.getId());
 		deleteCommand.execute(logic);
 		// try to find task1
 		assertFalse(logic.containsTask(eventTask));
@@ -131,7 +131,7 @@ public class DeleteCommandTest {
 		deleteIds.add(eventTask.getId());
 
 		// delete task1
-		deleteCommand = new DeleteCommand(deleteIds);
+		deleteCommand = new DeleteTaskCommand(deleteIds);
 		deleteCommand.execute(logic);
 
 		// try to find task2, task3, task4
@@ -155,7 +155,7 @@ public class DeleteCommandTest {
 		// try to find invalid task
 		assertFalse(logic.containsTask(invalidTaskId));
 
-		deleteCommand = new DeleteCommand(invalidTaskId);
+		deleteCommand = new DeleteTaskCommand(invalidTaskId);
 		deleteCommand.execute(logic);
 	}
 
@@ -170,7 +170,7 @@ public class DeleteCommandTest {
 		// try to find invalid task
 		assertFalse(logic.containsTask(invalidTaskId));
 
-		deleteCommand = new DeleteCommand(invalidTaskId);
+		deleteCommand = new DeleteTaskCommand(invalidTaskId);
 		deleteCommand.execute(logic);
 	}
 
@@ -181,7 +181,7 @@ public class DeleteCommandTest {
 		// make sure task1 is inside taskManager
 		assertTrue(logic.containsTask(floatingTask1));
 
-		deleteCommand = new DeleteCommand(floatingTask1.getId());
+		deleteCommand = new DeleteTaskCommand(floatingTask1.getId());
 		deleteCommand.execute(logic);
 
 		// make sure task1 is deleted
@@ -199,7 +199,7 @@ public class DeleteCommandTest {
 		// make sure task1 is inside taskManager
 		assertTrue(logic.containsTask(deadlineTask));
 
-		deleteCommand = new DeleteCommand(deadlineTask.getId());
+		deleteCommand = new DeleteTaskCommand(deadlineTask.getId());
 		deleteCommand.execute(logic);
 
 		// make sure task1 is deleted
@@ -217,7 +217,7 @@ public class DeleteCommandTest {
 		// make sure task1 is inside taskManager
 		assertTrue(logic.containsTask(eventTask));
 
-		deleteCommand = new DeleteCommand(eventTask.getId());
+		deleteCommand = new DeleteTaskCommand(eventTask.getId());
 		deleteCommand.execute(logic);
 
 		// make sure task1 is deleted
@@ -239,7 +239,7 @@ public class DeleteCommandTest {
 		deleteIds.add(eventTask.getId());
 
 		// delete task1
-		deleteCommand = new DeleteCommand(deleteIds);
+		deleteCommand = new DeleteTaskCommand(deleteIds);
 		deleteCommand.execute(logic);
 
 		// try to find task2, task3, task4

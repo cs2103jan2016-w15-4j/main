@@ -8,7 +8,7 @@ import dooyit.logic.api.Action;
 import dooyit.logic.api.LogicAction;
 import dooyit.logic.api.LogicController;
 
-public class EditCommand implements Command, ReversibleCommand {
+public class EditTaskCommand implements Command, ReversibleCommand {
 
 	private enum EditCommandType {
 		NAME, DEADLINE, EVENT, NAME_N_DEADLINE, NAME_N_EVENT
@@ -24,33 +24,33 @@ public class EditCommand implements Command, ReversibleCommand {
 	private DateTime dateTimeEnd;
 	private boolean hasError = false;
 
-	public EditCommand(int taskId, String taskName) {
+	public EditTaskCommand(int taskId, String taskName) {
 		editCommandType = EditCommandType.NAME;
 		this.taskName = taskName;
 		this.taskId = taskId;
 	}
 
-	public EditCommand(int taskId, DateTime deadline) {
+	public EditTaskCommand(int taskId, DateTime deadline) {
 		editCommandType = EditCommandType.DEADLINE;
 		this.dateTimeDeadline = deadline;
 		this.taskId = taskId;
 	}
 
-	public EditCommand(int taskId, DateTime start, DateTime end) {
+	public EditTaskCommand(int taskId, DateTime start, DateTime end) {
 		editCommandType = EditCommandType.EVENT;
 		this.dateTimeStart = start;
 		this.dateTimeEnd = end;
 		this.taskId = taskId;
 	}
 
-	public EditCommand(int taskId, String taskName, DateTime deadline) {
+	public EditTaskCommand(int taskId, String taskName, DateTime deadline) {
 		editCommandType = EditCommandType.NAME_N_DEADLINE;
 		this.taskName = taskName;
 		this.dateTimeDeadline = deadline;
 		this.taskId = taskId;
 	}
 
-	public EditCommand(int taskId, String taskName, DateTime start, DateTime end) {
+	public EditTaskCommand(int taskId, String taskName, DateTime start, DateTime end) {
 		assert (start != null && end != null);
 
 		editCommandType = EditCommandType.NAME_N_EVENT;

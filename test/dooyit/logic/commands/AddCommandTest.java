@@ -18,7 +18,7 @@ import dooyit.logic.api.LogicController;
 public class AddCommandTest {
 
 	LogicController logic;
-	AddCommand addCommand;
+	AddTaskCommand addCommand;
 	
 	@Before
 	public void setUp() {
@@ -29,7 +29,7 @@ public class AddCommandTest {
 	
 	@Test
 	public void addFloatingTask(){
-		addCommand = new AddCommand("hello");
+		addCommand = new AddTaskCommand("hello");
 		addCommand.execute(logic);
 		
 		//Task task = new FloatingTask("hello");
@@ -41,7 +41,7 @@ public class AddCommandTest {
 	@Test
 	public void addDeadlineTask(){
 		DateTime dateTime = new DateTime();
-		addCommand = new AddCommand("hello", dateTime);
+		addCommand = new AddTaskCommand("hello", dateTime);
 		addCommand.execute(logic);
 		
 		//Task task = new DeadlineTask("hello", dateTime);
@@ -54,7 +54,7 @@ public class AddCommandTest {
 	public void addEventTask(){
 		DateTime dateTimeStart = new DateTime();
 		DateTime dateTimeEnd = new DateTime();
-		addCommand = new AddCommand("hello", dateTimeStart, dateTimeEnd);
+		addCommand = new AddTaskCommand("hello", dateTimeStart, dateTimeEnd);
 		addCommand.execute(logic);
 		
 		//Task task = new EventTask("hello", dateTimeStart, dateTimeEnd);
@@ -65,7 +65,7 @@ public class AddCommandTest {
 	
 	@Test
 	public void undoAddedFloatingTask(){
-		addCommand = new AddCommand("hello");
+		addCommand = new AddTaskCommand("hello");
 		addCommand.execute(logic);
 		
 		//Task task = new FloatingTask("hello");
@@ -81,7 +81,7 @@ public class AddCommandTest {
 	@Test
 	public void undoAddedDeadlineTask(){
 		DateTime dateTime = new DateTime();
-		addCommand = new AddCommand("hello", dateTime);
+		addCommand = new AddTaskCommand("hello", dateTime);
 		addCommand.execute(logic);
 		
 		
@@ -99,7 +99,7 @@ public class AddCommandTest {
 	public void undoAddedEventTask(){
 		DateTime dateTimeStart = new DateTime();
 		DateTime dateTimeEnd = new DateTime();
-		addCommand = new AddCommand("hello", dateTimeStart, dateTimeEnd);
+		addCommand = new AddTaskCommand("hello", dateTimeStart, dateTimeEnd);
 		addCommand.execute(logic);
 		
 		Task task = getMostRecentTask();

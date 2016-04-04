@@ -8,7 +8,7 @@ import dooyit.logic.api.Action;
 import dooyit.logic.api.LogicAction;
 import dooyit.logic.api.LogicController;
 
-public class AddCommand implements Command, ReversibleCommand {
+public class AddTaskCommand implements Command, ReversibleCommand {
 
 	private String taskName;
 	private Task.TaskType taskType;
@@ -18,18 +18,18 @@ public class AddCommand implements Command, ReversibleCommand {
 	private Task addedTask;
 	private boolean hasError = false;
 
-	public AddCommand(String taskName) {
+	public AddTaskCommand(String taskName) {
 		this.taskName = taskName;
 		taskType = Task.TaskType.FLOATING;
 	}
 
-	public AddCommand(String data, DateTime deadline) {
+	public AddTaskCommand(String data, DateTime deadline) {
 		this.taskName = data;
 		this.dateTimeDeadline = deadline;
 		taskType = Task.TaskType.DEADLINE;
 	}
 
-	public AddCommand(String data, DateTime start, DateTime end) {
+	public AddTaskCommand(String data, DateTime start, DateTime end) {
 		this.taskName = data;
 		this.dateTimeStart = start;
 		this.dateTimeEnd = end;

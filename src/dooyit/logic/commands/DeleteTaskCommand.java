@@ -9,19 +9,19 @@ import dooyit.logic.api.Action;
 import dooyit.logic.api.LogicAction;
 import dooyit.logic.api.LogicController;
 
-public class DeleteCommand implements Command, ReversibleCommand {
+public class DeleteTaskCommand implements Command, ReversibleCommand {
 
 	private ArrayList<Integer> deleteIds;
 	private ArrayList<Task> deletedTasks;
 	private boolean hasError = false;
 
-	public DeleteCommand(int deleteId) {
+	public DeleteTaskCommand(int deleteId) {
 		this.deleteIds = new ArrayList<Integer>();
 		this.deletedTasks = new ArrayList<Task>();
 		this.deleteIds.add(deleteId);
 	}
 
-	public DeleteCommand(ArrayList<Integer> deleteIds) {
+	public DeleteTaskCommand(ArrayList<Integer> deleteIds) {
 		this.deleteIds = new ArrayList<Integer>();
 		this.deletedTasks = new ArrayList<Task>();
 		this.deleteIds.addAll(deleteIds);

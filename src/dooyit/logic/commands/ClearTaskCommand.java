@@ -9,12 +9,12 @@ import dooyit.logic.api.Action;
 import dooyit.logic.api.LogicAction;
 import dooyit.logic.api.LogicController;
 
-public class ClearCommand implements Command, ReversibleCommand {
+public class ClearTaskCommand implements Command, ReversibleCommand {
 
 	ArrayList<Task> clearedTasks;
 	private boolean hasError = false;
 
-	public ClearCommand() {
+	public ClearTaskCommand() {
 
 	}
 

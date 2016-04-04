@@ -9,18 +9,18 @@ import dooyit.logic.api.Action;
 import dooyit.logic.api.LogicAction;
 import dooyit.logic.api.LogicController;
 
-public class MarkCommand implements Command, ReversibleCommand {
+public class MarkTaskCommand implements Command, ReversibleCommand {
 	private ArrayList<Integer> markIds;
 	private ArrayList<Task> markedTasks;
 	private boolean hasError = false;
 
-	public MarkCommand(int markId) {
+	public MarkTaskCommand(int markId) {
 		this.markIds = new ArrayList<Integer>();
 		this.markedTasks = new ArrayList<Task>();
 		this.markIds.add(markId);
 	}
 
-	public MarkCommand(ArrayList<Integer> markIds) {
+	public MarkTaskCommand(ArrayList<Integer> markIds) {
 		this.markIds = new ArrayList<Integer>();
 		this.markedTasks = new ArrayList<Task>();
 		this.markIds.addAll(markIds);

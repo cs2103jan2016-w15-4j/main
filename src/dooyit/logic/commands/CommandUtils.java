@@ -7,47 +7,47 @@ import dooyit.common.datatype.DateTime;
 public class CommandUtils {
 
 	public static Command createAddCommandFloat(String data) {
-		AddCommand addCommand = new AddCommand(data);
+		AddTaskCommand addCommand = new AddTaskCommand(data);
 		return addCommand;
 	}
 
 	public static Command createAddCommandDeadline(String data, DateTime deadline) {
-		AddCommand addCommand = new AddCommand(data, deadline);
+		AddTaskCommand addCommand = new AddTaskCommand(data, deadline);
 		return addCommand;
 	}
 
 	public static Command createAddCommandEvent(String data, DateTime start, DateTime end) {
-		AddCommand addCommand = new AddCommand(data, start, end);
+		AddTaskCommand addCommand = new AddTaskCommand(data, start, end);
 		return addCommand;
 	}
 
 	public static Command createDeleteCommand(int deleteId) {
-		DeleteCommand deleteCommand = new DeleteCommand(deleteId);
+		DeleteTaskCommand deleteCommand = new DeleteTaskCommand(deleteId);
 		return deleteCommand;
 	}
 
 	public static Command createDeleteCommand(ArrayList<Integer> deleteIds) {
-		DeleteCommand deleteCommand = new DeleteCommand(deleteIds);
+		DeleteTaskCommand deleteCommand = new DeleteTaskCommand(deleteIds);
 		return deleteCommand;
 	}
 
 	public static Command createMarkCommand(int markId) {
-		MarkCommand deleteCommand = new MarkCommand(markId);
+		MarkTaskCommand deleteCommand = new MarkTaskCommand(markId);
 		return deleteCommand;
 	}
 
 	public static Command createMarkCommand(ArrayList<Integer> markIds) {
-		MarkCommand deleteCommand = new MarkCommand(markIds);
+		MarkTaskCommand deleteCommand = new MarkTaskCommand(markIds);
 		return deleteCommand;
 	}
 
 	public static Command createUnMarkCommand(int unMarkId) {
-		UnMarkCommand deleteCommand = new UnMarkCommand(unMarkId);
+		UnmarkTaskCommand deleteCommand = new UnmarkTaskCommand(unMarkId);
 		return deleteCommand;
 	}
 
 	public static Command createUnMarkCommand(ArrayList<Integer> unMarkIds) {
-		UnMarkCommand deleteCommand = new UnMarkCommand(unMarkIds);
+		UnmarkTaskCommand deleteCommand = new UnmarkTaskCommand(unMarkIds);
 		return deleteCommand;
 	}
 
@@ -114,27 +114,27 @@ public class CommandUtils {
 	}
 
 	public static Command createEditCommandName(int taskId, String taskName) {
-		EditCommand editCommand = new EditCommand(taskId, taskName);
+		EditTaskCommand editCommand = new EditTaskCommand(taskId, taskName);
 		return editCommand;
 	}
 
 	public static Command createEditCommandDeadline(int taskId, DateTime deadline) {
-		EditCommand editCommand = new EditCommand(taskId, deadline);
+		EditTaskCommand editCommand = new EditTaskCommand(taskId, deadline);
 		return editCommand;
 	}
 
 	public static Command createEditCommandEvent(int taskId, DateTime start, DateTime end) {
-		EditCommand editCommand = new EditCommand(taskId, start, end);
+		EditTaskCommand editCommand = new EditTaskCommand(taskId, start, end);
 		return editCommand;
 	}
 
 	public static Command createEditCommandNameAndDeadline(int taskId, String taskName, DateTime deadline) {
-		EditCommand editCommand = new EditCommand(taskId, taskName, deadline);
+		EditTaskCommand editCommand = new EditTaskCommand(taskId, taskName, deadline);
 		return editCommand;
 	}
 
 	public static Command createEditCommandNameAndEvent(int taskId, String taskName, DateTime start, DateTime end) {
-		EditCommand editCommand = new EditCommand(taskId, taskName, start, end);
+		EditTaskCommand editCommand = new EditTaskCommand(taskId, taskName, start, end);
 		return editCommand;
 	}
 
@@ -164,7 +164,7 @@ public class CommandUtils {
 	}
 
 	public static Command createClearCommand() {
-		ClearCommand clearCommand = new ClearCommand();
+		ClearTaskCommand clearCommand = new ClearTaskCommand();
 		return clearCommand;
 	}
 

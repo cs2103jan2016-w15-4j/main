@@ -1,3 +1,4 @@
+//@@author A0124586Y
 package dooyit.common.datatype;
 
 public class DeadlineTaskData extends TaskData {
@@ -23,19 +24,21 @@ public class DeadlineTaskData extends TaskData {
 	
 	@Override
 	public boolean equals(Object o) {
+		boolean isEquals = false;
+		
 		if(o instanceof DeadlineTaskData) {
 			DeadlineTaskData data = (DeadlineTaskData) o;
-			if(this.hasCategory()) {
-				return this.taskName.equals(data.getName())
-						&& this.isCompleted == data.isCompleted()
-						&& this.dateTimeDeadline.equals(data.getDeadline())
-						&& this.category.equals(data.getCategory());
-			}
-			return this.taskName.equals(data.getName())
+			
+			isEquals = this.taskName.equals(data.getName())
 					&& this.isCompleted == data.isCompleted()
 					&& this.dateTimeDeadline.equals(data.getDeadline());
+			
+			if(this.hasCategory()) {
+				isEquals = isEquals && this.category.equals(data.getCategory());
+			}
 		}
-		return false;
+		
+		return isEquals;
 	}
 	
 	@Override

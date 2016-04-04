@@ -1,3 +1,4 @@
+//@@author A0124586Y
 package dooyit.common.datatype;
 
 public abstract class TaskData {

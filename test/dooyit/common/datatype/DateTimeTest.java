@@ -8,6 +8,12 @@ import java.util.Arrays;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * 
+ * @author Wu Wenqi A0124278A
+ *
+ */
+
 public class DateTimeTest {
 	DateTime dt1, dt2, dt3, dt4, currDT;
 

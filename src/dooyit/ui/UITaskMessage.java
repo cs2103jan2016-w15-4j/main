@@ -2,6 +2,12 @@ package dooyit.ui;
 
 import javafx.scene.control.Label;
 
+/**
+ * 
+ * @author Wu Wenqi A0124278A
+ *
+ */
+
 public class UITaskMessage {
 
 	private static final String STYLESHEET_TASK_MESSAGE = UIStyle.TASK_MESSAGE;

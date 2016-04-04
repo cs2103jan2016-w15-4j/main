@@ -5,6 +5,12 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * 
+ * @author Wu Wenqi A0124278A
+ *
+ */
+
 public class FloatingTaskTest {
 
 	FloatingTask task1;

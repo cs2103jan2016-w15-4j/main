@@ -7,6 +7,12 @@ import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * 
+ * @author Wu Wenqi A0124278A
+ *
+ */
+
 public class TaskGroupTest {
 
 	TaskGroup taskGroup;

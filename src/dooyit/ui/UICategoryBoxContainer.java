@@ -6,6 +6,12 @@ import dooyit.common.datatype.Category;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.VBox;
 
+/**
+ * 
+ * @author Wu Wenqi A0124278A
+ *
+ */
+
 public class UICategoryBoxContainer {
 	private static final int SPACING_CAT_BOX_CONTAINER_VIEW = 8;
 

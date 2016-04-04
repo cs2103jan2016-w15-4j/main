@@ -3,6 +3,12 @@ package dooyit.ui;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 
+/**
+ * 
+ * @author Wu Wenqi A0124278A
+ *
+ */
+
 public class UICommandBox {
 	private static final String CMD_TEXT_FIELD_PROMPT = "Enter command here. Type 'help' for manual.";
 	private static final String STYLECLASS_CMD_TEXT_FIELD = UIStyle.COMMAND_TEXTFIELD;

@@ -10,6 +10,12 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
+/**
+ * 
+ * @author Wu Wenqi A0124278A
+ *
+ */
+
 public class UITaskBox {
 
 	private static final String STYLECLASS_TASK_CHECKBOX = UIStyle.TASK_CHECKBOX;
@@ -153,6 +159,7 @@ public class UITaskBox {
 	
 	private void updateTaskBoxWidth(){
 		double width = this.parent.getStageWidth();
+		System.out.println("TASKBOX WIDTH " + width);
 	    updateTaskBoxWidth(width);
 	}
 	

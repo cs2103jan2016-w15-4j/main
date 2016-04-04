@@ -1,5 +1,11 @@
 package dooyit.ui;
 
+/**
+ * 
+ * @author Wu Wenqi A0124278A
+ *
+ */
+
 public class UIStyle {
 	protected static final String URL_CSS_COMMON = "resrc/css/common.css";
 	protected static final String URL_CSS_THEME_LIGHT = "resrc/css/theme_light.css";

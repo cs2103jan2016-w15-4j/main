@@ -5,6 +5,12 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 
+/**
+ * 
+ * @author Wu Wenqi A0124278A
+ *
+ */
+
 public class UIHeader {
 	private static final String STYLECLASS_HEADER = UIStyle.HEADER_VIEW;
 	private static final String LABEL_TITLE = "DOOYIT";

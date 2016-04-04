@@ -15,6 +15,11 @@ import dooyit.common.datatype.Category;
 import dooyit.common.datatype.TaskGroup;
 import dooyit.logic.api.*;
 
+/**
+ * 
+ * @author Wu Wenqi A0124278A
+ */
+
 public class UIController {
 
 	static final int WIDTH_SCENE = 720;
@@ -300,6 +305,9 @@ public class UIController {
 			refreshMainView(this.logic.getTaskGroupCategory(), this.logic.getSelectedCategory());
 			setActiveCategoryButton(this.logic.getSelectedCategory());
 			break;
+		case DELETE_CATEGORY:
+		case CLEAR_CATEGORY:
+			refreshCategoryMenuView();
 		case DELETE_TASK:
 		case SET_CATEGORY:
 		case CLEAR_TASK:
@@ -323,12 +331,6 @@ public class UIController {
 			}
 			break;
 		case ADD_CATEGORY:
-			refreshCategoryMenuView();
-			break;
-		case DELETE_CATEGORY:
-			refreshCategoryMenuView();
-			break;
-		case CLEAR_CATEGORY:
 			refreshCategoryMenuView();
 			break;
 		case SEARCH:

@@ -19,11 +19,12 @@ public class UICategoryBox {
 	private static final String STYLECLASS_CAT_CIRCLE = UIStyle.CATEGORY_CIRCLE;
 	private static final String STYLECLASS_CAT_BOX = UIStyle.BTN_SELECT_VIEW;
 	private static final String STYLECLASS_CAT_BOX_WRAPPER = UIStyle.CATEGORY_BOX_WRAPPER;
+	private static final double CAT_CIRCLE_RADIUS = 4.0;
 	private static final int SPACING_CAT_BOX_WRAPPER = 14;
 	private static final int PREFWIDTH_CAT_BOX = 200;
 
-	private Category category;
 	private UICategoryBoxContainer parent;
+	private Category category;
 	private HBox categoryBoxWrapper;
 	private Label categoryName;
 	private Circle categoryCircle;
@@ -49,7 +50,7 @@ public class UICategoryBox {
 	}
 	
 	private void initCategoryCircle(){
-		this.categoryCircle = new Circle(4, this.category.getColour());
+		this.categoryCircle = new Circle(CAT_CIRCLE_RADIUS, this.category.getColour());
 		this.categoryCircle.getStyleClass().add(STYLECLASS_CAT_CIRCLE);
 	}
 	
@@ -73,10 +74,14 @@ public class UICategoryBox {
 		this.categoryBox.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				parent.processCommand(UIData.CMD_SHOW_CAT + categoryName.getText());
+				parent.processCommand(getShowCategoryCommand());
 				event.consume();
 			}
 		});
+	}
+	
+	private String getShowCategoryCommand(){
+		return UIData.CMD_SHOW_CAT + categoryName.getText();
 	}
 	
 	protected Category getCategory(){

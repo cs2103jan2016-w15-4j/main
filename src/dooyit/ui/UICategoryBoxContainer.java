@@ -38,8 +38,8 @@ public class UICategoryBoxContainer {
 	
 	private void addAllCategories(){
 		this.categoryBoxList = new ArrayList<UICategoryBox>();
-		for (int i = 0; i < categoryList.size(); i++){
-			addCategory(categoryList.get(i));
+		for (Category category : categoryList){
+			addCategory(category);
 		}
 	}
 	
@@ -73,8 +73,8 @@ public class UICategoryBoxContainer {
 	protected void refresh(ArrayList<Category> categoryList) {
 		this.categoryBoxContainerView.getChildren().clear();
 		this.categoryBoxList.clear();
-		for (int i = 0; i < categoryList.size(); i++){
-			addCategory(categoryList.get(i));
+		for (Category category : categoryList){
+			addCategory(category);
 		}
 	}
 }

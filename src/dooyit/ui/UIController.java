@@ -25,7 +25,6 @@ public class UIController {
 
 	static final int WIDTH_SCENE = 720;
 	static final int HEIGHT_SCENE = 580;
-
 	static final String STYLECLASS_MAIN_VIEW = UIStyle.MAIN_VIEW;
 
 	private String urlCssCommon;
@@ -46,7 +45,6 @@ public class UIController {
 	private LogicController logic;
 	private Stage primaryStage;
 	private UIMainViewType activeMainView;
-
 	private static UIController instance = null;
 
 	private UIController(Stage primaryStage, LogicController logic) {
@@ -118,26 +116,28 @@ public class UIController {
 
 	private void showSelectedSideMenu(String userData) {
 		switch (userData) {
-		case UIData.USERDATA_TODAY:
-			activeMainView = UIMainViewType.TODAY;
-			processInput(UIData.CMD_SHOW_TODAY);
-			break;
-		case UIData.USERDATA_EXTENDED:
-			activeMainView = UIMainViewType.EXTENDED;
-			processInput(UIData.CMD_SHOW_EXTENDED);
-			break;
-		case UIData.USERDATA_FLOAT:
-			activeMainView = UIMainViewType.FLOAT;
-			processInput(UIData.CMD_SHOW_FLOAT);
-			break;
-		case UIData.USERDATA_ALL:
-			activeMainView = UIMainViewType.ALL;
-			processInput(UIData.CMD_SHOW_ALL);
-			break;
-		case UIData.USERDATA_COMPLETED:
-			activeMainView = UIMainViewType.COMPLETED;
-			processInput(UIData.CMD_SHOW_COMPLETED);
-			break;
+			case UIData.USERDATA_TODAY:
+				activeMainView = UIMainViewType.TODAY;
+				processInput(UIData.CMD_SHOW_TODAY);
+				break;
+			case UIData.USERDATA_EXTENDED:
+				activeMainView = UIMainViewType.EXTENDED;
+				processInput(UIData.CMD_SHOW_EXTENDED);
+				break;
+			case UIData.USERDATA_FLOAT:
+				activeMainView = UIMainViewType.FLOAT;
+				processInput(UIData.CMD_SHOW_FLOAT);
+				break;
+			case UIData.USERDATA_ALL:
+				activeMainView = UIMainViewType.ALL;
+				processInput(UIData.CMD_SHOW_ALL);
+				break;
+			case UIData.USERDATA_COMPLETED:
+				activeMainView = UIMainViewType.COMPLETED;
+				processInput(UIData.CMD_SHOW_COMPLETED);
+				break;
+			default:
+				break;
 		}
 		mainView.setContent(dayBoxContainer.getView());
 	}
@@ -199,8 +199,7 @@ public class UIController {
 
 		this.maximizeListener = new ChangeListener<Boolean>() {
 			@Override
-			public void changed(ObservableValue<? extends Boolean> observableValue, Boolean oldValue,
-					Boolean newValue) {
+			public void changed(ObservableValue<? extends Boolean> observableValue, Boolean oldValue, Boolean newValue) {
 				updateOnResize();
 			}
 		};
@@ -220,24 +219,31 @@ public class UIController {
 		this.messageBox.updatePosition();
 		this.dayBoxContainer.updatePosition(primaryStage.getWidth());
 		if (this.helpBox.isShowing()) {
-			this.helpBox.updatePosition(primaryStage.getX(), primaryStage.getY(), primaryStage.getWidth(),
-					primaryStage.getHeight());
+			this.helpBox.updatePosition(primaryStage.getX(), primaryStage.getY(), primaryStage.getWidth(), primaryStage.getHeight());
 		}
 	}
 
 	private void processKeyEvent(final KeyEvent keyEvent) {
 		if (keyEvent.isControlDown()) {
 			KeyCode key = keyEvent.getCode();
-			if (key == KeyCode.DIGIT1) {
-				processInput(UIData.CMD_SHOW_TODAY);
-			} else if (key == KeyCode.DIGIT2) {
-				processInput(UIData.CMD_SHOW_EXTENDED);
-			} else if (key == KeyCode.DIGIT3) {
-				processInput(UIData.CMD_SHOW_FLOAT);
-			} else if (key == KeyCode.DIGIT4) {
-				processInput(UIData.CMD_SHOW_ALL);
-			} else if (key == KeyCode.DIGIT5) {
-				processInput(UIData.CMD_SHOW_COMPLETED);
+			switch(key){
+				case DIGIT1:
+					processInput(UIData.CMD_SHOW_TODAY);
+					break;
+				case DIGIT2:
+					processInput(UIData.CMD_SHOW_EXTENDED);
+					break;
+				case DIGIT3:
+					processInput(UIData.CMD_SHOW_FLOAT);
+					break;
+				case DIGIT4:
+					processInput(UIData.CMD_SHOW_ALL);
+					break;
+				case DIGIT5:
+					processInput(UIData.CMD_SHOW_COMPLETED);
+					break;
+				default:
+					break;
 			}
 		} else {
 			if (!commandBox.isSelected()) {
@@ -250,21 +256,27 @@ public class UIController {
 	private void initStageListeners() {
 		this.primaryStage.focusedProperty().addListener(new ChangeListener<Boolean>() {
 			@Override
-			public void changed(ObservableValue<? extends Boolean> observableValue, Boolean oldValue,
-					Boolean newValue) {
-				if (!newValue && messageBox.isOn()) {
-					messageBox.tempHide();
-				} else if (newValue && messageBox.isOn()) {
-					messageBox.display();
-				}
-
-				if (!newValue && helpBox.isOn()) {
-					helpBox.tempHide();
-				} else if (newValue && helpBox.isOn()) {
-					helpBox.show(primaryStage);
-				}
+			public void changed(ObservableValue<? extends Boolean> observableValue, Boolean oldValue, Boolean newValue) {
+				updateMessageBoxOnFocusChange(newValue);
+				updateHelpBoxOnFocusChange(newValue);
 			}
 		});
+	}
+	
+	private void updateMessageBoxOnFocusChange(Boolean obs){
+		if (!obs && this.messageBox.isOn()) {
+			this.messageBox.tempHide();
+		} else if (obs && this.messageBox.isOn()) {
+			this.messageBox.display();
+		}
+	}
+	
+	private void updateHelpBoxOnFocusChange(Boolean obs){
+		if (!obs && this.helpBox.isOn()) {
+			this.helpBox.tempHide();
+		} else if (obs && helpBox.isOn()) {
+			this.helpBox.show(primaryStage);
+		}
 	}
 
 	private void initPopulate() {
@@ -279,86 +291,86 @@ public class UIController {
 	private void processLogicAction(LogicAction logicAction) {
 		Action action = logicAction.getAction();
 		switch (action) {
-		case ADD_TODAY_TASK:
-		case EDIT_TO_TODAY_TASK:
-		case SHOW_TODAY_TASK:
-			refreshMainView(this.logic.getTaskGroupsToday(), UIMainViewType.TODAY);
-			break;
-		case ADD_NEXT7DAY_TASK:
-		case EDIT_TO_NEXT7DAY_TASK:
-		case SHOW_NEXT7DAY_TASK:
-			refreshMainView(this.logic.getTaskGroupsNext7Days(), UIMainViewType.EXTENDED);
-			break;
-		case ADD_FLOATING_TASK:
-		case EDIT_TO_FLOATING_TASK:
-		case SHOW_FLOATING_TASK:
-			refreshMainView(this.logic.getTaskGroupsFloating(), UIMainViewType.FLOAT);
-			break;
-		case ADD_ALL_TASK:
-		case EDIT_TO_ALL_TASK:
-		case SHOW_ALL_TASK:
-			refreshMainView(this.logic.getTaskGroupsAll(), UIMainViewType.ALL);
-			break;
-		case SHOW_COMPLETED:
-			refreshMainView(this.logic.getTaskGroupsCompleted(), UIMainViewType.COMPLETED);
-			break;
-		case SHOW_CATEGORY:
-			refreshMainView(this.logic.getTaskGroupCategory(), this.logic.getSelectedCategory());
-			setActiveCategoryButton(this.logic.getSelectedCategory());
-			break;
-		case DELETE_CATEGORY:
-		case CLEAR_CATEGORY:
-			refreshCategoryMenuView();
-		case DELETE_TASK:
-		case SET_CATEGORY:
-		case CLEAR_TASK:
-		case MARK_TASK:
-		case UNMARK_TASK:
-		case UNDO:
-		case REDO:
-		case REMOVE_CAT_FROM_TASK:
-			if (this.activeMainView == UIMainViewType.TODAY) {
+			case ADD_TODAY_TASK:
+			case EDIT_TO_TODAY_TASK:
+			case SHOW_TODAY_TASK:
 				refreshMainView(this.logic.getTaskGroupsToday(), UIMainViewType.TODAY);
-			} else if (this.activeMainView == UIMainViewType.EXTENDED) {
+				break;
+			case ADD_NEXT7DAY_TASK:
+			case EDIT_TO_NEXT7DAY_TASK:
+			case SHOW_NEXT7DAY_TASK:
 				refreshMainView(this.logic.getTaskGroupsNext7Days(), UIMainViewType.EXTENDED);
-			} else if (this.activeMainView == UIMainViewType.FLOAT) {
+				break;
+			case ADD_FLOATING_TASK:
+			case EDIT_TO_FLOATING_TASK:
+			case SHOW_FLOATING_TASK:
 				refreshMainView(this.logic.getTaskGroupsFloating(), UIMainViewType.FLOAT);
-			} else if (this.activeMainView == UIMainViewType.ALL) {
+				break;
+			case ADD_ALL_TASK:
+			case EDIT_TO_ALL_TASK:
+			case SHOW_ALL_TASK:
 				refreshMainView(this.logic.getTaskGroupsAll(), UIMainViewType.ALL);
-			} else if (this.activeMainView == UIMainViewType.COMPLETED) {
+				break;
+			case SHOW_COMPLETED:
 				refreshMainView(this.logic.getTaskGroupsCompleted(), UIMainViewType.COMPLETED);
-			} else if (this.activeMainView == UIMainViewType.CATEGORY) {
+				break;
+			case SHOW_CATEGORY:
 				refreshMainView(this.logic.getTaskGroupCategory(), this.logic.getSelectedCategory());
-			}
-			break;
-		case ADD_CATEGORY:
-			refreshCategoryMenuView();
-			break;
-		case SEARCH:
-			refreshMainView(this.logic.getSearchTaskGroup(), UIMainViewType.SEARCH);
-			break;
-		case HELP:
-			showHelp();
-			break;
-		case CHANGE_THEME_DEFAULT:
-			changeTheme(UITheme.LIGHT);
-			break;
-		case CHANGE_THEME_DARK:
-			changeTheme(UITheme.DARK);
-			break;
-		case CHANGE_THEME_AQUA:
-			changeTheme(UITheme.AQUA);
-			break;
-		case CHANGE_THEME_CUSTOM:
-			changeTheme(UITheme.CUSTOM);
-			break;
-		case SET_STORAGE_PATH:
-			break;
-		case ERROR:
-			
-			break;
-		default:
-			break;
+				setActiveCategoryButton(this.logic.getSelectedCategory());
+				break;
+			case DELETE_CATEGORY:
+			case CLEAR_CATEGORY:
+				refreshCategoryMenuView();
+			case DELETE_TASK:
+			case SET_CATEGORY:
+			case CLEAR_TASK:
+			case MARK_TASK:
+			case UNMARK_TASK:
+			case UNDO:
+			case REDO:
+			case REMOVE_CAT_FROM_TASK:
+				if (this.activeMainView == UIMainViewType.TODAY) {
+					refreshMainView(this.logic.getTaskGroupsToday(), UIMainViewType.TODAY);
+				} else if (this.activeMainView == UIMainViewType.EXTENDED) {
+					refreshMainView(this.logic.getTaskGroupsNext7Days(), UIMainViewType.EXTENDED);
+				} else if (this.activeMainView == UIMainViewType.FLOAT) {
+					refreshMainView(this.logic.getTaskGroupsFloating(), UIMainViewType.FLOAT);
+				} else if (this.activeMainView == UIMainViewType.ALL) {
+					refreshMainView(this.logic.getTaskGroupsAll(), UIMainViewType.ALL);
+				} else if (this.activeMainView == UIMainViewType.COMPLETED) {
+					refreshMainView(this.logic.getTaskGroupsCompleted(), UIMainViewType.COMPLETED);
+				} else if (this.activeMainView == UIMainViewType.CATEGORY) {
+					refreshMainView(this.logic.getTaskGroupCategory(), this.logic.getSelectedCategory());
+				}
+				break;
+			case ADD_CATEGORY:
+				refreshCategoryMenuView();
+				break;
+			case SEARCH:
+				refreshMainView(this.logic.getSearchTaskGroup(), UIMainViewType.SEARCH);
+				break;
+			case HELP:
+				showHelp();
+				break;
+			case CHANGE_THEME_DEFAULT:
+				changeTheme(UITheme.LIGHT);
+				break;
+			case CHANGE_THEME_DARK:
+				changeTheme(UITheme.DARK);
+				break;
+			case CHANGE_THEME_AQUA:
+				changeTheme(UITheme.AQUA);
+				break;
+			case CHANGE_THEME_CUSTOM:
+				changeTheme(UITheme.CUSTOM);
+				break;
+			case SET_STORAGE_PATH:
+				break;
+			case ERROR:
+				//
+				break;
+			default:
+				break;
 		}
 
 		if (logicAction.hasMessage()) {
@@ -383,40 +395,40 @@ public class UIController {
 		this.scene.getStylesheets().clear();
 		this.scene.getStylesheets().add(urlCssCommon);
 		switch (theme) {
-		case DARK:
-			this.scene.getStylesheets().addAll(urlCssThemeDark);
-			break;
-		case AQUA:
-			this.scene.getStylesheets().addAll(urlCssThemeAqua);
-			break;
-		default:
-			this.scene.getStylesheets().addAll(urlCssThemeLight);
-			break;
+			case DARK:
+				this.scene.getStylesheets().addAll(urlCssThemeDark);
+				break;
+			case AQUA:
+				this.scene.getStylesheets().addAll(urlCssThemeAqua);
+				break;
+			default:
+				this.scene.getStylesheets().addAll(urlCssThemeLight);
+				break;
 		}
 	}
 
 	private void setActiveMenuButton(UIMainViewType mainViewType) {
 		switch (mainViewType) {
-		case TODAY:
-			this.sideMenu.getTodayBtn().setSelected(true);
-			break;
-		case EXTENDED:
-			this.sideMenu.getExtendedBtn().setSelected(true);
-			break;
-		case FLOAT:
-			this.sideMenu.getFloatBtn().setSelected(true);
-			break;
-		case ALL:
-			this.sideMenu.getAllBtn().setSelected(true);
-			break;
-		case COMPLETED:
-			this.sideMenu.getCompletedBtn().setSelected(true);
-			break;
-		case SEARCH:
-			//unsetAllMenuButtons();
-			break;
-		default:
-			break;
+			case TODAY:
+				this.sideMenu.getTodayBtn().setSelected(true);
+				break;
+			case EXTENDED:
+				this.sideMenu.getExtendedBtn().setSelected(true);
+				break;
+			case FLOAT:
+				this.sideMenu.getFloatBtn().setSelected(true);
+				break;
+			case ALL:
+				this.sideMenu.getAllBtn().setSelected(true);
+				break;
+			case COMPLETED:
+				this.sideMenu.getCompletedBtn().setSelected(true);
+				break;
+			case SEARCH:
+				//unsetAllMenuButtons();
+				break;
+			default:
+				break;
 		}
 	}
 
@@ -424,9 +436,9 @@ public class UIController {
 		this.sideMenu.setActiveCategoryButton(category);
 	}
 	
-	private void unsetAllMenuButtons() {
-		this.sideMenu.getMainViewToggleGroup().getToggles().forEach(toggle -> toggle.setSelected(false));
-	}
+//	private void unsetAllMenuButtons() {
+//		this.sideMenu.getMainViewToggleGroup().getToggles().forEach(toggle -> toggle.setSelected(false));
+//	}
 
 	private void refreshMainView(ArrayList<TaskGroup> taskGroupList) {
 		this.dayBoxContainer.refresh(taskGroupList);

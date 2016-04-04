@@ -114,23 +114,23 @@ public class UIController {
 		switch(userData){
 			case UIData.USERDATA_TODAY:
 		    	activeMainView = UIMainViewType.TODAY;
-		    	logic.processInput(UIData.CMD_SHOW_TODAY);
+		    	processInput(UIData.CMD_SHOW_TODAY);
 		        break;
 		    case UIData.USERDATA_EXTENDED:
 		    	activeMainView = UIMainViewType.EXTENDED;
-		    	logic.processInput(UIData.CMD_SHOW_EXTENDED);
+		    	processInput(UIData.CMD_SHOW_EXTENDED);
 		        break;
 		    case UIData.USERDATA_FLOAT:
 		    	activeMainView = UIMainViewType.FLOAT;
-		    	logic.processInput(UIData.CMD_SHOW_FLOAT);
+		    	processInput(UIData.CMD_SHOW_FLOAT);
 		    	break;
 		    case UIData.USERDATA_ALL:
 		    	activeMainView = UIMainViewType.ALL;
-		    	logic.processInput(UIData.CMD_SHOW_ALL);
+		    	processInput(UIData.CMD_SHOW_ALL);
 		    	break;
 		    case UIData.USERDATA_COMPLETED:
 		    	activeMainView = UIMainViewType.COMPLETED;
-		    	logic.processInput(UIData.CMD_SHOW_COMPLETED);
+		    	processInput(UIData.CMD_SHOW_COMPLETED);
 		    	break;
 		}
 		mainView.setContent(dayBoxContainer.getView());
@@ -179,7 +179,7 @@ public class UIController {
 		this.commandBox.getCommandTextField().setOnAction((event) -> {
 			String commandString = commandBox.getCommandTextField().getText();
 			this.commandBox.getCommandTextField().setText(UIData.EMP_STR);
-			this.logic.processInput(commandString);
+			processInput(commandString);
 		});
 	}
 	
@@ -222,15 +222,15 @@ public class UIController {
 		if (keyEvent.isControlDown()) {
 			KeyCode key = keyEvent.getCode();
 			if (key == KeyCode.DIGIT1){
-				logic.processInput(UIData.CMD_SHOW_TODAY);
+				processInput(UIData.CMD_SHOW_TODAY);
 			} else if (key == KeyCode.DIGIT2){
-				logic.processInput(UIData.CMD_SHOW_EXTENDED);
+				processInput(UIData.CMD_SHOW_EXTENDED);
 			} else if (key == KeyCode.DIGIT3){
-				logic.processInput(UIData.CMD_SHOW_FLOAT);
+				processInput(UIData.CMD_SHOW_FLOAT);
 			} else if (key == KeyCode.DIGIT4){
-				logic.processInput(UIData.CMD_SHOW_ALL);
+				processInput(UIData.CMD_SHOW_ALL);
 			} else if (key == KeyCode.DIGIT5){
-				logic.processInput(UIData.CMD_SHOW_COMPLETED);
+				processInput(UIData.CMD_SHOW_COMPLETED);
 			}
 		} else {
 			if (!commandBox.isSelected()){
@@ -257,6 +257,105 @@ public class UIController {
 				}
 			}
 		});
+	}
+	
+	private void processInput(String s){
+		processLogicAction(logic.processInput(s));
+	}
+	
+	private void processLogicAction(LogicAction logicAction){
+		Action action = logicAction.getAction();
+		switch(action){
+		case ADD_TODAY_TASK:
+		case EDIT_TO_TODAY_TASK:
+		case SHOW_TODAY_TASK:
+			refreshMainView(this.logic.getTaskGroupsToday(), UIMainViewType.TODAY);
+			break;
+		case ADD_NEXT7DAY_TASK:
+		case EDIT_TO_NEXT7DAY_TASK:
+		case SHOW_NEXT7DAY_TASK:
+			refreshMainView(this.logic.getTaskGroupsNext7Days(), UIMainViewType.EXTENDED);
+			break;
+		case ADD_FLOATING_TASK:
+		case EDIT_TO_FLOATING_TASK:
+		case SHOW_FLOATING_TASK:
+			refreshMainView(this.logic.getTaskGroupsFloating(), UIMainViewType.FLOAT);
+			break;
+		case ADD_ALL_TASK:
+		case EDIT_TO_ALL_TASK:
+		case SHOW_ALL_TASK:
+			refreshMainView(this.logic.getTaskGroupsAll(), UIMainViewType.ALL);
+			break;
+		case SHOW_COMPLETED:
+			refreshMainView(this.logic.getTaskGroupsCompleted(), UIMainViewType.COMPLETED);
+			break;
+		case SHOW_CATEGORY:
+			refreshMainView(this.logic.getTaskGroupCategory(), this.logic.getSelectedCategory());
+			break;
+		case DELETE_TASK:
+		case SET_CATEGORY:
+		case CLEAR_TASK:
+		case MARK_TASK:
+		case UNMARK_TASK:
+		case UNDO:
+		case REDO:
+		case REMOVE_CAT_FROM_TASK:
+			if (this.activeMainView == UIMainViewType.TODAY){
+				refreshMainView(this.logic.getTaskGroupsToday(), UIMainViewType.TODAY);
+			} else if (this.activeMainView == UIMainViewType.EXTENDED){
+				refreshMainView(this.logic.getTaskGroupsNext7Days(), UIMainViewType.EXTENDED);
+			} else if (this.activeMainView == UIMainViewType.FLOAT){
+				refreshMainView(this.logic.getTaskGroupsFloating(), UIMainViewType.FLOAT);
+			} else if (this.activeMainView == UIMainViewType.ALL){
+				refreshMainView(this.logic.getTaskGroupsAll(), UIMainViewType.ALL);
+			} else if (this.activeMainView == UIMainViewType.COMPLETED){
+				refreshMainView(this.logic.getTaskGroupsCompleted(), UIMainViewType.COMPLETED);
+			} else if (this.activeMainView == UIMainViewType.CATEGORY){
+				refreshMainView(this.logic.getTaskGroupCategory());
+			}
+			break;
+		case ADD_CATEGORY:
+			//
+			break;
+		case DELETE_CATEGORY:
+			//
+			break;
+		case CLEAR_CATEGORY:
+			//
+			break;
+		case SEARCH:
+			break;
+		case HELP:
+			showHelp();
+			break;
+		case CHANGE_THEME_DEFAULT:
+			changeTheme(UITheme.LIGHT);
+			break;
+		case CHANGE_THEME_DARK:
+			changeTheme(UITheme.DARK);
+			break;
+		case CHANGE_THEME_AQUA:
+			changeTheme(UITheme.AQUA);
+			break;
+		case CHANGE_THEME_CUSTOM:
+			changeTheme(UITheme.CUSTOM);
+			break;
+		case SET_STORAGE_PATH:
+			// 
+			break;
+		case ERROR:
+			// 
+			break;
+		case EXIT:
+			// 
+			break;
+		default:
+			break;
+		}
+		
+		if (logicAction.hasMessage()){
+			displayMessage(logicAction.getMessage());
+		}
 	}
 	
 	public void updatePositions(){
@@ -323,11 +422,11 @@ public class UIController {
 	}
 	
 	protected void markTask(int taskId){
-		this.logic.processInput(UIData.CMD_MARK + Integer.toString(taskId));
+		processInput(UIData.CMD_MARK + Integer.toString(taskId));
 	}
 
 	protected void processCommand(String cmd){
-		this.logic.processInput(cmd);
+		processInput(cmd);
 	}
 	
 	public void refreshMainView(ArrayList<TaskGroup> taskGroupList){
@@ -343,7 +442,6 @@ public class UIController {
 	
 	public void refreshMainView(ArrayList<TaskGroup> taskGroupList, Category category){
 		this.activeMainView = UIMainViewType.CATEGORY;
-		//setActiveMenuButton(category);
 		refreshMainView(taskGroupList);
 	}
 	

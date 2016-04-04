@@ -14,6 +14,14 @@ public class LogicAction {
 		this.message = message;
 	}
 	
+	public Action getAction(){
+		return this.action;
+	}
+	
+	public String getMessage(){
+		return this.message;
+	}
+	
 	public void setMessage(String message){
 		this.message = message;
 	}

@@ -17,6 +17,10 @@ public class HistoryManager {
 	}
 	
 	public void addCommand(Command command){
+		if(command.hasError()){
+			return;
+		}
+		
 		if (command instanceof ReversibleCommand) {
 			undoHistory.push((ReversibleCommand) command);
 		}

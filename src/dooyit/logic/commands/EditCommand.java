@@ -23,6 +23,7 @@ public class EditCommand implements Command, ReversibleCommand {
 	private DateTime dateTimeDeadline;
 	private DateTime dateTimeStart;
 	private DateTime dateTimeEnd;
+	private boolean hasError = false;
 
 	public EditCommand(int taskId, String taskName) {
 		editCommandType = EditCommandType.NAME;
@@ -60,6 +61,10 @@ public class EditCommand implements Command, ReversibleCommand {
 		this.taskId = taskId;
 	}
 
+	public boolean hasError(){
+		return hasError;
+	}
+	
 	public void undo(LogicController logic) {
 		assert (logic != null);
 		
@@ -77,6 +82,7 @@ public class EditCommand implements Command, ReversibleCommand {
 		LogicAction logicAction;
 
 		if (!logic.containsTask(taskId)) {
+			hasError = true;
 			throw new IncorrectInputException("Cant find task ID: " + taskId);
 		}
 

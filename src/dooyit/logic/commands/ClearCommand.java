@@ -12,6 +12,15 @@ import dooyit.logic.api.LogicController;
 public class ClearCommand implements Command, ReversibleCommand {
 
 	ArrayList<Task> clearedTasks;
+	private boolean hasError = false;
+	
+	public ClearCommand(){
+		
+	}
+	
+	public boolean hasError(){
+		return hasError;
+	}
 	
 	public void undo(LogicController logic) {
 		logic.loadTasks(clearedTasks);

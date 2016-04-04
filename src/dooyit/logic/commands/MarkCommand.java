@@ -12,6 +12,7 @@ import dooyit.logic.api.LogicController;
 public class MarkCommand implements Command, ReversibleCommand {
 	private ArrayList<Integer> markIds;
 	private ArrayList<Task> markedTasks;
+	private boolean hasError = false;
 	
 	public MarkCommand(int markId) {
 		this.markIds = new ArrayList<Integer>();
@@ -25,6 +26,10 @@ public class MarkCommand implements Command, ReversibleCommand {
 		this.markIds.addAll(markIds);
 	}
 
+	public boolean hasError(){
+		return hasError;
+	}
+	
 	public void undo(LogicController logic){
 		for(Task markedTask : markedTasks){
 			logic.unmarkTask(markedTask);

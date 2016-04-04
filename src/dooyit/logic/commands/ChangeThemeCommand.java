@@ -9,11 +9,16 @@ import dooyit.ui.UITheme;
 
 public class ChangeThemeCommand implements Command {
 
-	String themeString;
-	UITheme theme;
+	private String themeString;
+	private UITheme theme;
+	private boolean hasError = false;
 	
 	public ChangeThemeCommand(String themeString){
 		this.themeString = themeString;
+	}
+	
+	public boolean hasError(){
+		return hasError;
 	}
 	
 	public LogicAction execute(LogicController logic) throws IncorrectInputException {

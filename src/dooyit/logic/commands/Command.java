@@ -10,4 +10,6 @@ import dooyit.ui.UIMainViewType;
 public interface Command {
 
 	public LogicAction execute(LogicController logic) throws IncorrectInputException;
+	
+	public boolean hasError();
 }

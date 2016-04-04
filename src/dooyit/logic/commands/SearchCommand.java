@@ -7,9 +7,14 @@ import dooyit.logic.api.LogicController;
 
 public class SearchCommand implements Command {
 	private String searchString;
+	private boolean hasError = false;
 	
 	public SearchCommand(String searchString){
 		this.searchString = searchString;
+	}
+	
+	public boolean hasError(){
+		return hasError;
 	}
 	
 	public LogicAction execute(LogicController logic) throws IncorrectInputException {

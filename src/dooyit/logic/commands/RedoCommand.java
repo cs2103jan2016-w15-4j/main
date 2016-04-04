@@ -7,6 +7,16 @@ import dooyit.logic.api.LogicController;
 
 public class RedoCommand implements Command{
 
+	private boolean hasError = false;
+	
+	public RedoCommand(){
+		
+	}
+	
+	public boolean hasError(){
+		return hasError;
+	}
+	
 	public LogicAction execute(LogicController logic) throws IncorrectInputException {
 		assert(logic != null);
 		LogicAction logicAction;

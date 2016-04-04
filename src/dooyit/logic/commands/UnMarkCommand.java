@@ -13,6 +13,7 @@ public class UnMarkCommand implements Command, ReversibleCommand{
 
 	private ArrayList<Integer> unmarkIds;
 	private ArrayList<Task> unmarkedTasks;
+	private boolean hasError = false;
 
 	public UnMarkCommand(int unMarkId) {
 		this.unmarkIds = new ArrayList<Integer>();
@@ -24,6 +25,10 @@ public class UnMarkCommand implements Command, ReversibleCommand{
 		this.unmarkIds = new ArrayList<Integer>();
 		this.unmarkedTasks = new ArrayList<Task>();
 		this.unmarkIds.addAll(unMarkIds);
+	}
+	
+	public boolean hasError(){
+		return hasError;
 	}
 	
 	public void undo(LogicController logic){

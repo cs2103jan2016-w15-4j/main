@@ -22,7 +22,7 @@ public class HelpCommand implements Command {
 		UIController uiController = logic.getUIController();
 		LogicAction logicAction = new LogicAction(Action.HELP);
 		
-		uiController.showHelp();
+		//uiController.showHelp();
 		
 		return logicAction;
 	}

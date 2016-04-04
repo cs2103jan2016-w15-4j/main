@@ -323,8 +323,8 @@ public class LogicController {
 			return;
 		}
 
-		uiController.setActiveViewType(UIMainViewType.SEARCH);
-		uiController.refreshMainView(taskManager.getTaskGroupSearched(searchString));
+		//uiController.setActiveViewType(UIMainViewType.SEARCH);
+		//uiController.refreshMainView(taskManager.getTaskGroupSearched(searchString));
 	}
 	
 	public void setSearchKey(String searchString){

@@ -17,7 +17,8 @@ import dooyit.logic.api.*;
 
 /**
  * 
- * @author Wu Wenqi A0124278A
+ * @@author Wu Wenqi <A0124278A>
+ *
  */
 
 public class UIController {

@@ -7,7 +7,7 @@ import javafx.scene.text.Font;
 
 /**
  * 
- * @author Wu Wenqi A0124278A
+ * @@author Wu Wenqi <A0124278A>
  *
  */
 
@@ -16,6 +16,7 @@ public class UIHeader {
 	private static final String LABEL_TITLE = "DOOYIT";
 	private static final String STYLECLASS_TITLE = UIStyle.HEADER_TITLE;
 	private static final String PATH_FONT_AVENIR_MEDIUM = "fonts/Avenir-Medium.ttf";
+	private static final Font HELVETICA_L = Font.font("Helvetica", 19);
 	private static final int FONTSIZE_TITLE = 19;
 
 	private Font customFont;
@@ -36,7 +37,7 @@ public class UIHeader {
 		try {
 			initTitleFont();
 		} catch (Exception e) {
-			this.title.setFont(UIFont.HELVETICA_L);
+			this.title.setFont(HELVETICA_L);
 		}
 		this.title.getStyleClass().add(STYLECLASS_TITLE);
 	}

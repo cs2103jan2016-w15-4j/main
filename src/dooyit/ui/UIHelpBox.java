@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 
 /**
  * 
- * @author Wu Wenqi A0124278A
+ * @@author Wu Wenqi <A0124278A>
  *
  */
 

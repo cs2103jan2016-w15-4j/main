@@ -7,7 +7,7 @@ import javafx.scene.layout.VBox;
 
 /**
  * 
- * @author Wu Wenqi A0124278A
+ * @@author Wu Wenqi <A0124278A>
  *
  */
 

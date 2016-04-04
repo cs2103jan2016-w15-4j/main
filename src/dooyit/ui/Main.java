@@ -9,7 +9,7 @@ import dooyit.logic.api.LogicController;
 
 /**
  * 
- * @author Lim Ta Eu
+ * @@author Lim Ta Eu
  */
 
 public class Main extends Application {
@@ -29,7 +29,6 @@ public class Main extends Application {
 	public static final String ERROR_IO_EXCEPTION = "ERROR: IOException";
 	public static final String ERROR_NUMBER_FORMAT_EXCEPTION = "ERROR: Number Format Exception";
 	public static final int NO_OF_ARG = 1;
-
 	private static final String APP_ICON = "icon.png";
 	private static final String APP_TITLE = "Dooyit";
 	private static final int MINWIDTH_STAGE = 720;

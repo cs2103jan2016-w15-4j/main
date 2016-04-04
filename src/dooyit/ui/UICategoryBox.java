@@ -10,7 +10,7 @@ import javafx.scene.shape.Circle;
 
 /**
  * 
- * @author Wu Wenqi A0124278A
+ * @@author Wu Wenqi <A0124278A>
  *
  */
 
@@ -73,7 +73,6 @@ public class UICategoryBox {
 		this.categoryBox.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-//				categoryBox.setSelected(true);
 				parent.processCommand(UIData.CMD_SHOW_CAT + categoryName.getText());
 				event.consume();
 			}

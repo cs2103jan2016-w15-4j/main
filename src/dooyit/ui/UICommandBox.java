@@ -5,7 +5,7 @@ import javafx.scene.layout.HBox;
 
 /**
  * 
- * @author Wu Wenqi A0124278A
+ * @@author Wu Wenqi <A0124278A>
  *
  */
 

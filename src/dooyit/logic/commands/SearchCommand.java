@@ -13,7 +13,8 @@ public class SearchCommand implements Command {
 	}
 	
 	public LogicAction execute(LogicController logic) throws IncorrectInputException {
-		logic.setActiveViewSearch(searchString);
+		//logic.setActiveViewSearch(searchString);
+		logic.setSearchKey(searchString);
 		LogicAction logicAction = new LogicAction(Action.SEARCH);
 		return logicAction;
 	}

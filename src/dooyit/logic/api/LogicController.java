@@ -40,6 +40,7 @@ public class LogicController {
 	private boolean isSaveOn = true;
 	private boolean displayCommandline = true;
 	private Category selectedCategory;
+	private String currentSearch = "";
 	
 
 	public LogicController() {
@@ -324,6 +325,14 @@ public class LogicController {
 
 		//uiController.setActiveViewType(UIMainViewType.SEARCH);
 		//uiController.refreshMainView(taskManager.getTaskGroupSearched(searchString));
+	}
+	
+	public void setSearchKey(String searchString){
+		this.currentSearch = searchString;
+	}
+	
+	public ArrayList<TaskGroup> getSearchTaskGroup(){
+		return taskManager.getTaskGroupSearched(currentSearch);
 	}
 
 	private void refreshUIController() {

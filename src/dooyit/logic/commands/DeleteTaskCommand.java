@@ -70,6 +70,7 @@ public class DeleteTaskCommand implements Command, ReversibleCommand {
 			}
 
 		} else {
+			hasError = true;
 			if (errorMsgBody != Constants.EMPTY_STRING) {
 				logicAction = new LogicAction(Action.ERROR, String.format(Constants.FEEDBACK_INVALID_IDS, errorMsgBody));
 			}

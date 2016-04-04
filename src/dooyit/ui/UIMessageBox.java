@@ -78,7 +78,7 @@ public class UIMessageBox {
 	protected void updatePosition(){
 		double x = this.primaryStage.getX() + PAD_X;
 		double y = this.primaryStage.getY() + this.primaryStage.getHeight() - PAD_Y;
-		double width = this.primaryStage.getWidth() - 2*PAD_X;
+		double width = this.primaryStage.getWidth() - 2 * PAD_X;
 		update(x, y, width, PREFHEIGHT);
 	}
 	

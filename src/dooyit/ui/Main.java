@@ -3,7 +3,6 @@ package dooyit.ui;
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.stage.Stage;
-import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import dooyit.logic.api.LogicController;
 
@@ -34,9 +33,8 @@ public class Main extends Application {
 	private static final int MINWIDTH_STAGE = 720;
 	private static final int MINHEIGHT_STAGE = 620;
 
-	// scanner for receiving user input
 	private UIController ui;
-	LogicController logic;
+	private LogicController logic;
 
 	public Main() {
 	}
@@ -47,11 +45,8 @@ public class Main extends Application {
 			logic = new LogicController();
 			initStage(primaryStage);
 			this.ui = UIController.getInstance(primaryStage, logic);
-			Scene scene = this.ui.getScene();
-			primaryStage.setScene(scene);
+			primaryStage.setScene(this.ui.getScene());
 			primaryStage.show();
-			logic.setUIController(this.ui);
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

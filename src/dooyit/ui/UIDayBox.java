@@ -50,7 +50,7 @@ public class UIDayBox {
 	private void initDayTitle(){
         this.dayTitle = new Label(this.taskGroup.getTitle());
         this.dayTitle.getStyleClass().add(STYLECLASS_DAY_TITLE);
-        if (taskList.size() == 0 && !this.taskGroup.getTitle().equals(UIData.TODAY)){
+        if (taskList.size() == 0 && !this.taskGroup.getTitle().contains(UIData.TODAY)){
         	this.dayTitle.getStyleClass().add(STYLECLASS_DAY_TITLE_FADED);
         }
 	}
@@ -64,17 +64,14 @@ public class UIDayBox {
 	}
 	
 	private void addAllTasks(){
-		for (int i = 0; i < this.taskList.size(); i++){
-			addTask(this.taskList.get(i));
+		for (Task task : this.taskList){
+			addTask(task);
 		}
 	}
 	
 	private void displayNoTasks(){
 		if (this.taskGroup.getTitle().contains(UIData.TODAY)){
-			UIMainViewType activeView = getActiveMainView();
-			if (activeView == UIMainViewType.EXTENDED || activeView == UIMainViewType.TODAY){
-				setNoTaskMessage();
-			}
+			setNoTaskMessage();
 		}
 	}
 	
@@ -90,7 +87,7 @@ public class UIDayBox {
 		this.dayBox.getChildren().add(taskMessageView);
 	}
 	
-	private UIMainViewType getActiveMainView(){
+	protected UIMainViewType getActiveMainView(){
 		return this.parent.getActiveMainView();
 	}
 

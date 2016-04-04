@@ -24,6 +24,7 @@ public class UIStyle {
 	protected static final String BTN_SELECT_VIEW = "btn-select-view";
 	protected static final String BTN_SELECT_LABEL = "btn-select-label";
 	protected static final String MENU_VIEW = "menu-view";
+	protected static final String MENU_PANE = "menu-pane";
 
 	protected static final String DAY_BOX = "day-box";
 	protected static final String DAY_TITLE = "day-title";

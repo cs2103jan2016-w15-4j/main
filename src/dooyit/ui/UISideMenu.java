@@ -31,10 +31,12 @@ public class UISideMenu {
 	private static final String LABEL_CATEGORY_TITLE = "CATEGORIES";
 	private static final String STYLECLASS_CATEGORY_TITLE = UIStyle.CATEGORY_TITLE;
 	private static final String STYLECLASS_BTN_LABEL = UIStyle.BTN_SELECT_LABEL;
+	private static final int SIZE_BTN_ICON = 18;
 	private static final String COLOR_BTN_ICON = MaterialColor.GREY_400;
 	private static final int SPACING_BTN_CONTENT = 8;
 	private static final String STYLECLASS_MENU_BTN = UIStyle.BTN_SELECT_VIEW;
 	private static final int PREFWIDTH_MENU_BTN = 200;
+	private static final String STYLECLASS_MENU_PANE = UIStyle.MENU_PANE;
 
 	private ScrollPane menuPane;
 	private VBox menu;
@@ -63,8 +65,7 @@ public class UISideMenu {
 	
 	private void initMenuButtons(){
 		this.todayBtn = getMenuButton(LABEL_TODAY, UIData.USERDATA_TODAY, FxFontCommunity.Icons.cmd_calendar);
-		this.extendedBtn = getMenuButton(LABEL_EXTENDED, UIData.USERDATA_EXTENDED,
-				FxFontCommunity.Icons.cmd_numeric_7_box_multiple_outline);
+		this.extendedBtn = getMenuButton(LABEL_EXTENDED, UIData.USERDATA_EXTENDED, FxFontCommunity.Icons.cmd_numeric_7_box_multiple_outline);
 		this.floatBtn = getMenuButton(LABEL_FLOAT, UIData.USERDATA_FLOAT, FxFontCommunity.Icons.cmd_image_filter_drama);
 		this.allBtn = getMenuButton(LABEL_ALL, UIData.USERDATA_ALL, FxFontCommunity.Icons.cmd_calendar_multiple);
 		this.completedBtn = getMenuButton(LABEL_COMPLETED, UIData.USERDATA_COMPLETED, FxFontCommunity.Icons.cmd_comment_check);
@@ -85,7 +86,7 @@ public class UISideMenu {
 	
 	private void initMenuPane(){
 		this.menuPane = new ScrollPane();
-		this.menuPane.getStyleClass().add("menu-pane");
+		this.menuPane.getStyleClass().add(STYLECLASS_MENU_PANE);
 		this.menuPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 		this.menuPane.setFitToWidth(true);
 		this.menuPane.setContent(this.menu);
@@ -98,10 +99,7 @@ public class UISideMenu {
 	}
 	
 	private FxIconicsLabel getMenuBtnIcon(FxFontCommunity.Icons icon){
-		return (FxIconicsLabel) new FxIconicsLabel
-        .Builder(icon)
-        .size(18)
-        .color(COLOR_BTN_ICON).build();
+		return (FxIconicsLabel) new FxIconicsLabel.Builder(icon).size(SIZE_BTN_ICON).color(COLOR_BTN_ICON).build();
 	}
 	
 	private Label getMenuBtnLabel(String title){

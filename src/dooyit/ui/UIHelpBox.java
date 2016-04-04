@@ -51,21 +51,27 @@ public class UIHelpBox {
 	private VBox rightContent;
 	private Label closeLabel;
 	
-	private static ArrayList<String> cmdNameList = new ArrayList<String>(){{
-		add(DESC_ADD_TASK);
-		add(DESC_MARK_TASK);
-		add(DESC_DEL_TASK);
-		add(DESC_SHOW_VIEW);
-		add(DESC_QUIT_APP);
-	}};
+	private static final ArrayList<String> cmdNameList = new ArrayList<String>(){
+		private static final long serialVersionUID = 1L;
+		{
+			add(DESC_ADD_TASK);
+			add(DESC_MARK_TASK);
+			add(DESC_DEL_TASK);
+			add(DESC_SHOW_VIEW);
+			add(DESC_QUIT_APP);
+		}
+	};
 	
-	private static ArrayList<String> cmdDescList = new ArrayList<String>(){{
-		add(CMD_ADD_TASK);
-		add(CMD_MARK_TASK);
-		add(CMD_DEL_TASK);
-		add(CMD_SHOW_VIEW);
-		add(CMD_QUIT_APP);
-	}};
+	private static final ArrayList<String> cmdDescList = new ArrayList<String>(){
+		private static final long serialVersionUID = 1L;
+		{
+			add(CMD_ADD_TASK);
+			add(CMD_MARK_TASK);
+			add(CMD_DEL_TASK);
+			add(CMD_SHOW_VIEW);
+			add(CMD_QUIT_APP);
+		}
+	};
 
 	protected UIHelpBox() {
 		initialize();
@@ -90,7 +96,6 @@ public class UIHelpBox {
 	private void initLeftContent(){
 		this.leftContent = new VBox();
 		this.leftContent.setSpacing(SPACING_CONTENT);
-
 		cmdNameList.forEach((cmdName) -> {
 			Label cmdNameLabel = makeLabel(cmdName);
 			this.leftContent.getChildren().add(cmdNameLabel);
@@ -100,7 +105,6 @@ public class UIHelpBox {
 	private void initRightContent(){
 		this.rightContent = new VBox();
 		this.rightContent.setSpacing(SPACING_CONTENT);
-
 		cmdDescList.forEach((cmdDesc) -> {
 			Label cmdDescLabel = makeLabel(cmdDesc);
 			this.rightContent.getChildren().add(cmdDescLabel);

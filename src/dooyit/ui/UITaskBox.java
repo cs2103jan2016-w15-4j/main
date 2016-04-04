@@ -159,7 +159,6 @@ public class UITaskBox {
 	
 	private void updateTaskBoxWidth(){
 		double width = this.parent.getStageWidth();
-		System.out.println("TASKBOX WIDTH " + width);
 	    updateTaskBoxWidth(width);
 	}
 	

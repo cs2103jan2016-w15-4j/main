@@ -3,6 +3,7 @@ package dooyit.logic.commands;
 
 import dooyit.common.datatype.Category;
 import dooyit.common.exception.IncorrectInputException;
+import dooyit.logic.Constants;
 import dooyit.logic.api.Action;
 import dooyit.logic.api.LogicAction;
 import dooyit.logic.api.LogicController;
@@ -39,7 +40,7 @@ public class AddCategoryCommand implements Command, ReversibleCommand {
 		logic.addCategory(addedCategory);
 	}
 
-	public LogicAction execute(LogicController logic) throws IncorrectInputException {
+	public LogicAction execute(LogicController logic){
 		LogicAction logicAction;
 
 		if (!logic.containsCategory(categoryName)) {
@@ -49,11 +50,10 @@ public class AddCategoryCommand implements Command, ReversibleCommand {
 				addedCategory = logic.addCategory(categoryName);
 			}
 
-			logicAction = new LogicAction(Action.ADD_CATEGORY);
+			logicAction = new LogicAction(Action.ADD_CATEGORY, String.format("CATEGORY: %1$s has been added.", categoryName));
 		} else {
-			logicAction = new LogicAction(Action.ERROR);
+			logicAction = new LogicAction(Action.ERROR, String.format("CATEGORY: %1$s already exists.", categoryName));
 			hasError = true;
-			throw new IncorrectInputException("Category: " + categoryName + " already exists.");
 		}
 
 		return logicAction;

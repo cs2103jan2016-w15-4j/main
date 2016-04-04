@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import dooyit.common.datatype.Task;
 import dooyit.common.exception.IncorrectInputException;
+import dooyit.logic.Constants;
 import dooyit.logic.api.Action;
 import dooyit.logic.api.LogicAction;
 import dooyit.logic.api.LogicController;
@@ -36,7 +37,7 @@ public class ClearTaskCommand implements Command, ReversibleCommand {
 
 		clearedTasks = logic.clearTask();
 
-		logicAction = new LogicAction(Action.CLEAR_TASK, "All tasks are CLEARED!");
+		logicAction = new LogicAction(Action.CLEAR_TASK, Constants.FEEDBACK_TASK_CLEARED);
 		return logicAction;
 	}
 

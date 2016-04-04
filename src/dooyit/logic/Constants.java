@@ -10,5 +10,7 @@ public class Constants {
 	public static final String THEME_LIGHT = "light";
 	public static final String THEME_DEFAULT = "default";
 	public static final String FEEDBACK_SUCCESS_CHANGE_THEME = "Your theme has been change to %1$s!";
+	public static final String FEEDBACK_TASK_CLEARED = "All tasks have been CLEARED!";
+	public static final String FEEDBACK_INVALID_PATH = "INVALID path.";
 	
 }

@@ -41,27 +41,22 @@ public class ShowCommand implements Command {
 
 		switch (showCommandType) {
 		case TODAY:
-			//logic.setActiveView(uiMainViewtype);
 			logicAction = new LogicAction(Action.SHOW_TODAY_TASK);
 			break;
 
 		case NEXT7DAY:
-			//logic.setActiveView(uiMainViewtype);
 			logicAction = new LogicAction(Action.SHOW_NEXT7DAY_TASK);
 			break;
 			
 		case FLOAT:
-			//logic.setActiveView(uiMainViewtype);
 			logicAction = new LogicAction(Action.SHOW_FLOATING_TASK);
 			break;
 			
 		case ALL:
-			//logic.setActiveView(uiMainViewtype);
 			logicAction = new LogicAction(Action.SHOW_ALL_TASK);
 			break;
 			
 		case COMPLETED:
-			//logic.setActiveView(uiMainViewtype);
 			logicAction = new LogicAction(Action.SHOW_COMPLETED);
 			break;
 			
@@ -69,9 +64,6 @@ public class ShowCommand implements Command {
 			if (logic.containsCategory(categoryName)) {
 				Category category = logic.findCategory(categoryName);
 				logic.setSelectedCategory(category);
-				//logic.setActiveView(uiMainViewtype);
-				//logic.setActiveViewCategory(category);
-				
 				logicAction = new LogicAction(Action.SHOW_CATEGORY);
 			}
 			else{

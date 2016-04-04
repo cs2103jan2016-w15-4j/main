@@ -1,9 +1,7 @@
 package dooyit.logic.commands;
 
 import dooyit.common.datatype.Category;
-import dooyit.common.datatype.CustomColor;
 import dooyit.common.exception.IncorrectInputException;
-import dooyit.logic.CategoryManager;
 import dooyit.logic.api.Action;
 import dooyit.logic.api.LogicAction;
 import dooyit.logic.api.LogicController;

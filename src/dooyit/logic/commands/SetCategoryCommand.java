@@ -3,11 +3,8 @@ package dooyit.logic.commands;
 import java.util.ArrayList;
 
 import dooyit.common.datatype.Category;
-import dooyit.common.datatype.CustomColor;
 import dooyit.common.datatype.Task;
 import dooyit.common.exception.IncorrectInputException;
-import dooyit.logic.CategoryManager;
-import dooyit.logic.TaskManager;
 import dooyit.logic.api.Action;
 import dooyit.logic.api.LogicAction;
 import dooyit.logic.api.LogicController;
@@ -17,7 +14,8 @@ public class SetCategoryCommand implements Command, ReversibleCommand {
 	private String categoryName;
 	private ArrayList<Integer> taskIds;
 	private ArrayList<Task> tasksWithCategory;
-	private Category category;
+	private Category settedCategory;
+	private Category prevCategory;
 	private boolean isNewCatCreated;
 	private boolean hasError = false;
 
@@ -39,21 +37,21 @@ public class SetCategoryCommand implements Command, ReversibleCommand {
 	
 	public void undo(LogicController logic){
 		for (Task task : tasksWithCategory) {
-			task.setCategory(null);
+			task.setCategory(prevCategory);
 		}
 		
 		if(isNewCatCreated){
-			logic.removeCategory(category);
+			logic.removeCategory(settedCategory);
 		}
 	}
 
 	public void redo(LogicController logic){
 		for (Task task : tasksWithCategory) {
-			task.setCategory(category);
+			task.setCategory(settedCategory);
 		}
 		
 		if(isNewCatCreated){
-			logic.addCategory(category);
+			logic.addCategory(settedCategory);
 		}
 	}
 	
@@ -66,16 +64,18 @@ public class SetCategoryCommand implements Command, ReversibleCommand {
 			if (logic.containsTask(taskId)) {
 				if (logic.containsCategory(categoryName)) {
 					isNewCatCreated = false;
-					category = logic.findCategory(categoryName);
+					settedCategory = logic.findCategory(categoryName);
 					Task task = logic.findTask(taskId);
-					task.setCategory(category);
+					prevCategory = task.getCategory();
+					task.setCategory(settedCategory);
 					tasksWithCategory.add(task);
 					logicAction = new LogicAction(Action.SET_CATEGORY);
 				} else {
 					isNewCatCreated = true;
-					category = logic.addCategory(categoryName);
+					settedCategory = logic.addCategory(categoryName);
 					Task task = logic.findTask(taskId);
-					task.setCategory(category);
+					prevCategory = task.getCategory();
+					task.setCategory(settedCategory);
 					tasksWithCategory.add(task);
 					logicAction = new LogicAction(Action.ADD_CATEGORY);
 					throw new IncorrectInputException("Category: " + categoryName + " is created.");

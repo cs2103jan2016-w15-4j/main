@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 
+import dooyit.common.comparator.TaskDateComparator;
+import dooyit.common.comparator.TaskUniqueIdComparator;
 import dooyit.common.datatype.Category;
 import dooyit.common.datatype.DateTime;
 import dooyit.common.datatype.DeadlineTask;
@@ -11,9 +13,7 @@ import dooyit.common.datatype.EventTask;
 import dooyit.common.datatype.FloatingTask;
 import dooyit.common.datatype.Task;
 import dooyit.common.datatype.TaskGroup;
-import dooyit.common.datatype.TaskUniqueIdComparator;
 import dooyit.common.datatype.Task.TaskType;
-import dooyit.common.datatype.TaskDateComparator;
 
 public class TaskManager {
 	private ArrayList<Task> tasks;

@@ -1,6 +1,9 @@
-package dooyit.common.datatype;
+//@@author A0126356E
+package dooyit.common.comparator;
 
 import java.util.Comparator;
+
+import dooyit.common.datatype.Task;
 
 public class TaskUniqueIdComparator implements Comparator<Task>{
 

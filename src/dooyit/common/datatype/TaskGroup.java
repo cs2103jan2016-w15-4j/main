@@ -1,3 +1,4 @@
+//@@author A0126356E
 package dooyit.common.datatype;
 
 import java.util.ArrayList;

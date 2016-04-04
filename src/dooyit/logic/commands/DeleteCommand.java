@@ -57,7 +57,7 @@ public class DeleteCommand implements Command, ReversibleCommand {
 		}
 
 		if (errorMessageBody != "") {
-			logicAction = new LogicAction(Action.DELETE_TASK);
+			logicAction = new LogicAction(Action.ERROR);
 			throw new IncorrectInputException("Index" + errorMessageBody + " doesn't exists");
 		}
 		

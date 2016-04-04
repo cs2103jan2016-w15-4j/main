@@ -143,7 +143,7 @@ public class LogicController {
 	 */
 	public LogicAction processCommand(Command command) {
 		LogicAction logicAction = executeCommand(command);
-		addCommandToHistory(command);
+		addCommandToHistory(logicAction, command);
 		refreshUIController();
 		save();
 		displayInCommandline();
@@ -168,8 +168,10 @@ public class LogicController {
 	/**
 	 * @param command
 	 */
-	private void addCommandToHistory(Command command) {
-		historyManager.addCommand(command);
+	private void addCommandToHistory(LogicAction logicAction, Command command) {
+		if(logicAction.action != Action.ERROR){
+			historyManager.addCommand(command);
+		}
 	}
 
 	public void undo() {
@@ -262,6 +264,10 @@ public class LogicController {
 	
 	public ArrayList<TaskGroup> getTaskGroupCategory(){
 		return taskManager.getTaskGroupCategory(selectedCategory);
+	}
+	
+	public ArrayList<Category> getAllCategories(){
+		return categoryManager.getAllCategories();
 	}
 	
 	public void setActiveView(UIMainViewType uiMainViewType) {

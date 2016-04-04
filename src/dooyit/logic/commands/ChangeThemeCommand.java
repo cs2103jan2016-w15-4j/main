@@ -49,7 +49,6 @@ public class ChangeThemeCommand implements Command {
 
 		default:
 			logicAction = new LogicAction(Action.ERROR, String.format(Constants.FEEDBACK_INVALID_THEME, themeString));
-			//throw new IncorrectInputException(String.format(ERROR_MESSAGE_INVALID_THEME, themeString));
 		}
 
 		return logicAction;

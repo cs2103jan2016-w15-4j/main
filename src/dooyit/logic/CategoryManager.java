@@ -26,7 +26,7 @@ public class CategoryManager {
 
 	public void addCategory(Category category) throws IncorrectInputException {
 		if (contains(category)) {
-			throw new IncorrectInputException("Category: " + category.getName() + " already exists.");
+			throw new IncorrectInputException(String.format(Constants.FEEDBACK_FAIL_CATEGORY_EXISTS, category.getName()));
 		}
 
 		categories.add(category);
@@ -34,7 +34,7 @@ public class CategoryManager {
 
 	public Category addCategory(String categoryName) throws IncorrectInputException {
 		if (contains(categoryName)) {
-			throw new IncorrectInputException("Category: " + categoryName + " already exists.");
+			throw new IncorrectInputException(String.format(Constants.FEEDBACK_FAIL_CATEGORY_EXISTS, categoryName));
 		}
 
 		categoryName = capitalizeFirstCharacter(categoryName);
@@ -45,13 +45,12 @@ public class CategoryManager {
 
 	public Category addCategory(String categoryName, String customColourString) throws IncorrectInputException {
 		if (contains(categoryName)) {
-			throw new IncorrectInputException("Category: " + categoryName + " already exists.");
+			throw new IncorrectInputException(String.format(Constants.FEEDBACK_FAIL_CATEGORY_EXISTS, categoryName));
 		}
 
 		if (!colourManager.contains(customColourString)) {
 			addCategory(categoryName);
-			throw new IncorrectInputException(
-					"Colour: " + customColourString + " is not available. A random colour has been picked for you!");
+			throw new IncorrectInputException(String.format(Constants.FEEDBACK_INVALID_COLOUR, customColourString));
 		}
 
 		categoryName = capitalizeFirstCharacter(categoryName);

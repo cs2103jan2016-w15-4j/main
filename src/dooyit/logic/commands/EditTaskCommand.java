@@ -4,11 +4,14 @@ package dooyit.logic.commands;
 import dooyit.common.datatype.DateTime;
 import dooyit.common.datatype.Task;
 import dooyit.common.exception.IncorrectInputException;
+import dooyit.logic.Constants;
 import dooyit.logic.api.Action;
 import dooyit.logic.api.LogicAction;
 import dooyit.logic.api.LogicController;
 
 public class EditTaskCommand implements Command, ReversibleCommand {
+
+	private static final String FEEDBACK_TASK_EDITED = "Task has been edited.";
 
 	private enum EditCommandType {
 		NAME, DEADLINE, EVENT, NAME_N_DEADLINE, NAME_N_EVENT
@@ -82,7 +85,8 @@ public class EditTaskCommand implements Command, ReversibleCommand {
 
 		if (!logic.containsTask(taskId)) {
 			hasError = true;
-			throw new IncorrectInputException("Cant find task ID: " + taskId);
+			logicAction = new LogicAction(Action.ERROR, String.format(Constants.FEEDBACK_INVALID_ID, taskId));
+			return logicAction;
 		}
 
 		// save original task for undo
@@ -91,7 +95,7 @@ public class EditTaskCommand implements Command, ReversibleCommand {
 		switch (editCommandType) {
 		case NAME:
 			newTask = logic.changeTaskName(taskId, taskName);
-			logicAction = new LogicAction(Action.EDIT_NAME);
+			logicAction = new LogicAction(Action.EDIT_NAME, FEEDBACK_TASK_EDITED);
 			break;
 
 		case DEADLINE:
@@ -124,15 +128,15 @@ public class EditTaskCommand implements Command, ReversibleCommand {
 		LogicAction logicAction;
 
 		if (logic.isFloatingTask(newTask)) {
-			logicAction = new LogicAction(Action.EDIT_TO_FLOATING_TASK);
+			logicAction = new LogicAction(Action.EDIT_TO_FLOATING_TASK, FEEDBACK_TASK_EDITED);
 		} else if (logic.isTodayTask(newTask)) {
-			logicAction = new LogicAction(Action.EDIT_TO_TODAY_TASK);
+			logicAction = new LogicAction(Action.EDIT_TO_TODAY_TASK, FEEDBACK_TASK_EDITED);
 
 		} else if (logic.isNext7daysTask(newTask)) {
-			logicAction = new LogicAction(Action.EDIT_TO_NEXT7DAY_TASK);
+			logicAction = new LogicAction(Action.EDIT_TO_NEXT7DAY_TASK, FEEDBACK_TASK_EDITED);
 
 		} else {
-			logicAction = new LogicAction(Action.EDIT_TO_ALL_TASK);
+			logicAction = new LogicAction(Action.EDIT_TO_ALL_TASK, FEEDBACK_TASK_EDITED);
 		}
 
 		return logicAction;

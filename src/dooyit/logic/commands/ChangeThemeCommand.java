@@ -2,12 +2,14 @@
 package dooyit.logic.commands;
 
 import dooyit.common.exception.IncorrectInputException;
+import dooyit.logic.Constants;
 import dooyit.logic.api.Action;
 import dooyit.logic.api.LogicAction;
 import dooyit.logic.api.LogicController;
 
 public class ChangeThemeCommand implements Command {
 
+	
 	private String themeString;
 	private boolean hasError = false;
 
@@ -25,29 +27,29 @@ public class ChangeThemeCommand implements Command {
 		String lowerThemeString = themeString.toLowerCase();
 
 		switch (lowerThemeString) {
-		case "default":
-			logicAction = new LogicAction(Action.CHANGE_THEME_DEFAULT);
+		case Constants.THEME_DEFAULT:
+			logicAction = new LogicAction(Action.CHANGE_THEME_DEFAULT, String.format(Constants.FEEDBACK_SUCCESS_CHANGE_THEME, themeString));
 			break;
 
-		case "light":
-			logicAction = new LogicAction(Action.CHANGE_THEME_DEFAULT);
+		case Constants.THEME_LIGHT:
+			logicAction = new LogicAction(Action.CHANGE_THEME_DEFAULT, String.format(Constants.FEEDBACK_SUCCESS_CHANGE_THEME, themeString));
 			break;
 
-		case "dark":
-			logicAction = new LogicAction(Action.CHANGE_THEME_DARK);
+		case Constants.THEME_DARK:
+			logicAction = new LogicAction(Action.CHANGE_THEME_DARK, String.format(Constants.FEEDBACK_SUCCESS_CHANGE_THEME, themeString));
 			break;
 
-		case "aqua":
-			logicAction = new LogicAction(Action.CHANGE_THEME_AQUA);
+		case Constants.THEME_AQUA:
+			logicAction = new LogicAction(Action.CHANGE_THEME_AQUA, String.format(Constants.FEEDBACK_SUCCESS_CHANGE_THEME, themeString));
 			break;
 
-		case "custom":
-			logicAction = new LogicAction(Action.CHANGE_THEME_CUSTOM);
+		case Constants.THEME_CUSTOM:
+			logicAction = new LogicAction(Action.CHANGE_THEME_CUSTOM, String.format(Constants.FEEDBACK_SUCCESS_CHANGE_THEME, themeString));
 			break;
 
 		default:
-			logicAction = new LogicAction(Action.ERROR);
-			throw new IncorrectInputException(themeString + " is not available, try DEFAULT, DARK, AQUA or CUSTOM");
+			logicAction = new LogicAction(Action.ERROR, String.format(Constants.FEEDBACK_INVALID_THEME, themeString));
+			//throw new IncorrectInputException(String.format(ERROR_MESSAGE_INVALID_THEME, themeString));
 		}
 
 		return logicAction;

@@ -154,8 +154,7 @@ public class LogicController {
 		try {
 			logicAction = command.execute(this);
 		} catch (IncorrectInputException e) {
-			// uiController.displayMessage(e.getMessage());
-			logicAction = new LogicAction(Action.ERROR);
+			logicAction = new LogicAction(Action.ERROR, "INVALID COMMAND");
 		}
 		return logicAction;
 	}

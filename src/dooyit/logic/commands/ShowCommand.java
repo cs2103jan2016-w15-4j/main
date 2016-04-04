@@ -1,3 +1,4 @@
+//@@author A0126356E
 package dooyit.logic.commands;
 
 import dooyit.common.datatype.Category;
@@ -8,15 +9,10 @@ import dooyit.logic.api.LogicController;
 
 public class ShowCommand implements Command {
 
-	public enum ShowCommandType{
-		TODAY,
-		NEXT7DAY,
-		FLOAT,
-		ALL,
-		COMPLETED,
-		CATEGORY
+	public enum ShowCommandType {
+		TODAY, NEXT7DAY, FLOAT, ALL, COMPLETED, CATEGORY
 	}
-	
+
 	String categoryName;
 	ShowCommandType showCommandType;
 	private boolean hasError = false;
@@ -30,10 +26,10 @@ public class ShowCommand implements Command {
 		this.categoryName = categoryName;
 	}
 
-	public boolean hasError(){
+	public boolean hasError() {
 		return hasError;
 	}
-	
+
 	public LogicAction execute(LogicController logic) throws IncorrectInputException {
 		assert (logic != null);
 
@@ -47,26 +43,25 @@ public class ShowCommand implements Command {
 		case NEXT7DAY:
 			logicAction = new LogicAction(Action.SHOW_NEXT7DAY_TASK);
 			break;
-			
+
 		case FLOAT:
 			logicAction = new LogicAction(Action.SHOW_FLOATING_TASK);
 			break;
-			
+
 		case ALL:
 			logicAction = new LogicAction(Action.SHOW_ALL_TASK);
 			break;
-			
+
 		case COMPLETED:
 			logicAction = new LogicAction(Action.SHOW_COMPLETED);
 			break;
-			
+
 		case CATEGORY:
 			if (logic.containsCategory(categoryName)) {
 				Category category = logic.findCategory(categoryName);
 				logic.setSelectedCategory(category);
 				logicAction = new LogicAction(Action.SHOW_CATEGORY);
-			}
-			else{
+			} else {
 				logicAction = new LogicAction(Action.ERROR, "Category not found.");
 			}
 			break;

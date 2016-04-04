@@ -1,3 +1,4 @@
+//@@author A0126356E
 package dooyit.logic.commands;
 
 import java.util.ArrayList;
@@ -49,7 +50,7 @@ public class CommandUtils {
 		UnMarkCommand deleteCommand = new UnMarkCommand(unMarkIds);
 		return deleteCommand;
 	}
-	
+
 	public static Command createAddCategoryCommand(String categoryName) {
 		AddCategoryCommand addCategoryCommand = new AddCategoryCommand(categoryName);
 		return addCategoryCommand;
@@ -64,17 +65,17 @@ public class CommandUtils {
 		SetCategoryCommand addCategoryCommand = new SetCategoryCommand(taskID, categoryName);
 		return addCategoryCommand;
 	}
-	
+
 	public static Command createSetCategoryCommand(ArrayList<Integer> taskIDs, String categoryName) {
 		SetCategoryCommand addCategoryCommand = new SetCategoryCommand(taskIDs, categoryName);
 		return addCategoryCommand;
 	}
-	
+
 	public static Command createDeleteCategoryCommand(String categoryName) {
 		DeleteCategoryCommand deleteCategoryCommand = new DeleteCategoryCommand(categoryName);
 		return deleteCategoryCommand;
 	}
-	
+
 	public static Command createShowTodayCommand() {
 		ShowCommand showCommand = new ShowCommand(ShowCommand.ShowCommandType.TODAY);
 
@@ -92,7 +93,7 @@ public class CommandUtils {
 
 		return showCommand;
 	}
-	
+
 	public static Command createShowAllCommand() {
 		ShowCommand showCommand = new ShowCommand(ShowCommand.ShowCommandType.ALL);
 
@@ -141,9 +142,9 @@ public class CommandUtils {
 		StorageCommand storageCommand = new StorageCommand(path);
 		return storageCommand;
 	}
-	
-	public static Command createChangeThemeCommand(String themeString){
-		ChangeThemeCommand changeThemeCommand = new ChangeThemeCommand(themeString);		
+
+	public static Command createChangeThemeCommand(String themeString) {
+		ChangeThemeCommand changeThemeCommand = new ChangeThemeCommand(themeString);
 		return changeThemeCommand;
 	}
 
@@ -151,27 +152,27 @@ public class CommandUtils {
 		UndoCommand undoCommand = new UndoCommand();
 		return undoCommand;
 	}
-	
+
 	public static Command createRedoCommand() {
 		RedoCommand undoCommand = new RedoCommand();
 		return undoCommand;
 	}
-	
+
 	public static Command createSearchCommand(String searchString) {
 		SearchCommand searchCommand = new SearchCommand(searchString);
 		return searchCommand;
 	}
-	
-	public static Command createClearCommand(){
+
+	public static Command createClearCommand() {
 		ClearCommand clearCommand = new ClearCommand();
 		return clearCommand;
 	}
-	
+
 	public static Command createHelpCommand() {
 		HelpCommand undoCommand = new HelpCommand();
 		return undoCommand;
 	}
-	
+
 	public static Command createInvalidCommand(String errorMessage) {
 		InvalidCommand invalidCommand = new InvalidCommand(errorMessage);
 		return invalidCommand;
@@ -182,6 +183,4 @@ public class CommandUtils {
 		return exitCommand;
 	}
 
-	
-	
 }

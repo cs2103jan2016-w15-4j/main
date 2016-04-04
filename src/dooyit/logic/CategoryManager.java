@@ -1,3 +1,4 @@
+//@@author A0126356E
 package dooyit.logic;
 
 import java.util.ArrayList;
@@ -27,10 +28,10 @@ public class CategoryManager {
 		if (contains(category)) {
 			throw new IncorrectInputException("Category: " + category.getName() + " already exists.");
 		}
-		
+
 		categories.add(category);
 	}
-	
+
 	public Category addCategory(String categoryName) throws IncorrectInputException {
 		if (contains(categoryName)) {
 			throw new IncorrectInputException("Category: " + categoryName + " already exists.");
@@ -69,8 +70,8 @@ public class CategoryManager {
 		}
 		return null;
 	}
-	
-	public boolean remove(Category inCategory){
+
+	public boolean remove(Category inCategory) {
 		for (Category category : categories) {
 			if (category.equals(inCategory)) {
 				categories.remove(category);

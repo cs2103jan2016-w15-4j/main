@@ -1,3 +1,4 @@
+//@@author A0126356E
 package dooyit.logic;
 
 import java.util.ArrayList;
@@ -11,7 +12,7 @@ public class ColourManager {
 	ArrayList<CustomColor> recommendedColours;
 	ArrayList<CustomColor> availableColours;
 	ArrayList<CustomColor> colourPool;
-	
+
 	public ColourManager() {
 		random = new Random();
 		availableColours = new ArrayList<CustomColor>();
@@ -25,7 +26,7 @@ public class ColourManager {
 		availableColours.add(CustomColor.RED);
 		availableColours.add(CustomColor.YELLOW);
 		availableColours.add(CustomColor.WHITE);
-		
+
 		recommendedColours = new ArrayList<CustomColor>();
 		recommendedColours.add(CustomColor.BLUE);
 		recommendedColours.add(CustomColor.CYAN);
@@ -34,7 +35,7 @@ public class ColourManager {
 		recommendedColours.add(CustomColor.PINK);
 		recommendedColours.add(CustomColor.RED);
 		recommendedColours.add(CustomColor.YELLOW);
-		//recommendedColours.add(CustomColor.GREY);
+		// recommendedColours.add(CustomColor.GREY);
 
 		colourPool = new ArrayList<CustomColor>(recommendedColours);
 	}
@@ -45,30 +46,28 @@ public class ColourManager {
 		}
 		return colourPool.remove(random.nextInt(colourPool.size()));
 	}
-	
-	public boolean contains(String name){
-		for(CustomColor customColor : availableColours){
-			if(customColor.equals(name)){
+
+	public boolean contains(String name) {
+		for (CustomColor customColor : availableColours) {
+			if (customColor.equals(name)) {
 				return true;
 			}
 		}
 		return false;
 	}
-	
-	public boolean contains(CustomColor customColor){
+
+	public boolean contains(CustomColor customColor) {
 		boolean hasCustomColor = availableColours.contains(customColor);
 		return hasCustomColor;
 	}
-	
-	
-	
-	public CustomColor find(String customColorString){
-		for(CustomColor customColor : availableColours){
-			if(customColor.equals(customColorString)){
+
+	public CustomColor find(String customColorString) {
+		for (CustomColor customColor : availableColours) {
+			if (customColor.equals(customColorString)) {
 				return customColor;
 			}
 		}
 		return null;
 	}
-	
+
 }

@@ -1,5 +1,4 @@
 //@@author A0126356E
-
 package dooyit.logic.commands;
 
 import java.util.ArrayList;
@@ -17,36 +16,36 @@ public class DeleteCategoryCommand implements Command, ReversibleCommand {
 	Category removedCategory;
 	ArrayList<Task> removedTask;
 	private boolean hasError = false;
-	
-	public DeleteCategoryCommand(String categoryName){
+
+	public DeleteCategoryCommand(String categoryName) {
 		this.categoryName = categoryName;
 	}
-	
-	public boolean hasError(){
+
+	public boolean hasError() {
 		return hasError;
 	}
-	
+
 	public void undo(LogicController logic) {
 		logic.loadTasks(removedTask);
 		logic.addCategory(removedCategory);
 	}
-	
-	public void redo(LogicController logic){
+
+	public void redo(LogicController logic) {
 		logic.removeCategory(removedCategory);
-		for(Task task : removedTask){
+		for (Task task : removedTask) {
 			logic.removeTask(task);
 		}
 	}
-	
+
 	public LogicAction execute(LogicController logic) throws IncorrectInputException {
-		assert(logic != null);
+		assert (logic != null);
 		LogicAction logicAction;
-		
-		if(logic.containsCategory(categoryName)){
+
+		if (logic.containsCategory(categoryName)) {
 			removedCategory = logic.removeCategory(categoryName);
 			removedTask = logic.removeTasksWithCategory(removedCategory);
 			logicAction = new LogicAction(Action.DELETE_CATEGORY);
-		}else{
+		} else {
 			logicAction = new LogicAction(Action.ERROR);
 			hasError = true;
 			throw new IncorrectInputException("Category: " + categoryName + " doesn't exist.");

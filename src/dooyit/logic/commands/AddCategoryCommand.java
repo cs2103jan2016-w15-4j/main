@@ -1,3 +1,4 @@
+//@@author A0126356E
 package dooyit.logic.commands;
 
 import dooyit.common.datatype.Category;
@@ -21,41 +22,40 @@ public class AddCategoryCommand implements Command, ReversibleCommand {
 		this.categoryName = categoryName;
 		this.colorString = colorString;
 	}
-	
-	private boolean hasColorString(){
+
+	private boolean hasColorString() {
 		return colorString != null;
 	}
-	
-	public boolean hasError(){
+
+	public boolean hasError() {
 		return hasError;
 	}
-	
-	public void undo(LogicController logic){
+
+	public void undo(LogicController logic) {
 		logic.removeCategory(addedCategory);
 	}
-	
-	public void redo(LogicController logic){
+
+	public void redo(LogicController logic) {
 		logic.addCategory(addedCategory);
 	}
 
 	public LogicAction execute(LogicController logic) throws IncorrectInputException {
 		LogicAction logicAction;
-		
-		if(!logic.containsCategory(categoryName)){
-			if(hasColorString()){
+
+		if (!logic.containsCategory(categoryName)) {
+			if (hasColorString()) {
 				addedCategory = logic.addCategory(categoryName, colorString);
-			}else{
+			} else {
 				addedCategory = logic.addCategory(categoryName);
 			}
-			
-			 logicAction = new LogicAction(Action.ADD_CATEGORY);
-		}
-		else{
-			 logicAction = new LogicAction(Action.ERROR);
-			 hasError = true;
+
+			logicAction = new LogicAction(Action.ADD_CATEGORY);
+		} else {
+			logicAction = new LogicAction(Action.ERROR);
+			hasError = true;
 			throw new IncorrectInputException("Category: " + categoryName + " already exists.");
 		}
-		
+
 		return logicAction;
 	}
 

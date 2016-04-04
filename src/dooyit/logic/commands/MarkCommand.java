@@ -1,3 +1,4 @@
+//@@author A0126356E
 package dooyit.logic.commands;
 
 import java.util.ArrayList;
@@ -12,7 +13,7 @@ public class MarkCommand implements Command, ReversibleCommand {
 	private ArrayList<Integer> markIds;
 	private ArrayList<Task> markedTasks;
 	private boolean hasError = false;
-	
+
 	public MarkCommand(int markId) {
 		this.markIds = new ArrayList<Integer>();
 		this.markedTasks = new ArrayList<Task>();
@@ -25,26 +26,26 @@ public class MarkCommand implements Command, ReversibleCommand {
 		this.markIds.addAll(markIds);
 	}
 
-	public boolean hasError(){
+	public boolean hasError() {
 		return hasError;
 	}
-	
-	public void undo(LogicController logic){
-		for(Task markedTask : markedTasks){
+
+	public void undo(LogicController logic) {
+		for (Task markedTask : markedTasks) {
 			logic.unmarkTask(markedTask);
 		}
 	}
-	
-	public void redo(LogicController logic){
-		for(Task markedTask : markedTasks){
+
+	public void redo(LogicController logic) {
+		for (Task markedTask : markedTasks) {
 			logic.markTask(markedTask);
 		}
 	}
-	
+
 	public LogicAction execute(LogicController logic) throws IncorrectInputException {
 		assert (logic != null);
 		LogicAction logicAction = null;
-		
+
 		String errorMessageBody = "";
 
 		for (int markId : markIds) {
@@ -62,7 +63,7 @@ public class MarkCommand implements Command, ReversibleCommand {
 			logicAction = new LogicAction(Action.MARK_TASK);
 			throw new IncorrectInputException("Index" + errorMessageBody + " doesn't exists");
 		}
-		
+
 		return logicAction;
 	}
 }

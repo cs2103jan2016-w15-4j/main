@@ -24,7 +24,7 @@ public class Category {
 	public Color getColour() {
 		return customColor.getColor();
 	}
-	
+
 	public CustomColor getCustomColour() {
 		return customColor;
 	}
@@ -32,7 +32,7 @@ public class Category {
 	public String getCustomColourName() {
 		return customColor.getName();
 	}
-	
+
 	@Override
 	public boolean equals(Object o) {
 		if (o instanceof String) {
@@ -49,8 +49,8 @@ public class Category {
 	public String toString() {
 		return name + " " + customColor.toString();
 	}
-	
-	public CategoryData convertToData(){
+
+	public CategoryData convertToData() {
 		CategoryData categoryData;
 		categoryData = new CategoryData(name, getCustomColourName());
 		return categoryData;

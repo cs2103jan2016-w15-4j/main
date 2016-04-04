@@ -1,3 +1,4 @@
+//@@author A0126356E
 package dooyit.logic;
 
 import java.util.ArrayList;
@@ -214,19 +215,19 @@ public class TaskManager {
 		return clearedTasks;
 	}
 
-	public Task getMostRecentTask(){
+	public Task getMostRecentTask() {
 		int latestId = Integer.MIN_VALUE;
 		Task latestTask = null;
-		
-		for(Task task : tasks){
-			if(task.getUniqueId() > latestId){
+
+		for (Task task : tasks) {
+			if (task.getUniqueId() > latestId) {
 				latestId = task.getUniqueId();
 				latestTask = task;
 			}
 		}
 		return latestTask;
 	}
-	
+
 	public Task changeTaskName(int taskId, String newName) {
 		if (!contains(taskId)) {
 			return null;
@@ -512,10 +513,10 @@ public class TaskManager {
 		for (Task task : tasks) {
 
 			if (task.isOverDue(dateTime)) {
-				if(task.getTaskType() == TaskType.EVENT){
-					EventTask eventTask = (EventTask)task;
+				if (task.getTaskType() == TaskType.EVENT) {
+					EventTask eventTask = (EventTask) task;
 					size += eventTask.size();
-				}else{
+				} else {
 					size++;
 				}
 			}
@@ -692,7 +693,7 @@ public class TaskManager {
 		taskGroup.addTasks(getTasksWithCategory(category));
 		sortTask(taskGroup.getTasks());
 		taskGroups.add(taskGroup);
-		
+
 		resetTasksId(taskGroups);
 		return taskGroups;
 	}

@@ -1,3 +1,4 @@
+//@@author A0126356E
 package dooyit.logic.commands;
 
 import java.util.ArrayList;
@@ -8,7 +9,7 @@ import dooyit.logic.api.Action;
 import dooyit.logic.api.LogicAction;
 import dooyit.logic.api.LogicController;
 
-public class UnMarkCommand implements Command, ReversibleCommand{
+public class UnMarkCommand implements Command, ReversibleCommand {
 
 	private ArrayList<Integer> unmarkIds;
 	private ArrayList<Task> unmarkedTasks;
@@ -25,28 +26,28 @@ public class UnMarkCommand implements Command, ReversibleCommand{
 		this.unmarkedTasks = new ArrayList<Task>();
 		this.unmarkIds.addAll(unMarkIds);
 	}
-	
-	public boolean hasError(){
+
+	public boolean hasError() {
 		return hasError;
 	}
-	
-	public void undo(LogicController logic){
-		
-		for(Task unmarkedTask : unmarkedTasks){
+
+	public void undo(LogicController logic) {
+
+		for (Task unmarkedTask : unmarkedTasks) {
 			logic.markTask(unmarkedTask);
 		}
 	}
 
-	public void redo(LogicController logic){
-		for(Task unmarkedTask : unmarkedTasks){
+	public void redo(LogicController logic) {
+		for (Task unmarkedTask : unmarkedTasks) {
 			logic.unmarkTask(unmarkedTask);
 		}
 	}
-	
+
 	public LogicAction execute(LogicController logic) throws IncorrectInputException {
 		assert (logic != null);
 		LogicAction logicAction = null;
-		
+
 		String errorMessageBody = "";
 
 		for (int unmarkId : unmarkIds) {
@@ -64,7 +65,7 @@ public class UnMarkCommand implements Command, ReversibleCommand{
 			logicAction = new LogicAction(Action.UNMARK_TASK);
 			throw new IncorrectInputException("Index" + errorMessageBody + " doesn't exists");
 		}
-		
+
 		return logicAction;
 	}
 }

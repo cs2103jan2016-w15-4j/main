@@ -10,13 +10,13 @@ public abstract class Task {
 	protected String taskName;
 	protected int taskId;
 	protected TaskType taskType;
-	
+
 	protected boolean isCompleted;
 	protected Category category;
 
-	public static int curUniqueTaskId = 1; 
+	public static int curUniqueTaskId = 1;
 	public int uniqueId; // to determine which task is created first
-	
+
 	public Task() {
 		uniqueId = curUniqueTaskId;
 		taskId = curUniqueTaskId;
@@ -38,20 +38,20 @@ public abstract class Task {
 	public boolean isCompleted() {
 		return isCompleted;
 	}
-	
+
 	public void setCategory(Category category) {
 		this.category = category;
 	}
-	
-	public Category getCategory(){
+
+	public Category getCategory() {
 		return category;
 	}
-	
-	public void removeCategory(){
+
+	public void removeCategory() {
 		category = null;
 	}
-	
-	public boolean hasCategory(){
+
+	public boolean hasCategory() {
 		return category != null;
 	}
 
@@ -62,23 +62,23 @@ public abstract class Task {
 	public int getId() {
 		return taskId;
 	}
-	
-	public void setId(int taskId){
+
+	public void setId(int taskId) {
 		this.taskId = taskId;
 	}
-	
-	public void resetId(){
+
+	public void resetId() {
 		this.taskId = -1;
 	}
 
 	public int getUniqueId() {
 		return uniqueId;
 	}
-	
-	public void setUniqueId(int uniqueId){
+
+	public void setUniqueId(int uniqueId) {
 		this.uniqueId = uniqueId;
 	}
-	
+
 	public TaskType getTaskType() {
 		return taskType;
 	}
@@ -92,20 +92,20 @@ public abstract class Task {
 			return false;
 		}
 	}
-	
+
 	public abstract String toString();
-	
+
 	public abstract DateTime getDateTime();
-	
+
 	public abstract int compareDateTo(Task task);
-	
+
 	public abstract Task copy();
-	
+
 	public abstract String getDateString();
-	
+
 	public abstract TaskData convertToData();
-	
+
 	public abstract boolean isOverDue(DateTime dateTime);
-	
+
 	public abstract boolean isSameDate(DateTime dateTime);
 }

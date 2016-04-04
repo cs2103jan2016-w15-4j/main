@@ -18,7 +18,7 @@ public class ClearCommand implements Command, ReversibleCommand {
 	}
 	
 	public void redo(LogicController logic){
-		
+		clearedTasks = logic.clearTask();
 	}
 
 	public LogicAction execute(LogicController logic) throws IncorrectInputException {

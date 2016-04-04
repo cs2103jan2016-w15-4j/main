@@ -35,7 +35,6 @@ public class LogicController {
 
 	private boolean isSaveOn = true;
 	private boolean displayCommandline = true;
-	private Category selectedCategory;
 	private String currentSearch = "";
 
 	public LogicController() {
@@ -227,11 +226,11 @@ public class LogicController {
 	}
 
 	public void setSelectedCategory(Category category) {
-		this.selectedCategory = category;
+		categoryManager.setSelectedCategory(category); 
 	}
 
 	public Category getSelectedCategory() {
-		return selectedCategory;
+		return categoryManager.getSelectedCategory();
 	}
 
 	public void setSearchKey(String searchString) {
@@ -259,7 +258,7 @@ public class LogicController {
 	}
 
 	public ArrayList<TaskGroup> getTaskGroupCategory() {
-		return taskManager.getTaskGroupCategory(selectedCategory);
+		return taskManager.getTaskGroupCategory(categoryManager.getSelectedCategory());
 	}
 
 	public ArrayList<Category> getAllCategories() {

@@ -10,6 +10,7 @@ import dooyit.common.exception.IncorrectInputException;
 public class CategoryManager {
 	ArrayList<Category> categories;
 	ColourManager colourManager;
+	private Category selectedCategory;
 
 	public CategoryManager() {
 		colourManager = new ColourManager();
@@ -58,6 +59,15 @@ public class CategoryManager {
 		Category category = new Category(categoryName, customColour);
 		categories.add(category);
 		return category;
+	}
+	
+	
+	public void setSelectedCategory(Category category) {
+		this.selectedCategory = category;
+	}
+
+	public Category getSelectedCategory() {
+		return selectedCategory;
 	}
 
 	public Category remove(String categoryName) {

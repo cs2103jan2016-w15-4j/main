@@ -44,11 +44,10 @@ public class DeleteCategoryCommand implements Command, ReversibleCommand {
 		if (logic.containsCategory(categoryName)) {
 			removedCategory = logic.removeCategory(categoryName);
 			removedTask = logic.removeTasksWithCategory(removedCategory);
-			logicAction = new LogicAction(Action.DELETE_CATEGORY);
+			logicAction = new LogicAction(Action.DELETE_CATEGORY, String.format("CATEGORY: %1$s has been deleted. All tasks with CATEGORY: %1%s has been removed.", categoryName));
 		} else {
-			logicAction = new LogicAction(Action.ERROR);
+			logicAction = new LogicAction(Action.ERROR, String.format("CATEGORY: %1$s cannot be found.", categoryName));
 			hasError = true;
-			throw new IncorrectInputException("Category: " + categoryName + " doesn't exist.");
 		}
 		return logicAction;
 	}

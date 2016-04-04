@@ -2,26 +2,31 @@ package dooyit.logic.commands;
 
 import dooyit.common.datatype.Category;
 import dooyit.common.exception.IncorrectInputException;
-import dooyit.logic.CategoryManager;
-import dooyit.logic.TaskManager;
 import dooyit.logic.api.Action;
 import dooyit.logic.api.LogicAction;
 import dooyit.logic.api.LogicController;
-import dooyit.ui.UIController;
-import dooyit.ui.UIMainViewType;
 
 public class ShowCommand implements Command {
 
+	public enum ShowCommandType{
+		TODAY,
+		NEXT7DAY,
+		FLOAT,
+		ALL,
+		COMPLETED,
+		CATEGORY
+	}
+	
 	String categoryName;
-	UIMainViewType uiMainViewtype;
+	ShowCommandType showCommandType;
 	private boolean hasError = false;
 
-	public ShowCommand(UIMainViewType uiMainViewtype) {
-		this.uiMainViewtype = uiMainViewtype;
+	public ShowCommand(ShowCommandType showCommandType) {
+		this.showCommandType = showCommandType;
 	}
 
-	public ShowCommand(UIMainViewType uiMainViewtype, String categoryName) {
-		this.uiMainViewtype = uiMainViewtype;
+	public ShowCommand(ShowCommandType showCommandType, String categoryName) {
+		this.showCommandType = showCommandType;
 		this.categoryName = categoryName;
 	}
 
@@ -34,13 +39,13 @@ public class ShowCommand implements Command {
 
 		LogicAction logicAction = null;
 
-		switch (uiMainViewtype) {
+		switch (showCommandType) {
 		case TODAY:
 			//logic.setActiveView(uiMainViewtype);
 			logicAction = new LogicAction(Action.SHOW_TODAY_TASK);
 			break;
 
-		case EXTENDED:
+		case NEXT7DAY:
 			//logic.setActiveView(uiMainViewtype);
 			logicAction = new LogicAction(Action.SHOW_NEXT7DAY_TASK);
 			break;

@@ -2,7 +2,6 @@ package dooyit.logic.api;
 
 import dooyit.storage.StorageController;
 import dooyit.ui.UIController;
-import dooyit.ui.UIMainViewType;
 import dooyit.parser.Parser;
 import dooyit.common.exception.IncorrectInputException;
 import dooyit.logic.CategoryManager;
@@ -12,16 +11,12 @@ import dooyit.logic.TaskManager;
 import dooyit.logic.commands.*;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Stack;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import dooyit.common.datatype.Category;
 import dooyit.common.datatype.CategoryData;
 import dooyit.common.datatype.DateTime;
-import dooyit.common.datatype.DeadlineTaskData;
-import dooyit.common.datatype.EventTaskData;
-import dooyit.common.datatype.FloatingTaskData;
 import dooyit.common.datatype.Task;
 import dooyit.common.datatype.TaskData;
 import dooyit.common.datatype.TaskGroup;
@@ -144,7 +139,6 @@ public class LogicController {
 	public LogicAction processCommand(Command command) {
 		LogicAction logicAction = executeCommand(command);
 		addCommandToHistory(command);
-		refreshUIController();
 		save();
 		displayInCommandline();
 		return logicAction;
@@ -239,6 +233,10 @@ public class LogicController {
 	public Category getSelectedCategory() {
 		return selectedCategory;
 	}
+	
+	public void setSearchKey(String searchString) {
+		this.currentSearch = searchString;
+	}
 
 	public ArrayList<TaskGroup> getTaskGroupsToday() {
 		return taskManager.getTaskGroupsToday();
@@ -268,110 +266,8 @@ public class LogicController {
 		return categoryManager.getAllCategories();
 	}
 
-	public void setActiveView(UIMainViewType uiMainViewType) {
-		// if (uiController == null) {
-		// return;
-		// }
-		//
-		// uiController.setActiveViewType(uiMainViewType);
-		//
-		// switch (uiMainViewType) {
-		//
-		// case TODAY:
-		// uiController.refreshMainView(taskManager.getTaskGroupsToday());
-		// break;
-		//
-		// case EXTENDED:
-		// uiController.refreshMainView(taskManager.getTaskGroupsNext7Days());
-		// break;
-		//
-		// case ALL:
-		// uiController.refreshMainView(taskManager.getTaskGroupsAll());
-		// break;
-		//
-		// case COMPLETED:
-		// uiController.refreshMainView(taskManager.getTaskGroupsCompleted());
-		// break;
-		//
-		// case FLOAT:
-		// uiController.refreshMainView(taskManager.getTaskGroupsFloating());
-		// break;
-		//
-		// case CATEGORY:
-		// uiController.refreshMainView(taskManager.getTaskGroupCategory(selectedCategory),
-		// selectedCategory);
-		// break;
-		//
-		// default:
-		// assert (true);
-		// }
-	}
-
-	public void setActiveViewCategory(Category category) {
-		// if (uiController == null) {
-		// return;
-		// }
-		//
-		// uiController.setActiveViewType(UIMainViewType.CATEGORY);
-		// uiController.refreshMainView(taskManager.getTaskGroupCategory(selectedCategory),
-		// category);
-	}
-
-	public void setActiveViewSearch(String searchString) {
-		if (uiController == null) {
-			return;
-		}
-
-		// uiController.setActiveViewType(UIMainViewType.SEARCH);
-		// uiController.refreshMainView(taskManager.getTaskGroupSearched(searchString));
-	}
-
-	public void setSearchKey(String searchString) {
-		this.currentSearch = searchString;
-	}
-
 	public ArrayList<TaskGroup> getSearchTaskGroup() {
 		return taskManager.getTaskGroupSearched(currentSearch);
-	}
-
-	private void refreshUIController() {
-		// if (uiController == null)
-		// return;
-		//
-		// UIMainViewType uiMainViewType = uiController.getActiveViewType();
-		//
-		// switch (uiMainViewType) {
-		//
-		// case TODAY:
-		// uiController.refreshMainView(taskManager.getTaskGroupsToday());
-		// break;
-		//
-		// case EXTENDED:
-		// uiController.refreshMainView(taskManager.getTaskGroupsNext7Days());
-		// break;
-		//
-		// case ALL:
-		// uiController.refreshMainView(taskManager.getTaskGroupsAll());
-		// break;
-		//
-		// case COMPLETED:
-		// uiController.refreshMainView(taskManager.getTaskGroupsCompleted());
-		// break;
-		//
-		// case FLOAT:
-		// uiController.refreshMainView(taskManager.getTaskGroupsFloating());
-		// break;
-		//
-		// case CATEGORY:
-		//
-		// break;
-		//
-		// case SEARCH:
-		//
-		// break;
-		// }
-		//
-		// uiController.refreshCategoryMenuView(categoryManager.getAllCategories());
 	}
 
 	public void addTask(Task task) {
@@ -525,7 +421,6 @@ public class LogicController {
 	 */
 	public void setUIController(UIController ui) {
 		this.uiController = ui;
-		refreshUIController();
 	}
 
 	/**

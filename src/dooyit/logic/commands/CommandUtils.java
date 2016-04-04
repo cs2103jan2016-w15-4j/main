@@ -77,38 +77,38 @@ public class CommandUtils {
 	}
 	
 	public static Command createShowTodayCommand() {
-		ShowCommand showCommand = new ShowCommand(UIMainViewType.TODAY);
+		ShowCommand showCommand = new ShowCommand(ShowCommand.ShowCommandType.TODAY);
 
 		return showCommand;
 	}
 
 	public static Command createShowNext7DaysCommand() {
-		ShowCommand showCommand = new ShowCommand(UIMainViewType.EXTENDED);
+		ShowCommand showCommand = new ShowCommand(ShowCommand.ShowCommandType.NEXT7DAY);
 
 		return showCommand;
 	}
 
 	public static Command createShowFloatCommand() {
-		ShowCommand showCommand = new ShowCommand(UIMainViewType.FLOAT);
+		ShowCommand showCommand = new ShowCommand(ShowCommand.ShowCommandType.FLOAT);
 
 		return showCommand;
 	}
 	
 	public static Command createShowAllCommand() {
-		ShowCommand showCommand = new ShowCommand(UIMainViewType.ALL);
+		ShowCommand showCommand = new ShowCommand(ShowCommand.ShowCommandType.ALL);
 
 		return showCommand;
 	}
 
 	public static Command createShowCompletedCommand() {
-		ShowCommand showCommand = new ShowCommand(UIMainViewType.COMPLETED);
+		ShowCommand showCommand = new ShowCommand(ShowCommand.ShowCommandType.COMPLETED);
 
 		return showCommand;
 	}
 
 	public static Command createShowCategoryCommand(String categoryName) {
 		// temp
-		ShowCommand showCommand = new ShowCommand(UIMainViewType.CATEGORY, categoryName);
+		ShowCommand showCommand = new ShowCommand(ShowCommand.ShowCommandType.CATEGORY, categoryName);
 
 		return showCommand;
 	}

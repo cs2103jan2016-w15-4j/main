@@ -79,7 +79,7 @@ public class EditCommand implements Command, ReversibleCommand {
 	
 	public LogicAction execute(LogicController logic) throws IncorrectInputException {
 		assert (logic != null);
-		LogicAction logicAction;
+		LogicAction logicAction = null;
 
 		if (!logic.containsTask(taskId)) {
 			hasError = true;
@@ -92,28 +92,32 @@ public class EditCommand implements Command, ReversibleCommand {
 		switch (editCommandType) {
 		case NAME:
 			newTask = logic.changeTaskName(taskId, taskName);
+			logicAction = new LogicAction(Action.EDIT_NAME);
 			break;
 
 		case DEADLINE:
 			newTask = logic.changeTaskToDeadline(taskId, dateTimeDeadline);
+			logicAction = getActionBasedOnEditedTask(logic, newTask);
 			break;
 
 		case EVENT:
 			newTask = logic.changeTaskToEvent(taskId, dateTimeStart, dateTimeEnd);
+			logicAction = getActionBasedOnEditedTask(logic, newTask);
 			break;
 
 		case NAME_N_DEADLINE:
 			logic.changeTaskName(taskId, taskName);
 			newTask = logic.changeTaskToDeadline(taskId, dateTimeDeadline);
+			logicAction = getActionBasedOnEditedTask(logic, newTask);
 			break;
 
 		case NAME_N_EVENT:
 			logic.changeTaskName(taskId, taskName);
 			newTask = logic.changeTaskToEvent(taskId, dateTimeStart, dateTimeEnd);
+			logicAction = getActionBasedOnEditedTask(logic, newTask);
 			break;
 		}
 		
-		logicAction = getActionBasedOnEditedTask(logic, newTask);
 		return logicAction;
 	}
 	
@@ -121,20 +125,15 @@ public class EditCommand implements Command, ReversibleCommand {
 		LogicAction logicAction;
 		
 		if (logic.isFloatingTask(newTask)) {
-			logic.setActiveView(UIMainViewType.FLOAT);
 			logicAction = new LogicAction(Action.EDIT_TO_FLOATING_TASK);
-			
 		}
 		else if (logic.isTodayTask(newTask)) {
-			logic.setActiveView(UIMainViewType.TODAY);
 			logicAction = new LogicAction(Action.EDIT_TO_TODAY_TASK);
 			
 		} else if (logic.isNext7daysTask(newTask)) {
-			logic.setActiveView(UIMainViewType.EXTENDED);
 			logicAction = new LogicAction(Action.EDIT_TO_NEXT7DAY_TASK);
 			
 		} else {
-			logic.setActiveView(UIMainViewType.ALL);
 			logicAction = new LogicAction(Action.EDIT_TO_ALL_TASK);
 		}
 		

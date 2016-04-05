@@ -39,6 +39,11 @@ public class FloatingTask extends Task {
 		this.category = task.category;
 		this.isCompleted = task.isCompleted;
 	}
+	
+	@Override
+	public boolean hasOverlap(Task task){
+		return false;
+	}
 
 	@Override
 	public DateTime getDateTime() {

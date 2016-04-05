@@ -31,11 +31,11 @@ public class SearchCommandTest {
 	public void setUp(){
 		logic = new LogicController();
 		logic.disableSave();
-		logic.clearTask();
+		logic.clearTasks();
 	}
 	
 	public void setupTasks() {
-		logic.clearTask();
+		logic.clearTasks();
 
 		DateTime dateTimeDeadline = new DateTime();
 		DateTime dateTimeStart = new DateTime();

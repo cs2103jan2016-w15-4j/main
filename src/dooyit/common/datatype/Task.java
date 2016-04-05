@@ -93,6 +93,8 @@ public abstract class Task {
 		}
 	}
 
+	public abstract boolean hasOverlap(Task task);
+	
 	public abstract String toString();
 
 	public abstract DateTime getDateTime();

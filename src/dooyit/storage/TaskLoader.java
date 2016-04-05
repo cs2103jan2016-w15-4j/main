@@ -1,3 +1,4 @@
+//@@author A0124586Y
 package dooyit.storage;
 
 import java.io.File;
@@ -23,6 +24,8 @@ import dooyit.common.datatype.TaskData;
  */
 public class TaskLoader {
 	private static final String EMPTY_STRING = "";
+	private static final String ERROR_LOAD = "Error: Unable to load";
+	private static final String ERROR_OPEN = "Error: Unable to open %1$s";
 
 	private String filePath;
 	private JsonParser parser;
@@ -116,7 +119,12 @@ public class TaskLoader {
 		ArrayList<TaskData> taskList = new ArrayList<TaskData>();
 
 		BufferedReader bReader = new BufferedReader(fReader);
-		String taskInfo = bReader.readLine();
+		String taskInfo;
+		try {
+			taskInfo = bReader.readLine();
+		} catch (IOException e) {
+			throw new IOException(ERROR_LOAD);
+		}
 
 		JsonObject jsonTask;
 		while (taskInfo != null) {
@@ -153,7 +161,7 @@ public class TaskLoader {
 			try {
 				fReader = new FileReader(file);
 			} catch (FileNotFoundException e) {
-				throw new FileNotFoundException(file.getName());
+				throw new FileNotFoundException(String.format(ERROR_OPEN, file.getName()));
 			}
 		}
 		return fReader;

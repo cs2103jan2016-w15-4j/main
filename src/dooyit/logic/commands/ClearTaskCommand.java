@@ -28,14 +28,14 @@ public class ClearTaskCommand implements Command, ReversibleCommand {
 	}
 
 	public void redo(LogicController logic) {
-		clearedTasks = logic.clearTask();
+		clearedTasks = logic.clearTasks();
 	}
 
 	public LogicAction execute(LogicController logic) throws IncorrectInputException {
 		assert (logic != null);
 		LogicAction logicAction;
 
-		clearedTasks = logic.clearTask();
+		clearedTasks = logic.clearTasks();
 
 		logicAction = new LogicAction(Action.CLEAR_TASK, Constants.FEEDBACK_TASK_CLEARED);
 		return logicAction;

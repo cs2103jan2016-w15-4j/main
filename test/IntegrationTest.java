@@ -16,13 +16,13 @@ public class IntegrationTest {
 	public void setUp() {
 		logic = new LogicController();
 		logic.disableSave();
-		logic.clearTask();
+		logic.clearTasks();
 	}
 	
 	
 	@Test
 	public void addFloatingTask_ValidInput_FloatingTask(){
-		logic.clearTask();
+		logic.clearTasks();
 		logic.processInput("add a");
 		
 		Task task = logic.getTaskManager().getMostRecentTask();
@@ -33,7 +33,7 @@ public class IntegrationTest {
 	
 	@Test
 	public void addDeadlineTask_ValidDateTime_DeadlineTask(){
-		logic.clearTask();
+		logic.clearTasks();
 		logic.processInput("add buy milk by 30/3/2016");	
 		
 		Task task = logic.getTaskManager().getMostRecentTask();
@@ -43,7 +43,7 @@ public class IntegrationTest {
 	
 	@Test
 	public void addEventTask_ValidDateTime_EventTask(){
-		logic.clearTask();
+		logic.clearTasks();
 		logic.processInput("add buy milk from 30/3/2016 to 31/3/2016");
 		
 		Task task = logic.getTaskManager().getMostRecentTask();
@@ -53,7 +53,7 @@ public class IntegrationTest {
 	
 	@Test
 	public void addEventTask_InvalidDateTime_FloatingTask() {
-		logic.clearTask();
+		logic.clearTasks();
 		logic.processInput("add buy milk from 30/3/2016");
 		
 		Task task = logic.getTaskManager().getMostRecentTask();

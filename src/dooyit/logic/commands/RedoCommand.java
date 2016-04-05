@@ -26,12 +26,11 @@ public class RedoCommand implements Command {
 		boolean isSuccuss = logic.redo();
 
 		if (isSuccuss) {
-			logicAction = new LogicAction(Action.UNDO, Constants.FEEDBACK_SUCCESS_REDO);
+			logicAction = new LogicAction(Action.REDO, Constants.FEEDBACK_SUCCESS_REDO);
 		} else {
-			logicAction = new LogicAction(Action.UNDO, Constants.FEEDBACK_FAIL_REDO);
+			logicAction = new LogicAction(Action.REDO, Constants.FEEDBACK_FAIL_REDO);
 		}
 		
-		logicAction = new LogicAction(Action.REDO);
 		return logicAction;
 	}
 

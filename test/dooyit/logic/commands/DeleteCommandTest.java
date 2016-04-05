@@ -31,11 +31,11 @@ public class DeleteCommandTest {
 	public void setUp() {
 		logic = new LogicController();
 		logic.disableSave();
-		logic.clearTask();
+		logic.clearTasks();
 	}
 
 	public void setUpTask() {
-		logic.clearTask();
+		logic.clearTasks();
 
 		DateTime dateTimeDeadline = new DateTime();
 		DateTime dateTimeStart = new DateTime();

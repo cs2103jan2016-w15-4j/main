@@ -24,7 +24,7 @@ public class AddCommandTest {
 	public void setUp() {
 		logic = new LogicController();
 		logic.disableSave();
-		logic.clearTask();
+		logic.clearTasks();
 	}
 	
 	@Test

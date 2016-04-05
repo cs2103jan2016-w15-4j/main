@@ -23,9 +23,9 @@ public class UndoCommand implements Command {
 		assert (logic != null);
 		LogicAction logicAction;
 
-		boolean isSuccuss = logic.undo();
+		boolean isSuccess = logic.undo();
 
-		if (isSuccuss) {
+		if (isSuccess) {
 			logicAction = new LogicAction(Action.UNDO, Constants.FEEDBACK_SUCCESS_UNDO);
 		} else {
 			logicAction = new LogicAction(Action.UNDO, Constants.FEEDBACK_FAIL_UNDO);

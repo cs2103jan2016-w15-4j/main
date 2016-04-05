@@ -102,6 +102,7 @@ public class LogicController {
 	 */
 	public void loadFromStorage() {
 		try {
+			clearTasks();
 			loadCategoryDataFromStorage();
 			loadTaskDataFromStorage();
 		} catch (IOException e) {
@@ -153,6 +154,7 @@ public class LogicController {
 		try {
 			logicAction = command.execute(this);
 		} catch (IncorrectInputException e) {
+			e.printStackTrace();
 			logicAction = new LogicAction(Action.ERROR, "Incorrect Input.");
 		}
 		return logicAction;
@@ -342,14 +344,17 @@ public class LogicController {
 		return taskManager.size();
 	}
 
+	public boolean hasOverlap(Task task){
+		return taskManager.hasOverlap(task);
+	}
+	
 	public ArrayList<Task> removeTasksWithCategory(Category category) {
 		ArrayList<Task> tasksWithCategoty = taskManager.removeTasksWithCategory(category);
 		return tasksWithCategoty;
 	}
 
-	public ArrayList<Task> clearTask() {
+	public ArrayList<Task> clearTasks() {
 		ArrayList<Task> clearedTasks = taskManager.clear();
-		// save();
 		return clearedTasks;
 	}
 

@@ -40,7 +40,11 @@ public class DataManager {
 
 	public void loadCategoryData(LogicController logic, ArrayList<CategoryData> categoryDatas) {
 		for (CategoryData categoryData : categoryDatas) {
-			logic.addCategory(categoryData.getName(), categoryData.getColor());
+			try {
+				logic.addCategory(categoryData.getName(), categoryData.getColor());
+			} catch (IncorrectInputException e) {
+
+			}
 		}
 	}
 

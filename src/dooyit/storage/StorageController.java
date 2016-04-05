@@ -71,9 +71,9 @@ public class StorageController {
 		return false;
 	}
 	
-	public boolean setCssPath(String path) {
+	public boolean loadCustomCss(String path) throws IOException {
 		if(isValidPath(path, CSS)) {
-			preferences[THEME_DESTINATION] = path;
+			copyCss(path);
 			return true;
 		}
 		
@@ -109,6 +109,25 @@ public class StorageController {
 		assert categories != null;
 
 		return categories;
+	}
+	
+	public void copyCss(String path) throws IOException {
+		logger.log(Level.INFO, "Attempting to generate CSS");
+		String defaultPath = preferences[THEME_DESTINATION];
+
+		File file = new File(defaultPath);
+		if(!file.exists()) {
+			BufferedReader bReader = new BufferedReader(new FileReader(path));
+			BufferedWriter bWriter = new BufferedWriter(new FileWriter(defaultPath));
+			String line = bReader.readLine();
+			while(line != null) {
+				bWriter.append(line);
+				bWriter.newLine();
+				line = bReader.readLine();
+			}
+			bReader.close();
+			bWriter.close();
+		}
 	}
 	
 	public void generateCss(URL path) throws IOException {

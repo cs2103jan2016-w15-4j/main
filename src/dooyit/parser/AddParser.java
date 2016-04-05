@@ -1,3 +1,4 @@
+//@@author A0133338J
 package dooyit.parser;
 
 import dooyit.common.datatype.DateTime;
@@ -12,8 +13,8 @@ public class AddParser implements ParserCommons {
 
 	private String userInput;
 	private String taskName;
-	private String categoryName;
-	private int categoryId;
+	//private String categoryName;
+	//private int categoryId;
 	private DateTime start;
 	private DateTime end;
 	private DateTime deadline;
@@ -60,7 +61,7 @@ public class AddParser implements ParserCommons {
 			setToEventCommand();
 			break;
 
-		case CATEGORY_AND_FLOATING:
+		/*case CATEGORY_AND_FLOATING:
 			try {
 				parseCategoryAndFloating();
 			} catch (IncorrectInputException e) {
@@ -87,7 +88,7 @@ public class AddParser implements ParserCommons {
 				setToInvalidCommand(e.getMessage());
 			}
 			setCategoryAndEventCommand();
-			break;
+			break;*/
 
 		default:
 			setToInvalidCommand(ERROR_MESSAGE_INVALID_ADD_COMMAND);
@@ -96,7 +97,7 @@ public class AddParser implements ParserCommons {
 		return command;
 	}
 
-	private void parseCategoryAndFloating() throws IncorrectInputException {
+	/*private void parseCategoryAndFloating() throws IncorrectInputException {
 		parseCategory();
 		try {
 			parseWork();
@@ -146,7 +147,7 @@ public class AddParser implements ParserCommons {
 	private void setCategoryAndFloatingCommand() {
 		// cmd = CommandUtils.createAddCommandCategory(taskName, categoryId,
 		// categoryName);
-	}
+	}*/
 
 	private void setToInvalidCommand(String message) {
 		command = CommandUtils.createInvalidCommand(message);
@@ -177,10 +178,10 @@ public class AddParser implements ParserCommons {
 		} catch(IncorrectInputException e) {
 			throw e;
 		}
-		
 		if(end.compareTo(start) == -1) {
 			end.setDate(start);
 		}
+		System.out.println("start is " + start.toString() + " and end is " + end.toString());
 		if(end.compareTo(start) == -1) {
 			throw new IncorrectInputException(ERROR_MESSAGE_END_BEFORE_START);
 		}

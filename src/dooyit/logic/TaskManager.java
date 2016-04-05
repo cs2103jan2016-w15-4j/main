@@ -723,12 +723,15 @@ public class TaskManager {
 	}
 
 	public ArrayList<TaskGroup> getTaskGroupCategory(Category category) {
-		ArrayList<TaskGroup> taskGroups = new ArrayList<TaskGroup>();
-		TaskGroup taskGroup = new TaskGroup(category.getName());
-		taskGroup.addTasks(getIncompleteTasksWithCategory(category));
-		sortTask(taskGroup.getTasks());
-		taskGroups.add(taskGroup);
+//		ArrayList<TaskGroup> taskGroups = new ArrayList<TaskGroup>();
+//		TaskGroup taskGroup = new TaskGroup(category.getName());
+//		taskGroup.addTasks(getIncompleteTasksWithCategory(category));
+//		sortTask(taskGroup.getTasks());
+//		taskGroups.add(taskGroup);
 
+		ArrayList<TaskGroup> taskGroups = getTaskGroupsAll();
+		filterTaskGroupsByCategory(taskGroups, category);
+		
 		resetTasksId(taskGroups);
 		return taskGroups;
 	}
@@ -766,6 +769,31 @@ public class TaskManager {
 		}
 	}
 
+	public void filterTaskGroupsByCategory(ArrayList<TaskGroup> taskGroups, Category category){
+		Iterator<TaskGroup> taskGroupsItr = taskGroups.iterator();
+		while (taskGroupsItr.hasNext()) {
+			TaskGroup taskGroup = taskGroupsItr.next();
+			taskGroup.filterByCategory(category);
+			
+			if(taskGroup.size() == 0){
+				taskGroupsItr.remove();
+			}
+		}
+		
+	}
+	
+	public void filterTaskGroupsByDate(DateTime dateTime){
+		
+	}
+	
+	public void filterTaskGroupsByDay(){
+		
+	}
+	
+	public void filterTaskGroupsByMonth(){
+		
+	}
+	
 	public void sortTask(ArrayList<Task> tasks) {
 		TaskUniqueIdComparator uniqueIdComparator = new TaskUniqueIdComparator();
 		Collections.sort(tasks, uniqueIdComparator);

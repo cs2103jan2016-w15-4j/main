@@ -99,6 +99,10 @@ public class UIDayBox {
 		this.parent.markTask(taskId);
 	}
 	
+	protected void unmarkTask(int taskId){
+		this.parent.unmarkTask(taskId);
+	}
+	
 	protected VBox getView() {
 		return this.dayBox;
 	}

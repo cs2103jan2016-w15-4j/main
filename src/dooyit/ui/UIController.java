@@ -172,7 +172,7 @@ public class UIController {
 
 	private void initScene() {
 		this.scene = new Scene(root, WIDTH_SCENE, HEIGHT_SCENE);
-		this.scene.getStylesheets().addAll(this.urlCssCommon, this.urlCssThemeDark);
+		this.scene.getStylesheets().addAll(this.urlCssCommon, this.urlCssThemeDark, "file:///Users/Wenqi/Dropbox/NUS/sem%204/test.css");
 	}
 
 	private void initListeners() {
@@ -329,6 +329,7 @@ public class UIController {
 			case UNDO:
 			case REDO:
 			case REMOVE_CAT_FROM_TASK:
+			case EDIT_NAME:
 				if (this.activeMainView == UIMainViewType.TODAY) {
 					refreshMainView(this.logic.getTaskGroupsToday(), UIMainViewType.TODAY);
 				} else if (this.activeMainView == UIMainViewType.EXTENDED) {
@@ -474,6 +475,10 @@ public class UIController {
 
 	protected void markTask(int taskId) {
 		processInput(UIData.CMD_MARK + Integer.toString(taskId));
+	}
+	
+	protected void unmarkTask(int taskId) {
+		processInput(UIData.CMD_UNMARK + Integer.toString(taskId));
 	}
 
 	protected void processCommand(String cmd) {

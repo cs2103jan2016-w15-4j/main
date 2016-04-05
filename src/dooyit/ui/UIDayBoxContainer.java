@@ -43,11 +43,15 @@ public class UIDayBoxContainer {
 		this.parent.markTask(taskId);
 	}
 	
-	protected UIMainViewType getActiveMainView(){
+	protected void unmarkTask(int taskId) {
+		this.parent.unmarkTask(taskId);
+	}
+	
+	protected UIMainViewType getActiveMainView() {
 		return this.parent.getActiveViewType();
 	}
 	
-	protected VBox getView(){
+	protected VBox getView() {
 		return this.dayBoxContainer;
 	}
 

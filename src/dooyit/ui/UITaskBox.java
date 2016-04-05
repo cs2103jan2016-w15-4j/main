@@ -142,6 +142,8 @@ public class UITaskBox {
 	    this.taskCheckBox.setOnAction((event) -> {
 	    	if (!this.task.isCompleted()){
 	    		this.parent.markTask(this.task.getId());
+	    	} else {
+	    		this.parent.unmarkTask(this.task.getId());
 	    	}
 	    });
 	}

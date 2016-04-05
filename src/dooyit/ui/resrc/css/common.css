@@ -166,7 +166,7 @@
 }
 
 .message-box-label {
-	-fx-background-color: rgba(10, 10, 10, 0.6);
+	-fx-background-color: rgba(10, 10, 10, 1);
 	-fx-background-radius: 0;
 	-fx-text-fill: #f0f0f0;
 	-fx-padding: 0 15 0 15;

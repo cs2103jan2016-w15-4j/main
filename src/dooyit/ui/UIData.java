@@ -21,6 +21,7 @@ public class UIData {
 	protected static final String CMD_SHOW_CAT = "show cat ";
 	protected static final String CMD_SHOW = "show ";
 	protected static final String CMD_MARK = "mark ";
+	protected static final String CMD_UNMARK = "unmark ";
 	protected static final String EMP_STR = "";
 	protected static final String COMMA_SPLIT = ", ";
 	protected static final String TODAY = "Today";

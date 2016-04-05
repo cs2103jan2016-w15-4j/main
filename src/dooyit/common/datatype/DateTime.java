@@ -1,3 +1,4 @@
+//@@author A0133338J
 package dooyit.common.datatype;
 
 import java.text.DateFormat;
@@ -5,8 +6,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.TimeZone;
-
-import dooyit.parser.ParserCommons;
 
 public class DateTime {
 	private static final String FORMAT_SPACE = " ";

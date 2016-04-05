@@ -31,10 +31,12 @@ public class StorageController {
 	private static final String CSS = ".css";
 	private static final String TXT = ".txt";
 	
-	private static final String ERROR_MESSAGE_FILEPATH = "Invalid Path: %1$s - Path needs to end with .txt";
+	private static final String ERROR_MESSAGE_FILEPATH = "INVALID path. Path needs to end with .txt";
+	private static final String ERROR_MESSAGE_CONFIG = "Error: Cannot modify configurations";
 	
 	private static final int TASK_DESTINATION = 0;
 	private static final int THEME_DESTINATION = 1;
+	//private static final int THEME_CHOICE = 2;
 	private static final int PREFERENCES_SIZE = 2;
 
 	public StorageController() throws IOException {
@@ -147,7 +149,7 @@ public class StorageController {
 		try {
 			fileWriter = new FileWriter(configFile);
 		} catch (IOException e) {
-			throw new IOException("Error: Cannot open config");
+			throw new IOException(ERROR_MESSAGE_CONFIG);
 		}
 
 		assert fileWriter != null;

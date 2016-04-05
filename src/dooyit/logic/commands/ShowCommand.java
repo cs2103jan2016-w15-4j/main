@@ -3,6 +3,7 @@ package dooyit.logic.commands;
 
 import dooyit.common.datatype.Category;
 import dooyit.common.exception.IncorrectInputException;
+import dooyit.logic.Constants;
 import dooyit.logic.api.Action;
 import dooyit.logic.api.LogicAction;
 import dooyit.logic.api.LogicController;
@@ -62,7 +63,7 @@ public class ShowCommand implements Command {
 				logic.setSelectedCategory(category);
 				logicAction = new LogicAction(Action.SHOW_CATEGORY);
 			} else {
-				logicAction = new LogicAction(Action.ERROR, "Category not found.");
+				logicAction = new LogicAction(Action.ERROR, String.format(Constants.FEEDBACK_CATEGORY_NOT_FOUND, categoryName));
 			}
 			break;
 		}

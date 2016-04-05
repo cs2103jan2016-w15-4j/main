@@ -82,7 +82,7 @@ public class UIController {
 		this.urlCssThemeLight = loadCss(UIStyle.URL_CSS_THEME_LIGHT);
 		this.urlCssThemeDark = loadCss(UIStyle.URL_CSS_THEME_DARK);
 		this.urlCssThemeAqua = loadCss(UIStyle.URL_CSS_THEME_AQUA);
-		this.pathCssThemeCustom = loadCss(UIStyle.URL_CSS_THEME_CUSTOM);
+		this.pathCssThemeCustom = getClass().getResource(UIStyle.URL_CSS_THEME_CUSTOM).getPath();
 		this.logic.setDefaultCustomCss(pathCssThemeCustom);
 	}
 

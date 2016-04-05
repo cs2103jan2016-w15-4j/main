@@ -52,7 +52,7 @@ public class AddTaskCommand implements Command, ReversibleCommand {
 	public LogicAction execute(LogicController logic) throws IncorrectInputException {
 		assert (logic != null);
 		LogicAction logicAction = null;
-
+		
 		switch (taskType) {
 		case FLOATING:
 			addedTask = logic.addFloatingTask(taskName);
@@ -65,9 +65,7 @@ public class AddTaskCommand implements Command, ReversibleCommand {
 		case EVENT:
 			addedTask = logic.addEventTask(taskName, dateTimeStart, dateTimeEnd);
 			
-			if(logic.hasOverlap(addedTask)){
-				System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-			}
+			
 			break;
 		}
 
@@ -77,21 +75,26 @@ public class AddTaskCommand implements Command, ReversibleCommand {
 
 	public LogicAction getActionBasedOnAddedTask(LogicController logic, Task addedTask) {
 		LogicAction logicAction;
-
-		String taskName = addedTask.getName();
-		String feedBackMsg = String.format(Constants.FEEDBACK_TASK_ADDED, taskName);
 		
+		String taskAddedMsg = Constants.FEEDBACK_TASK_ADDED;
+		String feedbackMsg = taskAddedMsg;
+		
+		if(logic.hasOverlapWithOverEventTask(addedTask)){
+			String conflictMsg = "This task conclicts with another event. ";
+			feedbackMsg = conflictMsg + taskAddedMsg;
+		}
+
 		if (logic.isFloatingTask(addedTask)) {
-			logicAction = new LogicAction(Action.ADD_FLOATING_TASK, feedBackMsg);
+			logicAction = new LogicAction(Action.ADD_FLOATING_TASK, feedbackMsg);
 
 		} else if (logic.isTodayTask(addedTask)) {
-			logicAction = new LogicAction(Action.ADD_TODAY_TASK, feedBackMsg);
+			logicAction = new LogicAction(Action.ADD_TODAY_TASK, feedbackMsg);
 
 		} else if (logic.isNext7daysTask(addedTask)) {
-			logicAction = new LogicAction(Action.ADD_NEXT7DAY_TASK, feedBackMsg);
+			logicAction = new LogicAction(Action.ADD_NEXT7DAY_TASK, feedbackMsg);
 
 		} else {
-			logicAction = new LogicAction(Action.ADD_ALL_TASK, feedBackMsg);
+			logicAction = new LogicAction(Action.ADD_ALL_TASK, feedbackMsg);
 		}
 
 		return logicAction;

@@ -343,8 +343,8 @@ public class LogicController {
 		return taskManager.size();
 	}
 
-	public boolean hasOverlap(Task task){
-		return taskManager.hasOverlap(task);
+	public boolean hasOverlapWithOverEventTask(Task task){
+		return taskManager.hasOverlapWithOverEventTask(task);
 	}
 	
 	public ArrayList<Task> removeTasksWithCategory(Category category) {

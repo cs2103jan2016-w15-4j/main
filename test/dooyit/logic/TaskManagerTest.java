@@ -33,7 +33,7 @@ public class TaskManagerTest {
 	public void setUp() {
 		logicController = new LogicController();
 		logicController.disableSave();
-		logicController.clearTask();
+		logicController.clearTasks();
 
 		taskManager = logicController.getTaskManager();
 	}

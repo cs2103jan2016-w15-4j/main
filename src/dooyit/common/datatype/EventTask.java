@@ -11,6 +11,7 @@ public class EventTask extends Task {
 	private boolean isMultiDayOn = false;
 	private int currentMultiDay = 0;
 	private ArrayList<String> multiDayString;
+	private static final int UNINITIALISED = -1;
 
 	public EventTask(String taskName, DateTime start, DateTime end) {
 		assert (taskName != null && start != null && end != null);
@@ -79,17 +80,12 @@ public class EventTask extends Task {
 	public void onMultiDay() {
 		isMultiDayOn = true;
 		currentMultiDay = 0;
+		taskId = UNINITIALISED;
 	}
 
 	public void offMultiDay() {
 		isMultiDayOn = false;
 	}
-
-	// @Override
-	// public boolean isCompleted(){
-	// //offMultiDay();
-	// return super.isCompleted();
-	// }
 
 	public int size() {
 		if (hasMultiDay) {
@@ -121,6 +117,18 @@ public class EventTask extends Task {
 		return dateTimeEnd;
 	}
 
+	@Override
+	public void setId(int taskId) {
+		
+		if(hasMultiDay){
+			if(this.taskId == UNINITIALISED){
+				this.taskId = taskId;
+			}
+		}else{
+			this.taskId = taskId;
+		}
+	}
+	
 	@Override
 	public Task copy() {
 		return new EventTask(this);

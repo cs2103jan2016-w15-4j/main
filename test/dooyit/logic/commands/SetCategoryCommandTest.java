@@ -26,7 +26,7 @@ public class SetCategoryCommandTest {
 	}
 	
 	public void clear() {
-		logic.clearTask();
+		logic.clearTasks();
 		logic.clearCategory();
 	}
 	

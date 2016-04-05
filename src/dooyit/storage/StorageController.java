@@ -48,7 +48,6 @@ public class StorageController {
 		preferences = loadPreferences(configFilePath);
 		categoryControl = new CategoryController(Constants.DEFAULT_CATEGORIES_DESTINATION);
 		taskControl = new TaskController(preferences[TASK_DESTINATION]);
-		//generateCss();
 	}
 
 	private String getConfigPath(String currentPath) {
@@ -99,18 +98,22 @@ public class StorageController {
 		return categories;
 	}
 	
-	public boolean generateCss(String path) throws IOException {
+	public String generateCss(String path) throws IOException {
 		logger.log(Level.INFO, "Attempting to generate CSS");
-		//path = path.replace("file:/", "");
-		FileInputStream srcStream = new FileInputStream(path);
-		FileOutputStream destStream = new FileOutputStream(preferences[1]);
-		FileChannel src = srcStream.getChannel();
-		FileChannel dest = destStream.getChannel();
-		dest.transferFrom(src, 0, src.size());
-		srcStream.close();
-		destStream.close();
+		String defaultPath = preferences[THEME_DESTINATION];
+		System.out.println(path);
+		File file = new File(defaultPath);
+		if(!file.exists()) {
+			FileInputStream srcStream = new FileInputStream(path);
+			FileOutputStream destStream = new FileOutputStream(defaultPath);
+			FileChannel src = srcStream.getChannel();
+			FileChannel dest = destStream.getChannel();
+			dest.transferFrom(src, 0, src.size());
+			srcStream.close();
+			destStream.close();
+		}
 		
-		return true;
+		return preferences[THEME_DESTINATION];
 	}
 
 	private String[] loadPreferences(String configFilePath) throws IOException {
@@ -130,6 +133,10 @@ public class StorageController {
 		if (isInvalidPath(preferences[THEME_DESTINATION], CSS)) {
 			preferences[THEME_DESTINATION] = Constants.DEFAULT_THEME_DESTINATION;
 		}
+		
+		/*if(isInvalid(preferences[SKIN_PREFERENCE])) {
+			
+		}*/
 
 		modifyConfig(preferences);
 

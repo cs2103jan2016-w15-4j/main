@@ -16,7 +16,7 @@ import javafx.util.Duration;
 
 public class UIMessageBox {
 	private static final String STYLECLASS_MESSAGE_BOX_LABEL = UIStyle.MESSAGE_BOX_LABEL;
-	private static final int FADE_TIME = 6000;
+	private static final int FADE_TIME = 10000;
 	private static final int PREFHEIGHT = 40;
 	private static final int PAD_X = 0;
 	private static final int PAD_Y = 105;

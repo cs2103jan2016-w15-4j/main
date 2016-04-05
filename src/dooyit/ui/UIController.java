@@ -27,6 +27,9 @@ public class UIController {
 	static final int WIDTH_SCENE = 720;
 	static final int HEIGHT_SCENE = 580;
 	static final String STYLECLASS_MAIN_VIEW = UIStyle.MAIN_VIEW;
+	static final String SPACE = " ";
+	static final String ESCAPED_SPACE = "%20";
+	static final String PATH_PREPEND = "file://";
 
 	private String urlCssCommon;
 	private String urlCssThemeLight;
@@ -413,12 +416,16 @@ public class UIController {
 				this.scene.getStylesheets().addAll(urlCssThemeAqua);
 				break;
 			case CUSTOM:
-			
+				this.scene.getStylesheets().addAll(getCustomCssPath());
 				break;
 			default:
 				this.scene.getStylesheets().addAll(urlCssThemeLight);
 				break;
 		}
+	}
+	
+	private String getCustomCssPath(){
+		return PATH_PREPEND + this.logic.getCssPath().replace(SPACE, ESCAPED_SPACE);
 	}
 
 	private void setActiveMenuButton(UIMainViewType mainViewType) {

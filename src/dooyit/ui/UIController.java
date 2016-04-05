@@ -323,14 +323,14 @@ public class UIController {
 				break;
 			case DELETE_CATEGORY:
 			case CLEAR_CATEGORY:
+			case UNDO:
+			case REDO:
 				refreshCategoryMenuView();
 			case DELETE_TASK:
 			case SET_CATEGORY:
 			case CLEAR_TASK:
 			case MARK_TASK:
 			case UNMARK_TASK:
-			case UNDO:
-			case REDO:
 			case REMOVE_CAT_FROM_TASK:
 			case EDIT_NAME:
 				if (this.activeMainView == UIMainViewType.TODAY) {

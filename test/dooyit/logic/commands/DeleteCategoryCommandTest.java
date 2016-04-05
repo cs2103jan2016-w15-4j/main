@@ -5,13 +5,17 @@ import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.powermock.reflect.Whitebox;
 
 import dooyit.common.datatype.Category;
 import dooyit.common.datatype.CustomColor;
-import dooyit.common.exception.IncorrectInputException;
+import dooyit.logic.api.Action;
+import dooyit.logic.api.LogicAction;
 import dooyit.logic.api.LogicController;
 
 public class DeleteCategoryCommandTest {
+	private static final String ACTION = "action";
+	
 	LogicController logic;
 	DeleteCategoryCommand deleteCatCommand;
 	
@@ -34,11 +38,13 @@ public class DeleteCategoryCommandTest {
 		assertFalse(logic.containsCategory("Personal"));
 	}
 	
-	@Test (expected = IncorrectInputException.class)
+	@Test
 	public void execute_MissingCategory_IncorrectInputException() {
 		logic.clearCategory();
 		deleteCatCommand = new DeleteCategoryCommand("Personal");
-		deleteCatCommand.execute(logic);
+		LogicAction logicAction = deleteCatCommand.execute(logic);
+		Action action = Whitebox.getInternalState(logicAction, ACTION);
+		assertEquals(Action.ERROR, action);
 	}
 	
 	

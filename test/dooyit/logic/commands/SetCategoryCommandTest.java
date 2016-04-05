@@ -6,16 +6,20 @@ import java.util.ArrayList;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.powermock.reflect.Whitebox;
 
 import dooyit.common.datatype.Category;
 import dooyit.common.datatype.CustomColor;
 import dooyit.common.datatype.DateTime;
 import dooyit.common.datatype.Task;
-import dooyit.common.exception.IncorrectInputException;
+import dooyit.logic.api.Action;
+import dooyit.logic.api.LogicAction;
 import dooyit.logic.api.LogicController;
 import dooyit.logic.commands.SetCategoryCommand;
 
 public class SetCategoryCommandTest {
+	private static final String ACTION = "action";
+	
 	LogicController logic;
 	SetCategoryCommand setCatCommand;
 	
@@ -30,7 +34,7 @@ public class SetCategoryCommandTest {
 		logic.clearCategory();
 	}
 	
-	@Test (expected = IncorrectInputException.class)
+	@Test
 	public void SetCategory_MissingCategory_CategoryCreated() {
 		clear();
 		int[] date = {20, 4, 2016};
@@ -43,7 +47,7 @@ public class SetCategoryCommandTest {
 		assertTrue(logic.containsCategory("Deadlines"));
 	}
 	
-	@Test (expected = IncorrectInputException.class)
+	@Test
 	public void SetCategory_InvalidId_IncorrectInputException() {
 		clear();
 		int[] date = {20, 4, 2016};
@@ -51,8 +55,9 @@ public class SetCategoryCommandTest {
 		logic.addDeadlineTask("Project Proposal", deadline);
 		
 		setCatCommand = new SetCategoryCommand(100, "Deadlines");
-		setCatCommand.execute(logic);
-		assertTrue(logic.containsCategory("Deadlines"));
+		LogicAction logicAction = setCatCommand.execute(logic);
+		Action action = Whitebox.getInternalState(logicAction, ACTION);
+		assertEquals(Action.ERROR, action);
 	}
 	
 	@Test

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.powermock.reflect.Whitebox;
 
 import dooyit.common.datatype.DateTime;
 import dooyit.common.datatype.DeadlineTask;
@@ -13,10 +14,13 @@ import dooyit.common.datatype.EventTask;
 import dooyit.common.datatype.FloatingTask;
 import dooyit.common.datatype.Task;
 import dooyit.common.exception.IncorrectInputException;
-import dooyit.logic.TaskManager;
+import dooyit.logic.api.Action;
+import dooyit.logic.api.LogicAction;
 import dooyit.logic.api.LogicController;
 
 public class DeleteCommandTest {
+	
+	private static final String ACTION = "action";
 
 	LogicController logic;
 	DeleteTaskCommand deleteCommand;
@@ -145,7 +149,7 @@ public class DeleteCommandTest {
 	}
 
 	// boundary case for negative partition
-	@Test(expected = IncorrectInputException.class)
+	@Test
 	public void executeExceptionHandlingNegative() throws IncorrectInputException {
 		setUpTask();
 		int invalidTaskId;
@@ -156,11 +160,13 @@ public class DeleteCommandTest {
 		assertFalse(logic.containsTask(invalidTaskId));
 
 		deleteCommand = new DeleteTaskCommand(invalidTaskId);
-		deleteCommand.execute(logic);
+		LogicAction logicAction = deleteCommand.execute(logic);
+		Action action = Whitebox.getInternalState(logicAction, ACTION);
+		assertEquals(Action.ERROR, action);
 	}
 
 	// boundary case for positive partition
-	@Test(expected = IncorrectInputException.class)
+	@Test
 	public void executeExceptionHandlingPositive() throws IncorrectInputException {
 		setUpTask();
 		int invalidTaskId;
@@ -171,7 +177,10 @@ public class DeleteCommandTest {
 		assertFalse(logic.containsTask(invalidTaskId));
 
 		deleteCommand = new DeleteTaskCommand(invalidTaskId);
-		deleteCommand.execute(logic);
+		LogicAction logicAction = deleteCommand.execute(logic);
+		Action action = Whitebox.getInternalState(logicAction, ACTION);
+		assertEquals(Action.ERROR, action);
+		
 	}
 
 	@Test

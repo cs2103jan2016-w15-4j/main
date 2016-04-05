@@ -103,6 +103,10 @@
 	-fx-font-style: italic;
 }
 
+.task-period-overdue {
+	-fx-text-fill: red;
+}
+
 .task-category-label {
 	-fx-text-fill: #ebebeb;
 }

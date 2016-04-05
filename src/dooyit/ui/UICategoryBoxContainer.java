@@ -77,4 +77,13 @@ public class UICategoryBoxContainer {
 			addCategory(category);
 		}
 	}
+	
+	protected String getSelectedCategoryName(){
+		for (UICategoryBox categoryBox : this.categoryBoxList){
+			if (categoryBox.getView().isSelected()){
+				return categoryBox.getCategory().getName();
+			}
+		}
+		return UIData.EMP_STR;
+	}
 }

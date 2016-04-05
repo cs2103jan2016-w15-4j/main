@@ -90,3 +90,7 @@
 .task-period {
 	-fx-text-fill: #262626;
 }
+
+.task-period-overdue {
+	-fx-text-fill: red;
+}

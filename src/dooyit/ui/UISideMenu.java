@@ -161,5 +161,9 @@ public class UISideMenu {
 	protected void processCommand(String cmd){
 		this.parent.processCommand(cmd);
 	}
+	
+	protected String getSelectedCategoryName(){
+		return this.categoryBoxContainer.getSelectedCategoryName();
+	}
 
 }

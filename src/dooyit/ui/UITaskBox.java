@@ -1,6 +1,7 @@
 package dooyit.ui;
 
 import dooyit.common.datatype.Category;
+import dooyit.common.datatype.DateTime;
 import dooyit.common.datatype.Task;
 import javafx.geometry.Pos;
 import javafx.scene.control.CheckBox;
@@ -24,6 +25,7 @@ public class UITaskBox {
 	private static final String STYLECLASS_TASK_NAME = UIStyle.TASK_NAME;
 	private static final int WIDTH_TO_SUBTRACT = 55;
 	private static final String STYLECLASS_TASK_PERIOD = UIStyle.TASK_PERIOD;
+	private static final String STYLECLASS_TASK_PERIOD_OVERDUE = UIStyle.TASK_PERIOD_OVERDUE;
 	private static final String STYLECLASS_TASK_CATEGORY_LABEL = UIStyle.TASK_CATEGORY_LABEL;
 	private static final int PREFWIDTH_TASK_CATEGORY_LABEL = 120;
 	private static final String STYLECLASS_TASK_BOX = UIStyle.DAY_TASK_BOX;
@@ -83,6 +85,9 @@ public class UITaskBox {
 	private void initTaskPeriod(){
 		this.taskPeriod = new Label(getTaskPeriodString());
 	    this.taskPeriod.getStyleClass().add(STYLECLASS_TASK_PERIOD);
+	    if (this.task.isOverDue(new DateTime())){
+	    	this.taskPeriod.getStyleClass().add(STYLECLASS_TASK_PERIOD_OVERDUE);
+	    }
 	}
 	
 	private String getTaskPeriodString(){

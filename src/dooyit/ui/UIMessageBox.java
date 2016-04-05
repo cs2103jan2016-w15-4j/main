@@ -90,7 +90,13 @@ public class UIMessageBox {
 	}
 	
 	
-	protected void show(String msg){
+	protected void show(String msg, UIMessageType msgType){
+		if (msgType == UIMessageType.DEFAULT){
+			this.messageLabel.getStyleClass().clear();
+			this.messageLabel.getStyleClass().add(STYLECLASS_MESSAGE_BOX_LABEL);
+		} else if (msgType == UIMessageType.ERROR){
+			this.messageLabel.getStyleClass().add("message-box-label-error");
+		}
 		if (msg.length() > CHAR_LEN_LONG){
 			this.ft.setDuration(Duration.millis(FADE_TIME_LONG));
 		} else {

@@ -176,6 +176,10 @@
 	-fx-font-size: 14px;
 }
 
+.message-box-label-error {
+	-fx-background-color: #E41B17;
+}
+
 .help-box-wrapper {
 	-fx-background-color: rgba(10, 10, 10, 0.95);
 	-fx-background-radius: 10;

@@ -371,14 +371,14 @@ public class UIController {
 			case SET_STORAGE_PATH:
 				break;
 			case ERROR:
-				//
+				displayMessage(logicAction.getMessage(), UIMessageType.ERROR);
 				break;
 			default:
 				break;
 		}
 
-		if (logicAction.hasMessage()) {
-			displayMessage(logicAction.getMessage());
+		if (logicAction.hasMessage() && logicAction.getAction() != Action.ERROR) {
+			displayMessage(logicAction.getMessage(), UIMessageType.DEFAULT);
 		}
 	}
 
@@ -390,8 +390,8 @@ public class UIController {
 		return this.scene;
 	}
 
-	private void displayMessage(String msg) {
-		this.messageBox.show(msg);
+	private void displayMessage(String msg, UIMessageType msgType) {
+		this.messageBox.show(msg, msgType);
 		this.messageBox.hide();
 	}
 

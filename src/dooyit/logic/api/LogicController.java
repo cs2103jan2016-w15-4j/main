@@ -417,7 +417,15 @@ public class LogicController {
 		}
 	}
 
-	public void setCustomCssPath(String path){
+	public void setDefaultCustomCss(String path) {
+		try {
+			storage.generateCss(path);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void setCustomCssPath(String path) {
 		
 	}
 	

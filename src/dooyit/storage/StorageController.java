@@ -7,9 +7,12 @@ import java.util.logging.Level;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.channels.FileChannel;
 
 import dooyit.storage.TaskController;
 import dooyit.storage.CategoryController;
@@ -45,6 +48,7 @@ public class StorageController {
 		preferences = loadPreferences(configFilePath);
 		categoryControl = new CategoryController(Constants.DEFAULT_CATEGORIES_DESTINATION);
 		taskControl = new TaskController(preferences[TASK_DESTINATION]);
+		//generateCss();
 	}
 
 	private String getConfigPath(String currentPath) {
@@ -81,7 +85,6 @@ public class StorageController {
 		assert taskList != null;
 
 		return taskList;
-
 	}
 
 	public boolean saveCategory(ArrayList<CategoryData> categories) throws IOException {
@@ -94,6 +97,20 @@ public class StorageController {
 		assert categories != null;
 
 		return categories;
+	}
+	
+	public boolean generateCss(String path) throws IOException {
+		logger.log(Level.INFO, "Attempting to generate CSS");
+		//path = path.replace("file:/", "");
+		FileInputStream srcStream = new FileInputStream(path);
+		FileOutputStream destStream = new FileOutputStream(preferences[1]);
+		FileChannel src = srcStream.getChannel();
+		FileChannel dest = destStream.getChannel();
+		dest.transferFrom(src, 0, src.size());
+		srcStream.close();
+		destStream.close();
+		
+		return true;
 	}
 
 	private String[] loadPreferences(String configFilePath) throws IOException {

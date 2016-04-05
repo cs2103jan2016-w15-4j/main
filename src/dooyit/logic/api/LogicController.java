@@ -2,7 +2,6 @@
 package dooyit.logic.api;
 
 import dooyit.storage.StorageController;
-import dooyit.ui.UIController;
 import dooyit.parser.Parser;
 import dooyit.common.exception.IncorrectInputException;
 import dooyit.logic.CategoryManager;
@@ -14,7 +13,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import dooyit.common.datatype.Category;
 import dooyit.common.datatype.CategoryData;
 import dooyit.common.datatype.DateTime;
@@ -30,9 +28,7 @@ public class LogicController {
 	private StorageController storage;
 	private HistoryManager historyManager;
 	private DataManager dataManager;
-	private UIController uiController;
 	private static Logger logger = Logger.getLogger("Logic");
-
 	private boolean isSaveOn = true;
 	private boolean displayCommandline = true;
 	private String currentSearch = "";
@@ -89,7 +85,6 @@ public class LogicController {
 			storage = new StorageController();
 		} catch (IOException e) {
 			logger.log(Level.SEVERE, "ERROR: Fail to create storage");
-			// uiController.displayMessage("ERROR: CREATING STORAGE");
 		}
 	}
 
@@ -418,15 +413,10 @@ public class LogicController {
 		}
 	}
 
-	/**
-	 * pass the uicontroller references to this class
-	 * 
-	 * @param ui
-	 */
-	public void setUIController(UIController ui) {
-		this.uiController = ui;
+	public void setCustomCssPath(String path){
+		
 	}
-
+	
 	/**
 	 * Get the TaskManager object
 	 * 
@@ -434,15 +424,6 @@ public class LogicController {
 	 */
 	public TaskManager getTaskManager() {
 		return taskManager;
-	}
-
-	/**
-	 * Get UIController object
-	 * 
-	 * @return UIController
-	 */
-	public UIController getUIController() {
-		return uiController;
 	}
 
 	/**

@@ -33,6 +33,8 @@ public class StorageController {
 	
 	private static final String CSS = ".css";
 	private static final String TXT = ".txt";
+	private static final String FORWARD_SLASH = "/";
+	private static final String BACK_SLASH = "\\";;
 	
 	private static final String ERROR_MESSAGE_FILEPATH = "INVALID path. Path needs to end with %1$s";
 	private static final String ERROR_MESSAGE_CONFIG = "Error: Cannot modify configurations";
@@ -81,7 +83,9 @@ public class StorageController {
 	}
 	
 	public String getCssPath() {
-		return preferences[THEME_DESTINATION];
+		String cssPath = preferences[THEME_DESTINATION].replace(BACK_SLASH, FORWARD_SLASH);
+		
+		return cssPath;
 	}
 
 	public boolean saveTasks(ArrayList<TaskData> tasks) throws IOException {

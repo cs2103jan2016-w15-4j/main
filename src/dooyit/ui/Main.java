@@ -28,7 +28,7 @@ public class Main extends Application {
 	public static final String ERROR_IO_EXCEPTION = "ERROR: IOException";
 	public static final String ERROR_NUMBER_FORMAT_EXCEPTION = "ERROR: Number Format Exception";
 	public static final int NO_OF_ARG = 1;
-	private static final String APP_ICON = "icon.png";
+	private static final String APP_ICON = "resrc/images/icon.png";
 	private static final String APP_TITLE = "Dooyit";
 	private static final int MINWIDTH_STAGE = 720;
 	private static final int MINHEIGHT_STAGE = 620;

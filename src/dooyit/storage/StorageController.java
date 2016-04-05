@@ -34,7 +34,7 @@ public class StorageController {
 	private static final String CSS = ".css";
 	private static final String TXT = ".txt";
 	
-	private static final String ERROR_MESSAGE_FILEPATH = "INVALID path. Path needs to end with .txt";
+	private static final String ERROR_MESSAGE_FILEPATH = "INVALID path. Path needs to end with %1$s";
 	private static final String ERROR_MESSAGE_CONFIG = "Error: Cannot modify configurations";
 	
 	private static final int TASK_DESTINATION = 0;
@@ -58,7 +58,7 @@ public class StorageController {
 	public boolean setFileDestination(String newFilePath) throws IOException {
 		logger.log(Level.INFO, "Changing save destination");
 
-		if (isValidPath(newFilePath)) {
+		if (isValidPath(newFilePath, TXT)) {
 			preferences[TASK_DESTINATION] = newFilePath;
 			modifyConfig(preferences);
 			taskControl.setFileDestination(newFilePath);
@@ -69,6 +69,19 @@ public class StorageController {
 		}
 
 		return false;
+	}
+	
+	public boolean setCssPath(String path) {
+		if(isValidPath(path, CSS)) {
+			preferences[THEME_DESTINATION] = path;
+			return true;
+		}
+		
+		return false;
+	}
+	
+	public String getCssPath() {
+		return preferences[THEME_DESTINATION];
 	}
 
 	public boolean saveTasks(ArrayList<TaskData> tasks) throws IOException {
@@ -98,7 +111,7 @@ public class StorageController {
 		return categories;
 	}
 	
-	public String generateCss(URL path) throws IOException {
+	public void generateCss(URL path) throws IOException {
 		logger.log(Level.INFO, "Attempting to generate CSS");
 		String defaultPath = preferences[THEME_DESTINATION];
 
@@ -115,8 +128,6 @@ public class StorageController {
 			bReader.close();
 			bWriter.close();
 		}
-		
-		return preferences[THEME_DESTINATION];
 	}
 
 	private String[] loadPreferences(String configFilePath) throws IOException {
@@ -143,9 +154,9 @@ public class StorageController {
 	}
 
 
-	private boolean isValidPath(String filePath) throws IncorrectInputException {
-		if (!filePath.endsWith(TXT)) {
-			String errorMessage = String.format(ERROR_MESSAGE_FILEPATH, filePath);
+	private boolean isValidPath(String filePath, String type) throws IncorrectInputException {
+		if (!filePath.endsWith(type)) {
+			String errorMessage = String.format(ERROR_MESSAGE_FILEPATH, type);
 			throw new IncorrectInputException(errorMessage);
 		}
 

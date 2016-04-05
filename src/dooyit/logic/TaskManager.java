@@ -581,7 +581,7 @@ public class TaskManager {
 		return false;
 	}
 
-	public boolean hasOverlap(Task inTask){
+	public boolean hasOverlapWithOverEventTask(Task inTask){
 		
 		
 		for(Task task : tasks){

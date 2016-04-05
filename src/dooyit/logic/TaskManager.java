@@ -802,6 +802,12 @@ public class TaskManager {
 		}
 	}
 
+	public void resetNewTask(){
+		for(Task task : tasks){
+			task.setOld();
+		}
+	}
+	
 	public void display() {
 		System.out.println();
 		System.out.println("Task List");

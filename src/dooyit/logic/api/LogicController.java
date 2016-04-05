@@ -123,6 +123,7 @@ public class LogicController {
 	 * @param input
 	 */
 	public LogicAction processInput(String input) {
+		
 		Command command = parser.getCommand(input);
 		assert (command != null);
 		LogicAction logicAction = processCommand(command);
@@ -133,6 +134,7 @@ public class LogicController {
 	 * @param command
 	 */
 	public LogicAction processCommand(Command command) {
+		resetTaskManager();
 		LogicAction logicAction = executeCommand(command);
 		addCommandToHistory(command);
 		save();
@@ -266,6 +268,10 @@ public class LogicController {
 		return taskManager.getTaskGroupSearched(currentSearch);
 	}
 
+	public void resetTaskManager(){
+		taskManager.resetNewTask();
+	}
+	
 	public void addTask(Task task) {
 		taskManager.add(task);
 	}

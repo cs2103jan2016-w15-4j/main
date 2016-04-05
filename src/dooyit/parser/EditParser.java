@@ -179,6 +179,7 @@ public class EditParser implements ParserCommons {
 		if(end.compareTo(start) == -1) {
 			end.setDate(start);
 		}
+		
 		if(end.compareTo(start) == -1) {
 			throw new IncorrectInputException(ERROR_MESSAGE_END_BEFORE_START);
 		}
@@ -215,6 +216,7 @@ public class EditParser implements ParserCommons {
 		if(end.compareTo(start) == -1) {
 			end.setDate(start);
 		}
+		
 		if(end.compareTo(start) == -1) {
 			throw new IncorrectInputException(ERROR_MESSAGE_END_BEFORE_START);
 		}

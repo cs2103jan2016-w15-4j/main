@@ -1,3 +1,4 @@
+//@@author A0133338J
 package dooyit.common.datatype;
 
 import java.text.DateFormat;
@@ -5,8 +6,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.TimeZone;
-
-import dooyit.parser.ParserCommons;
 
 public class DateTime {
 	private static final String FORMAT_SPACE = " ";
@@ -16,6 +15,7 @@ public class DateTime {
 	private static final String DUMMY_STR = "Dummy_Str";
 	private static final String CALENDAR_DATE_FORMAT = "dd MM yyyy HH:mm E u";
 	private static final String CALENDAR_DEFAULT_TIME_ZONE = "UTC+08:00"; // Singapore Time Zone
+	private static final String UNINITIALIZED_STRING = "-1";
 	
 	private static final int INDEX_DD = 0;
 	private static final int INDEX_MM = 1;
@@ -27,9 +27,16 @@ public class DateTime {
 	private static final int NUM_MONTHS_IN_A_YEAR = 12;
 	private static final int NUMBER_OF_DAYS_IN_WEEK = 7;
 	private static final int UNINITIALIZED_INT = -1;
-	private static final String UNINITIALIZED_STRING = "-1";
 	private static final int MIDNIGHT_INT = 0;
 	private static final int RIGHT_BEFORE_MIDNIGHT_INT = 2359;
+	
+	public static final int MONDAY = 1;
+	public static final int TUESDAY = 2;
+	public static final int WEDNESDAY = 3;
+	public static final int THURSDAY = 4;
+	public static final int FRIDAY = 5;
+	public static final int SATURDAY = 6;
+	public static final int SUNDAY = 7;
 	
 	private static String[] months = new String[] { DUMMY_STR, "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
 	private static String[] daysInWeek = new String[] { DUMMY_STR, "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
@@ -39,6 +46,10 @@ public class DateTime {
 	private int mm;	// 2
 	private int yy; // 2016
 	private int timeInt;
+	
+	enum DAY {
+		MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY
+	}
 
 	
 	//********************************************
@@ -416,6 +427,23 @@ public class DateTime {
 
 	public void setTimeToRightBeforeMidnight() {
 		this.timeInt = RIGHT_BEFORE_MIDNIGHT_INT;
+	}
+	
+	
+	public static boolean isOverlap(DateTime startOne, DateTime endOne, DateTime startTwo, DateTime endTwo) {
+		boolean startOneIsAfterEndTwo = startOne.compareTo(endTwo) == COMPARISON_FIRST_IS_AFTER_SECOND;
+		boolean startTwoIsAfterEndOne = startTwo.compareTo(endOne) == COMPARISON_FIRST_IS_AFTER_SECOND;
+		return startOneIsAfterEndTwo || startTwoIsAfterEndOne;
+	}
+	
+	public static boolean isOverlap(DateTime deadline, DateTime start, DateTime end) {
+		boolean deadlineIsBeforeStart = deadline.compareTo(start) == COMPARISON_FIRST_IS_BEFORE_SECOND;
+		boolean deadlineIsAfterEnd = deadline.compareTo(end) == COMPARISON_FIRST_IS_AFTER_SECOND;
+		return deadlineIsBeforeStart || deadlineIsAfterEnd;
+	}
+	
+	public static boolean isSpecifiedDay(DateTime dateTime, int day) {
+		return dateTime.getDayInt() == day;
 	}
 	
 }

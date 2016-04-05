@@ -3,16 +3,16 @@ package dooyit.storage;
 
 import java.util.ArrayList;
 import java.util.logging.Logger;
+
 import java.util.logging.Level;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.channels.FileChannel;
+import java.io.InputStreamReader;
+import java.net.URL;
 
 import dooyit.storage.TaskController;
 import dooyit.storage.CategoryController;
@@ -98,20 +98,22 @@ public class StorageController {
 		return categories;
 	}
 	
-	public String generateCss(String path) throws IOException {
+	public String generateCss(URL path) throws IOException {
 		logger.log(Level.INFO, "Attempting to generate CSS");
-		
 		String defaultPath = preferences[THEME_DESTINATION];
-		System.out.println(path);
+
 		File file = new File(defaultPath);
 		if(!file.exists()) {
-			FileInputStream srcStream = new FileInputStream(path);
-			FileOutputStream destStream = new FileOutputStream(defaultPath);
-			FileChannel src = srcStream.getChannel();
-			FileChannel dest = destStream.getChannel();
-			dest.transferFrom(src, 0, src.size());
-			srcStream.close();
-			destStream.close();
+			BufferedReader bReader = new BufferedReader(new InputStreamReader(path.openStream()));
+			BufferedWriter bWriter = new BufferedWriter(new FileWriter(defaultPath));
+			String line = bReader.readLine();
+			while(line != null) {
+				bWriter.append(line);
+				bWriter.newLine();
+				line = bReader.readLine();
+			}
+			bReader.close();
+			bWriter.close();
 		}
 		
 		return preferences[THEME_DESTINATION];

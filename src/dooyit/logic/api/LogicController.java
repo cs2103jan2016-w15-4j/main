@@ -425,11 +425,11 @@ public class LogicController {
 	}
 
 	public void setDefaultCustomCss(URL path) {
-		try {
-			storage.generateCss(path);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+//		try {
+//			storage.generateCss(path);
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
 	}
 
 	public void setCustomCssPath(String path) {

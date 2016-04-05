@@ -98,9 +98,8 @@
 }
 
 .task-period {
-	/*-fx-text-fill: #87FC70;*/
+	-fx-font-size: 13px;
 	-fx-text-fill: #C7C7CC;
-	-fx-font-style: italic;
 }
 
 .task-period-overdue {

@@ -13,7 +13,7 @@ public class SearchCommand implements Command {
 	public SearchCommand(String searchString) {
 		this.searchString = searchString;
 	}
-
+	
 	public boolean hasError() {
 		return hasError;
 	}

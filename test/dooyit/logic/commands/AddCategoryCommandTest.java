@@ -4,10 +4,12 @@ import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.powermock.reflect.Whitebox;
 
 import dooyit.common.datatype.Category;
 import dooyit.common.datatype.CustomColor;
-import dooyit.common.exception.IncorrectInputException;
+import dooyit.logic.api.Action;
+import dooyit.logic.api.LogicAction;
 import dooyit.logic.api.LogicController;
 
 public class AddCategoryCommandTest {
@@ -31,7 +33,7 @@ public class AddCategoryCommandTest {
 		assertTrue(logic.containsCategory("CS3230"));
 	}
 	
-	@Test(expected = IncorrectInputException.class)
+	@Test
 	public void addExistingCategory(){
 		logic.clearCategory();
 		addCatCommand = new AddCategoryCommand("CS3230");
@@ -40,7 +42,9 @@ public class AddCategoryCommandTest {
 		assertTrue(logic.containsCategory("CS3230"));
 		
 		addCatCommand = new AddCategoryCommand("CS3230");
-		addCatCommand.execute(logic);
+		LogicAction logicAction = addCatCommand.execute(logic);
+		Action action = Whitebox.getInternalState(logicAction, "action");
+		assertEquals(Action.ERROR, action);
 	}
 	
 	@Test
@@ -54,10 +58,12 @@ public class AddCategoryCommandTest {
 		assertTrue(category.getCustomColour() == CustomColor.BLUE);
 	}
 	
-	@Test(expected = IncorrectInputException.class)
+	@Test
 	public void addCategoryWithInvalidColour(){
 		logic.clearCategory();
 		addCatCommand = new AddCategoryCommand("CS3230", "darkorange");
-		addCatCommand.execute(logic);
+		LogicAction logicAction = addCatCommand.execute(logic);
+		Action action = Whitebox.getInternalState(logicAction, "action");
+		assertEquals(Action.ADD_CATEGORY, action);
 	}
 }

@@ -1,3 +1,4 @@
+//@@author A0124586Y
 package dooyit.storage;
 
 import java.io.BufferedReader;
@@ -19,8 +20,6 @@ public class CategoryControllerTest extends Constants {
 			+ SEPARATOR_CHAR;
 	static final String FOLDER_TEST_STORAGE = FOLDER_TEST + "storage" + SEPARATOR_CHAR;
 	
-	private static final String CATEGORY_NAME = "name";
-	private static final String CATEGORY_COLOR = "color";
 	private static final String BLACK = "black";
 	private static final String BLUE = "blue";
 	private static final String CYAN = "cyan";

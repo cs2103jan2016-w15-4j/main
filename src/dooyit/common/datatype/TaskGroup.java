@@ -2,6 +2,7 @@
 package dooyit.common.datatype;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class TaskGroup {
 
@@ -62,4 +63,18 @@ public class TaskGroup {
 	public boolean hasDateTime() {
 		return dateTime != null;
 	}
+
+	public void filterByCategory(Category category) {
+		Iterator<Task> taskItr = tasks.iterator();
+
+		while(taskItr.hasNext()){
+			Task task = taskItr.next();
+			
+			if(!task.hasCategory() || !task.getCategory().equals(category)){
+				taskItr.remove();
+			}
+		}
+		
+	}
+
 }

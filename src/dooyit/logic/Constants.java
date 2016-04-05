@@ -34,6 +34,6 @@ public class Constants {
 	
 	public static final String FEEDBACK_FAIL_UNDO = "Oops, nothing to UNDO.";
 	public static final String FEEDBACK_SUCCESS_UNDO = "UNDO successful!";
-	public static final String FEEDBACK_FAIL_REDO = "Oops, nothing to UNDO";
+	public static final String FEEDBACK_FAIL_REDO = "Oops, nothing to REDO";
 	public static final String FEEDBACK_SUCCESS_REDO = "REDO successfull!";
 }

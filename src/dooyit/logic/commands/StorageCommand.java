@@ -52,7 +52,7 @@ public class StorageCommand implements Command, ReversibleCommand {
 				logicAction = new LogicAction(Action.SET_STORAGE_PATH, Constants.FEEDBACK_SET_NEW_PATH_WITH_LOAD);
 			}
 		} catch (IncorrectInputException e) {
-			logicAction = new LogicAction(Action.ERROR, Constants.FEEDBACK_INVALID_PATH);
+			logicAction = new LogicAction(Action.ERROR, e.getMessage());
 			hasError = true;
 		}
 

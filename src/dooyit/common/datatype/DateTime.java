@@ -431,9 +431,26 @@ public class DateTime {
 	
 	
 	public static boolean isOverlap(DateTime startOne, DateTime endOne, DateTime startTwo, DateTime endTwo) {
-		boolean startOneIsAfterEndTwo = startOne.compareTo(endTwo) == COMPARISON_FIRST_IS_AFTER_SECOND;
-		boolean startTwoIsAfterEndOne = startTwo.compareTo(endOne) == COMPARISON_FIRST_IS_AFTER_SECOND;
-		return startOneIsAfterEndTwo || startTwoIsAfterEndOne;
+		boolean startOneIsBeforeEndTwo = startOne.compareTo(endTwo) == COMPARISON_FIRST_IS_BEFORE_SECOND;
+		boolean endOneIsAfterEndTwo = endOne.compareTo(endTwo) == COMPARISON_FIRST_IS_AFTER_SECOND;
+		System.out.println("startOneIsBeforeEndTwo is " + startOneIsBeforeEndTwo);
+		System.out.println("endOneIsAfterEndTwo is " + endOneIsAfterEndTwo);
+		boolean firstIntervalIsAfterSecond = !startOneIsBeforeEndTwo && endOneIsAfterEndTwo;
+		
+		boolean startOneIsBeforeStartTwo = startOne.compareTo(startTwo) == COMPARISON_FIRST_IS_BEFORE_SECOND;
+		boolean endOneIsBeforeStartTwo = endOne.compareTo(startTwo) != COMPARISON_FIRST_IS_AFTER_SECOND;
+		
+		System.out.println("startOneIsBeforeStartTwo is " + startOneIsBeforeStartTwo);
+		System.out.println("endOneIsBeforeStartTwo is " + endOneIsBeforeStartTwo);
+		boolean firstIntervalIsBeforeSecond = startOneIsBeforeStartTwo && endOneIsBeforeStartTwo;
+		
+		System.out.println("startOne is " + startOne.toString() + " and endOne is " + endOne.toString());
+		System.out.println("startTwo is " + startTwo.toString() + " and endTwo is " + endTwo.toString());
+		System.out.println("firstIntervalIsBeforeSecond is " + firstIntervalIsBeforeSecond);
+		System.out.println("firstIntervalIsAfterSecond is " + firstIntervalIsAfterSecond);
+		boolean hasNoOverlap = firstIntervalIsAfterSecond || firstIntervalIsBeforeSecond;
+		System.out.println("isOverlap returns " + !hasNoOverlap);
+		return !hasNoOverlap;
 	}
 	
 	public static boolean isOverlap(DateTime deadline, DateTime start, DateTime end) {

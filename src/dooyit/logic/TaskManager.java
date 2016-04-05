@@ -585,7 +585,7 @@ public class TaskManager {
 		
 		
 		for(Task task : tasks){
-			if(task.hasOverlap(inTask)){
+			if(!task.equals(inTask) && task.hasOverlap(inTask)){
 				return true;
 			}
 		}
@@ -723,12 +723,6 @@ public class TaskManager {
 	}
 
 	public ArrayList<TaskGroup> getTaskGroupCategory(Category category) {
-//		ArrayList<TaskGroup> taskGroups = new ArrayList<TaskGroup>();
-//		TaskGroup taskGroup = new TaskGroup(category.getName());
-//		taskGroup.addTasks(getIncompleteTasksWithCategory(category));
-//		sortTask(taskGroup.getTasks());
-//		taskGroups.add(taskGroup);
-
 		ArrayList<TaskGroup> taskGroups = getTaskGroupsAll();
 		filterTaskGroupsByCategory(taskGroups, category);
 		

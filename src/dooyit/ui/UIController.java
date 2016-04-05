@@ -412,6 +412,9 @@ public class UIController {
 			case AQUA:
 				this.scene.getStylesheets().addAll(urlCssThemeAqua);
 				break;
+			case CUSTOM:
+			
+				break;
 			default:
 				this.scene.getStylesheets().addAll(urlCssThemeLight);
 				break;

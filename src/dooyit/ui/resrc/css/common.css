@@ -133,12 +133,14 @@
 
 .task-period {
 	-fx-font-family: "Verdana";
-	-fx-font-size: 14;
+	-fx-font-size: 13;
 	-fx-padding: 0 0 0 0;
 }
 
 .task-period-overdue {
 	-fx-text-fill: red;
+	-fx-font-size: 13;
+	-fx-padding: 0 0 0 0;
 }
 
 .task-checkbox .box {

@@ -40,7 +40,9 @@ public class UITaskBox {
 	private static final double ANCHOR_TOP = 5.0;
 	private static final double ANCHOR_LEFT = 0.0;
 	private static final double ANCHOR_RIGHT = 0.0;
-	private static final double PAD_TASK_PERIOD = 12;
+	private static final int STR_LEN_TASK_PERIOD = 7;
+	private static final double LEN_EVENT_PERIOD = 112;
+	private static final double LEN_TASK_PERIOD = 56;
 
 	private UIDayBox parent;
 	private Task task;
@@ -94,10 +96,11 @@ public class UITaskBox {
 	    	this.taskPeriod.getStyleClass().add(STYLECLASS_TASK_PERIOD_OVERDUE);
 	    }
 	    if (!this.taskPeriod.getText().isEmpty()){
-		    FontLoader fontLoader = Toolkit.getToolkit().getFontLoader();
-		    double width = fontLoader.computeStringWidth(this.taskPeriod.getText(), this.taskPeriod.getFont());
-		    width += PAD_TASK_PERIOD;
-		    this.taskPeriod.setPrefWidth(width);
+	    	if (this.taskPeriod.getText().length() > STR_LEN_TASK_PERIOD){
+	    		this.taskPeriod.setPrefWidth(LEN_EVENT_PERIOD);
+	    	} else {
+	    		this.taskPeriod.setPrefWidth(LEN_TASK_PERIOD);
+	    	}
 	    }
 	}
 	

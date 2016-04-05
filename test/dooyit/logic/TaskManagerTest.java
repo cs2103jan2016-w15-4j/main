@@ -83,19 +83,19 @@ public class TaskManagerTest {
 		assertFalse(taskManager.contains(task4));
 		assertTrue(taskManager.find(task4) == null);
 		
-		assertTrue(taskManager.contains(task1.getId()));
+		assertTrue(taskManager.contains(task1.getDisplayId()));
 		assertTrue(taskManager.contains(task1));
-		assertTrue(taskManager.find(task1.getId()).equals(task1));
+		assertTrue(taskManager.find(task1.getDisplayId()).equals(task1));
 		assertTrue(taskManager.find(task1).equals(task1));
 
-		assertTrue(taskManager.contains(task2.getId()));
+		assertTrue(taskManager.contains(task2.getDisplayId()));
 		assertTrue(taskManager.contains(task2));
-		assertTrue(taskManager.find(task2.getId()).equals(task2));
+		assertTrue(taskManager.find(task2.getDisplayId()).equals(task2));
 		assertTrue(taskManager.find(task2).equals(task2));
 
-		assertTrue(taskManager.contains(task3.getId()));
+		assertTrue(taskManager.contains(task3.getDisplayId()));
 		assertTrue(taskManager.contains(task3));
-		assertTrue(taskManager.find(task3.getId()).equals(task3));
+		assertTrue(taskManager.find(task3.getDisplayId()).equals(task3));
 		assertTrue(taskManager.find(task3).equals(task3));
 		
 		assertFalse(taskManager.contains(task4));

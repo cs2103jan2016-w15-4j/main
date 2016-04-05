@@ -97,10 +97,10 @@ public class TaskTest {
 
 	@Test
 	public void resetId() {
-		taskF1.resetId();
-		taskD1.resetId();
-		assertEquals(taskF1.getId(), -1);
-		assertEquals(taskD1.getId(), -1);
+		taskF1.resetDisplayId();
+		taskD1.resetDisplayId();
+		assertEquals(taskF1.getDisplayId(), -1);
+		assertEquals(taskD1.getDisplayId(), -1);
 	}
 
 	@Test
@@ -110,10 +110,10 @@ public class TaskTest {
 
 	@Test
 	public void setId() {
-		taskF1.setId(3);
-		taskD1.setId(5);
-		assertEquals(taskF1.getId(), 3);
-		assertEquals(taskD1.getId(), 5);
+		taskF1.setDisplayId(3);
+		taskD1.setDisplayId(5);
+		assertEquals(taskF1.getDisplayId(), 3);
+		assertEquals(taskD1.getDisplayId(), 5);
 	}
 
 	@Test

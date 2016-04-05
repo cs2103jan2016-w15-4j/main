@@ -8,7 +8,7 @@ public abstract class Task {
 	};
 
 	protected String taskName;
-	protected int taskId;
+	protected int displayId;
 	protected TaskType taskType;
 
 	protected boolean isCompleted;
@@ -19,7 +19,7 @@ public abstract class Task {
 
 	public Task() {
 		uniqueId = curUniqueTaskId;
-		taskId = curUniqueTaskId;
+		displayId = curUniqueTaskId;
 		curUniqueTaskId++;
 	}
 
@@ -59,16 +59,16 @@ public abstract class Task {
 		return taskName;
 	}
 
-	public int getId() {
-		return taskId;
+	public int getDisplayId() {
+		return displayId;
 	}
 
-	public void setId(int taskId) {
-		this.taskId = taskId;
+	public void setDisplayId(int taskId) {
+		this.displayId = taskId;
 	}
 
-	public void resetId() {
-		this.taskId = -1;
+	public void resetDisplayId() {
+		this.displayId = -1;
 	}
 
 	public int getUniqueId() {
@@ -87,7 +87,7 @@ public abstract class Task {
 	public boolean equals(Object o) {
 		if (o instanceof Task) {
 			Task task = (Task) o;
-			return task.getId() == taskId;
+			return task.getDisplayId() == displayId;
 		} else {
 			return false;
 		}

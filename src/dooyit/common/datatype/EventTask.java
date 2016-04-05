@@ -40,7 +40,7 @@ public class EventTask extends Task {
 		assert (task != null);
 
 		this.taskType = TaskType.EVENT;
-		this.taskId = task.taskId;
+		this.displayId = task.displayId;
 		this.uniqueId = task.uniqueId;
 		this.taskName = task.taskName;
 		this.category = task.category;
@@ -55,7 +55,7 @@ public class EventTask extends Task {
 		assert (eventTask != null);
 
 		this.taskType = TaskType.EVENT;
-		this.taskId = eventTask.taskId;
+		this.displayId = eventTask.displayId;
 		this.uniqueId = eventTask.uniqueId;
 		this.taskName = eventTask.taskName;
 		this.dateTimeStart = eventTask.dateTimeStart;
@@ -80,7 +80,7 @@ public class EventTask extends Task {
 	public void onMultiDay() {
 		isMultiDayOn = true;
 		currentMultiDay = 0;
-		taskId = UNINITIALISED;
+		displayId = UNINITIALISED;
 	}
 
 	public void offMultiDay() {
@@ -130,14 +130,14 @@ public class EventTask extends Task {
 	}
 
 	@Override
-	public void setId(int taskId) {
+	public void setDisplayId(int taskId) {
 		
 		if(hasMultiDay){
-			if(this.taskId == UNINITIALISED){
-				this.taskId = taskId;
+			if(this.displayId == UNINITIALISED){
+				this.displayId = taskId;
 			}
 		}else{
-			this.taskId = taskId;
+			this.displayId = taskId;
 		}
 	}
 	

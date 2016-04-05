@@ -113,6 +113,11 @@ public class CommandUtils {
 		return showCommand;
 	}
 
+	public static Command createEditCommandName(int taskId) {
+		EditTaskCommand editCommand = new EditTaskCommand(taskId);
+		return editCommand;
+	}
+	
 	public static Command createEditCommandName(int taskId, String taskName) {
 		EditTaskCommand editCommand = new EditTaskCommand(taskId, taskName);
 		return editCommand;

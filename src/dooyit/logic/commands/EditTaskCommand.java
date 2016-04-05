@@ -14,7 +14,7 @@ public class EditTaskCommand implements Command, ReversibleCommand {
 	private static final String FEEDBACK_TASK_EDITED = "Task has been edited.";
 
 	private enum EditCommandType {
-		NAME, DEADLINE, EVENT, NAME_N_DEADLINE, NAME_N_EVENT
+		TO_FLOAT, NAME, DEADLINE, EVENT, NAME_N_DEADLINE, NAME_N_EVENT
 	};
 
 	private EditCommandType editCommandType;
@@ -26,6 +26,10 @@ public class EditTaskCommand implements Command, ReversibleCommand {
 	private DateTime dateTimeStart;
 	private DateTime dateTimeEnd;
 	private boolean hasError = false;
+
+	public EditTaskCommand(int taskId) {
+		editCommandType = EditCommandType.TO_FLOAT;
+	}
 
 	public EditTaskCommand(int taskId, String taskName) {
 		editCommandType = EditCommandType.NAME;
@@ -98,6 +102,11 @@ public class EditTaskCommand implements Command, ReversibleCommand {
 			logicAction = new LogicAction(Action.EDIT_NAME, FEEDBACK_TASK_EDITED);
 			break;
 
+		case TO_FLOAT:
+			newTask = logic.changeToFloatingTask(taskId);
+			logicAction =getActionBasedOnEditedTask(logic, newTask);
+			break;
+			
 		case DEADLINE:
 			newTask = logic.changeTaskToDeadline(taskId, dateTimeDeadline);
 			logicAction = getActionBasedOnEditedTask(logic, newTask);

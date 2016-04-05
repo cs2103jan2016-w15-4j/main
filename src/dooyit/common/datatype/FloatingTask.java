@@ -21,8 +21,8 @@ public class FloatingTask extends Task {
 	public FloatingTask(FloatingTask floatingTask) {
 		assert (floatingTask != null);
 
-		this.taskType = floatingTask.taskType;
-		this.taskId = floatingTask.taskId;
+		this.taskType = TaskType.FLOATING;
+		this.displayId = floatingTask.displayId;
 		this.uniqueId = floatingTask.uniqueId;
 		this.taskName = floatingTask.taskName;
 		this.category = floatingTask.category;
@@ -33,7 +33,7 @@ public class FloatingTask extends Task {
 		assert (task != null);
 
 		this.taskType = TaskType.FLOATING;
-		this.taskId = task.taskId;
+		this.displayId = task.displayId;
 		this.uniqueId = task.uniqueId;
 		this.taskName = task.taskName;
 		this.category = task.category;

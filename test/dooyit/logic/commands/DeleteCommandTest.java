@@ -62,7 +62,7 @@ public class DeleteCommandTest {
 		assertTrue(logic.containsTask(floatingTask1));
 
 		// delete task1
-		deleteCommand = new DeleteTaskCommand(floatingTask1.getId());
+		deleteCommand = new DeleteTaskCommand(floatingTask1.getDisplayId());
 		deleteCommand.execute(logic);
 		// try to find task1
 		assertFalse(logic.containsTask(floatingTask1));
@@ -84,7 +84,7 @@ public class DeleteCommandTest {
 		assertTrue(logic.containsTask(deadlineTask));
 
 		// delete task1
-		deleteCommand = new DeleteTaskCommand(deadlineTask.getId());
+		deleteCommand = new DeleteTaskCommand(deadlineTask.getDisplayId());
 		deleteCommand.execute(logic);
 		// try to find task1
 		assertFalse(logic.containsTask(deadlineTask));
@@ -106,7 +106,7 @@ public class DeleteCommandTest {
 		assertTrue(logic.containsTask(eventTask));
 
 		// delete task1
-		deleteCommand = new DeleteTaskCommand(eventTask.getId());
+		deleteCommand = new DeleteTaskCommand(eventTask.getDisplayId());
 		deleteCommand.execute(logic);
 		// try to find task1
 		assertFalse(logic.containsTask(eventTask));
@@ -126,9 +126,9 @@ public class DeleteCommandTest {
 
 		// delete tasks in batch using 1 command
 		ArrayList<Integer> deleteIds = new ArrayList<Integer>();
-		deleteIds.add(floatingTask2.getId());
-		deleteIds.add(deadlineTask.getId());
-		deleteIds.add(eventTask.getId());
+		deleteIds.add(floatingTask2.getDisplayId());
+		deleteIds.add(deadlineTask.getDisplayId());
+		deleteIds.add(eventTask.getDisplayId());
 
 		// delete task1
 		deleteCommand = new DeleteTaskCommand(deleteIds);
@@ -181,7 +181,7 @@ public class DeleteCommandTest {
 		// make sure task1 is inside taskManager
 		assertTrue(logic.containsTask(floatingTask1));
 
-		deleteCommand = new DeleteTaskCommand(floatingTask1.getId());
+		deleteCommand = new DeleteTaskCommand(floatingTask1.getDisplayId());
 		deleteCommand.execute(logic);
 
 		// make sure task1 is deleted
@@ -199,7 +199,7 @@ public class DeleteCommandTest {
 		// make sure task1 is inside taskManager
 		assertTrue(logic.containsTask(deadlineTask));
 
-		deleteCommand = new DeleteTaskCommand(deadlineTask.getId());
+		deleteCommand = new DeleteTaskCommand(deadlineTask.getDisplayId());
 		deleteCommand.execute(logic);
 
 		// make sure task1 is deleted
@@ -217,7 +217,7 @@ public class DeleteCommandTest {
 		// make sure task1 is inside taskManager
 		assertTrue(logic.containsTask(eventTask));
 
-		deleteCommand = new DeleteTaskCommand(eventTask.getId());
+		deleteCommand = new DeleteTaskCommand(eventTask.getDisplayId());
 		deleteCommand.execute(logic);
 
 		// make sure task1 is deleted
@@ -234,9 +234,9 @@ public class DeleteCommandTest {
 
 		// delete tasks in batch using 1 command
 		ArrayList<Integer> deleteIds = new ArrayList<Integer>();
-		deleteIds.add(floatingTask2.getId());
-		deleteIds.add(deadlineTask.getId());
-		deleteIds.add(eventTask.getId());
+		deleteIds.add(floatingTask2.getDisplayId());
+		deleteIds.add(deadlineTask.getDisplayId());
+		deleteIds.add(eventTask.getDisplayId());
 
 		// delete task1
 		deleteCommand = new DeleteTaskCommand(deleteIds);

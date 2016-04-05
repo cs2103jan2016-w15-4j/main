@@ -78,7 +78,7 @@ public class TaskManager {
 
 	public Task remove(int id) {
 		for (int i = 0; i < tasks.size(); i++) {
-			if (tasks.get(i).getId() == id) {
+			if (tasks.get(i).getDisplayId() == id) {
 				return tasks.remove(i);
 			}
 		}
@@ -104,7 +104,7 @@ public class TaskManager {
 	 */
 	public boolean markTask(int id) {
 		for (int i = 0; i < tasks.size(); i++) {
-			if (tasks.get(i).getId() == id) {
+			if (tasks.get(i).getDisplayId() == id) {
 				if (tasks.get(i).isCompleted()) {
 					return false;
 				} else {
@@ -134,7 +134,7 @@ public class TaskManager {
 
 	public boolean unmarkTask(int id) {
 		for (int i = 0; i < tasks.size(); i++) {
-			if (tasks.get(i).getId() == id) {
+			if (tasks.get(i).getDisplayId() == id) {
 				tasks.get(i).unMark();
 				return true;
 			}
@@ -156,7 +156,7 @@ public class TaskManager {
 
 	public boolean contains(int id) {
 		for (int i = 0; i < tasks.size(); i++) {
-			if (tasks.get(i).getId() == id) {
+			if (tasks.get(i).getDisplayId() == id) {
 				return true;
 			}
 		}
@@ -174,7 +174,7 @@ public class TaskManager {
 
 	public Task find(int id) {
 		for (int i = 0; i < tasks.size(); i++) {
-			if (tasks.get(i).getId() == id) {
+			if (tasks.get(i).getDisplayId() == id) {
 				return tasks.get(i);
 			}
 		}
@@ -241,16 +241,27 @@ public class TaskManager {
 		return newTask;
 	}
 
+	public Task changeToFloatingTask(int taskId){
+		if (!contains(taskId)) {
+			return null;
+		}
+		
+		Task removedTask = remove(taskId);
+		Task newTask = new FloatingTask(removedTask);
+		newTask.setCategory(removedTask.getCategory());
+		add(newTask);
+		
+		return newTask;
+	}
+	
 	public Task changeTaskToDeadline(int taskId, DateTime dateTimeDeadline) {
 		if (!contains(taskId)) {
 			return null;
 		}
 
-		Task task = remove(taskId);
-		// Task newTask = addDeadlineTask(task.getName(), dateTimeDeadline,
-		// task.isCompleted());
-		Task newTask = new DeadlineTask(task, dateTimeDeadline);
-		newTask.setCategory(task.getCategory());
+		Task removedTask = remove(taskId);
+		Task newTask = new DeadlineTask(removedTask, dateTimeDeadline);
+		newTask.setCategory(removedTask.getCategory());
 		add(newTask);
 
 		return newTask;
@@ -261,11 +272,9 @@ public class TaskManager {
 			return null;
 		}
 
-		Task task = remove(taskId);
-		// Task newTask = addEventTask(task.getName(), dateTimeStart,
-		// dateTimeEnd, task.isCompleted());
-		Task newTask = new EventTask(task, dateTimeStart, dateTimeEnd);
-		newTask.setCategory(task.getCategory());
+		Task removedTask = remove(taskId);
+		Task newTask = new EventTask(removedTask, dateTimeStart, dateTimeEnd);
+		newTask.setCategory(removedTask.getCategory());
 		add(newTask);
 
 		return newTask;
@@ -775,7 +784,7 @@ public class TaskManager {
 	 */
 	public void clearOldId() {
 		for (Task task : tasks) {
-			task.resetId();
+			task.resetDisplayId();
 		}
 	}
 
@@ -788,7 +797,7 @@ public class TaskManager {
 		for (TaskGroup taskGroup : taskGroups) {
 			ArrayList<Task> tasks = taskGroup.getTasks();
 			for (Task task : tasks) {
-				task.setId(taskId++);
+				task.setDisplayId(taskId++);
 			}
 		}
 	}
@@ -798,7 +807,7 @@ public class TaskManager {
 		System.out.println("Task List");
 
 		for (Task task : tasks) {
-			System.out.println(task.getId() + ": " + task);
+			System.out.println(task.getDisplayId() + ": " + task);
 		}
 
 		System.out.println();

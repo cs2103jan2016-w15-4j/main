@@ -284,6 +284,10 @@ public class LogicController {
 		Task addedTask = taskManager.addEventTask(taskName, dateTimeStart, dateTimeEnd);
 		return addedTask;
 	}
+	
+	public Task changeToFloatingTask(int taskId){
+		return taskManager.changeToFloatingTask(taskId);
+	}
 
 	public Task changeTaskName(int taskId, String newName) {
 		return taskManager.changeTaskName(taskId, newName);

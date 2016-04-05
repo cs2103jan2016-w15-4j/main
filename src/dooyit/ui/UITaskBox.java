@@ -75,7 +75,7 @@ public class UITaskBox {
 	}
 	
 	private void initTaskId(){
-		this.taskId = new Label(Integer.toString(this.task.getId()));
+		this.taskId = new Label(Integer.toString(this.task.getDisplayId()));
 	    this.taskId.getStyleClass().add(STYLECLASS_TASK_ID);
 	    this.taskId.setPrefWidth(PREFWIDTH_TASK_ID);
 	}
@@ -141,9 +141,9 @@ public class UITaskBox {
 	private void initListeners(){
 	    this.taskCheckBox.setOnAction((event) -> {
 	    	if (!this.task.isCompleted()){
-	    		this.parent.markTask(this.task.getId());
+	    		this.parent.markTask(this.task.getDisplayId());
 	    	} else {
-	    		this.parent.unmarkTask(this.task.getId());
+	    		this.parent.unmarkTask(this.task.getDisplayId());
 	    	}
 	    });
 	}

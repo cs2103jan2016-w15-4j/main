@@ -31,6 +31,7 @@ public class UIController {
 	private String urlCssThemeLight;
 	private String urlCssThemeDark;
 	private String urlCssThemeAqua;
+	private String urlCssThemeCustom;
 	private Scene scene;
 	private BorderPane root;
 	private UIHeader header;
@@ -81,6 +82,8 @@ public class UIController {
 		this.urlCssThemeLight = loadCss(UIStyle.URL_CSS_THEME_LIGHT);
 		this.urlCssThemeDark = loadCss(UIStyle.URL_CSS_THEME_DARK);
 		this.urlCssThemeAqua = loadCss(UIStyle.URL_CSS_THEME_AQUA);
+		this.urlCssThemeCustom = loadCss(UIStyle.URL_CSS_THEME_CUSTOM);
+		System.out.println("URL " + this.urlCssThemeCustom);
 	}
 
 	private String loadCss(String cssUrl) {
@@ -172,7 +175,7 @@ public class UIController {
 
 	private void initScene() {
 		this.scene = new Scene(root, WIDTH_SCENE, HEIGHT_SCENE);
-		this.scene.getStylesheets().addAll(this.urlCssCommon, this.urlCssThemeDark, "file:///Users/Wenqi/Dropbox/NUS/sem%204/test.css");
+		this.scene.getStylesheets().addAll(this.urlCssCommon, this.urlCssThemeCustom);
 	}
 
 	private void initListeners() {

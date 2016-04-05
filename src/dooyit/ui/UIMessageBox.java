@@ -16,7 +16,9 @@ import javafx.util.Duration;
 
 public class UIMessageBox {
 	private static final String STYLECLASS_MESSAGE_BOX_LABEL = UIStyle.MESSAGE_BOX_LABEL;
-	private static final int FADE_TIME = 10000;
+	private static final int FADE_TIME = 6000;
+	private static final int FADE_TIME_LONG = 11000;
+	private static final int CHAR_LEN_LONG = 40;
 	private static final int PREFHEIGHT = 41;
 	private static final int PAD_X = 0;
 	private static final int PAD_Y = 105;
@@ -89,6 +91,11 @@ public class UIMessageBox {
 	
 	
 	protected void show(String msg){
+		if (msg.length() > CHAR_LEN_LONG){
+			this.ft.setDuration(Duration.millis(FADE_TIME_LONG));
+		} else {
+			this.ft.setDuration(Duration.millis(FADE_TIME));
+		}
 		this.isOn = true;
 		this.messageLabel.setText(msg);
 		display();

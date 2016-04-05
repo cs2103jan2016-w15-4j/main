@@ -1,0 +1,93 @@
+/**
+ * 
+ * @author Wu Wenqi A0124278A
+ *
+ */
+
+.main-view > .viewport {
+	-fx-background-color: white;
+}
+
+.scroll-bar:horizontal .track,
+.scroll-bar:vertical .track{
+	-fx-background-color: white;
+}
+
+.header-view {
+	-fx-background-color: #ff3a2d;
+}
+
+.header-title {
+	-fx-text-fill: white;
+}
+
+.btn-select-view{
+	-fx-text-fill: #deebf7;
+}
+
+.btn-select-label{
+	-fx-text-fill: #f7f7f7;
+}
+
+.btn-select-view:selected {
+	-fx-background-color: black;
+}
+
+.category-title {
+	-fx-text-fill: #f7f7f7;
+}
+
+.category-name {
+	-fx-text-fill: #f7f7f7;
+}
+
+.menu-view {
+	-fx-background-color: #393939;
+}
+
+.menu-pane > .viewport {
+	-fx-background-color: #393939;
+}
+
+.command-box {
+	-fx-background-color: #393939;
+}
+
+.command-textfield {
+	-fx-background-color: black;
+	-fx-text-fill: red;
+}
+
+.day-box {
+	-fx-background-color: white;
+}
+
+.day-title {
+	-fx-text-fill: #0b99bc;
+}
+
+.day-task-box {
+	-fx-border-color: transparent transparent #f0f0f0 transparent;
+}
+
+.task-checkbox .box {
+	-fx-background-color: white;
+	-fx-border-color: #d0d0d0;
+}
+
+.task-pane-icon {
+	-fx-fill: #5AC8FB;
+}
+
+.task-id {
+	-fx-text-fill: #ee4b3e;
+}
+
+.task-name {
+	-fx-text-fill: #262626;
+}
+
+.task-period {
+	-fx-text-fill: #262626;
+	-fx-font-family: "Comic Sans MS";
+}

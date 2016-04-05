@@ -11,6 +11,7 @@ public class UIStyle {
 	protected static final String URL_CSS_THEME_LIGHT = "resrc/css/theme_light.css";
 	protected static final String URL_CSS_THEME_DARK = "resrc/css/theme_dark.css";
 	protected static final String URL_CSS_THEME_AQUA = "resrc/css/theme_aqua.css";
+	protected static final String URL_CSS_THEME_CUSTOM = "resrc/css/theme_custom.css";
 	
 	protected static final String MAIN_VIEW = "main-view";
 	protected static final String HEADER_VIEW = "header-view";

@@ -157,6 +157,8 @@ public class UITaskBox {
 		this.taskBox.setMinWidth(width);
 		this.taskBox.setPrefWidth(width);
 		this.taskBox.setMaxWidth(width);
+		double taskNameMaxWidth = width - PREFWIDTH_TASK_CATEGORY_LABEL - RADIUS_CAT_CIRCLE - 2 * PAD_X;
+		this.taskName.setMaxWidth(taskNameMaxWidth);
 	}
 	
 	private void updateTaskBoxWidth(){

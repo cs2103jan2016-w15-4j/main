@@ -68,7 +68,11 @@
 
 .task-period {
 	-fx-font-size: 13px;
-	-fx-text-fill: #FF3B30;
+	-fx-text-fill: black;
+}
+
+.task-period-overdue {
+	-fx-text-fill: red;
 }
 
 .task-checkbox .box {

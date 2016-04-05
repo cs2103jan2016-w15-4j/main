@@ -137,6 +137,10 @@
 	-fx-padding: 0 0 0 0;
 }
 
+.task-period-overdue {
+	-fx-text-fill: red;
+}
+
 .task-checkbox .box {
 	-fx-background-radius: 50%;
 	-fx-border-radius: 50%;

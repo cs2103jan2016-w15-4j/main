@@ -105,9 +105,7 @@ public class UIController {
 				}
 				toggle.setSelected(true);
 				String userData = getSideMenuUserData();
-				if (!userData.equals(UIData.USERDATA_CATEGORY)) {
-					showSelectedSideMenu(userData);
-				}
+				showSelectedSideMenu(userData);
 			}
 		};
 		this.sideMenu.getMainViewToggleGroup().selectedToggleProperty().addListener(toggleListener);
@@ -138,6 +136,10 @@ public class UIController {
 			case UIData.USERDATA_COMPLETED:
 				activeMainView = UIMainViewType.COMPLETED;
 				processInput(UIData.CMD_SHOW_COMPLETED);
+				break;
+			case UIData.USERDATA_CATEGORY:
+				activeMainView = UIMainViewType.CATEGORY;
+				processInput(UIData.CMD_SHOW_CAT + getSelectedCategoryName());
 				break;
 			default:
 				break;
@@ -289,6 +291,10 @@ public class UIController {
 
 	private void processInput(String s) {
 		processLogicAction(logic.processInput(s));
+	}
+	
+	private String getSelectedCategoryName(){
+		return this.sideMenu.getSelectedCategoryName();
 	}
 
 	private void processLogicAction(LogicAction logicAction) {

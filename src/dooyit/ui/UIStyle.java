@@ -35,6 +35,7 @@ public class UIStyle {
 	protected static final String TASK_CHECKBOX = "task-checkbox";
 	protected static final String TASK_NAME = "task-name";
 	protected static final String TASK_PERIOD = "task-period";
+	protected static final String TASK_PERIOD_OVERDUE = "task-period-overdue";
 	protected static final String TASK_CATEGORY_LABEL = "task-category-label";
 	protected static final String DAY_TASK_BOX = "day-task-box";
 	protected static final String TASK_MESSAGE = "task-message";

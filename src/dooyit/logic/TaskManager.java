@@ -537,6 +537,18 @@ public class TaskManager {
 		return tasksWithCat;
 	}
 
+	public ArrayList<Task> getIncompleteTasksWithCategory(Category category) {
+		ArrayList<Task> tasksWithCat = new ArrayList<Task>();
+
+		for (Task task : tasks) {
+			if (task.hasCategory() && task.getCategory().equals(category) && !task.isCompleted()) {
+				tasksWithCat.add(task);
+			}
+		}
+
+		return tasksWithCat;
+	}
+	
 	public boolean isFloatingTask(Task task) {
 		return (task instanceof FloatingTask);
 	}
@@ -690,7 +702,7 @@ public class TaskManager {
 	public ArrayList<TaskGroup> getTaskGroupCategory(Category category) {
 		ArrayList<TaskGroup> taskGroups = new ArrayList<TaskGroup>();
 		TaskGroup taskGroup = new TaskGroup(category.getName());
-		taskGroup.addTasks(getTasksWithCategory(category));
+		taskGroup.addTasks(getIncompleteTasksWithCategory(category));
 		sortTask(taskGroup.getTasks());
 		taskGroups.add(taskGroup);
 

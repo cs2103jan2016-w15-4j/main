@@ -17,6 +17,7 @@ import dooyit.common.datatype.TaskGroup;
 import dooyit.common.datatype.Task.TaskType;
 
 public class TaskManager {
+	private static final int TASKGROUP_COUNT_LIMIT = 30;
 	private ArrayList<Task> tasks;
 
 	public TaskManager() {
@@ -571,6 +572,17 @@ public class TaskManager {
 		return false;
 	}
 
+	public boolean hasOverlap(Task inTask){
+		
+		
+		for(Task task : tasks){
+			if(task.hasOverlap(inTask)){
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	public ArrayList<TaskGroup> getTaskGroupsAll() {
 		onAllEventTasksMultiDayString();
 		ArrayList<TaskGroup> taskGroups = new ArrayList<TaskGroup>();
@@ -609,7 +621,9 @@ public class TaskManager {
 		}
 		currDate.increaseByOneDay();
 
-		while (totalSize > 0) {
+		int taskGroupCount = 0;
+		
+		while (totalSize > 0 && taskGroupCount < TASKGROUP_COUNT_LIMIT) {
 			taskGroup = new TaskGroup(currDate.getDayStr(), new DateTime(currDate));
 			taskGroup.addTasks(getIncompleteDeadlineTasks(currDate));
 			taskGroup.addTasks(getIncompleteEventTasks(currDate));
@@ -617,6 +631,7 @@ public class TaskManager {
 				sortTask(taskGroup.getTasks());
 				taskGroups.add(taskGroup);
 				totalSize -= taskGroup.size();
+				taskGroupCount++;
 			}
 			currDate.increaseByOneDay();
 		}

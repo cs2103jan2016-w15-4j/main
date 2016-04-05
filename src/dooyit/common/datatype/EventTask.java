@@ -116,6 +116,18 @@ public class EventTask extends Task {
 	public DateTime getDateTimeEnd() {
 		return dateTimeEnd;
 	}
+	
+	@Override
+	public boolean hasOverlap(Task task){
+		
+		if(task instanceof EventTask){
+			EventTask eventTask = (EventTask)task;
+			
+			return DateTime.isOverlap(dateTimeStart, dateTimeEnd, eventTask.dateTimeStart, eventTask.dateTimeEnd);
+		}
+		
+		return false;
+	}
 
 	@Override
 	public void setId(int taskId) {

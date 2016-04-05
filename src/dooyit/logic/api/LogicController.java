@@ -344,6 +344,10 @@ public class LogicController {
 		return taskManager.size();
 	}
 
+	public boolean hasOverlap(Task task){
+		return taskManager.hasOverlap(task);
+	}
+	
 	public ArrayList<Task> removeTasksWithCategory(Category category) {
 		ArrayList<Task> tasksWithCategoty = taskManager.removeTasksWithCategory(category);
 		return tasksWithCategoty;
@@ -351,7 +355,6 @@ public class LogicController {
 
 	public ArrayList<Task> clearTasks() {
 		ArrayList<Task> clearedTasks = taskManager.clear();
-		// save();
 		return clearedTasks;
 	}
 

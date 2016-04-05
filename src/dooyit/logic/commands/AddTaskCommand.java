@@ -64,6 +64,10 @@ public class AddTaskCommand implements Command, ReversibleCommand {
 
 		case EVENT:
 			addedTask = logic.addEventTask(taskName, dateTimeStart, dateTimeEnd);
+			
+			if(logic.hasOverlap(addedTask)){
+				System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+			}
 			break;
 		}
 

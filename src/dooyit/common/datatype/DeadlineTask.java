@@ -51,6 +51,11 @@ public class DeadlineTask extends Task {
 	}
 	
 	@Override
+	public boolean hasOverlap(Task task){
+		return false;
+	}
+	
+	@Override
 	public DateTime getDateTime(){
 		return dateTimeDeadline;
 	}

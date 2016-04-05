@@ -1,5 +1,6 @@
 package dooyit.ui;
 
+import java.net.URL;
 import java.util.ArrayList;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -31,7 +32,7 @@ public class UIController {
 	private String urlCssThemeLight;
 	private String urlCssThemeDark;
 	private String urlCssThemeAqua;
-	private String pathCssThemeCustom;
+	private URL urlCssThemeCustom;
 	private Scene scene;
 	private BorderPane root;
 	private UIHeader header;
@@ -82,8 +83,8 @@ public class UIController {
 		this.urlCssThemeLight = loadCss(UIStyle.URL_CSS_THEME_LIGHT);
 		this.urlCssThemeDark = loadCss(UIStyle.URL_CSS_THEME_DARK);
 		this.urlCssThemeAqua = loadCss(UIStyle.URL_CSS_THEME_AQUA);
-		this.pathCssThemeCustom = getClass().getResource(UIStyle.URL_CSS_THEME_CUSTOM).getPath();
-		this.logic.setDefaultCustomCss(pathCssThemeCustom);
+		this.urlCssThemeCustom = getClass().getResource(UIStyle.URL_CSS_THEME_CUSTOM);
+		this.logic.setDefaultCustomCss(urlCssThemeCustom);
 	}
 
 	private String loadCss(String cssUrl) {

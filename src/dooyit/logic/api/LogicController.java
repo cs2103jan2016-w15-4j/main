@@ -10,6 +10,7 @@ import dooyit.logic.HistoryManager;
 import dooyit.logic.TaskManager;
 import dooyit.logic.commands.*;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -423,7 +424,7 @@ public class LogicController {
 		}
 	}
 
-	public void setDefaultCustomCss(String path) {
+	public void setDefaultCustomCss(URL path) {
 		try {
 			storage.generateCss(path);
 		} catch (IOException e) {

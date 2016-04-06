@@ -247,10 +247,11 @@ public class EditParser implements ParserCommons {
 
 	private EDIT_TYPE getEditType() {
 		EDIT_TYPE type;
-		System.out.println("userInput.equals(EMPTY_STRING) is " + userInput.equals(EMPTY_STRING));
 		if(userInput.equals(EMPTY_STRING)) {
 			type = EDIT_TYPE.INVALID;
-		} else if (hasName()) {
+		} else if(!hasTaskId(userInput)) {
+			type = EDIT_TYPE.INVALID;
+		} else if(hasName()) {
 			if (!hasStart() && !hasEnd() && !hasDeadline()) {
 				type = EDIT_TYPE.NAME;
 			} else if (hasStart() && hasEnd() && !hasDeadline()) {
@@ -265,7 +266,7 @@ public class EditParser implements ParserCommons {
 				type = EDIT_TYPE.INVALID;
 			}
 
-		} else if (hasDeadline() && !hasStart() && !hasEnd()) {
+		} else if(hasDeadline() && !hasStart() && !hasEnd()) {
 			type = EDIT_TYPE.DEADLINE;
 
 		} else if (hasStart() || hasEnd()) {
@@ -281,6 +282,12 @@ public class EditParser implements ParserCommons {
 			type = EDIT_TYPE.INVALID;
 		}
 		return type;
+	}
+
+	private boolean hasTaskId(String userInput2) {
+		String[] splittedInput = userInput.split("\\s+", 2);
+		String taskId = splittedInput[0].toLowerCase();
+		return ParserCommons.isNumber(taskId);
 	}
 
 	private boolean hasName() {

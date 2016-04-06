@@ -42,7 +42,9 @@ public class ParserTest {
 		String input = "delete a";
 		Command command = parser.getCommand(input);
 		String commandErrorMessage = Whitebox.getInternalState(command, "errorMessage");
-		String expectedErrorMessage = DeleteParser.ERROR_MESSAGE_NO_TASK_ID;
+		//String expectedErrorMessage = DeleteParser.ERROR_MESSAGE_NO_TASK_ID;
+		Whitebox.get
+		String expectedErrorMessage = Whitebox.getField(DeleteParser, "ERROR_MESSAGE_NO_TASK_ID");
 		assertEquals(expectedErrorMessage, commandErrorMessage);
 
 	}

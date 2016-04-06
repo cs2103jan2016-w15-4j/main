@@ -6,7 +6,7 @@ import dooyit.logic.commands.CommandUtils;
 import dooyit.parser.TagParser.TAG_TYPE;
 
 public class FloatParser extends TagParser {
-	public static final String ERROR_MESSAGE_INVALID_FLOAT_COMMAND = "Invalid float Command!";
+	private static final String ERROR_MESSAGE_INVALID_FLOAT_COMMAND = "Invalid float Command!";
 	private Command command;
 
 	public FloatParser() {

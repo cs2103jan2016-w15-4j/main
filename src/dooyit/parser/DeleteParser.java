@@ -8,7 +8,7 @@ import dooyit.parser.TagParser.TAG_TYPE;
 
 public class DeleteParser extends TagParser {
 	private static final String ERROR_MESSAGE_INVALID_DELETE_COMMAND = "Invalid Delete Command!";
-	public static final String ERROR_MESSAGE_NO_TASK_ID = "No Task IDs specified!";
+	private static final String ERROR_MESSAGE_NO_TASK_ID = "No Task IDs specified!";
 	private Command command;
 	private boolean hasCategory;
 	private String categoryName;

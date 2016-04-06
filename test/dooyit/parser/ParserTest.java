@@ -1362,6 +1362,17 @@ public class ParserTest {
 		assertEquals(expectedErrorMessage, commandErrorMessage);
 	}
 	
+	//********************************************
+	//********* Tests for FloatParser ************
+	//********************************************
+	@Test
+	public void editToFloat() {
+		String input = "float 14";
+		Command command = parser.getCommand(input);
+		int expectedTaskId = 14;
+		int commandTaskId = Whitebox.getInternalState(command, "taskId");
+		assertEquals(expectedTaskId, commandTaskId);
+	}
 	
 	//********************************************
 	//********* Tests for Invalid Command ********

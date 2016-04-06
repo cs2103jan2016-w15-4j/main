@@ -50,7 +50,8 @@ public class FloatParser extends TagParser {
 	}
 
 	private void setSingleTypeFloatCommand() {
-		//command = CommandUtils.createFloatCommand(taskIdForTagging);
+		System.out.println("taskId in float is " + taskIdForTagging);
+		command = CommandUtils.createEditCommandToFloat(taskIdForTagging);
 	}
 	
 	private void setInvalidCommand(String message) {

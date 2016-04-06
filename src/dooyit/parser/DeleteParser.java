@@ -7,7 +7,8 @@ import dooyit.logic.commands.CommandUtils;
 import dooyit.parser.TagParser.TAG_TYPE;
 
 public class DeleteParser extends TagParser {
-	private static final String ERROR_MESSAGE_INVALID_DELETE_COMMAND = "Error: Invalid Delete Command!";
+	private static final String ERROR_MESSAGE_INVALID_DELETE_COMMAND = "Invalid Delete Command!";
+	public static final String ERROR_MESSAGE_NO_TASK_ID = "No Task IDs specified!";
 	private Command command;
 	private boolean hasCategory;
 	private String categoryName;
@@ -21,22 +22,27 @@ public class DeleteParser extends TagParser {
 		resetFields();
 		setCategoryName(input);
 		input = removeCategoryNameFromInput(input);
-		setVariables(input);
 		
-		try {
-			parseTaskIds();
-		} catch(IncorrectInputException e) {
-			setInvalidCommand(e.getMessage());
-		}
-		
-		if(command == null) {
-			if(hasCategory) { 
-				setDeleteCommandWithCategoryName(getTagType());
-			} else {
-				setCorrectDeleteCommand(getTagType());
+		if(input.equals(EMPTY_STRING)) {
+			setInvalidCommand(ERROR_MESSAGE_NO_TASK_ID);
+		} else {
+			setVariables(input);
+			
+			try {
+				parseTaskIds();
+			} catch(IncorrectInputException e) {
+				setInvalidCommand(e.getMessage());
 			}
+			
+			if(command == null) {
+				if(hasCategory) { 
+					setDeleteCommandWithCategoryName(getTagType());
+				} else {
+					setCorrectDeleteCommand(getTagType());
+				}
+			}
+			
 		}
-		
 		return command;
 	}
 
@@ -75,8 +81,10 @@ public class DeleteParser extends TagParser {
 		String[] splitInput = input.split("\\s+");
 		int indexOfName = splitInput.length - 1;
 		String currWord = splitInput[indexOfName];
-		if(!ParserCommons.isNumber(currWord)) {
+		
+		if(!ParserCommons.isNumber(currWord) && !currWord.contains(MARKER_FOR_INTERVAL_TAG_TYPE)) {
 			hasCategory = true;
+			System.out.println("reached here");
 			categoryName = currWord;
 		}
 	}

@@ -205,6 +205,23 @@ public class ParserTest {
 
 	}
 	
+	@Test
+	public void deleteInvalidIntervalFormat() {
+		String input = "delete 1 - 10";
+		Command command = parser.getCommand(input);
+		String commandErrorMessage = Whitebox.getInternalState(command, "errorMessage");
+		String expectedErrorMessage = TagParser.ERROR_MESSAGE_INVALID_TASK_ID + "-";
+		assertEquals(expectedErrorMessage, commandErrorMessage);
+	}
+	
+	@Test
+	public void deleteEmptyInput() {
+		String input = "delete ";
+		Command command = parser.getCommand(input);
+		String commandErrorMessage = Whitebox.getInternalState(command, "errorMessage");
+		String expectedErrorMessage = DeleteParser.ERROR_MESSAGE_NO_TASK_ID;
+		assertEquals(expectedErrorMessage, commandErrorMessage);
+	}
 	//****************************************
 	//***** Tests for MarkParser ***********
 	//****************************************
@@ -273,7 +290,15 @@ public class ParserTest {
 		String commandErrorMessage = Whitebox.getInternalState(command, "errorMessage");
 		String expectedErrorMessage = TagParser.ERROR_MESSAGE_INVALID_TASK_ID + "a";
 		assertEquals(expectedErrorMessage, commandErrorMessage);
-
+	}
+	
+	@Test
+	public void markInvalidIntervalFormat() {
+		String input = "mark 1 - 10";
+		Command command = parser.getCommand(input);
+		String commandErrorMessage = Whitebox.getInternalState(command, "errorMessage");
+		String expectedErrorMessage = TagParser.ERROR_MESSAGE_INVALID_TASK_ID + "-";
+		assertEquals(expectedErrorMessage, commandErrorMessage);
 	}
 	
 	@Test
@@ -384,6 +409,14 @@ public class ParserTest {
 		assertEquals(expectedErrorMessage, commandErrorMessage);
 	}
 
+	@Test
+	public void markEmptyInput() {
+		String input = "mark ";
+		Command command = parser.getCommand(input);
+		String commandErrorMessage = Whitebox.getInternalState(command, "errorMessage");
+		String expectedErrorMessage = TagParser.ERROR_MESSAGE_INVALID_TASK_ID;
+		assertEquals(expectedErrorMessage, commandErrorMessage);
+	}
 	//********************************************
 	//********* Tests for UnmarkParser ***********
 	//********************************************
@@ -514,6 +547,16 @@ public class ParserTest {
 
 	}
 	
+	
+	@Test
+	public void unmarkInvalidIntervalFormat() {
+		String input = "unmark 1 - 10";
+		Command command = parser.getCommand(input);
+		String commandErrorMessage = Whitebox.getInternalState(command, "errorMessage");
+		String expectedErrorMessage = TagParser.ERROR_MESSAGE_INVALID_TASK_ID + "-";
+		assertEquals(expectedErrorMessage, commandErrorMessage);
+	}
+	
 	@Test
 	public void unmarkInvalidIntervalOfTaskIdsStartAndEndAlphabet() {
 		String input = "unmark a-z";
@@ -559,6 +602,15 @@ public class ParserTest {
 		assertEquals(expectedErrorMessage, commandErrorMessage);
 	}
 	
+	@Test
+	public void unmarkEmptyInput() {
+		String input = "unmark ";
+		Command command = parser.getCommand(input);
+		String commandErrorMessage = Whitebox.getInternalState(command, "errorMessage");
+		String expectedErrorMessage = TagParser.ERROR_MESSAGE_INVALID_TASK_ID;
+		assertEquals(expectedErrorMessage, commandErrorMessage);
+	}
+	
 	//******************************************
 	//********* Tests for MoveParser ***********
 	//******************************************
@@ -598,6 +650,42 @@ public class ParserTest {
 		assertEquals(expectedCategoryName, categoryNameInCommand);
 	}
 	
+	@Test
+	public void moveMultipleTaskIdsWithoutCategoryName() {
+		String input = "move 2 3 12 17 6 ";
+		Command command = parser.getCommand(input);
+		String commandErrorMessage = Whitebox.getInternalState(command, "errorMessage");
+		String expectedErrorMessage = MoveParser.ERROR_MESSAGE_NO_CATEGORY_SPECIFIED;
+		assertEquals(expectedErrorMessage, commandErrorMessage);
+	}
+	
+	
+	@Test
+	public void moveSingleTaskIdWithoutCategoryName() {
+		String input = "move 2 ";
+		Command command = parser.getCommand(input);
+		String commandErrorMessage = Whitebox.getInternalState(command, "errorMessage");
+		String expectedErrorMessage = MoveParser.ERROR_MESSAGE_NO_CATEGORY_SPECIFIED;
+		assertEquals(expectedErrorMessage, commandErrorMessage);
+	}
+	
+	@Test
+	public void moveIntervalTaskIdsWithoutCategoryName() {
+		String input = "move 2-6  ";
+		Command command = parser.getCommand(input);
+		String commandErrorMessage = Whitebox.getInternalState(command, "errorMessage");
+		String expectedErrorMessage = MoveParser.ERROR_MESSAGE_NO_CATEGORY_SPECIFIED;
+		assertEquals(expectedErrorMessage, commandErrorMessage);
+	}
+	
+	@Test
+	public void moveEmptyInput() {
+		String input = "move ";
+		Command command = parser.getCommand(input);
+		String commandErrorMessage = Whitebox.getInternalState(command, "errorMessage");
+		String expectedErrorMessage = TagParser.ERROR_MESSAGE_INVALID_TASK_ID;
+		assertEquals(expectedErrorMessage, commandErrorMessage);
+	}
 	
 	//******************************************
 	//********* Tests for RemoveParser *********
@@ -689,6 +777,15 @@ public class ParserTest {
 		assertEquals(expectedCategoryColour, categoryColourInCommand);
 	}
 	
+	@Test
+	public void addCategoryEmptyInput() {
+		String input = "addcat ";
+		Command command = parser.getCommand(input);
+		String commandErrorMessage = Whitebox.getInternalState(command, "errorMessage");
+		String expectedErrorMessage = AddCategoryParser.ERROR_MESSAGE_INVALID_ADDCAT_COMMAND;
+		assertEquals(expectedErrorMessage, commandErrorMessage);
+	}
+	
 	//********************************************
 	//**** Tests for DeleteCategoryParser ********
 	//********************************************
@@ -701,7 +798,14 @@ public class ParserTest {
 		assertEquals(expectedCategoryName, categoryNameInCommand);
 	}
 	
-	
+	@Test
+	public void deleteCategoryEmptyInput() {
+		String input = "deletecat ";
+		Command command = parser.getCommand(input);
+		String commandErrorMessage = Whitebox.getInternalState(command, "errorMessage");
+		String expectedErrorMessage = DeleteCategoryParser.ERROR_MESSAGE_INVALID_DELETE_CATEGORY_COMMAND;
+		assertEquals(expectedErrorMessage, commandErrorMessage);
+	}
 	//********************************************
 	//****** Tests for EditCategoryParser ********
 	//********************************************
@@ -918,6 +1022,14 @@ public class ParserTest {
 		assertTrue(expectedDeadline.equals(dateTimeInCommand));
 	}
 	
+	@Test
+	public void addEmptyInput() {
+		String input = "add ";
+		Command command = parser.getCommand(input);
+		String commandErrorMessage = Whitebox.getInternalState(command, "errorMessage");
+		String expectedErrorMessage = AddParser.ERROR_MESSAGE_INVALID_ADD_COMMAND;
+		assertEquals(expectedErrorMessage, commandErrorMessage);
+	}
 	
 	@Test
 	public void Deadline_ValidOnADate_ExpectedTrue() {
@@ -1222,6 +1334,33 @@ public class ParserTest {
 		DateTime expectedEndDateTime = dtParser.parse("30/3 5pm");
 		assertTrue(expectedEndDateTime.equals(endDateTime));
 	}*/
+	
+	@Test
+	public void editEmptyInput() {
+		String input = "edit ";
+		Command command = parser.getCommand(input);
+		String commandErrorMessage = Whitebox.getInternalState(command, "errorMessage");
+		String expectedErrorMessage = EditParser.ERROR_MESSAGE_INVALID_EDIT_COMMAND;
+		assertEquals(expectedErrorMessage, commandErrorMessage);
+	}
+	
+	@Test
+	public void editNoName() {
+		String input = "edit 14 ";
+		Command command = parser.getCommand(input);
+		String commandErrorMessage = Whitebox.getInternalState(command, "errorMessage");
+		String expectedErrorMessage = EditParser.ERROR_MESSAGE_INVALID_EDIT_COMMAND;
+		assertEquals(expectedErrorMessage, commandErrorMessage);
+	}
+	
+	@Test
+	public void editNoNameInvalidDeadline() {
+		String input = "edit 14 by ";
+		Command command = parser.getCommand(input);
+		String commandErrorMessage = Whitebox.getInternalState(command, "errorMessage");
+		String expectedErrorMessage = EditParser.ERROR_MESSAGE_INVALID_EDIT_COMMAND;
+		assertEquals(expectedErrorMessage, commandErrorMessage);
+	}
 	
 	
 	//********************************************

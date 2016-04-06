@@ -38,15 +38,24 @@ public class TagParser implements ParserCommons {
 		}
 	}
 	
-	private boolean isIntervalType(String currWord) {
+	public static boolean isIntervalType(String currWord) {
 		boolean isInterval = false;
 		if(currWord.contains(MARKER_FOR_INTERVAL_TAG_TYPE)) {
 			String[] splitByDash = currWord.split(MARKER_FOR_INTERVAL_TAG_TYPE);
-			String start = splitByDash[0];
-			String end = splitByDash[1];
-			isInterval = ParserCommons.isNumber(start) && ParserCommons.isNumber(end);
+			isInterval = checkIfStartAndEndAreNumbers(splitByDash);
+
 		}
 		return isInterval;
+	}
+
+	private static boolean checkIfStartAndEndAreNumbers(String[] splitByDash) {
+		boolean ans = false;
+		if(splitByDash.length == 2) {
+			String start = splitByDash[0];
+			String end = splitByDash[1];
+			ans = ParserCommons.isNumber(start) && ParserCommons.isNumber(end);
+		}
+		return ans;
 	}
 
 	public void setVariables(String input) {

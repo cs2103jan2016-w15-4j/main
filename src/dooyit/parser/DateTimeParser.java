@@ -37,6 +37,7 @@ public class DateTimeParser implements DateTimeParserCommons {
 		currDD = dateTime.getDD();
 		currMM = dateTime.getMM();
 		currYY = dateTime.getYY();
+		
 		relativeDateParser = new RelativeDateParser(dateTime);
 		timeParser = new TimeParser();
 		fixedDateParser = new FixedDateParser(dateTime);

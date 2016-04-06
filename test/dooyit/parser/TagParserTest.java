@@ -4,12 +4,8 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-
 import org.junit.Test;
-
 import dooyit.common.exception.IncorrectInputException;
-import dooyit.parser.TagParser.TAG_TYPE;
-
 
 public class TagParserTest {
 	TagParser tagParser = new TagParser();
@@ -19,12 +15,8 @@ public class TagParserTest {
 		String input = "1";
 		tagParser.setVariables(input);
 		tagParser.parseTaskIds();
-		TAG_TYPE type = tagParser.getTagType();
-		tagParser.parseTaskIds();
-		
-		int expectedIdForTagging = 1;
-		assertEquals(TAG_TYPE.SINGLE, type);
-		assertEquals(expectedIdForTagging, tagParser.taskIdForTagging);
+		ArrayList<Integer> expectedArrayList = new ArrayList<Integer>(Arrays.asList(1));
+		assertEquals(expectedArrayList, tagParser.taskIdsForTagging);
 	}
 	
 	@Test

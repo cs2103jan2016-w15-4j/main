@@ -770,7 +770,7 @@ public class ParserTest {
 		String input = "addcat CS2103T blue";
 		Command command = parser.getCommand(input);
 		String categoryNameInCommand = Whitebox.getInternalState(command, "categoryName");
-		String categoryColourInCommand = Whitebox.getInternalState(command, "colorString");
+		String categoryColourInCommand = Whitebox.getInternalState(command, "colourString");
 		String expectedCategoryName = "CS2103T";
 		String expectedCategoryColour = "blue";
 		assertEquals(expectedCategoryName, categoryNameInCommand);
@@ -925,13 +925,13 @@ public class ParserTest {
 	
 	@Test
 	public void showCategory() {
-		String input = "show cat helloWorld";
+		String input = "showcat helloWorld";
 		Command command = parser.getCommand(input);
 		
 		ShowCommandType view = Whitebox.getInternalState(command, SHOW_COMMAND_TYPE);
 		ShowCommandType expectedView = ShowCommandType.CATEGORY;
 		String categoryName = Whitebox.getInternalState(command, "categoryName");
-		String expectedCategoryName = "helloworld";
+		String expectedCategoryName = "helloWorld";
 		assertEquals(expectedView, view);
 		assertEquals(expectedCategoryName, categoryName);
 	}

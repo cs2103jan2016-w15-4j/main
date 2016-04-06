@@ -106,6 +106,7 @@ public class Parser implements ParserCommons {
 			
 		case COMMAND_SHOW_CATEGORY:
 			command = CommandUtils.createShowCategoryCommand(commandInput);
+			break;
 
 		case COMMAND_SKIN:
 			command = CommandUtils.createChangeThemeCommand(commandInput);

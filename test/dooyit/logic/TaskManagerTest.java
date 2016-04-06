@@ -231,7 +231,7 @@ public class TaskManagerTest {
 		tasks.add(task2);
 		tasks.add(task6);
 		
-		assertTrue(tasks.equals(taskManager.getIncompletedTasks()));
+		assertTrue(tasks.equals(taskManager.getIncompleteTasks()));
 	}
 	
 	@Test
@@ -356,7 +356,7 @@ public class TaskManagerTest {
 	public void SortTasks() {
 		setupTasks();
 
-		taskManager.sortTask(taskManager.getAllTasks());
+		taskManager.sortTasks(taskManager.getAllTasks());
 		ArrayList<Task> tasks = new ArrayList<Task> ();
 		tasks.add(task1);
 		tasks.add(task3);

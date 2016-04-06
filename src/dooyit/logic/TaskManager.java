@@ -818,7 +818,11 @@ public class TaskManager {
 		for (TaskGroup taskGroup : taskGroups) {
 			ArrayList<Task> tasks = taskGroup.getTasks();
 			for (Task task : tasks) {
-				task.setDisplayId(taskId++);
+				boolean isSuccess = task.setDisplayId(taskId);
+				
+				if(isSuccess){
+					taskId++;
+				}
 			}
 		}
 	}

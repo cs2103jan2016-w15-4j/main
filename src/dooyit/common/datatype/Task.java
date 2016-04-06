@@ -65,8 +65,9 @@ public abstract class Task {
 		return displayId;
 	}
 
-	public void setDisplayId(int taskId) {
+	public boolean setDisplayId(int taskId) {
 		this.displayId = taskId;
+		return true;
 	}
 
 	public void resetDisplayId() {

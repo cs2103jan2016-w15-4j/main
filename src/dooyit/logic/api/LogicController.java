@@ -404,6 +404,14 @@ public class LogicController {
 		return categoryManager.containsCustomColour(customColourString);
 	}
 	
+	public Category editCategory(Category category, String newCategoryName) {
+		return categoryManager.editCategory(category, newCategoryName);
+	}
+	
+	public Category editCategory(Category category, String newCategoryName, String newClourString) {
+		return categoryManager.editCategory(category, newCategoryName, newClourString);
+	}
+	
 	public boolean isFloatingTask(Task task) {
 		return taskManager.isFloatingTask(task);
 	}

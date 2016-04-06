@@ -12,7 +12,6 @@ import org.junit.Test;
 import dooyit.common.datatype.Category;
 import dooyit.common.datatype.CategoryData;
 import dooyit.common.datatype.CustomColor;
-import dooyit.storage.Constants;
 
 public class CategoryControllerTest extends Constants {
 

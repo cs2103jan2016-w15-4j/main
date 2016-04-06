@@ -11,11 +11,11 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 
-import dooyit.common.datatype.TaskData;
-import dooyit.common.datatype.FloatingTaskData;
 import dooyit.common.datatype.DateTime;
 import dooyit.common.datatype.DeadlineTaskData;
 import dooyit.common.datatype.EventTaskData;
+import dooyit.common.datatype.FloatingTaskData;
+import dooyit.common.datatype.TaskData;
 
 public class TaskDataDeserializer implements JsonDeserializer<TaskData> {
 

@@ -39,7 +39,7 @@ public class CategorySaver {
 		String colorName = category.getColor();
 		CategoryData categoryFormat = new CategoryData(categoryName, colorName);
 		String json = gson.toJson(categoryFormat);
-		
+
 		return json;
 	}
 }

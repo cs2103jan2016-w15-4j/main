@@ -48,7 +48,7 @@ public class EditCategoryParser implements ParserCommons {
 			break;
 		
 		case INVALID_TOO_MANY_WORDS: 
-			//command = CommandUtils.creatInvalidEditCategoryCommand("Can't you be more succinct in your category naming?");
+			command = CommandUtils.createInvalidCommand("Can't you be more succinct in your category naming?");
 			break;
 		
 		case INVALID_TOO_FEW_ARGUMENTS:

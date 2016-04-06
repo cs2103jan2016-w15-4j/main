@@ -6,7 +6,7 @@ import dooyit.logic.commands.Command;
 import dooyit.logic.commands.CommandUtils;
 
 public class EditParser implements ParserCommons {
-	private static final String ERROR_MESSAGE_INVALID_EDIT_COMMAND = "Error: Invalid edit Command!";
+	public static final String ERROR_MESSAGE_INVALID_EDIT_COMMAND = "Invalid edit Command!";
 
 	private static String userInput;
 	private String taskName;
@@ -29,9 +29,12 @@ public class EditParser implements ParserCommons {
 
 	public Command getCommand(String input) { 
 		userInput = input.trim();
-		taskId = Integer.parseInt(userInput.split("\\s+")[0].trim());
 		command = null;
-		
+		String taskIdString = userInput.split("\\s+")[0];
+		if(ParserCommons.isNumber(taskIdString)) {
+			taskId = Integer.parseInt(taskIdString);
+		}
+
 		switch (getEditType()) {
 		case NAME:
 			parseName();
@@ -244,7 +247,10 @@ public class EditParser implements ParserCommons {
 
 	private EDIT_TYPE getEditType() {
 		EDIT_TYPE type;
-		if (hasName()) {
+		System.out.println("userInput.equals(EMPTY_STRING) is " + userInput.equals(EMPTY_STRING));
+		if(userInput.equals(EMPTY_STRING)) {
+			type = EDIT_TYPE.INVALID;
+		} else if (hasName()) {
 			if (!hasStart() && !hasEnd() && !hasDeadline()) {
 				type = EDIT_TYPE.NAME;
 			} else if (hasStart() && hasEnd() && !hasDeadline()) {
@@ -278,10 +284,15 @@ public class EditParser implements ParserCommons {
 	}
 
 	private boolean hasName() {
-		String mayBeName = userInput.split("\\s+")[1];
-		// This means that the names cannot be "by", "to" or "from"
-		return !mayBeName.equals(MARKER_WORK.trim()) && !mayBeName.equals(MARKER_END_EVENT.trim())
+		boolean ans = false;
+		String[] splitUserInput = userInput.split("\\s+");
+		if(splitUserInput.length > 1) { 
+			String mayBeName = userInput.split("\\s+")[1];
+			// This means that the names cannot be "by", "to" or "from"
+			ans = !mayBeName.equals(MARKER_WORK.trim()) && !mayBeName.equals(MARKER_END_EVENT.trim())
 				&& !mayBeName.equals(MARKER_START_EVENT.trim());
+		} 
+		return ans;
 	}
 
 	private boolean hasStart() {

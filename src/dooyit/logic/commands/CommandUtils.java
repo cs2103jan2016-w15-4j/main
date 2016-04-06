@@ -113,7 +113,7 @@ public class CommandUtils {
 		return showCommand;
 	}
 
-	public static Command createEditCommandName(int taskId) {
+	public static Command createEditCommandToFloat(int taskId) {
 		EditTaskCommand editCommand = new EditTaskCommand(taskId);
 		return editCommand;
 	}

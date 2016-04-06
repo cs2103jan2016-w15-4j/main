@@ -582,8 +582,6 @@ public class TaskManager {
 	}
 
 	public boolean hasOverlapWithOverEventTask(Task inTask){
-		
-		
 		for(Task task : tasks){
 			if(!task.equals(inTask) && task.hasOverlap(inTask)){
 				return true;

@@ -7,14 +7,14 @@ import dooyit.common.exception.IncorrectInputException;
 public class FixedDateParser implements DateTimeParserCommons {
 	private static final int MAX_NUMBER_OF_WORDS_IN_WORD_DATE = 2;
 	private static final int LAST_INDEX_OF_WORD_DATE = 2;
-	private static final String ERROR_MESSAGE_INVALID_DATE = "Invalid date!";
-	private static final String ERROR_MESSAGE_DATE_INPUTS_MUST_GREATER_THAN_ZERO = "Date Inputs must be greater than 0!";
 	private static final int YEARY_2000 = 2000;
-	private static final String DATE_SEPARATOR = "/";
 	private static final int DATE_INDEX_OF_ADVANCE_INT = 3;
 	private static final int DEFAULT_DD_IN_MONTH = 15;
+	private static final String DATE_SEPARATOR = "/";
 	private static final String ERROR_MESSAGE_INVALID_NUMBER_OF_DATE_INPUTS = "Invalid number of date inputs";
 	private static final String ERROR_MESSAGE_DATE_INPUTS_MUST_BE_NUMBERS = "Date inputs must be numbers";
+	private static final String ERROR_MESSAGE_INVALID_DATE = "Invalid date!";
+	private static final String ERROR_MESSAGE_DATE_INPUTS_MUST_GREATER_THAN_ZERO = "Date Inputs must be greater than 0!";
 	
 	private int currMM;
 	private int currYY;

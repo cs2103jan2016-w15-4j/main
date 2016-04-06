@@ -8,7 +8,7 @@ public interface ParserCommons {
 	public static final String MARKER_START_EVENT = " from ";
 	public static final String MARKER_END_EVENT = " to ";
 	public static final String MARKER_WORK = " by ";
-	public static final String ERROR_MESSAGE_END_BEFORE_START = "Error: End timing cannot be before Start timing";
+	public static final String ERROR_MESSAGE_END_BEFORE_START = "End timing cannot be before Start timing";
 
 	public static final String COMMAND_ADD = "add";
 	public static final String COMMAND_ADD_CAT = "addcat";

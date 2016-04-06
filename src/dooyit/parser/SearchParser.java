@@ -9,6 +9,8 @@ import dooyit.logic.commands.CommandUtils;
 
 public class SearchParser implements ParserCommons {
 	
+	private static final String ERROR_MESSAGE_EMPTY_SEARCH_COMMAND = "Empty search command!";
+
 	public SearchParser() {
 		
 	}
@@ -33,7 +35,7 @@ public class SearchParser implements ParserCommons {
 		boolean isEmptyString = input.equals(EMPTY_STRING);
 		
 		if(isEmptyString) {
-			command = CommandUtils.createInvalidCommand("Empty search command!");
+			command = CommandUtils.createInvalidCommand(ERROR_MESSAGE_EMPTY_SEARCH_COMMAND);
 		} else if(isValidDay) {
 			//command = CommandUtils.createSearchCommand(input, dayEnum);
 		} else if(isValidMonth) {

@@ -5,7 +5,7 @@ import dooyit.common.datatype.DateTime;
 import dooyit.common.exception.IncorrectInputException;
 
 public class RelativeDateParser implements DateTimeParserCommons {
-	private static final String ERROR_MESSAGE_INVALID_DATE_INPUT = "Invalid date input!";
+	public static final String ERROR_MESSAGE_INVALID_DATE_INPUT = "Invalid date input!";
 	private static String[] validWordForDay = new String[] { "day", "days", "dd" };
 	private static String[] validWordForWeek = new String[] { "week", "weeks", "wk" };
 	private static String[] validWordForToday = new String[] { "today", "tdy"};

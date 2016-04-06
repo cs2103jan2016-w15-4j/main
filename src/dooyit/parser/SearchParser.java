@@ -8,7 +8,7 @@ import dooyit.logic.commands.Command;
 import dooyit.logic.commands.CommandUtils;
 
 public class SearchParser implements ParserCommons {
-	private static final String ERROR_MESSAGE_EMPTY_SEARCH_COMMAND = "Empty search command!";
+	public static final String ERROR_MESSAGE_EMPTY_SEARCH_COMMAND = "Empty search command!";
 
 	public SearchParser() {
 		

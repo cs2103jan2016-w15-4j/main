@@ -5,7 +5,7 @@ import dooyit.logic.commands.Command;
 import dooyit.logic.commands.CommandUtils;
 
 public class DeleteCategoryParser implements ParserCommons {
-	private static final String ERROR_MESSAGE_INVALID_DELETE_CATEGORY_COMMAND = "Invalid Delete Category Command!";
+	public static final String ERROR_MESSAGE_INVALID_DELETE_CATEGORY_COMMAND = "Invalid Delete Category Command!";
 
 	public DeleteCategoryParser() {
 		

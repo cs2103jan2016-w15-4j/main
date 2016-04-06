@@ -6,7 +6,7 @@ import dooyit.logic.commands.Command;
 import dooyit.logic.commands.CommandUtils;
 
 public class EditParser implements ParserCommons {
-	private static final String ERROR_MESSAGE_INVALID_EDIT_COMMAND = "Invalid edit Command!";
+	public static final String ERROR_MESSAGE_INVALID_EDIT_COMMAND = "Invalid edit Command!";
 
 	private static String userInput;
 	private String taskName;

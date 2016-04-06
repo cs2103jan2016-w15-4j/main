@@ -5,7 +5,7 @@ import dooyit.logic.commands.Command;
 import dooyit.logic.commands.CommandUtils;
 
 public class ShowParser {
-	private static final String ERROR_MESSAGE_INVALID_SHOW_COMMAND = "Invalid show command";
+	public static final String ERROR_MESSAGE_INVALID_SHOW_COMMAND = "Invalid show command";
 	private static final String TODAY = "today";
 	private static final String NEXT_SEVEN = "next7";
 	private static final String DONE = "done";

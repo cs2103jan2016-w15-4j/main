@@ -6,7 +6,7 @@ import dooyit.logic.commands.Command;
 import dooyit.logic.commands.CommandUtils;
 
 public class UnmarkParser extends TagParser{
-	private static final String ERROR_MESSAGE_INVALID_UNMARK_COMMAND = "Invalid Unmark Command!";
+	public static final String ERROR_MESSAGE_INVALID_UNMARK_COMMAND = "Invalid Unmark Command!";
 	private Command command;
 
 	public UnmarkParser() {

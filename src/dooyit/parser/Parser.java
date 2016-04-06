@@ -5,7 +5,7 @@ import dooyit.logic.commands.Command;
 import dooyit.logic.commands.CommandUtils;
 
 public class Parser implements ParserCommons {
-	private static final String ERROR_MESSAGE_INVALID_COMMAND = "Invalid Command: ";
+	public static final String ERROR_MESSAGE_INVALID_COMMAND = "Invalid Command: ";
 
 	private AddParser addParser;
 	private ShowParser showParser;

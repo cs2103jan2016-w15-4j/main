@@ -6,7 +6,7 @@ import dooyit.logic.commands.Command;
 import dooyit.logic.commands.CommandUtils;
 
 public class MarkParser extends TagParser{
-	private static final String ERROR_MESSAGE_INVALID_MARK_COMMAND = "Invalid mark Command!";
+	public static final String ERROR_MESSAGE_INVALID_MARK_COMMAND = "Invalid mark Command!";
 	private Command command;
 
 	public MarkParser() {

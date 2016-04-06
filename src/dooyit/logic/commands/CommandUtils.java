@@ -75,6 +75,11 @@ public class CommandUtils {
 		DeleteCategoryCommand deleteCategoryCommand = new DeleteCategoryCommand(categoryName);
 		return deleteCategoryCommand;
 	}
+	
+	public static Command createRemoveCategoryFromTaskCommand(String categoryName, int taskId){
+		RemoveCategoryFromTaskCommand removeCategoryFromTaskCommand = new RemoveCategoryFromTaskCommand(categoryName, taskId);
+		return removeCategoryFromTaskCommand;
+	}
 
 	public static Command createShowTodayCommand() {
 		ShowCommand showCommand = new ShowCommand(ShowCommand.ShowCommandType.TODAY);

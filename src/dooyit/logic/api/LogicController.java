@@ -400,6 +400,10 @@ public class LogicController {
 		return clearedCategories;
 	}
 
+	public boolean containsCustomColour(String customColourString){
+		return categoryManager.containsCustomColour(customColourString);
+	}
+	
 	public boolean isFloatingTask(Task task) {
 		return taskManager.isFloatingTask(task);
 	}

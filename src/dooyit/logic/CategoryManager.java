@@ -61,6 +61,24 @@ public class CategoryManager {
 		return category;
 	}
 	
+	public Category editCategory(Category category, String newCategoryName){
+		Category addedCategory = addCategory(newCategoryName, category.getCustomColourName());
+		return addedCategory;
+	}
+	
+	public Category editCategory(Category category, String newCategoryName, String customColourString) throws IncorrectInputException {
+		if (!colourManager.contains(customColourString)) {
+			Category addedCategory = addCategory(newCategoryName, category.getCustomColourName());
+			throw new IncorrectInputException(String.format(Constants.FEEDBACK_INVALID_COLOUR, customColourString));
+		}
+		
+		Category addedCategory = addCategory(newCategoryName, category.getCustomColourName());
+		return addedCategory;
+	}
+	
+	public boolean containsCustomColour(String customColourString){
+		return colourManager.contains(customColourString);
+	}
 	
 	public void setSelectedCategory(Category category) {
 		this.selectedCategory = category;

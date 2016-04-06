@@ -10,16 +10,16 @@ public class EditCategoryCommand implements Command, ReversibleCommand {
 	String colourName;
 
 	EditCategoryCommand(String categoryName) {
-
+		this.categoryName = categoryName;
 	}
 
 	EditCategoryCommand(String categoryName, String colourName) {
-
+		
 	}
-
+	
 	@Override
 	public void undo(LogicController logic) {
-
+		
 	}
 
 	@Override

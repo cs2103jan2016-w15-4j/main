@@ -1,3 +1,4 @@
+
 package dooyit.parser;
 
 import dooyit.common.exception.IncorrectInputException;
@@ -74,6 +75,9 @@ public class HelpParser implements ParserCommons {
 		case COMMAND_SHOW:
 			//command = CommandUtils.createHelpCommand(COMMAND_SHOW);
 			break; 
+			
+		case COMMAND_SHOW_CATEGORY:
+			//command = CommandUtils.createHelpCommand(COMMAND_SHOW_CATEGORY);
 
 		case COMMAND_SKIN:
 			//command = CommandUtils.createHelpCommand(COMMAND_SKIN);

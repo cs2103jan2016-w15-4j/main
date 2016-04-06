@@ -25,6 +25,7 @@ public interface ParserCommons {
 	public static final String COMMAND_REDO = "redo";
 	public static final String COMMAND_SEARCH = "search";
 	public static final String COMMAND_SHOW = "show";
+	public static final String COMMAND_SHOW_CATEGORY = "showcat";
 	public static final String COMMAND_SKIN = "skin";
 	public static final String COMMAND_STORAGE = "storage"; 
 	public static final String COMMAND_UNDO = "undo";

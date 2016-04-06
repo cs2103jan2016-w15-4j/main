@@ -4,6 +4,7 @@ package dooyit.parser;
 import dooyit.common.exception.IncorrectInputException;
 import dooyit.logic.commands.Command;
 import dooyit.logic.commands.CommandUtils;
+import dooyit.parser.TagParser.TAG_TYPE;
 
 public class DeleteParser extends TagParser {
 	private static final String ERROR_MESSAGE_INVALID_DELETE_COMMAND = "Error: Invalid Delete Command!";
@@ -34,7 +35,7 @@ public class DeleteParser extends TagParser {
 	}
 
 	private void setCorrectDeleteCommand(TAG_TYPE tagType) {
-		switch (tagType) {
+		switch(tagType) {
 		case SINGLE:
 			setSingleTypeDeleteCommand();
 			break;
@@ -43,18 +44,10 @@ public class DeleteParser extends TagParser {
 			setMultipleTypeDeleteCommand();
 			break;
 
-		case INTERVAL:
-			setIntervalTypeDeleteCommand();
-			break;
-
 		default:
 			setInvalidCommand();
 			break;
 		}
-	}
-
-	private void setIntervalTypeDeleteCommand() {
-		command = CommandUtils.createDeleteCommand(taskIdsForTagging);
 	}
 
 	private void setMultipleTypeDeleteCommand() {

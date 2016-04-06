@@ -41,18 +41,10 @@ public class UnmarkParser extends TagParser{
 			setMultipleTypeUnmarkCommand();
 			break;
 
-		case INTERVAL:
-			setIntervalTypeUnmarkCommand();
-			break;
-
 		default:
 			setInvalidCommand();
 			break;
 		}
-	}
-
-	private void setIntervalTypeUnmarkCommand() {
-		command = CommandUtils.createUnMarkCommand(taskIdsForTagging); 
 	}
 	
 	// Eg. unmark 2 4 0 9

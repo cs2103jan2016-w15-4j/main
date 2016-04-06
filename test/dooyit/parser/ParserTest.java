@@ -42,7 +42,7 @@ public class ParserTest {
 		String input = "delete a";
 		Command command = parser.getCommand(input);
 		String commandErrorMessage = Whitebox.getInternalState(command, "errorMessage");
-		String expectedErrorMessage = TagParser.ERROR_MESSAGE_INVALID_TASK_ID;
+		String expectedErrorMessage = TagParser.ERROR_MESSAGE_INVALID_TASK_ID + "a";
 		assertEquals(expectedErrorMessage, commandErrorMessage);
 
 	}
@@ -52,7 +52,7 @@ public class ParserTest {
 		String input = "delete :";
 		Command command = parser.getCommand(input);
 		String commandErrorMessage = Whitebox.getInternalState(command, "errorMessage");
-		String expectedErrorMessage = TagParser.ERROR_MESSAGE_INVALID_TASK_ID;
+		String expectedErrorMessage = TagParser.ERROR_MESSAGE_INVALID_TASK_ID + ":";
 		assertEquals(expectedErrorMessage, commandErrorMessage);
 
 	}
@@ -62,7 +62,7 @@ public class ParserTest {
 		String input = "delete ?";
 		Command command = parser.getCommand(input);
 		String commandErrorMessage = Whitebox.getInternalState(command, "errorMessage");
-		String expectedErrorMessage = TagParser.ERROR_MESSAGE_INVALID_TASK_ID;
+		String expectedErrorMessage = TagParser.ERROR_MESSAGE_INVALID_TASK_ID + "?";
 		assertEquals(expectedErrorMessage, commandErrorMessage);
 
 	}
@@ -91,7 +91,7 @@ public class ParserTest {
 		String input = "delete 2 a 5 7 20 12";
 		Command command = parser.getCommand(input);
 		String commandErrorMessage = Whitebox.getInternalState(command, "errorMessage");
-		String expectedErrorMessage = TagParser.ERROR_MESSAGE_INVALID_TASK_ID;
+		String expectedErrorMessage = TagParser.ERROR_MESSAGE_INVALID_TASK_ID + "a";
 		assertEquals(expectedErrorMessage, commandErrorMessage);
 
 	}
@@ -101,7 +101,7 @@ public class ParserTest {
 		String input = "delete 2 : 5 7 20 12";
 		Command command = parser.getCommand(input);
 		String commandErrorMessage = Whitebox.getInternalState(command, "errorMessage");
-		String expectedErrorMessage = TagParser.ERROR_MESSAGE_INVALID_TASK_ID;
+		String expectedErrorMessage = TagParser.ERROR_MESSAGE_INVALID_TASK_ID + ":";
 		assertEquals(expectedErrorMessage, commandErrorMessage);
 
 	}
@@ -111,7 +111,7 @@ public class ParserTest {
 		String input = "delete 2" + " \\ 5 7 20 12";
 		Command command = parser.getCommand(input);
 		String commandErrorMessage = Whitebox.getInternalState(command, "errorMessage");
-		String expectedErrorMessage = TagParser.ERROR_MESSAGE_INVALID_TASK_ID;
+		String expectedErrorMessage = TagParser.ERROR_MESSAGE_INVALID_TASK_ID + "\\";
 		assertEquals(expectedErrorMessage, commandErrorMessage);
 
 	}
@@ -121,7 +121,7 @@ public class ParserTest {
 		String input = "delete 2 ? 5 7 20 12";
 		Command command = parser.getCommand(input);
 		String commandErrorMessage = Whitebox.getInternalState(command, "errorMessage");
-		String expectedErrorMessage = TagParser.ERROR_MESSAGE_INVALID_TASK_ID;
+		String expectedErrorMessage = TagParser.ERROR_MESSAGE_INVALID_TASK_ID + "?";
 		assertEquals(expectedErrorMessage, commandErrorMessage);
 
 	}
@@ -222,7 +222,7 @@ public class ParserTest {
 		String input = "mark a";
 		Command command = parser.getCommand(input);
 		String commandErrorMessage = Whitebox.getInternalState(command, "errorMessage");
-		String expectedErrorMessage = TagParser.ERROR_MESSAGE_INVALID_TASK_ID;
+		String expectedErrorMessage = TagParser.ERROR_MESSAGE_INVALID_TASK_ID + "a";
 		assertEquals(expectedErrorMessage, commandErrorMessage);
 
 	}
@@ -232,7 +232,7 @@ public class ParserTest {
 		String input = "mark :";
 		Command command = parser.getCommand(input);
 		String commandErrorMessage = Whitebox.getInternalState(command, "errorMessage");
-		String expectedErrorMessage = TagParser.ERROR_MESSAGE_INVALID_TASK_ID;
+		String expectedErrorMessage = TagParser.ERROR_MESSAGE_INVALID_TASK_ID + ":";
 		assertEquals(expectedErrorMessage, commandErrorMessage);
 
 	}
@@ -242,7 +242,7 @@ public class ParserTest {
 		String input = "mark ?";
 		Command command = parser.getCommand(input);
 		String commandErrorMessage = Whitebox.getInternalState(command, "errorMessage");
-		String expectedErrorMessage = TagParser.ERROR_MESSAGE_INVALID_TASK_ID;
+		String expectedErrorMessage = TagParser.ERROR_MESSAGE_INVALID_TASK_ID + "?";
 		assertEquals(expectedErrorMessage, commandErrorMessage);
 
 	}
@@ -271,7 +271,7 @@ public class ParserTest {
 		String input = "mark 2 a 5 7 20 12";
 		Command command = parser.getCommand(input);
 		String commandErrorMessage = Whitebox.getInternalState(command, "errorMessage");
-		String expectedErrorMessage = TagParser.ERROR_MESSAGE_INVALID_TASK_ID;
+		String expectedErrorMessage = TagParser.ERROR_MESSAGE_INVALID_TASK_ID + "a";
 		assertEquals(expectedErrorMessage, commandErrorMessage);
 
 	}
@@ -281,7 +281,7 @@ public class ParserTest {
 		String input = "mark 2 : 5 7 20 12";
 		Command command = parser.getCommand(input);
 		String commandErrorMessage = Whitebox.getInternalState(command, "errorMessage");
-		String expectedErrorMessage = TagParser.ERROR_MESSAGE_INVALID_TASK_ID;
+		String expectedErrorMessage = TagParser.ERROR_MESSAGE_INVALID_TASK_ID + ":";
 		assertEquals(expectedErrorMessage, commandErrorMessage);
 
 	}
@@ -291,7 +291,7 @@ public class ParserTest {
 		String input = "mark 2" + " \\ 5 7 20 12";
 		Command command = parser.getCommand(input);
 		String commandErrorMessage = Whitebox.getInternalState(command, "errorMessage");
-		String expectedErrorMessage = TagParser.ERROR_MESSAGE_INVALID_TASK_ID;
+		String expectedErrorMessage = TagParser.ERROR_MESSAGE_INVALID_TASK_ID + "\\";
 		assertEquals(expectedErrorMessage, commandErrorMessage);
 
 	}
@@ -301,7 +301,7 @@ public class ParserTest {
 		String input = "mark 2 ? 5 7 20 12";
 		Command command = parser.getCommand(input);
 		String commandErrorMessage = Whitebox.getInternalState(command, "errorMessage");
-		String expectedErrorMessage = TagParser.ERROR_MESSAGE_INVALID_TASK_ID;
+		String expectedErrorMessage = TagParser.ERROR_MESSAGE_INVALID_TASK_ID + "?";
 		assertEquals(expectedErrorMessage, commandErrorMessage);
 
 	}
@@ -401,7 +401,7 @@ public class ParserTest {
 		String input = "unmark a";
 		Command command = parser.getCommand(input);
 		String commandErrorMessage = Whitebox.getInternalState(command, "errorMessage");
-		String expectedErrorMessage = TagParser.ERROR_MESSAGE_INVALID_TASK_ID;
+		String expectedErrorMessage = TagParser.ERROR_MESSAGE_INVALID_TASK_ID + "a";
 		assertEquals(expectedErrorMessage, commandErrorMessage);
 
 	}
@@ -411,7 +411,7 @@ public class ParserTest {
 		String input = "unmark :";
 		Command command = parser.getCommand(input);
 		String commandErrorMessage = Whitebox.getInternalState(command, "errorMessage");
-		String expectedErrorMessage = TagParser.ERROR_MESSAGE_INVALID_TASK_ID;
+		String expectedErrorMessage = TagParser.ERROR_MESSAGE_INVALID_TASK_ID + ":";
 		assertEquals(expectedErrorMessage, commandErrorMessage);
 
 	}
@@ -421,7 +421,7 @@ public class ParserTest {
 		String input = "unmark ?";
 		Command command = parser.getCommand(input);
 		String commandErrorMessage = Whitebox.getInternalState(command, "errorMessage");
-		String expectedErrorMessage = TagParser.ERROR_MESSAGE_INVALID_TASK_ID;
+		String expectedErrorMessage = TagParser.ERROR_MESSAGE_INVALID_TASK_ID + "?";
 		assertEquals(expectedErrorMessage, commandErrorMessage);
 
 	}
@@ -450,7 +450,7 @@ public class ParserTest {
 		String input = "unmark 2 a 5 7 20 12";
 		Command command = parser.getCommand(input);
 		String commandErrorMessage = Whitebox.getInternalState(command, "errorMessage");
-		String expectedErrorMessage = TagParser.ERROR_MESSAGE_INVALID_TASK_ID;
+		String expectedErrorMessage = TagParser.ERROR_MESSAGE_INVALID_TASK_ID + "a";
 		assertEquals(expectedErrorMessage, commandErrorMessage);
 
 	}
@@ -460,7 +460,7 @@ public class ParserTest {
 		String input = "unmark 2 : 5 7 20 12";
 		Command command = parser.getCommand(input);
 		String commandErrorMessage = Whitebox.getInternalState(command, "errorMessage");
-		String expectedErrorMessage = TagParser.ERROR_MESSAGE_INVALID_TASK_ID;
+		String expectedErrorMessage = TagParser.ERROR_MESSAGE_INVALID_TASK_ID + ":";
 		assertEquals(expectedErrorMessage, commandErrorMessage);
 
 	}
@@ -470,7 +470,7 @@ public class ParserTest {
 		String input = "unmark 2" + " \\ 5 7 20 12";
 		Command command = parser.getCommand(input);
 		String commandErrorMessage = Whitebox.getInternalState(command, "errorMessage");
-		String expectedErrorMessage = TagParser.ERROR_MESSAGE_INVALID_TASK_ID;
+		String expectedErrorMessage = TagParser.ERROR_MESSAGE_INVALID_TASK_ID + "\\";
 		assertEquals(expectedErrorMessage, commandErrorMessage);
 
 	}
@@ -480,7 +480,7 @@ public class ParserTest {
 		String input = "unmark 2 ? 5 7 20 12";
 		Command command = parser.getCommand(input);
 		String commandErrorMessage = Whitebox.getInternalState(command, "errorMessage");
-		String expectedErrorMessage = TagParser.ERROR_MESSAGE_INVALID_TASK_ID;
+		String expectedErrorMessage = TagParser.ERROR_MESSAGE_INVALID_TASK_ID + "?";
 		assertEquals(expectedErrorMessage, commandErrorMessage);
 
 	}

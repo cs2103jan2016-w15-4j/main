@@ -50,20 +50,12 @@ public class RemoveParser extends TagParser {
 			setMultipleTypeRemoveCommand();
 			break;
 
-		case INTERVAL:
-			setIntervalTypeRemoveCommand();
-			break;
-
 		default:
 			setInvalidCommand();
 			break;
 		}
 	}
 
-	private void setIntervalTypeRemoveCommand() {
-		//return CommandUtils.createRemoveCommand(taskIdsForTagging);
-		command = null;
-	}
 
 	// Eg. delete 5 6 8
 	private void setMultipleTypeRemoveCommand() {

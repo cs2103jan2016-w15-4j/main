@@ -29,6 +29,8 @@ public class DateTime {
 	private static final int UNINITIALIZED_INT = -1;
 	private static final int MIDNIGHT_INT = 0;
 	private static final int RIGHT_BEFORE_MIDNIGHT_INT = 2359;
+	private static final String RIGHT_BEFORE_MIDNIGHT_STRING = "23:59";
+	private static final String MIDNIGHT_STRING ="00:00";
 	
 	public static final int MONDAY = 1;
 	public static final int TUESDAY = 2;
@@ -389,17 +391,15 @@ public class DateTime {
 		
 		String startTimeString = startCopy.getTime24hStr();
 		String endTimeString = end.getTime24hStr();
-		String beforeMidnight = "23:59";
-		String midnight = "00:00";
-		String timeToBeAdded = startTimeString + " - " + beforeMidnight;
+		String timeToBeAdded = startTimeString + " - " + RIGHT_BEFORE_MIDNIGHT_STRING;
 		listOfTimings.add(timeToBeAdded);
 		startCopy.increaseByOneDay();
 		while(compareDates(startCopy, end) != COMPARISON_FIRST_EQUALS_SECOND) {
-			timeToBeAdded = midnight + " - " + beforeMidnight;
+			timeToBeAdded = MIDNIGHT_STRING + " - " + RIGHT_BEFORE_MIDNIGHT_STRING;
 			listOfTimings.add(timeToBeAdded);
 			startCopy.increaseByOneDay();
 		}
-		timeToBeAdded = midnight + " - " + endTimeString;
+		timeToBeAdded = MIDNIGHT_STRING + " - " + endTimeString;
 		listOfTimings.add(timeToBeAdded);
 		
 		return listOfTimings;
@@ -433,23 +433,13 @@ public class DateTime {
 	public static boolean isOverlap(DateTime startOne, DateTime endOne, DateTime startTwo, DateTime endTwo) {
 		boolean startOneIsBeforeEndTwo = startOne.compareTo(endTwo) == COMPARISON_FIRST_IS_BEFORE_SECOND;
 		boolean endOneIsAfterEndTwo = endOne.compareTo(endTwo) == COMPARISON_FIRST_IS_AFTER_SECOND;
-		System.out.println("startOneIsBeforeEndTwo is " + startOneIsBeforeEndTwo);
-		System.out.println("endOneIsAfterEndTwo is " + endOneIsAfterEndTwo);
 		boolean firstIntervalIsAfterSecond = !startOneIsBeforeEndTwo && endOneIsAfterEndTwo;
 		
 		boolean startOneIsBeforeStartTwo = startOne.compareTo(startTwo) == COMPARISON_FIRST_IS_BEFORE_SECOND;
 		boolean endOneIsBeforeStartTwo = endOne.compareTo(startTwo) != COMPARISON_FIRST_IS_AFTER_SECOND;
-		
-		System.out.println("startOneIsBeforeStartTwo is " + startOneIsBeforeStartTwo);
-		System.out.println("endOneIsBeforeStartTwo is " + endOneIsBeforeStartTwo);
 		boolean firstIntervalIsBeforeSecond = startOneIsBeforeStartTwo && endOneIsBeforeStartTwo;
 		
-		System.out.println("startOne is " + startOne.toString() + " and endOne is " + endOne.toString());
-		System.out.println("startTwo is " + startTwo.toString() + " and endTwo is " + endTwo.toString());
-		System.out.println("firstIntervalIsBeforeSecond is " + firstIntervalIsBeforeSecond);
-		System.out.println("firstIntervalIsAfterSecond is " + firstIntervalIsAfterSecond);
 		boolean hasNoOverlap = firstIntervalIsAfterSecond || firstIntervalIsBeforeSecond;
-		System.out.println("isOverlap returns " + !hasNoOverlap);
 		return !hasNoOverlap;
 	}
 	

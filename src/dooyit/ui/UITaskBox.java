@@ -69,6 +69,7 @@ public class UITaskBox {
 		initTaskBox();
 		initListeners();
 		updateTaskBoxWidth();
+		animate();
 	}
 	
 	private void initTaskCheckBox(){
@@ -179,6 +180,10 @@ public class UITaskBox {
 	private void updateTaskBoxWidth(){
 		double width = this.parent.getStageWidth();
 	    updateTaskBoxWidth(width);
+	}
+	
+	private void animate(){
+		
 	}
 	
 	protected AnchorPane getView() {

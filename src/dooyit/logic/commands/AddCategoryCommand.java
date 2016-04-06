@@ -41,13 +41,13 @@ public class AddCategoryCommand implements Command, ReversibleCommand {
 	}
 
 	public LogicAction execute(LogicController logic) throws IncorrectInputException {
+		assert(logic != null);
 		LogicAction logicAction;
 
 		String feedbackMsgColor = Constants.EMPTY_STRING;
 
 		if (logic.containsCategory(categoryName)) {
-			logicAction = new LogicAction(Action.ERROR,
-					String.format(Constants.FEEDBACK_FAIL_CATEGORY_EXISTS, categoryName));
+			logicAction = new LogicAction(Action.ERROR, String.format(Constants.FEEDBACK_FAIL_CATEGORY_EXISTS, categoryName));
 			hasError = true;
 			return logicAction;
 		}

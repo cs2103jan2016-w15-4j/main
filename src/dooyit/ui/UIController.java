@@ -251,6 +251,16 @@ public class UIController {
 				case DIGIT5:
 					processInput(UIData.CMD_SHOW_COMPLETED);
 					break;
+				case U:
+					if (mainView.getVvalue() > mainView.getVmin() + 0.1){
+						mainView.setVvalue(mainView.getVvalue() - 0.1);
+					}
+					break;
+				case J:
+					if (mainView.getVvalue() < mainView.getVmax() + 0.1){
+						mainView.setVvalue(mainView.getVvalue() + 0.1);
+					}
+					break;
 				default:
 					break;
 			}

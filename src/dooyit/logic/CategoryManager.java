@@ -27,7 +27,8 @@ public class CategoryManager {
 
 	public void addCategory(Category category) throws IncorrectInputException {
 		if (contains(category)) {
-			throw new IncorrectInputException(String.format(Constants.FEEDBACK_FAIL_CATEGORY_EXISTS, category.getName()));
+			throw new IncorrectInputException(
+					String.format(Constants.FEEDBACK_FAIL_CATEGORY_EXISTS, category.getName()));
 		}
 
 		categories.add(category);
@@ -60,26 +61,29 @@ public class CategoryManager {
 		categories.add(category);
 		return category;
 	}
-	
-	public Category editCategory(Category category, String newCategoryName){
+
+	public Category editCategory(Category category, String newCategoryName) {
+		remove(category);
 		Category addedCategory = addCategory(newCategoryName, category.getCustomColourName());
 		return addedCategory;
 	}
-	
-	public Category editCategory(Category category, String newCategoryName, String customColourString) throws IncorrectInputException {
-		if (!colourManager.contains(customColourString)) {
-			Category addedCategory = addCategory(newCategoryName, category.getCustomColourName());
-			throw new IncorrectInputException(String.format(Constants.FEEDBACK_INVALID_COLOUR, customColourString));
+
+	public Category editCategory(Category category, String newCategoryName, String newClourString) {
+		remove(category);
+		Category addedCategory;
+
+		if (colourManager.contains(newClourString)) {
+			addedCategory = addCategory(newCategoryName, newClourString);
+		} else {
+			addedCategory = addCategory(newCategoryName, category.getCustomColourName());
 		}
-		
-		Category addedCategory = addCategory(newCategoryName, category.getCustomColourName());
 		return addedCategory;
 	}
-	
-	public boolean containsCustomColour(String customColourString){
+
+	public boolean containsCustomColour(String customColourString) {
 		return colourManager.contains(customColourString);
 	}
-	
+
 	public void setSelectedCategory(Category category) {
 		this.selectedCategory = category;
 	}

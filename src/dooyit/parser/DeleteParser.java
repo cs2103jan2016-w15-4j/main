@@ -18,7 +18,7 @@ public class DeleteParser extends TagParser {
 	}
 
 	public Command getCommand(String input) throws IncorrectInputException {
-		resetVariables();
+		resetFields();
 		setCategoryName(input);
 		input = removeCategoryNameFromInput(input);
 		setVariables(input);
@@ -81,7 +81,7 @@ public class DeleteParser extends TagParser {
 		}
 	}
 	
-	private void resetVariables() {
+	private void resetFields() {
 		hasCategory = false;
 		categoryName = EMPTY_STRING;
 		command = null;

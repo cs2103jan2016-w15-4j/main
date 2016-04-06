@@ -17,20 +17,17 @@ import dooyit.common.datatype.TaskGroup;
 import dooyit.common.datatype.Task.TaskType;
 
 public class TaskManager {
-	
-	enum SearchType{
-		NAME,
-		DATE,
-		DAY,
-		MONTH
+
+	enum SearchType {
+		NAME, DATE, DAY, MONTH
 	}
-	
+
 	private static final int TASKGROUP_COUNT_LIMIT = 30;
 	private ArrayList<Task> tasks;
-	
+
 	private String searchKey;
 	private DateTime dateTime;
-	
+
 	public TaskManager() {
 		tasks = new ArrayList<Task>();
 	}
@@ -83,10 +80,24 @@ public class TaskManager {
 		tasks.add(task);
 	}
 
+	/**
+	 * add all the task from tasks into the task manager
+	 * 
+	 * @param tasks
+	 *            ArrayList containing the tasks to be added into the task manager
+	 */
 	public void load(ArrayList<Task> tasks) {
 		this.tasks.addAll(tasks);
 	}
 
+	/**
+	 * Remove the task with the specified id
+	 * 
+	 * @param id
+	 *            The ID of the task to be removed
+	 * 
+	 * @return the Task that has been removed
+	 */
 	public Task remove(int id) {
 		for (int i = 0; i < tasks.size(); i++) {
 			if (tasks.get(i).getDisplayId() == id) {
@@ -96,6 +107,13 @@ public class TaskManager {
 		return null;
 	}
 
+	/**
+	 * Remove the task
+	 * 
+	 * @param task
+	 *            The Task to be removed
+	 * @return true if successful
+	 */
 	public boolean remove(Task task) {
 		for (int i = 0; i < tasks.size(); i++) {
 			if (tasks.get(i).equals(task)) {
@@ -107,10 +125,10 @@ public class TaskManager {
 	}
 
 	/**
-	 * Mark a task based on id
+	 * Mark a task with the specified id
 	 * 
 	 * @param id
-	 *            task id
+	 *            the ID of the task to be marked
 	 * @return false if task is already marked
 	 */
 	public boolean markTask(int id) {
@@ -128,6 +146,13 @@ public class TaskManager {
 		return false;
 	}
 
+	/**
+	 * Mark a task with the specified task
+	 * 
+	 * @param id
+	 *            the ID of the task to be marked
+	 * @return false if task is already marked
+	 */
 	public boolean markTask(Task task) {
 		for (int i = 0; i < tasks.size(); i++) {
 			if (tasks.get(i).equals(task)) {
@@ -143,6 +168,13 @@ public class TaskManager {
 		return false;
 	}
 
+	/**
+	 * unmark a task with the specified id
+	 * 
+	 * @param id
+	 *            the ID of the task to be marked
+	 * @return false if task is already unmarked
+	 */
 	public boolean unmarkTask(int id) {
 		for (int i = 0; i < tasks.size(); i++) {
 			if (tasks.get(i).getDisplayId() == id) {
@@ -154,6 +186,13 @@ public class TaskManager {
 		return false;
 	}
 
+	/**
+	 * unmark a task with the specified task
+	 * 
+	 * @param id
+	 *            the ID of the task to be marked
+	 * @return false if task is already marked
+	 */
 	public boolean unmarkTask(Task task) {
 		for (int i = 0; i < tasks.size(); i++) {
 			if (tasks.get(i).equals(task)) {
@@ -165,6 +204,13 @@ public class TaskManager {
 		return false;
 	}
 
+	/**
+	 * check if the task manager contains the task with the specified id
+	 * 
+	 * @param id
+	 *            the ID of the task to be checked
+	 * @return true if the task manager contains the task with the specified id
+	 */
 	public boolean contains(int id) {
 		for (int i = 0; i < tasks.size(); i++) {
 			if (tasks.get(i).getDisplayId() == id) {
@@ -174,6 +220,13 @@ public class TaskManager {
 		return false;
 	}
 
+	/**
+	 * check if the task manager contains the task
+	 * 
+	 * @param task
+	 *            the task to be checked
+	 * @return true if the task manager contains the task
+	 */
 	public boolean contains(Task task) {
 		for (int i = 0; i < tasks.size(); i++) {
 			if (tasks.get(i).equals(task)) {
@@ -183,6 +236,13 @@ public class TaskManager {
 		return false;
 	}
 
+	/**
+	 * find the task based on the given ID
+	 * 
+	 * @param id
+	 *            the ID of the task
+	 * @return the task with the id, null if task with ID is not found
+	 */
 	public Task find(int id) {
 		for (int i = 0; i < tasks.size(); i++) {
 			if (tasks.get(i).getDisplayId() == id) {
@@ -192,6 +252,13 @@ public class TaskManager {
 		return null;
 	}
 
+	/**
+	 * find the task based on the given task
+	 * 
+	 * @param task
+	 *            the task
+	 * @return the task, null if task with ID is not found
+	 */
 	public Task find(Task task) {
 		for (int i = 0; i < tasks.size(); i++) {
 			if (tasks.get(i).equals(task)) {
@@ -201,10 +268,20 @@ public class TaskManager {
 		return null;
 	}
 
+	/**
+	 * 
+	 * @return number of tasks in the task manager
+	 */
 	public int size() {
 		return tasks.size();
 	}
 
+	/**
+	 * removes the task that has the category
+	 * 
+	 * @param category
+	 * @return the tasks that are removed
+	 */
 	public ArrayList<Task> removeTasksWithCategory(Category category) {
 		ArrayList<Task> taskWithCat = new ArrayList<Task>();
 
@@ -221,12 +298,21 @@ public class TaskManager {
 		return taskWithCat;
 	}
 
+	/**
+	 * clear all the task from the task manager
+	 * 
+	 * @return
+	 */
 	public ArrayList<Task> clear() {
 		ArrayList<Task> clearedTasks = new ArrayList<Task>(tasks);
 		tasks.clear();
 		return clearedTasks;
 	}
 
+	/**
+	 * 
+	 * @return the most recently added task into the task manager
+	 */
 	public Task getMostRecentTask() {
 		int latestId = Integer.MIN_VALUE;
 		Task latestTask = null;
@@ -252,19 +338,19 @@ public class TaskManager {
 		return newTask;
 	}
 
-	public Task changeToFloatingTask(int taskId){
+	public Task changeToFloatingTask(int taskId) {
 		if (!contains(taskId)) {
 			return null;
 		}
-		
+
 		Task removedTask = remove(taskId);
 		Task newTask = new FloatingTask(removedTask);
 		newTask.setCategory(removedTask.getCategory());
 		add(newTask);
-		
+
 		return newTask;
 	}
-	
+
 	public Task changeTaskToDeadline(int taskId, DateTime dateTimeDeadline) {
 		if (!contains(taskId)) {
 			return null;
@@ -313,15 +399,15 @@ public class TaskManager {
 		return false;
 	}
 
-	public boolean hasOverlapWithOverEventTask(Task inTask){
-		for(Task task : tasks){
-			if(!task.equals(inTask) && task.hasOverlap(inTask)){
+	public boolean hasOverlapWithOverEventTask(Task inTask) {
+		for (Task task : tasks) {
+			if (!task.equals(inTask) && task.hasOverlap(inTask)) {
 				return true;
 			}
 		}
 		return false;
 	}
-	
+
 	public void offAllEventTasksMultiDayString() {
 		for (Task task : tasks) {
 			if (task.getTaskType() == TaskType.EVENT) {
@@ -584,7 +670,7 @@ public class TaskManager {
 
 		return tasksWithCat;
 	}
-	
+
 	public ArrayList<TaskGroup> getTaskGroupsAll() {
 		onAllEventTasksMultiDayString();
 		ArrayList<TaskGroup> taskGroups = new ArrayList<TaskGroup>();
@@ -606,14 +692,14 @@ public class TaskManager {
 			taskGroups.add(taskGroup);
 			totalSize -= taskGroup.size();
 		}
-		
+
 		currDate.increaseByOneDay();
 		taskGroup = createDayTaskGroup("Tomorrow", currDate);
 		if (!taskGroup.isEmpty()) {
 			taskGroups.add(taskGroup);
 			totalSize -= taskGroup.size();
 		}
-		
+
 		currDate.increaseByOneDay();
 		int taskGroupCount = 0;
 		while (totalSize > 0 && taskGroupCount < TASKGROUP_COUNT_LIMIT) {
@@ -630,7 +716,7 @@ public class TaskManager {
 		return taskGroups;
 
 	}
-	
+
 	public ArrayList<TaskGroup> getTaskGroupsNext7Days() {
 		onAllEventTasksMultiDayString();
 		DateTime currDate = new DateTime();
@@ -657,7 +743,7 @@ public class TaskManager {
 		resetTasksId(taskGroups);
 		return taskGroups;
 	}
-	
+
 	public ArrayList<TaskGroup> getTaskGroupsFloating() {
 		ArrayList<TaskGroup> taskGroups = new ArrayList<TaskGroup>();
 
@@ -667,7 +753,7 @@ public class TaskManager {
 		resetTasksId(taskGroups);
 		return taskGroups;
 	}
-	
+
 	public ArrayList<TaskGroup> getTaskGroupsToday() {
 		onAllEventTasksMultiDayString();
 		ArrayList<TaskGroup> taskGroups = new ArrayList<TaskGroup>();
@@ -686,7 +772,7 @@ public class TaskManager {
 	public ArrayList<TaskGroup> getTaskGroupsCompleted() {
 		offAllEventTasksMultiDayString();
 		ArrayList<TaskGroup> taskGroups = new ArrayList<TaskGroup>();
-		
+
 		TaskGroup taskGroup = createCompletedTaskGroup();
 		taskGroups.add(taskGroup);
 
@@ -697,7 +783,7 @@ public class TaskManager {
 	public ArrayList<TaskGroup> getTaskGroupCategory(Category category) {
 		ArrayList<TaskGroup> taskGroups = getTaskGroupsAll();
 		filterTaskGroupsByCategory(taskGroups, category);
-		
+
 		resetTasksId(taskGroups);
 		return taskGroups;
 	}
@@ -723,7 +809,7 @@ public class TaskManager {
 			taskGroups.add(taskGroup);
 		}
 	}
-	
+
 	/**
 	 * @return
 	 */
@@ -734,10 +820,10 @@ public class TaskManager {
 		sortTasks(taskGroup.getTasks());
 		return taskGroup;
 	}
-	
+
 	private TaskGroup createDayTaskGroup(String title, DateTime currDate) {
 		currDate = new DateTime(currDate);
-		
+
 		TaskGroup taskGroup;
 		taskGroup = new TaskGroup(title, new DateTime(currDate));
 		taskGroup.addTasks(getIncompleteDeadlineTasks(currDate));
@@ -757,31 +843,31 @@ public class TaskManager {
 		return taskGroup;
 	}
 
-	public void filterTaskGroupsByCategory(ArrayList<TaskGroup> taskGroups, Category category){
+	public void filterTaskGroupsByCategory(ArrayList<TaskGroup> taskGroups, Category category) {
 		Iterator<TaskGroup> taskGroupsItr = taskGroups.iterator();
 		while (taskGroupsItr.hasNext()) {
 			TaskGroup taskGroup = taskGroupsItr.next();
 			taskGroup.filterByCategory(category);
-			
-			if(taskGroup.size() == 0){
+
+			if (taskGroup.size() == 0) {
 				taskGroupsItr.remove();
 			}
 		}
-		
+
 	}
-	
-	public void filterTaskGroupsByDate(DateTime dateTime){
-		
+
+	public void filterTaskGroupsByDate(DateTime dateTime) {
+
 	}
-	
-	public void filterTaskGroupsByDay(){
-		
+
+	public void filterTaskGroupsByDay() {
+
 	}
-	
-	public void filterTaskGroupsByMonth(){
-		
+
+	public void filterTaskGroupsByMonth() {
+
 	}
-	
+
 	public void sortTasks(ArrayList<Task> tasks) {
 		TaskUniqueIdComparator uniqueIdComparator = new TaskUniqueIdComparator();
 		Collections.sort(tasks, uniqueIdComparator);
@@ -814,28 +900,28 @@ public class TaskManager {
 			ArrayList<Task> tasks = taskGroup.getTasks();
 			for (Task task : tasks) {
 				boolean isSuccess = task.setDisplayId(taskId);
-				
-				if(isSuccess){
+
+				if (isSuccess) {
 					taskId++;
 				}
 			}
 		}
 	}
 
-	public void resetNewTask(){
-		for(Task task : tasks){
+	public void resetNewTask() {
+		for (Task task : tasks) {
 			task.setOld();
 		}
 	}
-	
-	public void setSearchKey(String searchKey){
+
+	public void setSearchKey(String searchKey) {
 		this.searchKey = searchKey;
 	}
-	
-	public void setSearchKey(DateTime dateTime){
+
+	public void setSearchKey(DateTime dateTime) {
 		this.dateTime = dateTime;
 	}
-	
+
 	public ArrayList<Task> searchTask(String searchString) {
 		ArrayList<Task> searchedTasks = new ArrayList<Task>();
 
@@ -851,7 +937,7 @@ public class TaskManager {
 
 		return searchedTasks;
 	}
-	
+
 	public void display() {
 		System.out.println();
 		System.out.println("Task List");

@@ -8,7 +8,7 @@ import org.junit.Test;
 import org.powermock.reflect.Whitebox;
 
 import dooyit.common.datatype.Category;
-import dooyit.common.datatype.CustomColor;
+import dooyit.common.datatype.CustomColour;
 import dooyit.logic.api.Action;
 import dooyit.logic.api.LogicAction;
 import dooyit.logic.api.LogicController;
@@ -56,7 +56,7 @@ public class AddCategoryCommandTest {
 		
 		assertTrue(logic.containsCategory("CS3230"));
 		Category category = logic.findCategory("CS3230");
-		assertTrue(category.getCustomColour() == CustomColor.BLUE);
+		assertTrue(category.getCustomColour() == CustomColour.BLUE);
 	}
 	
 	@Test

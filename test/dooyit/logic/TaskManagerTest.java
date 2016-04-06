@@ -10,7 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import dooyit.common.datatype.Category;
-import dooyit.common.datatype.CustomColor;
+import dooyit.common.datatype.CustomColour;
 import dooyit.common.datatype.DateTime;
 import dooyit.common.datatype.DeadlineTask;
 import dooyit.common.datatype.EventTask;
@@ -204,7 +204,7 @@ public class TaskManagerTest {
 	public void GetTaskWithCat() {
 		taskManager.clear();
 		ArrayList<Task> tasks = new ArrayList<Task> ();	
-		Category category = new Category("Personal", CustomColor.BLUE);
+		Category category = new Category("Personal", CustomColour.BLUE);
 		
 		Task task1 = (Task) new FloatingTask("Buy milk");
 		task1.setCategory(category);
@@ -395,7 +395,7 @@ public class TaskManagerTest {
 		setupTasks();
 		
 		ArrayList<Task> allTasks = taskManager.getAllTasks();
-		Category personal = new Category("Personal", CustomColor.BLUE);
+		Category personal = new Category("Personal", CustomColour.BLUE);
 		Task task1 = allTasks.get(0);
 		task1.setCategory(personal);
 		

@@ -20,7 +20,7 @@ public class CategoryTest {
 
 	@Before
 	public void setUp() {
-		cat1 = new Category("School", CustomColor.BLUE);
+		cat1 = new Category("School", CustomColour.BLUE);
 		cat2 = new Category("Chores");
 		cat3 = new Category("CHORES");
 	}
@@ -33,12 +33,12 @@ public class CategoryTest {
 
 	@Test
 	public void testGetColor() {
-		assertTrue(cat1.getColour().equals(CustomColor.BLUE.getColor()));
+		assertTrue(cat1.getColour().equals(CustomColour.BLUE.getColor()));
 	}
 
 	@Test
 	public void testGetCustomColor() {
-		assertTrue(cat1.getCustomColour().equals(CustomColor.BLUE));
+		assertTrue(cat1.getCustomColour().equals(CustomColour.BLUE));
 	}
 
 	@Test
@@ -55,7 +55,7 @@ public class CategoryTest {
 
 	@Test
 	public void testToString() {
-		String s = "School " + CustomColor.BLUE.toString();
+		String s = "School " + CustomColour.BLUE.toString();
 		assertEquals(cat1.toString(), s);
 	}
 

@@ -10,7 +10,7 @@ import org.junit.Test;
 import org.powermock.reflect.Whitebox;
 
 import dooyit.common.datatype.Category;
-import dooyit.common.datatype.CustomColor;
+import dooyit.common.datatype.CustomColour;
 import dooyit.common.datatype.DateTime;
 import dooyit.common.datatype.Task;
 import dooyit.logic.api.Action;
@@ -68,7 +68,7 @@ public class SetCategoryCommandTest {
 		logic.addDeadlineTask("Project Proposal", deadline);
 		
 		//Add the category first
-		Category category = new Category("Deadlines", CustomColor.BLUE);
+		Category category = new Category("Deadlines", CustomColour.BLUE);
 		logic.addCategory(category);
 		assertTrue(logic.containsCategory("Deadlines"));
 		

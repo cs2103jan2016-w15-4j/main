@@ -6,13 +6,13 @@ import javafx.scene.paint.Color;
 public class Category {
 	private String name;
 
-	private CustomColor customColor;
+	private CustomColour customColor;
 
 	public Category(String name) {
 		this.name = name;
 	}
 
-	public Category(String name, CustomColor customColour) {
+	public Category(String name, CustomColour customColour) {
 		this.name = name;
 		this.customColor = customColour;
 	}
@@ -21,14 +21,22 @@ public class Category {
 		return this.name;
 	}
 
+	public void setName(String newName) {
+		this.name = newName;
+	}
+
 	public Color getColour() {
 		return customColor.getColor();
 	}
 
-	public CustomColor getCustomColour() {
+	public CustomColour getCustomColour() {
 		return customColor;
 	}
 
+	public void setCustomColour(CustomColour customColour){
+		this.customColor = customColour;
+	}
+	
 	public String getCustomColourName() {
 		return customColor.getName();
 	}

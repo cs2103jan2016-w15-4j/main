@@ -16,7 +16,19 @@ import dooyit.common.datatype.Task;
 import dooyit.common.datatype.TaskGroup;
 import dooyit.common.datatype.Task.TaskType;
 
+/**
+ * The task manager is class that manages all the task and provides various
+ * functionalities: create floating task, create deadline task, create event
+ * task, remove task, find task, check if task manager contains the task, mark
+ * task, delete task, edit task, set task display id, grouping of task with
+ * filtering and sorting, search for tasks by keyword, day and month
+ * 
+ * @author limtaeu
+ *
+ */
 public class TaskManager {
+
+	private static final int DAYS_PER_WEEK = 7;
 
 	enum SearchType {
 		NAME, DATE, DAY, MONTH
@@ -32,18 +44,54 @@ public class TaskManager {
 		tasks = new ArrayList<Task>();
 	}
 
+	/**
+	 * creates a new floating task, task is not completed by default
+	 * 
+	 * @param data
+	 *            name of the task
+	 * @return the added floating task
+	 */
 	public Task addFloatingTask(String data) {
 		return addFloatingTask(data, false);
 	}
 
+	/**
+	 * creates a new deadline task, task is not completed by default
+	 * 
+	 * @param data
+	 *            name of the task
+	 * @param dateTime
+	 *            deadline of the task
+	 * @return the added deadlineTask
+	 */
 	public Task addDeadlineTask(String data, DateTime dateTime) {
 		return addDeadlineTask(data, dateTime, false);
 	}
 
+	/**
+	 * Creates a new event task, taks is not completed by default
+	 * 
+	 * @param data
+	 *            name of the task
+	 * @param start
+	 *            start time of the task
+	 * @param end
+	 *            end time of the task
+	 * @return the added event task
+	 */
 	public Task addEventTask(String data, DateTime start, DateTime end) {
 		return addEventTask(data, start, end, false);
 	}
 
+	/**
+	 * creates a new floating task
+	 * 
+	 * @param data
+	 *            name of the task
+	 * @param isCompleted
+	 *            wheather the task is completed
+	 * @return the added floating task
+	 */
 	public Task addFloatingTask(String data, boolean isCompleted) {
 		FloatingTask floatingTask = new FloatingTask(data);
 		if (isCompleted) {
@@ -55,6 +103,17 @@ public class TaskManager {
 		return floatingTask;
 	}
 
+	/**
+	 * creates a new deadline task
+	 * 
+	 * @param data
+	 *            name of the task
+	 * @param isCompleted
+	 *            wheather the task is completed
+	 * @param dateTime
+	 *            deadline of the task
+	 * @return the added deadlineTask
+	 */
 	public Task addDeadlineTask(String data, DateTime dateTime, boolean isCompleted) {
 		DeadlineTask deadlineTask = new DeadlineTask(data, dateTime);
 		if (isCompleted) {
@@ -65,6 +124,19 @@ public class TaskManager {
 		return deadlineTask;
 	}
 
+	/**
+	 * Creates a new event task, taks is not completed by default
+	 * 
+	 * @param data
+	 *            name of the task
+	 * @param isCompleted
+	 *            wheather the task is completed
+	 * @param start
+	 *            start time of the task
+	 * @param end
+	 *            end time of the task
+	 * @return the added event task
+	 */
 	public Task addEventTask(String data, DateTime start, DateTime end, boolean isCompleted) {
 		EventTask eventTask = new EventTask(data, start, end);
 
@@ -76,6 +148,11 @@ public class TaskManager {
 		return eventTask;
 	}
 
+	/**
+	 * add a task into the task manager
+	 * 
+	 * @param task
+	 */
 	public void add(Task task) {
 		tasks.add(task);
 	}
@@ -84,7 +161,8 @@ public class TaskManager {
 	 * add all the task from tasks into the task manager
 	 * 
 	 * @param tasks
-	 *            ArrayList containing the tasks to be added into the task manager
+	 *            ArrayList containing the tasks to be added into the task
+	 *            manager
 	 */
 	public void load(ArrayList<Task> tasks) {
 		this.tasks.addAll(tasks);
@@ -326,6 +404,15 @@ public class TaskManager {
 		return latestTask;
 	}
 
+	/**
+	 * change the name of a task
+	 * 
+	 * @param taskId
+	 *            ID of a task to be changed
+	 * @param newName
+	 *            new name of the task
+	 * @return the changed task, null if cannot find the task with the id
+	 */
 	public Task changeTaskName(int taskId, String newName) {
 		if (!contains(taskId)) {
 			return null;
@@ -338,6 +425,12 @@ public class TaskManager {
 		return newTask;
 	}
 
+	/**
+	 * change a task into a floating task
+	 * 
+	 * @param taskId
+	 * @return the changed task, null if cannot find the task with the id
+	 */
 	public Task changeToFloatingTask(int taskId) {
 		if (!contains(taskId)) {
 			return null;
@@ -351,6 +444,12 @@ public class TaskManager {
 		return newTask;
 	}
 
+	/**
+	 * change a task into a deadline task
+	 * @param taskId
+	 * @param dateTimeDeadline
+	 * @return the changed task, null if cannot find the task with the id
+	 */
 	public Task changeTaskToDeadline(int taskId, DateTime dateTimeDeadline) {
 		if (!contains(taskId)) {
 			return null;
@@ -364,6 +463,13 @@ public class TaskManager {
 		return newTask;
 	}
 
+	/**
+	 *  change a task into a event task
+	 * @param taskId
+	 * @param dateTimeStart
+	 * @param dateTimeEnd
+	 * @return the changed task, null if cannot find the task with the id
+	 */
 	public Task changeTaskToEvent(int taskId, DateTime dateTimeStart, DateTime dateTimeEnd) {
 		if (!contains(taskId)) {
 			return null;
@@ -377,19 +483,34 @@ public class TaskManager {
 		return newTask;
 	}
 
+	/**
+	 * checks if the task is a floating task
+	 * @param task
+	 * @return true if the task is a floating task
+	 */
 	public boolean isFloatingTask(Task task) {
 		return (task instanceof FloatingTask);
 	}
 
+	/**
+	 * checks if the task has a deadline or event by today
+	 * @param task
+	 * @return true if the task has a deadline or event by today
+	 */
 	public boolean isTodayTask(Task task) {
 		DateTime currDate = new DateTime();
 		return task.isSameDate(currDate);
 	}
 
+	/**
+	 * checks if the task has a deadline or event within the next 7 days
+	 * @param task
+	 * @return true if the task has a deadline or event within the next 7 days
+	 */
 	public boolean isNext7DaysTask(Task task) {
 		DateTime currDate = new DateTime();
 
-		for (int i = 0; i < 7; i++) {
+		for (int i = 0; i < DAYS_PER_WEEK; i++) {
 			if (task.isSameDate(currDate)) {
 				return true;
 			}

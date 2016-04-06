@@ -4,51 +4,51 @@ package dooyit.logic;
 import java.util.ArrayList;
 import java.util.Random;
 
-import dooyit.common.datatype.CustomColor;
+import dooyit.common.datatype.CustomColour;
 
 public class ColourManager {
-	ArrayList<CustomColor> usedColours;
+	ArrayList<CustomColour> usedColours;
 	Random random;
-	ArrayList<CustomColor> recommendedColours;
-	ArrayList<CustomColor> availableColours;
-	ArrayList<CustomColor> colourPool;
+	ArrayList<CustomColour> recommendedColours;
+	ArrayList<CustomColour> availableColours;
+	ArrayList<CustomColour> colourPool;
 
 	public ColourManager() {
 		random = new Random();
-		availableColours = new ArrayList<CustomColor>();
-		availableColours.add(CustomColor.BLACK);
-		availableColours.add(CustomColor.BLUE);
-		availableColours.add(CustomColor.CYAN);
-		availableColours.add(CustomColor.GREY);
-		availableColours.add(CustomColor.GREEN);
-		availableColours.add(CustomColor.MAGENTA);
-		availableColours.add(CustomColor.PINK);
-		availableColours.add(CustomColor.RED);
-		availableColours.add(CustomColor.YELLOW);
-		availableColours.add(CustomColor.WHITE);
+		availableColours = new ArrayList<CustomColour>();
+		availableColours.add(CustomColour.BLACK);
+		availableColours.add(CustomColour.BLUE);
+		availableColours.add(CustomColour.CYAN);
+		availableColours.add(CustomColour.GREY);
+		availableColours.add(CustomColour.GREEN);
+		availableColours.add(CustomColour.MAGENTA);
+		availableColours.add(CustomColour.PINK);
+		availableColours.add(CustomColour.RED);
+		availableColours.add(CustomColour.YELLOW);
+		availableColours.add(CustomColour.WHITE);
 
-		recommendedColours = new ArrayList<CustomColor>();
-		recommendedColours.add(CustomColor.BLUE);
-		recommendedColours.add(CustomColor.CYAN);
-		recommendedColours.add(CustomColor.GREEN);
-		recommendedColours.add(CustomColor.MAGENTA);
-		recommendedColours.add(CustomColor.PINK);
-		recommendedColours.add(CustomColor.RED);
-		recommendedColours.add(CustomColor.YELLOW);
+		recommendedColours = new ArrayList<CustomColour>();
+		recommendedColours.add(CustomColour.BLUE);
+		recommendedColours.add(CustomColour.CYAN);
+		recommendedColours.add(CustomColour.GREEN);
+		recommendedColours.add(CustomColour.MAGENTA);
+		recommendedColours.add(CustomColour.PINK);
+		recommendedColours.add(CustomColour.RED);
+		recommendedColours.add(CustomColour.YELLOW);
 		// recommendedColours.add(CustomColor.GREY);
 
-		colourPool = new ArrayList<CustomColor>(recommendedColours);
+		colourPool = new ArrayList<CustomColour>(recommendedColours);
 	}
 
-	public CustomColor pickRandomCustomColour() {
+	public CustomColour pickRandomCustomColour() {
 		if (colourPool.size() == 0) {
-			colourPool = new ArrayList<CustomColor>(recommendedColours);
+			colourPool = new ArrayList<CustomColour>(recommendedColours);
 		}
 		return colourPool.remove(random.nextInt(colourPool.size()));
 	}
 
 	public boolean contains(String name) {
-		for (CustomColor customColor : availableColours) {
+		for (CustomColour customColor : availableColours) {
 			if (customColor.equals(name)) {
 				return true;
 			}
@@ -56,13 +56,13 @@ public class ColourManager {
 		return false;
 	}
 
-	public boolean contains(CustomColor customColor) {
+	public boolean contains(CustomColour customColor) {
 		boolean hasCustomColor = availableColours.contains(customColor);
 		return hasCustomColor;
 	}
 
-	public CustomColor find(String customColorString) {
-		for (CustomColor customColor : availableColours) {
+	public CustomColour find(String customColorString) {
+		for (CustomColour customColor : availableColours) {
 			if (customColor.equals(customColorString)) {
 				return customColor;
 			}

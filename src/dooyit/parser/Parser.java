@@ -18,7 +18,7 @@ public class Parser implements ParserCommons {
 	private EditCategoryParser editCatParser;
 	private MoveParser moveParser;
 	private FloatParser floatParser;
-	// private HelpParser helpParser;
+	private HelpParser helpParser;
 
 	public Parser() {
 		addParser = new AddParser();
@@ -32,7 +32,7 @@ public class Parser implements ParserCommons {
 		editCatParser = new EditCategoryParser();
 		moveParser = new MoveParser();
 		floatParser = new FloatParser();
-		// helpParser = new HelpParser();
+		helpParser = new HelpParser();
 	}
 
 	public Command getCommand(String input) {
@@ -81,7 +81,7 @@ public class Parser implements ParserCommons {
 			break;
 			
 		case COMMAND_HELP:
-			command = CommandUtils.createHelpCommand();
+			command = helpParser.getCommand(commandInput);
 			break;
 			
 		case COMMAND_MARK:

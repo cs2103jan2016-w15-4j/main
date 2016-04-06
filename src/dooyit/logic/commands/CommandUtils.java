@@ -80,7 +80,17 @@ public class CommandUtils {
 		RemoveCategoryFromTaskCommand removeCategoryFromTaskCommand = new RemoveCategoryFromTaskCommand(categoryName, taskId);
 		return removeCategoryFromTaskCommand;
 	}
+	
+	public static Command createEditCategoryCommand(String categoryName, String newCategoryName){
+		EditCategoryCommand editCategoryCommand = new EditCategoryCommand(categoryName, newCategoryName);
+		return editCategoryCommand;
+	}
 
+	public static Command createEditCategoryCommand(String categoryName, String newCategoryName, String newColourString){
+		EditCategoryCommand editCategoryCommand = new EditCategoryCommand(categoryName, newCategoryName, newColourString);
+		return editCategoryCommand;
+	}
+	
 	public static Command createShowTodayCommand() {
 		ShowCommand showCommand = new ShowCommand(ShowCommand.ShowCommandType.TODAY);
 

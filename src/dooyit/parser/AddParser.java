@@ -13,8 +13,6 @@ public class AddParser implements ParserCommons {
 
 	private String userInput;
 	private String taskName;
-	//private String categoryName;
-	//private int categoryId;
 	private DateTime start;
 	private DateTime end;
 	private DateTime deadline;
@@ -60,94 +58,13 @@ public class AddParser implements ParserCommons {
 			}
 			setToEventCommand();
 			break;
-
-		/*case CATEGORY_AND_FLOATING:
-			try {
-				parseCategoryAndFloating();
-			} catch (IncorrectInputException e) {
-				setToInvalidCommand(e.getMessage());
-				break;
-			}
-			setCategoryAndFloatingCommand();
-			break;
-
-		case CATEGORY_AND_WORK:
-			try {
-				parseCategoryAndWork();
-			} catch (IncorrectInputException e) {
-				setToInvalidCommand(e.getMessage());
-				break;
-			}
-			setCategoryAndWorkCommand();
-			break;
-
-		case CATEGORY_AND_EVENT:
-			try {
-				parseCategoryAndEvent();
-			} catch (IncorrectInputException e) {
-				setToInvalidCommand(e.getMessage());
-			}
-			setCategoryAndEventCommand();
-			break;*/
-
+			
 		default:
 			setToInvalidCommand(ERROR_MESSAGE_INVALID_ADD_COMMAND);
 		}
 
 		return command;
 	}
-
-	/*private void parseCategoryAndFloating() throws IncorrectInputException {
-		parseCategory();
-		try {
-			parseWork();
-		} catch(IncorrectInputException e) {
-			throw e;
-		}
-	}
-
-	private void parseCategoryAndWork() throws IncorrectInputException {
-		parseCategory();
-		try {
-			parseEvent();
-		} catch(IncorrectInputException e) {
-			throw e;
-		}
-	}
-
-	private void parseCategoryAndEvent() throws IncorrectInputException {
-		parseCategory();
-		try {
-			parseEvent();
-		} catch (IncorrectInputException e) {
-			throw e;
-		}
-	}
-
-	private void parseCategory() {
-		int indexCategory = userInput.lastIndexOf(MARKER_CATEGORY);
-		String category = userInput.substring(indexCategory).replace(MARKER_CATEGORY, "").trim();
-		if (ParserCommons.isNumber(category)) {
-			categoryId = Integer.parseInt(category);
-		} else {
-			categoryName = category;
-		} 
-	}
-
-	private void setCategoryAndEventCommand() {
-		// cmd = CommandUtils.createAddCommandCategory(taskName, start, end,
-		// categoryId, categoryName);
-	}
-
-	private void setCategoryAndWorkCommand() {
-		// cmd = CommandUtils.createAddCommandCategory(taskName, deadline,
-		// categoryId, categoryName);
-	}
-
-	private void setCategoryAndFloatingCommand() {
-		// cmd = CommandUtils.createAddCommandCategory(taskName, categoryId,
-		// categoryName);
-	}*/
 
 	private void setToInvalidCommand(String message) {
 		command = CommandUtils.createInvalidCommand(message);

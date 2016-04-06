@@ -12,8 +12,8 @@ public class RemoveCategoryFromTaskCommand implements Command, ReversibleCommand
 
 	private String categoryName;
 	private int taskId;
-	private Task taskWithoutCat;
-	private Category category;
+	private Task taskWithCategory;
+	private Category removedCategory;
 	private boolean hasError = false;
 
 	public RemoveCategoryFromTaskCommand(String categoryName, int taskId) {
@@ -26,11 +26,11 @@ public class RemoveCategoryFromTaskCommand implements Command, ReversibleCommand
 	}
 
 	public void undo(LogicController logic) {
-		taskWithoutCat.removeCategory();
+		taskWithCategory.setCategory(removedCategory);
 	}
 
 	public void redo(LogicController logic) {
-		taskWithoutCat.setCategory(category);
+		taskWithCategory.removeCategory();
 	}
 
 	public LogicAction execute(LogicController logic) throws IncorrectInputException {
@@ -49,10 +49,10 @@ public class RemoveCategoryFromTaskCommand implements Command, ReversibleCommand
 			return logicAction;
 		}
 
-		taskWithoutCat = logic.findTask(taskId);
-		category = logic.findCategory(categoryName);
-		taskWithoutCat.setCategory(category);
-		logicAction = new LogicAction(Action.REMOVE_CAT_FROM_TASK);
+		taskWithCategory = logic.findTask(taskId);
+		removedCategory = taskWithCategory.getCategory();
+		taskWithCategory.setCategory(null);
+		logicAction = new LogicAction(Action.REMOVE_CAT_FROM_TASK, "Category succesfully removed.");
 
 		return logicAction;
 	}

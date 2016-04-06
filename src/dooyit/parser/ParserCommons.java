@@ -32,7 +32,7 @@ public interface ParserCommons {
 	
 	public static final String[] exitCommandAlias = new String[]{"close", COMMAND_EXIT};
 	public static final String[] deleteCommandAlias = new String[]{"rm", "remove", COMMAND_DELETE};
-	public static final String[] floatCommandAlias = new String[]{"editToFloat", COMMAND_FLOAT};
+	public static final String[] floatCommandAlias = new String[]{"edittofloat", COMMAND_FLOAT};
 
 	public static String getCommandType(String commandString) {
 		String type;

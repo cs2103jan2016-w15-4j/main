@@ -16,6 +16,7 @@ import java.util.logging.Logger;
 import dooyit.common.datatype.CategoryData;
 import dooyit.common.datatype.TaskData;
 import dooyit.common.exception.IncorrectInputException;
+import dooyit.system.OsUtils;
 
 public class StorageController {
 	
@@ -41,7 +42,6 @@ public class StorageController {
 	private static final int PREFERENCES_SIZE = 2;
 
 	public StorageController() throws IOException {
-		OsUtils.getOsName();
 		preferences = new String[PREFERENCES_SIZE];
 		configFilePath = getConfigPath(Constants.CURRENT_DIRECTORY);
 		preferences = loadPreferences(configFilePath);

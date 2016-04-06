@@ -22,7 +22,7 @@ import dooyit.common.datatype.TaskData;
 import dooyit.common.exception.IncorrectInputException;
 
 public class StorageController {
-
+	
 	private String configFilePath;
 	private String[] preferences;
 	private CategoryController categoryControl;
@@ -45,6 +45,7 @@ public class StorageController {
 	private static final int PREFERENCES_SIZE = 2;
 
 	public StorageController() throws IOException {
+		OsUtils.getOsName();
 		preferences = new String[PREFERENCES_SIZE];
 		configFilePath = getConfigPath(Constants.CURRENT_DIRECTORY);
 		preferences = loadPreferences(configFilePath);
@@ -84,6 +85,11 @@ public class StorageController {
 	
 	public String getCssPath() {
 		String cssPath = preferences[THEME_DESTINATION].replace(BACK_SLASH, FORWARD_SLASH);
+		
+		if(OsUtils.isWindows()) {
+			//Prepend "/" to Windows file path since Mac file system has "/" for root
+			cssPath = FORWARD_SLASH + cssPath;
+		}
 		
 		return cssPath;
 	}

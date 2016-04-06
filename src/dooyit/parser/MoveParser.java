@@ -39,11 +39,7 @@ public class MoveParser extends TagParser {
 
 	private void setCorrectMoveCommand(TAG_TYPE tagType) {
 		switch (tagType) {
-		case SINGLE:
-			setSingleTypeMoveCommand();
-			break;
-
-		case MULTIPLE:
+		case VALID:
 			setMultipleTypeMoveCommand();
 			break;
 
@@ -55,10 +51,6 @@ public class MoveParser extends TagParser {
 
 	private void setMultipleTypeMoveCommand() {
 		command = CommandUtils.createSetCategoryCommand(taskIdsForTagging, categoryName);
-	}
-
-	private void setSingleTypeMoveCommand() {
-		command = CommandUtils.createSetCategoryCommand(taskIdForTagging, categoryName);
 	}
 
 	private void setInvalidCommand() {

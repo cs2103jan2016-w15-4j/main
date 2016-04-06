@@ -10,14 +10,12 @@ import dooyit.logic.commands.CommandUtils;
 public class TagParser implements ParserCommons {
 	protected static final String MARKER_FOR_INTERVAL_TAG_TYPE = "-";
 	public static final String ERROR_MESSAGE_INVALID_TASK_ID = "Invalid Task ID: ";
-	private static final int INDEX_SINGLE = 0;
 	protected String userInput;
 	protected String[] splitInput;
 	protected ArrayList<Integer> taskIdsForTagging;
-	protected int taskIdForTagging;
 	
 	enum TAG_TYPE {
-		SINGLE, MULTIPLE, INVALID
+		VALID, INVALID
 	}
 
 	public TagParser() {
@@ -79,11 +77,8 @@ public class TagParser implements ParserCommons {
 
 	public TAG_TYPE getTagType() {
 		TAG_TYPE type;
-		if (taskIdsForTagging.size() == 1) {
-			taskIdForTagging = taskIdsForTagging.get(INDEX_SINGLE);
-			type = TAG_TYPE.SINGLE;
-		} else if (taskIdsForTagging.size() > 1) {
-			type = TAG_TYPE.MULTIPLE;
+		if (taskIdsForTagging.size() >= 1) {
+			type = TAG_TYPE.VALID;
 		} else {
 			type = TAG_TYPE.INVALID;
 		}

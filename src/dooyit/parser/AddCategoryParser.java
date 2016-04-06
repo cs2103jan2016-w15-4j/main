@@ -74,25 +74,13 @@ public class AddCategoryParser extends TagParser{
 	
 	private void setCorrectCategoryWithTasksCommand(TAG_TYPE tagType) {
 		switch (tagType) {
-		case SINGLE:
-			setCreateCategoryWithOneTaskCommand();
-			break;
-
-		case MULTIPLE:
+		case VALID:
 			setCreateCategoryWithManyTasksCommand();
 			break;
 
 		default: 
 			setInvalidCmd();
 			break;
-		}
-	}
-
-	private void setCreateCategoryWithOneTaskCommand() {
-		if(hasColour) {
-			//command = CommandUtils.createAddCategoryCommand(catName, catColour, taskIdsForTagging);
-		} else {
-			//command = CommandUtils.createAddCatergoryCommand(catName, taskIdsForTagging); 
 		}
 	}
 

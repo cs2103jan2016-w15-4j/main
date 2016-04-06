@@ -31,13 +31,9 @@ public class FloatParser extends TagParser {
 
 	private void setCorrectFloatCommand(TAG_TYPE tagType) {
 		switch (tagType) {
-		case SINGLE:
-			setSingleTypeFloatCommand();
-			break;
-
-		/*case MULTIPLE:
+		case VALID:
 			setMultipleTypeFloatCommand();
-			break;*/
+			break;
 
 		default:
 			setInvalidCommand();
@@ -47,10 +43,7 @@ public class FloatParser extends TagParser {
 	
 	private void setMultipleTypeFloatCommand() {
 		//command = CommandUtils.createFloatCommand(taskIdsForTagging);
-	}
-
-	private void setSingleTypeFloatCommand() {
-		command = CommandUtils.createEditCommandToFloat(taskIdForTagging);
+		command = CommandUtils.createEditCommandToFloat(taskIdsForTagging.get(0));
 	}
 	
 	private void setInvalidCommand(String message) {

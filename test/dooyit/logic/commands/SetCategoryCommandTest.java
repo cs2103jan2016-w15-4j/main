@@ -1,6 +1,7 @@
 package dooyit.logic.commands;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 
@@ -15,7 +16,6 @@ import dooyit.common.datatype.Task;
 import dooyit.logic.api.Action;
 import dooyit.logic.api.LogicAction;
 import dooyit.logic.api.LogicController;
-import dooyit.logic.commands.SetCategoryCommand;
 
 public class SetCategoryCommandTest {
 	private static final String ACTION = "action";

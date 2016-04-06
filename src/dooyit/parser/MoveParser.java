@@ -42,18 +42,10 @@ public class MoveParser extends TagParser {
 			setMultipleTypeMoveCommand();
 			break;
 
-		case INTERVAL:
-			setIntervalTypeMoveCommand();
-			break;
-
 		default:
 			setInvalidCommand();
 			break;
 		}
-	}
-
-	private void setIntervalTypeMoveCommand() {
-		command = CommandUtils.createSetCategoryCommand(taskIdsForTagging, categoryName);
 	}
 
 	private void setMultipleTypeMoveCommand() {

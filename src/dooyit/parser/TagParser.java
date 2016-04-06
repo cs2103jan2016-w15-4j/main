@@ -9,7 +9,7 @@ import dooyit.logic.commands.CommandUtils;
 
 public class TagParser implements ParserCommons {
 	private static final String MARKER_FOR_INTERVAL_TAG_TYPE = "-";
-	public static final String ERROR_MESSAGE_INVALID_TASK_ID = "Error: Invalid Task ID";
+	public static final String ERROR_MESSAGE_INVALID_TASK_ID = "Invalid Task ID: ";
 	private static final int INDEX_SINGLE = 0;
 	public String userInput;
 	public String[] splitInput;
@@ -17,7 +17,7 @@ public class TagParser implements ParserCommons {
 	public int taskIdForTagging;
 	
 	enum TAG_TYPE {
-		SINGLE, MULTIPLE, INTERVAL, INVALID
+		SINGLE, MULTIPLE, INVALID
 	}
 
 	public TagParser() {
@@ -25,33 +25,16 @@ public class TagParser implements ParserCommons {
 	}
 	
 	public void parseTaskIds() throws IncorrectInputException {
-		switch (getTagType()) {
-		case SINGLE:
-			try {
-				parseSingleType();
-			} catch (IncorrectInputException e) {
-				throw e;
+		for(int i = 0; i < splitInput.length; i++) {
+			String currWord = splitInput[i];
+			if(ParserCommons.isNumber(currWord)) {
+				int taggedId = Integer.parseInt(currWord);
+				taskIdsForTagging.add(taggedId);
+			} else if(currWord.contains(MARKER_FOR_INTERVAL_TAG_TYPE)) {
+				setInterval(currWord);
+			} else {
+				throw new IncorrectInputException(ERROR_MESSAGE_INVALID_TASK_ID + currWord);
 			}
-			break;
-
-		case MULTIPLE:
-			try {
-				parseMultipleType();
-			} catch (IncorrectInputException e) {
-				throw e;
-			}
-			break;
-
-		case INTERVAL:
-			try {
-				parseIntervalType();
-			} catch (IncorrectInputException e) {
-				throw e;
-			}
-			break;
-
-		default:
-			throw new IncorrectInputException(ERROR_MESSAGE_INVALID_TASK_ID);
 		}
 	}
 	
@@ -59,14 +42,6 @@ public class TagParser implements ParserCommons {
 		userInput = input;
 		splitInput = userInput.split("\\s+");
 		taskIdsForTagging = new ArrayList<Integer>();
-	}
-
-	public void parseIntervalType() throws IncorrectInputException {
-		for (int i = 0; i < splitInput.length; i++) {
-			if (splitInput[i].contains(MARKER_FOR_INTERVAL_TAG_TYPE)) {
-				setInterval(splitInput[i]);
-			}
-		}
 	}
 
 	public void setInterval(String currWord) {
@@ -83,36 +58,16 @@ public class TagParser implements ParserCommons {
 		}
 	}
 
-	public void parseMultipleType() throws IncorrectInputException {
-		for (int i = 0; i < splitInput.length; i++) {
-			String currWord = splitInput[i];
-			if (!ParserCommons.isNumber(currWord)) {
-				throw new IncorrectInputException(ERROR_MESSAGE_INVALID_TASK_ID);
-			} else {
-				taskIdsForTagging.add(Integer.parseInt(currWord));
-			}
-		}
-	}
-
 	public Command getInvalidCommand(String message) {
 		return CommandUtils.createInvalidCommand(message);
 	}
 
-	public void parseSingleType() throws IncorrectInputException {
-		if (ParserCommons.isNumber(splitInput[INDEX_SINGLE])) {
-			taskIdForTagging = Integer.parseInt(splitInput[INDEX_SINGLE]);
-		} else {
-			throw new IncorrectInputException(ERROR_MESSAGE_INVALID_TASK_ID);
-		}
-	}
-
 	public TAG_TYPE getTagType() {
 		TAG_TYPE type;
-		if (userInput.contains(MARKER_FOR_INTERVAL_TAG_TYPE)) {
-			type = TAG_TYPE.INTERVAL;
-		} else if (splitInput.length == 1) {
+		if (taskIdsForTagging.size() == 1) {
+			taskIdForTagging = taskIdsForTagging.get(INDEX_SINGLE);
 			type = TAG_TYPE.SINGLE;
-		} else if (splitInput.length > 1) {
+		} else if (taskIdsForTagging.size() > 1) {
 			type = TAG_TYPE.MULTIPLE;
 		} else {
 			type = TAG_TYPE.INVALID;

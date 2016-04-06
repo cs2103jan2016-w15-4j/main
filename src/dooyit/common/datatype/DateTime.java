@@ -29,6 +29,8 @@ public class DateTime {
 	private static final int UNINITIALIZED_INT = -1;
 	private static final int MIDNIGHT_INT = 0;
 	private static final int RIGHT_BEFORE_MIDNIGHT_INT = 2359;
+	private static final String RIGHT_BEFORE_MIDNIGHT_STRING = "23:59";
+	private static final String MIDNIGHT_STRING ="00:00";
 	
 	public static final int MONDAY = 1;
 	public static final int TUESDAY = 2;
@@ -389,17 +391,15 @@ public class DateTime {
 		
 		String startTimeString = startCopy.getTime24hStr();
 		String endTimeString = end.getTime24hStr();
-		String beforeMidnight = "23:59";
-		String midnight = "00:00";
-		String timeToBeAdded = startTimeString + " - " + beforeMidnight;
+		String timeToBeAdded = startTimeString + " - " + RIGHT_BEFORE_MIDNIGHT_STRING;
 		listOfTimings.add(timeToBeAdded);
 		startCopy.increaseByOneDay();
 		while(compareDates(startCopy, end) != COMPARISON_FIRST_EQUALS_SECOND) {
-			timeToBeAdded = midnight + " - " + beforeMidnight;
+			timeToBeAdded = MIDNIGHT_STRING + " - " + RIGHT_BEFORE_MIDNIGHT_STRING;
 			listOfTimings.add(timeToBeAdded);
 			startCopy.increaseByOneDay();
 		}
-		timeToBeAdded = midnight + " - " + endTimeString;
+		timeToBeAdded = MIDNIGHT_STRING + " - " + endTimeString;
 		listOfTimings.add(timeToBeAdded);
 		
 		return listOfTimings;
@@ -431,9 +431,16 @@ public class DateTime {
 	
 	
 	public static boolean isOverlap(DateTime startOne, DateTime endOne, DateTime startTwo, DateTime endTwo) {
-		boolean startOneIsAfterEndTwo = startOne.compareTo(endTwo) == COMPARISON_FIRST_IS_AFTER_SECOND;
-		boolean startTwoIsAfterEndOne = startTwo.compareTo(endOne) == COMPARISON_FIRST_IS_AFTER_SECOND;
-		return startOneIsAfterEndTwo || startTwoIsAfterEndOne;
+		boolean startOneIsBeforeEndTwo = startOne.compareTo(endTwo) == COMPARISON_FIRST_IS_BEFORE_SECOND;
+		boolean endOneIsAfterEndTwo = endOne.compareTo(endTwo) == COMPARISON_FIRST_IS_AFTER_SECOND;
+		boolean firstIntervalIsAfterSecond = !startOneIsBeforeEndTwo && endOneIsAfterEndTwo;
+		
+		boolean startOneIsBeforeStartTwo = startOne.compareTo(startTwo) == COMPARISON_FIRST_IS_BEFORE_SECOND;
+		boolean endOneIsBeforeStartTwo = endOne.compareTo(startTwo) != COMPARISON_FIRST_IS_AFTER_SECOND;
+		boolean firstIntervalIsBeforeSecond = startOneIsBeforeStartTwo && endOneIsBeforeStartTwo;
+		
+		boolean hasNoOverlap = firstIntervalIsAfterSecond || firstIntervalIsBeforeSecond;
+		return !hasNoOverlap;
 	}
 	
 	public static boolean isOverlap(DateTime deadline, DateTime start, DateTime end) {

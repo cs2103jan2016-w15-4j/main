@@ -39,20 +39,12 @@ public class MarkParser extends TagParser{
 			setMultipleTypeMarkCommand();
 			break;
 
-		case INTERVAL:
-			setIntervalTypeMarkCommand();
-			break;
-
 		default:
 			setInvalidCommand();
 			break;
 		}
 	}
-
-	private void setIntervalTypeMarkCommand() {
-		command = CommandUtils.createMarkCommand(taskIdsForTagging);
-	}
-
+	
 	private void setMultipleTypeMarkCommand() {
 		command = CommandUtils.createMarkCommand(taskIdsForTagging);
 	}

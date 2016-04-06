@@ -18,7 +18,7 @@ import dooyit.common.datatype.CategoryData;
 
 public class CategoryLoader {
 	private static final String EMPTY_STRING = "";
-	
+
 	private String filePath;
 	private JsonParser parser;
 	private Gson gson;
@@ -31,14 +31,14 @@ public class CategoryLoader {
 
 	public ArrayList<CategoryData> load() throws IOException {
 		File categoryFile = new File(filePath);
-		ArrayList<CategoryData> categories = new ArrayList<CategoryData> ();
+		ArrayList<CategoryData> categories = new ArrayList<CategoryData>();
 
 		if (categoryFile.exists()) {
 			categories = loadFromFile(categoryFile);
 		}
 		return categories;
 	}
-	
+
 	private FileReader open(File file) throws FileNotFoundException {
 		FileReader fReader = null;
 		if (file.exists()) {
@@ -53,11 +53,11 @@ public class CategoryLoader {
 
 	private ArrayList<CategoryData> loadFromFile(File categoryFile) throws IOException {
 		FileReader fReader;
-		ArrayList<CategoryData> categories = new ArrayList<CategoryData> ();
-		
+		ArrayList<CategoryData> categories = new ArrayList<CategoryData>();
+
 		fReader = open(categoryFile);
 		BufferedReader bReader = new BufferedReader(fReader);
-		
+
 		String categoryData = bReader.readLine();
 		JsonObject jsonCategory;
 		while (categoryData != null) {
@@ -66,8 +66,8 @@ public class CategoryLoader {
 			} catch (JsonSyntaxException e) {
 				jsonCategory = null;
 			}
-			
-			if(jsonCategory != null) {
+
+			if (jsonCategory != null) {
 				CategoryData category = resolveCategory(jsonCategory);
 				categories.add(category);
 			}
@@ -75,19 +75,19 @@ public class CategoryLoader {
 		}
 		bReader.close();
 		fReader.close();
-		
+
 		return categories;
 	}
-	
+
 	private CategoryData resolveCategory(JsonObject jsonCategory) {
 		CategoryData category = gson.fromJson(jsonCategory, CategoryData.class);
-		
+
 		return category;
 	}
-	
+
 	private JsonObject getAsJson(String format) {
 		JsonObject object = null;
-		
+
 		if (!format.equals(EMPTY_STRING)) {
 			object = parser.parse(format).getAsJsonObject();
 		}
@@ -96,7 +96,6 @@ public class CategoryLoader {
 	}
 
 	private Gson gsonWithCategoryDataDeserializer() {
-		return new GsonBuilder().registerTypeAdapter(CategoryData.class,
-													new CategoryDataDeserializer()).create();
+		return new GsonBuilder().registerTypeAdapter(CategoryData.class, new CategoryDataDeserializer()).create();
 	}
 }

@@ -1,10 +1,6 @@
 //@@author A0124586Y
 package dooyit.storage;
 
-import java.util.ArrayList;
-import java.util.logging.Logger;
-
-import java.util.logging.Level;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -13,16 +9,16 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-import dooyit.storage.TaskController;
-import dooyit.storage.CategoryController;
-import dooyit.storage.Constants;
 import dooyit.common.datatype.CategoryData;
 import dooyit.common.datatype.TaskData;
 import dooyit.common.exception.IncorrectInputException;
 
 public class StorageController {
-
+	
 	private String configFilePath;
 	private String[] preferences;
 	private CategoryController categoryControl;
@@ -33,6 +29,8 @@ public class StorageController {
 	
 	private static final String CSS = ".css";
 	private static final String TXT = ".txt";
+	private static final String FORWARD_SLASH = "/";
+	private static final String BACK_SLASH = "\\";;
 	
 	private static final String ERROR_MESSAGE_FILEPATH = "INVALID path. Path needs to end with %1$s";
 	private static final String ERROR_MESSAGE_CONFIG = "Error: Cannot modify configurations";
@@ -43,6 +41,7 @@ public class StorageController {
 	private static final int PREFERENCES_SIZE = 2;
 
 	public StorageController() throws IOException {
+		OsUtils.getOsName();
 		preferences = new String[PREFERENCES_SIZE];
 		configFilePath = getConfigPath(Constants.CURRENT_DIRECTORY);
 		preferences = loadPreferences(configFilePath);
@@ -81,7 +80,14 @@ public class StorageController {
 	}
 	
 	public String getCssPath() {
-		return preferences[THEME_DESTINATION];
+		String cssPath = preferences[THEME_DESTINATION].replace(BACK_SLASH, FORWARD_SLASH);
+		
+		if(OsUtils.isWindows()) {
+			//Prepend "/" to Windows file path since Mac file system has "/" for root
+			cssPath = FORWARD_SLASH + cssPath;
+		}
+		
+		return cssPath;
 	}
 
 	public boolean saveTasks(ArrayList<TaskData> tasks) throws IOException {

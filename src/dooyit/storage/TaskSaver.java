@@ -15,7 +15,6 @@ import dooyit.common.datatype.DeadlineTaskData;
 import dooyit.common.datatype.EventTaskData;
 import dooyit.common.datatype.FloatingTaskData;
 import dooyit.common.datatype.TaskData;
-import dooyit.storage.Constants;
 
 public class TaskSaver {
 	private static final int BACKUP_LIMIT = 5;

@@ -9,23 +9,26 @@ public class Parser {
 	private static final String COMMAND_ADD = "add";
 	private static final String COMMAND_ADD_CAT = "addcat";
 	private static final String COMMAND_CLEAR = "clear";
-	private static final String COMMAND_CLOSE = "close";
 	private static final String COMMAND_DELETE = "delete";
 	private static final String COMMAND_DELETE_CAT = "deletecat";
 	private static final String COMMAND_EDIT = "edit";
 	private static final String COMMAND_EDIT_CAT = "editcat";
 	private static final String COMMAND_EXIT = "exit";
+	private static final String COMMAND_FLOAT = "float";
 	private static final String COMMAND_HELP = "help";
 	private static final String COMMAND_MARK = "mark";
 	private static final String COMMAND_MOVE_TO_CAT = "move";
 	private static final String COMMAND_REDO = "redo";
-	private static final String COMMAND_REMOVE_FROM_CAT = "rm";
 	private static final String COMMAND_SEARCH = "search";
 	private static final String COMMAND_SHOW = "show";
 	private static final String COMMAND_SKIN = "skin";
 	private static final String COMMAND_STORAGE = "storage"; 
 	private static final String COMMAND_UNDO = "undo";
 	private static final String COMMAND_UNMARK = "unmark";
+	
+	private static final String[] exitCommandAlias = new String[]{"close", COMMAND_EXIT};
+	private static final String[] deleteCommandAlias = new String[]{"rm", "remove", COMMAND_DELETE};
+	private static final String[] floatCommandAlias = new String[]{"editToFloat", COMMAND_FLOAT};
 
 	private AddParser addParser;
 	private ShowParser showParser;
@@ -37,7 +40,8 @@ public class Parser {
 	private DeleteCategoryParser deleteCatParser;
 	private EditCategoryParser editCatParser;
 	private MoveParser moveParser;
-	private RemoveParser removeParser;
+	private FloatParser floatParser;
+	private HelpParser helpParser;
 
 	public Parser() {
 		addParser = new AddParser();
@@ -50,7 +54,8 @@ public class Parser {
 		unmarkParser = new UnmarkParser();
 		editCatParser = new EditCategoryParser();
 		moveParser = new MoveParser();
-		removeParser = new RemoveParser();
+		floatParser = new FloatParser();
+		helpParser = new HelpParser();
 	}
 
 	public Command getCommand(String input) {
@@ -61,7 +66,7 @@ public class Parser {
 		String commandInput = getInputWithoutCommand(input, commandString);
 
 		Command command = null; 
-		switch (commandString) {
+		switch (getCommandType(commandString)) {
 		case COMMAND_ADD:
 			command = addParser.getCommand(commandInput);
 			break;
@@ -72,10 +77,6 @@ public class Parser {
 			
 		case COMMAND_CLEAR:
 			command = CommandUtils.createClearCommand();
-			break;
-			
-		case COMMAND_CLOSE:
-			command = CommandUtils.createExitCommand();
 			break;
 
 		case COMMAND_DELETE:
@@ -98,6 +99,10 @@ public class Parser {
 			command = CommandUtils.createExitCommand();
 			break;
 			
+		case COMMAND_FLOAT:
+			command = floatParser.getCommand(commandInput);
+			break;
+			
 		case COMMAND_HELP:
 			command = CommandUtils.createHelpCommand();
 			break;
@@ -112,10 +117,6 @@ public class Parser {
 			
 		case COMMAND_REDO:
 			command = CommandUtils.createRedoCommand();
-			break;
-			
-		case COMMAND_REMOVE_FROM_CAT:
-			command = removeParser.getCommand(commandInput);
 			break;
 			
 		case COMMAND_SEARCH:
@@ -147,6 +148,31 @@ public class Parser {
 		}
 
 		return command;
+	}
+
+	private String getCommandType(String commandString) {
+		String type;
+		
+		if(isAliasOf(commandString, exitCommandAlias)) {
+			type = COMMAND_EXIT;
+		} else if(isAliasOf(commandString, deleteCommandAlias)) {
+			type = COMMAND_DELETE;
+		} else if(isAliasOf(commandString, floatCommandAlias)) {
+			type = COMMAND_FLOAT;
+		} else {
+			type = commandString;
+		}
+		return type;
+	}
+
+	private boolean isAliasOf(String commandString, String[] arr) {
+		boolean ans = false;
+		for(int i = 0; i < arr.length; i++) {
+			if(commandString.equals(arr[i])) {
+				ans = true;
+			}
+		}
+		return ans;
 	}
 
 	private String getInputWithoutCommand(String input, String command) {

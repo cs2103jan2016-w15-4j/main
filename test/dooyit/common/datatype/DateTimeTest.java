@@ -1,6 +1,8 @@
 package dooyit.common.datatype;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -132,7 +134,119 @@ public class DateTimeTest {
 		currDT.increaseByOneDay();
 		assertEquals(dt1.getDD(), currDT.getDD());
 	}
-
+	
+	@Test
+	public void overlapOfTwoDates_FirstInterval_IsWithin_SecondInterval() {
+		int[] dt1Arr = new int[]{3, 4, 2016};
+		int dt1Start = 1900;
+		int dt1End = 2000;
+		int[] dt2Arr = new int[]{3, 4, 2016};
+		int dt2Start = 1800;
+		int dt2End = 2100;
+		DateTime startOne = new DateTime(dt1Arr, dt1Start);
+		DateTime endOne = new DateTime(dt1Arr, dt1End);
+		DateTime startTwo = new DateTime(dt2Arr, dt2Start);
+		DateTime endTwo = new DateTime(dt2Arr, dt2End);
+		
+		assertEquals(true, DateTime.isOverlap(startOne, endOne, startTwo, endTwo));
+	}
+	
+	
+	@Test
+	public void overlapOfTwoDates_SecondInterval_IsWithin_FirstInterval() {
+		int[] dt1Arr = new int[]{3, 4, 2016};
+		int dt1Start = 1900;
+		int dt1End = 2000;
+		int[] dt2Arr = new int[]{3, 4, 2016};
+		int dt2Start = 1930;
+		int dt2End = 1945;
+		DateTime startOne = new DateTime(dt1Arr, dt1Start);
+		DateTime endOne = new DateTime(dt1Arr, dt1End);
+		DateTime startTwo = new DateTime(dt2Arr, dt2Start);
+		DateTime endTwo = new DateTime(dt2Arr, dt2End);
+		
+		assertEquals(true, DateTime.isOverlap(startOne, endOne, startTwo, endTwo));
+	}
+	
+	@Test
+	public void overlapOfTwoDates_StartOfFirstInterval_Equals_EndOfSecondInterval() {
+		int[] dt1Arr = new int[]{3, 4, 2016};
+		int dt1Start = 1900;
+		int dt1End = 2000;
+		int[] dt2Arr = new int[]{3, 4, 2016};
+		int dt2Start = 1800;
+		int dt2End = 1900;
+		DateTime startOne = new DateTime(dt1Arr, dt1Start);
+		DateTime endOne = new DateTime(dt1Arr, dt1End);
+		DateTime startTwo = new DateTime(dt2Arr, dt2Start);
+		DateTime endTwo = new DateTime(dt2Arr, dt2End);
+		
+		assertEquals(false, DateTime.isOverlap(startOne, endOne, startTwo, endTwo));
+	}
+	
+	@Test
+	public void overlapOfTwoDates_EndOfFirstInterval_Equals_StartOfSecondInterval() {
+		int[] dt1Arr = new int[]{3, 4, 2016};
+		int dt1Start = 1900;
+		int dt1End = 2000;
+		int[] dt2Arr = new int[]{3, 4, 2016};
+		int dt2Start = 2000;
+		int dt2End = 2100;
+		DateTime startOne = new DateTime(dt1Arr, dt1Start);
+		DateTime endOne = new DateTime(dt1Arr, dt1End);
+		DateTime startTwo = new DateTime(dt2Arr, dt2Start);
+		DateTime endTwo = new DateTime(dt2Arr, dt2End);
+		
+		assertEquals(false, DateTime.isOverlap(startOne, endOne, startTwo, endTwo));
+	}
+	
+	@Test
+	public void overlapOfTwoDates_StartOfFirstInterval_IsWithin_SecondInterval() {
+		int[] dt1Arr = new int[]{3, 4, 2016};
+		int dt1Start = 1900;
+		int dt1End = 2200;
+		int[] dt2Arr = new int[]{3, 4, 2016};
+		int dt2Start = 1800;
+		int dt2End = 2100;
+		DateTime startOne = new DateTime(dt1Arr, dt1Start);
+		DateTime endOne = new DateTime(dt1Arr, dt1End);
+		DateTime startTwo = new DateTime(dt2Arr, dt2Start);
+		DateTime endTwo = new DateTime(dt2Arr, dt2End);
+		
+		assertEquals(true, DateTime.isOverlap(startOne, endOne, startTwo, endTwo));
+	}
+	
+	@Test
+	public void overlapOfTwoDates_EndOfFirstInterval_IsWithin_SecondInterval() {
+		int[] dt1Arr = new int[]{3, 4, 2016};
+		int dt1Start = 1900;
+		int dt1End = 2200;
+		int[] dt2Arr = new int[]{3, 4, 2016};
+		int dt2Start = 1100;
+		int dt2End = 2300;
+		DateTime startOne = new DateTime(dt1Arr, dt1Start);
+		DateTime endOne = new DateTime(dt1Arr, dt1End);
+		DateTime startTwo = new DateTime(dt2Arr, dt2Start);
+		DateTime endTwo = new DateTime(dt2Arr, dt2End);
+		
+		assertEquals(true, DateTime.isOverlap(startOne, endOne, startTwo, endTwo));
+	}
+	
+	@Test
+	public void overlapOfTwoDates_NoOverlap() {
+		int[] dt1Arr = new int[]{4, 4, 2016};
+		int dt1Start = 1900;
+		int dt1End = 2000;
+		int[] dt2Arr = new int[]{3, 4, 2016};
+		int dt2Start = 1800;
+		int dt2End = 2100;
+		DateTime startOne = new DateTime(dt1Arr, dt1Start);
+		DateTime endOne = new DateTime(dt1Arr, dt1End);
+		DateTime startTwo = new DateTime(dt2Arr, dt2Start);
+		DateTime endTwo = new DateTime(dt2Arr, dt2End);
+		
+		assertEquals(false, DateTime.isOverlap(startOne, endOne, startTwo, endTwo));
+	}
 	/*
 	 * @Test public void convertToSavableString() {
 	 * assertEquals(dt3.convertToSavableString(), "28 3 2016"); }

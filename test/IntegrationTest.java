@@ -1,11 +1,11 @@
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import dooyit.common.datatype.Task;
 import dooyit.common.datatype.Task.TaskType;
-import dooyit.common.exception.IncorrectInputException;
 import dooyit.logic.api.LogicController;
 
 public class IntegrationTest {

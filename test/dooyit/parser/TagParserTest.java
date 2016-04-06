@@ -8,6 +8,7 @@ import java.util.Arrays;
 import org.junit.Test;
 
 import dooyit.common.exception.IncorrectInputException;
+import dooyit.parser.TagParser.TAG_TYPE;
 
 
 public class TagParserTest {
@@ -18,9 +19,12 @@ public class TagParserTest {
 		String input = "1";
 		tagParser.setVariables(input);
 		tagParser.parseTaskIds();
+		TAG_TYPE type = tagParser.getTagType();
+		tagParser.parseTaskIds();
 		
 		int expectedIdForTagging = 1;
-		assertEquals(tagParser.taskIdForTagging, expectedIdForTagging);
+		assertEquals(TAG_TYPE.SINGLE, type);
+		assertEquals(expectedIdForTagging, tagParser.taskIdForTagging);
 	}
 	
 	@Test
@@ -29,7 +33,7 @@ public class TagParserTest {
 		tagParser.setVariables(input);
 		tagParser.parseTaskIds();
 		ArrayList<Integer> expectedArrayList = new ArrayList<Integer>(Arrays.asList(1, 3, 4, 12, 25));
-		assertEquals(tagParser.taskIdsForTagging, expectedArrayList);
+		assertEquals(expectedArrayList, tagParser.taskIdsForTagging);
 	}
 	
 	@Test
@@ -38,7 +42,7 @@ public class TagParserTest {
 		tagParser.setVariables(input);
 		tagParser.parseTaskIds();
 		ArrayList<Integer> expectedArrayList = new ArrayList<Integer>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8));
-		assertEquals(tagParser.taskIdsForTagging, expectedArrayList);
+		assertEquals(expectedArrayList, tagParser.taskIdsForTagging);
 	}
 	
 	@Test(expected = IncorrectInputException.class) 

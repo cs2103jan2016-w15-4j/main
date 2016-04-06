@@ -1,8 +1,5 @@
 package dooyit.ui;
 
-import com.sun.javafx.tk.FontLoader;
-import com.sun.javafx.tk.Toolkit;
-
 import dooyit.common.datatype.Category;
 import dooyit.common.datatype.DateTime;
 import dooyit.common.datatype.Task;
@@ -13,7 +10,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import javafx.scene.text.Font;
 
 /**
  * 
@@ -73,6 +69,7 @@ public class UITaskBox {
 		initTaskBox();
 		initListeners();
 		updateTaskBoxWidth();
+		animate();
 	}
 	
 	private void initTaskCheckBox(){
@@ -183,6 +180,10 @@ public class UITaskBox {
 	private void updateTaskBoxWidth(){
 		double width = this.parent.getStageWidth();
 	    updateTaskBoxWidth(width);
+	}
+	
+	private void animate(){
+		
 	}
 	
 	protected AnchorPane getView() {

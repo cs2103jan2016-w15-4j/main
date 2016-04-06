@@ -17,9 +17,20 @@ import dooyit.common.datatype.TaskGroup;
 import dooyit.common.datatype.Task.TaskType;
 
 public class TaskManager {
+	
+	enum SearchType{
+		NAME,
+		DATE,
+		DAY,
+		MONTH
+	}
+	
 	private static final int TASKGROUP_COUNT_LIMIT = 30;
 	private ArrayList<Task> tasks;
-
+	
+	private String searchKey;
+	private DateTime dateTime;
+	
 	public TaskManager() {
 		tasks = new ArrayList<Task>();
 	}
@@ -340,22 +351,6 @@ public class TaskManager {
 
 	public ArrayList<Task> getAllTasks() {
 		return tasks;
-	}
-
-	public ArrayList<Task> searchTask(String searchString) {
-		ArrayList<Task> searchedTasks = new ArrayList<Task>();
-
-		for (Task task : tasks) {
-			String taskName = task.getName();
-			taskName = taskName.toLowerCase();
-			searchString = searchString.toLowerCase();
-
-			if (taskName.contains(searchString)) {
-				searchedTasks.add(task);
-			}
-		}
-
-		return searchedTasks;
 	}
 
 	public ArrayList<Task> getIncompleteTasks() {
@@ -831,6 +826,30 @@ public class TaskManager {
 		for(Task task : tasks){
 			task.setOld();
 		}
+	}
+	
+	public void setSearchKey(String searchKey){
+		this.searchKey = searchKey;
+	}
+	
+	public void setSearchKey(DateTime dateTime){
+		this.dateTime = dateTime;
+	}
+	
+	public ArrayList<Task> searchTask(String searchString) {
+		ArrayList<Task> searchedTasks = new ArrayList<Task>();
+
+		for (Task task : tasks) {
+			String taskName = task.getName();
+			taskName = taskName.toLowerCase();
+			searchString = searchString.toLowerCase();
+
+			if (taskName.contains(searchString)) {
+				searchedTasks.add(task);
+			}
+		}
+
+		return searchedTasks;
 	}
 	
 	public void display() {

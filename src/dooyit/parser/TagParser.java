@@ -30,7 +30,7 @@ public class TagParser implements ParserCommons {
 			if(ParserCommons.isNumber(currWord)) {
 				int taggedId = Integer.parseInt(currWord);
 				taskIdsForTagging.add(taggedId);
-			} else if(currWord.contains(MARKER_FOR_INTERVAL_TAG_TYPE)) {
+			} else if(isIntervalType(currWord)) {
 				setInterval(currWord);
 			} else {
 				throw new IncorrectInputException(ERROR_MESSAGE_INVALID_TASK_ID + currWord);
@@ -38,6 +38,17 @@ public class TagParser implements ParserCommons {
 		}
 	}
 	
+	private boolean isIntervalType(String currWord) {
+		boolean isInterval = false;
+		if(currWord.contains(MARKER_FOR_INTERVAL_TAG_TYPE)) {
+			String[] splitByDash = currWord.split(MARKER_FOR_INTERVAL_TAG_TYPE);
+			String start = splitByDash[0];
+			String end = splitByDash[1];
+			isInterval = ParserCommons.isNumber(start) && ParserCommons.isNumber(end);
+		}
+		return isInterval;
+	}
+
 	public void setVariables(String input) {
 		userInput = input;
 		splitInput = userInput.split("\\s+");
@@ -46,13 +57,8 @@ public class TagParser implements ParserCommons {
 
 	public void setInterval(String currWord) {
 		String[] splitByDash = currWord.split(MARKER_FOR_INTERVAL_TAG_TYPE);
-		int start, end;
-		try {
-			start = Integer.parseInt(splitByDash[0]); 
-			end = Integer.parseInt(splitByDash[1]);
-		} catch(NumberFormatException e) {
-			throw new IncorrectInputException(ERROR_MESSAGE_INVALID_TASK_ID);
-		}
+		int start = Integer.parseInt(splitByDash[0]); 
+		int end = Integer.parseInt(splitByDash[1]);
 		for (int i = start; i <= end; i++) {
 			taskIdsForTagging.add(i);
 		}

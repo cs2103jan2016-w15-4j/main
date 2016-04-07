@@ -93,7 +93,6 @@ public class TaskGroup {
 				taskItr.remove();
 			}
 		}
-		
 	}
 	
 	public void filterByDate(DateTime dateTime) {
@@ -106,7 +105,6 @@ public class TaskGroup {
 				taskItr.remove();
 			}
 		}
-		
 	}
 
 	public void filterByMonth(String searchKey, MONTH month) {
@@ -123,7 +121,6 @@ public class TaskGroup {
 				taskItr.remove();
 			}
 		}
-		
 	}
 	
 	public void filterByDay(String searchKey, DAY day) {
@@ -140,6 +137,5 @@ public class TaskGroup {
 				taskItr.remove();
 			}
 		}
-		
 	}
 }

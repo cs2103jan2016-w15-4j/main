@@ -451,6 +451,7 @@ public class TaskManager {
 
 	/**
 	 * change a task into a deadline task
+	 * 
 	 * @param taskId
 	 * @param dateTimeDeadline
 	 * @return the changed task, null if cannot find the task with the id
@@ -469,7 +470,8 @@ public class TaskManager {
 	}
 
 	/**
-	 *  change a task into a event task
+	 * change a task into a event task
+	 * 
 	 * @param taskId
 	 * @param dateTimeStart
 	 * @param dateTimeEnd
@@ -490,6 +492,7 @@ public class TaskManager {
 
 	/**
 	 * checks if the task is a floating task
+	 * 
 	 * @param task
 	 * @return true if the task is a floating task
 	 */
@@ -499,6 +502,7 @@ public class TaskManager {
 
 	/**
 	 * checks if the task has a deadline or event by today
+	 * 
 	 * @param task
 	 * @return true if the task has a deadline or event by today
 	 */
@@ -509,6 +513,7 @@ public class TaskManager {
 
 	/**
 	 * checks if the task has a deadline or event within the next 7 days
+	 * 
 	 * @param task
 	 * @return true if the task has a deadline or event within the next 7 days
 	 */
@@ -527,6 +532,7 @@ public class TaskManager {
 
 	/**
 	 * checks if the task overlaps with other event task
+	 * 
 	 * @param inTask
 	 * @return true if the task overlaps with other event task
 	 */
@@ -842,6 +848,10 @@ public class TaskManager {
 			}
 			currDate.increaseByOneDay();
 		}
+		
+		if(taskGroups.isEmpty()){
+			taskGroups.add(createEmptyTaskGroup("All"));
+		}
 
 		resetTasksId(taskGroups);
 		return taskGroups;
@@ -915,30 +925,38 @@ public class TaskManager {
 		ArrayList<TaskGroup> taskGroups = getTaskGroupsAll();
 		filterTaskGroupsByCategory(taskGroups, category);
 
+		if(taskGroups.isEmpty()){
+			taskGroups.add(createEmptyTaskGroup(category.getName()));
+		}
+		
 		resetTasksId(taskGroups);
 		return taskGroups;
 	}
 
 	public ArrayList<TaskGroup> getTaskGroupSearched() {
 		ArrayList<TaskGroup> taskGroups = getTaskGroupsAll();
-		
-		switch(searchType){
+
+		switch (searchType) {
 		case NAME:
 			filterTaskGroupsByName(taskGroups, searchKey);
 			break;
-			
+
 		case DAY:
 			filterTaskGroupsByDay(taskGroups, searchKey, searchDay);
 			break;
-			
+
 		case MONTH:
 			filterTaskGroupsByMonth(taskGroups, searchKey, searchMonth);
 			break;
-			
+
 		case DATE:
 			filterTaskGroupsByDate(taskGroups, searchDateTime);
 			break;
-		
+
+		}
+
+		if(taskGroups.isEmpty()){
+			taskGroups.add(createEmptyTaskGroup("Search List"));
 		}
 		
 		resetTasksId(taskGroups);
@@ -955,11 +973,11 @@ public class TaskManager {
 		}
 	}
 
-	private TaskGroup createEmptyTaskGroup(String title){
+	private TaskGroup createEmptyTaskGroup(String title) {
 		TaskGroup taskGroup = new TaskGroup(title);
 		return taskGroup;
 	}
-	
+
 	/**
 	 * @return
 	 */
@@ -997,7 +1015,7 @@ public class TaskManager {
 		Iterator<TaskGroup> taskGroupsItr = taskGroups.iterator();
 		while (taskGroupsItr.hasNext()) {
 			TaskGroup taskGroup = taskGroupsItr.next();
-			
+
 			taskGroup.filterByCategory(category);
 
 			if (taskGroup.size() == 0) {
@@ -1006,11 +1024,11 @@ public class TaskManager {
 		}
 	}
 
-	public void filterTaskGroupsByName(ArrayList<TaskGroup> taskGroups, String searchKey){
+	public void filterTaskGroupsByName(ArrayList<TaskGroup> taskGroups, String searchKey) {
 		Iterator<TaskGroup> taskGroupsItr = taskGroups.iterator();
 		while (taskGroupsItr.hasNext()) {
 			TaskGroup taskGroup = taskGroupsItr.next();
-			
+
 			taskGroup.filterByName(searchKey);
 
 			if (taskGroup.size() == 0) {
@@ -1018,12 +1036,12 @@ public class TaskManager {
 			}
 		}
 	}
-	
+
 	public void filterTaskGroupsByDate(ArrayList<TaskGroup> taskGroups, DateTime dateTime) {
 		Iterator<TaskGroup> taskGroupsItr = taskGroups.iterator();
 		while (taskGroupsItr.hasNext()) {
 			TaskGroup taskGroup = taskGroupsItr.next();
-			
+
 			taskGroup.filterByDate(dateTime);
 
 			if (taskGroup.size() == 0) {
@@ -1036,7 +1054,7 @@ public class TaskManager {
 		Iterator<TaskGroup> taskGroupsItr = taskGroups.iterator();
 		while (taskGroupsItr.hasNext()) {
 			TaskGroup taskGroup = taskGroupsItr.next();
-			
+
 			taskGroup.filterByDay(searchKey, day);
 
 			if (taskGroup.size() == 0) {
@@ -1049,7 +1067,7 @@ public class TaskManager {
 		Iterator<TaskGroup> taskGroupsItr = taskGroups.iterator();
 		while (taskGroupsItr.hasNext()) {
 			TaskGroup taskGroup = taskGroupsItr.next();
-			
+
 			taskGroup.filterByMonth(searchKey, month);
 
 			if (taskGroup.size() == 0) {
@@ -1114,13 +1132,13 @@ public class TaskManager {
 		this.searchKey = searchKey;
 		this.searchDay = day;
 	}
-	
+
 	public void setSearchKey(String searchKey, MONTH month) {
 		searchType = SearchType.MONTH;
 		this.searchKey = searchKey;
 		this.searchMonth = month;
 	}
-	
+
 	public void setSearchKey(DateTime dateTime) {
 		searchType = SearchType.DATE;
 		this.searchDateTime = dateTime;

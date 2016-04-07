@@ -1,3 +1,5 @@
+// @@author A0124278A
+
 package dooyit.ui;
 
 import java.net.URL;
@@ -18,7 +20,7 @@ import dooyit.logic.api.*;
 
 /**
  * 
- * @@author Wu Wenqi <A0124278A>
+ * @author Wu Wenqi
  *
  */
 
@@ -315,6 +317,9 @@ public class UIController {
 		Action action = logicAction.getAction();
 		switch (action) {
 			case ADD_TODAY_TASK:
+				// if today refresh today view
+				// if next 7 refresh next 7 view
+				
 			case EDIT_TO_TODAY_TASK:
 			case SHOW_TODAY_TASK:
 				refreshMainView(this.logic.getTaskGroupsToday(), UIMainViewType.TODAY);
@@ -330,6 +335,9 @@ public class UIController {
 				refreshMainView(this.logic.getTaskGroupsFloating(), UIMainViewType.FLOAT);
 				break;
 			case ADD_ALL_TASK:
+				// if today refresh today view
+				// if next 7 refresh next 7 view
+				
 			case EDIT_TO_ALL_TASK:
 			case SHOW_ALL_TASK:
 				refreshMainView(this.logic.getTaskGroupsAll(), UIMainViewType.ALL);
@@ -343,6 +351,7 @@ public class UIController {
 				break;
 			case DELETE_CATEGORY:
 			case CLEAR_CATEGORY:
+			case EDIT_CATEGORY:
 			case UNDO:
 			case REDO:
 				refreshCategoryMenuView();

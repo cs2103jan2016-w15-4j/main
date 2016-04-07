@@ -351,6 +351,7 @@ public class UIController {
 				break;
 			case DELETE_CATEGORY:
 			case CLEAR_CATEGORY:
+			case EDIT_CATEGORY:
 			case UNDO:
 			case REDO:
 				refreshCategoryMenuView();

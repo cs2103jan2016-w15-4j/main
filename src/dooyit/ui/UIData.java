@@ -18,7 +18,7 @@ public class UIData {
 	protected static final String CMD_SHOW_FLOAT = "show float";
 	protected static final String CMD_SHOW_ALL = "show all";
 	protected static final String CMD_SHOW_COMPLETED = "show completed";
-	protected static final String CMD_SHOW_CAT = "show cat ";
+	protected static final String CMD_SHOW_CAT = "showcat ";
 	protected static final String CMD_SHOW = "show ";
 	protected static final String CMD_MARK = "mark ";
 	protected static final String CMD_UNMARK = "unmark ";

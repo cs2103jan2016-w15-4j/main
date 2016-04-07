@@ -9,16 +9,17 @@ import dooyit.logic.commands.CommandUtils;
 
 public class SearchParser implements ParserCommons {
 	public static final String ERROR_MESSAGE_EMPTY_SEARCH_COMMAND = "Empty search command!";
-
+	Command command;
+	boolean isValidDate, isValidDay, isValidMonth, isEmptyString;
+	DateTime dateTime;
+	
 	public SearchParser() {
 		
 	}
 	
 	public Command getCommand(String input) {
 		input = input.toLowerCase();
-		boolean isValidDate = true;
-		Command command = null;
-		DateTime dateTime;
+		resetFields();
 		
 		try {
 			DateTimeParser dtParser = new DateTimeParser();
@@ -26,13 +27,28 @@ public class SearchParser implements ParserCommons {
 		} catch (IncorrectInputException e) {
 			isValidDate = false;
 		}
-		
+		setBooleanValues(input);
+		setCorrectSearchCommand(input);
+		return command;
+	}
+
+	private void setBooleanValues(String input) {
 		DAY dayEnum = DateTime.getDayType(input);
 		MONTH monthEnum = DateTime.getMonthType(input);
-		boolean isValidDay = dayEnum != DAY.INVALID;
-		boolean isValidMonth = monthEnum != MONTH.INVALID;
-		boolean isEmptyString = input.equals(EMPTY_STRING);
-		
+		isValidDay = dayEnum != DAY.INVALID;
+		isValidMonth = monthEnum != MONTH.INVALID;
+		isEmptyString = input.equals(EMPTY_STRING);
+	}
+
+	private void resetFields() {
+		isValidDate = true;
+		isValidDay = false;
+		isValidMonth = false;
+		isEmptyString = false;
+		command = null;
+	}
+
+	private void setCorrectSearchCommand(String input) {
 		if(isEmptyString) {
 			command = CommandUtils.createInvalidCommand(ERROR_MESSAGE_EMPTY_SEARCH_COMMAND);
 		} else if(isValidDay) {
@@ -44,6 +60,5 @@ public class SearchParser implements ParserCommons {
 		} else {
 			command = CommandUtils.createSearchCommand(input);
 		}
-		return command;
 	}
 }

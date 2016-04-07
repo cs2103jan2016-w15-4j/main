@@ -254,11 +254,13 @@ public class UIController {
 					processInput(UIData.CMD_SHOW_COMPLETED);
 					break;
 				case U:
+				case PAGE_UP:
 					if (mainView.getVvalue() > mainView.getVmin() + 0.1){
 						mainView.setVvalue(mainView.getVvalue() - 0.1);
 					}
 					break;
 				case J:
+				case PAGE_DOWN:
 					if (mainView.getVvalue() < mainView.getVmax() + 0.1){
 						mainView.setVvalue(mainView.getVvalue() + 0.1);
 					}

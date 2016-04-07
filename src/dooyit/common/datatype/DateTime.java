@@ -40,6 +40,27 @@ public class DateTime {
 	public static final int SATURDAY = 6;
 	public static final int SUNDAY = 7;
 	
+	private static final String DAY_MON = "mon";
+	private static final String DAY_TUE = "tue";
+	private static final String DAY_WED = "wed";
+	private static final String DAY_THU = "thu";
+	private static final String DAY_FRI = "fri";
+	private static final String DAY_SAT = "sat";
+	private static final String DAY_SUN = "sun";
+	
+	private static final String MONTH_JAN = "jan";
+	private static final String MONTH_FEB = "feb";
+	private static final String MONTH_MARCH = "mar";
+	private static final String MONTH_APR = "apr";
+	private static final String MONTH_MAY = "may";
+	private static final String MONTH_JUN = "jun";
+	private static final String MONTH_JUL = "jul";
+	private static final String MONTH_AUG = "aug";
+	private static final String MONTH_SEP = "sep";
+	private static final String MONTH_OCT = "oct";
+	private static final String MONTH_NOV = "nov";
+	private static final String MONTH_DEC = "dec";
+	
 	private static String[] months = new String[] { DUMMY_STR, "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
 	private static String[] daysInWeek = new String[] { DUMMY_STR, "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
 	private static int[] daysInMonth = new int[] { UNINITIALIZED_INT, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
@@ -49,10 +70,13 @@ public class DateTime {
 	private int yy; // 2016
 	private int timeInt;
 	
-	enum DAY {
-		MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY
+	public enum DAY {
+		MON, TUE, WED, THU, FRI, SAT, SUN, INVALID
 	}
 
+	public enum MONTH {
+		JAN, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, NOV, DEC, INVALID
+	}
 	
 	//********************************************
 	//************* Constructors *****************
@@ -240,7 +264,7 @@ public class DateTime {
 		} else {
 			comparison = monthComparison;
 		}
-		return comparison;
+		return comparison; 
 	}
 
 	private static boolean isSameMonth(int monthComparison) {
@@ -413,6 +437,72 @@ public class DateTime {
 		boolean dtIsAfterStart = dt.compareTo(start) != COMPARISON_FIRST_IS_BEFORE_SECOND;
 		boolean dtIsBeforeEnd = dt.compareTo(end) != COMPARISON_FIRST_IS_AFTER_SECOND;
 		return dtIsAfterStart && dtIsBeforeEnd;
+	}
+	
+	public boolean isMonth(MONTH month) {
+		String monthString = month.name();
+		String dateTimeMonth = months[this.getMM()];
+		return monthString.equalsIgnoreCase(dateTimeMonth);
+	}
+	
+	public boolean isDay(DAY day) {
+		String dayString = day.name();
+		String dateTimeDay = daysInWeek[this.getDayInt()].substring(0, 3);
+		return dayString.equalsIgnoreCase(dateTimeDay);
+	}
+	
+	public static DAY getDayType(String input) {
+		DAY type;
+		if(input.contains(DAY_MON)) {
+			type = DAY.MON;
+		} else if(input.contains(DAY_TUE)) {
+			type = DAY.TUE;
+		} else if(input.contains(DAY_WED)) {
+			type = DAY.WED;
+		} else if(input.contains(DAY_THU)) {
+			type = DAY.THU;
+		} else if(input.contains(DAY_FRI)) {
+			type = DAY.FRI;
+		} else if(input.contains(DAY_SAT)) {
+			type = DAY.SAT;
+		} else if(input.contains(DAY_SUN)) {
+			type = DAY.SUN;
+		} else {
+			type = DAY.INVALID;
+		}
+		return type;
+	}
+	
+	public static MONTH getMonthType(String input) {
+		MONTH type;
+		if(input.contains(MONTH_JAN)) {
+			type = MONTH.JAN;
+		} else if(input.contains(MONTH_FEB)) {
+			type = MONTH.FEB;
+		} else if(input.contains(MONTH_MARCH)) {
+			type = MONTH.MAR;
+		} else if(input.contains(MONTH_APR)) {
+			type = MONTH.APR;
+		} else if(input.contains(MONTH_MAY)) {
+			type = MONTH.MAY;
+		} else if(input.contains(MONTH_JUN)) {
+			type = MONTH.JUN;
+		} else if(input.contains(MONTH_JUL)) {
+			type = MONTH.JUL;
+		} else if(input.contains(MONTH_AUG)) {
+			type = MONTH.AUG;
+		} else if(input.contains(MONTH_SEP)) {
+			type = MONTH.SEP;
+		} else if(input.contains(MONTH_OCT)) {
+			type = MONTH.OCT;
+		} else if(input.contains(MONTH_NOV)) {
+			type = MONTH.NOV;
+		} else if(input.contains(MONTH_DEC)) {
+			type = MONTH.DEC;
+		} else {
+			type = MONTH.INVALID;
+		}
+		return type;
 	}
 	
 	public void setDate(DateTime start) {

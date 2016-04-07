@@ -52,7 +52,7 @@ public class AddTaskCommand implements Command, ReversibleCommand {
 	public LogicAction execute(LogicController logic) throws IncorrectInputException {
 		assert (logic != null);
 		LogicAction logicAction = null;
-		
+
 		switch (taskType) {
 		case FLOATING:
 			addedTask = logic.addFloatingTask(taskName);
@@ -64,8 +64,7 @@ public class AddTaskCommand implements Command, ReversibleCommand {
 
 		case EVENT:
 			addedTask = logic.addEventTask(taskName, dateTimeStart, dateTimeEnd);
-			
-			
+
 			break;
 		}
 
@@ -75,11 +74,11 @@ public class AddTaskCommand implements Command, ReversibleCommand {
 
 	public LogicAction getActionBasedOnAddedTask(LogicController logic, Task addedTask) {
 		LogicAction logicAction;
-		
+
 		String taskAddedMsg = Constants.FEEDBACK_TASK_ADDED;
 		String feedbackMsg = taskAddedMsg;
-		
-		if(logic.hasOverlapWithOverEventTask(addedTask)){
+
+		if (logic.hasOverlapWithOverEventTask(addedTask)) {
 			String conflictMsg = "This task conclicts with another event. ";
 			feedbackMsg = conflictMsg + taskAddedMsg;
 		}

@@ -3,6 +3,8 @@ package dooyit.logic.commands;
 
 import java.util.ArrayList;
 import dooyit.common.datatype.DateTime;
+import dooyit.common.datatype.DateTime.DAY;
+import dooyit.common.datatype.DateTime.MONTH;
 
 public class CommandUtils {
 
@@ -75,7 +77,22 @@ public class CommandUtils {
 		DeleteCategoryCommand deleteCategoryCommand = new DeleteCategoryCommand(categoryName);
 		return deleteCategoryCommand;
 	}
+	
+	public static Command createRemoveCategoryFromTaskCommand(String categoryName, int taskId){
+		RemoveCategoryFromTaskCommand removeCategoryFromTaskCommand = new RemoveCategoryFromTaskCommand(categoryName, taskId);
+		return removeCategoryFromTaskCommand;
+	}
+	
+	public static Command createEditCategoryCommand(String categoryName, String newCategoryName){
+		EditCategoryCommand editCategoryCommand = new EditCategoryCommand(categoryName, newCategoryName);
+		return editCategoryCommand;
+	}
 
+	public static Command createEditCategoryCommand(String categoryName, String newCategoryName, String newColourString){
+		EditCategoryCommand editCategoryCommand = new EditCategoryCommand(categoryName, newCategoryName, newColourString);
+		return editCategoryCommand;
+	}
+	
 	public static Command createShowTodayCommand() {
 		ShowCommand showCommand = new ShowCommand(ShowCommand.ShowCommandType.TODAY);
 
@@ -113,7 +130,7 @@ public class CommandUtils {
 		return showCommand;
 	}
 
-	public static Command createEditCommandName(int taskId) {
+	public static Command createEditCommandToFloat(int taskId) {
 		EditTaskCommand editCommand = new EditTaskCommand(taskId);
 		return editCommand;
 	}
@@ -168,6 +185,21 @@ public class CommandUtils {
 		return searchCommand;
 	}
 
+	public static Command createSearchCommand(DateTime dateTime) {
+		SearchCommand searchCommand = new SearchCommand(dateTime);
+		return searchCommand;
+	}
+	
+	public static Command createSearchCommand(String searchString, MONTH month) {
+		SearchCommand searchCommand = new SearchCommand(searchString, month);
+		return searchCommand;
+	}
+	
+	public static Command createSearchCommand(String searchString, DAY day) {
+		SearchCommand searchCommand = new SearchCommand(searchString, day);
+		return searchCommand;
+	}
+	
 	public static Command createClearCommand() {
 		ClearTaskCommand clearCommand = new ClearTaskCommand();
 		return clearCommand;

@@ -11,7 +11,7 @@ import dooyit.logic.api.LogicController;
 public class AddCategoryCommand implements Command, ReversibleCommand {
 
 	private String categoryName;
-	private String colorString;
+	private String colourString;
 	Category addedCategory;
 	private boolean hasError = false;
 
@@ -21,11 +21,11 @@ public class AddCategoryCommand implements Command, ReversibleCommand {
 
 	public AddCategoryCommand(String categoryName, String colorString) {
 		this.categoryName = categoryName;
-		this.colorString = colorString;
+		this.colourString = colorString;
 	}
 
 	private boolean hasColorString() {
-		return colorString != null;
+		return colourString != null;
 	}
 
 	public boolean hasError() {
@@ -41,26 +41,29 @@ public class AddCategoryCommand implements Command, ReversibleCommand {
 	}
 
 	public LogicAction execute(LogicController logic) throws IncorrectInputException {
+		assert(logic != null);
 		LogicAction logicAction;
 
-		String feedbackMsgColor = "";
+		String feedbackMsgColor = Constants.EMPTY_STRING;
 
-		if (!logic.containsCategory(categoryName)) {
-			if (hasColorString()) {
-				try {
-					addedCategory = logic.addCategory(categoryName, colorString);
-				} catch (IncorrectInputException e) {
-					feedbackMsgColor += e.getMessage();
-				}
-			} else {
-				addedCategory = logic.addCategory(categoryName);
-			}
-
-			logicAction = new LogicAction(Action.ADD_CATEGORY, String.format(Constants.FEEDBACK_CATEGORY_ADDED, categoryName, feedbackMsgColor));
-		} else {
+		if (logic.containsCategory(categoryName)) {
 			logicAction = new LogicAction(Action.ERROR, String.format(Constants.FEEDBACK_FAIL_CATEGORY_EXISTS, categoryName));
 			hasError = true;
+			return logicAction;
 		}
+
+		if (hasColorString()) {
+			if (logic.containsCustomColour(colourString)) {
+				addedCategory = logic.addCategory(categoryName, colourString);
+			} else {
+				addedCategory = logic.addCategory(categoryName);
+				feedbackMsgColor += String.format(Constants.FEEDBACK_INVALID_COLOUR, colourString);
+			}
+		} else {
+			addedCategory = logic.addCategory(categoryName);
+		}
+
+		logicAction = new LogicAction(Action.ADD_CATEGORY, String.format(Constants.FEEDBACK_CATEGORY_ADDED, categoryName, feedbackMsgColor));
 
 		return logicAction;
 	}

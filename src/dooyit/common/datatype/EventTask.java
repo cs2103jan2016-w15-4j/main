@@ -130,14 +130,18 @@ public class EventTask extends Task {
 	}
 
 	@Override
-	public void setDisplayId(int taskId) {
+	public boolean setDisplayId(int taskId) {
 		
 		if(hasMultiDay){
 			if(this.displayId == UNINITIALISED){
 				this.displayId = taskId;
+				return true;
+			}else{
+				return false;
 			}
 		}else{
 			this.displayId = taskId;
+			return true;
 		}
 	}
 	

@@ -1,3 +1,4 @@
+
 package dooyit.parser;
 
 import dooyit.common.exception.IncorrectInputException;
@@ -5,7 +6,7 @@ import dooyit.logic.commands.Command;
 import dooyit.logic.commands.CommandUtils;
 
 public class HelpParser implements ParserCommons {
-	private static final String ERROR_MESSAGE_INVALID_HELP_COMMAND = "Invalid Help Command: ";
+	public static final String ERROR_MESSAGE_INVALID_HELP_COMMAND = "Invalid Help Command: ";
 	Command command;
 	
 	public HelpParser() {
@@ -74,6 +75,9 @@ public class HelpParser implements ParserCommons {
 		case COMMAND_SHOW:
 			//command = CommandUtils.createHelpCommand(COMMAND_SHOW);
 			break; 
+			
+		case COMMAND_SHOW_CATEGORY:
+			//command = CommandUtils.createHelpCommand(COMMAND_SHOW_CATEGORY);
 
 		case COMMAND_SKIN:
 			//command = CommandUtils.createHelpCommand(COMMAND_SKIN);

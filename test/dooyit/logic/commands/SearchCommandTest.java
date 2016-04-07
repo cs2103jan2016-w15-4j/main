@@ -54,39 +54,39 @@ public class SearchCommandTest {
 		logic.addTask(floatingTask3);
 	}
 	
-	@Test
-	public void search_WithResults() {
-		setupTasks();
-		
-		ArrayList<Task> expectedTasks = new ArrayList<Task>();
-		expectedTasks.add(floatingTask1);
-		expectedTasks.add(eventTask);
-		
-		String searchString = "h";
-		searchCommand = new SearchCommand(searchString);
-		searchCommand.execute(logic);
-		
-		TaskManager manager = getTaskManager(logic);
-		ArrayList<TaskGroup> taskGroup = manager.getTaskGroupSearched(searchString);
-		ArrayList<Task> tasks = Whitebox.getInternalState(taskGroup.get(0), "tasks");
-		assertTrue(expectedTasks.equals(tasks));
-	}
-	
-	@Test
-	public void search_NoResults() {
-		setupTasks();
-		
-		ArrayList<Task> expectedTasks = new ArrayList<Task>();
-		
-		String searchString = "haha";
-		searchCommand = new SearchCommand(searchString);
-		searchCommand.execute(logic);
-		
-		TaskManager manager = getTaskManager(logic);
-		ArrayList<TaskGroup> taskGroup = manager.getTaskGroupSearched(searchString);
-		ArrayList<Task> tasks = Whitebox.getInternalState(taskGroup.get(0), "tasks");
-		assertTrue(expectedTasks.equals(tasks));
-	}
+//	@Test
+//	public void search_WithResults() {
+//		setupTasks();
+//		
+//		ArrayList<Task> expectedTasks = new ArrayList<Task>();
+//		expectedTasks.add(floatingTask1);
+//		expectedTasks.add(eventTask);
+//		
+//		String searchString = "h";
+//		searchCommand = new SearchCommand(searchString);
+//		searchCommand.execute(logic);
+//		
+//		TaskManager manager = getTaskManager(logic);
+//		ArrayList<TaskGroup> taskGroup = manager.getTaskGroupSearched(searchString);
+//		ArrayList<Task> tasks = Whitebox.getInternalState(taskGroup.get(0), "tasks");
+//		assertTrue(expectedTasks.equals(tasks));
+//	}
+//	
+//	@Test
+//	public void search_NoResults() {
+//		setupTasks();
+//		
+//		ArrayList<Task> expectedTasks = new ArrayList<Task>();
+//		
+//		String searchString = "haha";
+//		searchCommand = new SearchCommand(searchString);
+//		searchCommand.execute(logic);
+//		
+//		TaskManager manager = getTaskManager(logic);
+//		ArrayList<TaskGroup> taskGroup = manager.getTaskGroupSearched(searchString);
+//		ArrayList<Task> tasks = Whitebox.getInternalState(taskGroup.get(0), "tasks");
+//		assertTrue(expectedTasks.equals(tasks));
+//	}
 	
 	private TaskManager getTaskManager(LogicController logic) {
 		return logic.getTaskManager();

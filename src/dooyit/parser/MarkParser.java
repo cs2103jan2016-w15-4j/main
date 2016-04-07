@@ -6,7 +6,7 @@ import dooyit.logic.commands.Command;
 import dooyit.logic.commands.CommandUtils;
 
 public class MarkParser extends TagParser{
-	public static final String ERROR_MESSAGE_INVALID_MARK_COMMAND = "Error: Invalid mark Command!";
+	public static final String ERROR_MESSAGE_INVALID_MARK_COMMAND = "Invalid mark Command!";
 	private Command command;
 
 	public MarkParser() {
@@ -31,11 +31,7 @@ public class MarkParser extends TagParser{
 
 	private void setCorrectMarkCommand(TAG_TYPE tagType) {
 		switch (tagType) {
-		case SINGLE:
-			setSingleTypeMarkCommand();
-			break;
-
-		case MULTIPLE:
+		case VALID:
 			setMultipleTypeMarkCommand();
 			break;
 
@@ -47,10 +43,6 @@ public class MarkParser extends TagParser{
 	
 	private void setMultipleTypeMarkCommand() {
 		command = CommandUtils.createMarkCommand(taskIdsForTagging);
-	}
-
-	private void setSingleTypeMarkCommand() {
-		command = CommandUtils.createMarkCommand(taskIdForTagging);
 	}
 	
 	private void setInvalidCommand(String message) {

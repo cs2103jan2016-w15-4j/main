@@ -4,6 +4,9 @@ package dooyit.common.datatype;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import dooyit.common.datatype.DateTime.DAY;
+import dooyit.common.datatype.DateTime.MONTH;
+
 public class TaskGroup {
 
 	private String title;
@@ -74,7 +77,69 @@ public class TaskGroup {
 				taskItr.remove();
 			}
 		}
+	}
+	
+	public void filterByName(String searchKey) {
+		searchKey = searchKey.toLowerCase();
+		Iterator<Task> taskItr = tasks.iterator();
+
+		while(taskItr.hasNext()){
+			Task task = taskItr.next();
+			
+			String taskName = task.getName();
+			taskName = taskName.toLowerCase();
+			
+			if(!taskName.contains(searchKey)){
+				taskItr.remove();
+			}
+		}
+		
+	}
+	
+	public void filterByDate(DateTime dateTime) {
+		Iterator<Task> taskItr = tasks.iterator();
+
+		while(taskItr.hasNext()){
+			Task task = taskItr.next();
+			
+			if(!task.isSameDate(dateTime)){
+				taskItr.remove();
+			}
+		}
 		
 	}
 
+	public void filterByMonth(String searchKey, MONTH month) {
+		searchKey = searchKey.toLowerCase();
+		Iterator<Task> taskItr = tasks.iterator();
+
+		while(taskItr.hasNext()){
+			Task task = taskItr.next();
+			
+			String taskName = task.getName();
+			taskName = taskName.toLowerCase();
+			
+			if(!taskName.contains(searchKey) && !task.getDateTime().isMonth(month)){
+				taskItr.remove();
+			}
+		}
+		
+	}
+	
+	public void filterByDay(String searchKey, DAY day) {
+		searchKey = searchKey.toLowerCase();
+		Iterator<Task> taskItr = tasks.iterator();
+
+		while(taskItr.hasNext()){
+			Task task = taskItr.next();
+			
+			String taskName = task.getName();
+			taskName = taskName.toLowerCase();
+			
+			if(!taskName.contains(searchKey) && !task.getDateTime().isDay(day)){
+				taskItr.remove();
+			}
+		}
+		
+	}
 }

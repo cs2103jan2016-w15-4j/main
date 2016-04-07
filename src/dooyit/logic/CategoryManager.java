@@ -4,7 +4,7 @@ package dooyit.logic;
 import java.util.ArrayList;
 
 import dooyit.common.datatype.Category;
-import dooyit.common.datatype.CustomColor;
+import dooyit.common.datatype.CustomColour;
 import dooyit.common.exception.IncorrectInputException;
 
 public class CategoryManager {
@@ -27,7 +27,8 @@ public class CategoryManager {
 
 	public void addCategory(Category category) throws IncorrectInputException {
 		if (contains(category)) {
-			throw new IncorrectInputException(String.format(Constants.FEEDBACK_FAIL_CATEGORY_EXISTS, category.getName()));
+			throw new IncorrectInputException(
+					String.format(Constants.FEEDBACK_FAIL_CATEGORY_EXISTS, category.getName()));
 		}
 
 		categories.add(category);
@@ -55,13 +56,30 @@ public class CategoryManager {
 		}
 
 		categoryName = capitalizeFirstCharacter(categoryName);
-		CustomColor customColour = colourManager.find(customColourString);
+		CustomColour customColour = colourManager.find(customColourString);
 		Category category = new Category(categoryName, customColour);
 		categories.add(category);
 		return category;
 	}
-	
-	
+
+	public void editCategoryName(Category category, String newCategoryName) {
+		category.setName(newCategoryName);
+	}
+
+	public boolean editCategoryColour(Category category, String newColourString) {
+		if (colourManager.contains(newColourString)) {
+			CustomColour customColour = colourManager.find(newColourString);
+			category.setCustomColour(customColour);
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public boolean containsCustomColour(String customColourString) {
+		return colourManager.contains(customColourString);
+	}
+
 	public void setSelectedCategory(Category category) {
 		this.selectedCategory = category;
 	}

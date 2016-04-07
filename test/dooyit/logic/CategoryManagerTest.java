@@ -9,7 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import dooyit.common.datatype.Category;
-import dooyit.common.datatype.CustomColor;
+import dooyit.common.datatype.CustomColour;
 import dooyit.common.exception.IncorrectInputException;
 import dooyit.logic.api.LogicController;
 
@@ -36,7 +36,7 @@ public class CategoryManagerTest {
 	public void setUpCategory() {
 		schoolCat1 = new Category("school");
 		schoolCat2 = new Category("school");
-		schoolCat3 = new Category("school", CustomColor.BLUE);
+		schoolCat3 = new Category("school", CustomColour.BLUE);
 		shoppingCat = new Category("shopping");
 	}
 

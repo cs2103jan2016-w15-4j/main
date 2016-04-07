@@ -6,7 +6,7 @@ import dooyit.logic.commands.Command;
 import dooyit.logic.commands.CommandUtils;
 
 public class UnmarkParser extends TagParser{
-	private static final String ERROR_MESSAGE_INVALID_UNMARK_COMMAND = "Invalid Unmark Command!";
+	public static final String ERROR_MESSAGE_INVALID_UNMARK_COMMAND = "Invalid Unmark Command!";
 	private Command command;
 
 	public UnmarkParser() {
@@ -33,11 +33,7 @@ public class UnmarkParser extends TagParser{
 
 	private void setUnmarkCommand(TAG_TYPE tagType) {
 		switch (tagType) {
-		case SINGLE:
-			setSingleTypeUnmarkCommand();
-			break;
-
-		case MULTIPLE:
+		case VALID:
 			setMultipleTypeUnmarkCommand();
 			break;
 
@@ -47,13 +43,8 @@ public class UnmarkParser extends TagParser{
 		}
 	}
 	
-	// Eg. unmark 2 4 0 9
 	private void setMultipleTypeUnmarkCommand() {
 		command = CommandUtils.createUnMarkCommand(taskIdsForTagging);
-	}
-
-	private void setSingleTypeUnmarkCommand() {
-		command = CommandUtils.createUnMarkCommand(taskIdForTagging);
 	}
 	
 	private void setInvalidCommand(String message) {

@@ -7,7 +7,7 @@ import dooyit.logic.commands.CommandUtils;
 
 public class AddCategoryParser extends TagParser{
 	
-	private static final String ERROR_MESSAGE_INVALID_ADDCAT_COMMAND = "Error: Invalid addcat command!";
+	public static final String ERROR_MESSAGE_INVALID_ADDCAT_COMMAND = "Invalid addcat command!";
 	private static final String DEFAULT_COLOUR = "";
 	private static final int INDEX_NAME = 0;
 	private static final int INDEX_COLOUR = 1;
@@ -74,25 +74,13 @@ public class AddCategoryParser extends TagParser{
 	
 	private void setCorrectCategoryWithTasksCommand(TAG_TYPE tagType) {
 		switch (tagType) {
-		case SINGLE:
-			setCreateCategoryWithOneTaskCommand();
-			break;
-
-		case MULTIPLE:
+		case VALID:
 			setCreateCategoryWithManyTasksCommand();
 			break;
 
 		default: 
 			setInvalidCmd();
 			break;
-		}
-	}
-
-	private void setCreateCategoryWithOneTaskCommand() {
-		if(hasColour) {
-			//command = CommandUtils.createAddCategoryCommand(catName, catColour, taskIdsForTagging);
-		} else {
-			//command = CommandUtils.createAddCatergoryCommand(catName, taskIdsForTagging); 
 		}
 	}
 
@@ -121,7 +109,7 @@ public class AddCategoryParser extends TagParser{
 	}
 
 	private ADD_CATEGORY_TYPE getCommandType() {
-		if(userInput.equals("")) {
+		if(userInput.equals(EMPTY_STRING)) {
 			return ADD_CATEGORY_TYPE.INVALID;
 		} else if(hasTasks) {
 			return ADD_CATEGORY_TYPE.CREATE_NEW_CATEGORY_WITH_TASKS;

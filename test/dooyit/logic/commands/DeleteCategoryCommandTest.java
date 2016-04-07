@@ -9,7 +9,7 @@ import org.junit.Test;
 import org.powermock.reflect.Whitebox;
 
 import dooyit.common.datatype.Category;
-import dooyit.common.datatype.CustomColor;
+import dooyit.common.datatype.CustomColour;
 import dooyit.logic.api.Action;
 import dooyit.logic.api.LogicAction;
 import dooyit.logic.api.LogicController;
@@ -30,8 +30,8 @@ public class DeleteCategoryCommandTest {
 	@Test
 	public void execute_ContainsCategory_ExpectedPass() {
 		logic.clearCategory();
-		Category personal = new Category("Personal", CustomColor.RED);
-		Category assignments = new Category("Assignments", CustomColor.GREEN);
+		Category personal = new Category("Personal", CustomColour.RED);
+		Category assignments = new Category("Assignments", CustomColour.GREEN);
 		logic.addCategory(personal);
 		logic.addCategory(assignments);
 		deleteCatCommand = new DeleteCategoryCommand("Personal");

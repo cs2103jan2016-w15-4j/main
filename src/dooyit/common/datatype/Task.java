@@ -65,8 +65,14 @@ public abstract class Task {
 		return displayId;
 	}
 
-	public void setDisplayId(int taskId) {
+	/**
+	 * 
+	 * @param taskId
+	 * @return true if ID is successfully set
+	 */
+	public boolean setDisplayId(int taskId) {
 		this.displayId = taskId;
+		return true;
 	}
 
 	public void resetDisplayId() {
@@ -96,10 +102,11 @@ public abstract class Task {
 	@Override
 	public abstract boolean equals(Object o);
 
+	@Override
+	public abstract String toString();
+	
 	public abstract boolean hasOverlap(Task task);
 	
-	public abstract String toString();
-
 	public abstract DateTime getDateTime();
 
 	public abstract int compareDateTo(Task task);

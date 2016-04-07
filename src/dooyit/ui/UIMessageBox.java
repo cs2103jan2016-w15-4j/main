@@ -1,5 +1,6 @@
 package dooyit.ui;
 
+import dooyit.system.OsUtils;
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -20,7 +21,7 @@ public class UIMessageBox {
 	private static final int FADE_TIME_LONG = 11000;
 	private static final int CHAR_LEN_LONG = 40;
 	private static final int PREFHEIGHT = 41;
-	private static final int PAD_X = 0;
+	private static final int PAD_X = 8;
 	private static final int PAD_Y = 105;
 	private static final double FT_INITIAL_VAL = 1.0;
 	private static final double FT_FINAL_VAL = 0.0;
@@ -78,9 +79,14 @@ public class UIMessageBox {
 	}
 	
 	protected void updatePosition(){
-		double x = this.primaryStage.getX() + PAD_X;
+		double x = this.primaryStage.getX();
 		double y = this.primaryStage.getY() + this.primaryStage.getHeight() - PAD_Y;
-		double width = this.primaryStage.getWidth() - 2 * PAD_X;
+		double width = this.primaryStage.getWidth();
+		if(OsUtils.isWindows()) {
+			x = x + PAD_X;
+			width = width - 2 * PAD_X;
+		}
+
 		update(x, y, width, PREFHEIGHT);
 	}
 	

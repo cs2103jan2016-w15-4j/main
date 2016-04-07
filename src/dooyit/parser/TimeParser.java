@@ -4,10 +4,10 @@ package dooyit.parser;
 import dooyit.common.exception.IncorrectInputException;
 
 public class TimeParser implements DateTimeParserCommons {
-	private static final String ERROR_MESSAGE_INVALID_TIME = "Error: Invalid time!";
-	private static final String ERROR_MESSAGE_INVALID_HOURS_OR_MINUTES = "Error: Invalid Time! Hours must fall within the 24h range and Minutes must be between 0 to 59 inclusive";
-	private static final String ERROR_MESSAGE_TIME_EXCEEDS_24H = "Error: Invalid Time! Time must not exceed 24 hours!";
-	private static final String ERROR_MESSAGE_AM_AND_PM = "Error: Time cannot be contain both am and pm!";
+	private static final String ERROR_MESSAGE_INVALID_TIME = "Invalid time!";
+	private static final String ERROR_MESSAGE_INVALID_HOURS_OR_MINUTES = "Invalid Time! Hours must fall within the 24h range and Minutes must be between 0 to 59 inclusive";
+	private static final String ERROR_MESSAGE_TIME_EXCEEDS_24H = "Invalid Time! Time must not exceed 24 hours!";
+	private static final String ERROR_MESSAGE_AM_AND_PM = "Time cannot be contain both am and pm!";
 	private static final String TWELVE_MIDNIGHT_ONE_STRING = "12am";
 	private static final int TWELVE_HOURS = 1200;
 	private static final int TWENTY_FOUR_HOURS = 2400;

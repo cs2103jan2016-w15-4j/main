@@ -11,7 +11,7 @@ import org.junit.Test;
 
 import dooyit.common.datatype.Category;
 import dooyit.common.datatype.CategoryData;
-import dooyit.common.datatype.CustomColor;
+import dooyit.common.datatype.CustomColour;
 
 public class CategoryControllerTest extends Constants {
 
@@ -66,10 +66,10 @@ public class CategoryControllerTest extends Constants {
 		CategoryController categoryController = new CategoryController(FOLDER_TEST_STORAGE + "testSaveCat.txt");
 		ArrayList<Category> categories = new ArrayList<Category>();
 
-		categories.add(new Category("A", CustomColor.BLUE));
-		categories.add(new Category("B", CustomColor.RED));
-		categories.add(new Category("C", CustomColor.PINK));
-		categories.add(new Category("D", CustomColor.YELLOW));
+		categories.add(new Category("A", CustomColour.BLUE));
+		categories.add(new Category("B", CustomColour.RED));
+		categories.add(new Category("C", CustomColour.PINK));
+		categories.add(new Category("D", CustomColour.YELLOW));
 		
 		ArrayList<CategoryData> loaded = categoryController.load();
 		ArrayList<Category> existingCat = new ArrayList<Category> ();
@@ -81,33 +81,33 @@ public class CategoryControllerTest extends Constants {
 	}
 	
 	//Referenced from CustomColor class
-	private CustomColor resolveColor(String colorName) {
-		CustomColor color;
+	private CustomColour resolveColor(String colorName) {
+		CustomColour color;
 		String name = colorName.toLowerCase();
 		
 		if(name.equals(BLACK)) {
-			color = CustomColor.BLACK;
+			color = CustomColour.BLACK;
 		} else if (name.equals(BLUE)) {
-			color = CustomColor.BLUE;
+			color = CustomColour.BLUE;
 		} else if (name.equals(CYAN)) {
-			color = CustomColor.CYAN;
+			color = CustomColour.CYAN;
 		} else if (name.equals(GREY)) {
-			color = CustomColor.GREY;
+			color = CustomColour.GREY;
 		} else if (name.equals(GREEN)) {
-			color = CustomColor.GREEN;
+			color = CustomColour.GREEN;
 		} else if (name.equals(MAGENTA)) {
-			color = CustomColor.MAGENTA;
+			color = CustomColour.MAGENTA;
 		} else if (name.equals(PINK)){
-			color = CustomColor.PINK;
+			color = CustomColour.PINK;
 		} else if (name.equals(RED)) {
-			color = CustomColor.RED;
+			color = CustomColour.RED;
 		} else if (name.equals(YELLOW)) {
-			color = CustomColor.YELLOW;
+			color = CustomColour.YELLOW;
 		} else if (name.equals(WHITE)) {
-			color = CustomColor.WHITE;
+			color = CustomColour.WHITE;
 		} else {
 			//Random color generated but assume blue
-			color = CustomColor.BLUE;
+			color = CustomColour.BLUE;
 		}
 
 		return color;

@@ -7,7 +7,7 @@ import dooyit.logic.commands.CommandUtils;
 import dooyit.parser.TagParser.TAG_TYPE;
 
 public class DeleteParser extends TagParser {
-	private static final String ERROR_MESSAGE_INVALID_DELETE_COMMAND = "Invalid Delete Command!";
+	public static final String ERROR_MESSAGE_INVALID_DELETE_COMMAND = "Invalid Delete Command!";
 	public static final String ERROR_MESSAGE_NO_TASK_ID = "No Task IDs specified!";
 	private Command command;
 	private boolean hasCategory;
@@ -48,11 +48,7 @@ public class DeleteParser extends TagParser {
 
 	private void setDeleteCommandWithCategoryName(TAG_TYPE tagType) {
 		switch(tagType) {
-		case SINGLE:
-			setSingleTypeDeleteCommandWithCategoryName();
-			break;
-
-		case MULTIPLE:
+		case VALID:
 			setMultipleTypeDeleteCommandWithCategoryName();
 			break;
 
@@ -65,11 +61,7 @@ public class DeleteParser extends TagParser {
 	private void setMultipleTypeDeleteCommandWithCategoryName() {
 		//command = CommandUtils.createDeleteCommand(taskIdsForTagging, categoryName);
 	}
-
-	private void setSingleTypeDeleteCommandWithCategoryName() {
-		//command = CommandUtils.createDeleteCommand(taskIdForTagging, categoryName);
-	}
-
+	
 	private String removeCategoryNameFromInput(String input) {
 		if(hasCategory) {
 			input = input.replace(categoryName, EMPTY_STRING);
@@ -101,12 +93,8 @@ public class DeleteParser extends TagParser {
 
 	private void setCorrectDeleteCommand(TAG_TYPE tagType) {
 		switch(tagType) {
-		case SINGLE:
-			setSingleTypeDeleteCommand();
-			break;
-
-		case MULTIPLE:
-			setMultipleTypeDeleteCommand();
+		case VALID:
+			setDeleteCommand();
 			break;
 
 		default:
@@ -115,14 +103,10 @@ public class DeleteParser extends TagParser {
 		}
 	}
 
-	private void setMultipleTypeDeleteCommand() {
+	private void setDeleteCommand() {
 		command = CommandUtils.createDeleteCommand(taskIdsForTagging);
 	}
-
-	private void setSingleTypeDeleteCommand() {
-		command = CommandUtils.createDeleteCommand(taskIdForTagging);
-	}
-
+	
 	private void setInvalidCommand() {
 		command = CommandUtils.createInvalidCommand(ERROR_MESSAGE_INVALID_DELETE_COMMAND);
 	}

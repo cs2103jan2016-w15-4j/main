@@ -28,6 +28,7 @@ public class EditTaskCommand implements Command, ReversibleCommand {
 	private boolean hasError = false;
 
 	public EditTaskCommand(int taskId) {
+		this.taskId = taskId;
 		editCommandType = EditCommandType.TO_FLOAT;
 	}
 

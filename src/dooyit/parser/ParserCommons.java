@@ -8,7 +8,7 @@ public interface ParserCommons {
 	public static final String MARKER_START_EVENT = " from ";
 	public static final String MARKER_END_EVENT = " to ";
 	public static final String MARKER_WORK = " by ";
-	public static final String ERROR_MESSAGE_END_BEFORE_START = "Error: End timing cannot be before Start timing";
+	public static final String ERROR_MESSAGE_END_BEFORE_START = "End timing cannot be before Start timing";
 
 	public static final String COMMAND_ADD = "add";
 	public static final String COMMAND_ADD_CAT = "addcat";
@@ -25,14 +25,15 @@ public interface ParserCommons {
 	public static final String COMMAND_REDO = "redo";
 	public static final String COMMAND_SEARCH = "search";
 	public static final String COMMAND_SHOW = "show";
+	public static final String COMMAND_SHOW_CATEGORY = "showcat";
 	public static final String COMMAND_SKIN = "skin";
 	public static final String COMMAND_STORAGE = "storage"; 
 	public static final String COMMAND_UNDO = "undo";
 	public static final String COMMAND_UNMARK = "unmark";
 	
-	public static final String[] exitCommandAlias = new String[]{"close", COMMAND_EXIT};
+	public static final String[] exitCommandAlias = new String[]{"quit", "close", COMMAND_EXIT};
 	public static final String[] deleteCommandAlias = new String[]{"rm", "remove", COMMAND_DELETE};
-	public static final String[] floatCommandAlias = new String[]{"editToFloat", COMMAND_FLOAT};
+	public static final String[] floatCommandAlias = new String[]{"edittofloat", COMMAND_FLOAT};
 
 	public static String getCommandType(String commandString) {
 		String type;

@@ -264,7 +264,7 @@ public class DateTime {
 		} else {
 			comparison = monthComparison;
 		}
-		return comparison;
+		return comparison; 
 	}
 
 	private static boolean isSameMonth(int monthComparison) {
@@ -437,6 +437,18 @@ public class DateTime {
 		boolean dtIsAfterStart = dt.compareTo(start) != COMPARISON_FIRST_IS_BEFORE_SECOND;
 		boolean dtIsBeforeEnd = dt.compareTo(end) != COMPARISON_FIRST_IS_AFTER_SECOND;
 		return dtIsAfterStart && dtIsBeforeEnd;
+	}
+	
+	public boolean isMonth(MONTH month) {
+		String monthString = month.name();
+		String dateTimeMonth = months[this.getMM()];
+		return monthString.equalsIgnoreCase(dateTimeMonth);
+	}
+	
+	public boolean isDay(DAY day) {
+		String dayString = day.name();
+		String dateTimeDay = daysInWeek[this.getDayInt()].substring(0, 3);
+		return dayString.equalsIgnoreCase(dateTimeDay);
 	}
 	
 	public static DAY getDayType(String input) {

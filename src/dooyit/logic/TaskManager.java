@@ -924,19 +924,19 @@ public class TaskManager {
 		
 		switch(searchType){
 		case NAME:
-			filterTaskGroupByName(taskGroups, searchKey);
+			filterTaskGroupsByName(taskGroups, searchKey);
 			break;
 			
 		case DAY:
-			
+			filterTaskGroupsByDay(taskGroups, searchKey, searchDay);
 			break;
 			
 		case MONTH:
-			
+			filterTaskGroupsByMonth(taskGroups, searchKey, searchMonth);
 			break;
 			
 		case DATE:
-			
+			filterTaskGroupsByDate(taskGroups, searchDateTime);
 			break;
 		
 		}
@@ -997,6 +997,7 @@ public class TaskManager {
 		Iterator<TaskGroup> taskGroupsItr = taskGroups.iterator();
 		while (taskGroupsItr.hasNext()) {
 			TaskGroup taskGroup = taskGroupsItr.next();
+			
 			taskGroup.filterByCategory(category);
 
 			if (taskGroup.size() == 0) {
@@ -1005,10 +1006,11 @@ public class TaskManager {
 		}
 	}
 
-	public void filterTaskGroupByName(ArrayList<TaskGroup> taskGroups, String searchKey){
+	public void filterTaskGroupsByName(ArrayList<TaskGroup> taskGroups, String searchKey){
 		Iterator<TaskGroup> taskGroupsItr = taskGroups.iterator();
 		while (taskGroupsItr.hasNext()) {
 			TaskGroup taskGroup = taskGroupsItr.next();
+			
 			taskGroup.filterByName(searchKey);
 
 			if (taskGroup.size() == 0) {
@@ -1017,16 +1019,43 @@ public class TaskManager {
 		}
 	}
 	
-	public void filterTaskGroupsByDate(DateTime dateTime) {
+	public void filterTaskGroupsByDate(ArrayList<TaskGroup> taskGroups, DateTime dateTime) {
+		Iterator<TaskGroup> taskGroupsItr = taskGroups.iterator();
+		while (taskGroupsItr.hasNext()) {
+			TaskGroup taskGroup = taskGroupsItr.next();
+			
+			taskGroup.filterByDate(dateTime);
 
+			if (taskGroup.size() == 0) {
+				taskGroupsItr.remove();
+			}
+		}
 	}
 
-	public void filterTaskGroupsByDay() {
+	public void filterTaskGroupsByDay(ArrayList<TaskGroup> taskGroups, String searchKey, DAY day) {
+		Iterator<TaskGroup> taskGroupsItr = taskGroups.iterator();
+		while (taskGroupsItr.hasNext()) {
+			TaskGroup taskGroup = taskGroupsItr.next();
+			
+			taskGroup.filterByDay(searchKey, day);
 
+			if (taskGroup.size() == 0) {
+				taskGroupsItr.remove();
+			}
+		}
 	}
 
-	public void filterTaskGroupsByMonth() {
+	public void filterTaskGroupsByMonth(ArrayList<TaskGroup> taskGroups, String searchKey, MONTH month) {
+		Iterator<TaskGroup> taskGroupsItr = taskGroups.iterator();
+		while (taskGroupsItr.hasNext()) {
+			TaskGroup taskGroup = taskGroupsItr.next();
+			
+			taskGroup.filterByMonth(searchKey, month);
 
+			if (taskGroup.size() == 0) {
+				taskGroupsItr.remove();
+			}
+		}
 	}
 
 	public void sortTasks(ArrayList<Task> tasks) {

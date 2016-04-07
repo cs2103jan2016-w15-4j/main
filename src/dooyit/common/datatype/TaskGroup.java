@@ -96,17 +96,13 @@ public class TaskGroup {
 		
 	}
 	
-	public void filterByDate(String searchKey, DateTime dateTime) {
-		searchKey = searchKey.toLowerCase();
+	public void filterByDate(DateTime dateTime) {
 		Iterator<Task> taskItr = tasks.iterator();
 
 		while(taskItr.hasNext()){
 			Task task = taskItr.next();
 			
-			String taskName = task.getName();
-			taskName = taskName.toLowerCase();
-			
-			if(!taskName.contains(searchKey) && !task.isSameDate(dateTime)){
+			if(!task.isSameDate(dateTime)){
 				taskItr.remove();
 			}
 		}

@@ -11,7 +11,6 @@ public class EditCategoryParser implements ParserCommons {
 	private static final String MARKER_COLOUR = " to ";
 	private static final int INDEX_ORIGINAL_NAME = 0;
 	private static final int INDEX_NEW_NAME = 1;
-	private static final int LENGTH_OF_COLOUR_MARKER = 5;
 	
 	private static final int EDIT_NAME_AND_COLOUR = 1;
 	private static final int EDIT_NAME_ONLY = 2;
@@ -26,6 +25,8 @@ public class EditCategoryParser implements ParserCommons {
 
 	private boolean hasInsufficientArguments;
 	private boolean hasTooManyWordsInNewCategoryName;
+	private boolean hasNewName;
+	private boolean hasNewColour;
 	
 	private Command command;
 	
@@ -47,7 +48,7 @@ public class EditCategoryParser implements ParserCommons {
 			break;
 		
 		case EDIT_COLOUR_ONLY:
-			//command = CommandUtils.createEditCategoryCommand(originalName, newColour);
+			command = CommandUtils.createEditCategoryCommand(originalName, originalName, newColour);
 			break;
 		
 		case INVALID_TOO_MANY_WORDS: 
@@ -73,13 +74,13 @@ public class EditCategoryParser implements ParserCommons {
 		} else if(hasInsufficientArguments) {
 			editType = INVALID_TOO_FEW_ARGUMENTS;
 			
-		} if(newName != null && newColour != null) {
+		} if(hasNewName && hasNewColour) {
 			editType = EDIT_NAME_AND_COLOUR;
 			
-		} else if(newName == null && newColour != null) {
+		} else if(!hasNewName && hasNewColour) {
 			editType = EDIT_COLOUR_ONLY;
 			
-		} else if(newName != null && newColour == null) {
+		} else if(hasNewName && !hasNewColour) {
 			editType = EDIT_NAME_ONLY;
 			
 		} else {
@@ -97,12 +98,13 @@ public class EditCategoryParser implements ParserCommons {
 		} else {
 			if(!inputArr[INDEX_NEW_NAME].equals(MARKER_COLOUR.trim())) {
 				newName = inputArr[INDEX_NEW_NAME];
+				hasNewName = true;
 			}
 			
-			int indexOfMarkerColour = input.toLowerCase().indexOf(MARKER_COLOUR);
-			if(indexOfMarkerColour != -1) {
-				int indexOfColour = indexOfMarkerColour + LENGTH_OF_COLOUR_MARKER;
-				newColour = input.substring(indexOfColour);
+			if(input.contains(MARKER_COLOUR)) {
+				int indexOfColour = inputArr.length - 1;
+				newColour = inputArr[indexOfColour];
+				hasNewColour = true;
 			}
 			
 			if(inputArr.length > 4) {
@@ -117,6 +119,8 @@ public class EditCategoryParser implements ParserCommons {
 		newName = null;
 		newColour = null;
 		hasInsufficientArguments = false;
+		hasNewName = false;
+		hasNewColour = false;
 		hasTooManyWordsInNewCategoryName = false;
 	}
 

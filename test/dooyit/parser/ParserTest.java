@@ -1166,44 +1166,6 @@ public class ParserTest {
 		DateTime expectedDeadline = dtParser.parse("30/3 5pm");
 		assertTrue(expectedDeadline.equals(deadline));
 	}
-	/*
-	@Test
-	public void editNameAndEndDateTime() {
-		String input = "edit 12 buy healthy snacks to 30/3 5pm";
-		Command command = parser.getCommand(input);
-		
-		String newName = Whitebox.getInternalState(command, "taskName");
-		String expectedName = "buy healthy snacks";
-		assertEquals(expectedName, newName);
-		
-		int taskId = Whitebox.getInternalState(command, "taskId");
-		int expectedTaskId = 12;
-		assertEquals(expectedTaskId, taskId);
-		
-		DateTime endDateTime = Whitebox.getInternalState(command, "dateTimeEnd");
-		DateTimeParser dtParser = new DateTimeParser();
-		DateTime expectedEndDateTime = dtParser.parse("30/3 5pm");
-		assertTrue(expectedEndDateTime.equals(endDateTime));
-	}
-	
-	@Test
-	public void editNameAndStartDateTime() {
-		String input = "edit 12 buy healthy snacks from 30/3 5pm";
-		Command command = parser.getCommand(input);
-		
-		String newName = Whitebox.getInternalState(command, "taskName");
-		String expectedName = "buy healthy snacks";
-		assertEquals(expectedName, newName);
-		
-		int taskId = Whitebox.getInternalState(command, "taskId");
-		int expectedTaskId = 12;
-		assertEquals(expectedTaskId, taskId);
-		
-		DateTime startDateTime = Whitebox.getInternalState(command, "dateTimeStart");
-		DateTimeParser dtParser = new DateTimeParser();
-		DateTime expectedStartDateTime = dtParser.parse("30/3 5pm");
-		assertTrue(expectedStartDateTime.equals(startDateTime));
-	}*/
 	
 	@Test
 	public void editNameStartAndEndDateTime() {
@@ -1303,37 +1265,6 @@ public class ParserTest {
 		DateTime expectedEndDateTime = dtParser.parse("30/3 5pm");
 		assertTrue(expectedEndDateTime.equals(endDateTime));
 	}
-	
-	/*
-	@Test
-	public void editStartDateTime() {
-		String input = "edit 15 from 30/3 4pm";
-		Command command = parser.getCommand(input);
-		
-		int taskId = Whitebox.getInternalState(command, "taskId");
-		int expectedTaskId = 15;
-		assertEquals(expectedTaskId, taskId);
-		
-		DateTime startDateTime = Whitebox.getInternalState(command, "dateTimeStart");
-		DateTimeParser dtParser = new DateTimeParser();
-		DateTime expectedStartDateTime = dtParser.parse("30/3 4pm");
-		assertTrue(expectedStartDateTime.equals(startDateTime));
-	}
-	
-	@Test
-	public void editEndDateTime() {
-		String input = "edit 15 to 30/3 5pm";
-		Command command = parser.getCommand(input);
-		
-		int taskId = Whitebox.getInternalState(command, "taskId");
-		int expectedTaskId = 15;
-		assertEquals(expectedTaskId, taskId);
-		
-		DateTimeParser dtParser = new DateTimeParser();
-		DateTime endDateTime = Whitebox.getInternalState(command, "dateTimeEnd");
-		DateTime expectedEndDateTime = dtParser.parse("30/3 5pm");
-		assertTrue(expectedEndDateTime.equals(endDateTime));
-	}*/
 	
 	@Test
 	public void editEmptyInput() {

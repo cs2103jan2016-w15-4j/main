@@ -63,7 +63,7 @@ public class CategoryManager {
 	}
 
 	public void editCategoryName(Category category, String newCategoryName) {
-		category.setName(newCategoryName);
+		category.setName(capitalizeFirstCharacter(newCategoryName));
 	}
 
 	public boolean editCategoryColour(Category category, String newColourString) {

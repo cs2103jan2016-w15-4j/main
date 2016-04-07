@@ -20,6 +20,8 @@ import dooyit.common.datatype.DateTime;
 import dooyit.common.datatype.Task;
 import dooyit.common.datatype.TaskData;
 import dooyit.common.datatype.TaskGroup;
+import dooyit.common.datatype.DateTime.DAY;
+import dooyit.common.datatype.DateTime.MONTH;
 
 public class LogicController {
 
@@ -32,7 +34,6 @@ public class LogicController {
 	private static Logger logger = Logger.getLogger("Logic");
 	private boolean isSaveOn = true;
 	private boolean displayCommandline = true;
-	private String currentSearch = "";
 
 	public LogicController() {
 		logger.log(Level.INFO, "Initialising logic class");
@@ -234,9 +235,21 @@ public class LogicController {
 	}
 
 	public void setSearchKey(String searchString) {
-		this.currentSearch = searchString;
+		taskManager.setSearchKey(searchString);
 	}
-
+	
+	public void setSearchKey(String searchKey, DAY day) {
+		taskManager.setSearchKey(searchKey, day);
+	}
+	
+	public void setSearchKey(String searchKey, MONTH month) {
+		taskManager.setSearchKey(searchKey, month);
+	}
+	
+	public void setSearchKey(DateTime dateTime) {
+		taskManager.setSearchKey(dateTime);
+	}
+	
 	public ArrayList<TaskGroup> getTaskGroupsToday() {
 		return taskManager.getTaskGroupsToday();
 	}
@@ -266,7 +279,7 @@ public class LogicController {
 	}
 
 	public ArrayList<TaskGroup> getSearchTaskGroup() {
-		return taskManager.getTaskGroupSearched(currentSearch);
+		return taskManager.getTaskGroupSearched();
 	}
 
 	public void resetTaskManager(){

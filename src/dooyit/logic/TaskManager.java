@@ -9,6 +9,8 @@ import dooyit.common.comparator.TaskDateComparator;
 import dooyit.common.comparator.TaskUniqueIdComparator;
 import dooyit.common.datatype.Category;
 import dooyit.common.datatype.DateTime;
+import dooyit.common.datatype.DateTime.DAY;
+import dooyit.common.datatype.DateTime.MONTH;
 import dooyit.common.datatype.DeadlineTask;
 import dooyit.common.datatype.EventTask;
 import dooyit.common.datatype.FloatingTask;
@@ -37,8 +39,11 @@ public class TaskManager {
 	private static final int TASKGROUP_COUNT_LIMIT = 30;
 	private ArrayList<Task> tasks;
 
+	private SearchType searchType;
 	private String searchKey;
-	private DateTime dateTime;
+	private DateTime searchDateTime;
+	private DAY searchDay;
+	private MONTH searchMonth;
 
 	public TaskManager() {
 		tasks = new ArrayList<Task>();
@@ -520,6 +525,11 @@ public class TaskManager {
 		return false;
 	}
 
+	/**
+	 * checks if the task overlaps with other event task
+	 * @param inTask
+	 * @return true if the task overlaps with other event task
+	 */
 	public boolean hasOverlapWithOverEventTask(Task inTask) {
 		for (Task task : tasks) {
 			if (!task.equals(inTask) && task.hasOverlap(inTask)) {
@@ -909,14 +919,28 @@ public class TaskManager {
 		return taskGroups;
 	}
 
-	public ArrayList<TaskGroup> getTaskGroupSearched(String searchString) {
-		ArrayList<TaskGroup> taskGroups = new ArrayList<TaskGroup>();
-		ArrayList<Task> searchedTasks = searchTask(searchString);
-
-		TaskGroup taskGroup = new TaskGroup("Search List");
-		taskGroup.addTasks(searchedTasks);
-		taskGroups.add(taskGroup);
-
+	public ArrayList<TaskGroup> getTaskGroupSearched() {
+		ArrayList<TaskGroup> taskGroups = getTaskGroupsAll();
+		
+		switch(searchType){
+		case NAME:
+			filterTaskGroupByName(taskGroups, searchKey);
+			break;
+			
+		case DAY:
+			
+			break;
+			
+		case MONTH:
+			
+			break;
+			
+		case DATE:
+			
+			break;
+		
+		}
+		
 		resetTasksId(taskGroups);
 		return taskGroups;
 	}
@@ -931,6 +955,11 @@ public class TaskManager {
 		}
 	}
 
+	private TaskGroup createEmptyTaskGroup(String title){
+		TaskGroup taskGroup = new TaskGroup(title);
+		return taskGroup;
+	}
+	
 	/**
 	 * @return
 	 */
@@ -974,9 +1003,20 @@ public class TaskManager {
 				taskGroupsItr.remove();
 			}
 		}
-
 	}
 
+	public void filterTaskGroupByName(ArrayList<TaskGroup> taskGroups, String searchKey){
+		Iterator<TaskGroup> taskGroupsItr = taskGroups.iterator();
+		while (taskGroupsItr.hasNext()) {
+			TaskGroup taskGroup = taskGroupsItr.next();
+			taskGroup.filterByName(searchKey);
+
+			if (taskGroup.size() == 0) {
+				taskGroupsItr.remove();
+			}
+		}
+	}
+	
 	public void filterTaskGroupsByDate(DateTime dateTime) {
 
 	}
@@ -1036,11 +1076,25 @@ public class TaskManager {
 	}
 
 	public void setSearchKey(String searchKey) {
+		searchType = SearchType.NAME;
 		this.searchKey = searchKey;
 	}
 
+	public void setSearchKey(String searchKey, DAY day) {
+		searchType = SearchType.DAY;
+		this.searchKey = searchKey;
+		this.searchDay = day;
+	}
+	
+	public void setSearchKey(String searchKey, MONTH month) {
+		searchType = SearchType.MONTH;
+		this.searchKey = searchKey;
+		this.searchMonth = month;
+	}
+	
 	public void setSearchKey(DateTime dateTime) {
-		this.dateTime = dateTime;
+		searchType = SearchType.DATE;
+		this.searchDateTime = dateTime;
 	}
 
 	public ArrayList<Task> searchTask(String searchString) {

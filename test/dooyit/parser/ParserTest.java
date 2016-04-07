@@ -809,8 +809,77 @@ public class ParserTest {
 	//********************************************
 	//****** Tests for EditCategoryParser ********
 	//********************************************
-	//!!!!!!!!!!!!!!! TO DO LATER !!!!!!!!!!!!!!!!
+	@Test
+	public void editCategoryName() {
+		String input = "editcat CS2103T softwareEngineeringMod";
+		Command command = parser.getCommand(input);
+		String categoryNameInCommand = Whitebox.getInternalState(command, "categoryName");
+		String newCategoryNameInCommand = Whitebox.getInternalState(command, "newCategoryName");
+		String expectedCategoryName = "CS2103T";
+		String expectedNewCategoryName = "softwareEngineeringMod";
+		assertEquals(expectedCategoryName, categoryNameInCommand);
+		assertEquals(expectedNewCategoryName, newCategoryNameInCommand);
+	}
 	
+	@Test
+	public void editCategoryNameAndColour() {
+		String input = "editcat CS2103T softwareEngineeringMod to blue";
+		Command command = parser.getCommand(input);
+		String categoryNameInCommand = Whitebox.getInternalState(command, "categoryName");
+		String newCategoryNameInCommand = Whitebox.getInternalState(command, "newCategoryName");
+		String newColourInCommand = Whitebox.getInternalState(command, "newColourName");
+		String expectedCategoryName = "CS2103T";
+		String expectedNewCategoryName = "softwareEngineeringMod";
+		String expectedColour = "blue";
+		assertEquals(expectedCategoryName, categoryNameInCommand);
+		assertEquals(expectedNewCategoryName, newCategoryNameInCommand);
+		assertEquals(expectedColour, newColourInCommand);
+	}
+	
+	@Test
+	public void editCategoryColour() {
+		String input = "editcat CS2103T to blue";
+		Command command = parser.getCommand(input);
+		String categoryNameInCommand = Whitebox.getInternalState(command, "categoryName");
+		String newCategoryNameInCommand = Whitebox.getInternalState(command, "newCategoryName");
+		String newColourInCommand = Whitebox.getInternalState(command, "newColourName");
+		String expectedCategoryName = "CS2103T";
+		String expectedNewCategoryName = "CS2103T";
+		String expectedColour = "blue";
+		assertEquals(expectedCategoryName, categoryNameInCommand);
+		assertEquals(expectedNewCategoryName, newCategoryNameInCommand);
+		assertEquals(expectedColour, newColourInCommand);
+	}
+	
+	@Test
+	public void editCategoryEmptyStringForColour() {
+		String input = "editcat CS2103T to ";
+		Command command = parser.getCommand(input);
+		String categoryNameInCommand = Whitebox.getInternalState(command, "categoryName");
+		String newCategoryNameInCommand = Whitebox.getInternalState(command, "newCategoryName");
+		String expectedCategoryName = "CS2103T";
+		String expectedNewCategoryName = "to";
+		assertEquals(expectedCategoryName, categoryNameInCommand);
+		assertEquals(expectedNewCategoryName, newCategoryNameInCommand);
+	}
+	
+	@Test
+	public void editCategoryEmptyString() {
+		String input = "editcat ";
+		Command command = parser.getCommand(input);
+		String commandErrorMessage = Whitebox.getInternalState(command, "errorMessage");
+		String expectedErrorMessage = EditCategoryParser.ERROR_MESSAGE_TOO_FEW_ARGUMENTS;
+		assertEquals(expectedErrorMessage, commandErrorMessage);
+	}
+	
+	@Test
+	public void editCategoryInsufficientArguments() {
+		String input = "editcat CS2103T";
+		Command command = parser.getCommand(input);
+		String commandErrorMessage = Whitebox.getInternalState(command, "errorMessage");
+		String expectedErrorMessage = EditCategoryParser.ERROR_MESSAGE_TOO_FEW_ARGUMENTS;
+		assertEquals(expectedErrorMessage, commandErrorMessage);
+	}
 	
 	//********************************************
 	//****** Tests for Change Skin Command *******

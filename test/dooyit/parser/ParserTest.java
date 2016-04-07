@@ -1362,6 +1362,15 @@ public class ParserTest {
 		assertEquals(expectedErrorMessage, commandErrorMessage);
 	}
 	
+	@Test
+	public void editGibberishTaskId() {
+		String input = "edit fjdsklghs hfsdlagujdfalg ";
+		Command command = parser.getCommand(input);
+		String commandErrorMessage = Whitebox.getInternalState(command, "errorMessage");
+		String expectedErrorMessage = EditParser.ERROR_MESSAGE_INVALID_EDIT_COMMAND;
+		assertEquals(expectedErrorMessage, commandErrorMessage);
+	}
+	
 	//********************************************
 	//********* Tests for FloatParser ************
 	//********************************************

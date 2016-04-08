@@ -147,7 +147,10 @@ public class TaskGroup {
 //			if (!taskName.contains(searchKey) && !task.getDateTime().isDay(day)) {
 //				taskItr.remove();
 //			}
-			if (!task.getDateTime().isDay(day)) {
+			if(task instanceof FloatingTask){
+				taskItr.remove();
+			}
+			else if (!task.getDateTime().isDay(day)) {
 				taskItr.remove();
 			}
 		}

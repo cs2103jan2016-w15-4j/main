@@ -6,6 +6,11 @@ import java.util.Random;
 
 import dooyit.common.datatype.CustomColour;
 
+/**
+ * 
+ * @author limtaeu
+ *
+ */
 public class ColourManager {
 	ArrayList<CustomColour> usedColours;
 	Random random;
@@ -14,7 +19,38 @@ public class ColourManager {
 	ArrayList<CustomColour> colourPool;
 
 	public ColourManager() {
+		addAvailableColours();
+		addRecommendedColours();
+		init();
+	}
+
+	/**
+	 * 
+	 */
+	public void init() {
 		random = new Random();
+		colourPool = new ArrayList<CustomColour>(recommendedColours);
+	}
+
+	/**
+	 * add recommendedColours into recommendedColours arraylist
+	 */
+	public void addRecommendedColours() {
+		recommendedColours = new ArrayList<CustomColour>();
+		recommendedColours.add(CustomColour.BLUE);
+		recommendedColours.add(CustomColour.CYAN);
+		recommendedColours.add(CustomColour.GREEN);
+		recommendedColours.add(CustomColour.MAGENTA);
+		recommendedColours.add(CustomColour.PINK);
+		recommendedColours.add(CustomColour.RED);
+		recommendedColours.add(CustomColour.YELLOW);
+		recommendedColours.add(CustomColour.ORANGE);
+	}
+
+	/**
+	 * add all availableColours into availableColours arrayList
+	 */
+	public void addAvailableColours() {
 		availableColours = new ArrayList<CustomColour>();
 		availableColours.add(CustomColour.BLACK);
 		availableColours.add(CustomColour.BLUE);
@@ -27,19 +63,6 @@ public class ColourManager {
 		availableColours.add(CustomColour.YELLOW);
 		availableColours.add(CustomColour.WHITE);
 		availableColours.add(CustomColour.ORANGE);
-
-		recommendedColours = new ArrayList<CustomColour>();
-		recommendedColours.add(CustomColour.BLUE);
-		recommendedColours.add(CustomColour.CYAN);
-		recommendedColours.add(CustomColour.GREEN);
-		recommendedColours.add(CustomColour.MAGENTA);
-		recommendedColours.add(CustomColour.PINK);
-		recommendedColours.add(CustomColour.RED);
-		recommendedColours.add(CustomColour.YELLOW);
-		recommendedColours.add(CustomColour.ORANGE);
-		// recommendedColours.add(CustomColor.GREY);
-
-		colourPool = new ArrayList<CustomColour>(recommendedColours);
 	}
 
 	public CustomColour pickRandomCustomColour() {

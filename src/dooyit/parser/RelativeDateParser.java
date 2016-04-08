@@ -28,46 +28,45 @@ public class RelativeDateParser implements DateTimeParserCommons {
 		currDD = dateTime.getDD();
 		currMM = dateTime.getMM();
 		currYY = dateTime.getYY();
-		
 	}
 	
 	public int[] parse(String[] splitInput, int[] combined, int i) throws IncorrectInputException {
 		
 		String currWord = splitInput[i];
 		switch (getRelativeDateType(currWord, splitInput, i)) {
-		case TYPE_THIS_DAY_OF_WEEK:
+		case TYPE_THIS_DAY_OF_WEEK :
 			combined = getThisDayOfWeek(splitInput, i, combined);
 			break;
 
-		case TYPE_NEXT_DAY_OF_WEEK:
+		case TYPE_NEXT_DAY_OF_WEEK :
 			combined = getNextDayOfWeek(splitInput, i, combined);
 			break;
 
-		case TYPE_DAY_OF_WEEK:
+		case TYPE_DAY_OF_WEEK :
 			combined = getDayOfWeek(splitInput, i, combined);
 			break;
 
-		case TYPE_NEXT_WEEK:
+		case TYPE_NEXT_WEEK :
 			combined = getDateAfterOneWeek(splitInput, i, combined);
 			break;
 
-		case TYPE_NUM_DAYS: 
+		case TYPE_NUM_DAYS : 
 			combined = getDateAndDayAfterANumberOfDays(splitInput, i, combined);
 			break;
 
-		case TYPE_NUM_WEEKS:
+		case TYPE_NUM_WEEKS :
 			combined = getDateAndDayAfterNumberOfWeeks(splitInput, i, combined);
 			break;
 
-		case TYPE_TODAY:
+		case TYPE_TODAY :
 			combined = getCombinedArrayForToday(combined);
 			break;
 
-		case TYPE_TOMORROW:
+		case TYPE_TOMORROW :
 			combined = getCombinedArrayForTomorrow(combined);
 			break;
 
-		default:
+		default :
 			combined[COMBINED_INDEX_COUNTER] += 1;
 			throw new IncorrectInputException(ERROR_MESSAGE_INVALID_DATE_INPUT);
 		}
@@ -140,8 +139,8 @@ public class RelativeDateParser implements DateTimeParserCommons {
 	
 	private boolean checkIfWordIsInArray(String currWord, String[] wordArray) {
 		boolean ans = false;
-		for(int i = 0; i < wordArray.length; i++) {
-			if(currWord.equals(wordArray[i])) {
+		for (int i = 0; i < wordArray.length; i++) {
+			if (currWord.equals(wordArray[i])) {
 				ans = true;
 				break;
 			}

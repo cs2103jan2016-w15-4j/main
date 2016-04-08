@@ -37,29 +37,28 @@ public class EditCategoryParser implements ParserCommons {
 	public Command getCommand(String input) {
 		resetVariables();
 		setVariables(input);
-		switch(getEditType()) {
-		
-		case EDIT_NAME_AND_COLOUR: 
+		switch (getEditType()) {
+		case EDIT_NAME_AND_COLOUR : 
 			command = CommandUtils.createEditCategoryCommand(originalName, newName, newColour);
 			break;
 		
-		case EDIT_NAME_ONLY:
+		case EDIT_NAME_ONLY :
 			command = CommandUtils.createEditCategoryCommand(originalName, newName);
 			break;
 		
-		case EDIT_COLOUR_ONLY:
+		case EDIT_COLOUR_ONLY :
 			command = CommandUtils.createEditCategoryCommand(originalName, originalName, newColour);
 			break;
 		
-		case INVALID_TOO_MANY_WORDS: 
+		case INVALID_TOO_MANY_WORDS : 
 			command = CommandUtils.createInvalidCommand(ERROR_MESSAGE_BE_SUCCINCT);
 			break;
 		
-		case INVALID_TOO_FEW_ARGUMENTS:
+		case INVALID_TOO_FEW_ARGUMENTS :
 			command = CommandUtils.createInvalidCommand(ERROR_MESSAGE_TOO_FEW_ARGUMENTS);
 			break;
 		
-		default:
+		default :
 			command = CommandUtils.createInvalidCommand(ERROR_MESSAGE_INVALID_EDIT_CATEGORY_COMMAND);
 			break;
 		}
@@ -68,19 +67,19 @@ public class EditCategoryParser implements ParserCommons {
 
 	private int getEditType() {
 		int editType;
-		if(hasTooManyWordsInNewCategoryName) {
+		if (hasTooManyWordsInNewCategoryName) {
 			editType = INVALID_TOO_MANY_WORDS;
 			
-		} else if(hasInsufficientArguments) {
+		} else if (hasInsufficientArguments) {
 			editType = INVALID_TOO_FEW_ARGUMENTS;
 			
-		} else if(hasNewName && hasNewColour) {
+		} else if (hasNewName && hasNewColour) {
 			editType = EDIT_NAME_AND_COLOUR;
 			
-		} else if(!hasNewName && hasNewColour) {
+		} else if (!hasNewName && hasNewColour) {
 			editType = EDIT_COLOUR_ONLY;
 			
-		} else if(hasNewName && !hasNewColour) { 
+		} else if (hasNewName && !hasNewColour) { 
 			editType = EDIT_NAME_ONLY;
 			
 		} else {
@@ -92,12 +91,12 @@ public class EditCategoryParser implements ParserCommons {
 	private void setVariables(String input) {
 		String[] inputArr = input.split("\\s+");
 		originalName = inputArr[INDEX_ORIGINAL_NAME];
-		if(inputArr.length == 1) {
+		if (inputArr.length == 1) {
 			hasInsufficientArguments = true;
-		} else if(inputArr.length > 4){
+		} else if (inputArr.length > 4){
 			hasTooManyWordsInNewCategoryName = true;
 		} else {
-			if(input.contains(MARKER_COLOUR)) {
+			if (input.contains(MARKER_COLOUR)) {
 				setNewColour(inputArr);
 				setNewName(input); 
 			} else {
@@ -120,11 +119,11 @@ public class EditCategoryParser implements ParserCommons {
 	private void setNewName(String input) {
 		int lastIndexOfMarker = input.lastIndexOf(MARKER_COLOUR);
 		String firstHalfOfInput = input.substring(0, lastIndexOfMarker).trim();
-		if(firstHalfOfInput.equals(originalName)) {
+		if (firstHalfOfInput.equals(originalName)) {
 			hasNewName = false;
 		} else {
 			String[] splitFirstHalf = firstHalfOfInput.split("\\s+");
-			if(splitFirstHalf.length == 2) {
+			if (splitFirstHalf.length == 2) {
 				hasNewName = true;
 				newName = splitFirstHalf[INDEX_NEW_NAME];
 			} else {

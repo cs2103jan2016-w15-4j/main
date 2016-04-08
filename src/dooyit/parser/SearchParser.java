@@ -52,13 +52,13 @@ public class SearchParser implements ParserCommons {
 	}
 
 	private void setCorrectSearchCommand(String input) {
-		if(isEmptyString) {
+		if (isEmptyString) {
 			command = CommandUtils.createInvalidCommand(ERROR_MESSAGE_EMPTY_SEARCH_COMMAND);
-		} else if(isValidDay) {
+		} else if (isValidDay) {
 			command = CommandUtils.createSearchCommand(input, dayEnum);
-		} else if(isValidMonth) {
+		} else if (isValidMonth) {
 			command = CommandUtils.createSearchCommand(input, monthEnum);
-		} else if(isValidDate) {
+		} else if (isValidDate) {
 			command = CommandUtils.createSearchCommand(dateTime);
 		} else {
 			command = CommandUtils.createSearchCommand(input);

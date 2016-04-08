@@ -14,7 +14,7 @@ public class DeleteCategoryParser implements ParserCommons {
 	public Command getCommand(String input) {
 		Command command = null;
 		
-		if(input.equals(EMPTY_STRING)) {
+		if (input.equals(EMPTY_STRING)) {
 			command = CommandUtils.createInvalidCommand(ERROR_MESSAGE_INVALID_DELETE_CATEGORY_COMMAND);
 		} else {
 			command = CommandUtils.createDeleteCategoryCommand(input);

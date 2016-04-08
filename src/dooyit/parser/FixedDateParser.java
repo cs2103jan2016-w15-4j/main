@@ -91,17 +91,17 @@ public class FixedDateParser implements DateTimeParserCommons {
 	}
 
 	private int[] getNumberDate(int[] dateAndArrayIndex, String[] userInputForDate) throws IncorrectInputException {
-		if(userInputForDate.length > 3 || userInputForDate.length == 1) {
+		if (userInputForDate.length > 3 || userInputForDate.length == 1) {
 			throw new IncorrectInputException(ERROR_MESSAGE_INVALID_NUMBER_OF_DATE_INPUTS);
 		}
 		for (int j = 0; j < userInputForDate.length; j++) {
-			if(!ParserCommons.isNumber(userInputForDate[j])) {
+			if (!ParserCommons.isNumber(userInputForDate[j])) {
 				throw new IncorrectInputException(ERROR_MESSAGE_DATE_INPUTS_MUST_BE_NUMBERS);
 			}
 			
 			dateAndArrayIndex[j] = Integer.parseInt(userInputForDate[j]);
 			
-			if(dateAndArrayIndex[j] <= 0) {
+			if (dateAndArrayIndex[j] <= 0) {
 				throw new IncorrectInputException(ERROR_MESSAGE_DATE_INPUTS_MUST_GREATER_THAN_ZERO);
 			}
 		}
@@ -122,7 +122,7 @@ public class FixedDateParser implements DateTimeParserCommons {
 			dateAndAdvanceIntArray[DATE_INDEX_OF_MM] = convertMonthStrToInt(currWord);
 			dateAndAdvanceIntArray[DATE_INDEX_OF_ADVANCE_INT] += 1;
 		} else {
-			if(!DateTimeParserCommons.isValidTime(currWord)) {
+			if (!DateTimeParserCommons.isValidTime(currWord)) {
 				throw new IncorrectInputException(ERROR_MESSAGE_INVALID_DATE);
 			}
 		}
@@ -138,7 +138,7 @@ public class FixedDateParser implements DateTimeParserCommons {
 			throw e;
 		}
 		
-		if(isInvalidDate(newDate)) {
+		if (isInvalidDate(newDate)) {
 			throw new IncorrectInputException();
 		}
 		

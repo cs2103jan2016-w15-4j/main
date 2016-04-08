@@ -19,18 +19,18 @@ public class MoveParser extends TagParser {
 	
 	public Command getCommand(String input) throws IncorrectInputException {
 		parse(input);
-		if(!hasCategory) {
+		if (!hasCategory) {
 			setInvalidCommand(ERROR_MESSAGE_NO_CATEGORY_SPECIFIED); 
 		} else {
 			setVariables(taskIds);
 			try {
 				parseTaskIds();
-			} catch(IncorrectInputException e) {
+			} catch (IncorrectInputException e) {
 				setInvalidCommand(e.getMessage()); 
 			}
 		}
 		
-		if(command == null) {
+		if (command == null) {
 			setCorrectMoveCommand(getTagType());
 		}
 		
@@ -39,11 +39,11 @@ public class MoveParser extends TagParser {
 
 	private void setCorrectMoveCommand(TAG_TYPE tagType) {
 		switch (tagType) {
-		case VALID:
+		case VALID :
 			setMultipleTypeMoveCommand();
 			break;
 
-		default:
+		default :
 			setInvalidCommand();
 			break;
 		}
@@ -67,7 +67,8 @@ public class MoveParser extends TagParser {
 		String[] splitInput = input.split("\\s+");
 		int indexOfCategoryName = splitInput.length - 1;
 		categoryName = splitInput[indexOfCategoryName];
-		if(ParserCommons.isNumber(categoryName) || isIntervalType(categoryName)) {
+		
+		if (ParserCommons.isNumber(categoryName) || isIntervalType(categoryName)) {
 			hasCategory = false;
 		} else {
 			hasCategory = true;

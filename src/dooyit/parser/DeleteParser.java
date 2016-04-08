@@ -22,19 +22,19 @@ public class DeleteParser extends TagParser {
 		setCategoryName(input);
 		input = removeCategoryNameFromInput(input);
 		
-		if(input.equals(EMPTY_STRING)) {
+		if (input.equals(EMPTY_STRING)) {
 			setInvalidCommand(ERROR_MESSAGE_NO_TASK_ID);
 		} else {
 			setVariables(input);
 			
 			try {
 				parseTaskIds();
-			} catch(IncorrectInputException e) {
+			} catch (IncorrectInputException e) {
 				setInvalidCommand(e.getMessage());
 			}
 			
-			if(command == null) {
-				if(hasCategory) { 
+			if (command == null) {
+				if (hasCategory) { 
 					setDeleteCommandWithCategoryName(getTagType());
 				} else {
 					setCorrectDeleteCommand(getTagType());
@@ -62,7 +62,7 @@ public class DeleteParser extends TagParser {
 	}
 	 
 	private String removeCategoryNameFromInput(String input) {
-		if(hasCategory) {
+		if (hasCategory) {
 			input = input.replace(categoryName, EMPTY_STRING);
 		}
 		return input;
@@ -73,7 +73,7 @@ public class DeleteParser extends TagParser {
 		int indexOfName = splitInput.length - 1;
 		String currWord = splitInput[indexOfName];
 		
-		if(!ParserCommons.isNumber(currWord) && !currWord.contains(MARKER_FOR_INTERVAL_TAG_TYPE)) {
+		if (!ParserCommons.isNumber(currWord) && !currWord.contains(MARKER_FOR_INTERVAL_TAG_TYPE)) {
 			hasCategory = true;
 			System.out.println("reached here");
 			categoryName = currWord;
@@ -91,12 +91,12 @@ public class DeleteParser extends TagParser {
 	}
 
 	private void setCorrectDeleteCommand(TAG_TYPE tagType) {
-		switch(tagType) {
-		case VALID:
+		switch (tagType) {
+		case VALID :
 			setDeleteCommand();
 			break;
 
-		default:
+		default :
 			setInvalidCommand();
 			break;
 		}

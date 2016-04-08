@@ -18,11 +18,11 @@ public class MarkParser extends TagParser{
 		command = null;
 		try {
 			parseTaskIds();
-		} catch(IncorrectInputException e) {
+		} catch (IncorrectInputException e) {
 			setInvalidCommand(e.getMessage());
 		}
 		
-		if(command == null) {
+		if (command == null) {
 			setCorrectMarkCommand(getTagType());
 		}
 		
@@ -31,11 +31,11 @@ public class MarkParser extends TagParser{
 
 	private void setCorrectMarkCommand(TAG_TYPE tagType) {
 		switch (tagType) {
-		case VALID:
+		case VALID :
 			setMultipleTypeMarkCommand();
 			break;
 
-		default:
+		default :
 			setInvalidCommand();
 			break;
 		}

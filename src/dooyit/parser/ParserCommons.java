@@ -38,11 +38,11 @@ public interface ParserCommons {
 	public static String getCommandType(String commandString) {
 		String type;
 		
-		if(isAliasOf(commandString, exitCommandAlias)) {
+		if (isAliasOf(commandString, exitCommandAlias)) {
 			type = COMMAND_EXIT;
-		} else if(isAliasOf(commandString, deleteCommandAlias)) {
+		} else if (isAliasOf(commandString, deleteCommandAlias)) {
 			type = COMMAND_DELETE;
-		} else if(isAliasOf(commandString, floatCommandAlias)) {
+		} else if (isAliasOf(commandString, floatCommandAlias)) {
 			type = COMMAND_FLOAT;
 		} else {
 			type = commandString;
@@ -74,7 +74,7 @@ public interface ParserCommons {
 	
 	static String getEndTimeString(String userInput, int indexFrom, int indexTo) {
 		String endTimeString;
-		if(indexFrom > indexTo) {
+		if (indexFrom > indexTo) {
 			endTimeString = userInput.substring(indexTo, indexFrom).replace(MARKER_END_EVENT, "").trim();
 		} else {
 			endTimeString = userInput.substring(indexTo).replace(MARKER_END_EVENT, "").trim();
@@ -84,7 +84,7 @@ public interface ParserCommons {
 
 	static String getStartTimeString(String userInput, int indexFrom, int indexTo) {
 		String startTimeString;
-		if(indexFrom > indexTo) {
+		if (indexFrom > indexTo) {
 			startTimeString = userInput.substring(indexFrom).replace(MARKER_START_EVENT, "").trim();
 		} else {
 			startTimeString = userInput.substring(indexFrom, indexTo).replace(MARKER_START_EVENT, "").trim();
@@ -95,7 +95,7 @@ public interface ParserCommons {
 
 	static String getTaskName(String userInput, int indexFrom, int indexTo) {
 		String name;
-		if(indexFrom < indexTo) {
+		if (indexFrom < indexTo) {
 			name = userInput.substring(0, indexFrom);
 		} else {
 			name = userInput.substring(0, indexTo);

@@ -16,86 +16,86 @@ public class HelpParser implements ParserCommons {
 		resetFields();
 		
 		switch(getHelpCommandType(input)) {
-		case COMMAND_ADD:
+		case COMMAND_ADD :
 			//command = CommandUtils.createHelpCommand(COMMAND_ADD);
 			break;
 			
-		case COMMAND_ADD_CAT:
+		case COMMAND_ADD_CAT :
 			//command = CommandUtils.createHelpCommand(COMMAND_ADD_CAT);
 			break;
 			
-		case COMMAND_CLEAR:
+		case COMMAND_CLEAR :
 			//command = CommandUtils.createHelpCommand(COMMAND_CLEAR);
 			break;
 
-		case COMMAND_DELETE:
+		case COMMAND_DELETE :
 			//command = CommandUtils.createHelpCommand(COMMAND_DELETE);
 			break;
 			
-		case COMMAND_DELETE_CAT:
+		case COMMAND_DELETE_CAT :
 			//command = CommandUtils.createHelpCommand(COMMAND_DELETE_CAT);
 			break;
 			
-		case COMMAND_EDIT:
+		case COMMAND_EDIT :
 			//command = CommandUtils.createHelpCommand(COMMAND_EDIT);
 			break;
 			
-		case COMMAND_EDIT_CAT:
+		case COMMAND_EDIT_CAT :
 			//command = CommandUtils.createHelpCommand(COMMAND_EDIT_CAT);
 			break;
 
-		case COMMAND_EXIT:
+		case COMMAND_EXIT :
 			//command = CommandUtils.createHelpCommand(COMMAND_EDIT_CAT);
 			break;
 			
-		case COMMAND_FLOAT:
+		case COMMAND_FLOAT :
 			//command = CommandUtils.createHelpCommand(COMMAND_FLOAT);
 			break;
 			
-		case COMMAND_HELP:
+		case COMMAND_HELP :
 			command = CommandUtils.createHelpCommand();
 			break;
 			
-		case COMMAND_MARK:
+		case COMMAND_MARK :
 			//command = CommandUtils.createHelpCommand(COMMAND_MARK);
 			break;
 			
-		case COMMAND_MOVE_TO_CAT:
+		case COMMAND_MOVE_TO_CAT :
 			//command = CommandUtils.createHelpCommand(COMMAND_MOVE_TO_CAT);
 			break;
 			
-		case COMMAND_REDO:
+		case COMMAND_REDO :
 			//command = CommandUtils.createHelpCommand(COMMAND_REDO);
 			break;
 			
-		case COMMAND_SEARCH:
+		case COMMAND_SEARCH :
 			//command = CommandUtils.createHelpCommand(COMMAND_SEARCH);
 			break;
 			
-		case COMMAND_SHOW:
+		case COMMAND_SHOW :
 			//command = CommandUtils.createHelpCommand(COMMAND_SHOW);
 			break; 
 			
-		case COMMAND_SHOW_CATEGORY:
+		case COMMAND_SHOW_CATEGORY :
 			//command = CommandUtils.createHelpCommand(COMMAND_SHOW_CATEGORY);
 
-		case COMMAND_SKIN:
+		case COMMAND_SKIN :
 			//command = CommandUtils.createHelpCommand(COMMAND_SKIN);
 			break;
 
-		case COMMAND_STORAGE:
+		case COMMAND_STORAGE :
 			//command = CommandUtils.createHelpCommand(COMMAND_STORAGE);
 			break;
 			
-		case COMMAND_UNDO:
+		case COMMAND_UNDO :
 			//command = CommandUtils.createHelpCommand(COMMAND_UNDO);
 			break;
 
-		case COMMAND_UNMARK: 
+		case COMMAND_UNMARK : 
 			//command = CommandUtils.createHelpCommand(COMMAND_UNMARK);
 			break;
 
-		default:
+		default :
 			command = CommandUtils.createInvalidCommand(ERROR_MESSAGE_INVALID_HELP_COMMAND + input);
 		}
 		
@@ -104,7 +104,7 @@ public class HelpParser implements ParserCommons {
 
 	private String getHelpCommandType(String input) {
 		String type;
-		if(input.equals(EMPTY_STRING)) {
+		if (input.equals(EMPTY_STRING)) {
 			type = COMMAND_HELP;
 		} else {
 			type = ParserCommons.getCommandType(input);

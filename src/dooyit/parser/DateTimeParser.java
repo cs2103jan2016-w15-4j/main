@@ -62,12 +62,12 @@ public class DateTimeParser implements DateTimeParserCommons {
 		int[] combined = new int[] { currDayInWeekInt, UNINITIALIZED_INT, currDD, currMM, currYY, 0 };
 		resetBooleanValues();
 		
-		for(int i = 0; i < splitInput.length; i++) {
+		for (int i = 0; i < splitInput.length; i++) {
 			combined[COMBINED_INDEX_COUNTER] = i;
 			String currWord = splitInput[i];
 			
-			switch(getDateTimeType(currWord, splitInput, i)) {
-			case TYPE_RELATIVE_DATE:
+			switch (getDateTimeType(currWord, splitInput, i)) {
+			case TYPE_RELATIVE_DATE :
 				try{
 					setHasDateBoolean();
 				} catch (IncorrectInputException e) {
@@ -76,7 +76,7 @@ public class DateTimeParser implements DateTimeParserCommons {
 				combined = relativeDateParser.parse(splitInput, combined, i);
 				break;
 			
-			case TYPE_FIXED_DATE:
+			case TYPE_FIXED_DATE :
 				try{
 					setHasDateBoolean();
 				} catch(IncorrectInputException e) {
@@ -85,7 +85,7 @@ public class DateTimeParser implements DateTimeParserCommons {
 				combined = fixedDateParser.parse(splitInput, combined, i);
 				break;
 			
-			case TYPE_TIME:
+			case TYPE_TIME :
 				try {
 					setHasTimeBoolean();
 				} catch (IncorrectInputException e) {
@@ -94,7 +94,7 @@ public class DateTimeParser implements DateTimeParserCommons {
 				combined = timeParser.parse(splitInput, combined, i);
 				break;
 				
-			default:
+			default :
 				throw new IncorrectInputException(ERROR_MESSAGE_INVALID_DATE_TIME);
 			}
 			
@@ -115,7 +115,7 @@ public class DateTimeParser implements DateTimeParserCommons {
 	}
 
 	private void setHasTimeBoolean() throws IncorrectInputException {
-		if(!hasTime) {
+		if (!hasTime) {
 			hasTime = true;
 		} else {
 			throw new IncorrectInputException(ERROR_MESSAGE_ONLY_ONE_TIMING);
@@ -123,7 +123,7 @@ public class DateTimeParser implements DateTimeParserCommons {
 	}
 	
 	private void setHasDateBoolean() throws IncorrectInputException {
-		if(!hasDate) {
+		if (!hasDate) {
 			hasDate = true;
 		} else {
 			throw new IncorrectInputException(ERROR_MESSAGE_ONLY_ONE_DATE);
@@ -133,13 +133,13 @@ public class DateTimeParser implements DateTimeParserCommons {
 
 	private DATE_TIME_FORMAT getDateTimeType(String currWord, String[] splitUserInput, int index) {
 		DATE_TIME_FORMAT type;
-		if(timeParser.isValidTime(currWord, splitUserInput, index)) {
+		if (timeParser.isValidTime(currWord, splitUserInput, index)) {
 			type = DATE_TIME_FORMAT.TYPE_TIME;
 			
-		} else if(relativeDateParser.isRelativeDate(currWord, splitUserInput, index)) {
+		} else if (relativeDateParser.isRelativeDate(currWord, splitUserInput, index)) {
 			type = DATE_TIME_FORMAT.TYPE_RELATIVE_DATE;
 			
-		} else if(fixedDateParser.isFixedDate(currWord, splitUserInput, index)) {
+		} else if (fixedDateParser.isFixedDate(currWord, splitUserInput, index)) {
 			type = DATE_TIME_FORMAT.TYPE_FIXED_DATE;
 			
 		} else {

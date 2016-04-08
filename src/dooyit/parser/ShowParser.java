@@ -24,31 +24,31 @@ public class ShowParser {
 		userInput = input.toLowerCase();
 		command = null;
 		switch (userInput) { 
-		case TODAY:
+		case TODAY :
 			setShowTodayCommand();
 			break;
 
-		case NEXT_SEVEN:
+		case NEXT_SEVEN :
 			setShowNextSevenDaysCommand();
 			break;
 
-		case DONE:
+		case DONE :
 			setShowDoneCommand();
 			break;
 
-		case ALL:
+		case ALL :
 			setShowAllCommand();
 			break;
 			
-		case FLOAT:
+		case FLOAT :
 			setShowFloatCommand();
 			break;
 
-		case COMPLETED:
+		case COMPLETED :
 			setShowDoneCommand();
 			break;
 
-		default:
+		default :
 			setShowInvalidMessageCommand();
 			break;
 		}

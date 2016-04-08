@@ -46,87 +46,87 @@ public class Parser implements ParserCommons {
 
 		Command command = null; 
 		switch (ParserCommons.getCommandType(commandString)) {
-		case COMMAND_ADD:
+		case COMMAND_ADD :
 			command = addParser.getCommand(commandInput);
 			break;
 			
-		case COMMAND_ADD_CAT:
+		case COMMAND_ADD_CAT :
 			command = addCatParser.getCommand(commandInput);
 			break;
 			
-		case COMMAND_CLEAR:
+		case COMMAND_CLEAR :
 			command = CommandUtils.createClearCommand();
 			break;
 
-		case COMMAND_DELETE:
+		case COMMAND_DELETE :
 			command = deleteParser.getCommand(commandInput);
 			break;
 			
-		case COMMAND_DELETE_CAT:
+		case COMMAND_DELETE_CAT :
 			command = deleteCatParser.getCommand(commandInput);
 			break;
 			
-		case COMMAND_EDIT:
+		case COMMAND_EDIT :
 			command = editParser.getCommand(commandInput);
 			break;
 			
-		case COMMAND_EDIT_CAT:
+		case COMMAND_EDIT_CAT :
 			command = editCatParser.getCommand(commandInput);
 			break;
 
-		case COMMAND_EXIT:
+		case COMMAND_EXIT :
 			command = CommandUtils.createExitCommand();
 			break;
 			
-		case COMMAND_FLOAT:
+		case COMMAND_FLOAT :
 			command = floatParser.getCommand(commandInput);
 			break;
 			
-		case COMMAND_HELP:
+		case COMMAND_HELP :
 			command = helpParser.getCommand(commandInput);
 			break;
 			
-		case COMMAND_MARK:
+		case COMMAND_MARK :
 			command = markParser.getCommand(commandInput);
 			break;
 			
-		case COMMAND_MOVE_TO_CAT:
+		case COMMAND_MOVE_TO_CAT :
 			command = moveParser.getCommand(commandInput);
 			break;
 			
-		case COMMAND_REDO:
+		case COMMAND_REDO :
 			command = CommandUtils.createRedoCommand();
 			break;
 			
-		case COMMAND_SEARCH:
+		case COMMAND_SEARCH :
 			command = searchParser.getCommand(commandInput);
 			break;
 			
-		case COMMAND_SHOW:
+		case COMMAND_SHOW :
 			command = showParser.getCommand(commandInput);
 			break; 
 			
-		case COMMAND_SHOW_CATEGORY:
+		case COMMAND_SHOW_CATEGORY :
 			command = CommandUtils.createShowCategoryCommand(commandInput);
 			break;
 
-		case COMMAND_SKIN:
+		case COMMAND_SKIN :
 			command = CommandUtils.createChangeThemeCommand(commandInput);
 			break;
 
-		case COMMAND_STORAGE:
+		case COMMAND_STORAGE :
 			command = CommandUtils.createStorageCommand(commandInput);
 			break;
 			
-		case COMMAND_UNDO:
+		case COMMAND_UNDO :
 			command = CommandUtils.createUndoCommand();
 			break;
 
-		case COMMAND_UNMARK: 
+		case COMMAND_UNMARK : 
 			command = unmarkParser.getCommand(commandInput);
 			break;
 
-		default:
+		default :
 			command = CommandUtils.createInvalidCommand(ERROR_MESSAGE_INVALID_COMMAND + input);
 		}
 

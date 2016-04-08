@@ -75,13 +75,13 @@ public class TimeParser implements DateTimeParserCommons {
 		}
 
 		timeString = removeAmAndPmFromTimeString(timeString, isAm, isPm);
-		if(!ParserCommons.isNumber(timeString)) {
+		if (!ParserCommons.isNumber(timeString)) {
 			throw new IncorrectInputException(ERROR_MESSAGE_INVALID_TIME);
 		} else {
 			timeInt = Integer.parseInt(timeString);
 		} 
 		
-		if(hasInvalidHoursOrMinutes(timeInt, splitInput, index, isAm, isPm)) {
+		if (hasInvalidHoursOrMinutes(timeInt, splitInput, index, isAm, isPm)) {
 			throw new IncorrectInputException(ERROR_MESSAGE_INVALID_HOURS_OR_MINUTES);
 		}
 
@@ -105,12 +105,12 @@ public class TimeParser implements DateTimeParserCommons {
 	private boolean hasInvalidHours(int timeInt, String[] splitInput, int index, boolean isAm, boolean isPm) {
 		String nextWord;
 		boolean isAmOrPm = false, ans = false;
-		if(DateTimeParserCommons.hasAWordAfterCurrWord(splitInput, index)) {
+		if (DateTimeParserCommons.hasAWordAfterCurrWord(splitInput, index)) {
 			nextWord = splitInput[index + 1];
 			isAmOrPm = nextWord.contains(PM) || nextWord.contains(AM);
 		}
 		
-		if(isAmOrPm || isAm || isPm) {
+		if (isAmOrPm || isAm || isPm) {
 			boolean isValidHour = timeInt >= 1 && timeInt <= 12;
 			boolean hasOnlyTwoDigits = timeInt < 100;
 			ans = !isValidHour && hasOnlyTwoDigits;

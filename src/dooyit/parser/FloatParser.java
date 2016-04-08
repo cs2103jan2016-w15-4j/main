@@ -18,11 +18,11 @@ public class FloatParser extends TagParser {
 		command = null;
 		try {
 			parseTaskIds();
-		} catch(IncorrectInputException e) {
+		} catch (IncorrectInputException e) {
 			setInvalidCommand(e.getMessage());
 		}
 		
-		if(command == null) {
+		if (command == null) {
 			setCorrectFloatCommand(getTagType());
 		}
 		
@@ -31,11 +31,11 @@ public class FloatParser extends TagParser {
 
 	private void setCorrectFloatCommand(TAG_TYPE tagType) {
 		switch (tagType) {
-		case VALID:
+		case VALID :
 			setMultipleTypeFloatCommand();
 			break;
 
-		default:
+		default :
 			setInvalidCommand();
 			break;
 		}

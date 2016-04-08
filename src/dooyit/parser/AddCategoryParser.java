@@ -1,4 +1,5 @@
-//@@author A0133338J
+/** @@author A0133338J */
+
 package dooyit.parser;
 
 import dooyit.common.exception.IncorrectInputException;
@@ -32,16 +33,16 @@ public class AddCategoryParser extends TagParser{
 		parse();
 		
 		switch (getCommandType()) {
-		case CREATE_NEW_CATEGORY_WITHOUT_TASKS:
+		case CREATE_NEW_CATEGORY_WITHOUT_TASKS :
 			setCommandToCreateCategoryWithoutTasks();
 			break;
 
-		case CREATE_NEW_CATEGORY_WITH_TASKS: 
+		case CREATE_NEW_CATEGORY_WITH_TASKS : 
 			getTaskIds();
 			setCommandToCreateCategoryWithTasks();
 			break;
 
-		default:
+		default :
 			setInvalidCommand();
 			break;
 		}
@@ -97,7 +98,7 @@ public class AddCategoryParser extends TagParser{
 	}
 	
 	private void getTaskIds() {
-		if(hasColour) {
+		if (hasColour) {
 			int indexOfTaskIds = userInput.indexOf(catColour) + catColour.length();
 			String taskIdString = userInput.substring(indexOfTaskIds).trim();
 			setVariables(taskIdString);
@@ -109,7 +110,7 @@ public class AddCategoryParser extends TagParser{
 	}
 
 	private ADD_CATEGORY_TYPE getCommandType() {
-		if(userInput.equals(EMPTY_STRING)) {
+		if (userInput.equals(EMPTY_STRING)) {
 			return ADD_CATEGORY_TYPE.INVALID;
 		} else if(hasTasks) {
 			return ADD_CATEGORY_TYPE.CREATE_NEW_CATEGORY_WITH_TASKS;
@@ -119,7 +120,7 @@ public class AddCategoryParser extends TagParser{
 	}
 
 	private void setCommandToCreateCategoryWithoutTasks() {
-		if(hasColour) {
+		if (hasColour) {
 			command = CommandUtils.createAddCategoryCommand(catName, catColour);
 		} else { 
 			command = CommandUtils.createAddCategoryCommand(catName);
@@ -129,12 +130,12 @@ public class AddCategoryParser extends TagParser{
 	private void parse() {
 		String[] inputArr = userInput.split("\\s+");
 		catName = inputArr[INDEX_NAME];
-		if(!isOneWordInput(inputArr)) {
+		if (!isOneWordInput(inputArr)) {
 			catColour = inputArr[INDEX_COLOUR];
 			hasColour = !ParserCommons.isNumber(catColour);
 		}
 		
-		for(int i = INDEX_COLOUR; i < inputArr.length; i++) {
+		for (int i = INDEX_COLOUR; i < inputArr.length; i++) {
 			if(ParserCommons.isNumber(inputArr[i])) {
 				hasTasks = true;
 				break;

@@ -29,7 +29,7 @@ public class AddParser implements ParserCommons {
 	public Command getCommand(String input) throws IncorrectInputException {
 		userInput = input.trim();
 		switch (getTaskType()) { 
-		case FLOATING:
+		case FLOATING :
 			try {
 				parseFloat();
 			} catch (IncorrectInputException e) {
@@ -39,7 +39,7 @@ public class AddParser implements ParserCommons {
 			setToFloatCommand();
 			break;
 
-		case WORK:
+		case WORK :
 			try {
 				parseWork();
 			} catch (IncorrectInputException e) {
@@ -49,7 +49,7 @@ public class AddParser implements ParserCommons {
 			setToWorkCommand();
 			break;
 
-		case EVENT:
+		case EVENT :
 			try {
 				parseEvent();
 			} catch (IncorrectInputException e) {
@@ -89,27 +89,27 @@ public class AddParser implements ParserCommons {
 		taskName = ParserCommons.getTaskName(userInput, indexFrom, indexTo);
 		String startTimeString = ParserCommons.getStartTimeString(userInput, indexFrom, indexTo);
 		String endTimeString = ParserCommons.getEndTimeString(userInput, indexFrom, indexTo);
+		
 		try {
 			start = dateTimeParser.parse(startTimeString);
 			end = dateTimeParser.parse(endTimeString);
-		} catch(IncorrectInputException e) {
+		} catch (IncorrectInputException e) {
 			throw e;
 		}
-		if(end.compareTo(start) == -1) {
+		if (end.compareTo(start) == -1) {
 			end.setDate(start);
 		}
-		System.out.println("start is " + start.toString() + " and end is " + end.toString());
-		if(end.compareTo(start) == -1) {
+		if (end.compareTo(start) == -1) {
 			throw new IncorrectInputException(ERROR_MESSAGE_END_BEFORE_START);
 		}
 		setUninitializedTimeToDefault();
 	}
 
 	private void setUninitializedTimeToDefault() {
-		if(start.getTimeInt() == UNINITIALIZED_INT) {
+		if (start.getTimeInt() == UNINITIALIZED_INT) {
 			start.setTimeToMidnight();
 		}
-		if(end.getTimeInt() == UNINITIALIZED_INT) {
+		if (end.getTimeInt() == UNINITIALIZED_INT) {
 			end.setTimeToRightBeforeMidnight();
 		}
 	}
@@ -120,7 +120,7 @@ public class AddParser implements ParserCommons {
 		taskName = userInput.substring(0, indexBy);
 		try {
 			deadline = dateTimeParser.parse((userInput.substring(indexBy).replace(MARKER_WORK, "").trim()));
-		} catch(IncorrectInputException e) {
+		} catch (IncorrectInputException e) {
 			throw e;
 		}
 	} 
@@ -197,7 +197,7 @@ public class AddParser implements ParserCommons {
 
 	private boolean isWork() {
 		boolean ans = false;
-		if(!ParserCommons.isUninitialized(userInput.lastIndexOf(MARKER_WORK))) {
+		if (!ParserCommons.isUninitialized(userInput.lastIndexOf(MARKER_WORK))) {
 			ans = hasAValidDateTimeAfterWorkMarker();
 		}
 		return ans;

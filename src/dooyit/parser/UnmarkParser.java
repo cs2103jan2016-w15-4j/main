@@ -20,11 +20,11 @@ public class UnmarkParser extends TagParser{
 		
 		try {
 			parseTaskIds();
-		} catch(IncorrectInputException e) {
+		} catch (IncorrectInputException e) {
 			setInvalidCommand(e.getMessage());
 		}
 		
-		if(command == null) {
+		if (command == null) {
 			setUnmarkCommand(getTagType());
 		}
 		
@@ -33,11 +33,11 @@ public class UnmarkParser extends TagParser{
 
 	private void setUnmarkCommand(TAG_TYPE tagType) {
 		switch (tagType) {
-		case VALID:
+		case VALID :
 			setMultipleTypeUnmarkCommand();
 			break;
 
-		default:
+		default :
 			setInvalidCommand();
 			break;
 		}

@@ -31,17 +31,17 @@ public class EditParser implements ParserCommons {
 		userInput = input.trim();
 		command = null;
 		String taskIdString = userInput.split("\\s+")[0];
-		if(ParserCommons.isNumber(taskIdString)) {
+		if (ParserCommons.isNumber(taskIdString)) {
 			taskId = Integer.parseInt(taskIdString);
 		}
 
 		switch (getEditType()) {
-		case NAME:
+		case NAME :
 			parseName();
 			setEditNameCommand();
 			break;
 
-		case DEADLINE:
+		case DEADLINE :
 			try {
 				parseDeadline();
 			} catch (IncorrectInputException e) {
@@ -51,7 +51,7 @@ public class EditParser implements ParserCommons {
 			setEditDeadlineCommand();
 			break;
 
-		case TIME_START_END:
+		case TIME_START_END :
 			try {
 				parseTimeStartEnd(); 
 			} catch (IncorrectInputException e) {
@@ -61,7 +61,7 @@ public class EditParser implements ParserCommons {
 			setEditEventCommand();
 			break;
 
-		case NAME_TIME_START_END:
+		case NAME_TIME_START_END :
 			try {
 				parseNameTimeStartEndType();
 			} catch (IncorrectInputException e) {
@@ -71,7 +71,7 @@ public class EditParser implements ParserCommons {
 			setEditNameAndEventCommand();
 			break;
 
-		case NAME_DEADLINE:
+		case NAME_DEADLINE :
 			try {
 				parseNameDeadline();
 			} catch (IncorrectInputException e) {
@@ -81,7 +81,7 @@ public class EditParser implements ParserCommons {
 			setEditNameAndDeadlineCommand();
 			break;
 
-		default:
+		default :
 			setInvalidCommand();
 			break;
 		}
@@ -135,15 +135,15 @@ public class EditParser implements ParserCommons {
 		parseNameForTimeStartEnd();
 		try {
 			parseTimeStartEnd();
-		} catch(IncorrectInputException e) {
+		} catch (IncorrectInputException e) {
 			throw e;
 		}
 		
-		if(end.compareTo(start) == -1) {
+		if (end.compareTo(start) == -1) {
 			end.setDate(start);
 		}
 		
-		if(end.compareTo(start) == -1) {
+		if (end.compareTo(start) == -1) {
 			throw new IncorrectInputException(ERROR_MESSAGE_END_BEFORE_START);
 		}
 	} 
@@ -152,7 +152,7 @@ public class EditParser implements ParserCommons {
 		int startOfName = getIndexOfName();
 		int indexFrom = getIndexOfMarker(MARKER_START_EVENT);
 		int indexTo = getIndexOfMarker(MARKER_END_EVENT);
-		if(indexFrom < indexTo) {
+		if (indexFrom < indexTo) {
 			taskName = userInput.substring(startOfName, indexFrom); 
 		} else {
 			taskName = userInput.substring(startOfName, indexTo);
@@ -172,15 +172,15 @@ public class EditParser implements ParserCommons {
 		try {
 			start = dateTimeParser.parse(startTimeString);
 			end = dateTimeParser.parse(endTimeString);
-		} catch(IncorrectInputException e) {
+		} catch (IncorrectInputException e) {
 			throw e;
 		}
 		
-		if(end.compareTo(start) == -1) {
+		if (end.compareTo(start) == -1) {
 			end.setDate(start);
 		}
 		
-		if(end.compareTo(start) == -1) {
+		if (end.compareTo(start) == -1) {
 			throw new IncorrectInputException(ERROR_MESSAGE_END_BEFORE_START);
 		}
 	}

@@ -125,10 +125,14 @@ public class TaskGroup {
 			String taskName = task.getName();
 			taskName = taskName.toLowerCase();
 
-//			if (!taskName.contains(searchKey) && !task.getDateTime().isMonth(month)) {
-//				taskItr.remove();
-//			}
-			if (!task.getDateTime().isMonth(month)) {
+			// if (!taskName.contains(searchKey) &&
+			// !task.getDateTime().isMonth(month)) {
+			// taskItr.remove();
+			// }
+
+			if (task instanceof FloatingTask) {
+				taskItr.remove();
+			} else if (!task.getDateTime().isMonth(month)) {
 				taskItr.remove();
 			}
 		}
@@ -144,13 +148,13 @@ public class TaskGroup {
 			String taskName = task.getName();
 			taskName = taskName.toLowerCase();
 
-//			if (!taskName.contains(searchKey) && !task.getDateTime().isDay(day)) {
-//				taskItr.remove();
-//			}
-			if(task instanceof FloatingTask){
+			// if (!taskName.contains(searchKey) &&
+			// !task.getDateTime().isDay(day)) {
+			// taskItr.remove();
+			// }
+			if (task instanceof FloatingTask) {
 				taskItr.remove();
-			}
-			else if (!task.getDateTime().isDay(day)) {
+			} else if (!task.getDateTime().isDay(day)) {
 				taskItr.remove();
 			}
 		}

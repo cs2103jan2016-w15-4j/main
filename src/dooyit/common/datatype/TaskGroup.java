@@ -7,6 +7,11 @@ import java.util.Iterator;
 import dooyit.common.datatype.DateTime.DAY;
 import dooyit.common.datatype.DateTime.MONTH;
 
+/**
+ * 
+ * @author limtaeu
+ *
+ */
 public class TaskGroup {
 
 	private String title;

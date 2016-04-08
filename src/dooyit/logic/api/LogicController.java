@@ -271,7 +271,7 @@ public class LogicController {
 	}
 
 	public ArrayList<TaskGroup> getTaskGroupCategory() {
-		return taskManager.getTaskGroupCategory(categoryManager.getSelectedCategory());
+		return taskManager.getTaskGroupsCategory(categoryManager.getSelectedCategory());
 	}
 
 	public ArrayList<Category> getAllCategories() {

@@ -26,6 +26,7 @@ public class ColourManager {
 		availableColours.add(CustomColour.RED);
 		availableColours.add(CustomColour.YELLOW);
 		availableColours.add(CustomColour.WHITE);
+		availableColours.add(CustomColour.ORANGE);
 
 		recommendedColours = new ArrayList<CustomColour>();
 		recommendedColours.add(CustomColour.BLUE);
@@ -35,6 +36,7 @@ public class ColourManager {
 		recommendedColours.add(CustomColour.PINK);
 		recommendedColours.add(CustomColour.RED);
 		recommendedColours.add(CustomColour.YELLOW);
+		recommendedColours.add(CustomColour.ORANGE);
 		// recommendedColours.add(CustomColor.GREY);
 
 		colourPool = new ArrayList<CustomColour>(recommendedColours);

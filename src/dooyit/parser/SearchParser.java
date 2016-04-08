@@ -12,6 +12,9 @@ public class SearchParser implements ParserCommons {
 	Command command;
 	boolean isValidDate, isValidDay, isValidMonth, isEmptyString;
 	DateTime dateTime;
+	DAY dayEnum;
+	MONTH monthEnum;
+	
 	
 	public SearchParser() {
 		
@@ -33,8 +36,8 @@ public class SearchParser implements ParserCommons {
 	}
 
 	private void setBooleanValues(String input) {
-		DAY dayEnum = DateTime.getDayType(input);
-		MONTH monthEnum = DateTime.getMonthType(input);
+		dayEnum = DateTime.getDayType(input);
+		monthEnum = DateTime.getMonthType(input);
 		isValidDay = dayEnum != DAY.INVALID;
 		isValidMonth = monthEnum != MONTH.INVALID;
 		isEmptyString = input.equals(EMPTY_STRING);
@@ -52,11 +55,11 @@ public class SearchParser implements ParserCommons {
 		if(isEmptyString) {
 			command = CommandUtils.createInvalidCommand(ERROR_MESSAGE_EMPTY_SEARCH_COMMAND);
 		} else if(isValidDay) {
-			//command = CommandUtils.createSearchCommand(input, dayEnum);
+			command = CommandUtils.createSearchCommand(input, dayEnum);
 		} else if(isValidMonth) {
-			//command = CommandUtils.createSearchCommand(input, monthEnum);
+			command = CommandUtils.createSearchCommand(input, monthEnum);
 		} else if(isValidDate) {
-			//command = CommandUtils.createSearchCommand(dateTime);
+			command = CommandUtils.createSearchCommand(dateTime);
 		} else {
 			command = CommandUtils.createSearchCommand(input);
 		}

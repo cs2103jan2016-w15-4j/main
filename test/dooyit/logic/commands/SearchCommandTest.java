@@ -10,6 +10,7 @@ import org.junit.Test;
 import org.powermock.reflect.Whitebox;
 
 import dooyit.common.datatype.DateTime;
+import dooyit.common.datatype.DateTime.MONTH;
 import dooyit.common.datatype.DeadlineTask;
 import dooyit.common.datatype.EventTask;
 import dooyit.common.datatype.FloatingTask;
@@ -19,6 +20,8 @@ import dooyit.logic.TaskManager;
 import dooyit.logic.api.LogicController;
 
 public class SearchCommandTest {
+	private static final String EMPTY_STRING = "";
+	
 	LogicController logic;
 	SearchCommand searchCommand;
 	
@@ -37,10 +40,12 @@ public class SearchCommandTest {
 	
 	public void setupTasks() {
 		logic.clearTasks();
-
-		DateTime dateTimeDeadline = new DateTime();
-		DateTime dateTimeStart = new DateTime();
-		DateTime dateTimeEnd = new DateTime();
+		
+		int[] date1 = {25, 4, 2016};
+		int[] date2 = {30, 4, 2016};
+		DateTime dateTimeDeadline = new DateTime(date1, 1000);
+		DateTime dateTimeStart = new DateTime(date2, 1200);
+		DateTime dateTimeEnd = new DateTime(date2, 1400);
 
 		floatingTask1 = new FloatingTask("hello");
 		floatingTask2 = new FloatingTask("go");
@@ -94,7 +99,64 @@ public class SearchCommandTest {
 	}
 	
 	@Test
-	public void search_Month_NoResults() {
+	public void search_Month_WithResults() {
+		setupTasks();
 		
+		searchCommand = new SearchCommand(EMPTY_STRING, MONTH.APR);
+		searchCommand.execute(logic);
+		TaskManager manager = logic.getTaskManager();
+		ArrayList<TaskGroup> taskGroup = manager.getTaskGroupSearched();
+		ArrayList<Task> tasks1 = Whitebox.getInternalState(taskGroup.get(0), "tasks");
+		ArrayList<Task> tasks2 = Whitebox.getInternalState(taskGroup.get(1), "tasks");
+		
+		assertEquals(1, tasks1.size());
+		assertEquals(1, tasks2.size());
+		
+		assertEquals(deadlineTask, tasks1.get(0));
+		assertEquals(eventTask, tasks2.get(0));
+	}
+	
+	@Test
+	public void search_Month_NoResults() {
+		setupTasks();
+		
+		searchCommand = new SearchCommand(EMPTY_STRING, MONTH.JAN);
+		searchCommand.execute(logic);
+		
+		TaskManager manager = logic.getTaskManager();
+		ArrayList<TaskGroup> taskGroup = manager.getTaskGroupSearched();
+		ArrayList<Task> tasks = Whitebox.getInternalState(taskGroup.get(0), "tasks");
+		assertEquals(0, tasks.size());
+	}
+	
+	@Test
+	public void search_Date_WithResults() {
+		setupTasks();
+		
+		int[] date = {25, 4, 2016};
+		DateTime dt = new DateTime(date);
+		searchCommand = new SearchCommand(dt);
+		searchCommand.execute(logic);
+		
+		TaskManager manager = logic.getTaskManager();
+		ArrayList<TaskGroup> taskGroup = manager.getTaskGroupSearched();
+		ArrayList<Task> tasks = Whitebox.getInternalState(taskGroup.get(0), "tasks");
+		assertEquals(1, tasks.size());
+		assertEquals(deadlineTask, tasks.get(0));
+	}
+	
+	@Test
+	public void search_Date_NoResults() {
+		setupTasks();
+		
+		int[] date = {17, 4, 2016};
+		DateTime dt = new DateTime(date);
+		searchCommand = new SearchCommand(dt);
+		searchCommand.execute(logic);
+		
+		TaskManager manager = logic.getTaskManager();
+		ArrayList<TaskGroup> taskGroup = manager.getTaskGroupSearched();
+		ArrayList<Task> tasks = Whitebox.getInternalState(taskGroup.get(0), "tasks");
+		assertEquals(0, tasks.size());
 	}
 }

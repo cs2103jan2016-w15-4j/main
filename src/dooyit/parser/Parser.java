@@ -19,6 +19,7 @@ public class Parser implements ParserCommons {
 	private MoveParser moveParser;
 	private FloatParser floatParser;
 	private HelpParser helpParser;
+	private SearchParser searchParser;
 
 	public Parser() {
 		addParser = new AddParser();
@@ -33,6 +34,7 @@ public class Parser implements ParserCommons {
 		moveParser = new MoveParser();
 		floatParser = new FloatParser();
 		helpParser = new HelpParser();
+		searchParser = new SearchParser();
 	}
 
 	public Command getCommand(String input) {
@@ -97,7 +99,7 @@ public class Parser implements ParserCommons {
 			break;
 			
 		case COMMAND_SEARCH:
-			command = CommandUtils.createSearchCommand(commandInput);
+			command = searchParser.getCommand(commandInput);
 			break;
 			
 		case COMMAND_SHOW:

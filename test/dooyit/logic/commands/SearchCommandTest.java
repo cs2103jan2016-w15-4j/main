@@ -1,5 +1,6 @@
 package dooyit.logic.commands;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
@@ -54,42 +55,46 @@ public class SearchCommandTest {
 		logic.addTask(floatingTask3);
 	}
 	
-//	@Test
-//	public void search_WithResults() {
-//		setupTasks();
-//		
-//		ArrayList<Task> expectedTasks = new ArrayList<Task>();
-//		expectedTasks.add(floatingTask1);
-//		expectedTasks.add(eventTask);
-//		
-//		String searchString = "h";
-//		searchCommand = new SearchCommand(searchString);
-//		searchCommand.execute(logic);
-//		
-//		TaskManager manager = getTaskManager(logic);
-//		ArrayList<TaskGroup> taskGroup = manager.getTaskGroupSearched(searchString);
-//		ArrayList<Task> tasks = Whitebox.getInternalState(taskGroup.get(0), "tasks");
-//		assertTrue(expectedTasks.equals(tasks));
-//	}
-//	
-//	@Test
-//	public void search_NoResults() {
-//		setupTasks();
-//		
-//		ArrayList<Task> expectedTasks = new ArrayList<Task>();
-//		
-//		String searchString = "haha";
-//		searchCommand = new SearchCommand(searchString);
-//		searchCommand.execute(logic);
-//		
-//		TaskManager manager = getTaskManager(logic);
-//		ArrayList<TaskGroup> taskGroup = manager.getTaskGroupSearched(searchString);
-//		ArrayList<Task> tasks = Whitebox.getInternalState(taskGroup.get(0), "tasks");
-//		assertTrue(expectedTasks.equals(tasks));
-//	}
-	
-	private TaskManager getTaskManager(LogicController logic) {
-		return logic.getTaskManager();
+	@Test
+	public void search_Name_WithResults() {
+		setupTasks();
+		
+		String searchString = "h";
+		searchCommand = new SearchCommand(searchString);
+		searchCommand.execute(logic);
+		
+		TaskManager manager = logic.getTaskManager();
+		ArrayList<TaskGroup> taskGroup = manager.getTaskGroupSearched();
+		ArrayList<Task> floatingTasks = Whitebox.getInternalState(taskGroup.get(0), "tasks");
+		ArrayList<Task> eventTasks = Whitebox.getInternalState(taskGroup.get(1), "tasks");
+		
+		//floatingTasks should only contain the task with name "hello"
+		assertEquals(1, floatingTasks.size());
+		
+		//eventTasks should only contain the task with name "house"
+		assertEquals(1, eventTasks.size());
+		
+		//Assert that the references are the same.
+		assertEquals(floatingTask1, floatingTasks.get(0));
+		assertEquals(eventTask, eventTasks.get(0));
 	}
 	
+	@Test
+	public void search_Name_NoResults() {
+		setupTasks();
+		
+		String searchString = "haha";
+		searchCommand = new SearchCommand(searchString);
+		searchCommand.execute(logic);
+		
+		TaskManager manager = logic.getTaskManager();
+		ArrayList<TaskGroup> taskGroup = manager.getTaskGroupSearched();
+		ArrayList<Task> tasks = Whitebox.getInternalState(taskGroup.get(0), "tasks");
+		assertEquals(0, tasks.size());
+	}
+	
+	@Test
+	public void search_Month_NoResults() {
+		
+	}
 }

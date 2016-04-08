@@ -9,6 +9,11 @@ import dooyit.logic.api.Action;
 import dooyit.logic.api.LogicAction;
 import dooyit.logic.api.LogicController;
 
+/**
+ * The search command can search by keyword, day, month and datetime.
+ * @author limtaeu
+ *
+ */
 public class SearchCommand implements Command {
 	
 	enum SearchType {

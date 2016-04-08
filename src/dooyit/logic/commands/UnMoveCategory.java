@@ -8,16 +8,14 @@ import dooyit.logic.api.Action;
 import dooyit.logic.api.LogicAction;
 import dooyit.logic.api.LogicController;
 
-public class RemoveCategoryFromTaskCommand implements Command, ReversibleCommand {
+public class UnMoveCategory implements Command, ReversibleCommand {
 
-	private String categoryName;
 	private int taskId;
 	private Task taskWithCategory;
 	private Category removedCategory;
 	private boolean hasError = false;
 
-	public RemoveCategoryFromTaskCommand(String categoryName, int taskId) {
-		this.categoryName = categoryName;
+	public UnMoveCategory(int taskId) {
 		this.taskId = taskId;
 	}
 
@@ -40,12 +38,6 @@ public class RemoveCategoryFromTaskCommand implements Command, ReversibleCommand
 		if (!logic.containsTask(taskId)) {
 			hasError = true;
 			logicAction = new LogicAction(Action.ERROR, "Index: " + taskId + "doesn't exist.");
-			return logicAction;
-		}
-
-		if (!logic.containsCategory(categoryName)) {
-			hasError = true;
-			logicAction = new LogicAction(Action.ERROR, "Category: " + categoryName + " doesn't exist.");
 			return logicAction;
 		}
 

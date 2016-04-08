@@ -63,13 +63,13 @@ public class CommandUtils {
 		return addCategoryCommand;
 	}
 
-	public static Command createSetCategoryCommand(int taskID, String categoryName) {
-		SetCategoryCommand addCategoryCommand = new SetCategoryCommand(taskID, categoryName);
+	public static Command createMoveToCategoryCommand(int taskID, String categoryName) {
+		MoveToCategory addCategoryCommand = new MoveToCategory(taskID, categoryName);
 		return addCategoryCommand;
 	}
 
-	public static Command createSetCategoryCommand(ArrayList<Integer> taskIDs, String categoryName) {
-		SetCategoryCommand addCategoryCommand = new SetCategoryCommand(taskIDs, categoryName);
+	public static Command createMoveToCategoryCommand(ArrayList<Integer> taskIDs, String categoryName) {
+		MoveToCategory addCategoryCommand = new MoveToCategory(taskIDs, categoryName);
 		return addCategoryCommand;
 	}
 
@@ -77,25 +77,26 @@ public class CommandUtils {
 		DeleteCategoryCommand deleteCategoryCommand = new DeleteCategoryCommand(categoryName);
 		return deleteCategoryCommand;
 	}
-	
-	public static Command createRemoveCategoryFromTaskCommand(String categoryName, int taskId){
-		RemoveCategoryFromTaskCommand removeCategoryFromTaskCommand = new RemoveCategoryFromTaskCommand(categoryName, taskId);
+
+	public static Command createUnMoveCategoryCommand(int taskId) {
+		UnMoveCategory removeCategoryFromTaskCommand = new UnMoveCategory(taskId);
 		return removeCategoryFromTaskCommand;
 	}
-	
-	public static Command createEditCategoryCommand(String categoryName, String newCategoryName){
+
+	public static Command createEditCategoryCommand(String categoryName, String newCategoryName) {
 		EditCategoryCommand editCategoryCommand = new EditCategoryCommand(categoryName, newCategoryName);
 		return editCategoryCommand;
 	}
 
-	public static Command createEditCategoryCommand(String categoryName, String newCategoryName, String newColourString){
-		EditCategoryCommand editCategoryCommand = new EditCategoryCommand(categoryName, newCategoryName, newColourString);
+	public static Command createEditCategoryCommand(String categoryName, String newCategoryName,
+			String newColourString) {
+		EditCategoryCommand editCategoryCommand = new EditCategoryCommand(categoryName, newCategoryName,
+				newColourString);
 		return editCategoryCommand;
 	}
-	
+
 	public static Command createShowTodayCommand() {
 		ShowCommand showCommand = new ShowCommand(ShowCommand.ShowCommandType.TODAY);
-
 		return showCommand;
 	}
 
@@ -107,26 +108,21 @@ public class CommandUtils {
 
 	public static Command createShowFloatCommand() {
 		ShowCommand showCommand = new ShowCommand(ShowCommand.ShowCommandType.FLOAT);
-
 		return showCommand;
 	}
 
 	public static Command createShowAllCommand() {
 		ShowCommand showCommand = new ShowCommand(ShowCommand.ShowCommandType.ALL);
-
 		return showCommand;
 	}
 
 	public static Command createShowCompletedCommand() {
 		ShowCommand showCommand = new ShowCommand(ShowCommand.ShowCommandType.COMPLETED);
-
 		return showCommand;
 	}
 
 	public static Command createShowCategoryCommand(String categoryName) {
-		// temp
 		ShowCommand showCommand = new ShowCommand(ShowCommand.ShowCommandType.CATEGORY, categoryName);
-
 		return showCommand;
 	}
 
@@ -134,7 +130,7 @@ public class CommandUtils {
 		EditTaskCommand editCommand = new EditTaskCommand(taskId);
 		return editCommand;
 	}
-	
+
 	public static Command createEditCommandName(int taskId, String taskName) {
 		EditTaskCommand editCommand = new EditTaskCommand(taskId, taskName);
 		return editCommand;
@@ -189,17 +185,17 @@ public class CommandUtils {
 		SearchCommand searchCommand = new SearchCommand(dateTime);
 		return searchCommand;
 	}
-	
+
 	public static Command createSearchCommand(String searchString, MONTH month) {
 		SearchCommand searchCommand = new SearchCommand(searchString, month);
 		return searchCommand;
 	}
-	
+
 	public static Command createSearchCommand(String searchString, DAY day) {
 		SearchCommand searchCommand = new SearchCommand(searchString, day);
 		return searchCommand;
 	}
-	
+
 	public static Command createClearCommand() {
 		ClearTaskCommand clearCommand = new ClearTaskCommand();
 		return clearCommand;

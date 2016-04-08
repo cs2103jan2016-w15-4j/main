@@ -10,7 +10,7 @@ import dooyit.logic.api.Action;
 import dooyit.logic.api.LogicAction;
 import dooyit.logic.api.LogicController;
 
-public class SetCategoryCommand implements Command, ReversibleCommand {
+public class MoveToCategory implements Command, ReversibleCommand {
 
 	private String categoryName;
 	private ArrayList<Integer> taskIds;
@@ -20,13 +20,13 @@ public class SetCategoryCommand implements Command, ReversibleCommand {
 	private boolean isNewCatCreated;
 	private boolean hasError = false;
 
-	public SetCategoryCommand(int taskId, String categoryName) {
+	public MoveToCategory(int taskId, String categoryName) {
 		this.taskIds = new ArrayList<Integer>();
 		this.taskIds.add(taskId);
 		this.categoryName = categoryName;
 	}
 
-	public SetCategoryCommand(ArrayList<Integer> taskIds, String categoryName) {
+	public MoveToCategory(ArrayList<Integer> taskIds, String categoryName) {
 		this.taskIds = new ArrayList<Integer>();
 		this.taskIds.addAll(taskIds);
 		this.categoryName = categoryName;

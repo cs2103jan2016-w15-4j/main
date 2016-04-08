@@ -21,7 +21,7 @@ public class SetCategoryCommandTest {
 	private static final String ACTION = "action";
 	
 	LogicController logic;
-	SetCategoryCommand setCatCommand;
+	MoveToCategory setCatCommand;
 	
 	@Before
 	public void setup() {
@@ -42,7 +42,7 @@ public class SetCategoryCommandTest {
 		logic.addDeadlineTask("Project Proposal", deadline);
 		ArrayList<Task> tasks = logic.getTaskManager().getAllTasks();
 		int taskId = tasks.get(0).getUniqueId();
-		setCatCommand = new SetCategoryCommand(taskId, "Deadlines");
+		setCatCommand = new MoveToCategory(taskId, "Deadlines");
 		setCatCommand.execute(logic);
 		assertTrue(logic.containsCategory("Deadlines"));
 	}
@@ -54,7 +54,7 @@ public class SetCategoryCommandTest {
 		DateTime deadline = new DateTime(date, 1000);
 		logic.addDeadlineTask("Project Proposal", deadline);
 		
-		setCatCommand = new SetCategoryCommand(100, "Deadlines");
+		setCatCommand = new MoveToCategory(100, "Deadlines");
 		LogicAction logicAction = setCatCommand.execute(logic);
 		Action action = Whitebox.getInternalState(logicAction, ACTION);
 		assertEquals(Action.ERROR, action);
@@ -76,7 +76,7 @@ public class SetCategoryCommandTest {
 		ArrayList<Task> tasks = logic.getTaskManager().getAllTasks();
 		Task task = tasks.get(0);
 		int taskId = task.getUniqueId();
-		setCatCommand = new SetCategoryCommand(taskId, "Deadlines");
+		setCatCommand = new MoveToCategory(taskId, "Deadlines");
 		
 		setCatCommand.execute(logic);
 		assertEquals(task.getCategory(), category);

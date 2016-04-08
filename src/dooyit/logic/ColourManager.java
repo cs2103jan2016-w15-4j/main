@@ -7,6 +7,9 @@ import java.util.Random;
 import dooyit.common.datatype.CustomColour;
 
 /**
+ * The colour manager will store all the possible colours tha dooyit has. It
+ * also has pickRecommendedColour to get a random colour that are more suitable and
+ * visible for the UI
  * 
  * @author limtaeu
  *
@@ -40,7 +43,6 @@ public class ColourManager {
 		recommendedColours.add(CustomColour.BLUE);
 		recommendedColours.add(CustomColour.CYAN);
 		recommendedColours.add(CustomColour.GREEN);
-		recommendedColours.add(CustomColour.MAGENTA);
 		recommendedColours.add(CustomColour.PINK);
 		recommendedColours.add(CustomColour.RED);
 		recommendedColours.add(CustomColour.YELLOW);

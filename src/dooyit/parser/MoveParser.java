@@ -50,7 +50,7 @@ public class MoveParser extends TagParser {
 	}
 
 	private void setMultipleTypeMoveCommand() {
-		command = CommandUtils.createSetCategoryCommand(taskIdsForTagging, categoryName);
+		command = CommandUtils.createMoveToCategoryCommand(taskIdsForTagging, categoryName);
 	}
 
 	private void setInvalidCommand() {

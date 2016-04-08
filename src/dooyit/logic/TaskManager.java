@@ -1244,15 +1244,6 @@ public class TaskManager {
 	}
 
 	/**
-	 * reset all task's display id
-	 */
-	public void resetNewTask() {
-		for (Task task : tasks) {
-			task.setOld();
-		}
-	}
-
-	/**
 	 * set the search key to enable searching of keywords from tasks
 	 * 
 	 * @param searchKey

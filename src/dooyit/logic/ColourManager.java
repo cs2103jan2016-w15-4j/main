@@ -25,7 +25,7 @@ public class ColourManager {
 	}
 
 	/**
-	 * 
+	 * initialise the random generator and colourpool with recommendedColours
 	 */
 	public void init() {
 		random = new Random();

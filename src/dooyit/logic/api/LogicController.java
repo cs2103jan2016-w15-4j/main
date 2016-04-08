@@ -136,7 +136,6 @@ public class LogicController {
 	 * @param command
 	 */
 	public LogicAction processCommand(Command command) {
-		resetTaskManager();
 		LogicAction logicAction = executeCommand(command);
 		addCommandToHistory(command);
 		save();
@@ -282,10 +281,6 @@ public class LogicController {
 		return taskManager.getTaskGroupSearched();
 	}
 
-	public void resetTaskManager(){
-		taskManager.resetNewTask();
-	}
-	
 	public void addTask(Task task) {
 		taskManager.add(task);
 	}

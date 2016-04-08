@@ -16,13 +16,11 @@ public abstract class Task {
 
 	public static int curUniqueTaskId = 1;
 	public int uniqueId; // to determine which task is created first
-	private boolean isNewlyCreated;
 	
 	public Task() {
 		uniqueId = curUniqueTaskId;
 		displayId = curUniqueTaskId;
 		curUniqueTaskId++;
-		isNewlyCreated = true;
 	}
 
 	public void changeName(String taskName) {
@@ -89,14 +87,6 @@ public abstract class Task {
 
 	public TaskType getTaskType() {
 		return taskType;
-	}
-	
-	public boolean isNewlyCreated(){
-		return isNewlyCreated;
-	}
-	
-	public void setOld(){
-		isNewlyCreated = false;
 	}
 
 	@Override

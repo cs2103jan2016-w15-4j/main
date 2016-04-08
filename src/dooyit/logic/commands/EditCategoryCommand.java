@@ -43,7 +43,6 @@ public class EditCategoryCommand implements Command, ReversibleCommand {
 		} else {
 			logic.editCategoryName(originalCategory, originalCategoryName);
 		}
-
 	}
 
 	@Override

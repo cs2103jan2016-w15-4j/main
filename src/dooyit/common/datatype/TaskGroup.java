@@ -125,7 +125,10 @@ public class TaskGroup {
 			String taskName = task.getName();
 			taskName = taskName.toLowerCase();
 
-			if (!taskName.contains(searchKey) && !task.getDateTime().isMonth(month)) {
+//			if (!taskName.contains(searchKey) && !task.getDateTime().isMonth(month)) {
+//				taskItr.remove();
+//			}
+			if (!task.getDateTime().isMonth(month)) {
 				taskItr.remove();
 			}
 		}
@@ -141,7 +144,10 @@ public class TaskGroup {
 			String taskName = task.getName();
 			taskName = taskName.toLowerCase();
 
-			if (!taskName.contains(searchKey) && !task.getDateTime().isDay(day)) {
+//			if (!taskName.contains(searchKey) && !task.getDateTime().isDay(day)) {
+//				taskItr.remove();
+//			}
+			if (!task.getDateTime().isDay(day)) {
 				taskItr.remove();
 			}
 		}

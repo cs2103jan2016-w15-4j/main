@@ -39,6 +39,7 @@ public class EditCategoryCommand implements Command, ReversibleCommand {
 
 		if (hasColorString()) {
 			logic.editCategoryColour(originalCategory, originalColourString);
+			logic.editCategoryName(originalCategory, originalCategoryName);
 		} else {
 			logic.editCategoryName(originalCategory, originalCategoryName);
 		}
@@ -50,6 +51,7 @@ public class EditCategoryCommand implements Command, ReversibleCommand {
 		assert (logic != null);
 		if (hasColorString()) {
 			logic.editCategoryColour(originalCategory, newColourName);
+			logic.editCategoryName(originalCategory, newCategoryName);
 		} else {
 			logic.editCategoryName(originalCategory, newCategoryName);
 		}
@@ -76,8 +78,9 @@ public class EditCategoryCommand implements Command, ReversibleCommand {
 		originalCategoryName = originalCategory.getName();
 		if (hasColorString()) {
 			if (logic.containsCustomColour(newColourName)) {
-				logic.editCategoryColour(originalCategory, newColourName);
 				originalColourString = originalCategory.getCustomColourName();
+				logic.editCategoryColour(originalCategory, newColourName);
+				logic.editCategoryName(originalCategory, newCategoryName);
 				logicAction = new LogicAction(Action.EDIT_CATEGORY, FEEDBACK_CATEGORY_EDITED);
 			} else {
 				logicAction = new LogicAction(Action.EDIT_CATEGORY,

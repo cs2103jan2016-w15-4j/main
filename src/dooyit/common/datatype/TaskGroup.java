@@ -8,6 +8,9 @@ import dooyit.common.datatype.DateTime.DAY;
 import dooyit.common.datatype.DateTime.MONTH;
 
 /**
+ * TaskGroup is a class that wraps around arraylist of task and gives them a
+ * title like Today, Overdue, Monday. It also allows filtering of tasks base on
+ * category, name, day, month and date.
  * 
  * @author limtaeu
  *
@@ -75,38 +78,38 @@ public class TaskGroup {
 	public void filterByCategory(Category category) {
 		Iterator<Task> taskItr = tasks.iterator();
 
-		while(taskItr.hasNext()){
+		while (taskItr.hasNext()) {
 			Task task = taskItr.next();
-			
-			if(!task.hasCategory() || !task.getCategory().equals(category)){
+
+			if (!task.hasCategory() || !task.getCategory().equals(category)) {
 				taskItr.remove();
 			}
 		}
 	}
-	
+
 	public void filterByName(String searchKey) {
 		searchKey = searchKey.toLowerCase();
 		Iterator<Task> taskItr = tasks.iterator();
 
-		while(taskItr.hasNext()){
+		while (taskItr.hasNext()) {
 			Task task = taskItr.next();
-			
+
 			String taskName = task.getName();
 			taskName = taskName.toLowerCase();
-			
-			if(!taskName.contains(searchKey)){
+
+			if (!taskName.contains(searchKey)) {
 				taskItr.remove();
 			}
 		}
 	}
-	
+
 	public void filterByDate(DateTime dateTime) {
 		Iterator<Task> taskItr = tasks.iterator();
 
-		while(taskItr.hasNext()){
+		while (taskItr.hasNext()) {
 			Task task = taskItr.next();
-			
-			if(!task.isSameDate(dateTime)){
+
+			if (!task.isSameDate(dateTime)) {
 				taskItr.remove();
 			}
 		}
@@ -116,29 +119,29 @@ public class TaskGroup {
 		searchKey = searchKey.toLowerCase();
 		Iterator<Task> taskItr = tasks.iterator();
 
-		while(taskItr.hasNext()){
+		while (taskItr.hasNext()) {
 			Task task = taskItr.next();
-			
+
 			String taskName = task.getName();
 			taskName = taskName.toLowerCase();
-			
-			if(!taskName.contains(searchKey) && !task.getDateTime().isMonth(month)){
+
+			if (!taskName.contains(searchKey) && !task.getDateTime().isMonth(month)) {
 				taskItr.remove();
 			}
 		}
 	}
-	
+
 	public void filterByDay(String searchKey, DAY day) {
 		searchKey = searchKey.toLowerCase();
 		Iterator<Task> taskItr = tasks.iterator();
 
-		while(taskItr.hasNext()){
+		while (taskItr.hasNext()) {
 			Task task = taskItr.next();
-			
+
 			String taskName = task.getName();
 			taskName = taskName.toLowerCase();
-			
-			if(!taskName.contains(searchKey) && !task.getDateTime().isDay(day)){
+
+			if (!taskName.contains(searchKey) && !task.getDateTime().isDay(day)) {
 				taskItr.remove();
 			}
 		}

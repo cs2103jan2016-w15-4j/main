@@ -15,7 +15,6 @@ public class CategoryManager {
 	public CategoryManager() {
 		colourManager = new ColourManager();
 		categories = new ArrayList<Category>();
-		// setDefaultCategories();
 	}
 
 	public void setDefaultCategories() {

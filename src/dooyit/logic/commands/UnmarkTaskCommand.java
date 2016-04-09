@@ -54,17 +54,22 @@ public class UnmarkTaskCommand implements Command, ReversibleCommand {
 
 		for (int unmarkId : unmarkIds) {
 			if (logic.containsTask(unmarkId)) {
-				logic.unmarkTask(unmarkId);
+				boolean markSuccess = logic.unmarkTask(unmarkId);
 				Task unmarkedTask = logic.findTask(unmarkId);
 				unmarkedTasks.add(unmarkedTask);
-				unmarkedTaskMsg += Constants.SPACE + unmarkId;
+				
+				if(markSuccess){
+					unmarkedTaskMsg += Constants.SPACE + unmarkId;
+				}
 			} else {
 				errorMessageBody += Constants.SPACE + unmarkId;
 			}
 		}
 
 		if (!unmarkedTasks.isEmpty()) {
-			if (unmarkedTasks.size() == 1) {
+			if(unmarkedTaskMsg == Constants.EMPTY_STRING){
+				logicAction = new LogicAction(Action.UNMARK_TASK, String.format(Constants.FEEDBACK_TASK_NOT_COMPLETED));
+			}else if (unmarkedTasks.size() == 1) {
 				logicAction = new LogicAction(Action.UNMARK_TASK, String.format(Constants.FEEDBACK_TASK_UNMARKED, unmarkedTaskMsg));
 			} else {
 				logicAction = new LogicAction(Action.UNMARK_TASK, String.format(Constants.FEEDBACK_TASKS_UNMARKED, unmarkedTaskMsg));

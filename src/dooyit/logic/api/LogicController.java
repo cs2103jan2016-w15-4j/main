@@ -352,8 +352,8 @@ public class LogicController {
 		taskManager.unmarkTask(task);
 	}
 
-	public void unmarkTask(int taskId) {
-		taskManager.unmarkTask(taskId);
+	public boolean unmarkTask(int taskId) {
+		return taskManager.unmarkTask(taskId);
 	}
 
 	public int noOfTask() {

@@ -247,7 +247,6 @@ public class TaskManager {
 				}
 			}
 		}
-		// tell user if task is already marked.
 		return false;
 	}
 
@@ -261,11 +260,14 @@ public class TaskManager {
 	public boolean unmarkTask(int id) {
 		for (int i = 0; i < tasks.size(); i++) {
 			if (tasks.get(i).getDisplayId() == id) {
-				tasks.get(i).unMark();
-				return true;
+				if (tasks.get(i).isCompleted()) {
+					tasks.get(i).unMark();
+					return true;
+				}else{
+					return false;
+				}
 			}
 		}
-		// tell user if task is already marked.
 		return false;
 	}
 

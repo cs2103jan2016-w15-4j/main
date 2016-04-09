@@ -34,6 +34,8 @@ public class TaskDataDeserializer implements JsonDeserializer<TaskData> {
 	private static final String CATEGORY = "category";
 	private static final String IS_COMPLETED = "isCompleted";
 	
+	private static final String DEFAULT_NAME = "task ";
+	
 	private static int count = 1;
 	
 	@Override
@@ -82,7 +84,7 @@ public class TaskDataDeserializer implements JsonDeserializer<TaskData> {
 	 * @return The name of the task
 	 */
 	private String getName(JsonObject jsonTask) {
-		String name = "task ";
+		String name = DEFAULT_NAME;
 
 		if (jsonTask.has(NAME)) {
 			name = jsonTask.get(NAME).getAsString();

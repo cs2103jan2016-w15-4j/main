@@ -9,7 +9,7 @@ import dooyit.logic.commands.CommandUtils;
 
 public class TagParser implements ParserCommons {
 	protected static final String MARKER_FOR_INTERVAL_TAG_TYPE = "-";
-	public static final String ERROR_MESSAGE_INVALID_TASK_ID = "Invalid Task ID: ";
+	private static final String ERROR_MESSAGE_INVALID_TASK_ID = "Invalid Task ID: ";
 	protected String userInput;
 	protected String[] splitInput;
 	protected ArrayList<Integer> taskIdsForTagging;

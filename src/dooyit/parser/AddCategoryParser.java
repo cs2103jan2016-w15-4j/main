@@ -7,8 +7,7 @@ import dooyit.logic.commands.Command;
 import dooyit.logic.commands.CommandUtils;
 
 public class AddCategoryParser extends TagParser{
-	
-	public static final String ERROR_MESSAGE_INVALID_ADDCAT_COMMAND = "Invalid addcat command!";
+	private static final String ERROR_MESSAGE_INVALID_ADDCAT_COMMAND = "Invalid addcat command!";
 	private static final String DEFAULT_COLOUR = "";
 	private static final int INDEX_NAME = 0;
 	private static final int INDEX_COLOUR = 1;

@@ -7,8 +7,7 @@ import dooyit.logic.commands.Command;
 import dooyit.logic.commands.CommandUtils;
 
 public class AddParser implements ParserCommons {
-
-	public static final String ERROR_MESSAGE_INVALID_ADD_COMMAND = "Invalid add command!";
+	private static final String ERROR_MESSAGE_INVALID_ADD_COMMAND = "Invalid add command!";
 	private static final String MARKER_CATEGORY = " @ ";
 
 	private String userInput;

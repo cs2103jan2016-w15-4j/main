@@ -6,8 +6,8 @@ import dooyit.logic.commands.Command;
 import dooyit.logic.commands.CommandUtils;
 
 public class MoveParser extends TagParser {
-	public static final String ERROR_MESSAGE_NO_CATEGORY_SPECIFIED = "No category specified!";
-	public static final String ERROR_MESSAGE_INVALID_MOVE_COMMAND = "Invalid move Command!";
+	private static final String ERROR_MESSAGE_NO_CATEGORY_SPECIFIED = "No category specified!";
+	private static final String ERROR_MESSAGE_INVALID_MOVE_COMMAND = "Invalid move Command!";
 	private String categoryName;
 	private String taskIds;
 	private Command command;

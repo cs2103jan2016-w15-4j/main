@@ -7,9 +7,9 @@ import dooyit.common.datatype.DateTime;
 import dooyit.common.exception.IncorrectInputException;
 
 public class DateTimeParser implements DateTimeParserCommons {
-	public static final String ERROR_MESSAGE_ONLY_ONE_DATE = "You can only key in ONE date!";
-	public static final String ERROR_MESSAGE_ONLY_ONE_TIMING = "You can only key in ONE timing!";
-	public static final String ERROR_MESSAGE_INVALID_DATE_TIME = "Invalid Date Time!";
+	private static final String ERROR_MESSAGE_ONLY_ONE_DATE = "You can only key in ONE date!";
+	private static final String ERROR_MESSAGE_ONLY_ONE_TIMING = "You can only key in ONE timing!";
+	private static final String ERROR_MESSAGE_INVALID_DATE_TIME = "Invalid Date Time!";
 	
 	private DateTime dateTime;
 	private RelativeDateParser relativeDateParser;

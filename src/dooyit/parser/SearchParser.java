@@ -8,7 +8,7 @@ import dooyit.logic.commands.Command;
 import dooyit.logic.commands.CommandUtils;
 
 public class SearchParser implements ParserCommons {
-	public static final String ERROR_MESSAGE_EMPTY_SEARCH_COMMAND = "Empty search command!";
+	private static final String ERROR_MESSAGE_EMPTY_SEARCH_COMMAND = "Empty search command!";
 	Command command;
 	boolean isValidDate, isValidDay, isValidMonth, isEmptyString;
 	DateTime dateTime;

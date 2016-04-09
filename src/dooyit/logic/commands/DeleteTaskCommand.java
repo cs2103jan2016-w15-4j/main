@@ -61,6 +61,18 @@ public class DeleteTaskCommand implements Command, ReversibleCommand {
 			}
 		}
 
+		logicAction = createLogicAction(logicAction, errorMsgBody, deletedTaskMsg);
+
+		return logicAction;
+	}
+
+	/**
+	 * @param logicAction
+	 * @param errorMsgBody
+	 * @param deletedTaskMsg
+	 * @return
+	 */
+	public LogicAction createLogicAction(LogicAction logicAction, String errorMsgBody, String deletedTaskMsg) {
 		if (!deletedTasks.isEmpty()) {
 			if (deletedTasks.size() == 1) {
 				logicAction = new LogicAction(Action.DELETE_TASK, String.format(Constants.FEEDBACK_TASK_DELETED, deletedTaskMsg));
@@ -74,7 +86,6 @@ public class DeleteTaskCommand implements Command, ReversibleCommand {
 				logicAction = new LogicAction(Action.ERROR, String.format(Constants.FEEDBACK_INVALID_IDS, errorMsgBody));
 			}
 		}
-
 		return logicAction;
 	}
 }

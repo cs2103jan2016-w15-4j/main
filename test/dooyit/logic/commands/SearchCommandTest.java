@@ -102,7 +102,7 @@ public class SearchCommandTest {
 	public void search_Month_WithResults() {
 		setupTasks();
 		
-		searchCommand = new SearchCommand(EMPTY_STRING, MONTH.APR);
+		searchCommand = new SearchCommand("april", MONTH.APR);
 		searchCommand.execute(logic);
 		TaskManager manager = logic.getTaskManager();
 		ArrayList<TaskGroup> taskGroup = manager.getTaskGroupSearched();
@@ -120,7 +120,7 @@ public class SearchCommandTest {
 	public void search_Month_NoResults() {
 		setupTasks();
 		
-		searchCommand = new SearchCommand(EMPTY_STRING, MONTH.JAN);
+		searchCommand = new SearchCommand("january", MONTH.JAN);
 		searchCommand.execute(logic);
 		
 		TaskManager manager = logic.getTaskManager();

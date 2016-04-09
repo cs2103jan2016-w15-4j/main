@@ -29,7 +29,7 @@ public class EditCategoryCommand implements Command, ReversibleCommand {
 		this.newColourName = colourName;
 	}
 
-	private boolean hasColorString() {
+	private boolean editCategoryWithColour() {
 		return newColourName != null;
 	}
 
@@ -37,7 +37,7 @@ public class EditCategoryCommand implements Command, ReversibleCommand {
 	public void undo(LogicController logic) {
 		assert (logic != null);
 
-		if (hasColorString()) {
+		if (editCategoryWithColour()) {
 			logic.editCategoryColour(originalCategory, originalColourString);
 			logic.editCategoryName(originalCategory, originalCategoryName);
 		} else {
@@ -48,7 +48,7 @@ public class EditCategoryCommand implements Command, ReversibleCommand {
 	@Override
 	public void redo(LogicController logic) {
 		assert (logic != null);
-		if (hasColorString()) {
+		if (editCategoryWithColour()) {
 			logic.editCategoryColour(originalCategory, newColourName);
 			logic.editCategoryName(originalCategory, newCategoryName);
 		} else {
@@ -67,23 +67,21 @@ public class EditCategoryCommand implements Command, ReversibleCommand {
 		LogicAction logicAction;
 
 		if (!logic.containsCategory(categoryName)) {
-			logicAction = new LogicAction(Action.ERROR,
-					String.format(Constants.FEEDBACK_CATEGORY_NOT_FOUND, categoryName));
+			logicAction = new LogicAction(Action.ERROR, String.format(Constants.FEEDBACK_CATEGORY_NOT_FOUND, categoryName));
 			hasError = true;
 			return logicAction;
 		}
 
 		originalCategory = logic.findCategory(categoryName);
 		originalCategoryName = originalCategory.getName();
-		if (hasColorString()) {
+		if (editCategoryWithColour()) {
 			if (logic.containsCustomColour(newColourName)) {
 				originalColourString = originalCategory.getCustomColourName();
 				logic.editCategoryColour(originalCategory, newColourName);
 				logic.editCategoryName(originalCategory, newCategoryName);
 				logicAction = new LogicAction(Action.EDIT_CATEGORY, FEEDBACK_CATEGORY_EDITED);
 			} else {
-				logicAction = new LogicAction(Action.EDIT_CATEGORY,
-						String.format(Constants.FEEDBACK_INVALID_COLOUR, newColourName));
+				logicAction = new LogicAction(Action.EDIT_CATEGORY, String.format(Constants.FEEDBACK_INVALID_COLOUR, newColourName));
 			}
 		} else {
 			logic.editCategoryName(originalCategory, newCategoryName);

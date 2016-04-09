@@ -2,10 +2,6 @@
 package dooyit.common.datatype;
 
 import java.util.ArrayList;
-import java.util.Iterator;
-
-import dooyit.common.datatype.DateTime.DAY;
-import dooyit.common.datatype.DateTime.MONTH;
 
 /**
  * TaskGroup is a class that wraps around arraylist of task and gives them a

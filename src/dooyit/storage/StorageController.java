@@ -16,7 +16,7 @@ import java.util.logging.Logger;
 import dooyit.common.datatype.CategoryData;
 import dooyit.common.datatype.TaskData;
 import dooyit.common.exception.IncorrectInputException;
-import dooyit.system.OsUtils;
+import dooyit.common.system.OsUtils;
 
 /**
  * The StorageController class provides methods and attributes necessary for
@@ -101,7 +101,7 @@ public class StorageController {
 	}
 
 	/**
-	 * Loads the existing tasks
+	 * Loads the existing tasks.
 	 * 
 	 * @return Returns true if the load is successful.
 	 * @throws IOException
@@ -130,7 +130,7 @@ public class StorageController {
 	}
 
 	/**
-	 * Loads the existing categories
+	 * Loads the existing categories.
 	 * 
 	 * @return Returns true if the load is successful.
 	 * @throws IOException
@@ -346,7 +346,7 @@ public class StorageController {
 
 	/**
 	 * 
-	 * @return Returns the save path in String representation.
+	 * @return Returns the tasks save path in String representation.
 	 */
 	public String getFilePath() {
 		return preferences[TASK_DESTINATION];

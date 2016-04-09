@@ -1,5 +1,5 @@
 //@@author A0124586Y
-package dooyit.system;
+package dooyit.common.system;
 
 public final class OsUtils {
 	private static final String OS_NAME = "os.name";

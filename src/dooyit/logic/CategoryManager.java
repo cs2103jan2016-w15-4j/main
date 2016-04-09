@@ -6,6 +6,11 @@ import dooyit.common.datatype.Category;
 import dooyit.common.datatype.CustomColour;
 import dooyit.common.exception.IncorrectInputException;
 
+/**
+ * CategoryManager handles the creation and management of category and its colour. Does not allow duplicate category.
+ * @author limtaeu
+ *
+ */
 public class CategoryManager {
 	ArrayList<Category> categories;
 	ColourManager colourManager;

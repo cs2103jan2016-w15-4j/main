@@ -65,6 +65,18 @@ public class UnmarkTaskCommand implements Command, ReversibleCommand {
 			}
 		}
 
+		logicAction = createLogicAction(logicAction, unmarkedTaskMsg, errorMessageBody);
+
+		return logicAction;
+	}
+
+	/**
+	 * @param logicAction
+	 * @param unmarkedTaskMsg
+	 * @param errorMessageBody
+	 * @return
+	 */
+	public LogicAction createLogicAction(LogicAction logicAction, String unmarkedTaskMsg, String errorMessageBody) {
 		if (!unmarkedTasks.isEmpty()) {
 			if(unmarkedTaskMsg == Constants.EMPTY_STRING){
 				logicAction = new LogicAction(Action.UNMARK_TASK, String.format(Constants.FEEDBACK_TASK_NOT_COMPLETED));
@@ -80,7 +92,6 @@ public class UnmarkTaskCommand implements Command, ReversibleCommand {
 				logicAction = new LogicAction(Action.ERROR, String.format(Constants.FEEDBACK_INVALID_IDS, errorMessageBody));
 			}
 		}
-
 		return logicAction;
 	}
 }

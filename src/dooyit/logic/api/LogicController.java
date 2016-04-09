@@ -33,7 +33,7 @@ public class LogicController {
 	private DataManager dataManager;
 	private static Logger logger = Logger.getLogger("Logic");
 	private boolean isSaveOn = true;
-	private boolean displayCommandline = true;
+	private boolean displayCommandline = false;
 
 	public LogicController() {
 		logger.log(Level.INFO, "Initialising logic class");
@@ -134,7 +134,6 @@ public class LogicController {
 	 * @param input
 	 */
 	public LogicAction processInput(String input) {
-		
 		Command command = parser.getCommand(input);
 		assert (command != null);
 		LogicAction logicAction = processCommand(command);
@@ -356,6 +355,18 @@ public class LogicController {
 		return taskManager.unmarkTask(taskId);
 	}
 
+	public boolean isFloatingTask(Task task) {
+		return taskManager.isFloatingTask(task);
+	}
+
+	public boolean isTodayTask(Task task) {
+		return taskManager.isTodayTask(task);
+	}
+
+	public boolean isNext7daysTask(Task task) {
+		return taskManager.isNext7DaysTask(task);
+	}
+	
 	public int noOfTask() {
 		return taskManager.size();
 	}
@@ -422,18 +433,6 @@ public class LogicController {
 		return categoryManager.editCategoryColour(category, newClourString);
 	}
 	
-	public boolean isFloatingTask(Task task) {
-		return taskManager.isFloatingTask(task);
-	}
-
-	public boolean isTodayTask(Task task) {
-		return taskManager.isTodayTask(task);
-	}
-
-	public boolean isNext7daysTask(Task task) {
-		return taskManager.isNext7DaysTask(task);
-	}
-
 	public String getFilePath() {
 		return storage.getFilePath();
 	}

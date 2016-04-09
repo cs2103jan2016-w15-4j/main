@@ -4,10 +4,10 @@ package dooyit.common.datatype;
 import javafx.scene.paint.Color;
 
 public class CustomColour {
-	public float r; // red
-	public float g; // green
-	public float b; // blue
-	public String name; // colour name
+	private float r; // red
+	private float g; // green
+	private float b; // blue
+	private String name; // colour name
 	
 	public CustomColour(String name, float r, float g, float b) {
 		this.name = name;

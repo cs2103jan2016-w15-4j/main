@@ -27,6 +27,12 @@ public class HistoryManager {
 		}
 	}
 
+	/**
+	 * undo latest command
+	 * 
+	 * @param logic
+	 * @return true if successful
+	 */
 	public boolean undoCommand(LogicController logic) {
 		ReversibleCommand reversibleCommand;
 		if (!undoHistory.isEmpty()) {
@@ -38,6 +44,12 @@ public class HistoryManager {
 		return false;
 	}
 
+	/**
+	 * redo latest command
+	 * 
+	 * @param logic
+	 * @return true if successful
+	 */
 	public boolean redoCommand(LogicController logic) {
 		ReversibleCommand reversibleCommand;
 		if (!redoHistory.isEmpty()) {

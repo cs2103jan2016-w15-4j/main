@@ -1,4 +1,8 @@
-/** @@author A0133338J */
+/** 
+ * @@author A0133338J 
+ * 
+ * This class parses "addcat" user inputs and returns the correct AddCategory command object.
+ */
 
 package dooyit.parser;
 

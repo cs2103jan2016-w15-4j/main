@@ -18,6 +18,14 @@ import dooyit.common.datatype.TaskData;
 import dooyit.common.exception.IncorrectInputException;
 import dooyit.system.OsUtils;
 
+/**
+ * The StorageController class provides methods and attributes necessary for
+ * loading and saving categories, tasks and custom css. It also contains methods to
+ * change the storage location and save the user's preferences
+ * 
+ * @author Dex
+ *
+ */
 public class StorageController {
 
 	// Path related constants

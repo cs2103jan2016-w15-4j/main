@@ -60,7 +60,7 @@ public class MoveToCategory implements Command, ReversibleCommand {
 		assert (logic != null);
 		LogicAction logicAction = null;
 		tasksWithCategory = new ArrayList<Task>();
-
+		
 		for (int taskId : taskIds) {
 			if (logic.containsTask(taskId)) {
 				if (logic.containsCategory(categoryName)) {
@@ -78,7 +78,7 @@ public class MoveToCategory implements Command, ReversibleCommand {
 					prevCategory = task.getCategory();
 					task.setCategory(settedCategory);
 					tasksWithCategory.add(task);
-					logicAction = new LogicAction(Action.ADD_CATEGORY);
+					logicAction = new LogicAction(Action.ADD_N_SET_CATEGORY);
 					//throw new IncorrectInputException("Category: " + categoryName + " is created.");
 				}
 			} else {

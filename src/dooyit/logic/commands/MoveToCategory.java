@@ -61,10 +61,10 @@ public class MoveToCategory implements Command, ReversibleCommand {
 		assert (logic != null);
 		LogicAction logicAction = null;
 		tasksWithCategory = new ArrayList<Task>();
-		
+
 		String movedTaskIdMsg = Constants.EMPTY_STRING;
 		String errorMsgBody = Constants.EMPTY_STRING;
-		
+
 		for (int taskId : taskIds) {
 			if (logic.containsTask(taskId)) {
 				if (logic.containsCategory(categoryName)) {
@@ -87,7 +87,19 @@ public class MoveToCategory implements Command, ReversibleCommand {
 				errorMsgBody += Constants.SPACE + taskId;
 			}
 		}
-		
+
+		logicAction = createLogicAction(logicAction, movedTaskIdMsg, errorMsgBody);
+
+		return logicAction;
+	}
+
+	/**
+	 * @param logicAction
+	 * @param movedTaskIdMsg
+	 * @param errorMsgBody
+	 * @return
+	 */
+	public LogicAction createLogicAction(LogicAction logicAction, String movedTaskIdMsg, String errorMsgBody) {
 		if (!tasksWithCategory.isEmpty()) {
 			if (tasksWithCategory.size() == 1) {
 				logicAction = new LogicAction(Action.ADD_N_SET_CATEGORY, String.format(Constants.FEEDBACK_TASK_MOVED, movedTaskIdMsg, settedCategory.getName()));
@@ -100,7 +112,6 @@ public class MoveToCategory implements Command, ReversibleCommand {
 				logicAction = new LogicAction(Action.ERROR, String.format(Constants.FEEDBACK_INVALID_IDS, errorMsgBody));
 			}
 		}
-
 		return logicAction;
 	}
 

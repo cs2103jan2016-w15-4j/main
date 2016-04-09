@@ -177,7 +177,7 @@ public class StorageController {
 	}
 
 	/**
-	 * Converts the default css path to a standardised format.
+	 * Returns the default css path in a standardised format.
 	 * 
 	 * @return The String representation of the default css path.
 	 */
@@ -196,8 +196,10 @@ public class StorageController {
 	/**
 	 * Copy the contents of an external css file to the default css file.
 	 * 
-	 * @param path The path to the external css file.
-	 * @throws IOException If
+	 * @param path
+	 *            The path to the external css file.
+	 * @throws IOException
+	 *             If
 	 */
 	public void copyCss(String path) throws IOException {
 		logger.log(Level.INFO, "Attempting to generate CSS");

@@ -4,8 +4,8 @@ package dooyit.storage;
 import java.io.File;
 
 /**
- * The Constants class holds all the Storage constants which are used across the
- * Storage component.
+ * The Constants class holds all the Storage constants which are shared by the
+ * various classes in the Storage component
  * 
  * @author Dex
  *

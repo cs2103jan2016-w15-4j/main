@@ -1,3 +1,4 @@
+//@@author A0124586Y
 package dooyit.system;
 
 public final class OsUtils {

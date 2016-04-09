@@ -1,6 +1,6 @@
 package dooyit.ui;
 
-import dooyit.system.OsUtils;
+import dooyit.common.system.OsUtils;
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;

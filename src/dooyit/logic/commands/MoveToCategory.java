@@ -68,19 +68,9 @@ public class MoveToCategory implements Command, ReversibleCommand {
 		for (int taskId : taskIds) {
 			if (logic.containsTask(taskId)) {
 				if (logic.containsCategory(categoryName)) {
-					isNewCatCreated = false;
-					settedCategory = logic.findCategory(categoryName);
-					Task task = logic.findTask(taskId);
-					prevCategory = task.getCategory();
-					task.setCategory(settedCategory);
-					tasksWithCategory.add(task);
+					moveTaskToExistingCategory(logic, taskId);
 				} else {
-					isNewCatCreated = true;
-					settedCategory = logic.addCategory(categoryName);
-					Task task = logic.findTask(taskId);
-					prevCategory = task.getCategory();
-					task.setCategory(settedCategory);
-					tasksWithCategory.add(task);
+					moveTaskToNewCategory(logic, taskId);
 				}
 				movedTaskIdMsg += Constants.SPACE + taskId;
 			} else {
@@ -91,6 +81,32 @@ public class MoveToCategory implements Command, ReversibleCommand {
 		logicAction = createLogicAction(logicAction, movedTaskIdMsg, errorMsgBody);
 
 		return logicAction;
+	}
+
+	/**
+	 * @param logic
+	 * @param taskId
+	 */
+	public void moveTaskToNewCategory(LogicController logic, int taskId) {
+		isNewCatCreated = true;
+		settedCategory = logic.addCategory(categoryName);
+		Task task = logic.findTask(taskId);
+		prevCategory = task.getCategory();
+		task.setCategory(settedCategory);
+		tasksWithCategory.add(task);
+	}
+
+	/**
+	 * @param logic
+	 * @param taskId
+	 */
+	public void moveTaskToExistingCategory(LogicController logic, int taskId) {
+		isNewCatCreated = false;
+		settedCategory = logic.findCategory(categoryName);
+		Task task = logic.findTask(taskId);
+		prevCategory = task.getCategory();
+		task.setCategory(settedCategory);
+		tasksWithCategory.add(task);
 	}
 
 	/**

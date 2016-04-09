@@ -12,7 +12,7 @@ import org.junit.Test;
 
 /**
  * 
- * @@author Wu Wenqi <A0124278A>
+ * @author Wu Wenqi
  *
  */
 

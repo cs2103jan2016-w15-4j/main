@@ -9,6 +9,8 @@ public class Constants {
 	
 	public static final String FEEDBACK_TASK_MARKED = "Task%1$s has been marked.";
 	public static final String FEEDBACK_TASKS_MARKED = "Tasks%1$s have been marked.";
+	public static final String FEEDBACK_TASK_UNMARKED = "Task%1$s has been unmarked.";
+	public static final String FEEDBACK_TASKS_UNMARKED = "Tasks%1$s have been unmarked.";
 	
 	public static final String FEEDBACK_TASK_MOVED = "Task%1$s has been moved to %2$s.";
 	public static final String FEEDBACK_TASKS_MOVED = "Tasks%1$s have been moved to %2$s.";

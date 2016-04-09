@@ -971,7 +971,7 @@ public class TaskManager {
 	}
 
 	/**
-	 * get arraylist of taskgroup that contains only task with a specific email
+	 * get arraylist of taskgroup that contains only task with a specific category
 	 * 
 	 * @param category
 	 * @return arraylist of taskgroup

@@ -33,7 +33,6 @@ public class DeleteTaskCommand implements Command, ReversibleCommand {
 	}
 
 	public void undo(LogicController logic) {
-
 		for (Task deletedTask : deletedTasks) {
 			logic.addTask(deletedTask);
 		}
@@ -56,9 +55,9 @@ public class DeleteTaskCommand implements Command, ReversibleCommand {
 			if (logic.containsTask(deleteId)) {
 				Task deletedTask = logic.removeTask(deleteId);
 				deletedTasks.add(deletedTask);
-				deletedTaskMsg += " " + deleteId;
+				deletedTaskMsg += Constants.SPACE + deleteId;
 			} else {
-				errorMsgBody += " " + deleteId;
+				errorMsgBody += Constants.SPACE + deleteId;
 			}
 		}
 

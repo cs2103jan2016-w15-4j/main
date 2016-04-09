@@ -2,19 +2,14 @@
 package dooyit.logic;
 
 public class Constants {
-
-	public static final String THEME_CUSTOM = "custom";
-	public static final String THEME_AQUA = "aqua";
-	public static final String THEME_DARK = "dark";
-	public static final String THEME_LIGHT = "light";
-	public static final String THEME_DEFAULT = "default";
-	public static final String FEEDBACK_SUCCESS_CHANGE_THEME = "Your theme has been change to %1$s skin!";
-	public static final String FEEDBACK_INVALID_THEME = "%1$s is not available, try DEFAULT, DARK, AQUA or CUSTOM";
-	
 	public static final String FEEDBACK_TASK_ADDED = "Task created.";
 	public static final String FEEDBACK_TASK_CLEARED = "All tasks have been cleared!";
-	public static final String FEEDBACK_TASKS_DELETED = "Tasks%1$s has been deleted.";
 	public static final String FEEDBACK_TASK_DELETED = "Task%1$s has been deleted.";
+	public static final String FEEDBACK_TASKS_DELETED = "Tasks%1$s has been deleted.";
+	
+	public static final String FEEDBACK_TASK_MARKED = "Task%1$s has been marked.";
+	public static final String FEEDBACK_TASKS_MARKED = "Tasks%1$s has been marked.";
+	public static final String FEEDBACK_CONFLICTING_EVENT = "This task conclicts with another event. ";
 	
 	public static final String FEEDBACK_DELETE_CATEGORY = "CATEGORY: %1$s deleted.";
 	public static final String FEEDBACK_CATEGORY_ADDED = "CATEGORY: %1$s created. %2$s";
@@ -36,4 +31,15 @@ public class Constants {
 	public static final String FEEDBACK_SUCCESS_UNDO = "UNDO successful!";
 	public static final String FEEDBACK_FAIL_REDO = "Oops, nothing to REDO";
 	public static final String FEEDBACK_SUCCESS_REDO = "REDO successfull!";
+	
+	public static final String THEME_CUSTOM = "custom";
+	public static final String THEME_AQUA = "aqua";
+	public static final String THEME_DARK = "dark";
+	public static final String THEME_LIGHT = "light";
+	public static final String THEME_DEFAULT = "default";
+	public static final String FEEDBACK_SUCCESS_CHANGE_THEME = "Your theme has been change to %1$s skin!";
+	public static final String FEEDBACK_INVALID_THEME = "%1$s is not available, try DEFAULT, DARK, AQUA or CUSTOM";
+	
+	public static final String SPACE = " ";
+	
 }

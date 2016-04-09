@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import dooyit.common.datatype.Task;
 import dooyit.common.exception.IncorrectInputException;
+import dooyit.logic.Constants;
 import dooyit.logic.api.Action;
 import dooyit.logic.api.LogicAction;
 import dooyit.logic.api.LogicController;
@@ -46,22 +47,32 @@ public class MarkTaskCommand implements Command, ReversibleCommand {
 		assert (logic != null);
 		LogicAction logicAction = null;
 
-		String errorMessageBody = "";
+		String markedTaskMsg = Constants.EMPTY_STRING;
+		String errorMessageBody = Constants.EMPTY_STRING;
 
 		for (int markId : markIds) {
 			if (logic.containsTask(markId)) {
 				logic.markTask(markId);
 				Task markedTask = logic.findTask(markId);
 				markedTasks.add(markedTask);
-				logicAction = new LogicAction(Action.MARK_TASK);
+				markedTaskMsg += Constants.SPACE + markId;
 			} else {
-				errorMessageBody += " " + markId;
+				errorMessageBody += Constants.SPACE + markId;
 			}
 		}
 
-		if (errorMessageBody != "") {
-			logicAction = new LogicAction(Action.MARK_TASK);
-			throw new IncorrectInputException("Index" + errorMessageBody + " doesn't exists");
+		if (!markedTasks.isEmpty()) {
+			if (markedTasks.size() == 1) {
+				logicAction = new LogicAction(Action.MARK_TASK, String.format(Constants.FEEDBACK_TASK_MARKED, markedTaskMsg));
+			} else {
+				logicAction = new LogicAction(Action.MARK_TASK, String.format(Constants.FEEDBACK_TASKS_MARKED, markedTaskMsg));
+			}
+
+		} else {
+			hasError = true;
+			if (errorMessageBody != Constants.EMPTY_STRING) {
+				logicAction = new LogicAction(Action.ERROR, String.format(Constants.FEEDBACK_INVALID_IDS, errorMessageBody));
+			}
 		}
 
 		return logicAction;

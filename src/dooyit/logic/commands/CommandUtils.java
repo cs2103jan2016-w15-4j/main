@@ -6,6 +6,11 @@ import dooyit.common.datatype.DateTime;
 import dooyit.common.datatype.DateTime.DAY;
 import dooyit.common.datatype.DateTime.MONTH;
 
+/**
+ * the command utils acts as a factory for command objects
+ * @author limtaeu
+ *
+ */
 public class CommandUtils {
 
 	public static Command createAddCommandFloat(String data) {

@@ -66,10 +66,6 @@ public class EventTask extends Task {
 		checkMultiDay(dateTimeStart, dateTimeEnd);
 	}
 
-	/**
-	 * @param start
-	 * @param end
-	 */
 	public void checkMultiDay(DateTime start, DateTime end) {
 		if (DateTime.hasMultiDay(start, end)) {
 			multiDayString = DateTime.getMultiDayString(start, end);
@@ -116,35 +112,35 @@ public class EventTask extends Task {
 	public DateTime getDateTimeEnd() {
 		return dateTimeEnd;
 	}
-	
+
 	@Override
-	public boolean hasOverlap(Task task){
-		
-		if(task instanceof EventTask){
-			EventTask eventTask = (EventTask)task;
-			
+	public boolean hasOverlap(Task task) {
+
+		if (task instanceof EventTask) {
+			EventTask eventTask = (EventTask) task;
+
 			return DateTime.isOverlap(dateTimeStart, dateTimeEnd, eventTask.dateTimeStart, eventTask.dateTimeEnd);
 		}
-		
+
 		return false;
 	}
 
 	@Override
 	public boolean setDisplayId(int taskId) {
-		
-		if(hasMultiDay){
-			if(this.displayId == UNINITIALISED){
+
+		if (hasMultiDay) {
+			if (this.displayId == UNINITIALISED) {
 				this.displayId = taskId;
 				return true;
-			}else{
+			} else {
 				return false;
 			}
-		}else{
+		} else {
 			this.displayId = taskId;
 			return true;
 		}
 	}
-	
+
 	@Override
 	public Task copy() {
 		return new EventTask(this);
@@ -162,8 +158,6 @@ public class EventTask extends Task {
 
 	@Override
 	public boolean isOverDue(DateTime dateTime) {
-		// return !isSameDate(dateTime) && !isCompleted &&
-		// dateTimeEnd.compareTo(dateTime) == -1;
 		boolean isOverDue = !dateTimeStart.isTheSameDateAs(dateTime) && dateTimeStart.compareTo(dateTime) == -1
 				&& !isCompleted;
 
@@ -177,7 +171,6 @@ public class EventTask extends Task {
 	@Override
 	public String getDateString() {
 		if (hasMultiDay && isMultiDayOn) {
-
 			return multiDayString.get((currentMultiDay++) % multiDayString.size());
 		}
 

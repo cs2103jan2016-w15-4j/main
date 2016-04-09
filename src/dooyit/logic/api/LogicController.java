@@ -55,6 +55,7 @@ public class LogicController {
 	 * 
 	 */
 	public void initParser() {
+		logger.log(Level.INFO, "Initialising Parser");
 		parser = new Parser();
 	}
 
@@ -62,6 +63,7 @@ public class LogicController {
 	 * 
 	 */
 	public void initTaskManager() {
+		logger.log(Level.INFO, "Initialising Task Manager");
 		taskManager = new TaskManager();
 	}
 
@@ -69,6 +71,7 @@ public class LogicController {
 	 * 
 	 */
 	public void initCategoryManager() {
+		logger.log(Level.INFO, "Initialising Category Manager");
 		categoryManager = new CategoryManager();
 	}
 
@@ -76,6 +79,7 @@ public class LogicController {
 	 * 
 	 */
 	public void initHistoryManager() {
+		logger.log(Level.INFO, "Initialising History Manager");
 		historyManager = new HistoryManager();
 	}
 
@@ -83,6 +87,7 @@ public class LogicController {
 	 * 
 	 */
 	private void initStorage() {
+		logger.log(Level.INFO, "Initialising Storage");
 		try {
 			storage = new StorageController();
 		} catch (IOException e) {
@@ -91,6 +96,7 @@ public class LogicController {
 	}
 
 	private void initDataManager() {
+		logger.log(Level.INFO, "Initialising DataManager");
 		dataManager = new DataManager();
 	}
 
@@ -98,13 +104,13 @@ public class LogicController {
 	 * 
 	 */
 	public void loadFromStorage() {
+		logger.log(Level.INFO, "Loading data from storage");
 		try {
 			clearTasks();
 			loadCategoryDataFromStorage();
 			loadTaskDataFromStorage();
 		} catch (IOException e) {
 			logger.log(Level.SEVERE, "ERROR: Fail to load task from storage");
-			// uiController.displayMessage("ERROR: LOAD TASK");
 		}
 	}
 
@@ -115,6 +121,9 @@ public class LogicController {
 		taskManager.load(tasks);
 	}
 
+	/**
+	 * set some default categories if there is category manager doesnt have any categories.
+	 */
 	public void setDefaultCategories() {
 		categoryManager.setDefaultCategories();
 	}
@@ -152,15 +161,12 @@ public class LogicController {
 		try {
 			logicAction = command.execute(this);
 		} catch (IncorrectInputException e) {
-			e.printStackTrace();
+			logger.log(Level.SEVERE, "ERROR: Incorrect Input.");
 			logicAction = new LogicAction(Action.ERROR, "Incorrect Input.");
 		}
 		return logicAction;
 	}
 
-	/**
-	 * @param command
-	 */
 	private void addCommandToHistory(Command command) {
 		historyManager.addCommand(command);
 	}
@@ -183,14 +189,10 @@ public class LogicController {
 			storage.saveCategory(getCategoryDatas());
 		} catch (IOException e) {
 			logger.log(Level.SEVERE, "ERROR: Fail to save");
-			// uiController.displayMessage("ERROR: SAVING");
 		}
 
 	}
 
-	/**
-	 * 
-	 */
 	private void displayInCommandline() {
 		if (displayCommandline) {
 			taskManager.display();

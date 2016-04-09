@@ -2,7 +2,6 @@
 package dooyit.logic;
 
 import java.util.ArrayList;
-
 import dooyit.common.datatype.Category;
 import dooyit.common.datatype.CustomColour;
 import dooyit.common.exception.IncorrectInputException;

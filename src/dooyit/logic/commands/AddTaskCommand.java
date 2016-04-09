@@ -64,7 +64,6 @@ public class AddTaskCommand implements Command, ReversibleCommand {
 
 		case EVENT:
 			addedTask = logic.addEventTask(taskName, dateTimeStart, dateTimeEnd);
-
 			break;
 		}
 
@@ -79,7 +78,7 @@ public class AddTaskCommand implements Command, ReversibleCommand {
 		String feedbackMsg = taskAddedMsg;
 
 		if (logic.hasOverlapWithOverEventTask(addedTask)) {
-			String conflictMsg = "This task conclicts with another event. ";
+			String conflictMsg = Constants.FEEDBACK_CONFLICTING_EVENT;
 			feedbackMsg = conflictMsg + taskAddedMsg;
 		}
 

@@ -26,12 +26,15 @@ import dooyit.common.datatype.TaskData;
  */
 public class TaskDataDeserializer implements JsonDeserializer<TaskData> {
 
+	//Attribute names of TaskData types
 	private static final String DEADLINE = "dateTimeDeadline";
 	private static final String EVENT_START = "dateTimeStart";
 	private static final String EVENT_END = "dateTimeEnd";
 	private static final String NAME = "taskName";
 	private static final String CATEGORY = "category";
 	private static final String IS_COMPLETED = "isCompleted";
+	
+	private static int count = 1;
 	
 	@Override
 	public TaskData deserialize(JsonElement object, Type arg1, JsonDeserializationContext arg2)
@@ -79,10 +82,12 @@ public class TaskDataDeserializer implements JsonDeserializer<TaskData> {
 	 * @return The name of the task
 	 */
 	private String getName(JsonObject jsonTask) {
-		String name = "";
+		String name = "task ";
 
 		if (jsonTask.has(NAME)) {
 			name = jsonTask.get(NAME).getAsString();
+		} else {
+			name += count++;
 		}
 
 		return name;

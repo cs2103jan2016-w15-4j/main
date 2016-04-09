@@ -71,7 +71,7 @@ public class DateTime {
 	private int timeInt;
 	
 	public enum DAY {
-		MON, TUE, WED, THU, FRI, SAT, SUN, INVALID
+		MON, TUE, WED, THU, FRI, SAT, SUN, INVALID;
 	}
 
 	public enum MONTH {
@@ -320,6 +320,26 @@ public class DateTime {
 	private static boolean compareDateStrings(DateTime first, DateTime second) {
 		return first.getDate().equals(second.getDate());
 	}
+	
+	public static boolean isWithinDay(DAY day, DateTime start, DateTime end) {
+		int startDayInt = start.getDayInt();
+		int endDayInt = end.getDayInt();
+		int dayEnumInt = convertDayEnumToInt(day);
+		boolean isAfterStart = dayEnumInt >= startDayInt;
+		boolean isBeforeEnd = dayEnumInt <= endDayInt;
+		return isAfterStart && isBeforeEnd;
+	}
+	
+	private static int convertDayEnumToInt(DAY day) {
+		String dayEnumString = day.toString();
+		int dayEnumInt = UNINITIALIZED_INT;
+		for (int i = 1; i < daysInWeek.length; i++) {
+			if (dayEnumString.equals(daysInWeek)) {
+				dayEnumInt = i;
+			}
+		}
+		return dayEnumInt;
+	}
 
 	public boolean equals(DateTime dateTime) {
 		boolean hasEqualDateString = this.getDate().equals(dateTime.getDate());
@@ -418,6 +438,7 @@ public class DateTime {
 		String timeToBeAdded = startTimeString + " - " + RIGHT_BEFORE_MIDNIGHT_STRING;
 		listOfTimings.add(timeToBeAdded);
 		startCopy.increaseByOneDay();
+		
 		while(compareDates(startCopy, end) != COMPARISON_FIRST_EQUALS_SECOND) {
 			timeToBeAdded = MIDNIGHT_STRING + " - " + RIGHT_BEFORE_MIDNIGHT_STRING;
 			listOfTimings.add(timeToBeAdded);
@@ -454,7 +475,7 @@ public class DateTime {
 	public static DAY getDayType(String input) {
 		DAY type;
 		if(input.contains(DAY_MON)) {
-			type = DAY.MON;
+			type = DAY.MON ;
 		} else if(input.contains(DAY_TUE)) {
 			type = DAY.TUE;
 		} else if(input.contains(DAY_WED)) {
@@ -519,7 +540,6 @@ public class DateTime {
 		this.timeInt = RIGHT_BEFORE_MIDNIGHT_INT;
 	}
 	
-	
 	public static boolean isOverlap(DateTime startOne, DateTime endOne, DateTime startTwo, DateTime endTwo) {
 		boolean startOneIsBeforeEndTwo = startOne.compareTo(endTwo) == COMPARISON_FIRST_IS_BEFORE_SECOND;
 		boolean endOneIsAfterEndTwo = endOne.compareTo(endTwo) == COMPARISON_FIRST_IS_AFTER_SECOND;
@@ -542,5 +562,4 @@ public class DateTime {
 	public static boolean isSpecifiedDay(DateTime dateTime, int day) {
 		return dateTime.getDayInt() == day;
 	}
-	
 }

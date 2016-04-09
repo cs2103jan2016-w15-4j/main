@@ -3,6 +3,9 @@ package dooyit.common.datatype;
 
 import java.util.ArrayList;
 
+import dooyit.common.datatype.DateTime.DAY;
+import dooyit.common.datatype.DateTime.MONTH;
+
 public class EventTask extends Task {
 
 	private DateTime dateTimeStart;
@@ -126,6 +129,11 @@ public class EventTask extends Task {
 	}
 
 	@Override
+	public boolean isMonth(MONTH month){
+		return dateTimeStart.isMonth(month) || dateTimeEnd.isMonth(month);
+	}
+	
+	@Override
 	public boolean setDisplayId(int taskId) {
 
 		if (hasMultiDay) {
@@ -168,6 +176,11 @@ public class EventTask extends Task {
 		return isOverDue;
 	}
 
+	@Override
+	public boolean isDay(DAY day){
+		return DateTime.isWithinDay(day, dateTimeStart, dateTimeEnd);
+	}
+	
 	@Override
 	public String getDateString() {
 		if (hasMultiDay && isMultiDayOn) {

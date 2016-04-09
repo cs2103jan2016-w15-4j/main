@@ -12,7 +12,7 @@ public class AddCategoryCommand implements Command, ReversibleCommand {
 
 	private String categoryName;
 	private String colourString;
-	Category addedCategory;
+	private Category addedCategory;
 	private boolean hasError = false;
 
 	public AddCategoryCommand(String categoryName) {
@@ -24,7 +24,7 @@ public class AddCategoryCommand implements Command, ReversibleCommand {
 		this.colourString = colorString;
 	}
 
-	private boolean hasColorString() {
+	private boolean addCategoryWithColour() {
 		return colourString != null;
 	}
 
@@ -41,7 +41,7 @@ public class AddCategoryCommand implements Command, ReversibleCommand {
 	}
 
 	public LogicAction execute(LogicController logic) throws IncorrectInputException {
-		assert(logic != null);
+		assert (logic != null);
 		LogicAction logicAction;
 
 		String feedbackMsgColor = Constants.EMPTY_STRING;
@@ -52,8 +52,8 @@ public class AddCategoryCommand implements Command, ReversibleCommand {
 			return logicAction;
 		}
 
-		if (hasColorString()) {
-			if (logic.containsCustomColour(colourString)) {
+		if (addCategoryWithColour()) {
+			if (isColourAvailable(logic, colourString)) {
 				addedCategory = logic.addCategory(categoryName, colourString);
 			} else {
 				addedCategory = logic.addCategory(categoryName);
@@ -66,6 +66,10 @@ public class AddCategoryCommand implements Command, ReversibleCommand {
 		logicAction = new LogicAction(Action.ADD_CATEGORY, String.format(Constants.FEEDBACK_CATEGORY_ADDED, categoryName, feedbackMsgColor));
 
 		return logicAction;
+	}
+
+	public boolean isColourAvailable(LogicController logic, String colourString) {
+		return logic.containsCustomColour(colourString);
 	}
 
 }

@@ -1,6 +1,9 @@
 //@@author A0126356E
 package dooyit.common.datatype;
 
+import dooyit.common.datatype.DateTime.DAY;
+import dooyit.common.datatype.DateTime.MONTH;
+
 public abstract class Task {
 
 	public enum TaskType {
@@ -110,4 +113,8 @@ public abstract class Task {
 	public abstract boolean isOverDue(DateTime dateTime);
 
 	public abstract boolean isSameDate(DateTime dateTime);
+	
+	public abstract boolean isMonth(MONTH month);
+	
+	public abstract boolean isDay(DAY month);
 }

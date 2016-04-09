@@ -1,6 +1,9 @@
 //@@author A0126356E
 package dooyit.common.datatype;
 
+import dooyit.common.datatype.DateTime.DAY;
+import dooyit.common.datatype.DateTime.MONTH;
+
 public class DeadlineTask extends Task {
 
 	DateTime dateTimeDeadline;
@@ -82,6 +85,16 @@ public class DeadlineTask extends Task {
 	@Override
 	public boolean isOverDue(DateTime dateTime){
 		return !isSameDate(dateTime) && !isCompleted && dateTimeDeadline.compareTo(dateTime) == -1;
+	}
+	
+	@Override
+	public boolean isMonth(MONTH month){
+		return dateTimeDeadline.isMonth(month);
+	}
+	
+	@Override
+	public boolean isDay(DAY day){
+		return dateTimeDeadline.isDay(day);
 	}
 	
 	@Override

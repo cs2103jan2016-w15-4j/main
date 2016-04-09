@@ -1,6 +1,9 @@
 //@@author A0126356E
 package dooyit.common.datatype;
 
+import dooyit.common.datatype.DateTime.DAY;
+import dooyit.common.datatype.DateTime.MONTH;
+
 public class FloatingTask extends Task {
 
 	public FloatingTask(String taskName) {
@@ -64,12 +67,22 @@ public class FloatingTask extends Task {
 	public boolean isSameDate(DateTime dateTime) {
 		return false;
 	}
-
+	
 	@Override
 	public boolean isOverDue(DateTime dateTime) {
 		return false;
 	}
 
+	@Override
+	public boolean isMonth(MONTH month){
+		return false;
+	}
+	
+	@Override
+	public boolean isDay(DAY day){
+		return false;
+	}
+	
 	@Override
 	public String getDateString() {
 		return "";

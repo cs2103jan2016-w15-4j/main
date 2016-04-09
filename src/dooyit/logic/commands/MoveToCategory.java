@@ -65,7 +65,6 @@ public class MoveToCategory implements Command, ReversibleCommand {
 		String movedTaskIdMsg = Constants.EMPTY_STRING;
 		String errorMsgBody = Constants.EMPTY_STRING;
 		
-		
 		for (int taskId : taskIds) {
 			if (logic.containsTask(taskId)) {
 				if (logic.containsCategory(categoryName)) {
@@ -95,7 +94,6 @@ public class MoveToCategory implements Command, ReversibleCommand {
 			} else {
 				logicAction = new LogicAction(Action.ADD_N_SET_CATEGORY, String.format(Constants.FEEDBACK_TASKS_MOVED, movedTaskIdMsg, settedCategory.getName()));
 			}
-
 		} else {
 			hasError = true;
 			if (errorMsgBody != Constants.EMPTY_STRING) {

@@ -4,6 +4,7 @@ package dooyit.logic.commands;
 import dooyit.common.datatype.Category;
 import dooyit.common.datatype.Task;
 import dooyit.common.exception.IncorrectInputException;
+import dooyit.logic.Constants;
 import dooyit.logic.api.Action;
 import dooyit.logic.api.LogicAction;
 import dooyit.logic.api.LogicController;
@@ -37,14 +38,14 @@ public class UnMoveCategory implements Command, ReversibleCommand {
 
 		if (!logic.containsTask(taskId)) {
 			hasError = true;
-			logicAction = new LogicAction(Action.ERROR, "Index: " + taskId + "doesn't exist.");
+			logicAction = new LogicAction(Action.ERROR, Constants.FEEDBACK_INVALID_ID);
 			return logicAction;
 		}
 
 		taskWithCategory = logic.findTask(taskId);
 		removedCategory = taskWithCategory.getCategory();
 		taskWithCategory.setCategory(null);
-		logicAction = new LogicAction(Action.REMOVE_CAT_FROM_TASK, "Category succesfully removed.");
+		logicAction = new LogicAction(Action.REMOVE_CAT_FROM_TASK, Constants.FEEDBACK_TASK_UNMOVED);
 
 		return logicAction;
 	}

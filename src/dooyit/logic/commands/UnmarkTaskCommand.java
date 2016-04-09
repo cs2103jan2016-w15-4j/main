@@ -33,7 +33,6 @@ public class UnmarkTaskCommand implements Command, ReversibleCommand {
 	}
 
 	public void undo(LogicController logic) {
-
 		for (Task unmarkedTask : unmarkedTasks) {
 			logic.markTask(unmarkedTask);
 		}

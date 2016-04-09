@@ -276,17 +276,13 @@ public class TaskManager {
 	 * 
 	 * @param id
 	 *            the ID of the task to be marked
-	 * @return false if task is already marked
 	 */
-	public boolean unmarkTask(Task task) {
+	public void unmarkTask(Task task) {
 		for (int i = 0; i < tasks.size(); i++) {
 			if (tasks.get(i).equals(task)) {
 				tasks.get(i).unMark();
-				return true;
 			}
 		}
-		// tell user if task is already marked.
-		return false;
 	}
 
 	/**
@@ -1123,7 +1119,7 @@ public class TaskManager {
 		while (taskGroupsItr.hasNext()) {
 			TaskGroup taskGroup = taskGroupsItr.next();
 
-			taskGroup.filterByName(searchKey);
+			filterTasksByName(taskGroup.getTasks(), searchKey);
 
 			if (taskGroup.size() == 0) {
 				taskGroupsItr.remove();
@@ -1143,7 +1139,7 @@ public class TaskManager {
 		while (taskGroupsItr.hasNext()) {
 			TaskGroup taskGroup = taskGroupsItr.next();
 
-			taskGroup.filterByDate(dateTime);
+			filterTasksByDate(taskGroup.getTasks(), dateTime);
 
 			if (taskGroup.size() == 0) {
 				taskGroupsItr.remove();
@@ -1164,8 +1160,8 @@ public class TaskManager {
 		while (taskGroupsItr.hasNext()) {
 			TaskGroup taskGroup = taskGroupsItr.next();
 
-			taskGroup.filterByDay(searchKey, day);
-
+			filterByDay(taskGroup.getTasks(), searchKey, day);
+			
 			if (taskGroup.size() == 0) {
 				taskGroupsItr.remove();
 			}
@@ -1185,14 +1181,78 @@ public class TaskManager {
 		while (taskGroupsItr.hasNext()) {
 			TaskGroup taskGroup = taskGroupsItr.next();
 
-			taskGroup.filterByMonth(searchKey, month);
-
+			filterTasksByMonth(taskGroup.getTasks(), searchKey, month);
+			
 			if (taskGroup.size() == 0) {
 				taskGroupsItr.remove();
 			}
 		}
 	}
+	
+	public void filterTasksByName(ArrayList<Task> inTasks, String searchKey) {
+		searchKey = searchKey.toLowerCase();
+		Iterator<Task> taskItr = inTasks.iterator();
 
+		while (taskItr.hasNext()) {
+			Task task = taskItr.next();
+
+			String taskName = task.getName();
+			taskName = taskName.toLowerCase();
+
+			if (!taskName.contains(searchKey)) {
+				taskItr.remove();
+			}
+		}
+	}
+	
+	public void filterTasksByDate(ArrayList<Task> inTasks, DateTime dateTime) {
+		Iterator<Task> taskItr = inTasks.iterator();
+
+		while (taskItr.hasNext()) {
+			Task task = taskItr.next();
+
+			if (!task.isSameDate(dateTime)) {
+				taskItr.remove();
+			}
+		}
+	}
+	
+	public void filterTasksByMonth(ArrayList<Task> inTasks, String searchKey, MONTH month) {
+		searchKey = searchKey.toLowerCase();
+		Iterator<Task> taskItr = inTasks.iterator();
+
+		while (taskItr.hasNext()) {
+			Task task = taskItr.next();
+
+			String taskName = task.getName();
+			taskName = taskName.toLowerCase();
+
+			if (!taskName.contains(searchKey) && !task.isMonth(month)) {
+				taskItr.remove();
+			}
+		}
+	}
+	
+	public void filterByDay(ArrayList<Task> inTasks, String searchKey, DAY day) {
+		searchKey = searchKey.toLowerCase();
+		Iterator<Task> taskItr = inTasks.iterator();
+
+		while (taskItr.hasNext()) {
+			Task task = taskItr.next();
+
+			String taskName = task.getName();
+			taskName = taskName.toLowerCase();
+
+			// if (!taskName.contains(searchKey) &&
+			// !task.getDateTime().isDay(day)) {
+			// taskItr.remove();
+			// }
+			if (!task.isDay(day)) {
+				taskItr.remove();
+			}
+		}
+	}
+	
 	/**
 	 * sort tasks by their unique id first to maintain the order when a task is
 	 * edited. Then sort by date.

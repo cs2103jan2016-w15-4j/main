@@ -87,76 +87,9 @@ public class TaskGroup {
 		}
 	}
 
-	public void filterByName(String searchKey) {
-		searchKey = searchKey.toLowerCase();
-		Iterator<Task> taskItr = tasks.iterator();
+	
 
-		while (taskItr.hasNext()) {
-			Task task = taskItr.next();
+	
 
-			String taskName = task.getName();
-			taskName = taskName.toLowerCase();
-
-			if (!taskName.contains(searchKey)) {
-				taskItr.remove();
-			}
-		}
-	}
-
-	public void filterByDate(DateTime dateTime) {
-		Iterator<Task> taskItr = tasks.iterator();
-
-		while (taskItr.hasNext()) {
-			Task task = taskItr.next();
-
-			if (!task.isSameDate(dateTime)) {
-				taskItr.remove();
-			}
-		}
-	}
-
-	public void filterByMonth(String searchKey, MONTH month) {
-		searchKey = searchKey.toLowerCase();
-		Iterator<Task> taskItr = tasks.iterator();
-
-		while (taskItr.hasNext()) {
-			Task task = taskItr.next();
-
-			String taskName = task.getName();
-			taskName = taskName.toLowerCase();
-
-			// if (!taskName.contains(searchKey) &&
-			// !task.getDateTime().isMonth(month)) {
-			// taskItr.remove();
-			// }
-
-			if (task instanceof FloatingTask) {
-				taskItr.remove();
-			} else if (!task.getDateTime().isMonth(month)) {
-				taskItr.remove();
-			}
-		}
-	}
-
-	public void filterByDay(String searchKey, DAY day) {
-		searchKey = searchKey.toLowerCase();
-		Iterator<Task> taskItr = tasks.iterator();
-
-		while (taskItr.hasNext()) {
-			Task task = taskItr.next();
-
-			String taskName = task.getName();
-			taskName = taskName.toLowerCase();
-
-			// if (!taskName.contains(searchKey) &&
-			// !task.getDateTime().isDay(day)) {
-			// taskItr.remove();
-			// }
-			if (task instanceof FloatingTask) {
-				taskItr.remove();
-			} else if (!task.getDateTime().isDay(day)) {
-				taskItr.remove();
-			}
-		}
-	}
+	
 }

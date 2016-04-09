@@ -17,6 +17,13 @@ import dooyit.common.datatype.EventTaskData;
 import dooyit.common.datatype.FloatingTaskData;
 import dooyit.common.datatype.TaskData;
 
+/**
+ * The TaskDataDeserializer creates the TaskData object from its JSON
+ * representation for loading
+ * 
+ * @author Dex
+ *
+ */
 public class TaskDataDeserializer implements JsonDeserializer<TaskData> {
 
 	private static final String DEADLINE = "dateTimeDeadline";
@@ -25,7 +32,7 @@ public class TaskDataDeserializer implements JsonDeserializer<TaskData> {
 	private static final String NAME = "taskName";
 	private static final String CATEGORY = "category";
 	private static final String IS_COMPLETED = "isCompleted";
-
+	
 	@Override
 	public TaskData deserialize(JsonElement object, Type arg1, JsonDeserializationContext arg2)
 			throws JsonParseException {
@@ -50,6 +57,12 @@ public class TaskDataDeserializer implements JsonDeserializer<TaskData> {
 		return task;
 	}
 
+	/**
+	 * Checks if the task has been completed.
+	 * 
+	 * @param jsonTask The JSON representation of TaskData
+	 * @return The boolean value of isCompleted
+	 */
 	private boolean isCompleted(JsonObject jsonTask) {
 		boolean isCompleted = false;
 
@@ -59,6 +72,12 @@ public class TaskDataDeserializer implements JsonDeserializer<TaskData> {
 		return isCompleted;
 	}
 
+	/**
+	 * Gets the name of the task from the JSON representation of TaskData
+	 * 
+	 * @param jsonTask The JSON representation of TaskData
+	 * @return The name of the task
+	 */
 	private String getName(JsonObject jsonTask) {
 		String name = "";
 
@@ -68,7 +87,13 @@ public class TaskDataDeserializer implements JsonDeserializer<TaskData> {
 
 		return name;
 	}
-
+	
+	/**
+	 * Gets the name of the category which the task is assigned to
+	 * 
+	 * @param jsonTask The JSON representation of TaskData
+	 * @return The category name which the task is assigned to
+	 */
 	private String getCategoryName(JsonObject jsonTask) {
 		String categoryName = null;
 		if (jsonTask.has(CATEGORY)) {
@@ -77,7 +102,14 @@ public class TaskDataDeserializer implements JsonDeserializer<TaskData> {
 
 		return categoryName;
 	}
-
+	
+	/**
+	 * Creates a DateTime object from its JSON representation.
+	 * 
+	 * @param jsonTask The JSON representation of the TaskData
+	 * @param type The type of DateTime - deadline, start time or end time
+	 * @return The DateTime object of the JSON representation
+	 */
 	private DateTime resolveDateTime(JsonObject jsonTask, String type) {
 		Gson gson = gsonWithDateTimeDeserializer();
 		JsonObject dateTimeJson = jsonTask.get(type).getAsJsonObject();
@@ -85,7 +117,11 @@ public class TaskDataDeserializer implements JsonDeserializer<TaskData> {
 
 		return dateTime;
 	}
-
+	
+	/**
+	 * 
+	 * @return Gson object with DateTimeDeserializer.
+	 */
 	private Gson gsonWithDateTimeDeserializer() {
 		return new GsonBuilder().registerTypeAdapter(DateTime.class, new DateTimeDeserializer()).create();
 	}

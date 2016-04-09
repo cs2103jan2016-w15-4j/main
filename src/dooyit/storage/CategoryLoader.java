@@ -3,7 +3,6 @@ package dooyit.storage;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,24 +10,35 @@ import java.util.ArrayList;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
 
 import dooyit.common.datatype.CategoryData;
 
-public class CategoryLoader {
-	private static final String EMPTY_STRING = "";
+/**
+ * The CategoryLoader class contains methods and attributes necessary for
+ * loading categories.
+ * 
+ * @author Dex
+ *
+ */
+public class CategoryLoader extends Loader<CategoryData> {
 
 	private String filePath;
-	private JsonParser parser;
 	private Gson gson;
 
 	protected CategoryLoader(String filePath) {
+		super();
 		this.filePath = filePath;
-		this.parser = new JsonParser();
 		this.gson = gsonWithCategoryDataDeserializer();
 	}
 
+	/**
+	 * Loads CategoryData from the saved file after checking if the file exists.
+	 * 
+	 * @return An ArrayList of CategoryData.
+	 * @throws IOException
+	 *             If unable to read from the file.
+	 */
 	public ArrayList<CategoryData> load() throws IOException {
 		File categoryFile = new File(filePath);
 		ArrayList<CategoryData> categories = new ArrayList<CategoryData>();
@@ -39,23 +49,20 @@ public class CategoryLoader {
 		return categories;
 	}
 
-	private FileReader open(File file) throws FileNotFoundException {
-		FileReader fReader = null;
-		if (file.exists()) {
-			try {
-				fReader = new FileReader(file);
-			} catch (FileNotFoundException e) {
-				throw new FileNotFoundException(file.getName());
-			}
-		}
-		return fReader;
-	}
-
-	private ArrayList<CategoryData> loadFromFile(File categoryFile) throws IOException {
+	/**
+	 * Loads CategoryData from an existing file
+	 * 
+	 * @param file
+	 *            File instance of the existing save file
+	 * @return ArrayList of TaskData from the save file
+	 * @throws IOException
+	 *             If unable to read from the save file
+	 */
+	private ArrayList<CategoryData> loadFromFile(File file) throws IOException {
 		FileReader fReader;
 		ArrayList<CategoryData> categories = new ArrayList<CategoryData>();
 
-		fReader = open(categoryFile);
+		fReader = open(file);
 		BufferedReader bReader = new BufferedReader(fReader);
 
 		String categoryData = bReader.readLine();
@@ -64,6 +71,7 @@ public class CategoryLoader {
 			try {
 				jsonCategory = getAsJson(categoryData);
 			} catch (JsonSyntaxException e) {
+				//Null the object if the JSON string is corrupted
 				jsonCategory = null;
 			}
 
@@ -78,23 +86,23 @@ public class CategoryLoader {
 
 		return categories;
 	}
-
+	
+	/**
+	 * Converts the JSON representation of a category to CategoryData.
+	 * 
+	 * @param jsonCategory JsonObject of CategoryData.
+	 * @return Returns the CategoryData of the JsonObject.
+	 */
 	private CategoryData resolveCategory(JsonObject jsonCategory) {
 		CategoryData category = gson.fromJson(jsonCategory, CategoryData.class);
 
 		return category;
 	}
 
-	private JsonObject getAsJson(String format) {
-		JsonObject object = null;
-
-		if (!format.equals(EMPTY_STRING)) {
-			object = parser.parse(format).getAsJsonObject();
-		}
-
-		return object;
-	}
-
+	/**
+	 * 
+	 * @return Returns a Gson object with CategoryDataDeserializer.
+	 */
 	private Gson gsonWithCategoryDataDeserializer() {
 		return new GsonBuilder().registerTypeAdapter(CategoryData.class, new CategoryDataDeserializer()).create();
 	}

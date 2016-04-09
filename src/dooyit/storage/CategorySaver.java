@@ -11,7 +11,16 @@ import com.google.gson.Gson;
 
 import dooyit.common.datatype.CategoryData;
 
-public class CategorySaver {
+/**
+ * The CategorySaver class contains methods and attributes necessary for saving
+ * categories.
+ * 
+ * @author Dex
+ *
+ */
+public class CategorySaver extends Saver<CategoryData> {
+	private static final String ERROR_MESSAGE_CATEGORY_SAVING = "Unable to save category data";
+
 	private String filePath;
 	private Gson gson;
 
@@ -20,21 +29,42 @@ public class CategorySaver {
 		this.gson = new Gson();
 	}
 
-	protected boolean save(ArrayList<CategoryData> categories) throws IOException {
+	/**
+	 * Saves the list of categories.
+	 * 
+	 * @param tasks
+	 *            An ArrayList of CategoryData to be saved.
+	 * @return Returns true if save is successful, otherwise returns false.
+	 * @throws IOException
+	 *             If the saved file cannot be written to.
+	 */
+	boolean save(ArrayList<CategoryData> categories) throws IOException {
 		File file = new File(filePath);
 
-		BufferedWriter bWriter = new BufferedWriter(new FileWriter(file));
+		try {
+			BufferedWriter bWriter = new BufferedWriter(new FileWriter(file));
 
-		for (CategoryData existingCategory : categories) {
-			bWriter.append(setFormat(existingCategory));
-			bWriter.newLine();
+			for (CategoryData existingCategory : categories) {
+				bWriter.append(setFormat(existingCategory));
+				bWriter.newLine();
+			}
+			bWriter.close();
+		} catch (IOException e) {
+			throw new IOException(ERROR_MESSAGE_CATEGORY_SAVING);
 		}
-		bWriter.close();
 
 		return true;
 	}
 
-	private String setFormat(CategoryData category) {
+	/**
+	 * Converts the Category object to CategoryData before further conversion to
+	 * its JSON string.
+	 * 
+	 * @param category
+	 *            The category to be converted.
+	 * @return Returns the JSON string representation of the CategoryData.
+	 */
+	String setFormat(CategoryData category) {
 		String categoryName = category.getName();
 		String colorName = category.getColor();
 		CategoryData categoryFormat = new CategoryData(categoryName, colorName);

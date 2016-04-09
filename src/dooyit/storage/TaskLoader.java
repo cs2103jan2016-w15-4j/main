@@ -3,7 +3,6 @@ package dooyit.storage;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,40 +10,38 @@ import java.util.ArrayList;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
 
 import dooyit.common.datatype.TaskData;
 
 /**
- * The TaskLoader class contains attributes and methods necessary for loading
+ * The TaskLoader class contains methods and attributes necessary for loading
  * tasks.
  * 
  * @author Dex
  */
-public class TaskLoader {
-	private static final String EMPTY_STRING = "";
-	private static final String ERROR_LOAD = "Error: Unable to load";
-	private static final String ERROR_OPEN = "Error: Unable to open %1$s";
+public class TaskLoader extends Loader<TaskData> {
+	private static final String ERROR_MESSAGE_LOAD = "Unable to load";
+	private static final String ERROR_MESSAGE_FILE_CREATION = "Failed to create %1$s";
 
 	private String filePath;
-	private JsonParser parser;
 	private Gson gson;
 
 	TaskLoader(String filePath) {
+		super();
 		this.filePath = filePath;
-		this.parser = new JsonParser();
 		this.gson = gsonWithTaskDataDeserializer();
 	}
 
 	/**
-	 * Loads TaskData from the saved file after checking if the path exists
+	 * Loads TaskData from the saved file after checking if the file exists.
 	 * 
-	 * @return ArrayList of TaskData
+	 * @return An ArrayList of TaskData.
 	 * @throws IOException
-	 *             If unable to generate missing save file
+	 *             If unable to generate missing save file or unable to read
+	 *             from the file.
 	 */
-	public ArrayList<TaskData> load() throws IOException {
+	protected ArrayList<TaskData> load() throws IOException {
 		File file = new File(filePath);
 		File directory = file.getParentFile();
 		ArrayList<TaskData> taskList = new ArrayList<TaskData>();
@@ -86,7 +83,8 @@ public class TaskLoader {
 		try {
 			file.createNewFile();
 		} catch (IOException e) {
-			throw new IOException("Failed to create " + file.getName());
+			String errorMessage = String.format(ERROR_MESSAGE_FILE_CREATION, file.getName());
+			throw new IOException(errorMessage);
 		}
 	}
 
@@ -116,73 +114,33 @@ public class TaskLoader {
 	 */
 	private ArrayList<TaskData> loadFromFile(File file) throws IOException {
 		FileReader fReader = open(file);
-		ArrayList<TaskData> taskList = new ArrayList<TaskData>();
-
 		BufferedReader bReader = new BufferedReader(fReader);
+		ArrayList<TaskData> taskList = new ArrayList<TaskData>();
 		String taskInfo;
+		JsonObject jsonTask;
+		
 		try {
 			taskInfo = bReader.readLine();
 		} catch (IOException e) {
-			throw new IOException(ERROR_LOAD);
+			throw new IOException(ERROR_MESSAGE_LOAD);
 		}
 
-		JsonObject jsonTask;
 		while (taskInfo != null) {
 			try {
 				jsonTask = getAsJson(taskInfo);
 			} catch (JsonSyntaxException e) {
+				//Null the object if the JSON string is corrupted
 				jsonTask = null;
-			}
-
+			}	
 			if (jsonTask != null) {
 				TaskData existingTask = gson.fromJson(jsonTask, TaskData.class);
 				taskList.add(existingTask);
 			}
-
 			taskInfo = bReader.readLine();
 		}
 		bReader.close();
 
 		return taskList;
-	}
-
-	/**
-	 * Creates a new FileReader given the File to read from
-	 * 
-	 * @param file
-	 *            File to read from
-	 * @return FileReader instance of the File to read from
-	 * @throws FileNotFoundException
-	 *             If the file is not found
-	 */
-	private FileReader open(File file) throws FileNotFoundException {
-		FileReader fReader = null;
-		if (file.exists()) {
-			try {
-				fReader = new FileReader(file);
-			} catch (FileNotFoundException e) {
-				throw new FileNotFoundException(String.format(ERROR_OPEN, file.getName()));
-			}
-		}
-		return fReader;
-	}
-
-	/**
-	 * Converts the Json String to a JsonObject
-	 * 
-	 * @param format
-	 *            The String representation of the JsonObject
-	 * @return JsonObject from String representation if it is not an empty
-	 *         string. Otherwise return null
-	 */
-	private JsonObject getAsJson(String format) {
-		JsonObject object = null;
-
-		if (!format.equals(EMPTY_STRING)) {
-			object = parser.parse(format).getAsJsonObject();
-		}
-
-		return object;
 	}
 
 	/**

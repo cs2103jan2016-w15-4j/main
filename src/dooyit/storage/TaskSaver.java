@@ -16,12 +16,23 @@ import dooyit.common.datatype.EventTaskData;
 import dooyit.common.datatype.FloatingTaskData;
 import dooyit.common.datatype.TaskData;
 
-public class TaskSaver {
+/**
+ * The TaskSaver class contains methods and attributes necessary for saving
+ * tasks.
+ * 
+ * @author Dex
+ *
+ */
+public class TaskSaver extends Saver<TaskData> {
 	private static final int BACKUP_LIMIT = 5;
-	
+
+	// Error Messages
+	private static final String ERROR_MESSAGE_TASK_SAVING = "Unable to save task data";
+
 	private String filePath;
 	private Gson gson;
-	
+
+	//Backup counter
 	private static int count = 0;
 
 	protected TaskSaver(String filePath) {
@@ -29,26 +40,42 @@ public class TaskSaver {
 		this.gson = gsonWithDateTimeSerializer();
 	}
 
-	public boolean save(ArrayList<TaskData> tasks) throws IOException {
+	/**
+	 * Creates the directories if necessary before saving the list of tasks.
+	 * 
+	 * @param tasks
+	 *            An ArrayList of TaskData to be saved
+	 * @return Returns true if save is successful, otherwise returns false.
+	 * @throws IOException
+	 *             If the saved file cannot be written or failure to create save
+	 *             file
+	 */
+	boolean save(ArrayList<TaskData> tasks) throws IOException {
 		File file = new File(filePath);
-		File directory = file.getParentFile();
 		boolean isSaved = false;
 
-		if (directory.exists()) {
-			if (file.exists()) {
-			} else {
-				createFile(file);
-			}
-		} else {
-			createFile(directory, file);
+		try {
+			isSaved = saveToFile(file, tasks);
+		} catch (IOException e) {
+			throw new IOException(ERROR_MESSAGE_TASK_SAVING);
 		}
-
-		isSaved = saveTasks(file, tasks);
 
 		return isSaved;
 	}
 
-	private boolean saveTasks(File file, ArrayList<TaskData> tasks) throws IOException {
+	/**
+	 * Writes the list of TaskData into the File specified. A backup is also
+	 * saved when count exceeds the limit
+	 * 
+	 * @param file
+	 *            The File specified by the filePath
+	 * @param tasks
+	 *            The list of TaskData
+	 * @return Returns true if the save is successful, otherwise returns false.
+	 * @throws IOException
+	 *             If unable to write to save file.
+	 */
+	private boolean saveToFile(File file, ArrayList<TaskData> tasks) throws IOException {
 		BufferedWriter bWriter = new BufferedWriter(new FileWriter(file));
 
 		for (TaskData existingTask : tasks) {
@@ -66,9 +93,18 @@ public class TaskSaver {
 		return true;
 	}
 
+	/**
+	 * Saves a backup of the list of tasks.
+	 * 
+	 * @param tasks
+	 *            The list of tasks to be saved
+	 * @throws IOException
+	 *             If unable to write to the backup file
+	 */
 	private void saveBackup(ArrayList<TaskData> tasks) throws IOException {
 		File backupFile = new File(Constants.DEFAULT_BACKUP_DESTINATION);
 		BufferedWriter bWriter = new BufferedWriter(new FileWriter(backupFile));
+
 		for (TaskData existingTask : tasks) {
 			bWriter.append(setFormat(existingTask));
 			bWriter.newLine();
@@ -76,11 +112,25 @@ public class TaskSaver {
 		bWriter.close();
 	}
 
+	/**
+	 * Updates the file path for saving.
+	 * 
+	 * @param path
+	 *            The new file path for saving.
+	 */
 	protected void setFileDestination(String path) {
 		this.filePath = path;
 	}
 
-	private String setFormat(TaskData task) {
+	/**
+	 * Converts a TaskData object to its specific TaskData type before
+	 * further conversion to a JSON string.
+	 * 
+	 * @param task
+	 *            The task to be converted
+	 * @return The JSON string representation of the TaskData.
+	 */
+	String setFormat(TaskData task) {
 		String json = "";
 
 		if (task instanceof DeadlineTaskData) {
@@ -97,21 +147,10 @@ public class TaskSaver {
 		return json;
 	}
 
-	private void createFile(File file) throws IOException {
-		try {
-			file.createNewFile();
-		} catch (IOException e) {
-			throw new IOException("Failed to create " + file.getName());
-		}
-	}
-
-	private void createFile(File parent, File file) throws IOException {
-		// creates the parent directories
-		parent.mkdirs();
-
-		createFile(file);
-	}
-
+	/**
+	 * 
+	 * @return Gson object with DateTimeSerializer
+	 */
 	private Gson gsonWithDateTimeSerializer() {
 		return new GsonBuilder().registerTypeAdapter(DateTime.class, new DateTimeSerializer()).create();
 	}

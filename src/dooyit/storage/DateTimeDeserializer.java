@@ -11,6 +11,13 @@ import com.google.gson.JsonParseException;
 
 import dooyit.common.datatype.DateTime;
 
+/**
+ * The DateTimeDeserializer converts the JSON representation of DateTime to a
+ * DateTime object
+ * 
+ * @author Dex
+ *
+ */
 public class DateTimeDeserializer implements JsonDeserializer<DateTime>{
 	private static final String DATE = "date";
 	private static final String TIME = "time";

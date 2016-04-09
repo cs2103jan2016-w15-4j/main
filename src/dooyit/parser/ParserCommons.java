@@ -30,6 +30,7 @@ public interface ParserCommons {
 	public static final String COMMAND_STORAGE = "storage"; 
 	public static final String COMMAND_UNDO = "undo";
 	public static final String COMMAND_UNMARK = "unmark";
+	public static final String COMMAND_UNMOVE = "unmove";
 	
 	public static final String[] exitCommandAlias = new String[]{"quit", "close", COMMAND_EXIT};
 	public static final String[] deleteCommandAlias = new String[]{"rm", "remove", COMMAND_DELETE};

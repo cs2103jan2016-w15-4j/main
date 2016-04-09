@@ -20,6 +20,7 @@ public class Parser implements ParserCommons {
 	private FloatParser floatParser;
 	private HelpParser helpParser;
 	private SearchParser searchParser;
+	private UnmoveParser unmoveParser;
 
 	public Parser() {
 		addParser = new AddParser();
@@ -35,6 +36,7 @@ public class Parser implements ParserCommons {
 		floatParser = new FloatParser();
 		helpParser = new HelpParser();
 		searchParser = new SearchParser();
+		unmoveParser = new UnmoveParser();
 	}
 
 	public Command getCommand(String input) {
@@ -124,6 +126,10 @@ public class Parser implements ParserCommons {
 
 		case COMMAND_UNMARK : 
 			command = unmarkParser.getCommand(commandInput);
+			break;
+			
+		case COMMAND_UNMOVE : 
+			command = unmoveParser.getCommand(commandInput);
 			break;
 
 		default :

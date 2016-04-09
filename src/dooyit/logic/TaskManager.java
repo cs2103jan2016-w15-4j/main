@@ -263,7 +263,7 @@ public class TaskManager {
 				if (tasks.get(i).isCompleted()) {
 					tasks.get(i).unMark();
 					return true;
-				}else{
+				} else {
 					return false;
 				}
 			}
@@ -969,7 +969,8 @@ public class TaskManager {
 	}
 
 	/**
-	 * get arraylist of taskgroup that contains only task with a specific category
+	 * get arraylist of taskgroup that contains only task with a specific
+	 * category
 	 * 
 	 * @param category
 	 * @return arraylist of taskgroup
@@ -1099,7 +1100,7 @@ public class TaskManager {
 		while (taskGroupsItr.hasNext()) {
 			TaskGroup taskGroup = taskGroupsItr.next();
 
-			taskGroup.filterByCategory(category);
+			filterTasksByCategory(taskGroup.getTasks(), category);
 
 			if (taskGroup.size() == 0) {
 				taskGroupsItr.remove();
@@ -1160,8 +1161,8 @@ public class TaskManager {
 		while (taskGroupsItr.hasNext()) {
 			TaskGroup taskGroup = taskGroupsItr.next();
 
-			filterByDay(taskGroup.getTasks(), searchKey, day);
-			
+			filterTasksByDay(taskGroup.getTasks(), searchKey, day);
+
 			if (taskGroup.size() == 0) {
 				taskGroupsItr.remove();
 			}
@@ -1182,13 +1183,19 @@ public class TaskManager {
 			TaskGroup taskGroup = taskGroupsItr.next();
 
 			filterTasksByMonth(taskGroup.getTasks(), searchKey, month);
-			
+
 			if (taskGroup.size() == 0) {
 				taskGroupsItr.remove();
 			}
 		}
 	}
-	
+
+	/**
+	 * filter tasks by keyword
+	 * 
+	 * @param inTasks
+	 * @param searchKey
+	 */
 	public void filterTasksByName(ArrayList<Task> inTasks, String searchKey) {
 		searchKey = searchKey.toLowerCase();
 		Iterator<Task> taskItr = inTasks.iterator();
@@ -1204,7 +1211,13 @@ public class TaskManager {
 			}
 		}
 	}
-	
+
+	/**
+	 * filter task by day
+	 * 
+	 * @param inTasks
+	 * @param dateTime
+	 */
 	public void filterTasksByDate(ArrayList<Task> inTasks, DateTime dateTime) {
 		Iterator<Task> taskItr = inTasks.iterator();
 
@@ -1216,7 +1229,14 @@ public class TaskManager {
 			}
 		}
 	}
-	
+
+	/**
+	 * filter tasks by month and the month as keyword
+	 * 
+	 * @param inTasks
+	 * @param searchKey
+	 * @param month
+	 */
 	public void filterTasksByMonth(ArrayList<Task> inTasks, String searchKey, MONTH month) {
 		searchKey = searchKey.toLowerCase();
 		Iterator<Task> taskItr = inTasks.iterator();
@@ -1232,8 +1252,15 @@ public class TaskManager {
 			}
 		}
 	}
-	
-	public void filterByDay(ArrayList<Task> inTasks, String searchKey, DAY day) {
+
+	/**
+	 * filter tasks by day and the day as keyword
+	 * 
+	 * @param inTasks
+	 * @param searchKey
+	 * @param day
+	 */
+	public void filterTasksByDay(ArrayList<Task> inTasks, String searchKey, DAY day) {
 		searchKey = searchKey.toLowerCase();
 		Iterator<Task> taskItr = inTasks.iterator();
 
@@ -1243,16 +1270,30 @@ public class TaskManager {
 			String taskName = task.getName();
 			taskName = taskName.toLowerCase();
 
-			// if (!taskName.contains(searchKey) &&
-			// !task.getDateTime().isDay(day)) {
-			// taskItr.remove();
-			// }
-			if (!task.isDay(day)) {
+			if (!taskName.contains(searchKey) && !task.isDay(day)) {
 				taskItr.remove();
 			}
 		}
 	}
-	
+
+	/**
+	 * filter tasks by category
+	 * 
+	 * @param inTasks
+	 * @param category
+	 */
+	public void filterTasksByCategory(ArrayList<Task> inTasks, Category category) {
+		Iterator<Task> taskItr = inTasks.iterator();
+
+		while (taskItr.hasNext()) {
+			Task task = taskItr.next();
+
+			if (!task.hasCategory() || !task.getCategory().equals(category)) {
+				taskItr.remove();
+			}
+		}
+	}
+
 	/**
 	 * sort tasks by their unique id first to maintain the order when a task is
 	 * edited. Then sort by date.

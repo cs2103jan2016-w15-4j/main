@@ -9,8 +9,7 @@ import dooyit.common.datatype.DateTime.MONTH;
 
 /**
  * TaskGroup is a class that wraps around arraylist of task and gives them a
- * title like Today, Overdue, Monday. It also allows filtering of tasks base on
- * category, name, day, month and date.
+ * title like Today, Overdue, Monday. 
  * 
  * @author limtaeu
  *
@@ -74,22 +73,4 @@ public class TaskGroup {
 	public boolean hasDateTime() {
 		return dateTime != null;
 	}
-
-	public void filterByCategory(Category category) {
-		Iterator<Task> taskItr = tasks.iterator();
-
-		while (taskItr.hasNext()) {
-			Task task = taskItr.next();
-
-			if (!task.hasCategory() || !task.getCategory().equals(category)) {
-				taskItr.remove();
-			}
-		}
-	}
-
-	
-
-	
-
-	
 }

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import dooyit.common.datatype.Category;
 import dooyit.common.datatype.Task;
 import dooyit.common.exception.IncorrectInputException;
+import dooyit.logic.Constants;
 import dooyit.logic.api.Action;
 import dooyit.logic.api.LogicAction;
 import dooyit.logic.api.LogicController;
@@ -61,6 +62,10 @@ public class MoveToCategory implements Command, ReversibleCommand {
 		LogicAction logicAction = null;
 		tasksWithCategory = new ArrayList<Task>();
 		
+		String movedTaskIdMsg = Constants.EMPTY_STRING;
+		String errorMsgBody = Constants.EMPTY_STRING;
+		
+		
 		for (int taskId : taskIds) {
 			if (logic.containsTask(taskId)) {
 				if (logic.containsCategory(categoryName)) {
@@ -70,7 +75,6 @@ public class MoveToCategory implements Command, ReversibleCommand {
 					prevCategory = task.getCategory();
 					task.setCategory(settedCategory);
 					tasksWithCategory.add(task);
-					logicAction = new LogicAction(Action.SET_CATEGORY);
 				} else {
 					isNewCatCreated = true;
 					settedCategory = logic.addCategory(categoryName);
@@ -78,13 +82,24 @@ public class MoveToCategory implements Command, ReversibleCommand {
 					prevCategory = task.getCategory();
 					task.setCategory(settedCategory);
 					tasksWithCategory.add(task);
-					logicAction = new LogicAction(Action.ADD_N_SET_CATEGORY);
-					//throw new IncorrectInputException("Category: " + categoryName + " is created.");
 				}
+				movedTaskIdMsg += Constants.SPACE + taskId;
 			} else {
-				logicAction = new LogicAction(Action.ERROR);
-				hasError = true;
-				//throw new IncorrectInputException("TaskID: " + taskId + " doesn't exist.");
+				errorMsgBody += Constants.SPACE + taskId;
+			}
+		}
+		
+		if (!tasksWithCategory.isEmpty()) {
+			if (tasksWithCategory.size() == 1) {
+				logicAction = new LogicAction(Action.ADD_N_SET_CATEGORY, String.format(Constants.FEEDBACK_TASK_MOVED, movedTaskIdMsg, settedCategory.getName()));
+			} else {
+				logicAction = new LogicAction(Action.ADD_N_SET_CATEGORY, String.format(Constants.FEEDBACK_TASKS_MOVED, movedTaskIdMsg, settedCategory.getName()));
+			}
+
+		} else {
+			hasError = true;
+			if (errorMsgBody != Constants.EMPTY_STRING) {
+				logicAction = new LogicAction(Action.ERROR, String.format(Constants.FEEDBACK_INVALID_IDS, errorMsgBody));
 			}
 		}
 

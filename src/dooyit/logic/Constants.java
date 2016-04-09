@@ -5,10 +5,14 @@ public class Constants {
 	public static final String FEEDBACK_TASK_ADDED = "Task created.";
 	public static final String FEEDBACK_TASK_CLEARED = "All tasks have been cleared!";
 	public static final String FEEDBACK_TASK_DELETED = "Task%1$s has been deleted.";
-	public static final String FEEDBACK_TASKS_DELETED = "Tasks%1$s has been deleted.";
+	public static final String FEEDBACK_TASKS_DELETED = "Tasks%1$s have been deleted.";
 	
 	public static final String FEEDBACK_TASK_MARKED = "Task%1$s has been marked.";
-	public static final String FEEDBACK_TASKS_MARKED = "Tasks%1$s has been marked.";
+	public static final String FEEDBACK_TASKS_MARKED = "Tasks%1$s have been marked.";
+	
+	public static final String FEEDBACK_TASK_MOVED = "Task%1$s has been moved to %2$s.";
+	public static final String FEEDBACK_TASKS_MOVED = "Tasks%1$s have been moved to %2$s.";
+	
 	public static final String FEEDBACK_CONFLICTING_EVENT = "This task conclicts with another event. ";
 	
 	public static final String FEEDBACK_DELETE_CATEGORY = "CATEGORY: %1$s deleted.";

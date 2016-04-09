@@ -74,6 +74,7 @@ public class EditCategoryCommand implements Command, ReversibleCommand {
 
 		originalCategory = logic.findCategory(categoryName);
 		originalCategoryName = originalCategory.getName();
+		
 		if (editCategoryWithColour()) {
 			if (logic.containsCustomColour(newColourName)) {
 				originalColourString = originalCategory.getCustomColourName();

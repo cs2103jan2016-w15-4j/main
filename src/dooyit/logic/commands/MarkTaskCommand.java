@@ -61,6 +61,18 @@ public class MarkTaskCommand implements Command, ReversibleCommand {
 			}
 		}
 
+		logicAction = createLogicAction(logicAction, markedTaskMsg, errorMessageBody);
+
+		return logicAction;
+	}
+
+	/**
+	 * @param logicAction
+	 * @param markedTaskMsg
+	 * @param errorMessageBody
+	 * @return
+	 */
+	public LogicAction createLogicAction(LogicAction logicAction, String markedTaskMsg, String errorMessageBody) {
 		if (!markedTasks.isEmpty()) {
 			if (markedTasks.size() == 1) {
 				logicAction = new LogicAction(Action.MARK_TASK, String.format(Constants.FEEDBACK_TASK_MARKED, markedTaskMsg));
@@ -74,7 +86,6 @@ public class MarkTaskCommand implements Command, ReversibleCommand {
 				logicAction = new LogicAction(Action.ERROR, String.format(Constants.FEEDBACK_INVALID_IDS, errorMessageBody));
 			}
 		}
-
 		return logicAction;
 	}
 }

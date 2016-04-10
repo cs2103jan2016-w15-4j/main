@@ -16,8 +16,8 @@ import dooyit.common.datatype.EventTask;
 import dooyit.common.datatype.FloatingTask;
 import dooyit.common.datatype.Task;
 import dooyit.common.datatype.TaskGroup;
-import dooyit.logic.TaskManager;
 import dooyit.logic.api.LogicController;
+import dooyit.logic.api.TaskManager;
 
 public class SearchCommandTest {
 	private static final String EMPTY_STRING = "";

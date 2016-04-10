@@ -1,5 +1,5 @@
 //@@author A0126356E
-package dooyit.logic;
+package dooyit.logic.api;
 
 import java.util.ArrayList;
 import java.util.Random;

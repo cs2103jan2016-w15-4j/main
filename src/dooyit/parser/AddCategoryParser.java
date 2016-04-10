@@ -1,82 +1,187 @@
 //@@author A0133338J 
 package dooyit.parser;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import dooyit.logic.commands.Command;
 import dooyit.logic.commands.CommandUtils;
 
-public class AddCategoryParser extends TagParser{
+/**
+ * The AddCategoryParser class provides methods needed for adding a category and
+ * specifying the category colour. It takes in an "addcat" command input and
+ * returns an AddCategory command object. It implements the ParserCommons
+ * interface to use the shared constant EMPTY_STRING.
+ * 
+ * @author Annabel
+ *
+ */
+public class AddCategoryParser implements ParserCommons {
+	// Error Message
 	private static final String ERROR_MESSAGE_INVALID_ADDCAT_COMMAND = "Invalid addcat command!";
-	private static final String DEFAULT_COLOUR = "";
+	private static final String ERROR_MESSAGE_TOO_MANY_WORDS = "Category name can only be one word!";
+
+	// Index of Category Name and Colour in a userInput String array
 	private static final int INDEX_NAME = 0;
 	private static final int INDEX_COLOUR = 1;
-	
+
+	// Constant of the maximum number of words
+	// allowed in an AddCategory command input
+	private static final int MAXIMUM_NUMBER_OF_WORDS = 2;
+
+	// Logger for AddCategoryParser
+	private static Logger logger = Logger.getLogger("AddCategoryParser");
+
+	// Attributes of an AddCategoryParser object
 	private String userInput;
-	private String catName;
-	private String catColour;
+	private String categoryName;
+	private String categoryColour;
 	private Command command;
 	private boolean hasColour;
-	
-	enum ADD_CATEGORY_TYPE {
-		CREATE_NEW_CATEGORY_WITHOUT_TASKS, CREATE_NEW_CATEGORY_WITH_TASKS, INVALID
+
+	// Types of addcat commands
+	private enum ADD_CATEGORY_TYPE {
+		VALID, INVALID_TOO_MANY_WORDS, INVALID_EMPTY_STRING
 	};
 
+	// Constructor
 	public AddCategoryParser() {
-		super();
+		logger.log(Level.INFO, "Initialised AddCategoryParser");
 	}
 
+	/**
+	 * Parses userInput and returns correct AddCategory command object
+	 * 
+	 * @param input
+	 *        The addcat command input from the user
+	 * 
+	 * @return the correct AddCategory command object if the command input is
+	 *         valid or an invalid command object if the command input is
+	 *         invalid
+	 */
 	public Command getCommand(String input) {
-		resetVariables(input);
+		logger.log(Level.INFO, "Getting command object from AddCategoryParser");
+
+		// Resets object attributes for each call of the getCommand method
+		resetAttributes(input);
+
+		// Sets the categoryName and categoryColour attributes
 		parse();
-		
+
+		// Sets the command attribute
+		setCommand();
+		return command;
+	}
+
+	/**
+	 * Sets the command attribute to either an AddCategory command object or an
+	 * InvalidCommand object
+	 */
+	private void setCommand() {
 		switch (getCommandType()) {
-		case CREATE_NEW_CATEGORY_WITHOUT_TASKS :
-			setCommandToCreateCategoryWithoutTasks();
+		case VALID:
+			setCreateCategoryCommand();
 			break;
 
-		default :
-			setInvalidCommand();
+		case INVALID_TOO_MANY_WORDS:
+			setInvalidCommand(ERROR_MESSAGE_TOO_MANY_WORDS);
+			break;
+
+		default:
+			setInvalidCommand(ERROR_MESSAGE_INVALID_ADDCAT_COMMAND);
 			break;
 		}
-
-		return command;
-	} 
-
-	private void setInvalidCommand() {
-		command = CommandUtils.createInvalidCommand(ERROR_MESSAGE_INVALID_ADDCAT_COMMAND);
 	}
 
-	private void resetVariables(String input) {
+	/**
+	 * Checks the number of words in the userInput attribute to determine if the
+	 * add category command input is valid
+	 * 
+	 * @return the correct ADD_CATEGORY_TYPE enum constant
+	 */
+	private ADD_CATEGORY_TYPE getCommandType() {
+		ADD_CATEGORY_TYPE type;
+		if (userInput.equals(EMPTY_STRING)) {
+			type = ADD_CATEGORY_TYPE.INVALID_EMPTY_STRING;
+
+		} else if (userInputHasTooManyWords()) {
+			type = ADD_CATEGORY_TYPE.INVALID_TOO_MANY_WORDS;
+
+		} else {
+			type = ADD_CATEGORY_TYPE.VALID;
+		}
+		return type;
+	}
+
+	/**
+	 * Sets the command attribute to an InvalidCommand object.
+	 * 
+	 * @param errorMessage
+	 *        Error Message String constants defined in this class
+	 */
+	private void setInvalidCommand(String errorMessage) {
+		command = CommandUtils.createInvalidCommand(errorMessage);
+	}
+
+	/**
+	 * Sets the command attribute to the correct AddCategory command object.
+	 */
+	private void setCreateCategoryCommand() {
+		if (hasColour) {
+			command = CommandUtils.createAddCategoryCommand(categoryName, categoryColour);
+		} else {
+			command = CommandUtils.createAddCategoryCommand(categoryName);
+		}
+	}
+
+	/**
+	 * Parses the userInput to set the categoryName and categoryColour
+	 * attributes. Sets the hasColour boolean attribute to true if the user
+	 * specified a colour.
+	 */
+	private void parse() {
+		String[] inputArr = userInput.split("\\s+");
+		categoryName = inputArr[INDEX_NAME];
+		if (!isOneWordUserInput()) {
+			categoryColour = inputArr[INDEX_COLOUR];
+			hasColour = true;
+		}
+	}
+
+	/**
+	 * Sets the userInput attribute to the method parameter. Resets the
+	 * hasColour and categoryColour object attributes.
+	 * 
+	 * @param input
+	 *        The addcat command input from the user
+	 */
+	private void resetAttributes(String input) {
 		userInput = input;
-		catColour = DEFAULT_COLOUR;
+		categoryColour = EMPTY_STRING;
 		hasColour = false;
 	}
 
-	private ADD_CATEGORY_TYPE getCommandType() {
-		if (userInput.equals(EMPTY_STRING)) {
-			return ADD_CATEGORY_TYPE.INVALID;
-		} else  {
-			return ADD_CATEGORY_TYPE.CREATE_NEW_CATEGORY_WITHOUT_TASKS;
-		} 
+	/**
+	 * Checks if the userInput attribute has more than the maximum number of
+	 * words allowed for a AddCategory command input.
+	 * 
+	 * @return true if the userInput exceeds the maximum number of words and
+	 *         false if the userInput does not exceed the maximum number of
+	 *         words allowed.
+	 */
+	private boolean userInputHasTooManyWords() {
+		String[] splitInput = userInput.split("\\s+");
+		return splitInput.length > MAXIMUM_NUMBER_OF_WORDS;
 	}
 
-	private void setCommandToCreateCategoryWithoutTasks() {
-		if (hasColour) {
-			command = CommandUtils.createAddCategoryCommand(catName, catColour);
-		} else { 
-			command = CommandUtils.createAddCategoryCommand(catName);
-		}
-	}
-
-	private void parse() {
+	/**
+	 * Checks if the userInput is exactly one word.
+	 * 
+	 * @return true if the input if one word and false if it is less than or
+	 *         more than one word.
+	 */
+	private boolean isOneWordUserInput() {
 		String[] inputArr = userInput.split("\\s+");
-		catName = inputArr[INDEX_NAME];
-		if (!isOneWordInput(inputArr)) {
-			catColour = inputArr[INDEX_COLOUR];
-			hasColour = !ParserCommons.isNumber(catColour);
-		}
-	}
-
-	private static boolean isOneWordInput(String[] inputArr) {
 		return inputArr.length == 1;
 	}
 }

@@ -2,7 +2,7 @@
 package dooyit.parser;
 
 import dooyit.logic.commands.Command;
-import dooyit.logic.commands.CommandUtils;
+import dooyit.common.utils.CommandUtils;
 
 /**
  * The ParserController class takes in the userInput and returns 

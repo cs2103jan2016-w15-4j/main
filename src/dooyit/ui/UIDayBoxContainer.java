@@ -17,13 +17,13 @@ public class UIDayBoxContainer {
 	private ArrayList<UIDayBox> dayBoxList;
 	private VBox dayBoxContainer;
 	
-	protected UIDayBoxContainer(UIController parent){
+	protected UIDayBoxContainer(UIController parent) {
 		this.parent = parent;
 		this.dayBoxContainer = new VBox();
 		this.dayBoxList = new ArrayList<UIDayBox>();
 	}
 	
-	private void addDayBox(TaskGroup taskGroup){
+	private void addDayBox(TaskGroup taskGroup) {
 		UIDayBox dayBox = new UIDayBox(this, taskGroup);
 		this.dayBoxList.add(dayBox);
 		this.dayBoxContainer.getChildren().add(dayBox.getView());
@@ -31,7 +31,7 @@ public class UIDayBoxContainer {
 	
 	protected void refresh(ArrayList<TaskGroup> taskGroupList) {
 		this.dayBoxContainer.getChildren().clear();
-		taskGroupList.forEach((taskGroup)->{
+		taskGroupList.forEach((taskGroup) -> {
 			addDayBox(taskGroup);
 		});
 	}

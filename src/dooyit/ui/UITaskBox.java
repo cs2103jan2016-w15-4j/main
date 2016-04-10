@@ -19,7 +19,6 @@ import javafx.scene.shape.Circle;
  */
 
 public class UITaskBox {
-
 	private static final String STYLECLASS_TASK_CHECKBOX = UIStyle.TASK_CHECKBOX;
 	private static final String STYLECLASS_TASK_ID = UIStyle.TASK_ID;
 	private static final int PREFWIDTH_TASK_ID = 24;
@@ -59,7 +58,7 @@ public class UITaskBox {
 		initialize();
 	}
 	
-	private void initialize(){
+	private void initialize() {
 		initTaskCheckBox();
 		initTaskId();
 		initTaskCategoryLabel();
@@ -70,10 +69,9 @@ public class UITaskBox {
 		initTaskBox();
 		initListeners();
 		updateTaskBoxWidth();
-		animate();
 	}
 	
-	private void initTaskCheckBox(){
+	private void initTaskCheckBox() {
 		this.taskCheckBox = new CheckBox();
 		this.taskCheckBox.getStyleClass().add(STYLECLASS_TASK_CHECKBOX);
 		if (this.task.isCompleted()) {
@@ -81,44 +79,56 @@ public class UITaskBox {
 		}
 	}
 	
-	private void initTaskId(){
+	private void initTaskId() {
 		this.taskId = new Label(Integer.toString(this.task.getDisplayId()));
-	    this.taskId.getStyleClass().add(STYLECLASS_TASK_ID);
-	    this.taskId.setPrefWidth(PREFWIDTH_TASK_ID);
+		this.taskId.getStyleClass().add(STYLECLASS_TASK_ID);
+		this.taskId.setPrefWidth(PREFWIDTH_TASK_ID);
 	}
 	
-	private void initTaskPeriod(){
+	private void initTaskPeriod() {
 		this.taskPeriod = new Label(getTaskPeriodString());
-	    this.taskPeriod.getStyleClass().add(STYLECLASS_TASK_PERIOD);
-	    if (this.task.isOverDue(new DateTime())){
-	    	this.taskPeriod.getStyleClass().add(STYLECLASS_TASK_PERIOD_OVERDUE);
-	    }
-	    if (!this.taskPeriod.getText().isEmpty()){
-	    	if (this.taskPeriod.getText().length() > STR_LEN_TASK_PERIOD){
-	    		this.taskPeriod.setPrefWidth(LEN_EVENT_PERIOD);
-	    	} else {
-	    		this.taskPeriod.setPrefWidth(LEN_TASK_PERIOD);
-	    	}
-	    }
+		this.taskPeriod.getStyleClass().add(STYLECLASS_TASK_PERIOD);
+		if (isOverdueTask()) {
+			this.taskPeriod.getStyleClass().add(STYLECLASS_TASK_PERIOD_OVERDUE);
+		}
+		if (!isEmptyTaskPeriod()) {
+			if (isLongTaskPeriod()) {
+				this.taskPeriod.setPrefWidth(LEN_EVENT_PERIOD);
+			} else {
+				this.taskPeriod.setPrefWidth(LEN_TASK_PERIOD);
+			}
+		}
 	}
 	
-	private String getTaskPeriodString(){
+	private boolean isOverdueTask() {
+		return this.task.isOverDue(new DateTime());
+	}
+	
+	private boolean isEmptyTaskPeriod() {
+		return this.taskPeriod.getText().isEmpty();
+	}
+	
+	private boolean isLongTaskPeriod() {
+		return this.taskPeriod.getText().length() > STR_LEN_TASK_PERIOD;
+	}
+	
+	private String getTaskPeriodString() {
 		String s = this.task.getDateString();
-		if (!s.isEmpty()){
+		if (!s.isEmpty()) {
 			s += DOUBLE_SPACE;
 		} 
 		return s;
 	}
 	
-	private void initTaskCategoryLabel(){
+	private void initTaskCategoryLabel() {
 		this.taskCategoryLabel = new Label();
 		setCategoryCircle();
-	    this.taskCategoryLabel.setAlignment(Pos.CENTER_RIGHT);
-	    this.taskCategoryLabel.getStyleClass().add(STYLECLASS_TASK_CATEGORY_LABEL);
-	    this.taskCategoryLabel.setPrefWidth(PREFWIDTH_TASK_CATEGORY_LABEL);
+		this.taskCategoryLabel.setAlignment(Pos.CENTER_RIGHT);
+		this.taskCategoryLabel.getStyleClass().add(STYLECLASS_TASK_CATEGORY_LABEL);
+		this.taskCategoryLabel.setPrefWidth(PREFWIDTH_TASK_CATEGORY_LABEL);
 	}
 	
-	private void setCategoryCircle(){
+	private void setCategoryCircle() {
 		if (this.task.hasCategory()){
 			Category category = this.task.getCategory();
 			this.taskCategoryLabel.setText(category.getName());
@@ -128,24 +138,24 @@ public class UITaskBox {
 		}
 	}
 	
-	private void initTaskName(){
+	private void initTaskName() {
 		this.taskName = new Label(this.task.getName());
-	    this.taskName.getStyleClass().add(STYLECLASS_TASK_NAME);
+		this.taskName.getStyleClass().add(STYLECLASS_TASK_NAME);
 	}
 	
-	private void initTaskDetailBox(){
+	private void initTaskDetailBox() {
 		this.taskDetailBox = new HBox();
 		this.taskDetailBox.getChildren().addAll(this.taskCheckBox, this.taskId, this.taskPeriod, this.taskName);
 		this.taskDetailBox.setAlignment(Pos.CENTER_LEFT);
 	}
 	
-	private void initTaskCategoryBox(){
+	private void initTaskCategoryBox() {
 		this.taskCategoryBox = new HBox();
 		this.taskCategoryBox.getChildren().addAll(this.taskCategoryLabel, this.taskCategoryCircle);
 		this.taskCategoryBox.setAlignment(Pos.CENTER_RIGHT);
 	}
 	
-	private void initTaskBox(){
+	private void initTaskBox() {
 		 this.taskBox = new AnchorPane();
 		 AnchorPane.setTopAnchor(this.taskDetailBox, ANCHOR_TOP);
 		 AnchorPane.setTopAnchor(this.taskCategoryBox, ANCHOR_TOP);
@@ -155,7 +165,7 @@ public class UITaskBox {
 		 this.taskBox.getChildren().addAll(this.taskDetailBox, this.taskCategoryBox);
 	}
 	
-	private void initListeners(){
+	private void initListeners() {
 	    this.taskCheckBox.setOnAction((event) -> {
 	    	if (!this.task.isCompleted()){
 	    		this.parent.markTask(this.task.getDisplayId());
@@ -178,13 +188,9 @@ public class UITaskBox {
 		this.taskName.setMaxWidth(taskNameMaxWidth);
 	}
 	
-	private void updateTaskBoxWidth(){
+	private void updateTaskBoxWidth() {
 		double width = this.parent.getStageWidth();
-	    updateTaskBoxWidth(width);
-	}
-	
-	private void animate(){
-		
+		updateTaskBoxWidth(width);
 	}
 	
 	protected AnchorPane getView() {

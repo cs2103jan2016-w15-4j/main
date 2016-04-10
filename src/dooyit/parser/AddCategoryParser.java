@@ -117,14 +117,14 @@ public class AddCategoryParser implements ParserCommons {
 	 * Sets the command attribute to an InvalidCommand object.
 	 * 
 	 * @param errorMessage
-	 *        Error Message String constants defined in this class
+	 *        Error message String constants defined in this class
 	 */
 	private void setInvalidCommand(String errorMessage) {
 		command = CommandUtils.createInvalidCommand(errorMessage);
 	}
 
 	/**
-	 * Sets the command attribute to the correct AddCategory command object.
+	 * Sets the command attribute to the correct AddCategoryCommand object.
 	 */
 	private void setCreateCategoryCommand() {
 		if (hasColour) {

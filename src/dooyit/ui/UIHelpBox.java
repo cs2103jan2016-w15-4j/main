@@ -16,7 +16,7 @@ import javafx.stage.Stage;
  * The <tt>UIHelpBox</tt> class contains the methods to initialize the help box, 
  * control its visibility and set the message to be displayed.
  * @author 	Wu Wenqi
- * @version 0.5
+ * @version	0.5
  * @since 	2016-04-10
  */
 

@@ -24,7 +24,7 @@ import dooyit.logic.api.*;
  * The <tt>UIController</tt> class follows the Singleton design pattern, hence its constructor method is private.
  * It can be constructed using the <tt>getInstance</tt> method.
  * @author 	Wu Wenqi
- * @version 0.5
+ * @version	0.5
  * @since 	2016-04-10
  */
 

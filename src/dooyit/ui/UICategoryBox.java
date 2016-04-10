@@ -12,7 +12,7 @@ import javafx.scene.shape.Circle;
 /**
  * The <tt>UICategoryBox</tt> class contains the methods to create and retrieve a category menu button. 
  * @author 	Wu Wenqi
- * @version 0.5
+ * @version	0.5
  * @since 	2016-04-10
  */
 

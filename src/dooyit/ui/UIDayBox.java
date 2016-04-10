@@ -13,7 +13,7 @@ import javafx.scene.layout.VBox;
  * The <tt>UIDayBox</tt> class contains all the <tt>UITaskBox</tt> objects whose <tt>Task</tt> 
  * belongs to a single day or <tt>Task</tt> type.
  * @author 	Wu Wenqi
- * @version 0.5
+ * @version	0.5
  * @since 	2016-04-10
  */
 

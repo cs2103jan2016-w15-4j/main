@@ -9,7 +9,7 @@ import javafx.scene.image.Image;
 /**
  * The <tt>Main</tt> class is the entry point for the application. 
  * @author 	Wu Wenqi
- * @version 0.5
+ * @version	0.5
  * @since 	2016-04-10
  */
 

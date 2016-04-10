@@ -18,7 +18,7 @@ import javafx.scene.layout.VBox;
  * The <tt>UISideMenu</tt> class contains the methods to initialize the side menu 
  * and update its menu buttons.
  * @author 	Wu Wenqi
- * @version 0.5
+ * @version	0.5
  * @since 	2016-04-10
  */
 

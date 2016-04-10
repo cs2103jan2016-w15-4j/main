@@ -4,7 +4,7 @@ package dooyit.ui;
 /**
  * The <tt>UIStyle</tt> class contains the relative pathnames and class names for CSS files.
  * @author 	Wu Wenqi
- * @version 0.5
+ * @version	0.5
  * @since 	2016-04-10
  */
 

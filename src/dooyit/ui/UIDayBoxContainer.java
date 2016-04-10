@@ -10,7 +10,7 @@ import javafx.scene.layout.VBox;
  * The <tt>UIDayBoxContainer</tt> class contains the methods to initialize <tt>UIDayBox</tt> 
  * and update their views.
  * @author 	Wu Wenqi
- * @version 0.5
+ * @version	0.5
  * @since 	2016-04-10
  */
 

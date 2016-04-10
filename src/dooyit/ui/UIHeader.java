@@ -9,7 +9,7 @@ import javafx.scene.text.Font;
 /**
  * The <tt>UIHeader</tt> class contains methods to initialize the header view of the UI.
  * @author 	Wu Wenqi
- * @version 0.5
+ * @version	0.5
  * @since 	2016-04-10
  */
 

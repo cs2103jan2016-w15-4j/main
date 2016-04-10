@@ -10,7 +10,7 @@ import javafx.scene.layout.VBox;
  * The <tt>UICategoryBoxContainer</tt> class contains the methods to create and retrieve a list of <tt>UICategoryBox</tt> objects.
  * It also has a container view which contains the category menu buttons for the list.
  * @author 	Wu Wenqi
- * @version 0.5
+ * @version	0.5
  * @since 	2016-04-10
  */
 

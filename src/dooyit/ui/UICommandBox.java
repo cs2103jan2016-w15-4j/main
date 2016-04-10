@@ -10,7 +10,7 @@ import javafx.scene.layout.HBox;
  * The <tt>UICommandBox</tt> class contains the methods to modify the textfield 
  * in which the user types his commands, as well as to retrieve the user's command input history.
  * @author 	Wu Wenqi
- * @version 0.5
+ * @version	0.5
  * @since 	2016-04-10
  */
 

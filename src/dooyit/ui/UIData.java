@@ -5,7 +5,7 @@ package dooyit.ui;
  * The <tt>UIData</tt> class defines several constants which 
  * are commonly used by classes in <tt>dooyit.ui</tt>.
  * @author 	Wu Wenqi
- * @version 0.5
+ * @version	0.5
  * @since 	2016-04-10
  */
 

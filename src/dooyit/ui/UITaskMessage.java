@@ -7,7 +7,7 @@ import javafx.scene.control.Label;
  * The <tt>UITaskMessage</tt> class contains the methods to initialize the label that is added to 
  * the message box.
  * @author 	Wu Wenqi
- * @version 0.5
+ * @version	0.5
  * @since 	2016-04-10
  */
 

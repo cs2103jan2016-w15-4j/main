@@ -14,7 +14,7 @@ import javafx.util.Duration;
  * The <tt>UIMessageBox</tt> class contains the methods to initialize the message box, 
  * control its visibility and set its displayed message.
  * @author 	Wu Wenqi
- * @version 0.5
+ * @version	0.5
  * @since 	2016-04-10
  */
 

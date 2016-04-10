@@ -16,7 +16,7 @@ import javafx.scene.shape.Circle;
  * The <tt>UITaskBox</tt> class contains the methods to initialize a task view and 
  * change its layout and dimensions.
  * @author 	Wu Wenqi
- * @version 0.5
+ * @version	0.5
  * @since 	2016-04-10
  */
 

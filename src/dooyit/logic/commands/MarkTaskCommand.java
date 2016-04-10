@@ -52,9 +52,7 @@ public class MarkTaskCommand implements ReversibleCommand {
 
 		for (int markId : markIds) {
 			if (logic.containsTask(markId)) {
-				logic.markTask(markId);
-				Task markedTask = logic.findTask(markId);
-				markedTasks.add(markedTask);
+				markTaskWithTaskId(logic, markId);
 				markedTaskMsg += Constants.SPACE + markId;
 			} else {
 				errorMessageBody += Constants.SPACE + markId;
@@ -66,12 +64,12 @@ public class MarkTaskCommand implements ReversibleCommand {
 		return logicAction;
 	}
 
-	/**
-	 * @param logicAction
-	 * @param markedTaskMsg
-	 * @param errorMessageBody
-	 * @return
-	 */
+	public void markTaskWithTaskId(LogicController logic, int markId) {
+		logic.markTask(markId);
+		Task markedTask = logic.findTask(markId);
+		markedTasks.add(markedTask);
+	}
+
 	public LogicAction createLogicAction(LogicAction logicAction, String markedTaskMsg, String errorMessageBody) {
 		if (!markedTasks.isEmpty()) {
 			if (markedTasks.size() == 1) {

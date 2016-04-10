@@ -48,9 +48,9 @@ public class EditCategoryCommand implements ReversibleCommand {
 		assert (logic != null);
 		if (editCategoryWithColour()) {
 			logic.editCategoryColour(originalCategory, newColourName);
-			editCategoryName(logic);
+			logic.editCategoryName(originalCategory, newCategoryName);
 		} else {
-			editCategoryName(logic);
+			logic.editCategoryName(originalCategory, newCategoryName);
 		}
 	}
 
@@ -66,8 +66,7 @@ public class EditCategoryCommand implements ReversibleCommand {
 
 		// error if cannot find category
 		if (!logic.containsCategory(categoryName)) {
-			logicAction = new LogicAction(Action.ERROR, String.format(Constants.FEEDBACK_CATEGORY_NOT_FOUND, categoryName));
-			hasError = true;
+			logicAction = cantFindCategory();
 			return logicAction;
 		}
 
@@ -87,10 +86,11 @@ public class EditCategoryCommand implements ReversibleCommand {
 		return logicAction;
 	}
 
-	/**
-	 * @param logic
-	 * @return
-	 */
+	public LogicAction cantFindCategory() {
+		hasError = true;
+		return new LogicAction(Action.ERROR, String.format(Constants.FEEDBACK_CATEGORY_NOT_FOUND, categoryName));
+	}
+
 	public LogicAction editCategoryNameAndColour(LogicController logic) {
 		LogicAction logicAction;
 		originalColourString = originalCategory.getCustomColourName();
@@ -100,17 +100,11 @@ public class EditCategoryCommand implements ReversibleCommand {
 		return logicAction;
 	}
 
-	/**
-	 * @param logic
-	 */
 	public void saveOriginalCategory(LogicController logic) {
 		originalCategory = logic.findCategory(categoryName);
 		originalCategoryName = originalCategory.getName();
 	}
 
-	/**
-	 * @param logic
-	 */
 	public void editCategoryName(LogicController logic) {
 		logic.editCategoryName(originalCategory, newCategoryName);
 	}

@@ -1,22 +1,22 @@
 //@@author A0126356E
-package dooyit.logic;
+package dooyit.logic.api;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 
-import dooyit.common.comparator.TaskDateComparator;
-import dooyit.common.comparator.TaskUniqueIdComparator;
 import dooyit.common.datatype.Category;
 import dooyit.common.datatype.DateTime;
-import dooyit.common.datatype.DateTime.DAY;
-import dooyit.common.datatype.DateTime.MONTH;
+import dooyit.common.datatype.DateTime.Day;
+import dooyit.common.datatype.DateTime.Month;
 import dooyit.common.datatype.DeadlineTask;
 import dooyit.common.datatype.EventTask;
 import dooyit.common.datatype.FloatingTask;
 import dooyit.common.datatype.Task;
 import dooyit.common.datatype.TaskGroup;
 import dooyit.common.datatype.Task.TaskType;
+import dooyit.common.utils.TaskDateComparator;
+import dooyit.common.utils.TaskUniqueIdComparator;
 
 /**
  * The task manager is class that manages all the task and provides various
@@ -42,8 +42,8 @@ public class TaskManager {
 	private SearchType searchType;
 	private String searchKey;
 	private DateTime searchDateTime;
-	private DAY searchDay;
-	private MONTH searchMonth;
+	private Day searchDay;
+	private Month searchMonth;
 
 	public TaskManager() {
 		tasks = new ArrayList<Task>();
@@ -1156,7 +1156,7 @@ public class TaskManager {
 	 * @param searchKey
 	 * @param day
 	 */
-	public void filterTaskGroupsByDay(ArrayList<TaskGroup> taskGroups, String searchKey, DAY day) {
+	public void filterTaskGroupsByDay(ArrayList<TaskGroup> taskGroups, String searchKey, Day day) {
 		Iterator<TaskGroup> taskGroupsItr = taskGroups.iterator();
 		while (taskGroupsItr.hasNext()) {
 			TaskGroup taskGroup = taskGroupsItr.next();
@@ -1177,7 +1177,7 @@ public class TaskManager {
 	 * @param searchKey
 	 * @param month
 	 */
-	public void filterTaskGroupsByMonth(ArrayList<TaskGroup> taskGroups, String searchKey, MONTH month) {
+	public void filterTaskGroupsByMonth(ArrayList<TaskGroup> taskGroups, String searchKey, Month month) {
 		Iterator<TaskGroup> taskGroupsItr = taskGroups.iterator();
 		while (taskGroupsItr.hasNext()) {
 			TaskGroup taskGroup = taskGroupsItr.next();
@@ -1237,7 +1237,7 @@ public class TaskManager {
 	 * @param searchKey
 	 * @param month
 	 */
-	public void filterTasksByMonth(ArrayList<Task> inTasks, String searchKey, MONTH month) {
+	public void filterTasksByMonth(ArrayList<Task> inTasks, String searchKey, Month month) {
 		searchKey = searchKey.toLowerCase();
 		Iterator<Task> taskItr = inTasks.iterator();
 
@@ -1260,7 +1260,7 @@ public class TaskManager {
 	 * @param searchKey
 	 * @param day
 	 */
-	public void filterTasksByDay(ArrayList<Task> inTasks, String searchKey, DAY day) {
+	public void filterTasksByDay(ArrayList<Task> inTasks, String searchKey, Day day) {
 		searchKey = searchKey.toLowerCase();
 		Iterator<Task> taskItr = inTasks.iterator();
 
@@ -1365,7 +1365,7 @@ public class TaskManager {
 	 *            the key word
 	 * @param day
 	 */
-	public void setSearchKey(String searchKey, DAY day) {
+	public void setSearchKey(String searchKey, Day day) {
 		searchType = SearchType.DAY;
 		this.searchKey = searchKey;
 		this.searchDay = day;
@@ -1378,7 +1378,7 @@ public class TaskManager {
 	 * @param searchKey
 	 * @param month
 	 */
-	public void setSearchKey(String searchKey, MONTH month) {
+	public void setSearchKey(String searchKey, Month month) {
 		searchType = SearchType.MONTH;
 		this.searchKey = searchKey;
 		this.searchMonth = month;

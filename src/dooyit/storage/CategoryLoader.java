@@ -35,9 +35,10 @@ public class CategoryLoader extends Loader<CategoryData> {
 	/**
 	 * Loads CategoryData from the saved file after checking if the file exists.
 	 * 
-	 * @return An ArrayList of CategoryData.
+	 * @return An ArrayList of CategoryData
+	 * 
 	 * @throws IOException
-	 *             If unable to read from the file.
+	 *         If unable to read from the file
 	 */
 	public ArrayList<CategoryData> load() throws IOException {
 		File categoryFile = new File(filePath);
@@ -50,13 +51,15 @@ public class CategoryLoader extends Loader<CategoryData> {
 	}
 
 	/**
-	 * Loads CategoryData from an existing file
+	 * Loads CategoryData from an existing file.
 	 * 
 	 * @param file
-	 *            File instance of the existing save file
+	 *        File instance of the existing save file
+	 *        
 	 * @return ArrayList of TaskData from the save file
+	 * 
 	 * @throws IOException
-	 *             If unable to read from the save file
+	 *         If unable to read from the save file
 	 */
 	private ArrayList<CategoryData> loadFromFile(File file) throws IOException {
 		FileReader fReader;
@@ -90,8 +93,9 @@ public class CategoryLoader extends Loader<CategoryData> {
 	/**
 	 * Converts the JSON representation of a category to CategoryData.
 	 * 
-	 * @param jsonCategory JsonObject of CategoryData.
-	 * @return Returns the CategoryData of the JsonObject.
+	 * @param jsonCategory JsonObject of CategoryData
+	 * 
+	 * @return Returns the CategoryData of the JsonObject
 	 */
 	private CategoryData resolveCategory(JsonObject jsonCategory) {
 		CategoryData category = gson.fromJson(jsonCategory, CategoryData.class);
@@ -101,7 +105,7 @@ public class CategoryLoader extends Loader<CategoryData> {
 
 	/**
 	 * 
-	 * @return Returns a Gson object with CategoryDataDeserializer.
+	 * @return Returns a Gson object with CategoryDataDeserializer
 	 */
 	private Gson gsonWithCategoryDataDeserializer() {
 		return new GsonBuilder().registerTypeAdapter(CategoryData.class, new CategoryDataDeserializer()).create();

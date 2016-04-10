@@ -44,11 +44,13 @@ public class TaskSaver extends Saver<TaskData> {
 	 * Creates the directories if necessary before saving the list of tasks.
 	 * 
 	 * @param tasks
-	 *            An ArrayList of TaskData to be saved
-	 * @return Returns true if save is successful, otherwise returns false.
+	 *        An ArrayList of TaskData to be saved
+	 *        
+	 * @return Returns true if save is successful, otherwise returns false
+	 * 
 	 * @throws IOException
-	 *             If the saved file cannot be written or failure to create save
-	 *             file
+	 *         If the saved file cannot be written or failure to create save
+	 *         file
 	 */
 	boolean save(ArrayList<TaskData> tasks) throws IOException {
 		File file = new File(filePath);
@@ -65,15 +67,18 @@ public class TaskSaver extends Saver<TaskData> {
 
 	/**
 	 * Writes the list of TaskData into the File specified. A backup is also
-	 * saved when count exceeds the limit
+	 * saved when count exceeds the limit.
 	 * 
 	 * @param file
-	 *            The File specified by the filePath
+	 *        The File specified by the filePath
+	 *        
 	 * @param tasks
-	 *            The list of TaskData
-	 * @return Returns true if the save is successful, otherwise returns false.
+	 *        The list of TaskData
+	 *        
+	 * @return Returns true if the save is successful, otherwise returns false
+	 * 
 	 * @throws IOException
-	 *             If unable to write to save file.
+	 *         If unable to write to save file.
 	 */
 	private boolean saveToFile(File file, ArrayList<TaskData> tasks) throws IOException {
 		BufferedWriter bWriter = new BufferedWriter(new FileWriter(file));
@@ -97,9 +102,9 @@ public class TaskSaver extends Saver<TaskData> {
 	 * Saves a backup of the list of tasks.
 	 * 
 	 * @param tasks
-	 *            The list of tasks to be saved
+	 *        The list of tasks to be saved
 	 * @throws IOException
-	 *             If unable to write to the backup file
+	 *         If unable to write to the backup file
 	 */
 	private void saveBackup(ArrayList<TaskData> tasks) throws IOException {
 		File backupFile = new File(Constants.DEFAULT_BACKUP_DESTINATION);
@@ -116,7 +121,7 @@ public class TaskSaver extends Saver<TaskData> {
 	 * Updates the file path for saving.
 	 * 
 	 * @param path
-	 *            The new file path for saving.
+	 *        The new file path for saving
 	 */
 	protected void setFileDestination(String path) {
 		this.filePath = path;
@@ -127,8 +132,9 @@ public class TaskSaver extends Saver<TaskData> {
 	 * further conversion to a JSON string.
 	 * 
 	 * @param task
-	 *            The task to be converted
-	 * @return The JSON string representation of the TaskData.
+	 *        The task to be converted
+	 *        
+	 * @return The JSON string representation of the TaskData
 	 */
 	String setFormat(TaskData task) {
 		String json = "";

@@ -1,12 +1,18 @@
 //@@author A0126356E
-package dooyit.logic;
+package dooyit.logic.api;
 
 import java.util.Stack;
 
-import dooyit.logic.api.LogicController;
 import dooyit.logic.commands.Command;
 import dooyit.logic.commands.ReversibleCommand;
 
+/**
+ * history manager is responsible for adding reversible commands into history
+ * for undoing the command as well as redo
+ * 
+ * @author limtaeu
+ *
+ */
 public class HistoryManager {
 
 	private Stack<ReversibleCommand> undoHistory;
@@ -17,6 +23,12 @@ public class HistoryManager {
 		redoHistory = new Stack<ReversibleCommand>();
 	}
 
+	/**
+	 * add command into history stack, check if command is reversible and
+	 * executed successfully without error before adding
+	 * 
+	 * @param command
+	 */
 	public void addCommand(Command command) {
 		if (command.hasError()) {
 			return;

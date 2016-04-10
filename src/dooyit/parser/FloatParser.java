@@ -1,9 +1,9 @@
 package dooyit.parser;
 
 import dooyit.common.exception.IncorrectInputException;
+import dooyit.common.utils.CommandUtils;
 import dooyit.logic.commands.Command;
-import dooyit.logic.commands.CommandUtils;
-import dooyit.parser.TagParser.TAG_TYPE;
+import dooyit.parser.TagParser.TagType;
 
 public class FloatParser extends TagParser {
 	private static final String ERROR_MESSAGE_INVALID_FLOAT_COMMAND = "Invalid float Command!";
@@ -14,7 +14,7 @@ public class FloatParser extends TagParser {
 	}
 
 	public Command getCommand(String input) throws IncorrectInputException {
-		setVariables(input);
+		setAttributesForTagging(input);
 		command = null;
 		try {
 			parseTaskIds();
@@ -29,7 +29,7 @@ public class FloatParser extends TagParser {
 		return command;
 	}
 
-	private void setCorrectFloatCommand(TAG_TYPE tagType) {
+	private void setCorrectFloatCommand(TagType tagType) {
 		switch (tagType) {
 		case VALID :
 			setMultipleTypeFloatCommand();

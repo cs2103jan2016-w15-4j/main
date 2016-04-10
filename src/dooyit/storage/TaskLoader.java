@@ -36,10 +36,11 @@ public class TaskLoader extends Loader<TaskData> {
 	/**
 	 * Loads TaskData from the saved file after checking if the file exists.
 	 * 
-	 * @return An ArrayList of TaskData.
+	 * @return An ArrayList of TaskData
+	 * 
 	 * @throws IOException
-	 *             If unable to generate missing save file or unable to read
-	 *             from the file.
+	 *         If unable to generate missing save file or unable to read
+	 *         from the file
 	 */
 	protected ArrayList<TaskData> load() throws IOException {
 		File file = new File(filePath);
@@ -60,22 +61,23 @@ public class TaskLoader extends Loader<TaskData> {
 	}
 
 	/**
-	 * Replaces the current filePath with path
+	 * Replaces the current filePath with path.
 	 * 
 	 * @param path
-	 *            String representation of the save file path
+	 *        String representation of the save file path
 	 */
 	protected void setFileDestination(String path) {
 		this.filePath = path;
 	}
 
 	/**
-	 * Creates the save file
+	 * Creates the save file.
 	 * 
 	 * @param file
-	 *            File instance of save file
+	 *        File instance of save file
+	 *        
 	 * @throws IOException
-	 *             If unable to create file
+	 *         If unable to create file
 	 */
 	private void createFile(File file) throws IOException {
 		try {
@@ -87,14 +89,16 @@ public class TaskLoader extends Loader<TaskData> {
 	}
 
 	/**
-	 * Creates the parent directories before creating the file
+	 * Creates the parent directories before creating the file.
 	 * 
 	 * @param parent
-	 *            File instance of the parent directories
+	 *        File instance of the parent directories
+	 *        
 	 * @param file
-	 *            File instance of the save file
+	 *        File instance of the save file
+	 *        
 	 * @throws IOException
-	 *             If unable to create file
+	 *         If unable to create file
 	 */
 	private void createFile(File parent, File file) throws IOException {
 		parent.mkdirs();
@@ -102,13 +106,15 @@ public class TaskLoader extends Loader<TaskData> {
 	}
 
 	/**
-	 * Loads TaskData from an existing file
+	 * Loads TaskData from an existing file.
 	 * 
 	 * @param file
-	 *            File instance of the existing save file
+	 *        File instance of the existing save file
+	 *        
 	 * @return ArrayList of TaskData from the save file
+	 * 
 	 * @throws IOException
-	 *             If unable to read from the save file
+	 *         If unable to read from the save file
 	 */
 	private ArrayList<TaskData> loadFromFile(File file) throws IOException {
 		FileReader fReader = open(file);
@@ -142,7 +148,7 @@ public class TaskLoader extends Loader<TaskData> {
 	}
 
 	/**
-	 * Registers TaskDataDeserializer when creating Gson object
+	 * Registers TaskDataDeserializer when creating Gson object.
 	 * 
 	 * @return Gson object with registered TaskDataDeserializer
 	 */

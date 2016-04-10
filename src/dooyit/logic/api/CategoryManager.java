@@ -1,10 +1,11 @@
 //@@author A0126356E
-package dooyit.logic;
+package dooyit.logic.api;
 
 import java.util.ArrayList;
 import dooyit.common.datatype.Category;
 import dooyit.common.datatype.CustomColour;
 import dooyit.common.exception.IncorrectInputException;
+import dooyit.logic.Constants;
 
 /**
  * CategoryManager handles the creation and management of category and its
@@ -56,7 +57,7 @@ public class CategoryManager {
 
 	if (!colourManager.contains(customColourString)) {
 	    addCategory(categoryName);
-	    throw new IncorrectInputException(String.format(Constants.FEEDBACK_INVALID_COLOUR, customColourString));
+	    throw new IncorrectInputException(String.format(Constants.FEEDBACK_INVALID_COLOUR_WITH_SUGGESTION, customColourString));
 	}
 
 	categoryName = capitalizeFirstCharacter(categoryName);

@@ -1,8 +1,8 @@
 //@@author A0133338J
 package dooyit.parser;
 
+import dooyit.common.utils.CommandUtils;
 import dooyit.logic.commands.Command;
-import dooyit.logic.commands.CommandUtils;
 
 public class EditCategoryParser implements ParserCommons {
 	private static final String ERROR_MESSAGE_INVALID_EDIT_CATEGORY_COMMAND = "Invalid Edit Category Command!";

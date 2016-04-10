@@ -2,8 +2,8 @@
 package dooyit.common.datatype;
 
 import dooyit.common.Constants;
-import dooyit.common.datatype.DateTime.DAY;
-import dooyit.common.datatype.DateTime.MONTH;
+import dooyit.common.datatype.DateTime.Day;
+import dooyit.common.datatype.DateTime.Month;
 
 public class DeadlineTask extends Task {
 
@@ -89,12 +89,12 @@ public class DeadlineTask extends Task {
 	}
 
 	@Override
-	public boolean isMonth(MONTH month) {
+	public boolean isMonth(Month month) {
 		return dateTimeDeadline.isMonth(month);
 	}
 
 	@Override
-	public boolean isDay(DAY day) {
+	public boolean isDay(Day day) {
 		return dateTimeDeadline.isDay(day);
 	}
 

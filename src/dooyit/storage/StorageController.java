@@ -63,10 +63,12 @@ public class StorageController {
 	 * Saves the existing tasks.
 	 * 
 	 * @param categories
-	 *            ArrayList of TaskData
-	 * @return Returns true if save is successful.
+	 *        ArrayList of TaskData
+	 *        
+	 * @return Returns true if save is successful
+	 * 
 	 * @throws IOException
-	 *             If saving fails.
+	 *         If saving fails
 	 */
 	public boolean saveTasks(ArrayList<TaskData> tasks) throws IOException {
 		logger.log(Level.INFO, "Attempting to save tasks");
@@ -78,9 +80,10 @@ public class StorageController {
 	/**
 	 * Loads the existing tasks.
 	 * 
-	 * @return Returns true if the load is successful.
+	 * @return Returns true if the load is successful
+	 * 
 	 * @throws IOException
-	 *             If loading fails.
+	 *         If loading fails
 	 */
 	public ArrayList<TaskData> loadTasks() throws IOException {
 		logger.log(Level.INFO, "Attempting to load tasks");
@@ -94,10 +97,12 @@ public class StorageController {
 	 * Saves the existing categories.
 	 * 
 	 * @param categories
-	 *            ArrayList of CategoryData
-	 * @return Returns true if save is successful.
+	 *        ArrayList of CategoryData
+	 *            
+	 * @return Returns true if save is successful
+	 * 
 	 * @throws IOException
-	 *             If saving fails.
+	 *         If saving fails
 	 */
 	public boolean saveCategories(ArrayList<CategoryData> categories) throws IOException {
 		logger.log(Level.INFO, "Attempting to save categories");
@@ -108,9 +113,10 @@ public class StorageController {
 	/**
 	 * Loads the existing categories.
 	 * 
-	 * @return Returns true if the load is successful.
+	 * @return Returns true if the load is successful
+	 * 
 	 * @throws IOException
-	 *             If loading fails.
+	 *         If loading fails
 	 */
 	public ArrayList<CategoryData> loadCategories() throws IOException {
 		logger.log(Level.INFO, "Attempting to load categories");
@@ -124,10 +130,12 @@ public class StorageController {
 	 * Sets a new storage location.
 	 * 
 	 * @param newFilePath
-	 *            The new storage location.
-	 * @return If the file exists, returns true. Otherwise returns false.
+	 *        The new storage location
+	 *            
+	 * @return If the file exists, returns true. Otherwise returns false
+	 * 
 	 * @throws IOException
-	 *             If unable to modify the config file.
+	 *         If unable to modify the config file
 	 */
 	public boolean setFileDestination(String newFilePath) throws IOException {
 		logger.log(Level.INFO, "Changing file destination");
@@ -149,12 +157,15 @@ public class StorageController {
 	 * Checks if the path specified ends with the file extension required.
 	 * 
 	 * @param path
-	 *            The specified path.
+	 *        The specified path
+	 *        
 	 * @param fileExtension
-	 *            The file extension.
-	 * @return Returns true if the path is valid.
+	 *        The file extension
+	 *            
+	 * @return Returns true if the path is valid
+	 * 
 	 * @throws IncorrectInputException
-	 *             If the path is invalid.
+	 *         If the path is invalid
 	 */
 	private boolean isValidPath(String path, String fileExtension) throws IncorrectInputException {
 		if (!path.endsWith(fileExtension)) {
@@ -166,13 +177,14 @@ public class StorageController {
 	}
 
 	/**
-	 * Generates the default custom.css file if it does not exist
+	 * Generates the default custom.css file if it does not exist.
 	 * 
 	 * @param path
-	 *            URL representation of the path to the default custom css file
-	 *            inside the JAR
+	 *        URL representation of the path to the default custom css file
+	 *        inside the JAR
+	 *        
 	 * @throws IOException
-	 *             If unable to generate the css file
+	 *         If unable to generate the css file
 	 */
 	public void generateCss(URL path) throws IOException {
 		String defaultPath = preferences[THEME_DESTINATION];
@@ -204,13 +216,15 @@ public class StorageController {
 
 	/**
 	 * Loads the user's preferences from the config file and sets any invalid
-	 * paths to the default
+	 * paths to the default.
 	 * 
 	 * @param configFilePath
-	 *            The path to the config file.
-	 * @return The preferences of the user.
+	 *        The path to the config file
+	 *        
+	 * @return The preferences of the user
+	 * 
 	 * @throws IOException
-	 *             If unable to access the config file.
+	 *         If unable to access the config file
 	 */
 	private String[] loadPreferences(String configFilePath) throws IOException {
 		File configFile = new File(configFilePath);
@@ -243,10 +257,12 @@ public class StorageController {
 	 * Checks if the specified path is invalid.
 	 * 
 	 * @param filePath
-	 *            The specified path.
+	 *        The specified path
+	 *        
 	 * @param fileExtension
-	 *            The required file extension.
-	 * @return Returns true if the path is invalid, otherwise returns false.
+	 *        The required file extension
+	 *            
+	 * @return Returns true if the path is invalid, otherwise returns false
 	 */
 	private boolean isInvalidPath(String filePath, String fileExtension) {
 		if (filePath == null || !filePath.endsWith(fileExtension)) {
@@ -259,10 +275,11 @@ public class StorageController {
 	 * Modifies the config file with the updated preferences.
 	 * 
 	 * @param preferences
-	 *            The preferences containing the save path and the location of
-	 *            custom.css
+	 *        The preferences containing the save path and the location of
+	 *        custom.css
+	 *            
 	 * @throws IOException
-	 *             If unable to write to the config file
+	 *         If unable to write to the config file
 	 */
 	private void modifyConfig(String[] preferences) throws IOException {
 		File configFile = new File(configFilePath);
@@ -289,7 +306,7 @@ public class StorageController {
 	/**
 	 * Returns the default css path in a standardised format.
 	 * 
-	 * @return The String representation of the default css path.
+	 * @return The String representation of the default css path
 	 */
 	public String getCssPath() {
 		String cssPath = preferences[THEME_DESTINATION].replace(BACK_SLASH, FORWARD_SLASH);
@@ -306,7 +323,7 @@ public class StorageController {
 	/**
 	 * Returns the path of the save file for tasks.
 	 * 
-	 * @return Returns the tasks save path in String representation.
+	 * @return Returns the tasks save path in String representation
 	 */
 	public String getFilePath() {
 		return preferences[TASK_DESTINATION];

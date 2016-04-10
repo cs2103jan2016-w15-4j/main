@@ -1,19 +1,19 @@
 package dooyit.parser;
 
 import dooyit.common.datatype.DateTime;
-import dooyit.common.datatype.DateTime.DAY;
-import dooyit.common.datatype.DateTime.MONTH;
+import dooyit.common.datatype.DateTime.Day;
+import dooyit.common.datatype.DateTime.Month;
 import dooyit.common.exception.IncorrectInputException;
+import dooyit.common.utils.CommandUtils;
 import dooyit.logic.commands.Command;
-import dooyit.logic.commands.CommandUtils;
 
 public class SearchParser implements ParserCommons {
 	private static final String ERROR_MESSAGE_EMPTY_SEARCH_COMMAND = "Empty search command!";
 	Command command;
 	boolean isValidDate, isValidDay, isValidMonth, isEmptyString;
 	DateTime dateTime;
-	DAY dayEnum;
-	MONTH monthEnum;
+	Day dayEnum;
+	Month monthEnum;
 	
 	
 	public SearchParser() {
@@ -38,8 +38,8 @@ public class SearchParser implements ParserCommons {
 	private void setBooleanValues(String input) {
 		dayEnum = DateTime.getDayType(input);
 		monthEnum = DateTime.getMonthType(input);
-		isValidDay = dayEnum != DAY.INVALID;
-		isValidMonth = monthEnum != MONTH.INVALID;
+		isValidDay = dayEnum != Day.INVALID;
+		isValidMonth = monthEnum != Month.INVALID;
 		isEmptyString = input.equals(EMPTY_STRING);
 	}
 

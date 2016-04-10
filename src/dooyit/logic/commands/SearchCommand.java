@@ -2,8 +2,8 @@
 package dooyit.logic.commands;
 
 import dooyit.common.datatype.DateTime;
-import dooyit.common.datatype.DateTime.DAY;
-import dooyit.common.datatype.DateTime.MONTH;
+import dooyit.common.datatype.DateTime.Day;
+import dooyit.common.datatype.DateTime.Month;
 import dooyit.common.exception.IncorrectInputException;
 import dooyit.logic.api.Action;
 import dooyit.logic.api.LogicAction;
@@ -23,8 +23,8 @@ public class SearchCommand implements Command {
 	private String searchString;
 	private SearchType searchType;
 	private DateTime searchDateTime;
-	private DAY searchDay;
-	private MONTH searchMonth;
+	private Day searchDay;
+	private Month searchMonth;
 	private boolean hasError = false;
 
 	public SearchCommand(String searchString) {
@@ -32,13 +32,13 @@ public class SearchCommand implements Command {
 		this.searchString = searchString;
 	}
 	
-	public SearchCommand(String searchString, DAY day){
+	public SearchCommand(String searchString, Day day){
 		searchType = SearchType.DAY;
 		this.searchString = searchString;
 		this.searchDay = day;
 	}
 	
-	public SearchCommand(String searchString, MONTH month){
+	public SearchCommand(String searchString, Month month){
 		searchType = SearchType.MONTH;
 		this.searchString = searchString;
 		this.searchMonth = month;

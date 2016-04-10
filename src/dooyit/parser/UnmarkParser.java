@@ -2,8 +2,8 @@
 package dooyit.parser;
 
 import dooyit.common.exception.IncorrectInputException;
+import dooyit.common.utils.CommandUtils;
 import dooyit.logic.commands.Command;
-import dooyit.logic.commands.CommandUtils;
 
 public class UnmarkParser extends TagParser{
 	private static final String ERROR_MESSAGE_INVALID_UNMARK_COMMAND = "Invalid Unmark Command!";
@@ -15,7 +15,7 @@ public class UnmarkParser extends TagParser{
 	}
 
 	public Command getCommand(String input) throws IncorrectInputException {
-		setVariables(input);
+		setAttributesForTagging(input);
 		command = null;
 		
 		try {
@@ -31,7 +31,7 @@ public class UnmarkParser extends TagParser{
 		return command;
 	}
 
-	private void setUnmarkCommand(TAG_TYPE tagType) {
+	private void setUnmarkCommand(TagType tagType) {
 		switch (tagType) {
 		case VALID :
 			setMultipleTypeUnmarkCommand();

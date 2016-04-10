@@ -23,10 +23,10 @@ public class TaskController {
 	}
 
 	/**
-	 * Updates the path which tasks will be saved and loaded.
+	 * Updates the path which tasks will be saved and loaded
 	 * 
 	 * @param newFilePath
-	 *            The new path for saving and loading
+	 *        The new path for saving and loading
 	 */
 	protected void setFileDestination(String newFilePath) {
 		taskSaver.setFileDestination(newFilePath);
@@ -37,22 +37,25 @@ public class TaskController {
 	 * Saves the list of tasks
 	 * 
 	 * @param tasks
-	 *            A list of TaskData to be saved.
+	 *        A list of TaskData to be saved
+	 *        
 	 * @return Returns true if tasks are saved successfully, otherwise returns
-	 *         false.
+	 *         false
+	 *         
 	 * @throws IOException
-	 *             If the save file cannot be accessed.
+	 *         If the save file cannot be accessed
 	 */
 	protected boolean save(ArrayList<TaskData> tasks) throws IOException {
 		return taskSaver.save(tasks);
 	}
 
 	/**
-	 * Loads the list of tasks from the save file.
+	 * Loads the list of tasks from the save file
 	 * 
-	 * @return A list of TaskData to be loaded.
+	 * @return A list of TaskData to be loaded
+	 * 
 	 * @throws IOException
-	 *             If loading fails.
+	 *         If loading fails
 	 */
 	protected ArrayList<TaskData> load() throws IOException {
 		return taskLoader.load();

@@ -4,14 +4,14 @@ package dooyit.parser;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import dooyit.common.utils.CommandUtils;
 import dooyit.logic.commands.Command;
-import dooyit.logic.commands.CommandUtils;
 
 /**
  * The AddCategoryParser class provides methods needed for adding a category and
  * specifying the category colour. It takes in an "addcat" command input and
- * returns an AddCategory command object. It implements the ParserCommons
- * interface to use the shared constant EMPTY_STRING.
+ * returns an AddCategoryCcommand object. It implements the ParserCommons
+ * interface to use the shared constants and share methods.
  * 
  * @author Annabel
  *
@@ -40,7 +40,7 @@ public class AddCategoryParser implements ParserCommons {
 	private boolean hasColour;
 
 	// Types of addcat commands
-	private enum ADD_CATEGORY_TYPE {
+	private enum AddCategoryType {
 		VALID, INVALID_TOO_MANY_WORDS, INVALID_EMPTY_STRING
 	};
 
@@ -50,12 +50,12 @@ public class AddCategoryParser implements ParserCommons {
 	}
 
 	/**
-	 * Parses userInput and returns correct AddCategory command object
+	 * Parses userInput and returns correct AddCategoryCommand object
 	 * 
 	 * @param input
 	 *        The addcat command input from the user
 	 * 
-	 * @return the correct AddCategory command object if the command input is
+	 * @return the correct AddCategoryCommand object if the command input is
 	 *         valid or an invalid command object if the command input is
 	 *         invalid
 	 */
@@ -97,18 +97,18 @@ public class AddCategoryParser implements ParserCommons {
 	 * Checks the number of words in the userInput attribute to determine if the
 	 * add category command input is valid
 	 * 
-	 * @return the correct ADD_CATEGORY_TYPE enum constant
+	 * @return the correct AddCategoryType enum constant
 	 */
-	private ADD_CATEGORY_TYPE getCommandType() {
-		ADD_CATEGORY_TYPE type;
+	private AddCategoryType getCommandType() {
+		AddCategoryType type;
 		if (userInput.equals(EMPTY_STRING)) {
-			type = ADD_CATEGORY_TYPE.INVALID_EMPTY_STRING;
+			type = AddCategoryType.INVALID_EMPTY_STRING;
 			
 		} else if (userInputHasTooManyWords()) {
-			type = ADD_CATEGORY_TYPE.INVALID_TOO_MANY_WORDS;
+			type = AddCategoryType.INVALID_TOO_MANY_WORDS;
 			
 		} else {
-			type = ADD_CATEGORY_TYPE.VALID;
+			type = AddCategoryType.VALID;
 		}
 		return type;
 	}
@@ -117,14 +117,14 @@ public class AddCategoryParser implements ParserCommons {
 	 * Sets the command attribute to an InvalidCommand object.
 	 * 
 	 * @param errorMessage
-	 *        Error Message String constants defined in this class
+	 *        Error message String constants defined in this class
 	 */
 	private void setInvalidCommand(String errorMessage) {
 		command = CommandUtils.createInvalidCommand(errorMessage);
 	}
 
 	/**
-	 * Sets the command attribute to the correct AddCategory command object.
+	 * Sets the command attribute to the correct AddCategoryCommand object.
 	 */
 	private void setCreateCategoryCommand() {
 		if (hasColour) {

@@ -33,10 +33,12 @@ public class CategorySaver extends Saver<CategoryData> {
 	 * Saves the list of categories.
 	 * 
 	 * @param tasks
-	 *            An ArrayList of CategoryData to be saved.
-	 * @return Returns true if save is successful, otherwise returns false.
+	 *        An ArrayList of CategoryData to be saved
+	 *        
+	 * @return Returns true if save is successful, otherwise returns false
+	 * 
 	 * @throws IOException
-	 *             If the saved file cannot be written to.
+	 *         If the saved file cannot be written to
 	 */
 	boolean save(ArrayList<CategoryData> categories) throws IOException {
 		File file = new File(filePath);
@@ -61,8 +63,9 @@ public class CategorySaver extends Saver<CategoryData> {
 	 * its JSON string.
 	 * 
 	 * @param category
-	 *            The category to be converted.
-	 * @return Returns the JSON string representation of the CategoryData.
+	 *        The category to be converted
+	 *            
+	 * @return Returns the JSON string representation of the CategoryData
 	 */
 	String setFormat(CategoryData category) {
 		String categoryName = category.getName();

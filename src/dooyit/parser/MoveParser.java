@@ -2,8 +2,8 @@
 package dooyit.parser;
 
 import dooyit.common.exception.IncorrectInputException;
+import dooyit.common.utils.CommandUtils;
 import dooyit.logic.commands.Command;
-import dooyit.logic.commands.CommandUtils;
 
 public class MoveParser extends TagParser {
 	private static final String ERROR_MESSAGE_NO_CATEGORY_SPECIFIED = "No category specified!";
@@ -22,7 +22,7 @@ public class MoveParser extends TagParser {
 		if (!hasCategory) {
 			setInvalidCommand(ERROR_MESSAGE_NO_CATEGORY_SPECIFIED); 
 		} else {
-			setVariables(taskIds);
+			setAttributesForTagging(taskIds);
 			try {
 				parseTaskIds();
 			} catch (IncorrectInputException e) {
@@ -37,7 +37,7 @@ public class MoveParser extends TagParser {
 		return command;
 	}
 
-	private void setCorrectMoveCommand(TAG_TYPE tagType) {
+	private void setCorrectMoveCommand(TagType tagType) {
 		switch (tagType) {
 		case VALID :
 			setMultipleTypeMoveCommand();

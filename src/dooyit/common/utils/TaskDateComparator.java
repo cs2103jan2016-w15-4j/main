@@ -1,5 +1,5 @@
 //@@author A0126356E
-package dooyit.common.comparator;
+package dooyit.common.utils;
 
 import java.util.Comparator;
 

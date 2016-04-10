@@ -2,8 +2,8 @@
 package dooyit.parser;
 
 import dooyit.common.exception.IncorrectInputException;
+import dooyit.common.utils.CommandUtils;
 import dooyit.logic.commands.Command;
-import dooyit.logic.commands.CommandUtils;
 
 public class MarkParser extends TagParser{
 	private static final String ERROR_MESSAGE_INVALID_MARK_COMMAND = "Invalid mark Command!";
@@ -14,7 +14,7 @@ public class MarkParser extends TagParser{
 	}
 
 	public Command getCommand(String input) throws IncorrectInputException {
-		setVariables(input);
+		setAttributesForTagging(input);
 		command = null;
 		try {
 			parseTaskIds();
@@ -29,7 +29,7 @@ public class MarkParser extends TagParser{
 		return command;
 	}
 
-	private void setCorrectMarkCommand(TAG_TYPE tagType) {
+	private void setCorrectMarkCommand(TagType tagType) {
 		switch (tagType) {
 		case VALID :
 			setMultipleTypeMarkCommand();

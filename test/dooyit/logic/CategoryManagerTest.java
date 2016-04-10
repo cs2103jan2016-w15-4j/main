@@ -11,6 +11,7 @@ import org.junit.Test;
 import dooyit.common.datatype.Category;
 import dooyit.common.datatype.CustomColour;
 import dooyit.common.exception.IncorrectInputException;
+import dooyit.logic.api.CategoryManager;
 import dooyit.logic.api.LogicController;
 
 public class CategoryManagerTest {

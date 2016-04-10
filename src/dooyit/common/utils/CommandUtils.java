@@ -1,13 +1,36 @@
 //@@author A0126356E
-package dooyit.logic.commands;
+package dooyit.common.utils;
 
 import java.util.ArrayList;
 import dooyit.common.datatype.DateTime;
-import dooyit.common.datatype.DateTime.DAY;
-import dooyit.common.datatype.DateTime.MONTH;
+import dooyit.common.datatype.DateTime.Day;
+import dooyit.common.datatype.DateTime.Month;
+import dooyit.logic.commands.AddCategoryCommand;
+import dooyit.logic.commands.AddTaskCommand;
+import dooyit.logic.commands.ChangeThemeCommand;
+import dooyit.logic.commands.ClearTaskCommand;
+import dooyit.logic.commands.Command;
+import dooyit.logic.commands.DeleteCategoryCommand;
+import dooyit.logic.commands.DeleteTaskCommand;
+import dooyit.logic.commands.EditCategoryCommand;
+import dooyit.logic.commands.EditTaskCommand;
+import dooyit.logic.commands.ExitCommand;
+import dooyit.logic.commands.HelpCommand;
+import dooyit.logic.commands.InvalidCommand;
+import dooyit.logic.commands.MarkTaskCommand;
+import dooyit.logic.commands.MoveToCategory;
+import dooyit.logic.commands.RedoCommand;
+import dooyit.logic.commands.SearchCommand;
+import dooyit.logic.commands.ShowCommand;
+import dooyit.logic.commands.StorageCommand;
+import dooyit.logic.commands.UnMoveCategory;
+import dooyit.logic.commands.UndoCommand;
+import dooyit.logic.commands.UnmarkTaskCommand;
+import dooyit.logic.commands.ShowCommand.ShowCommandType;
 
 /**
  * the command utils acts as a factory for command objects
+ * 
  * @author limtaeu
  *
  */
@@ -93,10 +116,8 @@ public class CommandUtils {
 		return editCategoryCommand;
 	}
 
-	public static Command createEditCategoryCommand(String categoryName, String newCategoryName,
-			String newColourString) {
-		EditCategoryCommand editCategoryCommand = new EditCategoryCommand(categoryName, newCategoryName,
-				newColourString);
+	public static Command createEditCategoryCommand(String categoryName, String newCategoryName, String newColourString) {
+		EditCategoryCommand editCategoryCommand = new EditCategoryCommand(categoryName, newCategoryName, newColourString);
 		return editCategoryCommand;
 	}
 
@@ -191,12 +212,12 @@ public class CommandUtils {
 		return searchCommand;
 	}
 
-	public static Command createSearchCommand(String searchString, MONTH month) {
+	public static Command createSearchCommand(String searchString, Month month) {
 		SearchCommand searchCommand = new SearchCommand(searchString, month);
 		return searchCommand;
 	}
 
-	public static Command createSearchCommand(String searchString, DAY day) {
+	public static Command createSearchCommand(String searchString, Day day) {
 		SearchCommand searchCommand = new SearchCommand(searchString, day);
 		return searchCommand;
 	}

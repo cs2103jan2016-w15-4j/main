@@ -2,12 +2,13 @@
 package dooyit.parser;
 
 public interface ParserCommons {
+	public static final int BEFORE = -1;
 	public static final int UNINITIALIZED_INT = -1;
 	public static final String UNINITIALIZED_STRING = "-1";
 	public static final String EMPTY_STRING = "";
 	public static final String MARKER_START_EVENT = " from ";
 	public static final String MARKER_END_EVENT = " to ";
-	public static final String MARKER_WORK = " by ";
+	public static final String MARKER_DEADLINE_TASK = " by ";
 	public static final String ERROR_MESSAGE_END_BEFORE_START = "End timing cannot be before Start timing";
 
 	public static final String COMMAND_ADD = "add";
@@ -102,5 +103,9 @@ public interface ParserCommons {
 			name = userInput.substring(0, indexTo);
 		}
 		return name;
+	}
+
+	static boolean isInitialized(int number) {
+		return number != UNINITIALIZED_INT;
 	}
 }

@@ -89,13 +89,12 @@ public class EditTaskCommand implements ReversibleCommand {
 		LogicAction logicAction = null;
 
 		if (!logic.containsTask(taskId)) {
-			hasError = true;
-			logicAction = new LogicAction(Action.ERROR, String.format(Constants.FEEDBACK_INVALID_ID, taskId));
+			logicAction = cantFindTaskId();
 			return logicAction;
 		}
 
 		// save original task for undo
-		originalTask = logic.findTask(taskId);
+		saveOriginalTask(logic);
 
 		switch (editCommandType) {
 		case NAME:
@@ -105,9 +104,9 @@ public class EditTaskCommand implements ReversibleCommand {
 
 		case TO_FLOAT:
 			newTask = logic.changeToFloatingTask(taskId);
-			logicAction =getActionBasedOnEditedTask(logic, newTask);
+			logicAction = getActionBasedOnEditedTask(logic, newTask);
 			break;
-			
+
 		case DEADLINE:
 			newTask = logic.changeTaskToDeadline(taskId, dateTimeDeadline);
 			logicAction = getActionBasedOnEditedTask(logic, newTask);
@@ -131,6 +130,17 @@ public class EditTaskCommand implements ReversibleCommand {
 			break;
 		}
 
+		return logicAction;
+	}
+
+	public void saveOriginalTask(LogicController logic) {
+		originalTask = logic.findTask(taskId);
+	}
+
+	public LogicAction cantFindTaskId() {
+		LogicAction logicAction;
+		hasError = true;
+		logicAction = new LogicAction(Action.ERROR, String.format(Constants.FEEDBACK_INVALID_ID, taskId));
 		return logicAction;
 	}
 

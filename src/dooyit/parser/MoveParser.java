@@ -10,8 +10,8 @@ import dooyit.logic.commands.CommandUtils;
 
 /**
  * The moveParser class is needed for moving tasks into a category.
- * It takes in a "move" command input and returns a MoveToCategoryCcommand 
- * object. It is a child class of the TagParser class.
+ * It takes in a "move" command input and returns a Command object. 
+ * It is a child class of the TagParser class.
  * 
  * @author Annabel
  *

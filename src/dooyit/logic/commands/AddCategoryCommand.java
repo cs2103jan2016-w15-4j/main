@@ -63,9 +63,13 @@ public class AddCategoryCommand implements ReversibleCommand {
 			addCategoryWithoutColour(logic);
 		}
 
-		logicAction = new LogicAction(Action.ADD_CATEGORY, String.format(Constants.FEEDBACK_CATEGORY_ADDED, categoryName, feedbackMsgColor));
+		logicAction = categoryAdded(feedbackMsgColor);
 
 		return logicAction;
+	}
+
+	public LogicAction categoryAdded(String feedbackMsgColor) {
+		return new LogicAction(Action.ADD_CATEGORY, String.format(Constants.FEEDBACK_CATEGORY_ADDED, categoryName, feedbackMsgColor));
 	}
 
 	public LogicAction categoryAleadyExists() {

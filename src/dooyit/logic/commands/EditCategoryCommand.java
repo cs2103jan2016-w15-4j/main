@@ -9,15 +9,13 @@ import dooyit.logic.api.LogicController;
 
 public class EditCategoryCommand implements ReversibleCommand {
 
-	private static final String FEEDBACK_CATEGORY_EDITED = "Category has been edited.";
 	private String categoryName;
 	private String newCategoryName;
 	private String originalCategoryName;
 	private String newColourName;
 	private String originalColourString;
 	private boolean hasError;
-	Category originalCategory;
-	Category editedCategory;
+	private Category originalCategory;
 
 	EditCategoryCommand(String categoryName, String newCategoryName) {
 		this.categoryName = categoryName;
@@ -50,9 +48,9 @@ public class EditCategoryCommand implements ReversibleCommand {
 		assert (logic != null);
 		if (editCategoryWithColour()) {
 			logic.editCategoryColour(originalCategory, newColourName);
-			logic.editCategoryName(originalCategory, newCategoryName);
+			editCategoryName(logic);
 		} else {
-			logic.editCategoryName(originalCategory, newCategoryName);
+			editCategoryName(logic);
 		}
 	}
 
@@ -66,30 +64,55 @@ public class EditCategoryCommand implements ReversibleCommand {
 		assert (logic != null);
 		LogicAction logicAction;
 
+		// error if cannot find category
 		if (!logic.containsCategory(categoryName)) {
 			logicAction = new LogicAction(Action.ERROR, String.format(Constants.FEEDBACK_CATEGORY_NOT_FOUND, categoryName));
 			hasError = true;
 			return logicAction;
 		}
 
-		originalCategory = logic.findCategory(categoryName);
-		originalCategoryName = originalCategory.getName();
-		
+		saveOriginalCategory(logic);
+
 		if (editCategoryWithColour()) {
 			if (logic.containsCustomColour(newColourName)) {
-				originalColourString = originalCategory.getCustomColourName();
-				logic.editCategoryColour(originalCategory, newColourName);
-				logic.editCategoryName(originalCategory, newCategoryName);
-				logicAction = new LogicAction(Action.EDIT_CATEGORY, FEEDBACK_CATEGORY_EDITED);
+				logicAction = editCategoryNameAndColour(logic);
 			} else {
-				logicAction = new LogicAction(Action.EDIT_CATEGORY, String.format(Constants.FEEDBACK_INVALID_COLOUR, newColourName));
+				logicAction = new LogicAction(Action.ERROR, String.format(Constants.FEEDBACK_INVALID_COLOUR, newColourName));
 			}
 		} else {
-			logic.editCategoryName(originalCategory, newCategoryName);
-			logicAction = new LogicAction(Action.EDIT_CATEGORY, FEEDBACK_CATEGORY_EDITED);
+			editCategoryName(logic);
+			logicAction = new LogicAction(Action.EDIT_CATEGORY, Constants.FEEDBACK_CATEGORY_EDITED);
 		}
 
 		return logicAction;
+	}
+
+	/**
+	 * @param logic
+	 * @return
+	 */
+	public LogicAction editCategoryNameAndColour(LogicController logic) {
+		LogicAction logicAction;
+		originalColourString = originalCategory.getCustomColourName();
+		logic.editCategoryColour(originalCategory, newColourName);
+		editCategoryName(logic);
+		logicAction = new LogicAction(Action.EDIT_CATEGORY, Constants.FEEDBACK_CATEGORY_EDITED);
+		return logicAction;
+	}
+
+	/**
+	 * @param logic
+	 */
+	public void saveOriginalCategory(LogicController logic) {
+		originalCategory = logic.findCategory(categoryName);
+		originalCategoryName = originalCategory.getName();
+	}
+
+	/**
+	 * @param logic
+	 */
+	public void editCategoryName(LogicController logic) {
+		logic.editCategoryName(originalCategory, newCategoryName);
 	}
 
 }

@@ -55,18 +55,32 @@ public class AddCategoryCommand implements ReversibleCommand {
 
 		if (addCategoryWithColour()) {
 			if (isColourAvailable(logic, colourString)) {
-				addedCategory = logic.addCategory(categoryName, colourString);
+				addCategoryWithColour(logic);
 			} else {
-				addedCategory = logic.addCategory(categoryName);
-				feedbackMsgColor += String.format(Constants.FEEDBACK_INVALID_COLOUR, colourString);
+				addCategoryWithoutColour(logic);
+				feedbackMsgColor += String.format(Constants.FEEDBACK_INVALID_COLOUR_WITH_SUGGESTION, colourString);
 			}
 		} else {
-			addedCategory = logic.addCategory(categoryName);
+			addCategoryWithoutColour(logic);
 		}
 
 		logicAction = new LogicAction(Action.ADD_CATEGORY, String.format(Constants.FEEDBACK_CATEGORY_ADDED, categoryName, feedbackMsgColor));
 
 		return logicAction;
+	}
+
+	/**
+	 * @param logic
+	 */
+	public void addCategoryWithoutColour(LogicController logic) {
+		addedCategory = logic.addCategory(categoryName);
+	}
+
+	/**
+	 * @param logic
+	 */
+	public void addCategoryWithColour(LogicController logic) {
+		addedCategory = logic.addCategory(categoryName, colourString);
 	}
 
 	public boolean isColourAvailable(LogicController logic, String colourString) {

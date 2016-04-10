@@ -41,12 +41,27 @@ public class UnMoveCategory implements ReversibleCommand {
 			logicAction = new LogicAction(Action.ERROR, Constants.FEEDBACK_INVALID_ID);
 			return logicAction;
 		}
-
+		
 		taskWithCategory = logic.findTask(taskId);
+		if(!taskWithCategory.hasCategory()){
+			hasError = true;
+			logicAction = new LogicAction(Action.ERROR, String.format(Constants.FEEDBACK_CATEGORY_DOESNT_EXIST, taskId));
+			return logicAction;
+		}
+		
+		logicAction = removeCategoryFromTask();
+
+		return logicAction;
+	}
+
+	/**
+	 * @return
+	 */
+	public LogicAction removeCategoryFromTask() {
+		LogicAction logicAction;
 		removedCategory = taskWithCategory.getCategory();
 		taskWithCategory.setCategory(null);
-		logicAction = new LogicAction(Action.REMOVE_CAT_FROM_TASK, Constants.FEEDBACK_TASK_UNMOVED);
-
+		logicAction = new LogicAction(Action.REMOVE_CAT_FROM_TASK, String.format(Constants.FEEDBACK_TASK_UNMOVED, taskId));
 		return logicAction;
 	}
 

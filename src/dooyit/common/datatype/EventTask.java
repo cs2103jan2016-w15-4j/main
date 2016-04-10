@@ -3,6 +3,7 @@ package dooyit.common.datatype;
 
 import java.util.ArrayList;
 
+import dooyit.common.Constants;
 import dooyit.common.datatype.DateTime.DAY;
 import dooyit.common.datatype.DateTime.MONTH;
 
@@ -14,7 +15,6 @@ public class EventTask extends Task {
 	private boolean isMultiDayOn = false;
 	private int currentMultiDay = 0;
 	private ArrayList<String> multiDayString;
-	private static final int UNINITIALISED = -1;
 
 	public EventTask(String taskName, DateTime start, DateTime end) {
 		assert (taskName != null && start != null && end != null);
@@ -79,7 +79,7 @@ public class EventTask extends Task {
 	public void onMultiDay() {
 		isMultiDayOn = true;
 		currentMultiDay = 0;
-		displayId = UNINITIALISED;
+		displayId = Constants.UNINITIALISED;
 	}
 
 	public void offMultiDay() {
@@ -137,7 +137,7 @@ public class EventTask extends Task {
 	public boolean setDisplayId(int taskId) {
 
 		if (hasMultiDay) {
-			if (this.displayId == UNINITIALISED) {
+			if (this.displayId == Constants.UNINITIALISED) {
 				this.displayId = taskId;
 				return true;
 			} else {
@@ -185,16 +185,16 @@ public class EventTask extends Task {
 			return multiDayString.get((currentMultiDay++) % multiDayString.size());
 		}
 
-		return dateTimeStart.getTime24hStr() + " - " + dateTimeEnd.getTime24hStr();
+		return dateTimeStart.getTime24hStr() + Constants.SYMBOL_DASH + dateTimeEnd.getTime24hStr();
 	}
 
 	@Override
 	public String toString() {
-		String taskString = taskName + ", Event: " + dateTimeStart.toString() + " to " + dateTimeEnd.toString();
-		String categoryString = "";
+		String taskString = String.format(Constants.DISPLAY_TASK_EVENT, taskName, dateTimeStart.toString(), dateTimeEnd.toString());
+		String categoryString = Constants.EMPTY_STRING;
 
 		if (hasCategory()) {
-			categoryString = ", Cat: " + category.getName() + "-" + category.getCustomColourName();
+			categoryString = String.format(Constants.DISPLAY_CATEGORY, category.getName(), category.getCustomColourName());
 		}
 
 		return taskString + categoryString;

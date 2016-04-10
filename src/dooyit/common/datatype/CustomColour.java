@@ -59,6 +59,5 @@ public class CustomColour {
 	public String toSavableString() {
 		return this.r + " " + this.g + " " + this.b;
 	}
-	
-	
+
 }

@@ -1,6 +1,7 @@
 //@@author A0126356E
 package dooyit.common.datatype;
 
+import dooyit.common.Constants;
 import dooyit.common.datatype.DateTime.DAY;
 import dooyit.common.datatype.DateTime.MONTH;
 
@@ -13,12 +14,10 @@ public abstract class Task {
 	protected String taskName;
 	protected int displayId;
 	protected TaskType taskType;
-
 	protected boolean isCompleted;
 	protected Category category;
-
-	public static int curUniqueTaskId = 1;
-	public int uniqueId; // to determine which task is created first
+	protected static int curUniqueTaskId = 1;
+	protected int uniqueId; // to determine which task is created first
 	
 	public Task() {
 		uniqueId = curUniqueTaskId;
@@ -77,7 +76,7 @@ public abstract class Task {
 	}
 
 	public void resetDisplayId() {
-		this.displayId = -1;
+		this.displayId = Constants.UNINITIALISED;
 	}
 
 	public int getUniqueId() {

@@ -33,7 +33,7 @@ public class LogicController {
 	private DataManager dataManager;
 	private static Logger logger = Logger.getLogger("Logic");
 	private boolean isSaveOn = true;
-	private boolean displayCommandline = false;
+	private boolean displayCommandline = true;
 
 	public LogicController() {
 		logger.log(Level.INFO, "Initialising logic class");
@@ -122,7 +122,8 @@ public class LogicController {
 	}
 
 	/**
-	 * set some default categories if there is category manager doesnt have any categories.
+	 * set some default categories if there is category manager doesnt have any
+	 * categories.
 	 */
 	public void setDefaultCategories() {
 		categoryManager.setDefaultCategories();
@@ -227,7 +228,7 @@ public class LogicController {
 	}
 
 	public void setSelectedCategory(Category category) {
-		categoryManager.setSelectedCategory(category); 
+		categoryManager.setSelectedCategory(category);
 	}
 
 	public Category getSelectedCategory() {
@@ -237,19 +238,19 @@ public class LogicController {
 	public void setSearchKey(String searchString) {
 		taskManager.setSearchKey(searchString);
 	}
-	
+
 	public void setSearchKey(String searchKey, DAY day) {
 		taskManager.setSearchKey(searchKey, day);
 	}
-	
+
 	public void setSearchKey(String searchKey, MONTH month) {
 		taskManager.setSearchKey(searchKey, month);
 	}
-	
+
 	public void setSearchKey(DateTime dateTime) {
 		taskManager.setSearchKey(dateTime);
 	}
-	
+
 	public ArrayList<TaskGroup> getTaskGroupsToday() {
 		return taskManager.getTaskGroupsToday();
 	}
@@ -300,8 +301,8 @@ public class LogicController {
 		Task addedTask = taskManager.addEventTask(taskName, dateTimeStart, dateTimeEnd);
 		return addedTask;
 	}
-	
-	public Task changeToFloatingTask(int taskId){
+
+	public Task changeToFloatingTask(int taskId) {
 		return taskManager.changeToFloatingTask(taskId);
 	}
 
@@ -366,15 +367,15 @@ public class LogicController {
 	public boolean isNext7daysTask(Task task) {
 		return taskManager.isNext7DaysTask(task);
 	}
-	
+
 	public int noOfTask() {
 		return taskManager.size();
 	}
 
-	public boolean hasOverlapWithOverEventTask(Task task){
+	public boolean hasOverlapWithOverEventTask(Task task) {
 		return taskManager.hasOverlapWithOverEventTask(task);
 	}
-	
+
 	public ArrayList<Task> removeTasksWithCategory(Category category) {
 		ArrayList<Task> tasksWithCategoty = taskManager.removeTasksWithCategory(category);
 		return tasksWithCategoty;
@@ -421,18 +422,18 @@ public class LogicController {
 		return clearedCategories;
 	}
 
-	public boolean containsCustomColour(String customColourString){
+	public boolean containsCustomColour(String customColourString) {
 		return categoryManager.containsCustomColour(customColourString);
 	}
-	
+
 	public void editCategoryName(Category category, String newCategoryName) {
 		categoryManager.editCategoryName(category, newCategoryName);
 	}
-	
+
 	public boolean editCategoryColour(Category category, String newClourString) {
 		return categoryManager.editCategoryColour(category, newClourString);
 	}
-	
+
 	public String getFilePath() {
 		return storage.getFilePath();
 	}
@@ -452,11 +453,11 @@ public class LogicController {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public String getCssPath() {
 		return storage.getCssPath();
 	}
-	
+
 	/**
 	 * Get the TaskManager object
 	 * 

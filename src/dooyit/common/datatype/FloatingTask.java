@@ -1,6 +1,7 @@
 //@@author A0126356E
 package dooyit.common.datatype;
 
+import dooyit.common.Constants;
 import dooyit.common.datatype.DateTime.DAY;
 import dooyit.common.datatype.DateTime.MONTH;
 
@@ -42,9 +43,9 @@ public class FloatingTask extends Task {
 		this.category = task.category;
 		this.isCompleted = task.isCompleted;
 	}
-	
+
 	@Override
-	public boolean hasOverlap(Task task){
+	public boolean hasOverlap(Task task) {
 		return false;
 	}
 
@@ -67,38 +68,38 @@ public class FloatingTask extends Task {
 	public boolean isSameDate(DateTime dateTime) {
 		return false;
 	}
-	
+
 	@Override
 	public boolean isOverDue(DateTime dateTime) {
 		return false;
 	}
 
 	@Override
-	public boolean isMonth(MONTH month){
+	public boolean isMonth(MONTH month) {
 		return false;
 	}
-	
+
 	@Override
-	public boolean isDay(DAY day){
+	public boolean isDay(DAY day) {
 		return false;
 	}
-	
+
 	@Override
 	public String getDateString() {
-		return "";
+		return Constants.EMPTY_STRING;
 	}
 
 	@Override
 	public String toString() {
 
 		String taskString = taskName;
-		String categoryString = "";
+		String categoryString = Constants.EMPTY_STRING;
 
 		if (hasCategory()) {
-			categoryString = " ,Cat: " + category.getName() + "-" + category.getCustomColourName();
+			categoryString = String.format(Constants.DISPLAY_CATEGORY, category.getName(), category.getCustomColourName());
 		}
 
-		return uniqueId + ")" + taskString + categoryString;
+		return taskString + categoryString;
 	}
 
 	@Override

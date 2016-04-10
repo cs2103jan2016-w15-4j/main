@@ -7,7 +7,7 @@ import dooyit.logic.api.Action;
 import dooyit.logic.api.LogicAction;
 import dooyit.logic.api.LogicController;
 
-public class EditCategoryCommand implements Command, ReversibleCommand {
+public class EditCategoryCommand implements ReversibleCommand {
 
 	private static final String FEEDBACK_CATEGORY_EDITED = "Category has been edited.";
 	private String categoryName;

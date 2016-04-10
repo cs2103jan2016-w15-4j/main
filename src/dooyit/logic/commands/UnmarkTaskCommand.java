@@ -10,7 +10,7 @@ import dooyit.logic.api.Action;
 import dooyit.logic.api.LogicAction;
 import dooyit.logic.api.LogicController;
 
-public class UnmarkTaskCommand implements Command, ReversibleCommand {
+public class UnmarkTaskCommand implements ReversibleCommand {
 
 	private ArrayList<Integer> unmarkIds;
 	private ArrayList<Task> unmarkedTasks;

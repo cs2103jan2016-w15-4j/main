@@ -1,22 +1,23 @@
 //@@author A0126356E
 package dooyit.common.datatype;
 
+import dooyit.common.Constants;
 import dooyit.common.datatype.DateTime.DAY;
 import dooyit.common.datatype.DateTime.MONTH;
 
 public class DeadlineTask extends Task {
 
 	DateTime dateTimeDeadline;
-	
-	public DeadlineTask(String taskName, DateTime deadline){
+
+	public DeadlineTask(String taskName, DateTime deadline) {
 		assert (taskName != null && deadline != null);
 
 		taskType = TaskType.DEADLINE;
 		this.taskName = taskName;
 		this.dateTimeDeadline = deadline;
 	}
-	
-	public DeadlineTask(String taskName, DateTime deadline, Category category){
+
+	public DeadlineTask(String taskName, DateTime deadline, Category category) {
 		assert (taskName != null && deadline != null);
 
 		taskType = TaskType.DEADLINE;
@@ -24,10 +25,10 @@ public class DeadlineTask extends Task {
 		this.dateTimeDeadline = deadline;
 		this.category = category;
 	}
-	
-	public DeadlineTask(Task task, DateTime dateTimeDeadline){
-		assert(task != null);
-		
+
+	public DeadlineTask(Task task, DateTime dateTimeDeadline) {
+		assert (task != null);
+
 		this.taskType = TaskType.DEADLINE;
 		this.displayId = task.displayId;
 		this.uniqueId = task.uniqueId;
@@ -36,10 +37,10 @@ public class DeadlineTask extends Task {
 		this.isCompleted = task.isCompleted;
 		this.dateTimeDeadline = dateTimeDeadline;
 	}
-	
-	public DeadlineTask(DeadlineTask deadlineTask){
-		assert(deadlineTask != null);
-		
+
+	public DeadlineTask(DeadlineTask deadlineTask) {
+		assert (deadlineTask != null);
+
 		this.taskType = TaskType.DEADLINE;
 		this.displayId = deadlineTask.displayId;
 		this.uniqueId = deadlineTask.uniqueId;
@@ -48,97 +49,95 @@ public class DeadlineTask extends Task {
 		this.category = deadlineTask.category;
 		this.isCompleted = deadlineTask.isCompleted;
 	}
-	
+
 	public DateTime getDateTimeDeadline() {
 		return dateTimeDeadline;
 	}
-	
+
 	@Override
-	public boolean hasOverlap(Task task){
+	public boolean hasOverlap(Task task) {
 		return false;
 	}
-	
+
 	@Override
-	public DateTime getDateTime(){
+	public DateTime getDateTime() {
 		return dateTimeDeadline;
 	}
-	
+
 	@Override
-	public int compareDateTo(Task task){
-		if(task instanceof FloatingTask){
+	public int compareDateTo(Task task) {
+		if (task instanceof FloatingTask) {
 			return -1;
 		}
-			
+
 		return this.dateTimeDeadline.compareTo(task.getDateTime());
 	}
-	
+
 	@Override
-	public Task copy(){
+	public Task copy() {
 		return new DeadlineTask(this);
 	}
-	
+
 	@Override
-	public boolean isSameDate(DateTime dateTime){
+	public boolean isSameDate(DateTime dateTime) {
 		return dateTimeDeadline.isTheSameDateAs(dateTime);
 	}
-	
+
 	@Override
-	public boolean isOverDue(DateTime dateTime){
+	public boolean isOverDue(DateTime dateTime) {
 		return !isSameDate(dateTime) && !isCompleted && dateTimeDeadline.compareTo(dateTime) == -1;
 	}
-	
+
 	@Override
-	public boolean isMonth(MONTH month){
+	public boolean isMonth(MONTH month) {
 		return dateTimeDeadline.isMonth(month);
 	}
-	
+
 	@Override
-	public boolean isDay(DAY day){
+	public boolean isDay(DAY day) {
 		return dateTimeDeadline.isDay(day);
 	}
-	
+
 	@Override
-	public String getDateString(){
-		if(dateTimeDeadline.hasTime()){
+	public String getDateString() {
+		if (dateTimeDeadline.hasTime()) {
 			return dateTimeDeadline.getTime24hStr();
-		}
-		else{
-			return "";
+		} else {
+			return Constants.EMPTY_STRING;
 		}
 	}
-	
+
 	@Override
 	public String toString() {
-		String taskString = taskName + ", Deadline: " + dateTimeDeadline.toString();
-		String categoryString = "";
-		
-		if(hasCategory()){
-			categoryString = " ,Cat: " + category.getName() + "-" + category.getCustomColourName();
+		String taskString = String.format(Constants.DISPLAY_TASK_DEADLINE, taskName, dateTimeDeadline.toString());
+		String categoryString = Constants.EMPTY_STRING;
+
+		if (hasCategory()) {
+			categoryString = String.format(Constants.DISPLAY_CATEGORY, category.getName(), category.getCustomColourName());
 		}
-		
+
 		return taskString + categoryString;
 	}
-	
+
 	@Override
 	public boolean equals(Object o) {
 		if (o instanceof DeadlineTask) {
 			DeadlineTask deadlineTask = (DeadlineTask) o;
-			return this.uniqueId == deadlineTask.uniqueId && this.getName().equals(deadlineTask.getName()) 
-					&& this.getDateTimeDeadline().equals(deadlineTask.getDateTimeDeadline());
+			return this.uniqueId == deadlineTask.uniqueId && this.getName().equals(deadlineTask.getName()) && this.getDateTimeDeadline().equals(deadlineTask.getDateTimeDeadline());
 		}
 		return false;
 	}
-	
+
 	@Override
-	public TaskData convertToData(){
+	public TaskData convertToData() {
 		DeadlineTaskData deadlineTaskData;
-		
-		if(!hasCategory()){
+
+		if (!hasCategory()) {
 			deadlineTaskData = new DeadlineTaskData(taskName, dateTimeDeadline, isCompleted);
-		}else{
+		} else {
 			deadlineTaskData = new DeadlineTaskData(taskName, dateTimeDeadline, category.getName(), isCompleted);
 		}
-		
+
 		return deadlineTaskData;
 	}
 }

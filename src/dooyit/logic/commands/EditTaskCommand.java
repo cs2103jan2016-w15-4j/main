@@ -9,7 +9,7 @@ import dooyit.logic.api.Action;
 import dooyit.logic.api.LogicAction;
 import dooyit.logic.api.LogicController;
 
-public class EditTaskCommand implements Command, ReversibleCommand {
+public class EditTaskCommand implements ReversibleCommand {
 
 	private static final String FEEDBACK_TASK_EDITED = "Task has been edited.";
 

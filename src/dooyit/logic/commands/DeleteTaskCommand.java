@@ -10,7 +10,7 @@ import dooyit.logic.api.Action;
 import dooyit.logic.api.LogicAction;
 import dooyit.logic.api.LogicController;
 
-public class DeleteTaskCommand implements Command, ReversibleCommand {
+public class DeleteTaskCommand implements ReversibleCommand {
 
 	private ArrayList<Integer> deleteIds;
 	private ArrayList<Task> deletedTasks;

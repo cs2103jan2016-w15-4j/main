@@ -8,7 +8,7 @@ import dooyit.logic.api.Action;
 import dooyit.logic.api.LogicAction;
 import dooyit.logic.api.LogicController;
 
-public class AddCategoryCommand implements Command, ReversibleCommand {
+public class AddCategoryCommand implements ReversibleCommand {
 
 	private String categoryName;
 	private String colourString;

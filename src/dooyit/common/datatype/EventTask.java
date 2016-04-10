@@ -3,6 +3,7 @@ package dooyit.common.datatype;
 
 import java.util.ArrayList;
 
+import dooyit.common.Constants;
 import dooyit.common.datatype.DateTime.DAY;
 import dooyit.common.datatype.DateTime.MONTH;
 
@@ -14,7 +15,6 @@ public class EventTask extends Task {
 	private boolean isMultiDayOn = false;
 	private int currentMultiDay = 0;
 	private ArrayList<String> multiDayString;
-	private static final int UNINITIALISED = -1;
 
 	public EventTask(String taskName, DateTime start, DateTime end) {
 		assert (taskName != null && start != null && end != null);
@@ -79,7 +79,7 @@ public class EventTask extends Task {
 	public void onMultiDay() {
 		isMultiDayOn = true;
 		currentMultiDay = 0;
-		displayId = UNINITIALISED;
+		displayId = Constants.UNINITIALISED;
 	}
 
 	public void offMultiDay() {
@@ -129,15 +129,15 @@ public class EventTask extends Task {
 	}
 
 	@Override
-	public boolean isMonth(MONTH month){
+	public boolean isMonth(MONTH month) {
 		return dateTimeStart.isMonth(month) || dateTimeEnd.isMonth(month);
 	}
-	
+
 	@Override
 	public boolean setDisplayId(int taskId) {
 
 		if (hasMultiDay) {
-			if (this.displayId == UNINITIALISED) {
+			if (this.displayId == Constants.UNINITIALISED) {
 				this.displayId = taskId;
 				return true;
 			} else {
@@ -157,8 +157,7 @@ public class EventTask extends Task {
 	@Override
 	public boolean isSameDate(DateTime dateTime) {
 		if (hasMultiDay && isMultiDayOn) {
-			return dateTimeStart.isTheSameDateAs(dateTime) || DateTime.isWithin(dateTime, dateTimeStart, dateTimeEnd)
-					|| dateTimeEnd.isTheSameDateAs(dateTime);
+			return dateTimeStart.isTheSameDateAs(dateTime) || DateTime.isWithin(dateTime, dateTimeStart, dateTimeEnd) || dateTimeEnd.isTheSameDateAs(dateTime);
 		} else {
 			return dateTimeStart.isTheSameDateAs(dateTime);
 		}
@@ -166,8 +165,7 @@ public class EventTask extends Task {
 
 	@Override
 	public boolean isOverDue(DateTime dateTime) {
-		boolean isOverDue = !dateTimeStart.isTheSameDateAs(dateTime) && dateTimeStart.compareTo(dateTime) == -1
-				&& !isCompleted;
+		boolean isOverDue = !dateTimeStart.isTheSameDateAs(dateTime) && dateTimeStart.compareTo(dateTime) == -1 && !isCompleted;
 
 		if (isOverDue) {
 			hasMultiDay = false;
@@ -177,26 +175,26 @@ public class EventTask extends Task {
 	}
 
 	@Override
-	public boolean isDay(DAY day){
+	public boolean isDay(DAY day) {
 		return DateTime.isWithinDay(day, dateTimeStart, dateTimeEnd);
 	}
-	
+
 	@Override
 	public String getDateString() {
 		if (hasMultiDay && isMultiDayOn) {
 			return multiDayString.get((currentMultiDay++) % multiDayString.size());
 		}
 
-		return dateTimeStart.getTime24hStr() + " - " + dateTimeEnd.getTime24hStr();
+		return dateTimeStart.getTime24hStr() + Constants.SYMBOL_DASH + dateTimeEnd.getTime24hStr();
 	}
 
 	@Override
 	public String toString() {
-		String taskString = taskName + ", Event: " + dateTimeStart.toString() + " to " + dateTimeEnd.toString();
-		String categoryString = "";
+		String taskString = String.format(Constants.DISPLAY_TASK_EVENT, taskName, dateTimeStart.toString(), dateTimeEnd.toString());
+		String categoryString = Constants.EMPTY_STRING;
 
 		if (hasCategory()) {
-			categoryString = ", Cat: " + category.getName() + "-" + category.getCustomColourName();
+			categoryString = String.format(Constants.DISPLAY_CATEGORY, category.getName(), category.getCustomColourName());
 		}
 
 		return taskString + categoryString;
@@ -206,9 +204,7 @@ public class EventTask extends Task {
 	public boolean equals(Object o) {
 		if (o instanceof EventTask) {
 			EventTask eventTask = (EventTask) o;
-			return this.uniqueId == eventTask.uniqueId && this.getName().equals(eventTask.getName())
-					&& this.getDateTimeStart().equals(eventTask.getDateTimeStart())
-					&& this.getDateTimeEnd().equals(eventTask.getDateTimeEnd());
+			return this.uniqueId == eventTask.uniqueId && this.getName().equals(eventTask.getName()) && this.getDateTimeStart().equals(eventTask.getDateTimeStart()) && this.getDateTimeEnd().equals(eventTask.getDateTimeEnd());
 		}
 		return false;
 	}

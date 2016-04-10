@@ -1,6 +1,11 @@
 //@@author A0126356E
 package dooyit.logic.api;
 
+/**
+ * actions that the logic can perform
+ * @author limtaeu
+ *
+ */
 public enum Action {
 	ADD_TODAY_TASK,
 	ADD_NEXT7DAY_TASK,

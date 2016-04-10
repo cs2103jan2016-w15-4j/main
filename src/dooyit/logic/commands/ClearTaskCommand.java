@@ -10,7 +10,7 @@ import dooyit.logic.api.Action;
 import dooyit.logic.api.LogicAction;
 import dooyit.logic.api.LogicController;
 
-public class ClearTaskCommand implements Command, ReversibleCommand {
+public class ClearTaskCommand implements ReversibleCommand {
 
 	ArrayList<Task> clearedTasks;
 	private boolean hasError = false;

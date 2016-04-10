@@ -9,7 +9,7 @@ import dooyit.logic.api.Action;
 import dooyit.logic.api.LogicAction;
 import dooyit.logic.api.LogicController;
 
-public class AddTaskCommand implements Command, ReversibleCommand {
+public class AddTaskCommand implements ReversibleCommand {
 
 	private String taskName;
 	private Task.TaskType taskType;

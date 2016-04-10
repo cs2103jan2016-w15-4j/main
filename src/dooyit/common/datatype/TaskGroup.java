@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 /**
  * TaskGroup is a class that wraps around arraylist of task and gives them a
- * title like Today, Overdue, Monday. 
+ * title like Today, Overdue, Monday.
  * 
  * @author limtaeu
  *

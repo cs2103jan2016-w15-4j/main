@@ -11,7 +11,7 @@ import dooyit.logic.api.Action;
 import dooyit.logic.api.LogicAction;
 import dooyit.logic.api.LogicController;
 
-public class DeleteCategoryCommand implements Command, ReversibleCommand {
+public class DeleteCategoryCommand implements ReversibleCommand {
 
 	private String categoryName;
 	Category removedCategory;

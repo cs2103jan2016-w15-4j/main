@@ -29,7 +29,7 @@ public class LogicController {
 	private DataManager dataManager;
 	private static Logger logger = Logger.getLogger("Logic");
 	private boolean isSaveOn = true;
-	private boolean displayCommandline = true;
+	private boolean displayCommandline = false;
 
 	public LogicController() {
 		logger.log(Level.INFO, "Initialising logic class");

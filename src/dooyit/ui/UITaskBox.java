@@ -123,9 +123,9 @@ public class UITaskBox {
 	private void initTaskCategoryLabel() {
 		this.taskCategoryLabel = new Label();
 		setCategoryCircle();
-	    this.taskCategoryLabel.setAlignment(Pos.CENTER_RIGHT);
-	    this.taskCategoryLabel.getStyleClass().add(STYLECLASS_TASK_CATEGORY_LABEL);
-	    this.taskCategoryLabel.setPrefWidth(PREFWIDTH_TASK_CATEGORY_LABEL);
+		this.taskCategoryLabel.setAlignment(Pos.CENTER_RIGHT);
+		this.taskCategoryLabel.getStyleClass().add(STYLECLASS_TASK_CATEGORY_LABEL);
+		this.taskCategoryLabel.setPrefWidth(PREFWIDTH_TASK_CATEGORY_LABEL);
 	}
 	
 	private void setCategoryCircle() {
@@ -140,7 +140,7 @@ public class UITaskBox {
 	
 	private void initTaskName() {
 		this.taskName = new Label(this.task.getName());
-	    this.taskName.getStyleClass().add(STYLECLASS_TASK_NAME);
+		this.taskName.getStyleClass().add(STYLECLASS_TASK_NAME);
 	}
 	
 	private void initTaskDetailBox() {

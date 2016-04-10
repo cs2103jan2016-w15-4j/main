@@ -14,8 +14,8 @@ import dooyit.logic.api.LogicController;
 public class DeleteCategoryCommand implements ReversibleCommand {
 
 	private String categoryName;
-	Category removedCategory;
-	ArrayList<Task> removedTask;
+	private Category removedCategory;
+	private ArrayList<Task> removedTask;
 	private boolean hasError = false;
 
 	public DeleteCategoryCommand(String categoryName) {

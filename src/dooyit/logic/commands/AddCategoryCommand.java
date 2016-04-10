@@ -46,6 +46,7 @@ public class AddCategoryCommand implements ReversibleCommand {
 
 		String feedbackMsgColor = Constants.EMPTY_STRING;
 
+		// return error if category already exits
 		if (logic.containsCategory(categoryName)) {
 			logicAction = new LogicAction(Action.ERROR, String.format(Constants.FEEDBACK_FAIL_CATEGORY_EXISTS, categoryName));
 			hasError = true;

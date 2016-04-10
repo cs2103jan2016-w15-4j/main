@@ -196,8 +196,26 @@ public class UIController {
 		this.commandBox.getCommandTextField().setOnAction((event) -> {
 			String commandString = commandBox.getCommandTextField().getText();
 			this.commandBox.getCommandTextField().setText(UIData.EMP_STR);
+			this.commandBox.updateHistory(commandString);
 			processInput(commandString);
 		});
+		
+		this.commandBox.getCommandTextField().setOnKeyPressed(new EventHandler<KeyEvent>() {
+	        @Override
+	        public void handle(KeyEvent keyEvent) {
+	        	KeyCode key = keyEvent.getCode();
+	        	switch(key){
+		        	case UP:
+		        		commandBox.showPrevHistory();
+		        		break;
+		        	case DOWN:
+		        		commandBox.showNextHistory();
+		        		break;
+		        	default:
+		        		break;
+				}
+	        }
+	    });
 	}
 
 	private void initSceneListeners() {

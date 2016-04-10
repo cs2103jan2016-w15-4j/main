@@ -27,6 +27,7 @@ public class CategoryDataDeserializer implements JsonDeserializer<CategoryData> 
 		if (object.has(CATEGORY_NAME)) {
 			name = object.get(CATEGORY_NAME).getAsString();
 		} else {
+			//If name field is missing, give it a default name
 			name += count++;
 		}
 		String color = DEFAULT_COLOR;

@@ -28,20 +28,20 @@ public class TaskControllerTest extends Constants {
 		ArrayList<TaskData> tasks = new ArrayList<TaskData>();
 		TaskController taskControl = new TaskController(FOLDER_TEST_STORAGE + SAVE);
 
-		// 10 December 2016 is a Saturday
+		// 10 December 2016
 		int[] date = { 10, 12, 2016 };
 
 		// {"deadline":{"date":"10 12 2016","time":-1},"taskName":"buy
 		// milk","isCompleted":false}
 		DateTime deadline_no_time = new DateTime(date);
-		DeadlineTaskData dlData1 = new DeadlineTaskData("buy milk", deadline_no_time, false);
-		tasks.add(dlData1);
+		DeadlineTaskData deadlineData1 = new DeadlineTaskData("buy milk", deadline_no_time, false);
+		tasks.add(deadlineData1);
 
 		// {"deadline":{"date":"10 12
 		// 2016","time":800},"taskName":"homework","isCompleted":false}
 		DateTime deadline = new DateTime(date, 800);
-		DeadlineTaskData dlData2 = new DeadlineTaskData("homework", deadline, false);
-		tasks.add(dlData2);
+		DeadlineTaskData deadlineData2 = new DeadlineTaskData("homework", deadline, false);
+		tasks.add(deadlineData2);
 
 		// {"taskName":"float","isCompleted":false}
 		FloatingTaskData floatData = new FloatingTaskData("float", false);
@@ -82,25 +82,22 @@ public class TaskControllerTest extends Constants {
 		TaskController taskControl = new TaskController(FOLDER_TEST_STORAGE + EXPECTED);
 		ArrayList<TaskData> loadedTasks = taskControl.load();
 
-		// Test case of tasks
-		// ArrayList<TaskData> tasks = new ArrayList<Task> ();
-
-		// 10 December 2016 is a Saturday
+		// 10 December 2016
 		int[] date = { 10, 12, 2016 };
 
 		// {"deadline":{"date":"10 12 2016","time":-1},"taskName":"buy
 		// milk","isCompleted":false}
 		DateTime deadline_no_time = new DateTime(date);
-		DeadlineTaskData dlData1 = new DeadlineTaskData("buy milk", deadline_no_time, false);
-		DeadlineTaskData expectedDL1 = (DeadlineTaskData) loadedTasks.get(0);
-		Assert.assertTrue(expectedDL1.equals(dlData1));
+		DeadlineTaskData deadlineData1 = new DeadlineTaskData("buy milk", deadline_no_time, false);
+		DeadlineTaskData expectedDeadline1 = (DeadlineTaskData) loadedTasks.get(0);
+		Assert.assertTrue(expectedDeadline1.equals(deadlineData1));
 
 		// {"deadline":{"date":"10 12
 		// 2016","time":800},"taskName":"homework","isCompleted":false}
 		DateTime deadline = new DateTime(date, 800);
-		DeadlineTaskData dlData2 = new DeadlineTaskData("homework", deadline, false);
-		DeadlineTaskData expectedDL2 = (DeadlineTaskData) loadedTasks.get(1);
-		Assert.assertTrue(expectedDL2.equals(dlData2));
+		DeadlineTaskData deadlineData2 = new DeadlineTaskData("homework", deadline, false);
+		DeadlineTaskData expectedDeadline2 = (DeadlineTaskData) loadedTasks.get(1);
+		Assert.assertTrue(expectedDeadline2.equals(deadlineData2));
 
 		// {"taskName":"float","isCompleted":false}
 		FloatingTaskData floatData = new FloatingTaskData("float", false);

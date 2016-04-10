@@ -5,19 +5,18 @@ public class EventTaskData extends TaskData {
 	private DateTime dateTimeStart;
 	private DateTime dateTimeEnd;
 
-	public EventTaskData(String name, DateTime start, DateTime end, String category, boolean isCompleted) {
+	public EventTaskData(String name, DateTime start, DateTime end,
+						boolean isCompleted) {
 		this.taskName = name;
-		this.isCompleted = isCompleted;
-		this.category = category;
 		this.dateTimeStart = start;
 		this.dateTimeEnd = end;
+		this.isCompleted = isCompleted;
 	}
-
-	public EventTaskData(String name, DateTime start, DateTime end, boolean isCompleted) {
-		this.taskName = name;
-		this.isCompleted = isCompleted;
-		this.dateTimeStart = start;
-		this.dateTimeEnd = end;
+	
+	public EventTaskData(String name, DateTime start, DateTime end,
+						String category, boolean isCompleted) {
+		this(name, start, end, isCompleted);
+		this.category = category;
 	}
 
 	public DateTime getStart() {
@@ -27,21 +26,23 @@ public class EventTaskData extends TaskData {
 	public DateTime getEnd() {
 		return this.dateTimeEnd;
 	}
-
+	
 	@Override
 	public boolean equals(Object o) {
 		boolean isEquals = false;
-		
+
 		if (o instanceof EventTaskData) {
 			EventTaskData data = (EventTaskData) o;
 
-			isEquals = this.taskName.equals(data.getName()) 
+			isEquals = this.taskName.equals(data.getName())
 					&& this.isCompleted == data.isCompleted()
-					&& this.dateTimeStart.equals(data.getStart()) 
+					&& this.dateTimeStart.equals(data.getStart())
 					&& this.dateTimeEnd.equals(data.getEnd());
-			
-			if (this.hasCategory()) {
+
+			if (this.hasCategory() && data.hasCategory()) {
 				isEquals = isEquals && this.category.equals(data.getCategory());
+			} else if (this.hasCategory() || data.hasCategory()) {
+				isEquals = false;
 			}
 		}
 

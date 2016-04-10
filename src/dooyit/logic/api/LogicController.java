@@ -185,7 +185,7 @@ public class LogicController {
 
 		try {
 			storage.saveTasks(getTaskDatas());
-			storage.saveCategory(getCategoryDatas());
+			storage.saveCategories(getCategoryDatas());
 		} catch (IOException e) {
 			logger.log(Level.SEVERE, "ERROR: Fail to save");
 		}
@@ -217,7 +217,7 @@ public class LogicController {
 	}
 
 	public void loadCategoryDataFromStorage() throws IOException {
-		ArrayList<CategoryData> categoryDatas = storage.loadCategory();
+		ArrayList<CategoryData> categoryDatas = storage.loadCategories();
 		dataManager.loadCategoryData(this, categoryDatas);
 	}
 
@@ -455,14 +455,6 @@ public class LogicController {
 	
 	public String getCssPath() {
 		return storage.getCssPath();
-	}
-
-	public void loadCustomCss(String path) {
-		try {
-			storage.loadCustomCss(path);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 	}
 	
 	/**

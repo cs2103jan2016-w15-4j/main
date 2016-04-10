@@ -4,19 +4,17 @@ package dooyit.common.datatype;
 public class DeadlineTaskData extends TaskData {
 	private DateTime dateTimeDeadline;
 
-	public DeadlineTaskData(String name, DateTime deadline, 
-							String category, boolean isCompleted) {
-		this.taskName = name;
-		this.isCompleted = isCompleted;
-		this.category = category;
-		this.dateTimeDeadline = deadline;
-	}
-
 	public DeadlineTaskData(String name, DateTime deadline, boolean isCompleted) {
 		this.taskName = name;
-		this.isCompleted = isCompleted;
 		this.dateTimeDeadline = deadline;
+		this.isCompleted = isCompleted;
 	}
+	
+	public DeadlineTaskData(String name, DateTime deadline,
+							String category, boolean isCompleted) {
+		this(name, deadline, isCompleted);
+		this.category = category;
+}
 	
 	public DateTime getDeadline() {
 		return this.dateTimeDeadline;
@@ -25,19 +23,21 @@ public class DeadlineTaskData extends TaskData {
 	@Override
 	public boolean equals(Object o) {
 		boolean isEquals = false;
-		
-		if(o instanceof DeadlineTaskData) {
+
+		if (o instanceof DeadlineTaskData) {
 			DeadlineTaskData data = (DeadlineTaskData) o;
-			
+
 			isEquals = this.taskName.equals(data.getName())
 					&& this.isCompleted == data.isCompleted()
 					&& this.dateTimeDeadline.equals(data.getDeadline());
-			
-			if(this.hasCategory()) {
+
+			if (this.hasCategory() && data.hasCategory()) {
 				isEquals = isEquals && this.category.equals(data.getCategory());
+			} else if (this.hasCategory() || data.hasCategory()) {
+				isEquals = false;
 			}
 		}
-		
+
 		return isEquals;
 	}
 	

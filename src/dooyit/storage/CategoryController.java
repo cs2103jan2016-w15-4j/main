@@ -23,10 +23,10 @@ public class CategoryController {
 	}
 
 	/**
-	 * Saves the list of categories
+	 * Saves the list of categories.
 	 * 
 	 * @param tasks
-	 *            An ArrayList of CategoryData to be saved
+	 *            A list of CategoryData to be saved.
 	 * @return Returns true if categories are saved successfully, otherwise returns
 	 *         false.
 	 * @throws IOException
@@ -37,11 +37,11 @@ public class CategoryController {
 	}
 
 	/**
-	 * Loads the list of categories from the save file
+	 * Loads the list of categories from the save file.
 	 * 
-	 * @return A list of CategoryData to be loaded into the application.
+	 * @return A list of CategoryData to be loaded.
 	 * @throws IOException
-	 *             If loading fails
+	 *             If loading fails.
 	 */
 	public ArrayList<CategoryData> load() throws IOException {
 		return categoryLoader.load();

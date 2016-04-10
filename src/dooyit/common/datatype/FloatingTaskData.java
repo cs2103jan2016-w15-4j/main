@@ -9,23 +9,24 @@ public class FloatingTaskData extends TaskData {
 	}
 
 	public FloatingTaskData(String name, String category, boolean isCompleted) {
-		this.taskName = name;
-		this.isCompleted = isCompleted;
+		this(name, isCompleted);
 		this.category = category;
 	}
-
+	
 	@Override
 	public boolean equals(Object o) {
 		boolean isEquals = false;
-		
+
 		if (o instanceof FloatingTaskData) {
 			FloatingTaskData data = (FloatingTaskData) o;
-			
-			isEquals = this.taskName.equals(data.getName()) 
+
+			isEquals = this.taskName.equals(data.getName())
 					&& this.isCompleted == data.isCompleted();
-			
-			if (this.hasCategory()) {
+
+			if (this.hasCategory() && data.hasCategory()) {
 				isEquals = isEquals && this.category.equals(data.getCategory());
+			} else if (this.hasCategory() || data.hasCategory()) {
+				isEquals = false;
 			}
 		}
 

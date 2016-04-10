@@ -4,8 +4,8 @@ package dooyit.parser;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import dooyit.common.CommandUtils;
 import dooyit.common.exception.IncorrectInputException;
+import dooyit.common.utils.CommandUtils;
 import dooyit.logic.commands.Command;
 
 /**

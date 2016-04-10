@@ -1,8 +1,8 @@
 
 package dooyit.parser;
 
-import dooyit.common.CommandUtils;
 import dooyit.common.exception.IncorrectInputException;
+import dooyit.common.utils.CommandUtils;
 import dooyit.logic.commands.Command;
 
 public class HelpParser implements ParserCommons {

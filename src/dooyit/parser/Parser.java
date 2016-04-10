@@ -1,7 +1,7 @@
 //@@author A0133338J
 package dooyit.parser;
 
-import dooyit.common.CommandUtils;
+import dooyit.common.utils.CommandUtils;
 import dooyit.logic.commands.Command;
 
 public class Parser implements ParserCommons {

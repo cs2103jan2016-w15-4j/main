@@ -1,5 +1,5 @@
 //@@author A0126356E
-package dooyit.common;
+package dooyit.common.utils;
 
 import java.util.ArrayList;
 import dooyit.common.datatype.DateTime;

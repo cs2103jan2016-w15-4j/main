@@ -49,13 +49,10 @@ public class LogicController {
 	}
 
 	public void initParser() {
-<<<<<<< HEAD
 		logger.log(Level.INFO, "Initialising Parser");
 		parser = new ParserController();
-=======
 		logger.log(Level.INFO, Constants.LOG_MSG_INITIALISING_PARSER);
-		parser = new Parser();
->>>>>>> c0e65a976b51930cbd6ab0c2ef3ce82366210679
+		parser = new ParserController();
 	}
 
 	public void initTaskManager() {

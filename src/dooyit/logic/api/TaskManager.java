@@ -17,6 +17,7 @@ import dooyit.common.datatype.TaskGroup;
 import dooyit.common.datatype.Task.TaskType;
 import dooyit.common.utils.TaskDateComparator;
 import dooyit.common.utils.TaskUniqueIdComparator;
+import dooyit.logic.Constants;
 
 /**
  * The task manager is class that manages all the task and provides various
@@ -29,9 +30,6 @@ import dooyit.common.utils.TaskUniqueIdComparator;
  *
  */
 public class TaskManager {
-
-	private static final int DAYS_PER_WEEK = 7;
-
 	enum SearchType {
 		NAME, DATE, DAY, MONTH
 	}
@@ -518,7 +516,7 @@ public class TaskManager {
 	public boolean isNext7DaysTask(Task task) {
 		DateTime currDate = new DateTime();
 
-		for (int i = 0; i < DAYS_PER_WEEK; i++) {
+		for (int i = 0; i < Constants.DAYS_PER_WEEK; i++) {
 			if (task.isSameDate(currDate)) {
 				return true;
 			}
@@ -849,14 +847,14 @@ public class TaskManager {
 			taskGroups.add(taskGroup);
 		}
 
-		taskGroup = createDayTaskGroup("Today", currDate);
+		taskGroup = createDayTaskGroup(Constants.TITLE_TODAY, currDate);
 		if (!taskGroup.isEmpty()) {
 			taskGroups.add(taskGroup);
 			totalSize -= taskGroup.size();
 		}
 
 		currDate.increaseByOneDay();
-		taskGroup = createDayTaskGroup("Tomorrow", currDate);
+		taskGroup = createDayTaskGroup(Constants.TITLE_TOMORROW, currDate);
 		if (!taskGroup.isEmpty()) {
 			taskGroups.add(taskGroup);
 			totalSize -= taskGroup.size();
@@ -875,7 +873,7 @@ public class TaskManager {
 		}
 
 		if (taskGroups.isEmpty()) {
-			taskGroups.add(createEmptyTaskGroup("All"));
+			taskGroups.add(createEmptyTaskGroup(Constants.TITLE_ALL));
 		}
 
 		resetTasksDisplayId(taskGroups);
@@ -900,9 +898,9 @@ public class TaskManager {
 		String title;
 		for (int i = 1; i <= 7; i++) {
 			if (i == 1) {
-				title = "Today";
+				title = Constants.TITLE_TODAY;
 			} else if (i == 2) {
-				title = "Tomorrow";
+				title = Constants.TITLE_TOMORROW;
 			} else {
 				title = currDate.getDayStr();
 			}
@@ -945,7 +943,7 @@ public class TaskManager {
 
 		addOverDueTaskGroup(taskGroups, currDate);
 
-		taskGroup = createDayTaskGroup("Today", currDate);
+		taskGroup = createDayTaskGroup(Constants.TITLE_TODAY, currDate);
 		taskGroups.add(taskGroup);
 
 		resetTasksDisplayId(taskGroups);
@@ -1016,7 +1014,7 @@ public class TaskManager {
 		}
 
 		if (taskGroups.isEmpty()) {
-			taskGroups.add(createEmptyTaskGroup("Search List"));
+			taskGroups.add(createEmptyTaskGroup(Constants.TITLE_SEARCH_LIST));
 		}
 
 		resetTasksDisplayId(taskGroups);
@@ -1026,7 +1024,7 @@ public class TaskManager {
 	private void addOverDueTaskGroup(ArrayList<TaskGroup> taskGroups, DateTime currDate) {
 		ArrayList<Task> overdueTasks = getOverdueTasks(currDate);
 		if (!overdueTasks.isEmpty()) {
-			TaskGroup taskGroup = new TaskGroup("Overdue");
+			TaskGroup taskGroup = new TaskGroup(Constants.TITLE_OVERDUE);
 			taskGroup.addTasks(getOverdueTasks(currDate));
 			sortTasks(taskGroup.getTasks());
 			taskGroups.add(taskGroup);
@@ -1051,7 +1049,7 @@ public class TaskManager {
 	 */
 	private TaskGroup createFloatTaskGroup() {
 		TaskGroup taskGroup;
-		taskGroup = new TaskGroup("Float");
+		taskGroup = new TaskGroup(Constants.TITLE_FLOAT);
 		taskGroup.addTasks(getIncompleteFloatingTasks());
 		sortTasks(taskGroup.getTasks());
 		return taskGroup;
@@ -1082,7 +1080,7 @@ public class TaskManager {
 	 */
 	public TaskGroup createCompletedTaskGroup() {
 		TaskGroup taskGroup;
-		taskGroup = new TaskGroup("Completed");
+		taskGroup = new TaskGroup(Constants.TITLE_COMPLETED);
 		taskGroup.addTasks(getCompletedTasks());
 		sortTasks(taskGroup.getTasks());
 		return taskGroup;
@@ -1213,7 +1211,7 @@ public class TaskManager {
 	}
 
 	/**
-	 * filter task by day
+	 * filter task by dateTime
 	 * 
 	 * @param inTasks
 	 * @param dateTime
@@ -1396,10 +1394,10 @@ public class TaskManager {
 
 	public void display() {
 		System.out.println();
-		System.out.println("Task List");
+		System.out.println(Constants.TITLE_TASK_LIST);
 
 		for (Task task : tasks) {
-			System.out.println(task.getDisplayId() + ": " + task);
+			System.out.println(task.getDisplayId() + Constants.SYMBOL_COLON + task);
 		}
 
 		System.out.println();

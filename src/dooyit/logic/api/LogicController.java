@@ -311,7 +311,7 @@ public class LogicController {
 		boolean isRemoved = taskManager.remove(task);
 		return isRemoved;
 	}
-	
+
 	public void loadTasks(ArrayList<Task> tasks) {
 		taskManager.load(tasks);
 	}

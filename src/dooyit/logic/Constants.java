@@ -48,9 +48,6 @@ public class Constants {
 	public static final String FEEDBACK_SUCCESS_CHANGE_THEME = "Your theme has been change to %1$s skin!";
 	public static final String FEEDBACK_INVALID_THEME = "%1$s is not available, try DEFAULT, DARK, AQUA or CUSTOM";
 
-	public static final String SPACE = " ";
-	public static final String EMPTY_STRING = "";
-
 	public static final String ERROR_FAIL_TO_CREATE_STORAGE = "ERROR: Fail to create storage";
 	public static final String ERROR_FAIL_TO_LOAD_TASK_FROM_STORAGE = "ERROR: Fail to load task from storage";
 	public static final String ERROR_INCORRECT_INPUT = "ERROR: Incorrect Input.";
@@ -68,4 +65,18 @@ public class Constants {
 	public static final String LOG_MSG_INITIALISING_STORAGE = "Initialising Storage";
 	public static final String LOG_MSG_INITIALISING_DATA_MANAGER = "Initialising DataManager";
 	public static final String LOG_MSG_LOADING_DATA_FROM_STORAGE = "Loading data from storage";
+	
+	public static final String TITLE_TODAY = "Today";
+	public static final String TITLE_TOMORROW = "Tomorrow";
+	public static final String TITLE_FLOAT = "Float";
+	public static final String TITLE_ALL = "All";
+	public static final String TITLE_COMPLETED = "Completed";
+	public static final String TITLE_OVERDUE = "Overdue";
+	public static final String TITLE_SEARCH_LIST = "Search List";
+	public static final String TITLE_TASK_LIST = "Task List";
+	
+	public static final int DAYS_PER_WEEK = 7;
+	public static final String SPACE = " ";
+	public static final String EMPTY_STRING = "";
+	public static final String SYMBOL_COLON = ": ";
 }

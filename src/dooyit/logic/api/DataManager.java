@@ -10,7 +10,9 @@ import dooyit.common.datatype.TaskData;
 import dooyit.common.exception.IncorrectInputException;
 
 /**
- * DataManager is responsible for converting all tasks into taskDatas and loading task and category into logic from taskData
+ * DataManager is responsible for converting all tasks into taskDatas and
+ * loading task and category into logic from taskData
+ * 
  * @author limtaeu
  *
  */

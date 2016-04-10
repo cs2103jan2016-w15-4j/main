@@ -330,15 +330,15 @@ public class UIController {
 	 */
 	private void processCommandBoxKeyEvent(KeyEvent keyEvent) {
 		KeyCode key = keyEvent.getCode();
-    	switch(key){
-        	case UP:
-        		commandBox.showPrevHistory();
-        		break;
-        	case DOWN:
-        		commandBox.showNextHistory();
-        		break;
-        	default:
-        		break;
+		switch(key) {
+			case UP:
+				this.commandBox.showPrevHistory();
+				break;
+			case DOWN:
+				this.commandBox.showNextHistory();
+				break;
+			default:
+				break;
 		}
 	}
 

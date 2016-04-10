@@ -20,6 +20,11 @@ import dooyit.common.datatype.TaskGroup;
 import dooyit.common.datatype.DateTime.Day;
 import dooyit.common.datatype.DateTime.Month;
 
+/**
+ * The logicController process the input and perform the neccessary actions
+ * @author limtaeu
+ *
+ */
 public class LogicController {
 
 	private ParserController parserController;
@@ -113,9 +118,6 @@ public class LogicController {
 		return logicAction;
 	}
 
-	/**
-	 * @param command
-	 */
 	public LogicAction processCommand(Command command) {
 		LogicAction logicAction = executeCommand(command);
 		addCommandToHistory(command);
@@ -124,9 +126,6 @@ public class LogicController {
 		return logicAction;
 	}
 
-	/**
-	 * @param command
-	 */
 	private LogicAction executeCommand(Command command) {
 		LogicAction logicAction = null;
 

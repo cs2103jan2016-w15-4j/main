@@ -12,12 +12,13 @@ public abstract class Task {
 	};
 
 	protected String taskName;
+	protected Category category;
 	protected int displayId;
 	protected TaskType taskType;
 	protected boolean isCompleted;
-	protected Category category;
-	protected static int curUniqueTaskId = 1;
 	protected int uniqueId; // to determine which task is created first
+	
+	protected static int curUniqueTaskId = 1;
 	
 	public Task() {
 		uniqueId = curUniqueTaskId;

@@ -26,9 +26,8 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) throws IOException {
 		try {
-			logic = new LogicController();
 			initStage(primaryStage);
-			this.ui = UIController.getInstance(primaryStage, logic);
+			this.ui = UIController.getInstance(primaryStage);
 			primaryStage.setScene(this.ui.getScene());
 			primaryStage.show();
 		} catch (Exception e) {

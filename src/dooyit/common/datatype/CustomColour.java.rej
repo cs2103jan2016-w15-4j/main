@@ -1,9 +1,0 @@
-diff a/src/dooyit/common/datatype/CustomColour.java b/src/dooyit/common/datatype/CustomColour.java	(rejected hunks)
-@@ -17,7 +17,6 @@
- 	}
- 
- 	public static final CustomColour BLACK = new CustomColour("black", 40, 40, 40);
--	public static final CustomColour BLUE = new CustomColour("blue", 26, 214, 253);
- 	public static final CustomColour BLUE = new CustomColour("blue", 0, 104, 139);
- 	public static final CustomColour CYAN = new CustomColour("cyan", 82, 237, 199);
- 	public static final CustomColour GREY = new CustomColour("grey", 219, 221, 222);

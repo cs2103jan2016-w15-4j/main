@@ -38,65 +38,70 @@ public class AddParser implements ParserCommons {
 		FLOATING, WORK, EVENT, INVALID
 	};
 
-	// AddParser constructor
+	/** Initializes a new AddParser object */
 	public AddParser() {
 		logger.log(Level.INFO, "Initialised AddParser object");
 	}
 
 	public Command getCommand(String input) throws IncorrectInputException {
-		logger.log(Level.INFO, "Getting command object from AddParser");
+		logger.log(Level.INFO, "Getting command object from Add Parser");
 		userInput = input.trim();
+		
+		// Sets the command attribute to the correct command object
+		setAddCommand();
+		return command;
+	}
+
+	private void setAddCommand() {
 		switch (getTaskType()) {
 		case FLOATING:
 			try {
 				parseFloat();
 			} catch (IncorrectInputException e) {
-				setToInvalidCommand(e.getMessage());
+				setInvalidCommand(e.getMessage());
 				break;
 			}
-			setToFloatCommand();
+			setFloatCommand();
 			break;
 
 		case WORK:
 			try {
 				parseWork();
 			} catch (IncorrectInputException e) {
-				setToInvalidCommand(e.getMessage());
+				setInvalidCommand(e.getMessage());
 				break;
 			}
-			setToWorkCommand();
+			setWorkCommand();
 			break;
 
 		case EVENT:
 			try {
 				parseEvent();
 			} catch (IncorrectInputException e) {
-				setToInvalidCommand(e.getMessage());
+				setInvalidCommand(e.getMessage());
 				break;
 			}
-			setToEventCommand();
+			setEventCommand();
 			break;
 
 		default:
-			setToInvalidCommand(ERROR_MESSAGE_INVALID_ADD_COMMAND);
+			setInvalidCommand(ERROR_MESSAGE_INVALID_ADD_COMMAND);
 		}
-
-		return command;
 	}
 
-	private void setToInvalidCommand(String message) {
+	private void setInvalidCommand(String message) {
 		command = CommandUtils.createInvalidCommand(message);
 	}
 
-	private void setToEventCommand() {
+	private void setEventCommand() {
 		command = CommandUtils.createAddCommandEvent(taskName, start, end);
 	}
 
-	private void setToWorkCommand() {
+	private void setWorkCommand() {
 		command = CommandUtils.createAddCommandDeadline(taskName, deadline);
 	}
 
-	private void setToFloatCommand() {
+	private void setFloatCommand() {
 		command = CommandUtils.createAddCommandFloat(taskName);
 	}
 

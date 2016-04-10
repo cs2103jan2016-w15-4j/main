@@ -28,7 +28,7 @@ public class LogicController {
 	private StorageController storage;
 	private HistoryManager historyManager;
 	private DataManager dataManager;
-	private static Logger logger = Logger.getLogger("Logic");
+	private static Logger logger = Logger.getLogger(Constants.LOG_LOGIC);
 	private boolean isSaveOn = true;
 	private boolean displayCommandline = false;
 
@@ -48,41 +48,26 @@ public class LogicController {
 		logger.log(Level.INFO, Constants.LOG_MSG_END_OF_INITIALISING_LOGIC_CLASS);
 	}
 
-	/**
-	 * 
-	 */
 	public void initParser() {
 		logger.log(Level.INFO, Constants.LOG_MSG_INITIALISING_PARSER);
 		parser = new Parser();
 	}
 
-	/**
-	 * 
-	 */
 	public void initTaskManager() {
 		logger.log(Level.INFO, Constants.LOG_MSG_INITIALISING_TASK_MANAGER);
 		taskManager = new TaskManager();
 	}
 
-	/**
-	 * 
-	 */
 	public void initCategoryManager() {
 		logger.log(Level.INFO, Constants.LOG_MSG_INITIALISING_CATEGORY_MANAGER);
 		categoryManager = new CategoryManager();
 	}
 
-	/**
-	 * 
-	 */
 	public void initHistoryManager() {
 		logger.log(Level.INFO, Constants.LOG_MSG_INITIALISING_HISTORY_MANAGER);
 		historyManager = new HistoryManager();
 	}
 
-	/**
-	 * 
-	 */
 	private void initStorage() {
 		logger.log(Level.INFO, Constants.LOG_MSG_INITIALISING_STORAGE);
 		try {
@@ -97,9 +82,6 @@ public class LogicController {
 		dataManager = new DataManager();
 	}
 
-	/**
-	 * 
-	 */
 	public void loadFromStorage() {
 		logger.log(Level.INFO, Constants.LOG_MSG_LOADING_DATA_FROM_STORAGE);
 		try {
@@ -109,13 +91,6 @@ public class LogicController {
 		} catch (IOException e) {
 			logger.log(Level.SEVERE, Constants.ERROR_FAIL_TO_LOAD_TASK_FROM_STORAGE);
 		}
-	}
-
-	/**
-	 * @param tasks
-	 */
-	public void loadTasks(ArrayList<Task> tasks) {
-		taskManager.load(tasks);
 	}
 
 	/**
@@ -336,6 +311,10 @@ public class LogicController {
 		boolean isRemoved = taskManager.remove(task);
 		return isRemoved;
 	}
+	
+	public void loadTasks(ArrayList<Task> tasks) {
+		taskManager.load(tasks);
+	}
 
 	public void markTask(Task task) {
 		taskManager.markTask(task);
@@ -397,7 +376,7 @@ public class LogicController {
 		return addedCategory;
 	}
 
-	public Category removeCategory(String categoryName){
+	public Category removeCategory(String categoryName) {
 		Category removedCategory = categoryManager.remove(categoryName);
 		return removedCategory;
 	}

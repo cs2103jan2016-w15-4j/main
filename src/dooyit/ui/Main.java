@@ -1,3 +1,4 @@
+// @@author A0124278A
 package dooyit.ui;
 
 import java.io.IOException;
@@ -8,7 +9,7 @@ import dooyit.logic.api.LogicController;
 
 /**
  * 
- * @author Lim Ta Eu
+ * @author Wu Wenqi
  */
 
 public class Main extends Application {
@@ -18,7 +19,6 @@ public class Main extends Application {
 	private static final int MINHEIGHT_STAGE = 620;
 
 	private UIController ui;
-	private LogicController logic;
 
 	public Main() {
 	}

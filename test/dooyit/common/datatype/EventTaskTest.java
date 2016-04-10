@@ -1,3 +1,4 @@
+// @@author A0124278A
 package dooyit.common.datatype;
 
 import static org.junit.Assert.assertEquals;

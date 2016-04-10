@@ -1,8 +1,9 @@
+// @@author A0124278A
 package dooyit.ui;
 
 /**
  * 
- * @@author Wu Wenqi <A0124278A>
+ * @author Wu Wenqi
  *
  */
 

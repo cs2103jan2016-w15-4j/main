@@ -1,3 +1,4 @@
+// @@author A0124278A
 package dooyit.ui;
 
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ import javafx.scene.layout.VBox;
 
 /**
  * 
- * @@author Wu Wenqi <A0124278A>
+ * @author Wu Wenqi
  *
  */
 

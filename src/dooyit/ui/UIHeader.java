@@ -1,3 +1,4 @@
+// @@author A0124278A
 package dooyit.ui;
 
 import javafx.geometry.Pos;
@@ -7,7 +8,7 @@ import javafx.scene.text.Font;
 
 /**
  * 
- * @@author Wu Wenqi <A0124278A>
+ * @author Wu Wenqi
  *
  */
 

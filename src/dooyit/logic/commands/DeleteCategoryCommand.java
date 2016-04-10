@@ -43,13 +43,29 @@ public class DeleteCategoryCommand implements ReversibleCommand {
 		LogicAction logicAction;
 
 		if (logic.containsCategory(categoryName)) {
-			removedCategory = logic.removeCategory(categoryName);
-			removedTask = logic.removeTasksWithCategory(removedCategory);
-			logicAction = new LogicAction(Action.DELETE_CATEGORY, String.format(Constants.FEEDBACK_DELETE_CATEGORY, categoryName));
+			logicAction = deleteCategoryAndAllTaskWithTheCategory(logic);
 		} else {
-			logicAction = new LogicAction(Action.ERROR, String.format(Constants.FEEDBACK_CATEGORY_NOT_FOUND, categoryName));
-			hasError = true;
+			logicAction = cantFindCategory();
 		}
+		return logicAction;
+	}
+
+	public LogicAction cantFindCategory() {
+		LogicAction logicAction;
+		logicAction = new LogicAction(Action.ERROR, String.format(Constants.FEEDBACK_CATEGORY_NOT_FOUND, categoryName));
+		hasError = true;
+		return logicAction;
+	}
+
+	/**
+	 * @param logic
+	 * @return
+	 */
+	public LogicAction deleteCategoryAndAllTaskWithTheCategory(LogicController logic) {
+		LogicAction logicAction;
+		removedCategory = logic.removeCategory(categoryName);
+		removedTask = logic.removeTasksWithCategory(removedCategory);
+		logicAction = new LogicAction(Action.DELETE_CATEGORY, String.format(Constants.FEEDBACK_DELETE_CATEGORY, categoryName));
 		return logicAction;
 	}
 

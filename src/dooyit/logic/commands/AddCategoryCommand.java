@@ -48,8 +48,7 @@ public class AddCategoryCommand implements ReversibleCommand {
 
 		// return error if category already exits
 		if (logic.containsCategory(categoryName)) {
-			logicAction = new LogicAction(Action.ERROR, String.format(Constants.FEEDBACK_FAIL_CATEGORY_EXISTS, categoryName));
-			hasError = true;
+			logicAction = categoryAleadyExists();
 			return logicAction;
 		}
 
@@ -69,16 +68,17 @@ public class AddCategoryCommand implements ReversibleCommand {
 		return logicAction;
 	}
 
-	/**
-	 * @param logic
-	 */
+	public LogicAction categoryAleadyExists() {
+		LogicAction logicAction;
+		logicAction = new LogicAction(Action.ERROR, String.format(Constants.FEEDBACK_FAIL_CATEGORY_EXISTS, categoryName));
+		hasError = true;
+		return logicAction;
+	}
+
 	public void addCategoryWithoutColour(LogicController logic) {
 		addedCategory = logic.addCategory(categoryName);
 	}
 
-	/**
-	 * @param logic
-	 */
 	public void addCategoryWithColour(LogicController logic) {
 		addedCategory = logic.addCategory(categoryName, colourString);
 	}

@@ -337,9 +337,13 @@ public class UIController {
 		Action action = logicAction.getAction();
 		switch (action) {
 			case ADD_TODAY_TASK:
-				// if today refresh today view
-				// if next 7 refresh next 7 view
-				
+			case ADD_ALL_TASK:
+				if (this.activeMainView == UIMainViewType.TODAY) {
+					refreshMainView(this.logic.getTaskGroupsToday(), UIMainViewType.TODAY);
+				} else if (this.activeMainView == UIMainViewType.EXTENDED) {
+					refreshMainView(this.logic.getTaskGroupsNext7Days(), UIMainViewType.EXTENDED);
+				}
+				break;
 			case EDIT_TO_TODAY_TASK:
 			case SHOW_TODAY_TASK:
 				refreshMainView(this.logic.getTaskGroupsToday(), UIMainViewType.TODAY);
@@ -354,10 +358,6 @@ public class UIController {
 			case SHOW_FLOATING_TASK:
 				refreshMainView(this.logic.getTaskGroupsFloating(), UIMainViewType.FLOAT);
 				break;
-			case ADD_ALL_TASK:
-				// if today refresh today view
-				// if next 7 refresh next 7 view
-				
 			case EDIT_TO_ALL_TASK:
 			case SHOW_ALL_TASK:
 				refreshMainView(this.logic.getTaskGroupsAll(), UIMainViewType.ALL);
@@ -372,6 +372,7 @@ public class UIController {
 			case DELETE_CATEGORY:
 			case CLEAR_CATEGORY:
 			case EDIT_CATEGORY:
+			case ADD_N_SET_CATEGORY:
 			case UNDO:
 			case REDO:
 				refreshCategoryMenuView();

@@ -18,9 +18,14 @@ import dooyit.common.datatype.TaskGroup;
 import dooyit.logic.api.*;
 
 /**
- * 
- * @author Wu Wenqi
- *
+ * The <tt>UIController</tt> class contains methods to initialize all other classes belonging to the UI.
+ * This is the only class from <tt>dooyit.ui</tt> that communicates directly with the Logic component. 
+ * All communication between UI and Logic happens through it. 
+ * The <tt>UIController</tt> class follows the Singleton design pattern, hence its constructor method is private.
+ * It can be constructed using the <tt>getInstance</tt> method.
+ * @author 	Wu Wenqi
+ * @version 0.5
+ * @since 	2016-04-10
  */
 
 public class UIController {
@@ -51,7 +56,12 @@ public class UIController {
 	private Stage primaryStage;
 	private UIMainViewType activeMainView;
 	private static UIController instance = null;
-
+	
+	/**
+	 * This is the private constructor method for <tt>UIController</tt>.
+	 * It is used by the <tt>getInstance</tt> method.
+	 * @param primaryStage This is the primary stage of the application.
+	 */
 	private UIController(Stage primaryStage) {
 		this.logic = new LogicController();
 		this.primaryStage = primaryStage;
@@ -59,6 +69,15 @@ public class UIController {
 		initialize();
 	}
 
+	/**
+	 * This method is used to create an instance of <tt>UIController</tt> and return it, 
+	 * if it has not already been created. 
+	 * If an instance of <tt>UIController</tt> already exists, 
+	 * no new instance will be created and the existing <tt>UIController</tt> will be returned instead. 
+	 * This method is used by the <tt>Main</tt> class.
+	 * @param primaryStage This is the primary stage of the application.
+	 * @return The <tt>UIController</tt> instance.
+	 */
 	public static synchronized UIController getInstance(Stage primaryStage) {
 		if (instance == null) {
 			instance = new UIController(primaryStage);
@@ -66,6 +85,10 @@ public class UIController {
 		return instance;
 	}
 
+	/**
+	 * This method is used to initialize the <tt>UIController</tt> class.
+	 * It is used by the constructor.
+	 */
 	private void initialize() {
 		initCss();
 		initHeader();
@@ -81,6 +104,10 @@ public class UIController {
 		initPopulate();
 	}
 
+	/**
+	 * This method is used to initialize the file paths of the CSS for the application skins.
+	 * It is used by the <tt>initialize</tt> method.
+	 */
 	private void initCss() {
 		this.urlCssCommon = loadCss(UIStyle.URL_CSS_COMMON);
 		this.urlCssThemeLight = loadCss(UIStyle.URL_CSS_THEME_LIGHT);
@@ -90,14 +117,28 @@ public class UIController {
 		this.logic.setDefaultCustomCss(urlCssThemeCustom);
 	}
 
+	/**
+	 * This method is used to retrieve the absolute pathname of a CSS file given its relative pathname. 
+	 * It is used by the <tt>initialize</tt> method.
+	 * @param cssUrl The relative pathname to be resolved.
+	 * @return The absolute pathname of <tt>cssUrl</tt>.
+	 */
 	private String loadCss(String cssUrl) {
 		return getClass().getResource(cssUrl).toExternalForm();
 	}
 
+	/**
+	 * This method is used to initialize the UI header. 
+	 * It is used by the <tt>initialize</tt> method.
+	 */
 	private void initHeader() {
 		this.header = new UIHeader();
 	}
 
+	/**
+	 * This method is used to initialize the side menu of the UI. 
+	 * It is used by the <tt>initialize</tt> method.
+	 */
 	private void initSideMenu() {
 		this.sideMenu = new UISideMenu(this);
 		setActiveMenuButton(this.activeMainView);
@@ -115,10 +156,21 @@ public class UIController {
 		this.sideMenu.getMainViewToggleGroup().selectedToggleProperty().addListener(toggleListener);
 	}
 
+	/**
+	 * This method is used to retrieve the user data of the selected menu button. 
+	 * It is called by the <tt>initSideMenu</tt> method.
+	 * @return The user data of selected menu button.
+	 */
 	private String getSideMenuUserData() {
 		return this.sideMenu.getMainViewToggleGroup().getSelectedToggle().getUserData().toString();
 	}
 
+	/**
+	 * This method is used to select the menu button which corresponds to <tt>userData</tt> 
+	 * and display the relevant view for it.
+	 * It is used by the <tt>initSideMenu</tt> method.
+	 * @param userData The user data of the selected menu button.
+	 */
 	private void showSelectedSideMenu(String userData) {
 		switch (userData) {
 			case UIData.USERDATA_TODAY:
@@ -151,6 +203,10 @@ public class UIController {
 		mainView.setContent(dayBoxContainer.getView());
 	}
 
+	/**
+	 * This method is used to initialize the main view.
+	 * It is used by the <tt>initialize</tt> method.
+	 */
 	private void initMainView() {
 		this.dayBoxContainer = new UIDayBoxContainer(this);
 		this.mainView = new ScrollPane();
@@ -159,18 +215,38 @@ public class UIController {
 		this.activeMainView = UIMainViewType.TODAY;
 	}
 
+	/**
+	 * This method is used to initialize the command box view. 
+	 * It is used by the <tt>initialize</tt> method.
+	 */
 	private void initCommandBox() {
 		this.commandBox = new UICommandBox();
 	}
 
+	/**
+	 * This method is used to initialize the message box, 
+	 * which is used to pass messages from the application to the user.
+	 * It is used by the <tt>initialize</tt> method.
+	 */
 	private void initMessageBox() {
 		this.messageBox = new UIMessageBox(this.primaryStage);
 	}
 
+	/**
+	 * This method is used to initialize the help box, 
+	 * which is displayed when the user passes a help command.
+	 * It is used by the <tt>initialize</tt> method.
+	 */
 	private void initHelpBox() {
 		this.helpBox = new UIHelpBox();
 	}
 
+	/**
+	 * This method is used to initialize the root view. 
+	 * The root view is the underlying view that contains all the other views. 
+	 * Make sure this method is only called after all other views have been initialized.
+	 * This method is used by the <tt>initialize</tt> method.
+	 */
 	private void initRoot() {
 		this.root = new BorderPane();
 		this.root.setTop(this.header.getView());
@@ -179,17 +255,29 @@ public class UIController {
 		this.root.setBottom(this.commandBox.getView());
 	}
 
+	/**
+	 * This method is used to initialize the scene of the application.
+	 * It is used by the <tt>initialize</tt> method.
+	 */
 	private void initScene() {
 		this.scene = new Scene(root, WIDTH_SCENE, HEIGHT_SCENE);
 		this.scene.getStylesheets().addAll(this.urlCssCommon, this.urlCssThemeLight);
 	}
 
+	/**
+	 * This method is used to initialize event listeners for the UI.
+	 * It is used by the <tt>initialize</tt> method.
+	 */
 	private void initListeners() {
 		initCommandBoxListeners();
 		initSceneListeners();
 		initStageListeners();
 	}
 
+	/**
+	 * This method is used to initialize event listeners for the command box view. 
+	 * It is used by the <tt>initListeners</tt> method.
+	 */
 	private void initCommandBoxListeners() {
 		this.commandBox.getCommandTextField().setOnAction((event) -> {
 			String commandString = commandBox.getCommandTextField().getText();
@@ -206,6 +294,11 @@ public class UIController {
 	    });
 	}
 	
+	/**
+	 * This method is used to process a <tt>KeyEvent</tt> for the command box view.
+	 * It is used by the <tt>initCommandBoxListeners</tt> method.
+	 * @param keyEvent The <tt>KeyEvent</tt> that has occurred.
+	 */
 	private void processCommandBoxKeyEvent(KeyEvent keyEvent) {
 		KeyCode key = keyEvent.getCode();
     	switch(key){
@@ -220,6 +313,10 @@ public class UIController {
 		}
 	}
 
+	/**
+	 * This method is used to initialize the event listeners for the scene of the application.
+	 * It is used by the <tt>initListeners</tt> method.
+	 */
 	private void initSceneListeners() {
 		this.resizeListener = new ChangeListener<Number>() {
 			@Override
@@ -246,6 +343,11 @@ public class UIController {
 		});
 	}
 
+	/**
+	 * This method is used to dynamically adjust the message box and main view layouts 
+	 * when the scene has been resized.
+	 * It is used by the <tt>initSceneListeners</tt> method.
+	 */
 	private void updateOnResize() {
 		this.messageBox.updatePosition();
 		this.dayBoxContainer.updatePosition(primaryStage.getWidth());
@@ -254,6 +356,10 @@ public class UIController {
 		}
 	}
 
+	/**
+	 * This method is used to process a <tt>KeyEvent</tt> for an event listener of the scene.
+	 * @param keyEvent The <tt>KeyEvent</tt> which occurred.
+	 */
 	private void processKeyEvent(final KeyEvent keyEvent) {
 		if (keyEvent.isControlDown()) {
 			KeyCode key = keyEvent.getCode();
@@ -296,6 +402,10 @@ public class UIController {
 		keyEvent.consume();
 	}
 
+	/**
+	 * This method is used to initialize the event listeners for the stage of the application.
+	 * It is used by the <tt>initListeners</tt> method.
+	 */
 	private void initStageListeners() {
 		this.primaryStage.focusedProperty().addListener(new ChangeListener<Boolean>() {
 			@Override
@@ -306,6 +416,12 @@ public class UIController {
 		});
 	}
 	
+	/**
+	 * This method is used to update the visibility of the message box when 
+	 * the stage of the application changes focus.
+	 * @param obs The <tt>boolean</tt> for the stage's focus attribute.
+	 * It is used by the <tt>initStageListeners</tt> method.
+	 */
 	private void updateMessageBoxOnFocusChange(Boolean obs) {
 		if (!obs && this.messageBox.isOn()) {
 			this.messageBox.tempHide();
@@ -314,6 +430,12 @@ public class UIController {
 		}
 	}
 	
+	/**
+	 * This method is used to update the visibility of the help box when 
+	 * the stage of the application changes focus.
+	 * @param obs The <tt>boolean</tt> for the stage's focus attribute.
+	 * It is used by the <tt>initStageListeners</tt> method.
+	 */
 	private void updateHelpBoxOnFocusChange(Boolean obs) {
 		if (!obs && this.helpBox.isOn()) {
 			this.helpBox.tempHide();
@@ -322,19 +444,37 @@ public class UIController {
 		}
 	}
 
+	/**
+	 * This method is used to populate the UI at application startup.
+	 * It is used by the <tt>initialize</tt> method.
+	 */
 	private void initPopulate() {
 		refreshCategoryMenuView();
 		processInput(UIData.CMD_SHOW_TODAY);
 	}
 
+	/**
+	 * This method is used to process a user's input string by passing it to the Logic component. 
+	 * @param s The user's input string.
+	 */
 	private void processInput(String s) {
 		processLogicAction(logic.processInput(s));
 	}
 	
+	/**
+	 * This method is used to get the name of the <tt>Category</tt> whose menu button is selected.
+	 * @return The name of the <tt>Category</tt> whose menu button is selected.
+	 */
 	private String getSelectedCategoryName() {
 		return this.sideMenu.getSelectedCategoryName();
 	}
 
+	/**
+	 * This method is used to process the <tt>LogicAction</tt> that is 
+	 * returned by the Logic component's <tt>processInput</tt> method. 
+	 * It is used by the <tt>processInput</tt> method.
+	 * @param logicAction The <tt>LogicAction</tt> that is returned by Logic component's <tt>processInput</tt> method.
+	 */
 	private void processLogicAction(LogicAction logicAction) {
 		Action action = logicAction.getAction();
 		switch (action) {
@@ -434,19 +574,40 @@ public class UIController {
 		}
 	}
 	
+	/**
+	 * This method is used to check that an <tt>LogicAction</tt> has an non-error message.
+	 * It is used by the <tt>processLogicAction</tt> method.
+	 * @param logicAction The <tt>LogicAction</tt> to be checked.
+	 * @return <tt>True</tt> if <tt>logicAction</tt> has an non-error message, <tt>False</tt> otherwise.
+	 */
 	private boolean hasNonErrorMessage(LogicAction logicAction) {
 		return logicAction.hasMessage() && logicAction.getAction() != Action.ERROR;
 	}
 
+	/**
+	 * This method is used to update the layout of the main view.
+	 * It is used by the <tt>initialize</tt> method.
+	 */
 	private void updatePositions() {
 		this.dayBoxContainer.updatePosition(this.primaryStage.getWidth());
 	}
 
+	/**
+	 * This method is used to populate the message box with a message and display it to the user.
+	 * It is used by the <tt>processLogicAction</tt> method.
+	 * @param msg The message to be displayed.
+	 * @param msgType The <tt>UIMessageType</tt> of the message to be displayed.
+	 */
 	private void displayMessage(String msg, UIMessageType msgType) {
 		this.messageBox.show(msg, msgType);
 		this.messageBox.hide();
 	}
 
+	/**
+	 * This method is used to change the application skin.
+	 * It is used by the <tt>processLogicAction</tt> method.
+	 * @param theme The <tt>UITheme</tt> to change the application skin into.
+	 */
 	private void changeTheme(UITheme theme) {
 		this.scene.getStylesheets().clear();
 		this.scene.getStylesheets().add(urlCssCommon);
@@ -466,10 +627,20 @@ public class UIController {
 		}
 	}
 	
+	/**
+	 * This method is used to get the absolute pathname for the custom CSS file.
+	 * It is used by the <tt>changeTheme</tt> method.
+	 * @return The absolute pathname for the custom CSS file.
+	 */
 	private String getCustomCssPath() {
 		return PATH_PREPEND + this.logic.getCssPath().replace(SPACE, ESCAPED_SPACE);
 	}
 
+	/**
+	 * This method is used to select a menu button.
+	 * It is used by the <tt>refreshMainView</tt> methods.
+	 * @param mainViewType The <tt>UIMainViewType</tt> of the menu button to be selected.
+	 */
 	private void setActiveMenuButton(UIMainViewType mainViewType) {
 		switch (mainViewType) {
 			case TODAY:
@@ -493,59 +664,120 @@ public class UIController {
 				break;
 		}
 	}
-
+	
+	/**
+	 * This method is used to select a category menu button.
+	 * It is used by the <tt>processLogicAction</tt> method.
+	 * @param category The <tt>Category</tt> whose menu button is to be selected.
+	 */
 	private void setActiveCategoryButton(Category category) {
 		this.sideMenu.setActiveCategoryButton(category);
 	}
 
+	/**
+	 * This method is used to update the main view of the UI.
+	 * It is used by the <tt>processLogicAction</tt> method.
+	 * @param taskGroupList The <tt>ArrayList</tt> of <tt>TaskGroup</tt> objects 
+	 * to populate the main view with.
+	 */
 	private void refreshMainView(ArrayList<TaskGroup> taskGroupList) {
 		this.dayBoxContainer.refresh(taskGroupList);
 		this.mainView.setContent(this.dayBoxContainer.getView());
 	}
 
+	/**
+	 * This method is used to update the main view and selected menu button of the UI.
+	 * It is used by the <tt>processLogicAction</tt> method. 
+	 * @param taskGroupList The <tt>ArrayList</tt> of <tt>TaskGroup</tt> objects 
+	 * to populate the main view with.
+	 * @param mainViewType The <tt>UIMainViewType</tt> of the menu button to be selected.
+	 */
 	private void refreshMainView(ArrayList<TaskGroup> taskGroupList, UIMainViewType mainViewType) {
 		this.activeMainView = mainViewType;
 		setActiveMenuButton(mainViewType);
 		refreshMainView(taskGroupList);
 	}
 
+	/**
+	 * This method is used to update the main view and selected category menu button of the UI.
+	 * It is used by the <tt>processLogicAction</tt> method. 
+	 * @param taskGroupList The <tt>ArrayList</tt> of <tt>TaskGroup</tt> objects 
+	 * to populate the main view with.
+	 * @param category The <tt>Category</tt> whose menu button is to be selected.
+	 */
 	private void refreshMainView(ArrayList<TaskGroup> taskGroupList, Category category) {
 		this.activeMainView = UIMainViewType.CATEGORY;
 		refreshMainView(taskGroupList);
 	}
 
+	/**
+	 * This method is used to update the category menu buttons.
+	 * It is used by <tt>initPopulate</tt> and <tt>processLogicAction</tt> methods.
+	 */
 	private void refreshCategoryMenuView() {
 		this.sideMenu.refreshCategoryMenuView(this.logic.getAllCategories());
 	}
 
+	/**
+	 * This method is used to display the help box.
+	 * It is used by the <tt>processLogicAction</tt> method.
+	 */
 	private void showHelp() {
 		this.helpBox.show(this.primaryStage);
 	}
 
+	/**
+	 * This method is used to retrieve the primary stage of the application scene.
+	 * @return The primary stage of the application scene.
+	 */
 	protected Stage getStage() {
 		return this.primaryStage;
 	}
 
+	/**
+	 * This method is used to retrieve the width of the primary stage of the application scene.
+	 * @return The width of the primary stage of the application scene.
+	 */
 	protected double getStageWidth() {
 		return this.primaryStage.getWidth();
 	}
 
+	/**
+	 * This method is used to mark a <tt>Task</tt> as completed.
+	 * @param taskId The displayed id of the <tt>Task</tt> to be marked.
+	 */
 	protected void markTask(int taskId) {
 		processInput(UIData.CMD_MARK + Integer.toString(taskId));
 	}
 	
+	/**
+	 * This method is used to unmark a previously marked <tt>Task</tt>.
+	 * @param taskId The displayed id of the <tt>Task</tt> to be unmarked.
+	 */
 	protected void unmarkTask(int taskId) {
 		processInput(UIData.CMD_UNMARK + Integer.toString(taskId));
 	}
 
+	/**
+	 * This method is used to process a command string.
+	 * @param cmd The command string to be processed.
+	 */
 	protected void processCommand(String cmd) {
 		processInput(cmd);
 	}
 	
+	/**
+	 * This method is used to retrieve the currently active <tt>UIMainViewType</tt> of the UI.
+	 * @return The currently active <tt>UIMainViewType</tt> of the UI.
+	 */
 	public UIMainViewType getActiveViewType() {
 		return this.activeMainView;
 	}
 	
+	/**
+	 * This method is used to retrieve the scene of the application.
+	 * @return The scene of the application.
+	 */
 	protected Scene getScene() {
 		return this.scene;
 	}

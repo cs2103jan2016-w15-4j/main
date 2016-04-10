@@ -44,7 +44,7 @@ public class AddCategoryParser implements ParserCommons {
 		VALID, INVALID_TOO_MANY_WORDS, INVALID_EMPTY_STRING
 	};
 
-	// AddCategoryParser Constructor
+	/** Initializes a new AddCategoryParser object */
 	public AddCategoryParser() {
 		logger.log(Level.INFO, "Initialised AddCategoryParser object");
 	}
@@ -69,7 +69,7 @@ public class AddCategoryParser implements ParserCommons {
 		parse();
 
 		// Sets the command attribute
-		setCommand();
+		setAddCategoryCommand();
 		return command;
 	}
 
@@ -77,7 +77,7 @@ public class AddCategoryParser implements ParserCommons {
 	 * Sets the command attribute to either an AddCategory command object or an
 	 * InvalidCommand object
 	 */
-	private void setCommand() {
+	private void setAddCategoryCommand() {
 		switch (getCommandType()) {
 		case VALID:
 			setCreateCategoryCommand();

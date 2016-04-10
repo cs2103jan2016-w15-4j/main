@@ -121,7 +121,7 @@ public class TaskSaver extends Saver<TaskData> {
 	 * Updates the file path for saving.
 	 * 
 	 * @param path
-	 *            The new file path for saving.
+	 *        The new file path for saving
 	 */
 	protected void setFileDestination(String path) {
 		this.filePath = path;
@@ -132,8 +132,9 @@ public class TaskSaver extends Saver<TaskData> {
 	 * further conversion to a JSON string.
 	 * 
 	 * @param task
-	 *            The task to be converted
-	 * @return The JSON string representation of the TaskData.
+	 *        The task to be converted
+	 *        
+	 * @return The JSON string representation of the TaskData
 	 */
 	String setFormat(TaskData task) {
 		String json = "";

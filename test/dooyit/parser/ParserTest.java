@@ -27,11 +27,11 @@ public class ParserTest {
 	private static final String ERROR_MESSAGE_INVALID_TASK_ID = "Invalid Task ID: ";
 
 	
-	Parser parser;
+	ParserController parser;
 	
 	@Before
 	public void setup() {
-		parser = new Parser();
+		parser = new ParserController();
 	}
 	
 	//****************************************

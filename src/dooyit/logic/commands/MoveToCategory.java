@@ -11,7 +11,7 @@ import dooyit.logic.api.Action;
 import dooyit.logic.api.LogicAction;
 import dooyit.logic.api.LogicController;
 
-public class MoveToCategory implements Command, ReversibleCommand {
+public class MoveToCategory implements ReversibleCommand {
 
 	private String categoryName;
 	private ArrayList<Integer> taskIds;

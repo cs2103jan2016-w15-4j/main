@@ -7,7 +7,7 @@ import dooyit.logic.api.Action;
 import dooyit.logic.api.LogicAction;
 import dooyit.logic.api.LogicController;
 
-public class StorageCommand implements Command, ReversibleCommand {
+public class StorageCommand implements ReversibleCommand {
 
 	private String path;
 	private String previousPath;

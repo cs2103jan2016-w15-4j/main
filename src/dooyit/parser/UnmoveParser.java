@@ -1,8 +1,8 @@
 package dooyit.parser;
 
+import dooyit.common.CommandUtils;
 import dooyit.common.exception.IncorrectInputException;
 import dooyit.logic.commands.Command;
-import dooyit.logic.commands.CommandUtils;
 
 public class UnmoveParser extends TagParser {
 	private static final String ERROR_MESSAGE_INVALID_UNMOVE_COMMAND = "Invalid Unmove Command!";

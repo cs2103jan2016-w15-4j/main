@@ -17,12 +17,12 @@ public class EditCategoryCommand implements ReversibleCommand {
 	private boolean hasError;
 	private Category originalCategory;
 
-	EditCategoryCommand(String categoryName, String newCategoryName) {
+	public EditCategoryCommand(String categoryName, String newCategoryName) {
 		this.categoryName = categoryName;
 		this.newCategoryName = newCategoryName;
 	}
 
-	EditCategoryCommand(String categoryName, String newCategoryName, String colourName) {
+	public EditCategoryCommand(String categoryName, String newCategoryName, String colourName) {
 		this(categoryName, newCategoryName);
 		this.newColourName = colourName;
 	}

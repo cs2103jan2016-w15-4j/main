@@ -1,9 +1,9 @@
 package dooyit.parser;
 
+import dooyit.common.CommandUtils;
 import dooyit.common.datatype.DateTime;
 import dooyit.common.exception.IncorrectInputException;
 import dooyit.logic.commands.Command;
-import dooyit.logic.commands.CommandUtils;
 
 public class EditParser implements ParserCommons {
 	private static final String ERROR_MESSAGE_INVALID_EDIT_COMMAND = "Invalid edit Command!";

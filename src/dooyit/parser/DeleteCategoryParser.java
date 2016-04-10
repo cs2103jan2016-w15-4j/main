@@ -4,8 +4,8 @@ package dooyit.parser;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import dooyit.common.CommandUtils;
 import dooyit.logic.commands.Command;
-import dooyit.logic.commands.CommandUtils;
 
 /**
  * The DeleteCategoryParser class provides methods for deleting a category. 

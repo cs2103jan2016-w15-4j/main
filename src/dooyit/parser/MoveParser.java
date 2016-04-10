@@ -1,9 +1,9 @@
 //@@author A0133338J
 package dooyit.parser;
 
+import dooyit.common.CommandUtils;
 import dooyit.common.exception.IncorrectInputException;
 import dooyit.logic.commands.Command;
-import dooyit.logic.commands.CommandUtils;
 
 public class MoveParser extends TagParser {
 	private static final String ERROR_MESSAGE_NO_CATEGORY_SPECIFIED = "No category specified!";

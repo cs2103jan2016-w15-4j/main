@@ -1,11 +1,11 @@
 package dooyit.parser;
 
+import dooyit.common.CommandUtils;
 import dooyit.common.datatype.DateTime;
 import dooyit.common.datatype.DateTime.Day;
 import dooyit.common.datatype.DateTime.Month;
 import dooyit.common.exception.IncorrectInputException;
 import dooyit.logic.commands.Command;
-import dooyit.logic.commands.CommandUtils;
 
 public class SearchParser implements ParserCommons {
 	private static final String ERROR_MESSAGE_EMPTY_SEARCH_COMMAND = "Empty search command!";

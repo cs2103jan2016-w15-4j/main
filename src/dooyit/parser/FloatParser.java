@@ -1,8 +1,8 @@
 package dooyit.parser;
 
+import dooyit.common.CommandUtils;
 import dooyit.common.exception.IncorrectInputException;
 import dooyit.logic.commands.Command;
-import dooyit.logic.commands.CommandUtils;
 import dooyit.parser.TagParser.TagType;
 
 public class FloatParser extends TagParser {

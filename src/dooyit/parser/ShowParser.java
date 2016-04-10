@@ -1,8 +1,8 @@
 //@@author A0133338J
 package dooyit.parser;
 
+import dooyit.common.CommandUtils;
 import dooyit.logic.commands.Command;
-import dooyit.logic.commands.CommandUtils;
 
 public class ShowParser {
 	private static final String ERROR_MESSAGE_INVALID_SHOW_COMMAND = "Invalid show command";

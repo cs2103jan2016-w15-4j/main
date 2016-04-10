@@ -4,8 +4,8 @@ package dooyit.parser;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import dooyit.common.CommandUtils;
 import dooyit.logic.commands.Command;
-import dooyit.logic.commands.CommandUtils;
 
 /**
  * The AddCategoryParser class provides methods needed for adding a category and

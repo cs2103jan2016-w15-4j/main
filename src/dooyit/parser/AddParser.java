@@ -4,10 +4,10 @@ package dooyit.parser;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import dooyit.common.CommandUtils;
 import dooyit.common.datatype.DateTime;
 import dooyit.common.exception.IncorrectInputException;
 import dooyit.logic.commands.Command;
-import dooyit.logic.commands.CommandUtils;
 
 /**
  * The AddParser class provides methods for adding floating tasks, deadline

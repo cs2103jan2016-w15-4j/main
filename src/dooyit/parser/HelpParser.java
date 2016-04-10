@@ -1,9 +1,9 @@
 
 package dooyit.parser;
 
+import dooyit.common.CommandUtils;
 import dooyit.common.exception.IncorrectInputException;
 import dooyit.logic.commands.Command;
-import dooyit.logic.commands.CommandUtils;
 
 public class HelpParser implements ParserCommons {
 	private static final String ERROR_MESSAGE_INVALID_HELP_COMMAND = "Invalid Help Command: ";

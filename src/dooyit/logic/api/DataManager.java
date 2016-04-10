@@ -1,5 +1,5 @@
 //@@author A0126356E
-package dooyit.logic;
+package dooyit.logic.api;
 
 import java.util.ArrayList;
 
@@ -8,7 +8,6 @@ import dooyit.common.datatype.CategoryData;
 import dooyit.common.datatype.Task;
 import dooyit.common.datatype.TaskData;
 import dooyit.common.exception.IncorrectInputException;
-import dooyit.logic.api.LogicController;
 
 /**
  * DataManager is responsible for converting all tasks into taskDatas and loading task and category into logic from taskData

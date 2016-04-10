@@ -8,8 +8,8 @@ import org.junit.Test;
 
 import dooyit.common.datatype.DateTime;
 import dooyit.common.datatype.Task;
-import dooyit.logic.TaskManager;
 import dooyit.logic.api.LogicController;
+import dooyit.logic.api.TaskManager;
 
 public class AddCommandTest {
 

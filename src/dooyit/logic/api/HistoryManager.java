@@ -1,9 +1,8 @@
 //@@author A0126356E
-package dooyit.logic;
+package dooyit.logic.api;
 
 import java.util.Stack;
 
-import dooyit.logic.api.LogicController;
 import dooyit.logic.commands.Command;
 import dooyit.logic.commands.ReversibleCommand;
 

@@ -2,6 +2,9 @@
 package dooyit.ui;
 
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.image.Image;
@@ -18,7 +21,9 @@ public class Main extends Application {
 	private static final String APP_TITLE = "Dooyit";
 	private static final int MINWIDTH_STAGE = 720;
 	private static final int MINHEIGHT_STAGE = 620;
-
+	private static final String LOG_MSG_START_SUCCESS = "Stage is successfully initialized and shown.";
+	
+	private Logger logger;
 	private UIController ui;
 
 	/**
@@ -27,14 +32,24 @@ public class Main extends Application {
 	 */
 	@Override
 	public void start(Stage primaryStage) throws IOException {
+		initLogger();
 		try {
 			initStage(primaryStage);
 			this.ui = UIController.getInstance(primaryStage);
 			primaryStage.setScene(this.ui.getScene());
 			primaryStage.show();
+			this.logger.log(Level.INFO, LOG_MSG_START_SUCCESS);
 		} catch (Exception e) {
-			e.printStackTrace();
+			this.logger.log(Level.SEVERE, e.getMessage());
 		}
+	}
+	
+	/**
+	 * This method is used to initialize the logger.
+	 * It is used by the <tt>initialize</tt> method.
+	 */
+	private void initLogger() {
+		this.logger = Logger.getLogger(getClass().getName());
 	}
 	
 	/**

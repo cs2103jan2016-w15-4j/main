@@ -2,6 +2,8 @@
 package dooyit.ui;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import dooyit.common.datatype.TaskGroup;
 import javafx.scene.layout.VBox;
@@ -15,18 +17,30 @@ import javafx.scene.layout.VBox;
  */
 
 public class UIDayBoxContainer {
+	private static final String LOG_MSG_REFRESH_SUCCESS = "Refresh of UIDayBoxContainer successful.";
+	
 	private UIController parent;
 	private ArrayList<UIDayBox> dayBoxList;
 	private VBox dayBoxContainer;
+	private Logger logger;
 	
 	/**
 	 * This is the constructor method for <tt>UIDayBoxContainer</tt> class.
 	 * @param parent The parent <tt>UIController</tt> class.
 	 */
 	protected UIDayBoxContainer(UIController parent) {
+		initLogger();
 		this.parent = parent;
 		this.dayBoxContainer = new VBox();
 		this.dayBoxList = new ArrayList<UIDayBox>();
+	}
+	
+	/**
+	 * This method is used to initialize the logger.
+	 * It is used by the constructor.
+	 */
+	private void initLogger() {
+		this.logger = Logger.getLogger(getClass().getName());
 	}
 	
 	/**
@@ -48,6 +62,7 @@ public class UIDayBoxContainer {
 		taskGroupList.forEach((taskGroup) -> {
 			addDayBox(taskGroup);
 		});
+		this.logger.log(Level.INFO, LOG_MSG_REFRESH_SUCCESS);
 	}
 
 	/**

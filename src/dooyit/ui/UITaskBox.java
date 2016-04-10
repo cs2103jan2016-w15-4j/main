@@ -25,7 +25,6 @@ public class UITaskBox {
 	private static final String STYLECLASS_TASK_ID = UIStyle.TASK_ID;
 	private static final int PREFWIDTH_TASK_ID = 24;
 	private static final String STYLECLASS_TASK_NAME = UIStyle.TASK_NAME;
-	private static final int WIDTH_TO_SUBTRACT = 55;
 	private static final String STYLECLASS_TASK_PERIOD = UIStyle.TASK_PERIOD;
 	private static final String STYLECLASS_TASK_PERIOD_OVERDUE = UIStyle.TASK_PERIOD_OVERDUE;
 	private static final String STYLECLASS_TASK_CATEGORY_LABEL = UIStyle.TASK_CATEGORY_LABEL;
@@ -34,6 +33,7 @@ public class UITaskBox {
 	private static final int RADIUS_CAT_CIRCLE = 4;
 	private static final int WIDTH_MENU = 180;
 	private static final int PAD_X = 20;
+	private static final int WIDTH_TO_SUBTRACT = 55 + WIDTH_MENU + 2 * PAD_X;
 	private static final String DOUBLE_SPACE = "  ";
 	private static final double ANCHOR_TOP = 5.0;
 	private static final double ANCHOR_LEFT = 0.0;
@@ -254,16 +254,23 @@ public class UITaskBox {
 	 * @param stageWidth The stage width of the application scene.
 	 */
 	private void updateTaskBoxWidth(double stageWidth) {
-		double widthToSubtract = 0;
-		widthToSubtract += WIDTH_MENU;
-		widthToSubtract += 2 * PAD_X;
-		widthToSubtract += WIDTH_TO_SUBTRACT;
-		double width = stageWidth - widthToSubtract;
+		double width = stageWidth - WIDTH_TO_SUBTRACT;
 		this.taskBox.setMinWidth(width);
 		this.taskBox.setPrefWidth(width);
 		this.taskBox.setMaxWidth(width);
-		double taskNameMaxWidth = width - PREFWIDTH_TASK_CATEGORY_LABEL - RADIUS_CAT_CIRCLE - 2 * PAD_X - this.taskPeriod.getPrefWidth();
+		double taskNameMaxWidth = getTaskNameMaxWidth(width);
 		this.taskName.setMaxWidth(taskNameMaxWidth);
+	}
+	
+	/**
+	 * This method is used to retrieve the max width of the task name label given the width of the 
+	 * task view.
+	 * It is used by the <tt>updateTaskBoxWidth</tt> method.
+	 * @param width The width of the task view.
+	 * @return The maximum width of the task name label.
+	 */
+	private double getTaskNameMaxWidth(double width) {
+		return width - PREFWIDTH_TASK_CATEGORY_LABEL - RADIUS_CAT_CIRCLE - 2 * PAD_X - this.taskPeriod.getPrefWidth();
 	}
 	
 	/**

@@ -24,7 +24,6 @@ import dooyit.logic.api.*;
  */
 
 public class UIController {
-
 	static final int WIDTH_SCENE = 720;
 	static final int HEIGHT_SCENE = 580;
 	static final String STYLECLASS_MAIN_VIEW = UIStyle.MAIN_VIEW;
@@ -202,19 +201,23 @@ public class UIController {
 		this.commandBox.getCommandTextField().setOnKeyPressed(new EventHandler<KeyEvent>() {
 	        @Override
 	        public void handle(KeyEvent keyEvent) {
-	        	KeyCode key = keyEvent.getCode();
-	        	switch(key){
-		        	case UP:
-		        		commandBox.showPrevHistory();
-		        		break;
-		        	case DOWN:
-		        		commandBox.showNextHistory();
-		        		break;
-		        	default:
-		        		break;
-				}
+	        	processCommandBoxKeyEvent(keyEvent);
 	        }
 	    });
+	}
+	
+	private void processCommandBoxKeyEvent(KeyEvent keyEvent) {
+		KeyCode key = keyEvent.getCode();
+    	switch(key){
+        	case UP:
+        		commandBox.showPrevHistory();
+        		break;
+        	case DOWN:
+        		commandBox.showNextHistory();
+        		break;
+        	default:
+        		break;
+		}
 	}
 
 	private void initSceneListeners() {
@@ -303,7 +306,7 @@ public class UIController {
 		});
 	}
 	
-	private void updateMessageBoxOnFocusChange(Boolean obs){
+	private void updateMessageBoxOnFocusChange(Boolean obs) {
 		if (!obs && this.messageBox.isOn()) {
 			this.messageBox.tempHide();
 		} else if (obs && this.messageBox.isOn()) {
@@ -311,7 +314,7 @@ public class UIController {
 		}
 	}
 	
-	private void updateHelpBoxOnFocusChange(Boolean obs){
+	private void updateHelpBoxOnFocusChange(Boolean obs) {
 		if (!obs && this.helpBox.isOn()) {
 			this.helpBox.tempHide();
 		} else if (obs && helpBox.isOn()) {
@@ -328,7 +331,7 @@ public class UIController {
 		processLogicAction(logic.processInput(s));
 	}
 	
-	private String getSelectedCategoryName(){
+	private String getSelectedCategoryName() {
 		return this.sideMenu.getSelectedCategoryName();
 	}
 
@@ -426,17 +429,17 @@ public class UIController {
 				break;
 		}
 
-		if (logicAction.hasMessage() && logicAction.getAction() != Action.ERROR) {
+		if (hasNonErrorMessage(logicAction)) {
 			displayMessage(logicAction.getMessage(), UIMessageType.DEFAULT);
 		}
 	}
-
-	protected void updatePositions() {
-		this.dayBoxContainer.updatePosition(this.primaryStage.getWidth());
+	
+	private boolean hasNonErrorMessage(LogicAction logicAction) {
+		return logicAction.hasMessage() && logicAction.getAction() != Action.ERROR;
 	}
 
-	protected Scene getScene() {
-		return this.scene;
+	private void updatePositions() {
+		this.dayBoxContainer.updatePosition(this.primaryStage.getWidth());
 	}
 
 	private void displayMessage(String msg, UIMessageType msgType) {
@@ -463,7 +466,7 @@ public class UIController {
 		}
 	}
 	
-	private String getCustomCssPath(){
+	private String getCustomCssPath() {
 		return PATH_PREPEND + this.logic.getCssPath().replace(SPACE, ESCAPED_SPACE);
 	}
 
@@ -485,20 +488,15 @@ public class UIController {
 				this.sideMenu.getCompletedBtn().setSelected(true);
 				break;
 			case SEARCH:
-				//unsetAllMenuButtons();
 				break;
 			default:
 				break;
 		}
 	}
 
-	private void setActiveCategoryButton(Category category){
+	private void setActiveCategoryButton(Category category) {
 		this.sideMenu.setActiveCategoryButton(category);
 	}
-	
-//	private void unsetAllMenuButtons() {
-//		this.sideMenu.getMainViewToggleGroup().getToggles().forEach(toggle -> toggle.setSelected(false));
-//	}
 
 	private void refreshMainView(ArrayList<TaskGroup> taskGroupList) {
 		this.dayBoxContainer.refresh(taskGroupList);
@@ -547,5 +545,8 @@ public class UIController {
 	public UIMainViewType getActiveViewType() {
 		return this.activeMainView;
 	}
-
+	
+	protected Scene getScene() {
+		return this.scene;
+	}
 }

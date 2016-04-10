@@ -28,67 +28,75 @@ public class UIDayBox {
 	private ArrayList<UITaskBox> taskBoxList;
 	private TaskGroup taskGroup;
 	
-	protected UIDayBox(UIDayBoxContainer parent, TaskGroup taskGroup){
+	protected UIDayBox(UIDayBoxContainer parent, TaskGroup taskGroup) {
 		this.parent = parent;
 		this.taskGroup = taskGroup;
 		initialize();
 	}
 	
-	private void initialize(){
+	private void initialize() {
 		this.taskList = this.taskGroup.getTasks();
 		this.taskBoxList = new ArrayList<UITaskBox>();
 		initDayBox();
         initAllTasks();
 	}
 	
-	private void initDayBox(){
+	private void initDayBox() {
 		initDayTitle();
         this.dayBox = new VBox();
 		this.dayBox.getStyleClass().add(STYLECLASS_DAY_BOX);
         this.dayBox.getChildren().add(this.dayTitle);
 	}
 	
-	private void initDayTitle(){
+	private void initDayTitle() {
         this.dayTitle = new Label(this.taskGroup.getTitle());
         this.dayTitle.getStyleClass().add(STYLECLASS_DAY_TITLE);
-        if (taskList.size() == 0 && !this.taskGroup.getTitle().contains(UIData.TODAY)){
+        if (isEmptyAndNotToday()) {
         	this.dayTitle.getStyleClass().add(STYLECLASS_DAY_TITLE_FADED);
         }
 	}
 	
-	private void initAllTasks(){
-		if (taskList.size() > 0){
+	private boolean isEmptyAndNotToday() {
+		return taskList.size() == 0 && !isTodayTaskGroup();
+	}
+	
+	private boolean isTodayTaskGroup() {
+		return this.taskGroup.getTitle().contains(UIData.TODAY);
+	}
+	
+	private void initAllTasks() {
+		if (taskList.size() > 0) {
 			addAllTasks();
 		} else {
 			displayNoTasks();
 		}
 	}
 	
-	private void addAllTasks(){
-		for (Task task : this.taskList){
+	private void addAllTasks() {
+		for (Task task : this.taskList) {
 			addTask(task);
 		}
 	}
 	
-	private void displayNoTasks(){
-		if (this.taskGroup.getTitle().contains(UIData.TODAY)){
+	private void displayNoTasks() {
+		if (isTodayTaskGroup()) {
 			setNoTaskMessage();
 		}
 	}
 	
-	private void addTask(Task task){
+	private void addTask(Task task) {
 		UITaskBox taskBox = new UITaskBox(this, task);
 		this.taskBoxList.add(taskBox);
 		AnchorPane taskBoxView = taskBox.getView();
         this.dayBox.getChildren().add(taskBoxView);
 	}
 	
-	private void setNoTaskMessage(){
+	private void setNoTaskMessage() {
 		Label taskMessageView = new UITaskMessage(MSG_TODAY_NO_TASKS).getView();
 		this.dayBox.getChildren().add(taskMessageView);
 	}
 	
-	protected UIMainViewType getActiveMainView(){
+	protected UIMainViewType getActiveMainView() {
 		return this.parent.getActiveMainView();
 	}
 
@@ -100,7 +108,7 @@ public class UIDayBox {
 		this.parent.markTask(taskId);
 	}
 	
-	protected void unmarkTask(int taskId){
+	protected void unmarkTask(int taskId) {
 		this.parent.unmarkTask(taskId);
 	}
 	

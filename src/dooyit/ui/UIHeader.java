@@ -24,16 +24,16 @@ public class UIHeader {
 	private HBox header;
 	private Label title;
 	
-	public UIHeader(){
+	public UIHeader() {
 		initialize();
 	}
 	
-	private void initialize(){
+	private void initialize() {
 		initTitle();
 		initHeader();
 	}
 	
-	private void initTitle(){
+	private void initTitle() {
 		this.title = new Label(LABEL_TITLE);
 		try {
 			initTitleFont();
@@ -48,7 +48,7 @@ public class UIHeader {
 		this.title.setFont(this.customFont);
 	}
 	
-	private void initHeader(){
+	private void initHeader() {
 		this.header = new HBox();
 		this.header.getStyleClass().add(STYLECLASS_HEADER);
 		this.header.getChildren().addAll(this.title);

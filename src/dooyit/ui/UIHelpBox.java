@@ -19,7 +19,6 @@ import javafx.stage.Stage;
  */
 
 public class UIHelpBox {
-
 	private static final int WIDTH = 640;
 	private static final int HEIGHT = 480;
 	private static final String STYLECLASS_TITLE = UIStyle.HELP_BOX_TITLE;
@@ -62,7 +61,7 @@ public class UIHelpBox {
 	private VBox rightContent;
 	private Label closeLabel;
 	
-	private static final ArrayList<String> cmdListLeft = new ArrayList<String>(){
+	private static final ArrayList<String> cmdListLeft = new ArrayList<String>() {
 		private static final long serialVersionUID = 1L;
 		{
 			add(DESC_ADD);
@@ -78,7 +77,7 @@ public class UIHelpBox {
 		}
 	};
 	
-	private static final ArrayList<String> cmdListRight = new ArrayList<String>(){
+	private static final ArrayList<String> cmdListRight = new ArrayList<String>() {
 		private static final long serialVersionUID = 1L;
 		{
 			add(DESC_MOVE);
@@ -98,7 +97,7 @@ public class UIHelpBox {
 		initialize();
 	}
 	
-	private void initialize(){
+	private void initialize() {
 		this.isOn = false;
 		initTitle();
 		initLeftContent();
@@ -108,13 +107,13 @@ public class UIHelpBox {
 		initHelpBox();
 	}
 	
-	private void initTitle(){
+	private void initTitle() {
 		this.title = new Label(LABEL_TITLE);
 		this.title.setAlignment(Pos.CENTER);
 		this.title.getStyleClass().add(STYLECLASS_TITLE);
 	}
 	
-	private void initLeftContent(){
+	private void initLeftContent() {
 		this.leftContent = new VBox();
 		this.leftContent.setSpacing(SPACING_CONTENT);
 		cmdListLeft.forEach((cmdName) -> {
@@ -123,7 +122,7 @@ public class UIHelpBox {
 		});
 	}
 	
-	private void initRightContent(){
+	private void initRightContent() {
 		this.rightContent = new VBox();
 		this.rightContent.setSpacing(SPACING_CONTENT);
 		cmdListRight.forEach((cmdDesc) -> {
@@ -132,13 +131,13 @@ public class UIHelpBox {
 		});
 	}
 	
-	private void initContentWrapper(){
+	private void initContentWrapper() {
 		this.contentWrapper = new HBox();
 		this.contentWrapper.setSpacing(SPACING_CONTENT_WRAPPER);
 		this.contentWrapper.getChildren().addAll(this.leftContent, this.rightContent);
 	}
 	
-	private void initCloseLabel(){
+	private void initCloseLabel() {
 		this.closeLabel = new Label(CLOSE_LABEL_TITLE);
 		this.closeLabel.getStyleClass().add(STYLECLASS_CLOSE_LABEL);
 		this.closeLabel.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
@@ -150,7 +149,7 @@ public class UIHelpBox {
 		});
 	}
 	
-	private void initHelpBox(){
+	private void initHelpBox() {
 		this.helpBoxWrapper = new VBox();
 		this.helpBoxWrapper.setSpacing(SPACING_HELP_BOX_WRAPPER);
 		this.helpBoxWrapper.setAlignment(Pos.CENTER);
@@ -160,7 +159,7 @@ public class UIHelpBox {
 		this.helpBox.getContent().addAll(this.helpBoxWrapper);
 	}
 	
-	private Label makeLabel(String s){
+	private Label makeLabel(String s) {
 		Label label = new Label(s);
 		label.getStyleClass().add(STYLECLASS_CONTENT_LABEL);
 		label.setMaxHeight(LABEL_HEIGHT);
@@ -187,7 +186,7 @@ public class UIHelpBox {
 		this.helpBox.show(primaryStage);
 	}
 	
-	protected void tempHide(){
+	protected void tempHide() {
 		this.helpBox.hide();
 	}
 
@@ -199,5 +198,4 @@ public class UIHelpBox {
 	protected boolean isOn() {
 		return this.isOn;
 	}
-
 }

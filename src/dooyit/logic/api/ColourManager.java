@@ -8,8 +8,8 @@ import dooyit.common.datatype.CustomColour;
 
 /**
  * The colour manager will store all the possible colours tha dooyit has. It
- * also has pickRecommendedColour to get a random colour that are more suitable and
- * visible for the UI
+ * also has pickRecommendedColour to get a random colour that are more suitable
+ * and visible for the UI
  * 
  * @author limtaeu
  *

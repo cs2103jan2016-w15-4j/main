@@ -38,7 +38,7 @@ public class UnMoveCategory implements ReversibleCommand {
 
 		if (!logic.containsTask(taskId)) {
 			hasError = true;
-			logicAction = new LogicAction(Action.ERROR, Constants.FEEDBACK_INVALID_ID);
+			logicAction = new LogicAction(Action.ERROR, String.format(Constants.FEEDBACK_INVALID_ID, taskId));
 			return logicAction;
 		}
 		

@@ -1,7 +1,7 @@
 // @@author A0124278A
 package dooyit.ui;
 
-import dooyit.common.system.OsUtils;
+import dooyit.common.utils.OsUtils;
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;

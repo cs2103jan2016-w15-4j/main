@@ -17,7 +17,7 @@ import dooyit.logic.commands.CommandUtils;
  *
  */
 public class AddCategoryParser implements ParserCommons {
-	// Error Message
+	// Error Messages
 	private static final String ERROR_MESSAGE_INVALID_ADDCAT_COMMAND = "Invalid addcat command!";
 	private static final String ERROR_MESSAGE_TOO_MANY_WORDS = "Category name can only be one word!";
 
@@ -44,9 +44,9 @@ public class AddCategoryParser implements ParserCommons {
 		VALID, INVALID_TOO_MANY_WORDS, INVALID_EMPTY_STRING
 	};
 
-	// Constructor
+	// AddCategoryParser Constructor
 	public AddCategoryParser() {
-		logger.log(Level.INFO, "Initialised AddCategoryParser");
+		logger.log(Level.INFO, "Initialised AddCategoryParser object");
 	}
 
 	/**
@@ -103,10 +103,10 @@ public class AddCategoryParser implements ParserCommons {
 		ADD_CATEGORY_TYPE type;
 		if (userInput.equals(EMPTY_STRING)) {
 			type = ADD_CATEGORY_TYPE.INVALID_EMPTY_STRING;
-
+			
 		} else if (userInputHasTooManyWords()) {
 			type = ADD_CATEGORY_TYPE.INVALID_TOO_MANY_WORDS;
-
+			
 		} else {
 			type = ADD_CATEGORY_TYPE.VALID;
 		}

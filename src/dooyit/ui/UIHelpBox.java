@@ -13,9 +13,11 @@ import javafx.stage.Popup;
 import javafx.stage.Stage;
 
 /**
- * 
- * @author Wu Wenqi
- *
+ * The <tt>UIHelpBox</tt> class contains the methods to initialize the help box, 
+ * control its visibility and set the message to be displayed.
+ * @author 	Wu Wenqi
+ * @version 0.5
+ * @since 	2016-04-10
  */
 
 public class UIHelpBox {
@@ -93,10 +95,17 @@ public class UIHelpBox {
 		}
 	};
 
+	/**
+	 * This is the constructor method.
+	 */
 	protected UIHelpBox() {
 		initialize();
 	}
 	
+	/**
+	 * This method is used to initialize <tt>UIHelpBox</tt> class.
+	 * It is used by the constructor.
+	 */
 	private void initialize() {
 		this.isOn = false;
 		initTitle();
@@ -107,12 +116,20 @@ public class UIHelpBox {
 		initHelpBox();
 	}
 	
+	/**
+	 * This method is used to initialize the help box's title.
+	 * It is used by the <tt>initialize</tt> method.
+	 */
 	private void initTitle() {
 		this.title = new Label(LABEL_TITLE);
 		this.title.setAlignment(Pos.CENTER);
 		this.title.getStyleClass().add(STYLECLASS_TITLE);
 	}
 	
+	/**
+	 * This method is used to initialize the left-sided content of the help box.
+	 * It is used by the <tt>initialize</tt> method.
+	 */
 	private void initLeftContent() {
 		this.leftContent = new VBox();
 		this.leftContent.setSpacing(SPACING_CONTENT);
@@ -122,6 +139,10 @@ public class UIHelpBox {
 		});
 	}
 	
+	/**
+	 * This method is used to initialize the right-sided content of the help box.
+	 * It is used by the <tt>initialize</tt> method.
+	 */
 	private void initRightContent() {
 		this.rightContent = new VBox();
 		this.rightContent.setSpacing(SPACING_CONTENT);
@@ -131,12 +152,21 @@ public class UIHelpBox {
 		});
 	}
 	
+	/**
+	 * This method is used to initialize the content wrapper. 
+	 * It can only be called after the left- and right-sided content views have been initialized.
+	 * It is used by the <tt>initialize</tt> method.
+	 */
 	private void initContentWrapper() {
 		this.contentWrapper = new HBox();
 		this.contentWrapper.setSpacing(SPACING_CONTENT_WRAPPER);
 		this.contentWrapper.getChildren().addAll(this.leftContent, this.rightContent);
 	}
 	
+	/**
+	 * This method is used to initialize the close button.
+	 * It is used by the <tt>initialize</tt> method.
+	 */
 	private void initCloseLabel() {
 		this.closeLabel = new Label(CLOSE_LABEL_TITLE);
 		this.closeLabel.getStyleClass().add(STYLECLASS_CLOSE_LABEL);
@@ -149,6 +179,10 @@ public class UIHelpBox {
 		});
 	}
 	
+	/**
+	 * This method is used to initialize the help box view.
+	 * It is used by the <tt>initialize</tt> method.
+	 */
 	private void initHelpBox() {
 		this.helpBoxWrapper = new VBox();
 		this.helpBoxWrapper.setSpacing(SPACING_HELP_BOX_WRAPPER);
@@ -159,6 +193,12 @@ public class UIHelpBox {
 		this.helpBox.getContent().addAll(this.helpBoxWrapper);
 	}
 	
+	/**
+	 * This method is used to create and return a label that is to be displayed on 
+	 * the left- and right-sided content views.
+	 * @param s The text to set for the label.
+	 * @return A label with <tt>s</tt> as its text.
+	 */
 	private Label makeLabel(String s) {
 		Label label = new Label(s);
 		label.getStyleClass().add(STYLECLASS_CONTENT_LABEL);
@@ -168,16 +208,31 @@ public class UIHelpBox {
 		return label;
 	}
 
+	/**
+	 * This method is used to check if the help box is visible.
+	 * @return <tt>True</tt> if help box is visible, <tt>False</tt> otherwise.
+	 */
 	protected boolean isShowing() {
 		return this.helpBox.isShowing();
 	}
 
+	/**
+	 * This method is used to update the position of the help box.
+	 * @param stageX The x-coordinate of the stage of the application scene.
+	 * @param stageY The y-coordinate of the stage of the application scene.
+	 * @param stageWidth The stage width of the application scene.
+	 * @param stageHeight The stage height of the application scene.
+	 */
 	protected void updatePosition(double stageX, double stageY, double stageWidth, double stageHeight) {
 		this.helpBox.setX(stageX + stageWidth / 2 - WIDTH / 2);
 		this.helpBox.setY(stageY + stageHeight / 2 - HEIGHT / 2);
 		this.helpBoxWrapper.setPrefSize(WIDTH, HEIGHT);
 	}
 
+	/**
+	 * This method is used to show the help box.
+	 * @param primaryStage The stage to show the help box in.
+	 */
 	protected void show(Stage primaryStage) {
 		this.isOn = true;
 		this.helpBoxWrapper.setPrefSize(WIDTH, HEIGHT);
@@ -186,15 +241,25 @@ public class UIHelpBox {
 		this.helpBox.show(primaryStage);
 	}
 	
+	/**
+	 * This method is used to temporarily hide the help box.
+	 */
 	protected void tempHide() {
 		this.helpBox.hide();
 	}
 
+	/**
+	 * This method is used to hide the help box.
+	 */
 	protected void hide() {
 		this.isOn = false;
 		this.helpBox.hide();
 	}
 	
+	/**
+	 * This method is used to retrieve the visibility attribute of the help box.
+	 * @return <tt>True</tt> if help box should be visible to user, <tt>False</tt> otherwise.
+	 */
 	protected boolean isOn() {
 		return this.isOn;
 	}

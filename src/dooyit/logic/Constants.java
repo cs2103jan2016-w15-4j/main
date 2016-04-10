@@ -26,7 +26,7 @@ public class Constants {
 	public static final String FEEDBACK_FAIL_UNDO = "Oops, nothing to UNDO.";
 	public static final String FEEDBACK_SUCCESS_UNDO = "UNDO successful!";
 	public static final String FEEDBACK_FAIL_REDO = "Oops, nothing to REDO";
-	public static final String FEEDBACK_SUCCESS_REDO = "REDO successfull!";
+	public static final String FEEDBACK_SUCCESS_REDO = "REDO successful!";
 	
 	public static final String FEEDBACK_SET_NEW_PATH_WITH_LOAD = "New data has been loaded from the new path.";
 	public static final String FEEDBACK_SET_NEW_PATH = "New path has been set.";

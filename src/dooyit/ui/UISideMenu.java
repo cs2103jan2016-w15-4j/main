@@ -74,8 +74,8 @@ public class UISideMenu {
 	
 	private void initCategoryButtons() {
 		 this.categoryTitle = new Label(LABEL_CATEGORY_TITLE);
-	     this.categoryTitle.getStyleClass().add(STYLECLASS_CATEGORY_TITLE);	
-	     this.categoryBoxContainer = new UICategoryBoxContainer(this, new ArrayList<Category>());
+		 this.categoryTitle.getStyleClass().add(STYLECLASS_CATEGORY_TITLE);	
+		 this.categoryBoxContainer = new UICategoryBoxContainer(this, new ArrayList<Category>());
 	}
 	
 	private void initMenu() {

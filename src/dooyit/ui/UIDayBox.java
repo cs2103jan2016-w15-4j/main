@@ -38,22 +38,22 @@ public class UIDayBox {
 		this.taskList = this.taskGroup.getTasks();
 		this.taskBoxList = new ArrayList<UITaskBox>();
 		initDayBox();
-        initAllTasks();
+		initAllTasks();
 	}
 	
 	private void initDayBox() {
 		initDayTitle();
-        this.dayBox = new VBox();
+		this.dayBox = new VBox();
 		this.dayBox.getStyleClass().add(STYLECLASS_DAY_BOX);
-        this.dayBox.getChildren().add(this.dayTitle);
+		this.dayBox.getChildren().add(this.dayTitle);
 	}
 	
 	private void initDayTitle() {
-        this.dayTitle = new Label(this.taskGroup.getTitle());
-        this.dayTitle.getStyleClass().add(STYLECLASS_DAY_TITLE);
-        if (isEmptyAndNotToday()) {
-        	this.dayTitle.getStyleClass().add(STYLECLASS_DAY_TITLE_FADED);
-        }
+		this.dayTitle = new Label(this.taskGroup.getTitle());
+		this.dayTitle.getStyleClass().add(STYLECLASS_DAY_TITLE);
+		if (isEmptyAndNotToday()) {
+			this.dayTitle.getStyleClass().add(STYLECLASS_DAY_TITLE_FADED);
+		}
 	}
 	
 	private boolean isEmptyAndNotToday() {
@@ -88,7 +88,7 @@ public class UIDayBox {
 		UITaskBox taskBox = new UITaskBox(this, task);
 		this.taskBoxList.add(taskBox);
 		AnchorPane taskBoxView = taskBox.getView();
-        this.dayBox.getChildren().add(taskBoxView);
+		this.dayBox.getChildren().add(taskBoxView);
 	}
 	
 	private void setNoTaskMessage() {

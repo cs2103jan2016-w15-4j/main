@@ -81,23 +81,23 @@ public class UITaskBox {
 	
 	private void initTaskId() {
 		this.taskId = new Label(Integer.toString(this.task.getDisplayId()));
-	    this.taskId.getStyleClass().add(STYLECLASS_TASK_ID);
-	    this.taskId.setPrefWidth(PREFWIDTH_TASK_ID);
+		this.taskId.getStyleClass().add(STYLECLASS_TASK_ID);
+		this.taskId.setPrefWidth(PREFWIDTH_TASK_ID);
 	}
 	
 	private void initTaskPeriod() {
 		this.taskPeriod = new Label(getTaskPeriodString());
-	    this.taskPeriod.getStyleClass().add(STYLECLASS_TASK_PERIOD);
-	    if (isOverdueTask()) {
-	    	this.taskPeriod.getStyleClass().add(STYLECLASS_TASK_PERIOD_OVERDUE);
-	    }
-	    if (!isEmptyTaskPeriod()) {
-	    	if (isLongTaskPeriod()) {
-	    		this.taskPeriod.setPrefWidth(LEN_EVENT_PERIOD);
-	    	} else {
-	    		this.taskPeriod.setPrefWidth(LEN_TASK_PERIOD);
-	    	}
-	    }
+		this.taskPeriod.getStyleClass().add(STYLECLASS_TASK_PERIOD);
+		if (isOverdueTask()) {
+			this.taskPeriod.getStyleClass().add(STYLECLASS_TASK_PERIOD_OVERDUE);
+		}
+		if (!isEmptyTaskPeriod()) {
+			if (isLongTaskPeriod()) {
+				this.taskPeriod.setPrefWidth(LEN_EVENT_PERIOD);
+			} else {
+				this.taskPeriod.setPrefWidth(LEN_TASK_PERIOD);
+			}
+		}
 	}
 	
 	private boolean isOverdueTask() {
@@ -190,7 +190,7 @@ public class UITaskBox {
 	
 	private void updateTaskBoxWidth() {
 		double width = this.parent.getStageWidth();
-	    updateTaskBoxWidth(width);
+		updateTaskBoxWidth(width);
 	}
 	
 	protected AnchorPane getView() {

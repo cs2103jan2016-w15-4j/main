@@ -13,7 +13,7 @@ public class Constants {
 	public static final String FEEDBACK_TASK_NOT_COMPLETED = "Task is still not done.";
 	public static final String FEEDBACK_TASK_MOVED = "Task%1$s has been moved to %2$s.";
 	public static final String FEEDBACK_TASKS_MOVED = "Tasks%1$s have been moved to %2$s.";
-	public static final String FEEDBACK_TASK_UNMOVED = "Category succesfully removed from Task %1$d.";
+	public static final String FEEDBACK_TASK_UNMOVED = "Category successfully removed from Task %1$d.";
 	public static final String FEEDBACK_CONFLICTING_EVENT = "This task conclicts with another event. ";
 	public static final String FEEDBACK_INCORRECT_INPUT = "Incorrect Input.";
 

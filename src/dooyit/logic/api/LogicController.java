@@ -2,7 +2,7 @@
 package dooyit.logic.api;
 
 import dooyit.storage.StorageController;
-import dooyit.parser.Parser;
+import dooyit.parser.ParserController;
 import dooyit.common.exception.IncorrectInputException;
 import dooyit.logic.Constants;
 import dooyit.logic.commands.*;
@@ -22,10 +22,10 @@ import dooyit.common.datatype.DateTime.Month;
 
 public class LogicController {
 
-	private Parser parser;
+	private ParserController parserController;
+	private StorageController storageController;
 	private TaskManager taskManager;
 	private CategoryManager categoryManager;
-	private StorageController storage;
 	private HistoryManager historyManager;
 	private DataManager dataManager;
 	private static Logger logger = Logger.getLogger(Constants.LOG_LOGIC);
@@ -50,7 +50,7 @@ public class LogicController {
 
 	public void initParser() {
 		logger.log(Level.INFO, Constants.LOG_MSG_INITIALISING_PARSER);
-		parser = new Parser();
+		parserController = new ParserController();
 	}
 
 	public void initTaskManager() {
@@ -71,7 +71,7 @@ public class LogicController {
 	private void initStorage() {
 		logger.log(Level.INFO, Constants.LOG_MSG_INITIALISING_STORAGE);
 		try {
-			storage = new StorageController();
+			storageController = new StorageController();
 		} catch (IOException e) {
 			logger.log(Level.SEVERE, Constants.ERROR_FAIL_TO_CREATE_STORAGE);
 		}
@@ -107,7 +107,7 @@ public class LogicController {
 	 * @param input
 	 */
 	public LogicAction processInput(String input) {
-		Command command = parser.getCommand(input);
+		Command command = parserController.getCommand(input);
 		assert (command != null);
 		LogicAction logicAction = processCommand(command);
 		return logicAction;
@@ -157,8 +157,8 @@ public class LogicController {
 		}
 
 		try {
-			storage.saveTasks(getTaskDatas());
-			storage.saveCategories(getCategoryDatas());
+			storageController.saveTasks(getTaskDatas());
+			storageController.saveCategories(getCategoryDatas());
 		} catch (IOException e) {
 			logger.log(Level.SEVERE, Constants.ERROR_FAIL_TO_SAVE);
 		}
@@ -190,12 +190,12 @@ public class LogicController {
 	}
 
 	public void loadCategoryDataFromStorage() throws IOException {
-		ArrayList<CategoryData> categoryDatas = storage.loadCategories();
+		ArrayList<CategoryData> categoryDatas = storageController.loadCategories();
 		dataManager.loadCategoryData(this, categoryDatas);
 	}
 
 	public void loadTaskDataFromStorage() throws IOException {
-		ArrayList<TaskData> taskDatas = storage.loadTasks();
+		ArrayList<TaskData> taskDatas = storageController.loadTasks();
 		dataManager.loadTaskData(this, taskDatas);
 	}
 
@@ -311,7 +311,7 @@ public class LogicController {
 		boolean isRemoved = taskManager.remove(task);
 		return isRemoved;
 	}
-	
+
 	public void loadTasks(ArrayList<Task> tasks) {
 		taskManager.load(tasks);
 	}
@@ -411,12 +411,12 @@ public class LogicController {
 	}
 
 	public String getFilePath() {
-		return storage.getFilePath();
+		return storageController.getFilePath();
 	}
 
 	public boolean setFileDestinationPath(String path) throws IncorrectInputException {
 		try {
-			return storage.setFileDestination(path);
+			return storageController.setFileDestination(path);
 		} catch (IOException e) {
 			logger.log(Level.SEVERE, Constants.ERROR_SET_FILE_DESTINATION_PATH);
 			throw new IncorrectInputException(String.format(Constants.FEEDBACK_INVALID_PATH, path));
@@ -425,7 +425,7 @@ public class LogicController {
 
 	public void setDefaultCustomCss(URL path) {
 		try {
-			storage.generateCss(path);
+			storageController.generateCss(path);
 		} catch (IOException e) {
 			e.printStackTrace();
 			logger.log(Level.SEVERE, Constants.ERROR_FAIL_TO_GENERATE_CSS);
@@ -433,7 +433,7 @@ public class LogicController {
 	}
 
 	public String getCssPath() {
-		return storage.getCssPath();
+		return storageController.getCssPath();
 	}
 
 	/**
@@ -451,7 +451,7 @@ public class LogicController {
 	 * @return Storage
 	 */
 	public StorageController getStorage() {
-		return storage;
+		return storageController;
 	}
 
 	/**

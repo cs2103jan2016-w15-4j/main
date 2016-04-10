@@ -1,6 +1,7 @@
 //@@author A0126356E
 package dooyit.common.datatype;
 
+import dooyit.common.Constants;
 import javafx.scene.paint.Color;
 
 public class Category {
@@ -55,7 +56,7 @@ public class Category {
 
 	@Override
 	public String toString() {
-		return name + " " + customColor.toString();
+		return name + Constants.SPACE + customColor.toString();
 	}
 
 	public CategoryData convertToData() {

@@ -32,9 +32,21 @@ public class EditParser implements ParserCommons {
 		command = null;
 		String taskIdString = userInput.split("\\s+")[0];
 		if (ParserCommons.isNumber(taskIdString)) {
-			taskId = Integer.parseInt(taskIdString);
+			try {
+				taskId = Integer.parseInt(taskIdString);
+			} catch (NumberFormatException e) {
+				setInvalidCommand(ERROR_MESSAGE_INTEGER_OVERFLOW);
+			}
 		}
+		
+		if (command == null) {
+			setToCorrectEditCommand();
+		}
+		
+		return command;
+	}
 
+	private void setToCorrectEditCommand() {
 		switch (getEditType()) {
 		case NAME :
 			parseName();
@@ -85,7 +97,6 @@ public class EditParser implements ParserCommons {
 			setInvalidCommand();
 			break;
 		}
-		return command;
 	}
 
 	private void setInvalidCommand(String message) {
@@ -263,14 +274,14 @@ public class EditParser implements ParserCommons {
 	}
 
 	private boolean hasStart() {
-		return !ParserCommons.isUninitialized(getIndexOfMarker(MARKER_START_EVENT));
+		return ParserCommons.isInitialized(getIndexOfMarker(MARKER_START_EVENT));
 	}
 
 	private boolean hasEnd() {
-		return !ParserCommons.isUninitialized(getIndexOfMarker(MARKER_END_EVENT));
+		return ParserCommons.isInitialized(getIndexOfMarker(MARKER_END_EVENT));
 	}
 
 	private boolean hasDeadline() {
-		return !ParserCommons.isUninitialized(getIndexOfMarker(MARKER_DEADLINE_TASK));
+		return ParserCommons.isInitialized(getIndexOfMarker(MARKER_DEADLINE_TASK));
 	}
 }

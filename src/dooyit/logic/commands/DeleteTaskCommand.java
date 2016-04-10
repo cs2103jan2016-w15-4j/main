@@ -53,8 +53,7 @@ public class DeleteTaskCommand implements ReversibleCommand {
 
 		for (Integer deleteId : deleteIds) {
 			if (logic.containsTask(deleteId)) {
-				Task deletedTask = logic.removeTask(deleteId);
-				deletedTasks.add(deletedTask);
+				deleteTaskWithTaskId(logic, deleteId);
 				deletedTaskMsg += Constants.SPACE + deleteId;
 			} else {
 				errorMsgBody += Constants.SPACE + deleteId;
@@ -66,12 +65,11 @@ public class DeleteTaskCommand implements ReversibleCommand {
 		return logicAction;
 	}
 
-	/**
-	 * @param logicAction
-	 * @param errorMsgBody
-	 * @param deletedTaskMsg
-	 * @return
-	 */
+	public void deleteTaskWithTaskId(LogicController logic, Integer deleteId) {
+		Task deletedTask = logic.removeTask(deleteId);
+		deletedTasks.add(deletedTask);
+	}
+
 	public LogicAction createLogicAction(LogicAction logicAction, String errorMsgBody, String deletedTaskMsg) {
 		if (!deletedTasks.isEmpty()) {
 			if (deletedTasks.size() == 1) {

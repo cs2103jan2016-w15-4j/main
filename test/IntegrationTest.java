@@ -10,7 +10,7 @@ import dooyit.common.datatype.Task;
 import dooyit.common.datatype.Task.TaskType;
 import dooyit.logic.api.LogicController;
 import dooyit.parser.AddParser;
-import dooyit.parser.Parser;
+import dooyit.parser.ParserController;
 
 public class IntegrationTest {
 
@@ -35,7 +35,7 @@ public class IntegrationTest {
 		assertEquals(TaskType.FLOATING, task.getTaskType());
 		
 		//Checking Parser
-		Parser parser = Whitebox.getInternalState(logic, "parser");
+		ParserController parser = Whitebox.getInternalState(logic, "parserController");
 		AddParser addParser = Whitebox.getInternalState(parser, "addParser");
 		
 		String userInput = Whitebox.getInternalState(addParser, "userInput");
@@ -43,6 +43,8 @@ public class IntegrationTest {
 		
 		String taskName = Whitebox.getInternalState(addParser, "taskName");
 		assertEquals("a", taskName);
+		
+		
 	}
 	
 	@Test
@@ -56,7 +58,7 @@ public class IntegrationTest {
 		assertEquals(TaskType.DEADLINE, task.getTaskType());
 		
 		//Checking Parser
-		Parser parser = Whitebox.getInternalState(logic, "parser");
+		ParserController parser = Whitebox.getInternalState(logic, "parserController");
 		AddParser addParser = Whitebox.getInternalState(parser, "addParser");
 		
 		String userInput = Whitebox.getInternalState(addParser, "userInput");
@@ -81,7 +83,7 @@ public class IntegrationTest {
 		assertEquals(TaskType.EVENT, task.getTaskType());
 		
 		// Checking Parser
-		Parser parser = Whitebox.getInternalState(logic, "parser");
+		ParserController parser = Whitebox.getInternalState(logic, "parserController");
 		AddParser addParser = Whitebox.getInternalState(parser, "addParser");
 
 		String userInput = Whitebox.getInternalState(addParser, "userInput");
@@ -109,7 +111,7 @@ public class IntegrationTest {
 		assertEquals(TaskType.FLOATING, task.getTaskType());
 		
 		//Checking Parser
-		Parser parser = Whitebox.getInternalState(logic, "parser");
+		ParserController parser = Whitebox.getInternalState(logic, "parserController");
 		AddParser addParser = Whitebox.getInternalState(parser, "addParser");
 		
 		String userInput = Whitebox.getInternalState(addParser, "userInput");

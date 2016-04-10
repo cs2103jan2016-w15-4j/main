@@ -9,7 +9,7 @@ import dooyit.logic.commands.Command;
 
 /**
  * The DeleteCategoryParser class provides methods for deleting a category. 
- * It takes in a "deletecat" command input and returns a DeleteCategoryCommand 
+ * It takes in a "deletecat" command input and returns a Command 
  * object. It implements the ParserCommons interface to use the shared
  * constants and methods.
  * 

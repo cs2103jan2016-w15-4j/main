@@ -28,30 +28,50 @@ public class ChangeThemeCommand implements Command {
 
 		switch (lowerThemeString) {
 		case Constants.THEME_DEFAULT:
-			logicAction = new LogicAction(Action.CHANGE_THEME_DEFAULT, String.format(Constants.FEEDBACK_SUCCESS_CHANGE_THEME, themeString));
+			logicAction = changeToDefaultTheme();
 			break;
 
 		case Constants.THEME_LIGHT:
-			logicAction = new LogicAction(Action.CHANGE_THEME_DEFAULT, String.format(Constants.FEEDBACK_SUCCESS_CHANGE_THEME, themeString));
+			logicAction = changeToDefaultTheme();
 			break;
 
 		case Constants.THEME_DARK:
-			logicAction = new LogicAction(Action.CHANGE_THEME_DARK, String.format(Constants.FEEDBACK_SUCCESS_CHANGE_THEME, themeString));
+			logicAction = changeToDarkTheme();
 			break;
 
 		case Constants.THEME_AQUA:
-			logicAction = new LogicAction(Action.CHANGE_THEME_AQUA, String.format(Constants.FEEDBACK_SUCCESS_CHANGE_THEME, themeString));
+			logicAction = changeToAquaTheme();
 			break;
 
 		case Constants.THEME_CUSTOM:
-			logicAction = new LogicAction(Action.CHANGE_THEME_CUSTOM, String.format(Constants.FEEDBACK_SUCCESS_CHANGE_THEME, themeString));
+			logicAction = changeToCustomTheme();
 			break;
 
 		default:
-			logicAction = new LogicAction(Action.ERROR, String.format(Constants.FEEDBACK_INVALID_THEME, themeString));
+			logicAction = showError();
 		}
 
 		return logicAction;
+	}
+
+	public LogicAction showError() {
+		return new LogicAction(Action.ERROR, String.format(Constants.FEEDBACK_INVALID_THEME, themeString));
+	}
+
+	public LogicAction changeToCustomTheme() {
+		return new LogicAction(Action.CHANGE_THEME_CUSTOM, String.format(Constants.FEEDBACK_SUCCESS_CHANGE_THEME, themeString));
+	}
+
+	public LogicAction changeToAquaTheme() {
+		return new LogicAction(Action.CHANGE_THEME_AQUA, String.format(Constants.FEEDBACK_SUCCESS_CHANGE_THEME, themeString));
+	}
+
+	public LogicAction changeToDarkTheme() {
+		return new LogicAction(Action.CHANGE_THEME_DARK, String.format(Constants.FEEDBACK_SUCCESS_CHANGE_THEME, themeString));
+	}
+
+	public LogicAction changeToDefaultTheme() {
+		return new LogicAction(Action.CHANGE_THEME_DEFAULT, String.format(Constants.FEEDBACK_SUCCESS_CHANGE_THEME, themeString));
 	}
 
 }

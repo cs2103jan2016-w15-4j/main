@@ -37,15 +37,13 @@ public class UnMoveCategory implements ReversibleCommand {
 		LogicAction logicAction;
 
 		if (!logic.containsTask(taskId)) {
-			hasError = true;
-			logicAction = new LogicAction(Action.ERROR, Constants.FEEDBACK_INVALID_ID);
+			logicAction = cantFindTask();
 			return logicAction;
 		}
 		
 		taskWithCategory = logic.findTask(taskId);
 		if(!taskWithCategory.hasCategory()){
-			hasError = true;
-			logicAction = new LogicAction(Action.ERROR, String.format(Constants.FEEDBACK_CATEGORY_DOESNT_EXIST, taskId));
+			logicAction = taskDoesntHaveCategory();
 			return logicAction;
 		}
 		
@@ -54,9 +52,20 @@ public class UnMoveCategory implements ReversibleCommand {
 		return logicAction;
 	}
 
-	/**
-	 * @return
-	 */
+	public LogicAction cantFindTask() {
+		LogicAction logicAction;
+		hasError = true;
+		logicAction = new LogicAction(Action.ERROR, String.format(Constants.FEEDBACK_INVALID_ID, taskId));
+		return logicAction;
+	}
+
+	public LogicAction taskDoesntHaveCategory() {
+		LogicAction logicAction;
+		hasError = true;
+		logicAction = new LogicAction(Action.ERROR, String.format(Constants.FEEDBACK_CATEGORY_DOESNT_EXIST, taskId));
+		return logicAction;
+	}
+
 	public LogicAction removeCategoryFromTask() {
 		LogicAction logicAction;
 		removedCategory = taskWithCategory.getCategory();

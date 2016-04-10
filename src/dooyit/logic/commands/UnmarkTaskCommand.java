@@ -53,11 +53,10 @@ public class UnmarkTaskCommand implements ReversibleCommand {
 
 		for (int unmarkId : unmarkIds) {
 			if (logic.containsTask(unmarkId)) {
-				boolean markSuccess = logic.unmarkTask(unmarkId);
-				Task unmarkedTask = logic.findTask(unmarkId);
-				unmarkedTasks.add(unmarkedTask);
+				boolean unmarkSuccess;
+				unmarkSuccess = unmarkTaskWithTaskId(logic, unmarkId);
 				
-				if(markSuccess){
+				if(unmarkSuccess){
 					unmarkedTaskMsg += Constants.SPACE + unmarkId;
 				}
 			} else {
@@ -70,12 +69,14 @@ public class UnmarkTaskCommand implements ReversibleCommand {
 		return logicAction;
 	}
 
-	/**
-	 * @param logicAction
-	 * @param unmarkedTaskMsg
-	 * @param errorMessageBody
-	 * @return
-	 */
+	public boolean unmarkTaskWithTaskId(LogicController logic, int unmarkId) {
+		boolean unmarkSuccess;
+		unmarkSuccess = logic.unmarkTask(unmarkId);
+		Task unmarkedTask = logic.findTask(unmarkId);
+		unmarkedTasks.add(unmarkedTask);
+		return unmarkSuccess;
+	}
+
 	public LogicAction createLogicAction(LogicAction logicAction, String unmarkedTaskMsg, String errorMessageBody) {
 		if (!unmarkedTasks.isEmpty()) {
 			if(unmarkedTaskMsg == Constants.EMPTY_STRING){

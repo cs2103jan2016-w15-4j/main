@@ -57,10 +57,6 @@ public class DeleteCategoryCommand implements ReversibleCommand {
 		return logicAction;
 	}
 
-	/**
-	 * @param logic
-	 * @return
-	 */
 	public LogicAction deleteCategoryAndAllTaskWithTheCategory(LogicController logic) {
 		LogicAction logicAction;
 		removedCategory = logic.removeCategory(categoryName);

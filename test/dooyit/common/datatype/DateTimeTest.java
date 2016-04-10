@@ -11,6 +11,8 @@ import java.util.Arrays;
 import org.junit.Before;
 import org.junit.Test;
 
+import dooyit.common.datatype.DateTime.DAY;
+
 /**
  * 
  * @author Wu Wenqi
@@ -43,6 +45,36 @@ public class DateTimeTest {
 		ArrayList<String> listOfString = DateTime.getMultiDayString(start, end);
 		ArrayList<String> expected = new ArrayList<String>(Arrays.asList("09:00 - 23:59", "00:00 - 16:00"));
 		assertEquals(expected, listOfString);
+	}
+	
+	@Test
+	public void isWithinDayTrue() {
+		int[] startDate = new int[] { 7, 4, 2016 };
+		int startTime = 900;
+		DateTime start = new DateTime(startDate, startTime);
+
+		int[] endDate = new int[] { 10, 4, 2016 };
+		int endTime = 1600;
+		DateTime end = new DateTime(endDate, endTime);
+		
+		DAY day = DAY.FRI;
+		
+		assertTrue(DateTime.isWithinDay(day, start, end));
+	}
+	
+	@Test
+	public void isWithinDayFalse() {
+		int[] startDate = new int[] { 7, 4, 2016 };
+		int startTime = 900;
+		DateTime start = new DateTime(startDate, startTime);
+
+		int[] endDate = new int[] { 10, 4, 2016 };
+		int endTime = 1600;
+		DateTime end = new DateTime(endDate, endTime);
+		
+		DAY day = DAY.MON;
+		
+		assertTrue(!DateTime.isWithinDay(day, start, end));
 	}
 
 	@Test

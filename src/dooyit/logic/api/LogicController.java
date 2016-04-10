@@ -2,7 +2,7 @@
 package dooyit.logic.api;
 
 import dooyit.storage.StorageController;
-import dooyit.parser.Parser;
+import dooyit.parser.ParserController;
 import dooyit.common.exception.IncorrectInputException;
 import dooyit.logic.commands.*;
 import java.io.IOException;
@@ -21,7 +21,7 @@ import dooyit.common.datatype.DateTime.Month;
 
 public class LogicController {
 
-	private Parser parser;
+	private ParserController parser;
 	private TaskManager taskManager;
 	private CategoryManager categoryManager;
 	private StorageController storage;
@@ -52,7 +52,7 @@ public class LogicController {
 	 */
 	public void initParser() {
 		logger.log(Level.INFO, "Initialising Parser");
-		parser = new Parser();
+		parser = new ParserController();
 	}
 
 	/**

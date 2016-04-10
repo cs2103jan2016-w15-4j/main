@@ -1295,21 +1295,21 @@ public class TaskManager {
 	 * sort tasks by their unique id first to maintain the order when a task is
 	 * edited. Then sort by date.
 	 * 
-	 * @param tasks
+	 * @param inTasks
 	 */
-	public void sortTasks(ArrayList<Task> tasks) {
-		sortTasksByUniqueId(tasks);
-		sortTasksByDate(tasks);
+	public void sortTasks(ArrayList<Task> inTasks) {
+		sortTasksByUniqueId(inTasks);
+		sortTasksByDate(inTasks);
 	}
 
-	public void sortTasksByDate(ArrayList<Task> tasks) {
+	public void sortTasksByDate(ArrayList<Task> inTasks) {
 		TaskDateComparator dateComparator = new TaskDateComparator();
-		Collections.sort(tasks, dateComparator);
+		Collections.sort(inTasks, dateComparator);
 	}
 
-	public void sortTasksByUniqueId(ArrayList<Task> tasks) {
+	public void sortTasksByUniqueId(ArrayList<Task> inTasks) {
 		TaskUniqueIdComparator uniqueIdComparator = new TaskUniqueIdComparator();
-		Collections.sort(tasks, uniqueIdComparator);
+		Collections.sort(inTasks, uniqueIdComparator);
 	}
 
 	/**

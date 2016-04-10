@@ -123,7 +123,9 @@ public class DeadlineTask extends Task {
 	public boolean equals(Object o) {
 		if (o instanceof DeadlineTask) {
 			DeadlineTask deadlineTask = (DeadlineTask) o;
-			return this.uniqueId == deadlineTask.uniqueId && this.getName().equals(deadlineTask.getName()) && this.getDateTimeDeadline().equals(deadlineTask.getDateTimeDeadline());
+			return this.uniqueId == deadlineTask.uniqueId 
+					&& this.getName().equals(deadlineTask.getName())
+					&& this.getDateTimeDeadline().equals(deadlineTask.getDateTimeDeadline());
 		}
 		return false;
 	}

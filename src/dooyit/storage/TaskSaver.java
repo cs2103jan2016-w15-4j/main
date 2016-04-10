@@ -29,6 +29,8 @@ public class TaskSaver extends Saver<TaskData> {
 	// Error Messages
 	private static final String ERROR_MESSAGE_TASK_SAVING = "Unable to save task data";
 
+	private static final String EMPTY_STRING = "";
+
 	private String filePath;
 	private Gson gson;
 
@@ -137,7 +139,7 @@ public class TaskSaver extends Saver<TaskData> {
 	 * @return The JSON string representation of the TaskData
 	 */
 	String setFormat(TaskData task) {
-		String json = "";
+		String json = EMPTY_STRING;
 
 		if (task instanceof DeadlineTaskData) {
 			DeadlineTaskData deadline = (DeadlineTaskData) task;

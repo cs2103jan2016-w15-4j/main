@@ -178,8 +178,8 @@ public class EditParser implements ParserCommons {
 		DateTimeParser dateTimeParser = new DateTimeParser();
 		int indexFrom = getIndexOfMarker(MARKER_START_EVENT);
 		int indexTo = getIndexOfMarker(MARKER_END_EVENT);
-		String startTimeString = ParserCommons.getStartTimeString(userInput, indexFrom, indexTo);
-		String endTimeString = ParserCommons.getEndTimeString(userInput, indexFrom, indexTo);
+		String startTimeString = ParserCommons.getStartDateTimeString(userInput, indexFrom, indexTo);
+		String endTimeString = ParserCommons.getEndDateTimeString(userInput, indexFrom, indexTo);
 		try {
 			start = dateTimeParser.parse(startTimeString);
 			end = dateTimeParser.parse(endTimeString);

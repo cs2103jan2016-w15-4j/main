@@ -152,8 +152,8 @@ public class AddParser implements ParserCommons {
 		taskName = ParserCommons.getTaskName(userInput, indexFrom, indexTo);
 
 		// Gets the start and end date time string inputs
-		String startDateTimeString = ParserCommons.getStartTimeString(userInput, indexFrom, indexTo);
-		String endDateTimeString = ParserCommons.getEndTimeString(userInput, indexFrom, indexTo);
+		String startDateTimeString = ParserCommons.getStartDateTimeString(userInput, indexFrom, indexTo);
+		String endDateTimeString = ParserCommons.getEndDateTimeString(userInput, indexFrom, indexTo);
 
 		// Sets the start and end DateTime objects
 		start = dateTimeParser.parse(startDateTimeString);
@@ -269,8 +269,8 @@ public class AddParser implements ParserCommons {
 		
 		// Get the start and end strings inputs 
 		boolean ans = true;
-		String startDateTimeString = ParserCommons.getStartTimeString(userInput, indexFrom, indexTo);
-		String endDateTimeString = ParserCommons.getEndTimeString(userInput, indexFrom, indexTo);
+		String startDateTimeString = ParserCommons.getStartDateTimeString(userInput, indexFrom, indexTo);
+		String endDateTimeString = ParserCommons.getEndDateTimeString(userInput, indexFrom, indexTo);
 
 		// Check if the start and end strings are valid DateTime inputs
 		try {

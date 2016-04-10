@@ -18,7 +18,9 @@ import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import dooyit.common.datatype.Category;
 import dooyit.common.datatype.TaskGroup;
-import dooyit.logic.api.*;
+import dooyit.logic.api.LogicController;
+import dooyit.logic.api.LogicAction;
+import dooyit.logic.api.Action;
 
 /**
  * The <tt>UIController</tt> class contains methods to initialize all other classes belonging to the UI.

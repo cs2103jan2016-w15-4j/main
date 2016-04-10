@@ -4,7 +4,6 @@ package dooyit.ui;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.image.Image;

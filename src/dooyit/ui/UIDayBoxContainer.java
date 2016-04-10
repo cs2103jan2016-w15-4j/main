@@ -4,7 +4,6 @@ package dooyit.ui;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import dooyit.common.datatype.TaskGroup;
 import javafx.scene.layout.VBox;
 

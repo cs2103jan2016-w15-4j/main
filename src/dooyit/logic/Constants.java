@@ -76,6 +76,8 @@ public class Constants {
 	public static final String TITLE_TASK_LIST = "Task List";
 	
 	public static final int DAYS_PER_WEEK = 7;
+	public static final int FIRST_DAY = 1;
+	public static final int SECOND_DAY = 2;
 	public static final String SPACE = " ";
 	public static final String EMPTY_STRING = "";
 	public static final String SYMBOL_COLON = ": ";

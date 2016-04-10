@@ -36,7 +36,6 @@ public class TaskManager {
 
 	private static final int TASKGROUP_COUNT_LIMIT = 30;
 	private ArrayList<Task> tasks;
-
 	private SearchType searchType;
 	private String searchKey;
 	private DateTime searchDateTime;
@@ -896,10 +895,10 @@ public class TaskManager {
 		addOverDueTaskGroup(taskGroups, currDate);
 
 		String title;
-		for (int i = 1; i <= 7; i++) {
-			if (i == 1) {
+		for (int i = 1; i <= Constants.DAYS_PER_WEEK; i++) {
+			if (i == Constants.FIRST_DAY) {
 				title = Constants.TITLE_TODAY;
-			} else if (i == 2) {
+			} else if (i == Constants.SECOND_DAY) {
 				title = Constants.TITLE_TOMORROW;
 			} else {
 				title = currDate.getDayStr();
@@ -1299,11 +1298,18 @@ public class TaskManager {
 	 * @param tasks
 	 */
 	public void sortTasks(ArrayList<Task> tasks) {
-		TaskUniqueIdComparator uniqueIdComparator = new TaskUniqueIdComparator();
-		Collections.sort(tasks, uniqueIdComparator);
+		sortTasksByUniqueId(tasks);
+		sortTasksByDate(tasks);
+	}
 
+	public void sortTasksByDate(ArrayList<Task> tasks) {
 		TaskDateComparator dateComparator = new TaskDateComparator();
 		Collections.sort(tasks, dateComparator);
+	}
+
+	public void sortTasksByUniqueId(ArrayList<Task> tasks) {
+		TaskUniqueIdComparator uniqueIdComparator = new TaskUniqueIdComparator();
+		Collections.sort(tasks, uniqueIdComparator);
 	}
 
 	/**
@@ -1318,6 +1324,9 @@ public class TaskManager {
 	}
 
 	/**
+	 * assign new diplay id for each task, setting display id of a multi event
+	 * task that has been set will fail
+	 * 
 	 * @param taskGroups
 	 */
 	public void assignNewDisplayId(ArrayList<TaskGroup> taskGroups) {

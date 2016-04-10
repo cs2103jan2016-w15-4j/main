@@ -23,9 +23,12 @@ public class TagParser implements ParserCommons {
 	protected static final String MARKER_FOR_INTERVAL_TAG_TYPE = "-";
 	protected static final String ERROR_MESSAGE_TOO_MANY_IDS = "Please type in ONE task ID";
 	
-	// Class Constants
+	// TagParser Class Constants
 	private static final int INDEX_OF_SINGLE_ID = 0;
 	private static final int SIZE_ONE_ELEMENT = 1;
+	private static final int MAXIMUM_NUMBER_OF_NUMBERS_IN_INTERVAL_TYPE = 2;
+	private static final int INDEX_OF_START_IN_INTERVAL_TYPE = 0;
+	private static final int INDEX_OF_END_IN_INTERVAL_TYPE = 1;
 	
 	// TagParser object attributes
 	protected String userInput;
@@ -47,8 +50,11 @@ public class TagParser implements ParserCommons {
 	}
 	
 	/** 
+	 * Parses the task IDs and puts the integers into the 
+	 * taskIdsForTagging arraylist.
 	 * 
-	 * @throws IncorrectInputException
+	 * @throws IncorrectInputException if there is a non-integer
+	 * 		   taskID or if there is IntegerOverflow.
 	 */
 	protected void parseTaskIds() throws IncorrectInputException {
 		for (int i = 0; i < splitInput.length; i++) {
@@ -64,10 +70,14 @@ public class TagParser implements ParserCommons {
 	/**
 	 * 
 	 * @param currWord
-	 * @throws IncorrectInputException
+	 * 		  The taskID or interval of taskIDs 
+	 * 
+	 * @throws IncorrectInputException if there is a non-integer
+	 * 		   taskID or if there is IntegerOverflow.
 	 */
 	private void addTaskIds(String currWord) throws IncorrectInputException {
 		if (ParserCommons.isNumber(currWord)) {
+			// Check for Integer Overflow
 			try {
 				int taggedId = Integer.parseInt(currWord);
 				taskIdsForTagging.add(taggedId);
@@ -84,9 +94,13 @@ public class TagParser implements ParserCommons {
 	}
 	
 	/**
+	 * Check if the current string is a valid interval of taskIDs
 	 * 
 	 * @param currWord
-	 * @return
+	 * 		  A one word string from the user input
+	 * 
+	 * @return true if the word contains the interval marker and also
+	 * 		   if the start and end are both numbers.
 	 */
 	protected static boolean isIntervalType(String currWord) {
 		boolean isInterval = false;
@@ -98,23 +112,32 @@ public class TagParser implements ParserCommons {
 	}
 
 	/**
+	 * Checks if there is a correct number of elements in the String array.
+	 * If the number of elements is correct, checks if the start and end
+	 * strings are valid numbers.
 	 * 
 	 * @param splitByDash
-	 * @return
+	 * 		  String array of one of the words from the
+	 * 		  user input that contains the interval marker
+	 * 
+	 * @return true if the number of elements in the String array is correct and 
+	 * 		   also if the words are valid numbers.
 	 */
 	private static boolean checkIfStartAndEndAreNumbers(String[] splitByDash) {
 		boolean ans = false;
-		if (splitByDash.length == 2) {
-			String start = splitByDash[0];
-			String end = splitByDash[1];
+		if (splitByDash.length == MAXIMUM_NUMBER_OF_NUMBERS_IN_INTERVAL_TYPE) {
+			String start = splitByDash[INDEX_OF_START_IN_INTERVAL_TYPE];
+			String end = splitByDash[INDEX_OF_END_IN_INTERVAL_TYPE];
 			ans = ParserCommons.isNumber(start) && ParserCommons.isNumber(end);
 		}
 		return ans;
 	}
 
 	/**
+	 * Sets the object attributes.
 	 * 
 	 * @param input
+	 * 		  This is the user input that contains just the task IDs
 	 */
 	protected void setAttributesForTagging(String input) {
 		userInput = input;
@@ -124,14 +147,20 @@ public class TagParser implements ParserCommons {
 	}
 
 	/**
+	 * Adds the task IDs to the ArrayList taskIdsForTagging
 	 * 
 	 * @param currWord
+	 * 		  A word in the user input that is of a similar 
+	 * 		  format "4-7".
+	 * 			
 	 */
 	protected void setInterval(String currWord) throws IncorrectInputException {
 		String[] splitByDash = currWord.split(MARKER_FOR_INTERVAL_TAG_TYPE);
+		
+		// Check for Integer overflow
 		try {
-			int start = Integer.parseInt(splitByDash[0]); 
-			int end = Integer.parseInt(splitByDash[1]);
+			int start = Integer.parseInt(splitByDash[INDEX_OF_START_IN_INTERVAL_TYPE]); 
+			int end = Integer.parseInt(splitByDash[INDEX_OF_END_IN_INTERVAL_TYPE]);
 			for (int i = start; i <= end; i++) {
 				taskIdsForTagging.add(i);
 			}
@@ -141,12 +170,15 @@ public class TagParser implements ParserCommons {
 	}
 
 	/**
+	 * Checks if the user input has valid task IDs and returns 
+	 * the correct TagType.
 	 * 
-	 * @return
+	 * @return the TagType VALID if the ArrayList taskIdsForTagging has at 
+	 * 		   least one element and the TagType INVALID otherwise.
 	 */
 	protected TagType getTagType() {
 		TagType type;
-		if (taskIdsForTagging.size() >= 1) {
+		if (taskIdsForTagging.size() >= SIZE_ONE_ELEMENT) {
 			type = TagType.VALID;
 		} else {
 			type = TagType.INVALID;
@@ -155,8 +187,13 @@ public class TagParser implements ParserCommons {
 	}
 	
 	/**
+	 * Checks if the user input has one task ID or more and 
+	 * returns the correct TagType.
 	 * 
-	 * @return
+	 * @return the SINGLE TagType if the ArrayList only has one element
+	 * 		   or the MULTIPLE TagType if the ArrayList has more than one
+	 * 		   element or the INVALID TagType the ArrayList does not 
+	 * 		   contain any elements.
 	 */
 	protected TagType getSingleMultipleTagType() {
 		TagType type;
@@ -171,15 +208,16 @@ public class TagParser implements ParserCommons {
 	}
 	
 	/**
-	 * 
+	 * Resets the command attribute to null.
 	 */
 	protected void resetCommandAttributeToNull() {
 		command = null;
 	}
 	
 	/**
+	 * Gets the single task ID from the arraylist of task IDs.
 	 * 
-	 * @return
+	 * @return the single task ID.
 	 */
 	protected int getSingleTaskId() {
 		return taskIdsForTagging.get(INDEX_OF_SINGLE_ID);

@@ -45,17 +45,27 @@ public class StorageCommand implements ReversibleCommand {
 			previousPath = logic.getFilePath();
 			boolean fileExist = logic.setFileDestinationPath(path);
 
-			logicAction = new LogicAction(Action.SET_STORAGE_PATH, Constants.FEEDBACK_SET_NEW_PATH);
-
 			if (fileExist) {
-				logic.loadFromStorage();
-				logicAction = new LogicAction(Action.SET_STORAGE_PATH, Constants.FEEDBACK_SET_NEW_PATH_WITH_LOAD);
+				logicAction = loadFileContent(logic);
+			} else {
+				logicAction = setNewPath();
 			}
 		} catch (IncorrectInputException e) {
 			logicAction = new LogicAction(Action.ERROR, e.getMessage());
 			hasError = true;
 		}
 
+		return logicAction;
+	}
+
+	public LogicAction setNewPath() {
+		return new LogicAction(Action.SET_STORAGE_PATH, Constants.FEEDBACK_SET_NEW_PATH);
+	}
+
+	public LogicAction loadFileContent(LogicController logic) {
+		LogicAction logicAction;
+		logic.loadFromStorage();
+		logicAction = new LogicAction(Action.SET_STORAGE_PATH, Constants.FEEDBACK_SET_NEW_PATH_WITH_LOAD);
 		return logicAction;
 	}
 

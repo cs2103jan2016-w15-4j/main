@@ -3,8 +3,8 @@ package dooyit.logic.commands;
 
 import java.util.ArrayList;
 import dooyit.common.datatype.DateTime;
-import dooyit.common.datatype.DateTime.DAY;
-import dooyit.common.datatype.DateTime.MONTH;
+import dooyit.common.datatype.DateTime.Day;
+import dooyit.common.datatype.DateTime.Month;
 
 /**
  * the command utils acts as a factory for command objects
@@ -191,12 +191,12 @@ public class CommandUtils {
 		return searchCommand;
 	}
 
-	public static Command createSearchCommand(String searchString, MONTH month) {
+	public static Command createSearchCommand(String searchString, Month month) {
 		SearchCommand searchCommand = new SearchCommand(searchString, month);
 		return searchCommand;
 	}
 
-	public static Command createSearchCommand(String searchString, DAY day) {
+	public static Command createSearchCommand(String searchString, Day day) {
 		SearchCommand searchCommand = new SearchCommand(searchString, day);
 		return searchCommand;
 	}

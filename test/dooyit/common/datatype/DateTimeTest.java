@@ -11,7 +11,7 @@ import java.util.Arrays;
 import org.junit.Before;
 import org.junit.Test;
 
-import dooyit.common.datatype.DateTime.DAY;
+import dooyit.common.datatype.DateTime.Day;
 
 /**
  * 
@@ -57,7 +57,7 @@ public class DateTimeTest {
 		int endTime = 1600;
 		DateTime end = new DateTime(endDate, endTime);
 		
-		DAY day = DAY.FRI;
+		Day day = Day.FRI;
 		
 		assertTrue(DateTime.isWithinDay(day, start, end));
 	}
@@ -72,7 +72,7 @@ public class DateTimeTest {
 		int endTime = 1600;
 		DateTime end = new DateTime(endDate, endTime);
 		
-		DAY day = DAY.MON;
+		Day day = Day.MON;
 		
 		assertTrue(!DateTime.isWithinDay(day, start, end));
 	}

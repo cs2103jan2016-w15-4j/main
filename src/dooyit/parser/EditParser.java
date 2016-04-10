@@ -122,7 +122,7 @@ public class EditParser implements ParserCommons {
 	}
 
 	private void parseNameForDeadlineType() {
-		int indexDeadline = getIndexOfMarker(MARKER_WORK);
+		int indexDeadline = getIndexOfMarker(MARKER_DEADLINE_TASK);
 		int startOfName = getIndexOfName(); 
 		taskName = userInput.substring(startOfName, indexDeadline);
 	}
@@ -187,8 +187,8 @@ public class EditParser implements ParserCommons {
 
 	private void parseDeadline() throws IncorrectInputException {
 		DateTimeParser dateTimeParser = new DateTimeParser();
-		int indexDeadline = getIndexOfMarker(MARKER_WORK);
-		String deadlineString = getTimeString(indexDeadline, MARKER_WORK);
+		int indexDeadline = getIndexOfMarker(MARKER_DEADLINE_TASK);
+		String deadlineString = getTimeString(indexDeadline, MARKER_DEADLINE_TASK);
 		try {
 			deadline = dateTimeParser.parse(deadlineString);
 		} catch (IncorrectInputException e) {
@@ -256,7 +256,7 @@ public class EditParser implements ParserCommons {
 		if(splitUserInput.length > 1) { 
 			String mayBeName = userInput.split("\\s+")[1];
 			// This means that the names cannot be "by", "to" or "from"
-			ans = !mayBeName.equals(MARKER_WORK.trim()) && !mayBeName.equals(MARKER_END_EVENT.trim())
+			ans = !mayBeName.equals(MARKER_DEADLINE_TASK.trim()) && !mayBeName.equals(MARKER_END_EVENT.trim())
 				&& !mayBeName.equals(MARKER_START_EVENT.trim());
 		} 
 		return ans;
@@ -271,6 +271,6 @@ public class EditParser implements ParserCommons {
 	}
 
 	private boolean hasDeadline() {
-		return !ParserCommons.isUninitialized(getIndexOfMarker(MARKER_WORK));
+		return !ParserCommons.isUninitialized(getIndexOfMarker(MARKER_DEADLINE_TASK));
 	}
 }

@@ -70,11 +70,11 @@ public class DateTime {
 	private int yy; // 2016
 	private int timeInt;
 	
-	public enum DAY {
+	public enum Day {
 		MON, TUE, WED, THU, FRI, SAT, SUN, INVALID;
 	}
 
-	public enum MONTH {
+	public enum Month {
 		JAN, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, NOV, DEC, INVALID
 	}
 	
@@ -321,7 +321,7 @@ public class DateTime {
 		return first.getDate().equals(second.getDate());
 	}
 	
-	public static boolean isWithinDay(DAY day, DateTime start, DateTime end) {
+	public static boolean isWithinDay(Day day, DateTime start, DateTime end) {
 		int startDayInt = start.getDayInt();
 		int endDayInt = end.getDayInt();
 		int dayEnumInt = convertDayEnumToInt(day);
@@ -331,7 +331,7 @@ public class DateTime {
 		return isAfterStart && isBeforeEnd;
 	}
 	
-	private static int convertDayEnumToInt(DAY day) {
+	private static int convertDayEnumToInt(Day day) {
 		String dayEnumString = day.toString().toLowerCase();
 		int dayEnumInt = UNINITIALIZED_INT;
 		for (int i = 1; i < daysInWeek.length; i++) {
@@ -463,68 +463,68 @@ public class DateTime {
 		return dtIsAfterStart && dtIsBeforeEnd;
 	}
 	
-	public boolean isMonth(MONTH month) {
+	public boolean isMonth(Month month) {
 		String monthString = month.name();
 		String dateTimeMonth = months[this.getMM()];
 		return monthString.equalsIgnoreCase(dateTimeMonth);
 	}
 	
-	public boolean isDay(DAY day) {
+	public boolean isDay(Day day) {
 		String dayString = day.name();
 		String dateTimeDay = daysInWeek[this.getDayInt()].substring(0, 3);
 		return dayString.equalsIgnoreCase(dateTimeDay);
 	}
 	
-	public static DAY getDayType(String input) {
-		DAY type;
+	public static Day getDayType(String input) {
+		Day type;
 		if(input.contains(DAY_MON)) {
-			type = DAY.MON ;
+			type = Day.MON ;
 		} else if(input.contains(DAY_TUE)) {
-			type = DAY.TUE;
+			type = Day.TUE;
 		} else if(input.contains(DAY_WED)) {
-			type = DAY.WED;
+			type = Day.WED;
 		} else if(input.contains(DAY_THU)) {
-			type = DAY.THU;
+			type = Day.THU;
 		} else if(input.contains(DAY_FRI)) {
-			type = DAY.FRI;
+			type = Day.FRI;
 		} else if(input.contains(DAY_SAT)) {
-			type = DAY.SAT;
+			type = Day.SAT;
 		} else if(input.contains(DAY_SUN)) {
-			type = DAY.SUN;
+			type = Day.SUN;
 		} else {
-			type = DAY.INVALID;
+			type = Day.INVALID;
 		}
 		return type;
 	}
 	
-	public static MONTH getMonthType(String input) {
-		MONTH type;
+	public static Month getMonthType(String input) {
+		Month type;
 		if(input.contains(MONTH_JAN)) {
-			type = MONTH.JAN;
+			type = Month.JAN;
 		} else if(input.contains(MONTH_FEB)) {
-			type = MONTH.FEB;
+			type = Month.FEB;
 		} else if(input.contains(MONTH_MARCH)) {
-			type = MONTH.MAR;
+			type = Month.MAR;
 		} else if(input.contains(MONTH_APR)) {
-			type = MONTH.APR;
+			type = Month.APR;
 		} else if(input.contains(MONTH_MAY)) {
-			type = MONTH.MAY;
+			type = Month.MAY;
 		} else if(input.contains(MONTH_JUN)) {
-			type = MONTH.JUN;
+			type = Month.JUN;
 		} else if(input.contains(MONTH_JUL)) {
-			type = MONTH.JUL;
+			type = Month.JUL;
 		} else if(input.contains(MONTH_AUG)) {
-			type = MONTH.AUG;
+			type = Month.AUG;
 		} else if(input.contains(MONTH_SEP)) {
-			type = MONTH.SEP;
+			type = Month.SEP;
 		} else if(input.contains(MONTH_OCT)) {
-			type = MONTH.OCT;
+			type = Month.OCT;
 		} else if(input.contains(MONTH_NOV)) {
-			type = MONTH.NOV;
+			type = Month.NOV;
 		} else if(input.contains(MONTH_DEC)) {
-			type = MONTH.DEC;
+			type = Month.DEC;
 		} else {
-			type = MONTH.INVALID;
+			type = Month.INVALID;
 		}
 		return type;
 	}

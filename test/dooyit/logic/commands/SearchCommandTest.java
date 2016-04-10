@@ -10,7 +10,7 @@ import org.junit.Test;
 import org.powermock.reflect.Whitebox;
 
 import dooyit.common.datatype.DateTime;
-import dooyit.common.datatype.DateTime.MONTH;
+import dooyit.common.datatype.DateTime.Month;
 import dooyit.common.datatype.DeadlineTask;
 import dooyit.common.datatype.EventTask;
 import dooyit.common.datatype.FloatingTask;
@@ -102,7 +102,7 @@ public class SearchCommandTest {
 	public void search_Month_WithResults() {
 		setupTasks();
 		
-		searchCommand = new SearchCommand("april", MONTH.APR);
+		searchCommand = new SearchCommand("april", Month.APR);
 		searchCommand.execute(logic);
 		TaskManager manager = logic.getTaskManager();
 		ArrayList<TaskGroup> taskGroup = manager.getTaskGroupSearched();
@@ -120,7 +120,7 @@ public class SearchCommandTest {
 	public void search_Month_NoResults() {
 		setupTasks();
 		
-		searchCommand = new SearchCommand("january", MONTH.JAN);
+		searchCommand = new SearchCommand("january", Month.JAN);
 		searchCommand.execute(logic);
 		
 		TaskManager manager = logic.getTaskManager();

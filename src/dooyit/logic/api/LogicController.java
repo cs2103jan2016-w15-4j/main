@@ -20,8 +20,8 @@ import dooyit.common.datatype.DateTime;
 import dooyit.common.datatype.Task;
 import dooyit.common.datatype.TaskData;
 import dooyit.common.datatype.TaskGroup;
-import dooyit.common.datatype.DateTime.DAY;
-import dooyit.common.datatype.DateTime.MONTH;
+import dooyit.common.datatype.DateTime.Day;
+import dooyit.common.datatype.DateTime.Month;
 
 public class LogicController {
 
@@ -239,11 +239,11 @@ public class LogicController {
 		taskManager.setSearchKey(searchString);
 	}
 
-	public void setSearchKey(String searchKey, DAY day) {
+	public void setSearchKey(String searchKey, Day day) {
 		taskManager.setSearchKey(searchKey, day);
 	}
 
-	public void setSearchKey(String searchKey, MONTH month) {
+	public void setSearchKey(String searchKey, Month month) {
 		taskManager.setSearchKey(searchKey, month);
 	}
 

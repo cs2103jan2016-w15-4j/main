@@ -2,6 +2,8 @@
 package dooyit.ui;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import com.pepperonas.fxiconics.FxIconicsLabel;
 import com.pepperonas.fxiconics.MaterialColor;
@@ -23,7 +25,7 @@ import javafx.scene.layout.VBox;
  */
 
 public class UISideMenu {
-
+	private static final String LOG_MSG_INIT_SUCCESS = "Initialization of UISideMenu successful";
 	private static final String LABEL_TODAY = "Today";
 	private static final String LABEL_EXTENDED = "Next 7 days";
 	private static final String LABEL_FLOAT = "Float";
@@ -52,6 +54,7 @@ public class UISideMenu {
 	private Label categoryTitle;
 	private UICategoryBoxContainer categoryBoxContainer;
 	private UIController parent;
+	private Logger logger;
 
 	/**
 	 * This is the constructor method.
@@ -67,11 +70,21 @@ public class UISideMenu {
 	 * It is used by the constructor.
 	 */
 	private void initialize() {
+		initLogger();
 		this.mainViewToggleGroup = new ToggleGroup();
 		initMenuButtons();
 		initCategoryButtons();
 		initMenu();
 		initMenuPane();
+		this.logger.log(Level.INFO, LOG_MSG_INIT_SUCCESS);
+	}
+	
+	/**
+	 * This method is used to initialize the logger.
+	 * It is used by the <tt>initialize</tt> method.
+	 */
+	private void initLogger() {
+		this.logger = Logger.getLogger(getClass().getName());
 	}
 	
 	/**

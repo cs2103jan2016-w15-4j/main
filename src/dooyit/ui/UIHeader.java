@@ -1,6 +1,9 @@
 // @@author A0124278A
 package dooyit.ui;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
@@ -14,6 +17,8 @@ import javafx.scene.text.Font;
  */
 
 public class UIHeader {
+	private static final String LOG_MSG_CUSTOM_FONT_SUCCESS = "Loading of custom font for UIHeader successful";
+	private static final String LOG_MSG_CUSTOM_FONT_FAIL = "Loading of custom font for UIHeader failed. Fallback to Helvetica.";
 	private static final String STYLECLASS_HEADER = UIStyle.HEADER_VIEW;
 	private static final String LABEL_TITLE = "DOOYIT";
 	private static final String STYLECLASS_TITLE = UIStyle.HEADER_TITLE;
@@ -24,6 +29,7 @@ public class UIHeader {
 	private Font customFont;
 	private HBox header;
 	private Label title;
+	private Logger logger;
 	
 	/**
 	 * This is the constructor method.
@@ -37,8 +43,17 @@ public class UIHeader {
 	 * It is used by the constructor.
 	 */
 	private void initialize() {
+		initLogger();
 		initTitle();
 		initHeader();
+	}
+	
+	/**
+	 * This method is used to initialize the logger.
+	 * It is used by the <tt>initialize</tt> method.
+	 */
+	private void initLogger() {
+		this.logger = Logger.getLogger(getClass().getName());
 	}
 	
 	/**
@@ -49,8 +64,10 @@ public class UIHeader {
 		this.title = new Label(LABEL_TITLE);
 		try {
 			initTitleFont();
+			this.logger.log(Level.INFO, LOG_MSG_CUSTOM_FONT_SUCCESS);
 		} catch (Exception e) {
 			this.title.setFont(HELVETICA_L);
+			this.logger.log(Level.INFO, LOG_MSG_CUSTOM_FONT_FAIL);
 		}
 		this.title.getStyleClass().add(STYLECLASS_TITLE);
 	}

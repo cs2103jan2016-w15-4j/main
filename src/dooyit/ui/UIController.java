@@ -3,6 +3,8 @@ package dooyit.ui;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
@@ -12,6 +14,7 @@ import javafx.scene.control.Toggle;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import dooyit.common.datatype.Category;
 import dooyit.common.datatype.TaskGroup;
@@ -29,17 +32,21 @@ import dooyit.logic.api.*;
  */
 
 public class UIController {
-	static final int WIDTH_SCENE = 720;
-	static final int HEIGHT_SCENE = 580;
-	static final String STYLECLASS_MAIN_VIEW = UIStyle.MAIN_VIEW;
-	static final String SPACE = " ";
-	static final String ESCAPED_SPACE = "%20";
-	static final String PATH_PREPEND = "file://";
+	private static final int WIDTH_SCENE = 720;
+	private static final int HEIGHT_SCENE = 580;
+	private static final String STYLECLASS_MAIN_VIEW = UIStyle.MAIN_VIEW;
+	private static final String SPACE = " ";
+	private static final String ESCAPED_SPACE = "%20";
+	private static final String PATH_PREPEND = "file://";
+	private static final String PATH_WEB_GUIDE = "resrc/doc/guide.html";
+	private static final String LOG_MSG_INIT_SUCCESS = "Initialization of UIController successful";
+	private static final String LOG_MSG_SEC_STAGE_SHOWN = "Secondary stage is shown.";
 
 	private String urlCssCommon;
 	private String urlCssThemeLight;
 	private String urlCssThemeDark;
 	private String urlCssThemeAqua;
+	private String urlWebGuide;
 	private URL urlCssThemeCustom;
 	private Scene scene;
 	private BorderPane root;
@@ -55,6 +62,9 @@ public class UIController {
 	private LogicController logic;
 	private Stage primaryStage;
 	private UIMainViewType activeMainView;
+	private Stage secondaryStage;
+	private WebView webView;
+	private Logger logger;
 	private static UIController instance = null;
 	
 	/**
@@ -90,7 +100,8 @@ public class UIController {
 	 * It is used by the constructor.
 	 */
 	private void initialize() {
-		initCss();
+		initLogger();
+		initUrls();
 		initHeader();
 		initSideMenu();
 		initMainView();
@@ -102,29 +113,40 @@ public class UIController {
 		initListeners();
 		updatePositions();
 		initPopulate();
+		this.logger.log(Level.INFO, LOG_MSG_INIT_SUCCESS);
+	}
+	
+	/**
+	 * This method is used to initialize the logger.
+	 * It is used by the <tt>initialize</tt> method.
+	 */
+	private void initLogger() {
+		this.logger = Logger.getLogger(getClass().getName());
 	}
 
 	/**
-	 * This method is used to initialize the file paths of the CSS for the application skins.
+	 * This method is used to initialize the file paths of the CSS files and the 
+	 * web guide.
 	 * It is used by the <tt>initialize</tt> method.
 	 */
-	private void initCss() {
-		this.urlCssCommon = loadCss(UIStyle.URL_CSS_COMMON);
-		this.urlCssThemeLight = loadCss(UIStyle.URL_CSS_THEME_LIGHT);
-		this.urlCssThemeDark = loadCss(UIStyle.URL_CSS_THEME_DARK);
-		this.urlCssThemeAqua = loadCss(UIStyle.URL_CSS_THEME_AQUA);
+	private void initUrls() {
+		this.urlCssCommon = loadUrl(UIStyle.URL_CSS_COMMON);
+		this.urlCssThemeLight = loadUrl(UIStyle.URL_CSS_THEME_LIGHT);
+		this.urlCssThemeDark = loadUrl(UIStyle.URL_CSS_THEME_DARK);
+		this.urlCssThemeAqua = loadUrl(UIStyle.URL_CSS_THEME_AQUA);
 		this.urlCssThemeCustom = getClass().getResource(UIStyle.URL_CSS_THEME_CUSTOM);
+		this.urlWebGuide = loadUrl(PATH_WEB_GUIDE);
 		this.logic.setDefaultCustomCss(urlCssThemeCustom);
 	}
 
 	/**
-	 * This method is used to retrieve the absolute pathname of a CSS file given its relative pathname. 
+	 * This method is used to retrieve the absolute pathname of a file given its relative pathname. 
 	 * It is used by the <tt>initialize</tt> method.
 	 * @param cssUrl The relative pathname to be resolved.
 	 * @return The absolute pathname of <tt>cssUrl</tt>.
 	 */
-	private String loadCss(String cssUrl) {
-		return getClass().getResource(cssUrl).toExternalForm();
+	private String loadUrl(String url) {
+		return getClass().getResource(url).toExternalForm();
 	}
 
 	/**
@@ -239,6 +261,10 @@ public class UIController {
 	 */
 	private void initHelpBox() {
 		this.helpBox = new UIHelpBox();
+		this.secondaryStage = new Stage();
+		this.webView = new WebView();
+		this.webView.getEngine().load(this.urlWebGuide);
+		this.secondaryStage.setScene(new Scene(webView));
 	}
 
 	/**
@@ -723,7 +749,8 @@ public class UIController {
 	 * It is used by the <tt>processLogicAction</tt> method.
 	 */
 	private void showHelp() {
-		this.helpBox.show(this.primaryStage);
+		this.secondaryStage.show();
+		this.logger.log(Level.INFO, LOG_MSG_SEC_STAGE_SHOWN);
 	}
 
 	/**

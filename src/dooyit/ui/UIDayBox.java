@@ -2,7 +2,6 @@
 package dooyit.ui;
 
 import java.util.ArrayList;
-
 import dooyit.common.datatype.Task;
 import dooyit.common.datatype.TaskGroup;
 import javafx.scene.control.Label;

@@ -18,7 +18,9 @@ import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import dooyit.common.datatype.Category;
 import dooyit.common.datatype.TaskGroup;
-import dooyit.logic.api.*;
+import dooyit.logic.api.LogicController;
+import dooyit.logic.api.LogicAction;
+import dooyit.logic.api.Action;
 
 /**
  * The <tt>UIController</tt> class contains methods to initialize all other classes belonging to the UI.
@@ -328,15 +330,15 @@ public class UIController {
 	 */
 	private void processCommandBoxKeyEvent(KeyEvent keyEvent) {
 		KeyCode key = keyEvent.getCode();
-    	switch(key){
-        	case UP:
-        		commandBox.showPrevHistory();
-        		break;
-        	case DOWN:
-        		commandBox.showNextHistory();
-        		break;
-        	default:
-        		break;
+		switch(key) {
+			case UP:
+				this.commandBox.showPrevHistory();
+				break;
+			case DOWN:
+				this.commandBox.showNextHistory();
+				break;
+			default:
+				break;
 		}
 	}
 

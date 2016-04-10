@@ -2,7 +2,6 @@
 package dooyit.ui;
 
 import java.util.ArrayList;
-
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 

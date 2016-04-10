@@ -19,7 +19,7 @@ import dooyit.logic.commands.CommandUtils;
  *
  */
 public class AddParser implements ParserCommons {
-	// Error Message
+	// Error message
 	private static final String ERROR_MESSAGE_INVALID_ADD_COMMAND = "Invalid add command!";
 
 	// AddParser object attributes
@@ -44,7 +44,7 @@ public class AddParser implements ParserCommons {
 	}
 
 	/**
-	 * Parses userInput and returns correct AddCommand object
+	 * Parses userInput and returns the correct AddCommand object
 	 * 
 	 * @param input
 	 *        The add command input from the user
@@ -53,14 +53,24 @@ public class AddParser implements ParserCommons {
 	 *         valid or an invalid command object if the command input is
 	 *         invalid
 	 */
-	public Command getCommand(String input) throws IncorrectInputException {
+	public Command getCommand(String input) {
 		logger.log(Level.INFO, "Getting command object from AddParser");
-		userInput = input.trim();
+		setUserInput(input);
 
 		// Sets the command attribute to the correct command object
 		setAddCommand();
 
 		return command;
+	}
+
+	/**
+	 * Sets the userInput attribute to the string input.
+	 * 
+	 * @param input
+	 * 		  The add command input from the user
+	 */
+	private void setUserInput(String input) {
+		userInput = input.trim();
 	}
 
 	/**
@@ -76,11 +86,16 @@ public class AddParser implements ParserCommons {
 
 		case WORK:
 			parseDeadlineTask();
-			setWorkCommand();
+			setDeadlineTaskCommand();
 			break;
 
 		case EVENT:
-			parseEvent();
+			try {
+				parseEvent();
+			} catch (IncorrectInputException e){ 
+				setInvalidCommand(e.getMessage());
+				break;
+			}
 			setEventCommand();
 			break;
 
@@ -93,7 +108,7 @@ public class AddParser implements ParserCommons {
 	 * Sets the command attribute to an InvalidCommand object
 	 * 
 	 * @param message
-	 *            Error message that indicates why the user input is wrong
+	 *        Error message that indicates why the user input is wrong.
 	 */
 	private void setInvalidCommand(String message) {
 		command = CommandUtils.createInvalidCommand(message);
@@ -109,7 +124,7 @@ public class AddParser implements ParserCommons {
 	/**
 	 * Sets the command attribute to an AddCommand object for deadline tasks
 	 */
-	private void setWorkCommand() {
+	private void setDeadlineTaskCommand() {
 		command = CommandUtils.createAddCommandDeadline(taskName, deadline);
 	}
 

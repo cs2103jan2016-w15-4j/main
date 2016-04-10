@@ -14,7 +14,7 @@ public class MarkParser extends TagParser{
 	}
 
 	public Command getCommand(String input) throws IncorrectInputException {
-		setVariables(input);
+		setAttributesForTagging(input);
 		command = null;
 		try {
 			parseTaskIds();
@@ -29,7 +29,7 @@ public class MarkParser extends TagParser{
 		return command;
 	}
 
-	private void setCorrectMarkCommand(TAG_TYPE tagType) {
+	private void setCorrectMarkCommand(TagType tagType) {
 		switch (tagType) {
 		case VALID :
 			setMultipleTypeMarkCommand();

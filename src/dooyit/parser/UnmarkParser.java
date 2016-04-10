@@ -15,7 +15,7 @@ public class UnmarkParser extends TagParser{
 	}
 
 	public Command getCommand(String input) throws IncorrectInputException {
-		setVariables(input);
+		setAttributesForTagging(input);
 		command = null;
 		
 		try {
@@ -31,7 +31,7 @@ public class UnmarkParser extends TagParser{
 		return command;
 	}
 
-	private void setUnmarkCommand(TAG_TYPE tagType) {
+	private void setUnmarkCommand(TagType tagType) {
 		switch (tagType) {
 		case VALID :
 			setMultipleTypeUnmarkCommand();

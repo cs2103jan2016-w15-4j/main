@@ -11,8 +11,8 @@ import dooyit.logic.commands.CommandUtils;
 
 /**
  * The AddParser class provides methods for adding floating tasks, deadline
- * tasks and events. It takes in an "add" command input and returns an Add
- * command object. It implements the ParserCommons interface to use the shared
+ * tasks and events. It takes in an "add" command input and returns an AddCommand 
+ * object. It implements the ParserCommons interface to use the shared
  * constants and methods.
  * 
  * @author Annabel
@@ -34,7 +34,7 @@ public class AddParser implements ParserCommons {
 	private static Logger logger = Logger.getLogger("AddParser");
 
 	// Attributes of an AddParser object
-	private enum TASK_TYPE {
+	private enum TaskType {
 		FLOATING, WORK, EVENT, INVALID
 	};
 
@@ -43,6 +43,16 @@ public class AddParser implements ParserCommons {
 		logger.log(Level.INFO, "Initialised AddParser object");
 	}
 
+	/**
+	 * Parses userInput and returns correct AddCommand object
+	 * 
+	 * @param input
+	 *        The add command input from the user
+	 * 
+	 * @return the correct AddCommand object if the command input is
+	 *         valid or an invalid command object if the command input is
+	 *         invalid
+	 */
 	public Command getCommand(String input) throws IncorrectInputException {
 		logger.log(Level.INFO, "Getting command object from AddParser");
 		userInput = input.trim();
@@ -185,21 +195,21 @@ public class AddParser implements ParserCommons {
 	 * Checks if the userInput is a addCommand input for a floating task,
 	 * deadline task or an event task.
 	 * 
-	 * @return the correct TASK_TYPE enum constant.
+	 * @return the correct TaskType enum constant.
 	 */
-	private TASK_TYPE getTaskType() {
-		TASK_TYPE type;
+	private TaskType getTaskType() {
+		TaskType type;
 		if (isEvent()) {
-			type = TASK_TYPE.EVENT;
+			type = TaskType.EVENT;
 
 		} else if (isDeadlineTask()) {
-			type = TASK_TYPE.WORK;
+			type = TaskType.WORK;
 
 		} else if (isFloating()) {
-			type = TASK_TYPE.FLOATING;
+			type = TaskType.FLOATING;
 
 		} else {
-			type = TASK_TYPE.INVALID;
+			type = TaskType.INVALID;
 		}
 		return type;
 	}

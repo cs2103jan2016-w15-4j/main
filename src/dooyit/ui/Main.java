@@ -7,8 +7,10 @@ import javafx.stage.Stage;
 import javafx.scene.image.Image;
 
 /**
- * 
- * @author Wu Wenqi
+ * The <tt>Main</tt> class is the entry point for the application. 
+ * @author 	Wu Wenqi
+ * @version 0.5
+ * @since 	2016-04-10
  */
 
 public class Main extends Application {
@@ -19,6 +21,10 @@ public class Main extends Application {
 
 	private UIController ui;
 
+	/**
+	 * This method is used to start the application.
+	 * @param primaryStage This is the primary stage of the application.
+	 */
 	@Override
 	public void start(Stage primaryStage) throws IOException {
 		try {
@@ -31,6 +37,10 @@ public class Main extends Application {
 		}
 	}
 	
+	/**
+	 * This method is used to initialize the primary stage.
+	 * @param primaryStage This is the primary stage of the application.
+	 */
 	private void initStage(Stage primaryStage) {
 		primaryStage.getIcons().add(new Image(APP_ICON));
 		primaryStage.setTitle(APP_TITLE);
@@ -38,9 +48,5 @@ public class Main extends Application {
 		primaryStage.setWidth(MINWIDTH_STAGE);
 		primaryStage.setMinHeight(MINHEIGHT_STAGE);
 		primaryStage.setHeight(MINHEIGHT_STAGE);
-	}
-
-	public static void main(String[] args) {
-		launch(args);
 	}
 }

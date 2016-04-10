@@ -86,7 +86,7 @@ public class FloatingTask extends Task {
 
 	@Override
 	public String getDateString() {
-		return "";
+		return Constants.EMPTY_STRING;
 	}
 
 	@Override

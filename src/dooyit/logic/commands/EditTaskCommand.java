@@ -99,7 +99,7 @@ public class EditTaskCommand implements ReversibleCommand {
 		switch (editCommandType) {
 		case NAME:
 			newTask = logic.changeTaskName(taskId, taskName);
-			logicAction = new LogicAction(Action.EDIT_NAME, FEEDBACK_TASK_EDITED);
+			logicAction = changeTaskName();
 			break;
 
 		case TO_FLOAT:
@@ -131,6 +131,10 @@ public class EditTaskCommand implements ReversibleCommand {
 		}
 
 		return logicAction;
+	}
+
+	public LogicAction changeTaskName() {
+		return new LogicAction(Action.EDIT_NAME, FEEDBACK_TASK_EDITED);
 	}
 
 	public void saveOriginalTask(LogicController logic) {

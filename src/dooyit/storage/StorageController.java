@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
@@ -20,8 +21,8 @@ import dooyit.common.system.OsUtils;
 
 /**
  * The StorageController class provides methods and attributes necessary for
- * loading and saving categories, tasks and custom css. It also contains methods to
- * change the storage location and save the user's preferences
+ * loading and saving categories, tasks and custom css. It also contains methods
+ * to change the storage location and save the user's preferences
  * 
  * @author Dex
  *
@@ -38,7 +39,6 @@ public class StorageController {
 	private static final String ERROR_MESSAGE_FILEPATH = "INVALID path. Path needs to end with %1$s";
 	private static final String ERROR_MESSAGE_ACCESS_CONFIG = "Cannot access configurations";
 	private static final String ERROR_MESSAGE_LOAD_CSS = "Unable to load custom css";
-	private static final String ERROR_MESSAGE_COPY_CSS = "Unable to copy css contents";
 
 	// Preferences related constants
 	private static final int TASK_DESTINATION = 0;
@@ -52,36 +52,11 @@ public class StorageController {
 	private static Logger logger = Logger.getLogger("Storage");
 
 	public StorageController() throws IOException {
-		preferences = new String[PREFERENCES_SIZE];
+		logger.log(Level.INFO, "Initialising storage");
 		configFilePath = Constants.DEFAULT_CONFIG_DESTINATION;
 		preferences = loadPreferences(configFilePath);
 		categoryControl = new CategoryController(Constants.DEFAULT_CATEGORIES_DESTINATION);
 		taskControl = new TaskController(preferences[TASK_DESTINATION]);
-	}
-
-	/**
-	 * Sets a new storage location.
-	 * 
-	 * @param newFilePath
-	 *            The new storage location.
-	 * @return If the file exists, returns true. Otherwise returns false.
-	 * @throws IOException
-	 *             If unable to modify the config file.
-	 */
-	public boolean setFileDestination(String newFilePath) throws IOException {
-		logger.log(Level.INFO, "Changing save destination");
-
-		if (isValidPath(newFilePath, TXT)) {
-			preferences[TASK_DESTINATION] = newFilePath;
-			modifyConfig(preferences);
-			taskControl.setFileDestination(newFilePath);
-			File file = new File(newFilePath);
-			if (file.exists()) {
-				return true;
-			}
-		}
-
-		return false;
 	}
 
 	/**
@@ -124,7 +99,8 @@ public class StorageController {
 	 * @throws IOException
 	 *             If saving fails.
 	 */
-	public boolean saveCategory(ArrayList<CategoryData> categories) throws IOException {
+	public boolean saveCategories(ArrayList<CategoryData> categories) throws IOException {
+		logger.log(Level.INFO, "Attempting to save categories");
 		assert categories != null;
 		return categoryControl.save(categories);
 	}
@@ -136,29 +112,34 @@ public class StorageController {
 	 * @throws IOException
 	 *             If loading fails.
 	 */
-	public ArrayList<CategoryData> loadCategory() throws IOException {
+	public ArrayList<CategoryData> loadCategories() throws IOException {
+		logger.log(Level.INFO, "Attempting to load categories");
 		ArrayList<CategoryData> categories = categoryControl.load();
 		assert categories != null;
 
 		return categories;
 	}
-
+	
 	/**
-	 * Loads the contents of a separate css file by copying it to the default
-	 * custom css file
+	 * Sets a new storage location.
 	 * 
-	 * @param path
-	 *            The path to the external css file.
-	 * @return Returns true if the contents are successfully copied.
+	 * @param newFilePath
+	 *            The new storage location.
+	 * @return If the file exists, returns true. Otherwise returns false.
 	 * @throws IOException
-	 *             If unable to copy the contents from the external css file.
-	 * @throws IncorrectInputException
-	 *             If the path is not valid.
+	 *             If unable to modify the config file.
 	 */
-	public boolean loadCustomCss(String path) throws IOException, IncorrectInputException {
-		if (isValidPath(path, CSS)) {
-			copyCss(path);
-			return true;
+	public boolean setFileDestination(String newFilePath) throws IOException {
+		logger.log(Level.INFO, "Changing file destination");
+
+		if (isValidPath(newFilePath, TXT)) {
+			preferences[TASK_DESTINATION] = newFilePath;
+			modifyConfig(preferences);
+			taskControl.setFileDestination(newFilePath);
+			File file = new File(newFilePath);
+			if (file.exists()) {
+				return true;
+			}
 		}
 
 		return false;
@@ -185,54 +166,6 @@ public class StorageController {
 	}
 
 	/**
-	 * Returns the default css path in a standardised format.
-	 * 
-	 * @return The String representation of the default css path.
-	 */
-	public String getCssPath() {
-		String cssPath = preferences[THEME_DESTINATION].replace(BACK_SLASH, FORWARD_SLASH);
-
-		if (OsUtils.isWindows()) {
-			// Prepend "/" to Windows file path since Mac file system has "/"
-			// for root
-			cssPath = FORWARD_SLASH + cssPath;
-		}
-
-		return cssPath;
-	}
-
-	/**
-	 * Copy the contents of an external css file to the default css file.
-	 * 
-	 * @param path
-	 *            The path to the external css file.
-	 * @throws IOException
-	 *             If
-	 */
-	public void copyCss(String path) throws IOException {
-		logger.log(Level.INFO, "Attempting to generate CSS");
-		String defaultPath = preferences[THEME_DESTINATION];
-
-		File file = new File(defaultPath);
-		if (!file.exists()) {
-			try {
-				BufferedReader bReader = new BufferedReader(new FileReader(path));
-				BufferedWriter bWriter = new BufferedWriter(new FileWriter(defaultPath));
-				String line = bReader.readLine();
-				while (line != null) {
-					bWriter.append(line);
-					bWriter.newLine();
-					line = bReader.readLine();
-				}
-				bReader.close();
-				bWriter.close();
-			} catch (IOException e) {
-				throw new IOException(ERROR_MESSAGE_COPY_CSS);
-			}
-		}
-	}
-
-	/**
 	 * Generates the default custom.css file if it does not exist
 	 * 
 	 * @param path
@@ -242,26 +175,31 @@ public class StorageController {
 	 *             If unable to generate the css file
 	 */
 	public void generateCss(URL path) throws IOException {
-		logger.log(Level.INFO, "Attempting to generate CSS");
 		String defaultPath = preferences[THEME_DESTINATION];
 
 		File file = new File(defaultPath);
 		if (!file.exists()) {
+			logger.log(Level.INFO, "Attempting to generate CSS");
 			try {
-				BufferedReader bReader = new BufferedReader(new InputStreamReader(path.openStream()));
+				InputStream inputStream = path.openStream();
+				BufferedReader bReader = new BufferedReader(new InputStreamReader(inputStream));
 				BufferedWriter bWriter = new BufferedWriter(new FileWriter(defaultPath));
-				String line = bReader.readLine();
-				while (line != null) {
-					bWriter.append(line);
-					bWriter.newLine();
-					line = bReader.readLine();
-				}
-				bReader.close();
-				bWriter.close();
+				copy(bReader, bWriter);
 			} catch (IOException e) {
 				throw new IOException(ERROR_MESSAGE_LOAD_CSS);
 			}
 		}
+	}
+
+	private void copy(BufferedReader reader, BufferedWriter writer) throws IOException {
+		String line = reader.readLine();
+		while (line != null) {
+			writer.append(line);
+			writer.newLine();
+			line = reader.readLine();
+		}
+		reader.close();
+		writer.close();
 	}
 
 	/**
@@ -343,21 +281,34 @@ public class StorageController {
 		}
 		bWriter.close();
 	}
+	
+	//*****************************
+	//******** Get methods ********
+	//*****************************
+	
+	/**
+	 * Returns the default css path in a standardised format.
+	 * 
+	 * @return The String representation of the default css path.
+	 */
+	public String getCssPath() {
+		String cssPath = preferences[THEME_DESTINATION].replace(BACK_SLASH, FORWARD_SLASH);
+
+		if (OsUtils.isWindows()) {
+			// Prepend "/" to Windows file path since Mac file system has "/"
+			// for root
+			cssPath = FORWARD_SLASH + cssPath;
+		}
+
+		return cssPath;
+	}
 
 	/**
+	 * Returns the path of the save file for tasks.
 	 * 
 	 * @return Returns the tasks save path in String representation.
 	 */
 	public String getFilePath() {
 		return preferences[TASK_DESTINATION];
-	}
-
-	// @@author A0124586Y-unused
-	/**
-	 * 
-	 * @return Returns the preferences of the user from config.txt
-	 */
-	public String[] getPreferences() {
-		return this.preferences;
 	}
 }

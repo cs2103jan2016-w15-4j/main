@@ -46,13 +46,11 @@ public class TaskLoader extends Loader<TaskData> {
 		File directory = file.getParentFile();
 		ArrayList<TaskData> taskList = new ArrayList<TaskData>();
 
-		if (directory.exists()) {
-			if (file.exists()) {
-				taskList = loadFromFile(file);
-			} else {
-				// create the file before finishing load
-				createFile(file);
-			}
+		if (file.exists()) {
+			taskList = loadFromFile(file);
+		} else if (directory.exists()) {
+			// create the file before finishing load
+			createFile(file);
 		} else {
 			// create parent directories and file before finishing load
 			createFile(directory, file);

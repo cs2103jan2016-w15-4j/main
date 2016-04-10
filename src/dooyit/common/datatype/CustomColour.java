@@ -17,10 +17,10 @@ public class CustomColour {
 	}
 
 	public static final CustomColour BLACK = new CustomColour("black", 40, 40, 40);
-	public static final CustomColour BLUE = new CustomColour("blue", 0, 104, 139);
+	public static final CustomColour BLUE = new CustomColour("blue", 26, 214, 253);
 	public static final CustomColour CYAN = new CustomColour("cyan", 82, 237, 199);
 	public static final CustomColour GREY = new CustomColour("grey", 219, 221, 222);
-	public static final CustomColour GREEN = new CustomColour("green", 0, 139, 0);
+	public static final CustomColour GREEN = new CustomColour("green", 135, 252, 125);
 	public static final CustomColour MAGENTA = new CustomColour("magenta", 239, 77, 182);
 	public static final CustomColour PINK = new CustomColour("pink", 255, 73, 129);
 	public static final CustomColour RED = new CustomColour("red", 255, 58, 84);

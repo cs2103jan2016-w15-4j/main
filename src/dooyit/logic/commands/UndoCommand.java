@@ -26,12 +26,20 @@ public class UndoCommand implements Command {
 		boolean isSuccess = logic.undo();
 
 		if (isSuccess) {
-			logicAction = new LogicAction(Action.UNDO, Constants.FEEDBACK_SUCCESS_UNDO);
+			logicAction = successFeedback();
 		} else {
-			logicAction = new LogicAction(Action.UNDO, Constants.FEEDBACK_FAIL_UNDO);
+			logicAction = failFeedBack();
 		}
 
 		return logicAction;
+	}
+
+	public LogicAction failFeedBack() {
+		return new LogicAction(Action.UNDO, Constants.FEEDBACK_FAIL_UNDO);
+	}
+
+	public LogicAction successFeedback() {
+		return new LogicAction(Action.UNDO, Constants.FEEDBACK_SUCCESS_UNDO);
 	}
 
 }

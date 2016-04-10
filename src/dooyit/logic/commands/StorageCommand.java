@@ -51,11 +51,16 @@ public class StorageCommand implements ReversibleCommand {
 				logicAction = setNewPath();
 			}
 		} catch (IncorrectInputException e) {
-			logicAction = new LogicAction(Action.ERROR, e.getMessage());
-			hasError = true;
+			logicAction = showErrorMessage(e);
+			
 		}
 
 		return logicAction;
+	}
+
+	public LogicAction showErrorMessage(IncorrectInputException e) {
+		hasError = true;
+		return new LogicAction(Action.ERROR, e.getMessage());
 	}
 
 	public LogicAction setNewPath() {

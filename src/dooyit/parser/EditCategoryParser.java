@@ -5,9 +5,12 @@ import dooyit.logic.commands.Command;
 import dooyit.logic.commands.CommandUtils;
 
 public class EditCategoryParser implements ParserCommons {
+	// Error Message
 	private static final String ERROR_MESSAGE_INVALID_EDIT_CATEGORY_COMMAND = "Invalid Edit Category Command!";
 	private static final String ERROR_MESSAGE_TOO_FEW_ARGUMENTS = "Too few arguments for Edit Category Command";
 	private static final String ERROR_MESSAGE_BE_SUCCINCT = "Can't you be more succinct in your category naming?";
+	
+	
 	private static final String MARKER_COLOUR = " to ";
 	private static final int INDEX_ORIGINAL_NAME = 0;
 	private static final int INDEX_NEW_NAME = 1;

@@ -208,7 +208,10 @@ public class EventTask extends Task {
 	public boolean equals(Object o) {
 		if (o instanceof EventTask) {
 			EventTask eventTask = (EventTask) o;
-			return this.uniqueId == eventTask.uniqueId && this.getName().equals(eventTask.getName()) && this.getDateTimeStart().equals(eventTask.getDateTimeStart()) && this.getDateTimeEnd().equals(eventTask.getDateTimeEnd());
+			return this.uniqueId == eventTask.uniqueId 
+					&& this.getName().equals(eventTask.getName()) 
+					&& this.getDateTimeStart().equals(eventTask.getDateTimeStart()) 
+					&& this.getDateTimeEnd().equals(eventTask.getDateTimeEnd());
 		}
 		return false;
 	}

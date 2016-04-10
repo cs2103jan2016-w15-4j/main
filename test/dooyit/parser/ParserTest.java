@@ -20,7 +20,6 @@ public class ParserTest {
 	private static final String ERROR_MESSAGE_INVALID_ADDCAT_COMMAND = "Invalid addcat command!";
 	private static final String ERROR_MESSAGE_INVALID_ADD_COMMAND = "Invalid add command!";
 	private static final String ERROR_MESSAGE_INVALID_DELETE_CATEGORY_COMMAND = "Invalid Delete Category Command!";
-	private static final String ERROR_MESSAGE_NO_TASK_ID = "No Task IDs specified!";
 	private static final String ERROR_MESSAGE_TOO_FEW_ARGUMENTS = "Too few arguments for Edit Category Command";
 	private static final String ERROR_MESSAGE_INVALID_EDIT_COMMAND = "Invalid edit Command!";
 	private static final String ERROR_MESSAGE_NO_CATEGORY_SPECIFIED = "No category specified!";
@@ -52,7 +51,7 @@ public class ParserTest {
 		String input = "delete a";
 		Command command = parser.getCommand(input);
 		String commandErrorMessage = Whitebox.getInternalState(command, "errorMessage");
-		String expectedErrorMessage = ERROR_MESSAGE_NO_TASK_ID;
+		String expectedErrorMessage = ERROR_MESSAGE_INVALID_TASK_ID + "a";
 		assertEquals(expectedErrorMessage, commandErrorMessage);
 
 	}
@@ -62,7 +61,7 @@ public class ParserTest {
 		String input = "delete :";
 		Command command = parser.getCommand(input);
 		String commandErrorMessage = Whitebox.getInternalState(command, "errorMessage");
-		String expectedErrorMessage = ERROR_MESSAGE_NO_TASK_ID;
+		String expectedErrorMessage = ERROR_MESSAGE_INVALID_TASK_ID + ":";
 		assertEquals(expectedErrorMessage, commandErrorMessage);
 
 	}
@@ -72,7 +71,7 @@ public class ParserTest {
 		String input = "delete ?";
 		Command command = parser.getCommand(input);
 		String commandErrorMessage = Whitebox.getInternalState(command, "errorMessage");
-		String expectedErrorMessage = ERROR_MESSAGE_NO_TASK_ID;
+		String expectedErrorMessage = ERROR_MESSAGE_INVALID_TASK_ID + "?";
 		assertEquals(expectedErrorMessage, commandErrorMessage);
 
 	}
@@ -82,7 +81,7 @@ public class ParserTest {
 		String input = "delete ";
 		Command command = parser.getCommand(input);
 		String commandErrorMessage = Whitebox.getInternalState(command, "errorMessage");
-		String expectedErrorMessage = ERROR_MESSAGE_NO_TASK_ID;
+		String expectedErrorMessage = ERROR_MESSAGE_INVALID_TASK_ID;
 		assertEquals(expectedErrorMessage, commandErrorMessage);
 
 	}
@@ -226,10 +225,10 @@ public class ParserTest {
 	
 	@Test
 	public void deleteEmptyInput() {
-		String input = "delete ";
+		String input = "delete";
 		Command command = parser.getCommand(input);
 		String commandErrorMessage = Whitebox.getInternalState(command, "errorMessage");
-		String expectedErrorMessage = ERROR_MESSAGE_NO_TASK_ID;
+		String expectedErrorMessage = ERROR_MESSAGE_INVALID_TASK_ID;
 		assertEquals(expectedErrorMessage, commandErrorMessage);
 	}
 	//****************************************

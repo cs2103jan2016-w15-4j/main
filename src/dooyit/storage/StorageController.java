@@ -49,10 +49,11 @@ public class StorageController {
 	private String[] preferences;
 	private CategoryController categoryControl;
 	private TaskController taskControl;
-	private static Logger logger = Logger.getLogger("Storage");
+	private static Logger logger = Logger.getLogger(Constants.LOG_STORAGE);
 
 	public StorageController() throws IOException {
-		logger.log(Level.INFO, "Initialising storage");
+		logger.log(Level.INFO, Constants.LOG_MSG_INIT_STORAGE);
+		
 		configFilePath = Constants.DEFAULT_CONFIG_DESTINATION;
 		preferences = loadPreferences(configFilePath);
 		categoryControl = new CategoryController(Constants.DEFAULT_CATEGORIES_DESTINATION);
@@ -71,7 +72,7 @@ public class StorageController {
 	 *         If saving fails
 	 */
 	public boolean saveTasks(ArrayList<TaskData> tasks) throws IOException {
-		logger.log(Level.INFO, "Attempting to save tasks");
+		logger.log(Level.INFO, Constants.LOG_MSG_SAVING_TASKS);
 		assert tasks != null;
 
 		return taskControl.save(tasks);
@@ -86,7 +87,7 @@ public class StorageController {
 	 *         If loading fails
 	 */
 	public ArrayList<TaskData> loadTasks() throws IOException {
-		logger.log(Level.INFO, "Attempting to load tasks");
+		logger.log(Level.INFO, Constants.LOG_MSG_LOADING_TASKS);
 		ArrayList<TaskData> taskList = taskControl.load();
 		assert taskList != null;
 
@@ -105,7 +106,7 @@ public class StorageController {
 	 *         If saving fails
 	 */
 	public boolean saveCategories(ArrayList<CategoryData> categories) throws IOException {
-		logger.log(Level.INFO, "Attempting to save categories");
+		logger.log(Level.INFO, Constants.LOG_MSG_SAVING_CATEGORIES);
 		assert categories != null;
 		return categoryControl.save(categories);
 	}
@@ -119,7 +120,7 @@ public class StorageController {
 	 *         If loading fails
 	 */
 	public ArrayList<CategoryData> loadCategories() throws IOException {
-		logger.log(Level.INFO, "Attempting to load categories");
+		logger.log(Level.INFO, Constants.LOG_MSG_LOADING_CATEGORIES);
 		ArrayList<CategoryData> categories = categoryControl.load();
 		assert categories != null;
 
@@ -138,7 +139,7 @@ public class StorageController {
 	 *         If unable to modify the config file
 	 */
 	public boolean setFileDestination(String newFilePath) throws IOException {
-		logger.log(Level.INFO, "Changing file destination");
+		logger.log(Level.INFO, Constants.LOG_MSG_CHANGE_FILE_DESTINATION);
 
 		if (isValidPath(newFilePath, TXT)) {
 			preferences[TASK_DESTINATION] = newFilePath;
@@ -191,7 +192,7 @@ public class StorageController {
 
 		File file = new File(defaultPath);
 		if (!file.exists()) {
-			logger.log(Level.INFO, "Attempting to generate CSS");
+			logger.log(Level.INFO, Constants.LOG_MSG_GENERATING_CSS);
 			try {
 				InputStream inputStream = path.openStream();
 				BufferedReader bReader = new BufferedReader(new InputStreamReader(inputStream));
@@ -282,6 +283,7 @@ public class StorageController {
 	 *         If unable to write to the config file
 	 */
 	private void modifyConfig(String[] preferences) throws IOException {
+		logger.log(Level.INFO, Constants.LOG_MSG_MODIFYING_CONFIG);
 		File configFile = new File(configFilePath);
 		FileWriter fileWriter = null;
 		try {

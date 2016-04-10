@@ -1,13 +1,17 @@
 //@@author A0126356E
 package dooyit.common.datatype;
 
+import dooyit.common.Constants;
 import javafx.scene.paint.Color;
 
 public class CustomColour {
+	
 	private float r; // red
 	private float g; // green
 	private float b; // blue
 	private String name; // colour name
+	
+	private static final String COLOUR_TO_STRING = "Colour: %1$s, %2$s, %3$s";
 	
 	public CustomColour(String name, float r, float g, float b) {
 		this.name = name;
@@ -16,17 +20,17 @@ public class CustomColour {
 		this.b = b / 255.0f;
 	}
 
-	public static final CustomColour BLACK = new CustomColour("black", 40, 40, 40);
-	public static final CustomColour BLUE = new CustomColour("blue", 26, 214, 253);
-	public static final CustomColour CYAN = new CustomColour("cyan", 82, 237, 199);
-	public static final CustomColour GREY = new CustomColour("grey", 219, 221, 222);
-	public static final CustomColour GREEN = new CustomColour("green", 135, 252, 125);
-	public static final CustomColour MAGENTA = new CustomColour("magenta", 239, 77, 182);
-	public static final CustomColour PINK = new CustomColour("pink", 255, 73, 129);
-	public static final CustomColour RED = new CustomColour("red", 255, 58, 84);
-	public static final CustomColour YELLOW = new CustomColour("yellow", 255, 204, 0);
-	public static final CustomColour WHITE = new CustomColour("white", 247, 247, 247);
-	public static final CustomColour ORANGE = new CustomColour("orange", 255, 69, 0);
+	public static final CustomColour BLACK = new CustomColour(Constants.BLACK_COLOUR, 40, 40, 40);
+	public static final CustomColour BLUE = new CustomColour(Constants.BLUE_COLOUR, 26, 214, 253);
+	public static final CustomColour CYAN = new CustomColour(Constants.CYAN_COLOUR, 82, 237, 199);
+	public static final CustomColour GREY = new CustomColour(Constants.GREY_COLOUR, 219, 221, 222);
+	public static final CustomColour GREEN = new CustomColour(Constants.GREEN_COLOUR, 135, 252, 125);
+	public static final CustomColour MAGENTA = new CustomColour(Constants.MAGENTA_COLOUR, 239, 77, 182);
+	public static final CustomColour PINK = new CustomColour(Constants.PINK_COLOUR, 255, 73, 129);
+	public static final CustomColour RED = new CustomColour(Constants.RED_COLOUR, 255, 58, 84);
+	public static final CustomColour YELLOW = new CustomColour(Constants.YELLOW_COLOUR, 255, 204, 0);
+	public static final CustomColour WHITE = new CustomColour(Constants.WHITE_COLOUR, 247, 247, 247);
+	public static final CustomColour ORANGE = new CustomColour(Constants.ORANGE_COLOUR, 255, 69, 0);
 
 	public Color getColor(){
 		return Color.color(r, g, b);
@@ -53,11 +57,7 @@ public class CustomColour {
 
 	@Override
 	public String toString() {
-		return "Colour: " + r + "," + g + "," + b;
-	}
-
-	public String toSavableString() {
-		return this.r + " " + this.g + " " + this.b;
+		return String.format(COLOUR_TO_STRING, r, g, g);
 	}
 
 }

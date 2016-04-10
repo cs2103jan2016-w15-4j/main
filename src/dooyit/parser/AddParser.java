@@ -1,34 +1,53 @@
 //@@author A0133338J
 package dooyit.parser;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import dooyit.common.datatype.DateTime;
 import dooyit.common.exception.IncorrectInputException;
 import dooyit.logic.commands.Command;
 import dooyit.logic.commands.CommandUtils;
 
+/**
+ * The AddParser class provides methods for adding floating tasks, deadline tasks and 
+ * events. It takes in an "add" command input and returns an Add command object. 
+ * It implements the ParserCommons interface to use the shared constants of MARKER_WORK,
+ * MARKER_START_EVENT, MARKER_END_EVENT, UNINITIALIZED_INT and the ERROR_MESSAGE_END_BEFORE_START.
+ * 
+ * @author Annabel
+ *
+ */
 public class AddParser implements ParserCommons {
+	// Error Message
 	private static final String ERROR_MESSAGE_INVALID_ADD_COMMAND = "Invalid add command!";
-	private static final String MARKER_CATEGORY = " @ ";
-
+	
+	// AddParser object attributes
 	private String userInput;
 	private String taskName;
 	private DateTime start;
 	private DateTime end;
 	private DateTime deadline;
-	private Command command; 
+	private Command command;
 
-	enum TASK_TYPE {
-		FLOATING, WORK, EVENT, INVALID, CATEGORY_AND_EVENT, CATEGORY_AND_WORK, CATEGORY_AND_FLOATING
+	// Logger for AddParser
+	private static Logger logger = Logger.getLogger("AddParser");
+	
+	// Attributes of an AddParser object
+	private enum TASK_TYPE {
+		FLOATING, WORK, EVENT, INVALID
 	};
 
+	// AddParser constructor
 	public AddParser() {
-		
+		logger.log(Level.INFO, "Initialised AddParser object");
 	}
 
 	public Command getCommand(String input) throws IncorrectInputException {
+		logger.log(Level.INFO, "Getting command object from AddParser");
 		userInput = input.trim();
-		switch (getTaskType()) { 
-		case FLOATING :
+		switch (getTaskType()) {
+		case FLOATING:
 			try {
 				parseFloat();
 			} catch (IncorrectInputException e) {
@@ -38,7 +57,7 @@ public class AddParser implements ParserCommons {
 			setToFloatCommand();
 			break;
 
-		case WORK :
+		case WORK:
 			try {
 				parseWork();
 			} catch (IncorrectInputException e) {
@@ -48,7 +67,7 @@ public class AddParser implements ParserCommons {
 			setToWorkCommand();
 			break;
 
-		case EVENT :
+		case EVENT:
 			try {
 				parseEvent();
 			} catch (IncorrectInputException e) {
@@ -57,7 +76,7 @@ public class AddParser implements ParserCommons {
 			}
 			setToEventCommand();
 			break;
-			
+
 		default:
 			setToInvalidCommand(ERROR_MESSAGE_INVALID_ADD_COMMAND);
 		}
@@ -84,11 +103,11 @@ public class AddParser implements ParserCommons {
 	private void parseEvent() throws IncorrectInputException {
 		DateTimeParser dateTimeParser = new DateTimeParser();
 		int indexFrom = userInput.lastIndexOf(MARKER_START_EVENT);
-		int indexTo = userInput.lastIndexOf(MARKER_END_EVENT); 
+		int indexTo = userInput.lastIndexOf(MARKER_END_EVENT);
 		taskName = ParserCommons.getTaskName(userInput, indexFrom, indexTo);
 		String startTimeString = ParserCommons.getStartTimeString(userInput, indexFrom, indexTo);
 		String endTimeString = ParserCommons.getEndTimeString(userInput, indexFrom, indexTo);
-		
+
 		try {
 			start = dateTimeParser.parse(startTimeString);
 			end = dateTimeParser.parse(endTimeString);
@@ -122,7 +141,7 @@ public class AddParser implements ParserCommons {
 		} catch (IncorrectInputException e) {
 			throw e;
 		}
-	} 
+	}
 
 	private void parseFloat() {
 		taskName = userInput;
@@ -132,46 +151,27 @@ public class AddParser implements ParserCommons {
 		TASK_TYPE type;
 		if (isEvent()) {
 			type = TASK_TYPE.EVENT;
+			
 		} else if (isWork()) {
 			type = TASK_TYPE.WORK;
+			
 		} else if (isFloating()) {
-			type = TASK_TYPE.FLOATING; 
-		} else if (isCategoryAndEvent()) {
-			type = TASK_TYPE.CATEGORY_AND_EVENT;
-		} else if (isCategoryAndWork()) {
-			type = TASK_TYPE.CATEGORY_AND_WORK;
-		} else if (isCategoryAndFloating()) {
-			type = TASK_TYPE.CATEGORY_AND_FLOATING;
+			type = TASK_TYPE.FLOATING;
+			
 		} else {
 			type = TASK_TYPE.INVALID;
 		}
 		return type;
 	}
-
-	private boolean isCategory() {
-		return !ParserCommons.isUninitialized(userInput.lastIndexOf(MARKER_CATEGORY));
-	}
-
-	private boolean isCategoryAndFloating() {
-		return isCategory() && isFloating();
-	}
-
-	private boolean isCategoryAndWork() {
-		return isCategory() && isWork();
-	}
-
-	private boolean isCategoryAndEvent() {
-		return isCategory() && isEvent();
-	}
-
+	
 	private boolean isFloating() {
 		return !userInput.equals("") && !isEvent() && !isWork();
 	}
 
 	private boolean isEvent() {
 		boolean ans = false;
-		if(!ParserCommons.isUninitialized(userInput.lastIndexOf(MARKER_START_EVENT)) && 
-				!ParserCommons.isUninitialized(userInput.lastIndexOf(MARKER_END_EVENT))) {
+		if (!ParserCommons.isUninitialized(userInput.lastIndexOf(MARKER_START_EVENT))
+				&& !ParserCommons.isUninitialized(userInput.lastIndexOf(MARKER_END_EVENT))) {
 			ans = hasAValidDateTimeAfterEventMarkers();
 		}
 		return ans;
@@ -180,11 +180,11 @@ public class AddParser implements ParserCommons {
 	private boolean hasAValidDateTimeAfterEventMarkers() {
 		DateTimeParser dateTimeParser = new DateTimeParser();
 		int indexFrom = userInput.lastIndexOf(MARKER_START_EVENT);
-		int indexTo = userInput.lastIndexOf(MARKER_END_EVENT); 
+		int indexTo = userInput.lastIndexOf(MARKER_END_EVENT);
 		boolean ans = true;
 		String startTimeString = ParserCommons.getStartTimeString(userInput, indexFrom, indexTo);
 		String endTimeString = ParserCommons.getEndTimeString(userInput, indexFrom, indexTo);
-		
+
 		try {
 			dateTimeParser.parse(startTimeString);
 			dateTimeParser.parse(endTimeString);

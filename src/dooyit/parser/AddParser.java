@@ -10,7 +10,7 @@ import dooyit.logic.commands.Command;
 import dooyit.logic.commands.CommandUtils;
 
 /**
- * The AddParser class takes in an "add" command input and returns an AddCommand 
+ * The AddParser class takes in an "add" command input and returns a Command 
  * object. It is needed for adding floating tasks, deadline tasks and events.
  * It implements the ParserCommons interface to use the shared
  * constants and methods.
@@ -33,7 +33,7 @@ public class AddParser implements ParserCommons {
 	// Logger for AddParser
 	private static Logger logger = Logger.getLogger("AddParser");
 
-	// Attributes of an AddParser object
+	// Types of Add command inputs
 	private enum TaskType {
 		FLOATING, WORK, EVENT, INVALID
 	};

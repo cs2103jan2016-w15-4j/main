@@ -10,7 +10,7 @@ import dooyit.logic.commands.CommandUtils;
 
 /**
  * The MarkParser class takes in a "mark" command input and returns 
- * a MarkCcommand object. It is needed to mark tasks as completed.
+ * a Command object. It is needed to mark tasks as completed.
  * It is a child class of the TagParser class.
  * 
  * @author Annabel

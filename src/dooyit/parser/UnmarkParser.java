@@ -12,7 +12,7 @@ import dooyit.logic.commands.CommandUtils;
  * The UnmarkParser class is needed for unmarking completed tasks.
  * Completed tasks that are unmarked will be removed from the completed view and 
  * placed back in the original location. This class takes in an "unmark" command 
- * input and returns an UnMarkCcommand object. It is a child class of the 
+ * input and returns a Command object. It is a child class of the 
  * TagParser class.
  * 
  * @author Annabel

@@ -9,7 +9,7 @@ import dooyit.logic.commands.CommandUtils;
 
 /**
  * The FloatParser takes in a "float" or "editToFloat" command input 
- * and returns an EditToFloatCommand object. It is needed for changing 
+ * and returns a Command object. It is needed for changing 
  * deadline and event tasks into floating tasks. It is a child class 
  * of the TagParser class.
  * 

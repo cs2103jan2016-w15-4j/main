@@ -10,7 +10,7 @@ import dooyit.logic.commands.CommandUtils;
 
 /**
  * The DeleteParser class takes in a "delete" or "remove" or "rm" 
- * command input and returns a DeleteCcommand object. It is needed
+ * command input and returns a Command object. It is needed
  * for deleting tasks. It is a child class of the TagParser class.
  * 
  * @author Annabel
@@ -49,7 +49,7 @@ public class DeleteParser extends TagParser {
 	}
 
 	/**
-	 * Sets command attribute to DeleteCommand or to InvalidCommand
+	 * Sets command attribute to a DeleteCommand or to an InvalidCommand
 	 */
 	private void setCommandAttribute() {
 		// Checks if the taskIds are valid

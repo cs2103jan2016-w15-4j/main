@@ -10,7 +10,7 @@ import dooyit.logic.commands.CommandUtils;
 
 /**
  * The UnmoveParser class is needed for marking tasks as completed.
- * It takes in a "unmove" command input and returns a MarkCcommand object. 
+ * It takes in a "unmove" command input and returns a Command object. 
  * It is a child class of the TagParser class.
  * 
  * @author Annabel

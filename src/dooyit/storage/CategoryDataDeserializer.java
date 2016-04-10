@@ -11,6 +11,13 @@ import com.google.gson.JsonParseException;
 
 import dooyit.common.datatype.CategoryData;
 
+/**
+ * The CategoryDataDeserializer converts the JSON representation of CategoryData
+ * to a CategoryData object.
+ * 
+ * @author Dex
+ *
+ */
 public class CategoryDataDeserializer implements JsonDeserializer<CategoryData> {
 	private static final String CATEGORY_NAME = "name";
 	private static final String CATEGORY_COLOR = "color";

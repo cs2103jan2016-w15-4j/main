@@ -26,11 +26,13 @@ public class CategoryController {
 	 * Saves the list of categories.
 	 * 
 	 * @param tasks
-	 *            A list of CategoryData to be saved.
+	 *        A list of CategoryData to be saved
+	 *        
 	 * @return Returns true if categories are saved successfully, otherwise returns
-	 *         false.
+	 *         false
+	 *         
 	 * @throws IOException
-	 *             If the save file cannot be accessed.
+	 *         If the save file cannot be accessed
 	 */
 	public boolean save(ArrayList<CategoryData> categories) throws IOException {
 		return categorySaver.save(categories);
@@ -39,9 +41,10 @@ public class CategoryController {
 	/**
 	 * Loads the list of categories from the save file.
 	 * 
-	 * @return A list of CategoryData to be loaded.
+	 * @return A list of CategoryData to be loaded
+	 * 
 	 * @throws IOException
-	 *             If loading fails.
+	 *         If loading fails
 	 */
 	public ArrayList<CategoryData> load() throws IOException {
 		return categoryLoader.load();

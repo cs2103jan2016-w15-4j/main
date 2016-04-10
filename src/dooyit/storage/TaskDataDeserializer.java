@@ -66,6 +66,7 @@ public class TaskDataDeserializer implements JsonDeserializer<TaskData> {
 	 * Checks if the task has been completed.
 	 * 
 	 * @param jsonTask The JSON representation of TaskData
+	 * 
 	 * @return The boolean value of isCompleted
 	 */
 	private boolean isCompleted(JsonObject jsonTask) {
@@ -78,9 +79,10 @@ public class TaskDataDeserializer implements JsonDeserializer<TaskData> {
 	}
 
 	/**
-	 * Gets the name of the task from the JSON representation of TaskData
+	 * Gets the name of the task from the JSON representation of TaskData.
 	 * 
 	 * @param jsonTask The JSON representation of TaskData
+	 * 
 	 * @return The name of the task
 	 */
 	private String getName(JsonObject jsonTask) {
@@ -96,9 +98,11 @@ public class TaskDataDeserializer implements JsonDeserializer<TaskData> {
 	}
 	
 	/**
-	 * Gets the name of the category which the task is assigned to
+	 * Gets the name of the category which the task is assigned to.
 	 * 
-	 * @param jsonTask The JSON representation of TaskData
+	 * @param jsonTask
+	 *        The JSON representation of TaskData
+	 * 
 	 * @return The category name which the task is assigned to
 	 */
 	private String getCategoryName(JsonObject jsonTask) {
@@ -113,8 +117,12 @@ public class TaskDataDeserializer implements JsonDeserializer<TaskData> {
 	/**
 	 * Creates a DateTime object from its JSON representation.
 	 * 
-	 * @param jsonTask The JSON representation of the TaskData
-	 * @param type The type of DateTime - deadline, start time or end time
+	 * @param jsonTask
+	 *        The JSON representation of the TaskData
+	 * 
+	 * @param type
+	 *        The type of DateTime - deadline, start time or end time
+	 * 
 	 * @return The DateTime object of the JSON representation
 	 */
 	private DateTime resolveDateTime(JsonObject jsonTask, String type) {
@@ -127,7 +135,7 @@ public class TaskDataDeserializer implements JsonDeserializer<TaskData> {
 	
 	/**
 	 * 
-	 * @return Gson object with DateTimeDeserializer.
+	 * @return Gson object with DateTimeDeserializer
 	 */
 	private Gson gsonWithDateTimeDeserializer() {
 		return new GsonBuilder().registerTypeAdapter(DateTime.class, new DateTimeDeserializer()).create();

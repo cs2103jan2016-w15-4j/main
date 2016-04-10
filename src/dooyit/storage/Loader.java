@@ -27,10 +27,12 @@ public abstract class Loader<T> {
 	 * Creates a new FileReader given the File to read from
 	 * 
 	 * @param file
-	 *            File to read from.
+	 *        File to read from.
+	 *        
 	 * @return FileReader instance of the File to read from.
+	 * 
 	 * @throws FileNotFoundException
-	 *             If the file is not found.
+	 *         If the file is not found.
 	 */
 	FileReader open(File file) throws FileNotFoundException {
 		FileReader fReader = null;
@@ -45,12 +47,13 @@ public abstract class Loader<T> {
 	}
 	
 	/**
-	 * Converts the Json String to a JsonObject
+	 * Converts the Json String to a JsonObject.
 	 * 
 	 * @param format
-	 *            The String representation of the JsonObject
+	 *        The String representation of the JsonObject.
+	 *        
 	 * @return JsonObject from String representation if it is not an empty
-	 *         string. Otherwise return null
+	 *         string. Otherwise return null.
 	 */
 	JsonObject getAsJson(String format) {
 		JsonObject object = null;

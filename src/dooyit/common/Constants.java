@@ -18,9 +18,11 @@ public class Constants {
 	public static final String CYAN_COLOUR = "cyan";
 	public static final String BLUE_COLOUR = "blue";
 	public static final String BLACK_COLOUR = "black";
-
+	public static final float MAX_RGB = 255.0f;
+	
 	public static final String EMPTY_STRING = "";
 	public static final int UNINITIALISED = -1;
 	public static final String SYMBOL_DASH = " - ";
 	public static final String SPACE = " ";
+	
 }

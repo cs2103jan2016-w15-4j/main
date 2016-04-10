@@ -157,7 +157,9 @@ public class EventTask extends Task {
 	@Override
 	public boolean isSameDate(DateTime dateTime) {
 		if (hasMultiDay && isMultiDayOn) {
-			return dateTimeStart.isTheSameDateAs(dateTime) || DateTime.isWithin(dateTime, dateTimeStart, dateTimeEnd) || dateTimeEnd.isTheSameDateAs(dateTime);
+			return dateTimeStart.isTheSameDateAs(dateTime) 
+					|| DateTime.isWithin(dateTime, dateTimeStart, dateTimeEnd) 
+					|| dateTimeEnd.isTheSameDateAs(dateTime);
 		} else {
 			return dateTimeStart.isTheSameDateAs(dateTime);
 		}
@@ -165,7 +167,9 @@ public class EventTask extends Task {
 
 	@Override
 	public boolean isOverDue(DateTime dateTime) {
-		boolean isOverDue = !dateTimeStart.isTheSameDateAs(dateTime) && dateTimeStart.compareTo(dateTime) == -1 && !isCompleted;
+		boolean isOverDue = !dateTimeStart.isTheSameDateAs(dateTime) 
+								&& dateTimeStart.compareTo(dateTime) == -1 
+								&& !isCompleted;
 
 		if (isOverDue) {
 			hasMultiDay = false;

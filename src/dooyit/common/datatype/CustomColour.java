@@ -15,9 +15,9 @@ public class CustomColour {
 	
 	public CustomColour(String name, float r, float g, float b) {
 		this.name = name;
-		this.r = r / 255.0f;
-		this.g = g / 255.0f;
-		this.b = b / 255.0f;
+		this.r = r / Constants.MAX_RGB;
+		this.g = g / Constants.MAX_RGB;
+		this.b = b / Constants.MAX_RGB;
 	}
 
 	public static final CustomColour BLACK = new CustomColour(Constants.BLACK_COLOUR, 40, 40, 40);

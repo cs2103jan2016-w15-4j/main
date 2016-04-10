@@ -1,68 +1,92 @@
 //@@author A0133338J
 package dooyit.parser;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import dooyit.common.exception.IncorrectInputException;
 import dooyit.logic.commands.Command;
 import dooyit.logic.commands.CommandUtils;
 
+/**
+ * The moveParser class is needed for moving tasks into a category.
+ * It takes in a "move" command input and returns a MoveToCategoryCcommand 
+ * object. It is a child class of the TagParser class.
+ * 
+ * @author Annabel
+ *
+ */
 public class MoveParser extends TagParser {
+	// Error messages
 	private static final String ERROR_MESSAGE_NO_CATEGORY_SPECIFIED = "No category specified!";
 	private static final String ERROR_MESSAGE_INVALID_MOVE_COMMAND = "Invalid move Command!";
+	
+	// MoveParser object attributes
 	private String categoryName;
 	private String taskIds;
-	private Command command;
 	private boolean hasCategory;
 	
+	// Logger for MoveParser
+	private static Logger logger = Logger.getLogger("MoveParser");
+	
+	/** Initializes a new MoveParser object */
 	public MoveParser() {
 		super();
+		logger.log(Level.INFO, "Initialised MoveParser object");
 	}
 	
-	public Command getCommand(String input) throws IncorrectInputException {
+	public Command getCommand(String input) {
+		logger.log(Level.INFO, "Getting command object from MoveParser");
 		parse(input);
-		if (!hasCategory) {
-			setInvalidCommand(ERROR_MESSAGE_NO_CATEGORY_SPECIFIED); 
-		} else {
-			setAttributesForTagging(taskIds);
-			try {
-				parseTaskIds();
-			} catch (IncorrectInputException e) {
-				setInvalidCommand(e.getMessage()); 
-			}
-		}
 		
-		if (command == null) {
-			setCorrectMoveCommand(getTagType());
-		}
-		
+		setCommandAttribute();
 		return command;
 	}
 
-	private void setCorrectMoveCommand(TagType tagType) {
+	/**
+	 * Sets command attribute to a MoveToCategory command object 
+	 * or to an InvalidCommand object
+	 */
+	private void setCommandAttribute() {
+		if (!hasCategory) {
+			setToInvalidCommand(ERROR_MESSAGE_NO_CATEGORY_SPECIFIED); 
+		} else {
+			setAttributesForTagging(taskIds);
+			resetCommandAttributeToNull();
+			
+			// Checks if the taskIds are valid
+			try {
+				parseTaskIds();
+			} catch (IncorrectInputException e) {
+				setToInvalidCommand(e.getMessage()); 
+			}
+		}
+		
+		// Checks if the command has been set to InvalidCommand object
+		if (command == null) {
+			// Set command attribute to a MoveToCategoryCommand object 
+			// if it hasn't been set to an InvalidCommand object.
+			setMoveCommand(getTagType());
+		}
+	}
+	
+	/**
+	 * Sets command attribute to a MoveToCategoryCommand object or to
+	 * an InvalidCommand object.
+	 */
+	private void setMoveCommand(TagType tagType) {
 		switch (tagType) {
 		case VALID :
-			setMultipleTypeMoveCommand();
+			command = CommandUtils.createMoveToCategoryCommand(taskIdsForTagging, categoryName);
 			break;
 
 		default :
-			setInvalidCommand();
+			command = CommandUtils.createInvalidCommand(ERROR_MESSAGE_INVALID_MOVE_COMMAND);
 			break;
 		}
 	}
 
-	private void setMultipleTypeMoveCommand() {
-		command = CommandUtils.createMoveToCategoryCommand(taskIdsForTagging, categoryName);
-	}
-
-	private void setInvalidCommand() {
-		command = CommandUtils.createInvalidCommand(ERROR_MESSAGE_INVALID_MOVE_COMMAND);
-	}
-	
-	private void setInvalidCommand(String message) {
-		command = CommandUtils.createInvalidCommand(message);
-	} 
-
 	private void parse(String input) {
-		command = null;
 		hasCategory = false;
 		String[] splitInput = input.split("\\s+");
 		int indexOfCategoryName = splitInput.length - 1;

@@ -1,3 +1,4 @@
+// @@author A0124278A
 package dooyit.ui;
 
 import dooyit.common.datatype.Category;
@@ -10,7 +11,7 @@ import javafx.scene.shape.Circle;
 
 /**
  * 
- * @@author Wu Wenqi <A0124278A>
+ * @author Wu Wenqi
  *
  */
 

@@ -1,10 +1,11 @@
+// @@author A0124278A
 package dooyit.ui;
 
 import javafx.scene.control.Label;
 
 /**
  * 
- * @@author Wu Wenqi <A0124278A>
+ * @author Wu Wenqi
  *
  */
 

@@ -1,3 +1,4 @@
+// @@author A0124278A
 package dooyit.ui;
 
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ import javafx.stage.Stage;
 
 /**
  * 
- * @@author Wu Wenqi <A0124278A>
+ * @author Wu Wenqi
  *
  */
 
@@ -61,7 +62,7 @@ public class UIHelpBox {
 	private VBox rightContent;
 	private Label closeLabel;
 	
-	private static final ArrayList<String> cmdNameList = new ArrayList<String>(){
+	private static final ArrayList<String> cmdListLeft = new ArrayList<String>(){
 		private static final long serialVersionUID = 1L;
 		{
 			add(DESC_ADD);
@@ -77,7 +78,7 @@ public class UIHelpBox {
 		}
 	};
 	
-	private static final ArrayList<String> cmdDescList = new ArrayList<String>(){
+	private static final ArrayList<String> cmdListRight = new ArrayList<String>(){
 		private static final long serialVersionUID = 1L;
 		{
 			add(DESC_MOVE);
@@ -116,7 +117,7 @@ public class UIHelpBox {
 	private void initLeftContent(){
 		this.leftContent = new VBox();
 		this.leftContent.setSpacing(SPACING_CONTENT);
-		cmdNameList.forEach((cmdName) -> {
+		cmdListLeft.forEach((cmdName) -> {
 			Label cmdNameLabel = makeLabel(cmdName);
 			this.leftContent.getChildren().add(cmdNameLabel);
 		});
@@ -125,7 +126,7 @@ public class UIHelpBox {
 	private void initRightContent(){
 		this.rightContent = new VBox();
 		this.rightContent.setSpacing(SPACING_CONTENT);
-		cmdDescList.forEach((cmdDesc) -> {
+		cmdListRight.forEach((cmdDesc) -> {
 			Label cmdDescLabel = makeLabel(cmdDesc);
 			this.rightContent.getChildren().add(cmdDescLabel);
 		});

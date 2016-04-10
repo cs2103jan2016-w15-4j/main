@@ -325,17 +325,20 @@ public class DateTime {
 		int startDayInt = start.getDayInt();
 		int endDayInt = end.getDayInt();
 		int dayEnumInt = convertDayEnumToInt(day);
+		
 		boolean isAfterStart = dayEnumInt >= startDayInt;
 		boolean isBeforeEnd = dayEnumInt <= endDayInt;
 		return isAfterStart && isBeforeEnd;
 	}
 	
 	private static int convertDayEnumToInt(DAY day) {
-		String dayEnumString = day.toString();
+		String dayEnumString = day.toString().toLowerCase();
 		int dayEnumInt = UNINITIALIZED_INT;
 		for (int i = 1; i < daysInWeek.length; i++) {
-			if (dayEnumString.equals(daysInWeek)) {
+			String daysInWeekString = daysInWeek[i].toLowerCase();
+			if (daysInWeekString.contains(dayEnumString)) {
 				dayEnumInt = i;
+				break;
 			}
 		}
 		return dayEnumInt;

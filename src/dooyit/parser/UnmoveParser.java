@@ -13,7 +13,7 @@ public class UnmoveParser extends TagParser {
 	}
 
 	public Command getCommand(String input) throws IncorrectInputException {
-		setVariables(input);
+		setAttributesForTagging(input);
 		command = null;
 		
 		try {
@@ -29,7 +29,7 @@ public class UnmoveParser extends TagParser {
 		return command;
 	}
 
-	private void setUnmarkCommand(TAG_TYPE tagType) {
+	private void setUnmarkCommand(TagType tagType) {
 		switch (tagType) {
 		case VALID :
 			setMultipleTypeUnmoveCommand();

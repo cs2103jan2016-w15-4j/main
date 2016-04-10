@@ -4,8 +4,6 @@ package dooyit.parser;
 import java.util.ArrayList;
 
 import dooyit.common.exception.IncorrectInputException;
-import dooyit.logic.commands.Command;
-import dooyit.logic.commands.CommandUtils;
 
 public class TagParser implements ParserCommons {
 	protected static final String MARKER_FOR_INTERVAL_TAG_TYPE = "-";
@@ -14,7 +12,7 @@ public class TagParser implements ParserCommons {
 	protected String[] splitInput;
 	protected ArrayList<Integer> taskIdsForTagging;
 	
-	enum TAG_TYPE {
+	enum TagType {
 		VALID, INVALID
 	}
 
@@ -55,7 +53,7 @@ public class TagParser implements ParserCommons {
 		return ans;
 	}
 
-	public void setVariables(String input) {
+	public void setAttributesForTagging(String input) {
 		userInput = input;
 		splitInput = userInput.split("\\s+");
 		taskIdsForTagging = new ArrayList<Integer>();
@@ -70,16 +68,12 @@ public class TagParser implements ParserCommons {
 		}
 	}
 
-	public Command getInvalidCommand(String message) {
-		return CommandUtils.createInvalidCommand(message);
-	}
-
-	public TAG_TYPE getTagType() {
-		TAG_TYPE type;
+	public TagType getTagType() {
+		TagType type;
 		if (taskIdsForTagging.size() >= 1) {
-			type = TAG_TYPE.VALID;
+			type = TagType.VALID;
 		} else {
-			type = TAG_TYPE.INVALID;
+			type = TagType.INVALID;
 		}
 		return type;
 	}

@@ -129,10 +129,10 @@ public class EventTask extends Task {
 	}
 
 	@Override
-	public boolean isMonth(MONTH month){
+	public boolean isMonth(MONTH month) {
 		return dateTimeStart.isMonth(month) || dateTimeEnd.isMonth(month);
 	}
-	
+
 	@Override
 	public boolean setDisplayId(int taskId) {
 
@@ -157,8 +157,7 @@ public class EventTask extends Task {
 	@Override
 	public boolean isSameDate(DateTime dateTime) {
 		if (hasMultiDay && isMultiDayOn) {
-			return dateTimeStart.isTheSameDateAs(dateTime) || DateTime.isWithin(dateTime, dateTimeStart, dateTimeEnd)
-					|| dateTimeEnd.isTheSameDateAs(dateTime);
+			return dateTimeStart.isTheSameDateAs(dateTime) || DateTime.isWithin(dateTime, dateTimeStart, dateTimeEnd) || dateTimeEnd.isTheSameDateAs(dateTime);
 		} else {
 			return dateTimeStart.isTheSameDateAs(dateTime);
 		}
@@ -166,8 +165,7 @@ public class EventTask extends Task {
 
 	@Override
 	public boolean isOverDue(DateTime dateTime) {
-		boolean isOverDue = !dateTimeStart.isTheSameDateAs(dateTime) && dateTimeStart.compareTo(dateTime) == -1
-				&& !isCompleted;
+		boolean isOverDue = !dateTimeStart.isTheSameDateAs(dateTime) && dateTimeStart.compareTo(dateTime) == -1 && !isCompleted;
 
 		if (isOverDue) {
 			hasMultiDay = false;
@@ -177,10 +175,10 @@ public class EventTask extends Task {
 	}
 
 	@Override
-	public boolean isDay(DAY day){
+	public boolean isDay(DAY day) {
 		return DateTime.isWithinDay(day, dateTimeStart, dateTimeEnd);
 	}
-	
+
 	@Override
 	public String getDateString() {
 		if (hasMultiDay && isMultiDayOn) {
@@ -206,9 +204,7 @@ public class EventTask extends Task {
 	public boolean equals(Object o) {
 		if (o instanceof EventTask) {
 			EventTask eventTask = (EventTask) o;
-			return this.uniqueId == eventTask.uniqueId && this.getName().equals(eventTask.getName())
-					&& this.getDateTimeStart().equals(eventTask.getDateTimeStart())
-					&& this.getDateTimeEnd().equals(eventTask.getDateTimeEnd());
+			return this.uniqueId == eventTask.uniqueId && this.getName().equals(eventTask.getName()) && this.getDateTimeStart().equals(eventTask.getDateTimeStart()) && this.getDateTimeEnd().equals(eventTask.getDateTimeEnd());
 		}
 		return false;
 	}

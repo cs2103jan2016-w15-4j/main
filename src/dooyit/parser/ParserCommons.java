@@ -9,7 +9,7 @@ package dooyit.parser;
 public interface ParserCommons {
 	// Error message
 	public static final String ERROR_MESSAGE_END_BEFORE_START = "End timing cannot be before Start timing";
-	public static final String ERROR_MESSAGE_INTEGER_OVERFLOW = "Don't be retarded, you don't have THAT many tasks :P";
+	public static final String ERROR_MESSAGE_INTEGER_OVERFLOW = "Do you even need to sleep with that many things to do?";
 	
 	// Uninitialized int and String constants
 	public static final int UNINITIALIZED_INT = -1;
@@ -23,15 +23,6 @@ public interface ParserCommons {
 	public static final String MARKER_START_EVENT = " from ";
 	public static final String MARKER_END_EVENT = " to ";
 	public static final String MARKER_DEADLINE_TASK = " by ";
-
-
-	static boolean isUninitialized(int[] ans, int index) {
-		return ans[index] == UNINITIALIZED_INT;
-	}
-	
-	static boolean isUninitialized(int number) {
-		return number == UNINITIALIZED_INT;
-	}
 	
 	static boolean isNumber(String currWord) {
 		return currWord.matches("[0-9]+");
@@ -70,5 +61,9 @@ public interface ParserCommons {
 
 	static boolean isInitialized(int number) {
 		return number != UNINITIALIZED_INT;
+	}
+
+	static boolean isInitialized(int[] array, int index) {
+		return array[index] != UNINITIALIZED_INT;
 	}
 }

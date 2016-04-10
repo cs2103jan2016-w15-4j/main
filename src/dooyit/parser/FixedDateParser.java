@@ -118,7 +118,7 @@ public class FixedDateParser implements DateTimeParserCommons {
 			 } catch (IncorrectInputException e) {
 				 throw e;
 			 }
-		} else if (isMonth(currWord) && ParserCommons.isUninitialized(dateAndAdvanceIntArray, DATE_INDEX_OF_MM)) {
+		} else if (isMonth(currWord) && !ParserCommons.isInitialized(dateAndAdvanceIntArray, DATE_INDEX_OF_MM)) {
 			dateAndAdvanceIntArray[DATE_INDEX_OF_MM] = convertMonthStrToInt(currWord);
 			dateAndAdvanceIntArray[DATE_INDEX_OF_ADVANCE_INT] += 1;
 		} else {
@@ -146,10 +146,10 @@ public class FixedDateParser implements DateTimeParserCommons {
 	}
 
 	private int[] setDayAndYearValues(int[] dateAdvanceIntArray, int currInt) throws IncorrectInputException {
-		if (currInt <= MAX_NUM_OF_DAYS_IN_A_MONTH && ParserCommons.isUninitialized(dateAdvanceIntArray, DATE_INDEX_OF_DD)) {
+		if (currInt <= MAX_NUM_OF_DAYS_IN_A_MONTH && !ParserCommons.isInitialized(dateAdvanceIntArray, DATE_INDEX_OF_DD)) {
 			dateAdvanceIntArray[DATE_INDEX_OF_DD] = currInt;
 
-		} else if (currInt >= YEARY_2000 && ParserCommons.isUninitialized(dateAdvanceIntArray, DATE_INDEX_OF_YY)) {
+		} else if (currInt >= YEARY_2000 && !ParserCommons.isInitialized(dateAdvanceIntArray, DATE_INDEX_OF_YY)) {
 			dateAdvanceIntArray[DATE_INDEX_OF_YY] = currInt;
 			
 		} else {
@@ -159,11 +159,11 @@ public class FixedDateParser implements DateTimeParserCommons {
 	}
 
 	private int[] setUninitializedValuesToDefault(int[] dateAdvanceIntArray) {
-		if (ParserCommons.isUninitialized(dateAdvanceIntArray, DATE_INDEX_OF_YY)) {
+		if (!ParserCommons.isInitialized(dateAdvanceIntArray, DATE_INDEX_OF_YY)) {
 			dateAdvanceIntArray[DATE_INDEX_OF_YY] = getCorrectYear(dateAdvanceIntArray);
 		}
 
-		if (ParserCommons.isUninitialized(dateAdvanceIntArray, DATE_INDEX_OF_DD)) {
+		if (!ParserCommons.isInitialized(dateAdvanceIntArray, DATE_INDEX_OF_DD)) {
 			dateAdvanceIntArray[DATE_INDEX_OF_DD] = DEFAULT_DD_IN_MONTH; // Default
 		}
 		return dateAdvanceIntArray;

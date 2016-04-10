@@ -274,14 +274,14 @@ public class EditParser implements ParserCommons {
 	}
 
 	private boolean hasStart() {
-		return !ParserCommons.isUninitialized(getIndexOfMarker(MARKER_START_EVENT));
+		return ParserCommons.isInitialized(getIndexOfMarker(MARKER_START_EVENT));
 	}
 
 	private boolean hasEnd() {
-		return !ParserCommons.isUninitialized(getIndexOfMarker(MARKER_END_EVENT));
+		return ParserCommons.isInitialized(getIndexOfMarker(MARKER_END_EVENT));
 	}
 
 	private boolean hasDeadline() {
-		return !ParserCommons.isUninitialized(getIndexOfMarker(MARKER_DEADLINE_TASK));
+		return ParserCommons.isInitialized(getIndexOfMarker(MARKER_DEADLINE_TASK));
 	}
 }

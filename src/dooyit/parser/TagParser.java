@@ -9,6 +9,10 @@ import dooyit.logic.commands.Command;
 import dooyit.common.utils.CommandUtils;
 
 /**
+ * TagParser class takes in a string of task IDs and returns an array 
+ * list of task IDs. It is a parent class of DeleteParser, MarkParser, 
+ * MoveParser, UnmarkParser and UnmoveParser. It implements the 
+ * ParserCommons interface to use the shared constants.
  * 
  * @author Annabel
  *
@@ -21,7 +25,7 @@ public class TagParser implements ParserCommons {
 	
 	// Class Constants
 	private static final int INDEX_OF_SINGLE_ID = 0;
-	private static final int SIZE_ONE = 1;
+	private static final int SIZE_ONE_ELEMENT = 1;
 	
 	// TagParser object attributes
 	protected String userInput;
@@ -49,18 +53,33 @@ public class TagParser implements ParserCommons {
 	protected void parseTaskIds() throws IncorrectInputException {
 		for (int i = 0; i < splitInput.length; i++) {
 			String currWord = splitInput[i];
-			if (ParserCommons.isNumber(currWord)) {
-				try {
-					int taggedId = Integer.parseInt(currWord);
-					taskIdsForTagging.add(taggedId);
-				} catch (NumberFormatException e) {
-					throw new IncorrectInputException(ERROR_MESSAGE_INTEGER_OVERFLOW);
-				}
-			} else if (isIntervalType(currWord)) {
-				setInterval(currWord);
-			} else {
-				throw new IncorrectInputException(ERROR_MESSAGE_INVALID_TASK_ID + currWord);
+			try {
+				addTaskIds(currWord);
+			} catch (IncorrectInputException e) {
+				throw e;
 			}
+		}
+	}
+
+	/**
+	 * 
+	 * @param currWord
+	 * @throws IncorrectInputException
+	 */
+	private void addTaskIds(String currWord) throws IncorrectInputException {
+		if (ParserCommons.isNumber(currWord)) {
+			try {
+				int taggedId = Integer.parseInt(currWord);
+				taskIdsForTagging.add(taggedId);
+			} catch (NumberFormatException e) {
+				throw new IncorrectInputException(ERROR_MESSAGE_INTEGER_OVERFLOW);
+			}
+			
+		} else if (isIntervalType(currWord)) {
+			setInterval(currWord);
+			
+		} else {
+			throw new IncorrectInputException(ERROR_MESSAGE_INVALID_TASK_ID + currWord);
 		}
 	}
 	
@@ -141,9 +160,9 @@ public class TagParser implements ParserCommons {
 	 */
 	protected TagType getSingleMultipleTagType() {
 		TagType type;
-		if (taskIdsForTagging.size() == SIZE_ONE) {
+		if (taskIdsForTagging.size() == SIZE_ONE_ELEMENT) {
 			type = TagType.SINGLE;
-		} else if (taskIdsForTagging.size() > SIZE_ONE) {
+		} else if (taskIdsForTagging.size() > SIZE_ONE_ELEMENT) {
 			type = TagType.MULTIPLE;
 		} else {
 			type = TagType.INVALID;

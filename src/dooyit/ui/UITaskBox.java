@@ -115,11 +115,19 @@ public class UITaskBox {
 			this.taskPeriod.getStyleClass().add(STYLECLASS_TASK_PERIOD_OVERDUE);
 		}
 		if (!isEmptyTaskPeriod()) {
-			if (isLongTaskPeriod()) {
-				this.taskPeriod.setPrefWidth(LEN_EVENT_PERIOD);
-			} else {
-				this.taskPeriod.setPrefWidth(LEN_TASK_PERIOD);
-			}
+			setTaskPeriodWidth();
+		}
+	}
+	
+	/**
+	 * This method is used to set the width of the task period. It should only be called after 
+	 * the task period has been initialized. It is used by the <tt>initTaskPeriod</tt> method.
+	 */
+	private void setTaskPeriodWidth() {
+		if (isLongTaskPeriod()) {
+			this.taskPeriod.setPrefWidth(LEN_EVENT_PERIOD);
+		} else {
+			this.taskPeriod.setPrefWidth(LEN_TASK_PERIOD);
 		}
 	}
 	

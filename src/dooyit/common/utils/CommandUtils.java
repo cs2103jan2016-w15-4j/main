@@ -26,7 +26,6 @@ import dooyit.logic.commands.StorageCommand;
 import dooyit.logic.commands.UnMoveCategory;
 import dooyit.logic.commands.UndoCommand;
 import dooyit.logic.commands.UnmarkTaskCommand;
-import dooyit.logic.commands.ShowCommand.ShowCommandType;
 
 /**
  * the command utils acts as a factory for command objects

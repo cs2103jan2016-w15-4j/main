@@ -684,7 +684,7 @@ public class UIController {
 	 * It is used by the <tt>processLogicAction</tt> method.
 	 */
 	private void refreshMainViewForActiveViewType() {
-		switch(this.activeMainView){
+		switch(this.activeMainView) {
 			case TODAY:
 				refreshMainViewForToday();
 				break;

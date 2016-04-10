@@ -1,12 +1,6 @@
-/** 
- * @@author A0133338J 
- * 
- * This class parses "addcat" user inputs and returns the correct AddCategory command object.
- */
-
+//@@author A0133338J 
 package dooyit.parser;
 
-import dooyit.common.exception.IncorrectInputException;
 import dooyit.logic.commands.Command;
 import dooyit.logic.commands.CommandUtils;
 
@@ -20,7 +14,6 @@ public class AddCategoryParser extends TagParser{
 	private String catName;
 	private String catColour;
 	private Command command;
-	private boolean hasTasks;
 	private boolean hasColour;
 	
 	enum ADD_CATEGORY_TYPE {
@@ -40,11 +33,6 @@ public class AddCategoryParser extends TagParser{
 			setCommandToCreateCategoryWithoutTasks();
 			break;
 
-		case CREATE_NEW_CATEGORY_WITH_TASKS : 
-			getTaskIds();
-			setCommandToCreateCategoryWithTasks();
-			break;
-
 		default :
 			setInvalidCommand();
 			break;
@@ -60,64 +48,13 @@ public class AddCategoryParser extends TagParser{
 	private void resetVariables(String input) {
 		userInput = input;
 		catColour = DEFAULT_COLOUR;
-		hasTasks = false;
 		hasColour = false;
-	}
-
-	private void setCommandToCreateCategoryWithTasks() {
-		try {
-			parseTaskIds();
-		} catch (IncorrectInputException e) {
-			command = getInvalidCommand(e.getMessage());
-		}
-		
-		if(command == null) {
-			setCorrectCategoryWithTasksCommand(getTagType());
-		}
-	}
-	
-	private void setCorrectCategoryWithTasksCommand(TAG_TYPE tagType) {
-		switch (tagType) {
-		case VALID:
-			setCreateCategoryWithManyTasksCommand();
-			break;
-
-		default: 
-			setInvalidCmd();
-			break;
-		}
-	}
-
-	private void setCreateCategoryWithManyTasksCommand() {
-		if(hasColour) {
-			//command = CommandUtils.createAddCategoryCommand(catName, catColour, taskIdForTagging);
-		} else {
-			//command = CommandUtils.createAddCatergoryCommand(catName, taskIdForTagging); 
-		}
-	}
-
-	private void setInvalidCmd() {
-		command = CommandUtils.createInvalidCommand("Invalid Add Category Command!");
-	}
-	
-	private void getTaskIds() {
-		if (hasColour) {
-			int indexOfTaskIds = userInput.indexOf(catColour) + catColour.length();
-			String taskIdString = userInput.substring(indexOfTaskIds).trim();
-			setVariables(taskIdString);
-		} else {
-			int indexOfTaskIds = userInput.indexOf(catName) + catName.length();
-			String taskIdString = userInput.substring(indexOfTaskIds).trim();
-			setVariables(taskIdString);
-		} 
 	}
 
 	private ADD_CATEGORY_TYPE getCommandType() {
 		if (userInput.equals(EMPTY_STRING)) {
 			return ADD_CATEGORY_TYPE.INVALID;
-		} else if(hasTasks) {
-			return ADD_CATEGORY_TYPE.CREATE_NEW_CATEGORY_WITH_TASKS;
-		} else {
+		} else  {
 			return ADD_CATEGORY_TYPE.CREATE_NEW_CATEGORY_WITHOUT_TASKS;
 		} 
 	}
@@ -136,13 +73,6 @@ public class AddCategoryParser extends TagParser{
 		if (!isOneWordInput(inputArr)) {
 			catColour = inputArr[INDEX_COLOUR];
 			hasColour = !ParserCommons.isNumber(catColour);
-		}
-		
-		for (int i = INDEX_COLOUR; i < inputArr.length; i++) {
-			if(ParserCommons.isNumber(inputArr[i])) {
-				hasTasks = true;
-				break;
-			}
 		}
 	}
 

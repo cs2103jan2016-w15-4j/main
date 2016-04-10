@@ -76,14 +76,18 @@ public class EditCategoryCommand implements ReversibleCommand {
 			if (logic.containsCustomColour(newColourName)) {
 				logicAction = editCategoryNameAndColour(logic);
 			} else {
-				logicAction = new LogicAction(Action.ERROR, String.format(Constants.FEEDBACK_INVALID_COLOUR, newColourName));
+				logicAction = invalidColour();
 			}
 		} else {
-			editCategoryName(logic);
-			logicAction = new LogicAction(Action.EDIT_CATEGORY, Constants.FEEDBACK_CATEGORY_EDITED);
+			logicAction = editCategoryName(logic);
+			
 		}
 
 		return logicAction;
+	}
+
+	public LogicAction invalidColour() {
+		return new LogicAction(Action.ERROR, String.format(Constants.FEEDBACK_INVALID_COLOUR, newColourName));
 	}
 
 	public LogicAction cantFindCategory() {
@@ -105,8 +109,10 @@ public class EditCategoryCommand implements ReversibleCommand {
 		originalCategoryName = originalCategory.getName();
 	}
 
-	public void editCategoryName(LogicController logic) {
+	public LogicAction editCategoryName(LogicController logic) {
 		logic.editCategoryName(originalCategory, newCategoryName);
+		LogicAction logicAction = new LogicAction(Action.EDIT_CATEGORY, Constants.FEEDBACK_CATEGORY_EDITED);
+		return logicAction;
 	}
 
 }

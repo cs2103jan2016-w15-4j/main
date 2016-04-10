@@ -10,7 +10,7 @@ import dooyit.logic.api.Action;
 import dooyit.logic.api.LogicAction;
 import dooyit.logic.api.LogicController;
 
-public class MarkTaskCommand implements Command, ReversibleCommand {
+public class MarkTaskCommand implements ReversibleCommand {
 	private ArrayList<Integer> markIds;
 	private ArrayList<Task> markedTasks;
 	private boolean hasError = false;

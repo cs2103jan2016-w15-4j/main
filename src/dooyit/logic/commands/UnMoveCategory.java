@@ -9,7 +9,7 @@ import dooyit.logic.api.Action;
 import dooyit.logic.api.LogicAction;
 import dooyit.logic.api.LogicController;
 
-public class UnMoveCategory implements Command, ReversibleCommand {
+public class UnMoveCategory implements ReversibleCommand {
 
 	private int taskId;
 	private Task taskWithCategory;

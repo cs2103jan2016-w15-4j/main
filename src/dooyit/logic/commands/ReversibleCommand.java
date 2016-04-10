@@ -3,7 +3,7 @@ package dooyit.logic.commands;
 
 import dooyit.logic.api.LogicController;
 
-public interface ReversibleCommand {
+public interface ReversibleCommand extends Command{
 
 	public void undo(LogicController logic);
 

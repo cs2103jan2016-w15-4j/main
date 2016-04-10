@@ -1,3 +1,4 @@
+// @@author A0124278A
 package dooyit.ui;
 
 import dooyit.common.datatype.Category;
@@ -10,7 +11,7 @@ import javafx.scene.shape.Circle;
 
 /**
  * 
- * @@author Wu Wenqi <A0124278A>
+ * @author Wu Wenqi
  *
  */
 
@@ -36,7 +37,7 @@ public class UICategoryBox {
 		initialize();
 	}
 	
-	private void initialize(){
+	private void initialize() {
 		initCategoryName();
 		initCategoryCircle();
 		initCategoryBoxWrapper();
@@ -44,24 +45,24 @@ public class UICategoryBox {
 		initListeners();
 	}
 	
-	private void initCategoryName(){
+	private void initCategoryName() {
 		this.categoryName = new Label(this.category.getName());
 		this.categoryName.getStyleClass().add(STYLECLASS_CAT_NAME);
 	}
 	
-	private void initCategoryCircle(){
+	private void initCategoryCircle() {
 		this.categoryCircle = new Circle(CAT_CIRCLE_RADIUS, this.category.getColour());
 		this.categoryCircle.getStyleClass().add(STYLECLASS_CAT_CIRCLE);
 	}
 	
-	private void initCategoryBoxWrapper(){
+	private void initCategoryBoxWrapper() {
 		this.categoryBoxWrapper = new HBox();
 		this.categoryBoxWrapper.getChildren().addAll(this.categoryCircle, this.categoryName);
 		this.categoryBoxWrapper.getStyleClass().add(STYLECLASS_CAT_BOX_WRAPPER);
 		this.categoryBoxWrapper.setSpacing(SPACING_CAT_BOX_WRAPPER);
 	}
 	
-	private void initCategoryBox(){
+	private void initCategoryBox() {
 		this.categoryBox = new ToggleButton();
 		this.categoryBox.setGraphic(this.categoryBoxWrapper);
 		this.categoryBox.getStyleClass().add(STYLECLASS_CAT_BOX);
@@ -70,7 +71,7 @@ public class UICategoryBox {
 		this.categoryBox.setUserData(UIData.USERDATA_CATEGORY);
 	}
 	
-	private void initListeners(){
+	private void initListeners() {
 		this.categoryBox.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
@@ -80,11 +81,11 @@ public class UICategoryBox {
 		});
 	}
 	
-	private String getShowCategoryCommand(){
+	private String getShowCategoryCommand() {
 		return UIData.CMD_SHOW_CAT + categoryName.getText();
 	}
 	
-	protected Category getCategory(){
+	protected Category getCategory() {
 		return this.category;
 	}
 	

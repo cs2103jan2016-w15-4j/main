@@ -7,7 +7,7 @@ import dooyit.logic.api.Action;
 import dooyit.logic.api.LogicAction;
 import dooyit.logic.api.LogicController;
 
-public class StorageCommand implements Command, ReversibleCommand {
+public class StorageCommand implements ReversibleCommand {
 
 	private String path;
 	private String previousPath;
@@ -44,9 +44,9 @@ public class StorageCommand implements Command, ReversibleCommand {
 		try {
 			previousPath = logic.getFilePath();
 			boolean fileExist = logic.setFileDestinationPath(path);
-			
+
 			logicAction = new LogicAction(Action.SET_STORAGE_PATH, Constants.FEEDBACK_SET_NEW_PATH);
-			
+
 			if (fileExist) {
 				logic.loadFromStorage();
 				logicAction = new LogicAction(Action.SET_STORAGE_PATH, Constants.FEEDBACK_SET_NEW_PATH_WITH_LOAD);
@@ -56,7 +56,6 @@ public class StorageCommand implements Command, ReversibleCommand {
 			hasError = true;
 		}
 
-		
 		return logicAction;
 	}
 

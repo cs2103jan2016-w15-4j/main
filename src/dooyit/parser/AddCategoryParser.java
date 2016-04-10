@@ -10,7 +10,7 @@ import dooyit.logic.commands.CommandUtils;
 /**
  * The AddCategoryParser class provides methods needed for adding a category and
  * specifying the category colour. It takes in an "addcat" command input and
- * returns an AddCategorCcommand object. It implements the ParserCommons
+ * returns an AddCategoryCcommand object. It implements the ParserCommons
  * interface to use the shared constants and share methods.
  * 
  * @author Annabel

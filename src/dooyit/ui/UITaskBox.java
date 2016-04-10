@@ -13,9 +13,11 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
 /**
- * 
- * @author Wu Wenqi
- *
+ * The <tt>UITaskBox</tt> class contains the methods to initialize a task view and 
+ * change its layout and dimensions.
+ * @author 	Wu Wenqi
+ * @version	0.5
+ * @since 	2016-04-10
  */
 
 public class UITaskBox {
@@ -52,12 +54,21 @@ public class UITaskBox {
 	private HBox taskCategoryBox;
 	private AnchorPane taskBox;
 
+	/**
+	 * This is the constructor method.
+	 * @param parent The parent <tt>UIDayBox</tt> class.
+	 * @param task The <tt>Task</tt> to populate the task view with.
+	 */
 	public UITaskBox(UIDayBox parent, Task task) {
 		this.task = task;
 		this.parent = parent;
 		initialize();
 	}
 	
+	/**
+	 * This method is used to initialize the <tt>UITaskBox</tt> class.
+	 * It is used by the constructor.
+	 */
 	private void initialize() {
 		initTaskCheckBox();
 		initTaskId();
@@ -71,6 +82,10 @@ public class UITaskBox {
 		updateTaskBoxWidth();
 	}
 	
+	/**
+	 * This method is used to initialize the check box for the task view.
+	 * It is used by the <tt>initialize</tt> method.
+	 */
 	private void initTaskCheckBox() {
 		this.taskCheckBox = new CheckBox();
 		this.taskCheckBox.getStyleClass().add(STYLECLASS_TASK_CHECKBOX);
@@ -79,12 +94,20 @@ public class UITaskBox {
 		}
 	}
 	
+	/**
+	 * This method is used to initialize the task id for the task view.
+	 * It is used by the <tt>initialize</tt> method.
+	 */
 	private void initTaskId() {
 		this.taskId = new Label(Integer.toString(this.task.getDisplayId()));
 		this.taskId.getStyleClass().add(STYLECLASS_TASK_ID);
 		this.taskId.setPrefWidth(PREFWIDTH_TASK_ID);
 	}
 	
+	/**
+	 * This method is used to initialize the task period for the task view.
+	 * It is used by the <tt>initialize</tt> method.
+	 */
 	private void initTaskPeriod() {
 		this.taskPeriod = new Label(getTaskPeriodString());
 		this.taskPeriod.getStyleClass().add(STYLECLASS_TASK_PERIOD);
@@ -100,18 +123,34 @@ public class UITaskBox {
 		}
 	}
 	
+	/**
+	 * This method is used to check if the <tt>Task</tt> is overdue.
+	 * @return <tt>True</tt> if the <tt>Task</tt> is overdue, <tt>False</tt> otherwise.
+	 */
 	private boolean isOverdueTask() {
 		return this.task.isOverDue(new DateTime());
 	}
 	
+	/**
+	 * This method is used to check if the task period is empty.
+	 * @return <tt>True</tt> if the task period is empty, <tt>False</tt> otherwise.
+	 */
 	private boolean isEmptyTaskPeriod() {
 		return this.taskPeriod.getText().isEmpty();
 	}
 	
+	/**
+	 * This method is used to check if the task period string is long.
+	 * @return <tt>True</tt> if task period string is long, <tt>False</tt> otherwise.
+	 */
 	private boolean isLongTaskPeriod() {
 		return this.taskPeriod.getText().length() > STR_LEN_TASK_PERIOD;
 	}
 	
+	/**
+	 * This method is used to get the task period string.
+	 * @return The task period string.
+	 */
 	private String getTaskPeriodString() {
 		String s = this.task.getDateString();
 		if (!s.isEmpty()) {
@@ -120,6 +159,10 @@ public class UITaskBox {
 		return s;
 	}
 	
+	/**
+	 * This method is used to initialize the category name displayed in the task view.
+	 * It is used by the <tt>initialize</tt> method.
+	 */
 	private void initTaskCategoryLabel() {
 		this.taskCategoryLabel = new Label();
 		setCategoryCircle();
@@ -128,6 +171,10 @@ public class UITaskBox {
 		this.taskCategoryLabel.setPrefWidth(PREFWIDTH_TASK_CATEGORY_LABEL);
 	}
 	
+	/**
+	 * This method is used to initialize the colored circle of the category in the task view.
+	 * It is used by the <tt>setCategoryCircle</tt> method.
+	 */
 	private void setCategoryCircle() {
 		if (this.task.hasCategory()){
 			Category category = this.task.getCategory();
@@ -138,23 +185,45 @@ public class UITaskBox {
 		}
 	}
 	
+	/**
+	 * This method is used to initialize the task name.
+	 * It is used by the <tt>initialize</tt> method.
+	 */
 	private void initTaskName() {
 		this.taskName = new Label(this.task.getName());
 		this.taskName.getStyleClass().add(STYLECLASS_TASK_NAME);
 	}
 	
+	/**
+	 * This method is used to initialize the view box for the task details.
+	 * This method can only be called after the check box, task id, task period and task name have been 
+	 * initialized.
+	 * It is used by the <tt>initialize</tt> method.
+	 */
 	private void initTaskDetailBox() {
 		this.taskDetailBox = new HBox();
 		this.taskDetailBox.getChildren().addAll(this.taskCheckBox, this.taskId, this.taskPeriod, this.taskName);
 		this.taskDetailBox.setAlignment(Pos.CENTER_LEFT);
 	}
 	
+	/**
+	 * This method is used to initialized the view box for the task's category details.
+	 * This method can only been called after the category label and category colored circle have 
+	 * been initialized.
+	 * It is used by the <tt>initialize</tt> method.
+	 */
 	private void initTaskCategoryBox() {
 		this.taskCategoryBox = new HBox();
 		this.taskCategoryBox.getChildren().addAll(this.taskCategoryLabel, this.taskCategoryCircle);
 		this.taskCategoryBox.setAlignment(Pos.CENTER_RIGHT);
 	}
 	
+	/**
+	 * This method is used to initialize the task view.
+	 * It can only be called after the view boxes for both task details and category details have been 
+	 * initialized.
+	 * It is used by the <tt>initialize</tt> method.
+	 */
 	private void initTaskBox() {
 		 this.taskBox = new AnchorPane();
 		 AnchorPane.setTopAnchor(this.taskDetailBox, ANCHOR_TOP);
@@ -165,6 +234,10 @@ public class UITaskBox {
 		 this.taskBox.getChildren().addAll(this.taskDetailBox, this.taskCategoryBox);
 	}
 	
+	/**
+	 * This method is used to initialize event listeners for the task view.
+	 * It is used by the <tt>initialize</tt> method.
+	 */
 	private void initListeners() {
 	    this.taskCheckBox.setOnAction((event) -> {
 	    	if (!this.task.isCompleted()){
@@ -175,6 +248,11 @@ public class UITaskBox {
 	    });
 	}
 
+	/**
+	 * This method is used to adjust the task view width depending on the stage width of the 
+	 * application scene.
+	 * @param stageWidth The stage width of the application scene.
+	 */
 	private void updateTaskBoxWidth(double stageWidth) {
 		double widthToSubtract = 0;
 		widthToSubtract += WIDTH_MENU;
@@ -188,15 +266,26 @@ public class UITaskBox {
 		this.taskName.setMaxWidth(taskNameMaxWidth);
 	}
 	
+	/**
+	 * This is an overloading method for the <tt>updateTaskBoxWidth</tt> method.
+	 */
 	private void updateTaskBoxWidth() {
 		double width = this.parent.getStageWidth();
 		updateTaskBoxWidth(width);
 	}
 	
+	/**
+	 * This method is used to retrieve the task view.
+	 * @return A task view.
+	 */
 	protected AnchorPane getView() {
 		return this.taskBox;
 	}
 
+	/**
+	 * This method is used to update the dimensions of the task view.
+	 * @param stageWidth The stage width of the application scene.
+	 */
 	protected void updatePosition(double stageWidth) {
 		updateTaskBoxWidth(stageWidth);
 	}

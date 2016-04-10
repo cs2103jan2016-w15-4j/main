@@ -3,9 +3,8 @@ package dooyit.parser;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
+import dooyit.common.utils.CommandUtils;
 import dooyit.logic.commands.Command;
-import dooyit.logic.commands.CommandUtils;
 
 /**
  * The ShowParser class takes in a "show" command input and 

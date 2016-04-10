@@ -46,26 +46,41 @@ public class AddCategoryCommand implements ReversibleCommand {
 
 		String feedbackMsgColor = Constants.EMPTY_STRING;
 
+		// return error if category already exits
 		if (logic.containsCategory(categoryName)) {
-			logicAction = new LogicAction(Action.ERROR, String.format(Constants.FEEDBACK_FAIL_CATEGORY_EXISTS, categoryName));
-			hasError = true;
+			logicAction = categoryAleadyExists();
 			return logicAction;
 		}
 
 		if (addCategoryWithColour()) {
 			if (isColourAvailable(logic, colourString)) {
-				addedCategory = logic.addCategory(categoryName, colourString);
+				addCategoryWithColour(logic);
 			} else {
-				addedCategory = logic.addCategory(categoryName);
-				feedbackMsgColor += String.format(Constants.FEEDBACK_INVALID_COLOUR, colourString);
+				addCategoryWithoutColour(logic);
+				feedbackMsgColor += String.format(Constants.FEEDBACK_INVALID_COLOUR_WITH_SUGGESTION, colourString);
 			}
 		} else {
-			addedCategory = logic.addCategory(categoryName);
+			addCategoryWithoutColour(logic);
 		}
 
 		logicAction = new LogicAction(Action.ADD_CATEGORY, String.format(Constants.FEEDBACK_CATEGORY_ADDED, categoryName, feedbackMsgColor));
 
 		return logicAction;
+	}
+
+	public LogicAction categoryAleadyExists() {
+		LogicAction logicAction;
+		logicAction = new LogicAction(Action.ERROR, String.format(Constants.FEEDBACK_FAIL_CATEGORY_EXISTS, categoryName));
+		hasError = true;
+		return logicAction;
+	}
+
+	public void addCategoryWithoutColour(LogicController logic) {
+		addedCategory = logic.addCategory(categoryName);
+	}
+
+	public void addCategoryWithColour(LogicController logic) {
+		addedCategory = logic.addCategory(categoryName, colourString);
 	}
 
 	public boolean isColourAvailable(LogicController logic, String colourString) {

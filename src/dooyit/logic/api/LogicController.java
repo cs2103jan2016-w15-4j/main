@@ -4,6 +4,7 @@ package dooyit.logic.api;
 import dooyit.storage.StorageController;
 import dooyit.parser.ParserController;
 import dooyit.common.exception.IncorrectInputException;
+import dooyit.logic.Constants;
 import dooyit.logic.commands.*;
 import java.io.IOException;
 import java.net.URL;
@@ -27,12 +28,12 @@ public class LogicController {
 	private StorageController storage;
 	private HistoryManager historyManager;
 	private DataManager dataManager;
-	private static Logger logger = Logger.getLogger("Logic");
+	private static Logger logger = Logger.getLogger(Constants.LOG_LOGIC);
 	private boolean isSaveOn = true;
-	private boolean displayCommandline = true;
+	private boolean displayCommandline = false;
 
 	public LogicController() {
-		logger.log(Level.INFO, "Initialising logic class");
+		logger.log(Level.INFO, Constants.LOG_MSG_INITIALISING_LOGIC_CLASS);
 
 		initParser();
 		initTaskManager();
@@ -44,77 +45,57 @@ public class LogicController {
 		setDefaultCategories();
 		save();
 
-		logger.log(Level.INFO, "End of initialising logic class");
+		logger.log(Level.INFO, Constants.LOG_MSG_END_OF_INITIALISING_LOGIC_CLASS);
 	}
 
-	/**
-	 * 
-	 */
 	public void initParser() {
+<<<<<<< HEAD
 		logger.log(Level.INFO, "Initialising Parser");
 		parser = new ParserController();
+=======
+		logger.log(Level.INFO, Constants.LOG_MSG_INITIALISING_PARSER);
+		parser = new Parser();
+>>>>>>> c0e65a976b51930cbd6ab0c2ef3ce82366210679
 	}
 
-	/**
-	 * 
-	 */
 	public void initTaskManager() {
-		logger.log(Level.INFO, "Initialising Task Manager");
+		logger.log(Level.INFO, Constants.LOG_MSG_INITIALISING_TASK_MANAGER);
 		taskManager = new TaskManager();
 	}
 
-	/**
-	 * 
-	 */
 	public void initCategoryManager() {
-		logger.log(Level.INFO, "Initialising Category Manager");
+		logger.log(Level.INFO, Constants.LOG_MSG_INITIALISING_CATEGORY_MANAGER);
 		categoryManager = new CategoryManager();
 	}
 
-	/**
-	 * 
-	 */
 	public void initHistoryManager() {
-		logger.log(Level.INFO, "Initialising History Manager");
+		logger.log(Level.INFO, Constants.LOG_MSG_INITIALISING_HISTORY_MANAGER);
 		historyManager = new HistoryManager();
 	}
 
-	/**
-	 * 
-	 */
 	private void initStorage() {
-		logger.log(Level.INFO, "Initialising Storage");
+		logger.log(Level.INFO, Constants.LOG_MSG_INITIALISING_STORAGE);
 		try {
 			storage = new StorageController();
 		} catch (IOException e) {
-			logger.log(Level.SEVERE, "ERROR: Fail to create storage");
+			logger.log(Level.SEVERE, Constants.ERROR_FAIL_TO_CREATE_STORAGE);
 		}
 	}
 
 	private void initDataManager() {
-		logger.log(Level.INFO, "Initialising DataManager");
+		logger.log(Level.INFO, Constants.LOG_MSG_INITIALISING_DATA_MANAGER);
 		dataManager = new DataManager();
 	}
 
-	/**
-	 * 
-	 */
 	public void loadFromStorage() {
-		logger.log(Level.INFO, "Loading data from storage");
+		logger.log(Level.INFO, Constants.LOG_MSG_LOADING_DATA_FROM_STORAGE);
 		try {
 			clearTasks();
 			loadCategoryDataFromStorage();
 			loadTaskDataFromStorage();
 		} catch (IOException e) {
-			logger.log(Level.SEVERE, "ERROR: Fail to load task from storage");
+			logger.log(Level.SEVERE, Constants.ERROR_FAIL_TO_LOAD_TASK_FROM_STORAGE);
 		}
-	}
-
-	/**
-	 * @param tasks
-	 */
-	public void loadTasks(ArrayList<Task> tasks) {
-		taskManager.load(tasks);
 	}
 
 	/**
@@ -157,8 +138,8 @@ public class LogicController {
 		try {
 			logicAction = command.execute(this);
 		} catch (IncorrectInputException e) {
-			logger.log(Level.SEVERE, "ERROR: Incorrect Input.");
-			logicAction = new LogicAction(Action.ERROR, "Incorrect Input.");
+			logger.log(Level.SEVERE, Constants.ERROR_INCORRECT_INPUT);
+			logicAction = new LogicAction(Action.ERROR, Constants.FEEDBACK_INCORRECT_INPUT);
 		}
 		return logicAction;
 	}
@@ -184,7 +165,7 @@ public class LogicController {
 			storage.saveTasks(getTaskDatas());
 			storage.saveCategories(getCategoryDatas());
 		} catch (IOException e) {
-			logger.log(Level.SEVERE, "ERROR: Fail to save");
+			logger.log(Level.SEVERE, Constants.ERROR_FAIL_TO_SAVE);
 		}
 
 	}
@@ -335,6 +316,10 @@ public class LogicController {
 		boolean isRemoved = taskManager.remove(task);
 		return isRemoved;
 	}
+	
+	public void loadTasks(ArrayList<Task> tasks) {
+		taskManager.load(tasks);
+	}
 
 	public void markTask(Task task) {
 		taskManager.markTask(task);
@@ -382,16 +367,16 @@ public class LogicController {
 		return clearedTasks;
 	}
 
-	public void addCategory(Category category) {
+	public void addCategory(Category category) throws IncorrectInputException {
 		categoryManager.addCategory(category);
 	}
 
-	public Category addCategory(String categoryName) {
+	public Category addCategory(String categoryName) throws IncorrectInputException {
 		Category addedCategory = categoryManager.addCategory(categoryName);
 		return addedCategory;
 	}
 
-	public Category addCategory(String categoryName, String colourString) {
+	public Category addCategory(String categoryName, String colourString) throws IncorrectInputException {
 		Category addedCategory = categoryManager.addCategory(categoryName, colourString);
 		return addedCategory;
 	}
@@ -438,7 +423,8 @@ public class LogicController {
 		try {
 			return storage.setFileDestination(path);
 		} catch (IOException e) {
-			throw new IncorrectInputException("Invalid path: " + path);
+			logger.log(Level.SEVERE, Constants.ERROR_SET_FILE_DESTINATION_PATH);
+			throw new IncorrectInputException(String.format(Constants.FEEDBACK_INVALID_PATH, path));
 		}
 	}
 
@@ -447,6 +433,7 @@ public class LogicController {
 			storage.generateCss(path);
 		} catch (IOException e) {
 			e.printStackTrace();
+			logger.log(Level.SEVERE, Constants.ERROR_FAIL_TO_GENERATE_CSS);
 		}
 	}
 

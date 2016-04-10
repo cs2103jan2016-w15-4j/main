@@ -8,8 +8,8 @@ import dooyit.common.datatype.DateTime;
 import dooyit.common.datatype.DateTime.Day;
 import dooyit.common.datatype.DateTime.Month;
 import dooyit.common.exception.IncorrectInputException;
+import dooyit.common.utils.CommandUtils;
 import dooyit.logic.commands.Command;
-import dooyit.logic.commands.CommandUtils;
 
 /**
  * The SearchParser class takes in a "search" command input and 

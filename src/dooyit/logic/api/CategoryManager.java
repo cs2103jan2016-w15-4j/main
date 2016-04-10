@@ -57,7 +57,7 @@ public class CategoryManager {
 
 	if (!colourManager.contains(customColourString)) {
 	    addCategory(categoryName);
-	    throw new IncorrectInputException(String.format(Constants.FEEDBACK_INVALID_COLOUR, customColourString));
+	    throw new IncorrectInputException(String.format(Constants.FEEDBACK_INVALID_COLOUR_WITH_SUGGESTION, customColourString));
 	}
 
 	categoryName = capitalizeFirstCharacter(categoryName);

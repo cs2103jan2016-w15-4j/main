@@ -6,8 +6,8 @@ import java.util.logging.Logger;
 
 import dooyit.common.datatype.DateTime;
 import dooyit.common.exception.IncorrectInputException;
+import dooyit.common.utils.CommandUtils;
 import dooyit.logic.commands.Command;
-import dooyit.logic.commands.CommandUtils;
 
 /**
  * The AddParser class takes in an "add" command input and returns a Command 

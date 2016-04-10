@@ -5,8 +5,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import dooyit.common.exception.IncorrectInputException;
+import dooyit.common.utils.CommandUtils;
 import dooyit.logic.commands.Command;
-import dooyit.logic.commands.CommandUtils;
 
 /**
  * The moveParser class is needed for moving tasks into a category.

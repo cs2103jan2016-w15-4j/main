@@ -26,6 +26,28 @@ public class EventTaskData extends TaskData {
 	public DateTime getEnd() {
 		return this.dateTimeEnd;
 	}
+	
+	@Override
+	public boolean equals(Object o) {
+		boolean isEquals = false;
+
+		if (o instanceof EventTaskData) {
+			EventTaskData data = (EventTaskData) o;
+
+			isEquals = this.taskName.equals(data.getName())
+					&& this.isCompleted == data.isCompleted()
+					&& this.dateTimeStart.equals(data.getStart())
+					&& this.dateTimeEnd.equals(data.getEnd());
+
+			if (this.hasCategory() && data.hasCategory()) {
+				isEquals = isEquals && this.category.equals(data.getCategory());
+			} else if (this.hasCategory() || data.hasCategory()) {
+				isEquals = false;
+			}
+		}
+
+		return isEquals;
+	}
 
 	@Override
 	public Task convertToTask() {

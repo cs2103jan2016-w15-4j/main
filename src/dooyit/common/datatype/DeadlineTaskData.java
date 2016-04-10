@@ -21,6 +21,27 @@ public class DeadlineTaskData extends TaskData {
 	}
 	
 	@Override
+	public boolean equals(Object o) {
+		boolean isEquals = false;
+
+		if (o instanceof DeadlineTaskData) {
+			DeadlineTaskData data = (DeadlineTaskData) o;
+
+			isEquals = this.taskName.equals(data.getName())
+					&& this.isCompleted == data.isCompleted()
+					&& this.dateTimeDeadline.equals(data.getDeadline());
+
+			if (this.hasCategory() && data.hasCategory()) {
+				isEquals = isEquals && this.category.equals(data.getCategory());
+			} else if (this.hasCategory() || data.hasCategory()) {
+				isEquals = false;
+			}
+		}
+
+		return isEquals;
+	}
+	
+	@Override
 	public Task convertToTask() {
 		Task task = new DeadlineTask(taskName, dateTimeDeadline);
 		

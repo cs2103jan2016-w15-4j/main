@@ -223,8 +223,7 @@ public class DateTimeParser implements DateTimeParserCommons, ParserCommons {
 	 * 		  The user input String array.
 	 * 
 	 * @param index
-	 *        The array index of the current word in the user input
-	 *        String array.
+	 *        The array index of the current word in the user input String array.
 	 *        
 	 * @return DateTimeFormat type.
 	 */

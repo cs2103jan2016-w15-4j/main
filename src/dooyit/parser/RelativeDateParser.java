@@ -63,7 +63,7 @@ public class RelativeDateParser implements DateTimeParserCommons, ParserCommons 
 	/** 
 	 * Parses the RelativeDate input and returns a combined int array.
 	 * 
-	 * @param splitInput
+	 * @param splitUserInput
 	 * 		  The user input string array
 	 * 
 	 * @param combined
@@ -77,32 +77,32 @@ public class RelativeDateParser implements DateTimeParserCommons, ParserCommons 
 	 * 
 	 * @throws IncorrectInputException if the date string isn't a valid RelativeDate type.
 	 */
-	public int[] parse(String[] splitInput, int[] combined, int index) throws IncorrectInputException {
+	public int[] parse(String[] splitUserInput, int[] combined, int index) throws IncorrectInputException {
 		
-		String currWord = splitInput[index];
-		switch (getRelativeDateType(currWord, splitInput, index)) {
+		String currWord = splitUserInput[index];
+		switch (getRelativeDateType(currWord, splitUserInput, index)) {
 		case TYPE_THIS_DAY_OF_WEEK :
-			combined = getThisDayOfWeek(splitInput, index, combined);
+			combined = getThisDayOfWeek(splitUserInput, index, combined);
 			break;
 
 		case TYPE_NEXT_DAY_OF_WEEK :
-			combined = getNextDayOfWeek(splitInput, index, combined);
+			combined = getNextDayOfWeek(splitUserInput, index, combined);
 			break;
 
 		case TYPE_DAY_OF_WEEK :
-			combined = getDayOfWeek(splitInput, index, combined);
+			combined = getDayOfWeek(splitUserInput, index, combined);
 			break;
 
 		case TYPE_NEXT_WEEK :
-			combined = getDateAfterOneWeek(splitInput, index, combined);
+			combined = getDateAfterOneWeek(splitUserInput, index, combined);
 			break;
 
 		case TYPE_NUM_DAYS : 
-			combined = getDateAndDayAfterANumberOfDays(splitInput, index, combined);
+			combined = getDateAndDayAfterANumberOfDays(splitUserInput, index, combined);
 			break;
 
 		case TYPE_NUM_WEEKS :
-			combined = getDateAndDayAfterNumberOfWeeks(splitInput, index, combined);
+			combined = getDateAndDayAfterNumberOfWeeks(splitUserInput, index, combined);
 			break;
 
 		case TYPE_TODAY :

@@ -25,13 +25,11 @@ public interface DateTimeParserCommons {
 	public static final int DATE_INDEX_OF_YY = 2;
 
 	// Constant for uninitialized int attributes and variables
-	public static final int UNINITIALIZED_INT = -1;
+	public static final int DUMMY_INT = -1;
+	public static final String DUMMY_STRING = "";
 
 	// Constant for the fast forwarding to the next day
 	public static final int NEXT_DAY = 1;
-
-	// For the replacement of words
-	public static final String EMPTY_STRING = "";
 
 	// For the iteration of array constants
 	public static final int STARTING_VALUE_OF_ARRAY_CONSTANTS = 1;
@@ -42,11 +40,11 @@ public interface DateTimeParserCommons {
 	public static final int NUMBER_OF_MONTHS_IN_A_YEAR = 12;
 
 	// Array constants
-	public static final String[] monthsInYear = new String[] { EMPTY_STRING, "jan", "feb", "mar", "apr", "may", "jun",
+	public static final String[] monthsInYear = new String[] { DUMMY_STRING, "jan", "feb", "mar", "apr", "may", "jun",
 			"jul", "aug", "sep", "oct", "nov", "dec" };
-	public static final int[] daysInMonthNonLeapYear = new int[] { UNINITIALIZED_INT, 31, 28, 31, 30, 31, 30, 31, 31,
+	public static final int[] daysInMonthNonLeapYear = new int[] { DUMMY_INT, 31, 28, 31, 30, 31, 30, 31, 31,
 			30, 31, 30, 31 };
-	public static final int[] daysInMonthLeapYear = new int[] { UNINITIALIZED_INT, 31, 29, 31, 30, 31, 30, 31, 31, 30,
+	public static final int[] daysInMonthLeapYear = new int[] { DUMMY_INT, 31, 29, 31, 30, 31, 30, 31, 31, 30,
 			31, 30, 31 };
 
 	// Time markers
@@ -207,5 +205,18 @@ public interface DateTimeParserCommons {
 
 		int[] ans = new int[] { newDay, newMonth, newYear };
 		return ans;
+	}
+	
+	/**
+	 * Checks if the input is a valid number
+	 * 
+	 * @param currWord
+	 * 		  A string input from the user
+	 * 
+	 * @return true if currWord is a valid number, and false
+	 * 		   otherwise.
+	 */
+	static boolean isNumber(String currWord) {
+		return currWord.matches("[0-9]+");
 	}
 }

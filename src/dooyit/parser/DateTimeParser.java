@@ -10,13 +10,13 @@ import dooyit.common.exception.IncorrectInputException;
 /**
  * DateTimeParses parses date time user inputs and returns a DateTime object.
  * It calls on RelativeDateParser, FixedDateParser and TimeParser to parse the
- * relevant inputs. It implements DateTimeparserCommons methods to use the shared
- * methods and constants.
+ * relevant inputs. It implements DateTimeparserCommons and ParserCommons
+ * to use the shared methods and constants.
  * 
  * @author Annabel
  *
  */
-public class DateTimeParser implements DateTimeParserCommons {
+public class DateTimeParser implements DateTimeParserCommons, ParserCommons {
 	// Error messages
 	private static final String ERROR_MESSAGE_ONLY_ONE_DATE = "You can only key in ONE date!";
 	private static final String ERROR_MESSAGE_ONLY_ONE_TIMING = "You can only key in ONE timing!";

@@ -67,6 +67,12 @@ public class ColourManager {
 		availableColours.add(CustomColour.ORANGE);
 	}
 
+	/**
+	 * randomly pick a recommended colour colourpool and remove the colour for
+	 * the colourpool
+	 * 
+	 * @return the colour that is picked
+	 */
 	public CustomColour pickRandomRecommendedCustomColour() {
 		if (colourPool.size() == 0) {
 			colourPool = new ArrayList<CustomColour>(recommendedColours);

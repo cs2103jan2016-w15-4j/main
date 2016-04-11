@@ -67,7 +67,7 @@ public class ColourManager {
 		availableColours.add(CustomColour.ORANGE);
 	}
 
-	public CustomColour pickRandomCustomColour() {
+	public CustomColour pickRandomRecommendedCustomColour() {
 		if (colourPool.size() == 0) {
 			colourPool = new ArrayList<CustomColour>(recommendedColours);
 		}

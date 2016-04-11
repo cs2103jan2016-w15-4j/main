@@ -42,16 +42,34 @@ public class CategoryManager {
 		categories.add(category);
 	}
 
+	/**
+	 * creates a category with the categoryName and randomly pick a recommended
+	 * colour for it
+	 * 
+	 * @param categoryName
+	 * @return added category
+	 * @throws IncorrectInputException
+	 */
 	public Category addCategory(String categoryName) throws IncorrectInputException {
 		if (contains(categoryName)) {
 			throw new IncorrectInputException(String.format(Constants.FEEDBACK_FAIL_CATEGORY_EXISTS, categoryName));
 		}
 		categoryName = capitalizeFirstCharacter(categoryName);
-		Category category = new Category(categoryName, colourManager.pickRandomCustomColour());
+		Category category = new Category(categoryName, colourManager.pickRandomRecommendedCustomColour());
 		categories.add(category);
 		return category;
 	}
 
+	/**
+	 * creates a category with specified categoryName and colour name. This
+	 * method will check if the colour exists, if it doesnt a random suitable
+	 * colour will be picked instead
+	 * 
+	 * @param categoryName
+	 * @param customColourString
+	 * @return added category
+	 * @throws IncorrectInputException
+	 */
 	public Category addCategory(String categoryName, String customColourString) throws IncorrectInputException {
 		if (contains(categoryName)) {
 			throw new IncorrectInputException(String.format(Constants.FEEDBACK_FAIL_CATEGORY_EXISTS, categoryName));
@@ -69,10 +87,23 @@ public class CategoryManager {
 		return category;
 	}
 
+	/**
+	 * change the name of the category
+	 * 
+	 * @param category
+	 * @param newCategoryName
+	 */
 	public void editCategoryName(Category category, String newCategoryName) {
 		category.setName(capitalizeFirstCharacter(newCategoryName));
 	}
 
+	/**
+	 * change the colour of the category
+	 * 
+	 * @param category
+	 * @param newColourString
+	 * @return true is successful
+	 */
 	public boolean editCategoryColour(Category category, String newColourString) {
 		if (colourManager.contains(newColourString)) {
 			CustomColour customColour = colourManager.find(newColourString);
@@ -165,6 +196,12 @@ public class CategoryManager {
 		this.categories.addAll(categories);
 	}
 
+	/**
+	 * capitalize the first character and lower case the rest
+	 * 
+	 * @param categoryName
+	 * @return
+	 */
 	private String capitalizeFirstCharacter(String categoryName) {
 		assert (categoryName != null);
 

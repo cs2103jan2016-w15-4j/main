@@ -120,7 +120,7 @@ public class AddParser extends AddEditTaskParser {
 
 	/**
 	 * Parses the userInput on the assumption that it is an Event task.
-	 * Sets the start and end DateTime objects and the taskName object
+	 * Sets the start and end DateTime objects and the taskName attributes
 	 * to the correct values.
 	 */
 	private void parseEvent() throws IncorrectInputException {

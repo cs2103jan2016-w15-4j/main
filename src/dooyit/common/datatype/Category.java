@@ -3,7 +3,11 @@ package dooyit.common.datatype;
 
 import dooyit.common.Constants;
 import javafx.scene.paint.Color;
-
+/**
+ * Category has a name and a colour
+ * @author limtaeu
+ *
+ */
 public class Category {
 	private String name;
 

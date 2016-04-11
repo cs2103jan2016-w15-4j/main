@@ -11,6 +11,9 @@ import dooyit.logic.Constants;
  * CategoryManager handles the creation and management of category and its
  * colour. Does not allow duplicate category.
  * 
+ * if a category is created without specifying a colour, a random suitable
+ * colour will automatically picked
+ * 
  * @author limtaeu
  *
  */

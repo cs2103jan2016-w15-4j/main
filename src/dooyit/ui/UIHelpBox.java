@@ -2,7 +2,6 @@
 package dooyit.ui;
 
 import java.util.ArrayList;
-
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;

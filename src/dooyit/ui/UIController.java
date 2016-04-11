@@ -18,7 +18,9 @@ import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import dooyit.common.datatype.Category;
 import dooyit.common.datatype.TaskGroup;
-import dooyit.logic.api.*;
+import dooyit.logic.api.LogicController;
+import dooyit.logic.api.LogicAction;
+import dooyit.logic.api.Action;
 
 /**
  * The <tt>UIController</tt> class contains methods to initialize all other classes belonging to the UI.
@@ -34,6 +36,7 @@ import dooyit.logic.api.*;
 public class UIController {
 	private static final int WIDTH_SCENE = 720;
 	private static final int HEIGHT_SCENE = 580;
+	private static final double SCROLL_SENSITIVITY = 0.1;
 	private static final String STYLECLASS_MAIN_VIEW = UIStyle.MAIN_VIEW;
 	private static final String SPACE = " ";
 	private static final String ESCAPED_SPACE = "%20";
@@ -327,15 +330,15 @@ public class UIController {
 	 */
 	private void processCommandBoxKeyEvent(KeyEvent keyEvent) {
 		KeyCode key = keyEvent.getCode();
-    	switch(key){
-        	case UP:
-        		commandBox.showPrevHistory();
-        		break;
-        	case DOWN:
-        		commandBox.showNextHistory();
-        		break;
-        	default:
-        		break;
+		switch(key) {
+			case UP:
+				this.commandBox.showPrevHistory();
+				break;
+			case DOWN:
+				this.commandBox.showNextHistory();
+				break;
+			default:
+				break;
 		}
 	}
 
@@ -407,25 +410,49 @@ public class UIController {
 					break;
 				case U:
 				case PAGE_UP:
-					if (mainView.getVvalue() > mainView.getVmin() + 0.1){
-						mainView.setVvalue(mainView.getVvalue() - 0.1);
-					}
+					scrollUpMainView();
 					break;
 				case J:
 				case PAGE_DOWN:
-					if (mainView.getVvalue() < mainView.getVmax() + 0.1){
-						mainView.setVvalue(mainView.getVvalue() + 0.1);
-					}
+					scrollDownMainView();
 					break;
 				default:
 					break;
 			}
 		} else {
-			if (!commandBox.isSelected()) {
-				commandBox.select();
-			}
+			focusOnCommandBox();
 		}
 		keyEvent.consume();
+	}
+	
+	/**
+	 * This method is used to scroll up the main view.
+	 * It is used by the <tt>processKeyEvent</tt> method.
+	 */
+	private void scrollUpMainView() {
+		if (this.mainView.getVvalue() > this.mainView.getVmin() + SCROLL_SENSITIVITY){
+			this.mainView.setVvalue(this.mainView.getVvalue() - SCROLL_SENSITIVITY);
+		}
+	}
+	
+	/**
+	 * This method is used to scroll down the main view.
+	 * It is used by the <tt>processKeyEvent</tt> method.
+	 */
+	private void scrollDownMainView() {
+		if (this.mainView.getVvalue() < this.mainView.getVmax() + SCROLL_SENSITIVITY){
+			this.mainView.setVvalue(this.mainView.getVvalue() + SCROLL_SENSITIVITY);
+		}
+	}
+	
+	/**
+	 * This method is used to focus on the textfield in the command box.
+	 * It is used by the <tt>processKeyEvent</tt> method.
+	 */
+	private void focusOnCommandBox() {
+		if (!this.commandBox.isSelected()) {
+			this.commandBox.select();
+		}
 	}
 
 	/**
@@ -506,36 +533,31 @@ public class UIController {
 		switch (action) {
 			case ADD_TODAY_TASK:
 			case ADD_ALL_TASK:
-				if (this.activeMainView == UIMainViewType.TODAY) {
-					refreshMainView(this.logic.getTaskGroupsToday(), UIMainViewType.TODAY);
-				} else if (this.activeMainView == UIMainViewType.EXTENDED) {
-					refreshMainView(this.logic.getTaskGroupsNext7Days(), UIMainViewType.EXTENDED);
-				}
+				refreshMainViewForTodayOrExtended();
 				break;
 			case EDIT_TO_TODAY_TASK:
 			case SHOW_TODAY_TASK:
-				refreshMainView(this.logic.getTaskGroupsToday(), UIMainViewType.TODAY);
+				refreshMainViewForToday();
 				break;
 			case ADD_NEXT7DAY_TASK:
 			case EDIT_TO_NEXT7DAY_TASK:
 			case SHOW_NEXT7DAY_TASK:
-				refreshMainView(this.logic.getTaskGroupsNext7Days(), UIMainViewType.EXTENDED);
+				refreshMainViewForExtended();
 				break;
 			case ADD_FLOATING_TASK:
 			case EDIT_TO_FLOATING_TASK:
 			case SHOW_FLOATING_TASK:
-				refreshMainView(this.logic.getTaskGroupsFloating(), UIMainViewType.FLOAT);
+				refreshMainViewForFloat();
 				break;
 			case EDIT_TO_ALL_TASK:
 			case SHOW_ALL_TASK:
-				refreshMainView(this.logic.getTaskGroupsAll(), UIMainViewType.ALL);
+				refreshMainViewForAll();
 				break;
 			case SHOW_COMPLETED:
-				refreshMainView(this.logic.getTaskGroupsCompleted(), UIMainViewType.COMPLETED);
+				refreshMainViewForCompleted();
 				break;
 			case SHOW_CATEGORY:
-				refreshMainView(this.logic.getTaskGroupCategory(), this.logic.getSelectedCategory());
-				setActiveCategoryButton(this.logic.getSelectedCategory());
+				refreshMainViewForCategory();
 				break;
 			case DELETE_CATEGORY:
 			case CLEAR_CATEGORY:
@@ -551,25 +573,13 @@ public class UIController {
 			case UNMARK_TASK:
 			case REMOVE_CAT_FROM_TASK:
 			case EDIT_NAME:
-				if (this.activeMainView == UIMainViewType.TODAY) {
-					refreshMainView(this.logic.getTaskGroupsToday(), UIMainViewType.TODAY);
-				} else if (this.activeMainView == UIMainViewType.EXTENDED) {
-					refreshMainView(this.logic.getTaskGroupsNext7Days(), UIMainViewType.EXTENDED);
-				} else if (this.activeMainView == UIMainViewType.FLOAT) {
-					refreshMainView(this.logic.getTaskGroupsFloating(), UIMainViewType.FLOAT);
-				} else if (this.activeMainView == UIMainViewType.ALL) {
-					refreshMainView(this.logic.getTaskGroupsAll(), UIMainViewType.ALL);
-				} else if (this.activeMainView == UIMainViewType.COMPLETED) {
-					refreshMainView(this.logic.getTaskGroupsCompleted(), UIMainViewType.COMPLETED);
-				} else if (this.activeMainView == UIMainViewType.CATEGORY) {
-					refreshMainView(this.logic.getTaskGroupCategory(), this.logic.getSelectedCategory());
-				}
+				refreshMainViewForActiveViewType();
 				break;
 			case ADD_CATEGORY:
 				refreshCategoryMenuView();
 				break;
 			case SEARCH:
-				refreshMainView(this.logic.getSearchTaskGroup(), UIMainViewType.SEARCH);
+				refreshMainViewForSearch();
 				break;
 			case HELP:
 				showHelp();
@@ -597,6 +607,106 @@ public class UIController {
 
 		if (hasNonErrorMessage(logicAction)) {
 			displayMessage(logicAction.getMessage(), UIMessageType.DEFAULT);
+		}
+	}
+	
+	/**
+	 * This method is used to refresh the main view for today.
+	 * It is used by the <tt>processLogicAction</tt> method.
+	 */
+	private void refreshMainViewForToday() {
+		refreshMainView(this.logic.getTaskGroupsToday(), UIMainViewType.TODAY);
+	}
+	
+	/**
+	 * This method is used to refresh the main view for next 7 days.
+	 * It is used by the <tt>processLogicAction</tt> method.
+	 */
+	private void refreshMainViewForExtended() {
+		refreshMainView(this.logic.getTaskGroupsNext7Days(), UIMainViewType.EXTENDED);
+	}
+	
+	/**
+	 * This method is used to refresh the main view for float.
+	 * It is used by the <tt>processLogicAction</tt> method.
+	 */
+	private void refreshMainViewForFloat() {
+		refreshMainView(this.logic.getTaskGroupsFloating(), UIMainViewType.FLOAT);
+	}
+	
+	/**
+	 * This method is used to refresh the main view for all.
+	 * It is used by the <tt>processLogicAction</tt> method.
+	 */
+	private void refreshMainViewForAll() {
+		refreshMainView(this.logic.getTaskGroupsAll(), UIMainViewType.ALL);
+	}
+	
+	/**
+	 * This method is used to refresh the main view for completed.
+	 * It is used by the <tt>processLogicAction</tt> method.
+	 */
+	private void refreshMainViewForCompleted() {
+		refreshMainView(this.logic.getTaskGroupsCompleted(), UIMainViewType.COMPLETED);
+	}
+	
+	/**
+	 * This method is used to refresh the main view for the selected category.
+	 * It is used by the <tt>processLogicAction</tt> method.
+	 */
+	private void refreshMainViewForCategory() {
+		refreshMainView(this.logic.getTaskGroupCategory(), this.logic.getSelectedCategory());
+		setActiveCategoryButton(this.logic.getSelectedCategory());
+	}
+	
+	/**
+	 * This method is used to refresh the main view for search.
+	 * It is used by the <tt>processLogicAction</tt> method.
+	 */
+	private void refreshMainViewForSearch() {
+		refreshMainView(this.logic.getSearchTaskGroup(), UIMainViewType.SEARCH);
+	}
+	
+	/**
+	 * This method is used to refresh the main view for either today or next 7 days, 
+	 * depending on the currently active <tt>UIMainViewType</tt> of the UI.
+	 * It is used by the <tt>processLogicAction</tt> method.
+	 */
+	private void refreshMainViewForTodayOrExtended() {
+		if (this.activeMainView == UIMainViewType.TODAY) {
+			refreshMainViewForToday();
+		} else if (this.activeMainView == UIMainViewType.EXTENDED) {
+			refreshMainViewForExtended();
+		}
+	}
+	
+	/**
+	 * This method is used to refresh the main view for the currently active <tt>UIMainViewType</tt> 
+	 * of the UI.
+	 * It is used by the <tt>processLogicAction</tt> method.
+	 */
+	private void refreshMainViewForActiveViewType() {
+		switch(this.activeMainView) {
+			case TODAY:
+				refreshMainViewForToday();
+				break;
+			case EXTENDED:
+				refreshMainViewForExtended();
+				break;
+			case FLOAT:
+				refreshMainViewForFloat();
+				break;
+			case ALL:
+				refreshMainViewForAll();
+				break;
+			case COMPLETED:
+				refreshMainViewForCompleted();
+				break;
+			case CATEGORY:
+				refreshMainViewForCategory();
+				break;
+			default:
+				break;
 		}
 	}
 	

@@ -42,6 +42,7 @@ public class UIController {
 	private static final String ESCAPED_SPACE = "%20";
 	private static final String PATH_PREPEND = "file://";
 	private static final String PATH_WEB_GUIDE = "resrc/doc/guide.html";
+	private static final String PATH_WEB_CSS = "resrc/doc/guide.css";
 	private static final String LOG_MSG_INIT_SUCCESS = "Initialization of UIController successful";
 	private static final String LOG_MSG_SEC_STAGE_SHOWN = "Secondary stage is shown.";
 
@@ -50,6 +51,7 @@ public class UIController {
 	private String urlCssThemeDark;
 	private String urlCssThemeAqua;
 	private String urlWebGuide;
+	private String urlWebCss;
 	private URL urlCssThemeCustom;
 	private Scene scene;
 	private BorderPane root;
@@ -66,6 +68,7 @@ public class UIController {
 	private Stage primaryStage;
 	private UIMainViewType activeMainView;
 	private Stage secondaryStage;
+	private Scene secondaryScene;
 	private WebView webView;
 	private Logger logger;
 	private static UIController instance = null;
@@ -139,6 +142,7 @@ public class UIController {
 		this.urlCssThemeAqua = loadUrl(UIStyle.URL_CSS_THEME_AQUA);
 		this.urlCssThemeCustom = getClass().getResource(UIStyle.URL_CSS_THEME_CUSTOM);
 		this.urlWebGuide = loadUrl(PATH_WEB_GUIDE);
+		this.urlWebCss = loadUrl(PATH_WEB_CSS);
 		this.logic.setDefaultCustomCss(urlCssThemeCustom);
 	}
 
@@ -267,7 +271,9 @@ public class UIController {
 		this.secondaryStage = new Stage();
 		this.webView = new WebView();
 		this.webView.getEngine().load(this.urlWebGuide);
-		this.secondaryStage.setScene(new Scene(webView));
+		this.webView.getEngine().setUserStyleSheetLocation(this.urlWebCss);
+		this.secondaryScene = new Scene(webView);
+		this.secondaryStage.setScene(this.secondaryScene);
 	}
 
 	/**
@@ -370,6 +376,12 @@ public class UIController {
 				processKeyEvent(keyEvent);
 			}
 		});
+		
+		this.secondaryScene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+			public void handle(final KeyEvent keyEvent) {
+				processKeyEventForSecondaryScene(keyEvent);
+			}
+		});
 	}
 
 	/**
@@ -421,6 +433,18 @@ public class UIController {
 			}
 		} else {
 			focusOnCommandBox();
+		}
+		keyEvent.consume();
+	}
+	
+	/**
+	 * This method is used to process a <tt>KeyEvent</tt> for an event listener of the secondary scene.
+	 * @param keyEvent The <tt>KeyEvent</tt> which occurred.
+	 */
+	private void processKeyEventForSecondaryScene(final KeyEvent keyEvent) {
+		KeyCode key = keyEvent.getCode();
+		if (key == KeyCode.ESCAPE){
+			this.secondaryStage.close();
 		}
 		keyEvent.consume();
 	}

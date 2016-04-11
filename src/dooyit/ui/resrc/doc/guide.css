@@ -1,0 +1,26 @@
+body {
+	font-family: Tahoma, Geneva, sans-serif;
+	padding-left: 30px;
+	padding-right: 30px;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	line-height: 30px;
+	background-color: #f7f7f9;
+}
+
+h1 {
+	color: #FF5E3A;
+	font-weight: 600;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table, th, tr, td {
+	border: 1px solid #707070;
+}
+
+td, tr, th {
+	padding: 20px;
+}

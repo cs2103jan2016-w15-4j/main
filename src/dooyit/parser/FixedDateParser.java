@@ -14,7 +14,7 @@ import dooyit.common.exception.IncorrectInputException;
  * @author Annabel
  *
  */
-public class FixedDateParser implements DateTimeParserCommons {
+public class FixedDateParser implements DateTimeParserCommons, ParserCommons {
 	// Error messages
 	private static final String ERROR_MESSAGE_INVALID_NUMBER_OF_DATE_INPUTS = "Invalid number of date inputs";
 	private static final String ERROR_MESSAGE_DATE_INPUTS_MUST_BE_NUMBERS = "Date inputs must be numbers";

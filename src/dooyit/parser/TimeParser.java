@@ -3,7 +3,16 @@ package dooyit.parser;
 
 import dooyit.common.exception.IncorrectInputException;
 
-public class TimeParser implements DateTimeParserCommons {
+/**
+ * 
+ * It implements DateTimeparserCommons and ParserCommons
+ * to use the shared methods and constants.
+ * 
+ * @author Annabel
+ *
+ */
+public class TimeParser implements DateTimeParserCommons, ParserCommons {
+	// Error messages
 	private static final String ERROR_MESSAGE_INVALID_TIME = "Invalid time!";
 	private static final String ERROR_MESSAGE_INVALID_HOURS_OR_MINUTES = "Invalid Time! Hours must fall within the 24h range and Minutes must be between 0 to 59 inclusive";
 	private static final String ERROR_MESSAGE_TIME_EXCEEDS_24H = "Invalid Time! Time must not exceed 24 hours!";
@@ -17,10 +26,22 @@ public class TimeParser implements DateTimeParserCommons {
 	private static final int FORMAT_24H_1259AM = 59;
 	private static final int FORMAT_24H_12AM = 0;
 	
+	private static final int MINUTES_MINIMUM = 0;
+	private static final int MINUTES_MAXIMUM = 59;
+	
+	/** */
 	public TimeParser() {
 		
 	}
 	
+	/**
+	 * 
+	 * @param splitInput
+	 * @param combined
+	 * @param i
+	 * @return
+	 * @throws IncorrectInputException
+	 */
 	public int[] parse(String[] splitInput, int[] combined, int i) throws IncorrectInputException {
 		try {
 			combined = getTimeFromUserInput(splitInput, i, combined);
@@ -30,6 +51,13 @@ public class TimeParser implements DateTimeParserCommons {
 		return combined;
 	}
 	
+	/**
+	 * 
+	 * @param currWord
+	 * @param userInput
+	 * @param index
+	 * @return
+	 */
 	public boolean isValidTime(String currWord, String[] userInput, int index) {
 		boolean ans = false;
 		if (currWord.contains(PM) || currWord.contains(AM)) {
@@ -48,7 +76,8 @@ public class TimeParser implements DateTimeParserCommons {
 				ans = true;
 			}
 			
-		} else if (ParserCommons.isNumber(removeTimeSeparators(currWord)) && DateTimeParserCommons.hasAWordAfterCurrWord(userInput, index)) { // Eg.9.30 pm, 9
+		} else if (ParserCommons.isNumber(removeTimeSeparators(currWord))
+				&& DateTimeParserCommons.hasAWordAfterCurrWord(userInput, index)) {
 			String nextWord = userInput[index + 1];
 			if (nextWord.equals(AM) ^ nextWord.equals(PM)) {
 				ans = true;
@@ -59,10 +88,23 @@ public class TimeParser implements DateTimeParserCommons {
 		return ans;
 	}
 
+	/**
+	 * 
+	 * @param currWord
+	 * @return
+	 */
 	private String removeTimeSeparators(String currWord) {
 		return currWord.replace(TIME_SEPARATOR_COLON, EMPTY_STRING).replace(TIME_SEPARATOR_DOT, EMPTY_STRING);
 	}
 	
+	/**
+	 * 
+	 * @param splitInput
+	 * @param index
+	 * @param combined
+	 * @return
+	 * @throws IncorrectInputException
+	 */
 	private int[] getTimeFromUserInput(String[] splitInput, int index, int[] combined) throws IncorrectInputException {
 		String timeString = removeTimeSeparators(splitInput[index]);
 		boolean isAm = timeString.contains(AM);
@@ -98,10 +140,28 @@ public class TimeParser implements DateTimeParserCommons {
 		return combined;
 	}
 	
+	/**
+	 * 
+	 * @param timeInt
+	 * @param splitInput
+	 * @param index
+	 * @param isAm
+	 * @param isPm
+	 * @return
+	 */
 	private boolean hasInvalidHoursOrMinutes(int timeInt, String[] splitInput, int index, boolean isAm, boolean isPm) {
 		return hasInvalidHours(timeInt, splitInput, index, isAm, isPm) || hasInvalidMinutes(timeInt);
 	}
 	
+	/**
+	 * 
+	 * @param timeInt
+	 * @param splitInput
+	 * @param index
+	 * @param isAm
+	 * @param isPm
+	 * @return
+	 */
 	private boolean hasInvalidHours(int timeInt, String[] splitInput, int index, boolean isAm, boolean isPm) {
 		String nextWord;
 		boolean isAmOrPm = false, ans = false;
@@ -118,15 +178,32 @@ public class TimeParser implements DateTimeParserCommons {
 		return ans;
 	}
 
+	/**
+	 * 
+	 * @param timeInt
+	 * @return
+	 */
 	private boolean timeExceeds24H(int timeInt) {
 		return timeInt >= TWENTY_FOUR_HOURS;
 	}
 
+	/**
+	 * 
+	 * @param timeInt
+	 * @return
+	 */
 	private boolean hasInvalidMinutes(int timeInt) {
 		int minutes = getMinuteNumeralOfTime(timeInt);
-		return minutes > 59 || minutes < 0;
+		return minutes > MINUTES_MAXIMUM || minutes < MINUTES_MINIMUM;
 	}
 
+	/**
+	 * 
+	 * @param timeString
+	 * @param isAm
+	 * @param isPm
+	 * @return
+	 */
 	private String removeAmAndPmFromTimeString(String timeString, boolean isAm, boolean isPm) {
 		if (isAm ^ isPm) {
 			timeString = timeString.replace(AM, EMPTY_STRING).trim();
@@ -135,6 +212,12 @@ public class TimeParser implements DateTimeParserCommons {
 		return timeString;
 	}
 	
+	/**
+	 * 
+	 * @param splitInput
+	 * @param index
+	 * @return
+	 */
 	private int getNewIndex(String[] splitInput, int index) {
 		if (DateTimeParserCommons.hasAWordAfterCurrWord(splitInput, index)) {
 			String nextWord = splitInput[index + 1];
@@ -145,6 +228,13 @@ public class TimeParser implements DateTimeParserCommons {
 		return index;
 	}
 	
+	/**
+	 * 
+	 * @param splitInput
+	 * @param index
+	 * @param timeInt
+	 * @return
+	 */
 	private int getTimeIntByAssumingTwoWordsTimeInput(String[] splitInput, int index, int timeInt) {
 		index += 1;
 		if (index < splitInput.length) {
@@ -158,7 +248,16 @@ public class TimeParser implements DateTimeParserCommons {
 		}
 		return timeInt;
 	}
-
+	
+	/**
+	 * 
+	 * @param timeString
+	 * @param isAm
+	 * @param isPm
+	 * @param timeInt
+	 * @param isExactlyMidnight
+	 * @return
+	 */
 	private int getTimeIntByAssumingOneWordTimeInput(String timeString, boolean isAm, boolean isPm, int timeInt, boolean isExactlyMidnight) {
 		if (isMidnight(timeInt, timeString, isAm) || isExactlyMidnight) {
 			if (isExactlyMidnight) {
@@ -178,28 +277,62 @@ public class TimeParser implements DateTimeParserCommons {
 		return timeInt;
 	}
 
+	/**
+	 * 
+	 * @param timeInt
+	 * @return
+	 */
 	private boolean timeIsBetween1200And1259Inclusive(int timeInt) {
 		return timeInt >= FORMAT_24H_12PM && timeInt < FORMAT_24H_1PM;
 	}
 	
+	/**
+	 * 
+	 * @param timeInt
+	 * @return
+	 */
 	private int convertTimeFrom12HTo24HFormat(int timeInt) {
 		return timeInt * 100;
 	}
 
+	/**
+	 * 
+	 * @param timeInt
+	 * @return
+	 */
 	private boolean is12HFormatTime(int timeInt) {
 		return timeInt <= 12;
 	}
 	
+	/**
+	 * 
+	 * @param index
+	 * @param combined
+	 * @param timeInt
+	 * @return
+	 */
 	private int[] updateTimeAndIndexInCombinedArray(int index, int[] combined, int timeInt) {
 		combined[COMBINED_INDEX_TIME] = timeInt;
 		combined[COMBINED_INDEX_COUNTER] = index;
 		return combined;
 	}
 	
+	/**
+	 * 
+	 * @param timeInt
+	 * @return
+	 */
 	private int getMinuteNumeralOfTime(int timeInt) {
 		return timeInt % 100;
 	}
 
+	/**
+	 * 
+	 * @param timeInt
+	 * @param timeString
+	 * @param isAm
+	 * @return
+	 */
 	private boolean isMidnight(int timeInt, String timeString, boolean isAm) {
 		boolean isMidnight24H = timeInt >= FORMAT_24H_12AM && timeInt <= FORMAT_24H_1259AM && timeString.contains("00");
 		boolean isMidnight12H = timeInt >= FORMAT_24H_12PM && timeInt <= FORMAT_24H_1259PM && isAm;

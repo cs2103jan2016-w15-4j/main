@@ -104,6 +104,7 @@ public class CategoryLoader extends Loader<CategoryData> {
 	}
 
 	/**
+	 * Registers CategoryDataDataDeserializer when creating Gson object.
 	 * 
 	 * @return Returns a Gson object with CategoryDataDeserializer
 	 */

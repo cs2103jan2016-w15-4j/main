@@ -156,6 +156,7 @@ public class TaskSaver extends Saver<TaskData> {
 	}
 
 	/**
+	 * Registers DateTimeSerializer when creating Gson object.
 	 * 
 	 * @return Gson object with DateTimeSerializer
 	 */

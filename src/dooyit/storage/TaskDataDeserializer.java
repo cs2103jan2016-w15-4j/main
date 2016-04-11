@@ -134,6 +134,7 @@ public class TaskDataDeserializer implements JsonDeserializer<TaskData> {
 	}
 	
 	/**
+	 * Registers DateTimeDeserializer when creating Gson object.
 	 * 
 	 * @return Gson object with DateTimeDeserializer
 	 */

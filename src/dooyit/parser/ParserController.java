@@ -2,6 +2,10 @@
 package dooyit.parser;
 
 import dooyit.logic.commands.Command;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import dooyit.common.utils.CommandUtils;
 
 /**
@@ -60,6 +64,9 @@ public class ParserController {
 	private FloatParser floatParser;
 	private SearchParser searchParser;
 	private UnmoveParser unmoveParser;
+	
+	// Logger for ShowParser
+	private static Logger logger = Logger.getLogger("ParserController");
 
 	/** Initializes a ParserController object */
 	public ParserController() {
@@ -76,6 +83,8 @@ public class ParserController {
 		floatParser = new FloatParser();
 		searchParser = new SearchParser();
 		unmoveParser = new UnmoveParser();
+		
+		logger.log(Level.INFO, "Initialised ParserController object");
 	}
 
 	/**

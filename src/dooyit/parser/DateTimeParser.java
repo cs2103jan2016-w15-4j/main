@@ -3,19 +3,33 @@ package dooyit.parser;
 
 import dooyit.parser.DateTimeParserCommons;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import dooyit.common.datatype.DateTime;
 import dooyit.common.exception.IncorrectInputException;
 
+/**
+ * 
+ * @author Annabel
+ *
+ */
 public class DateTimeParser implements DateTimeParserCommons {
+	// Error messages
 	private static final String ERROR_MESSAGE_ONLY_ONE_DATE = "You can only key in ONE date!";
 	private static final String ERROR_MESSAGE_ONLY_ONE_TIMING = "You can only key in ONE timing!";
 	private static final String ERROR_MESSAGE_INVALID_DATE_TIME = "Invalid Date Time!";
 	
+	// DateTime object attributes
 	private DateTime dateTime;
 	private RelativeDateParser relativeDateParser;
 	private TimeParser timeParser;
 	private FixedDateParser fixedDateParser;
 
+	// Logger for DateTimeParser
+	private static Logger logger = Logger.getLogger("DateTimeParser");
+	
+	// DateTimeParser object attributes
 	private int currMM;
 	private int currYY;
 	private int currDD;
@@ -23,10 +37,12 @@ public class DateTimeParser implements DateTimeParserCommons {
 	private int currTime;
 	private boolean hasDate, hasTime;
 
-	enum DATE_TIME_FORMAT {
+	/** */
+	private enum DateTimeFormat {
 		TYPE_RELATIVE_DATE, TYPE_FIXED_DATE, TYPE_TIME, TYPE_INVALID
 	};
 
+	/** */
 	public DateTimeParser() {
 		dateTime = new DateTime();
 		currTime = dateTime.getTimeInt();
@@ -40,8 +56,11 @@ public class DateTimeParser implements DateTimeParserCommons {
 		fixedDateParser = new FixedDateParser(dateTime);
 		hasTime = false;
 		hasDate = false;
+		
+		logger.log(Level.INFO, "Initialised DateTimeParser object with today's date");
 	}
 	
+	/** */
 	public DateTimeParser(DateTime dateTime) {
 		this.dateTime = dateTime;
 		currTime = dateTime.getTimeInt();
@@ -55,8 +74,11 @@ public class DateTimeParser implements DateTimeParserCommons {
 		fixedDateParser = new FixedDateParser(this.dateTime);
 		hasTime = false;
 		hasDate = false;
+		
+		logger.log(Level.INFO, "Initialised DateTimeParser object with the date " + dateTime.toString());
 	}
 	
+	/** */
 	public DateTime parse(String input) throws IncorrectInputException {
 		String[] splitInput = input.toLowerCase().split("\\s+");
 		int[] combined = new int[] { currDayInWeekInt, UNINITIALIZED_INT, currDD, currMM, currYY, 0 };
@@ -109,11 +131,18 @@ public class DateTimeParser implements DateTimeParserCommons {
 		return temp;
 	}
 	
+	/** 
+	 * 
+	 */
 	private void resetBooleanValues() {
 		hasTime = false;
 		hasDate = false;
 	}
 
+	/** 
+	 * 
+	 * @throws IncorrectInputException
+	 */
 	private void setHasTimeBoolean() throws IncorrectInputException {
 		if (!hasTime) {
 			hasTime = true;
@@ -122,6 +151,10 @@ public class DateTimeParser implements DateTimeParserCommons {
 		}
 	}
 	
+	/** 
+	 * 
+	 * @throws IncorrectInputException
+	 */
 	private void setHasDateBoolean() throws IncorrectInputException {
 		if (!hasDate) {
 			hasDate = true;
@@ -130,26 +163,38 @@ public class DateTimeParser implements DateTimeParserCommons {
 		}
 	}
 
-
-	private DATE_TIME_FORMAT getDateTimeType(String currWord, String[] splitUserInput, int index) {
-		DATE_TIME_FORMAT type;
+	/** 
+	 * 
+	 * @param currWord
+	 * @param splitUserInput
+	 * @param index
+	 * @return
+	 */
+	private DateTimeFormat getDateTimeType(String currWord, String[] splitUserInput, int index) {
+		DateTimeFormat type;
 		if (timeParser.isValidTime(currWord, splitUserInput, index)) {
-			type = DATE_TIME_FORMAT.TYPE_TIME;
+			type = DateTimeFormat.TYPE_TIME;
 			
 		} else if (relativeDateParser.isRelativeDate(currWord, splitUserInput, index)) {
-			type = DATE_TIME_FORMAT.TYPE_RELATIVE_DATE;
+			type = DateTimeFormat.TYPE_RELATIVE_DATE;
 			
 		} else if (fixedDateParser.isFixedDate(currWord, splitUserInput, index)) {
-			type = DATE_TIME_FORMAT.TYPE_FIXED_DATE;
+			type = DateTimeFormat.TYPE_FIXED_DATE;
 			
 		} else {
-			type = DATE_TIME_FORMAT.TYPE_INVALID; 
+			type = DateTimeFormat.TYPE_INVALID; 
 		}
 		return type;
 	}
 	
 
 	// This method converts the combined array into a DateTime object
+	/** 
+	 * 
+	 * @param combined
+	 * @return
+	 * @throws IncorrectInputException
+	 */
 	private DateTime getDateTimeObject(int[] combined) throws IncorrectInputException {
 		DateTime dateTime;
 		int[] date = new int[] { combined[COMBINED_INDEX_DD], combined[COMBINED_INDEX_MM], combined[COMBINED_INDEX_YY] };
@@ -165,10 +210,21 @@ public class DateTimeParser implements DateTimeParserCommons {
 		return dateTime;
 	}
 
+	/** 
+	 * 
+	 * @param inputTime
+	 * @param date
+	 * @return
+	 */
 	private boolean inputTimeIsOverToday(int inputTime, int[] date) {
 		return currTime > inputTime && inputDateIsToday(date) && inputTime != UNINITIALIZED_INT;
 	}
 	
+	/** 
+	 * 
+	 * @param date
+	 * @return
+	 */
 	private boolean inputDateIsToday(int[] date) {
 		return date[DATE_INDEX_OF_DD] == currDD && date[DATE_INDEX_OF_MM] == currMM && date[DATE_INDEX_OF_YY] == currYY;
 	}

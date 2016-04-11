@@ -24,6 +24,11 @@ public class Main extends Application {
 	
 	private Logger logger;
 	private UIController ui;
+	
+	// Need to keep this for Java Virtual Machine to know where is Main class
+	public static void main(String[] args) {
+		launch(args);
+	}
 
 	/**
 	 * This method is used to start the application.

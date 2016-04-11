@@ -34,6 +34,76 @@
 	<br> unmark &lt;task id&gt;-&lt;task id&gt;
 	<br> unmark &lt;task id&gt; &lt;task id&gt;
 	<br>
+	
+	<h1>Supported DateTime formats</h1>
+	<table border="1">
+	<tr>
+	<td> Date Examples</td>
+	<td> Interpretation</td>
+	</tr>
+	<tr>
+	<td> 17 Feb 2016, feb 17 2016, 17/2/2016, 17/02/2016</td>
+	<td> 17 Feb 2016</td>
+	</tr>
+	<tr>
+	<td> 17 feb, feb 17, 17/2, 17/02</td>
+	<td> 17 Feb of the current year if it has not passed, otherwise 17 Feb of next year</td>
+	</tr>
+	<tr>
+	<td> feb</td>
+	<td> 15 Feb of the current year if it has not passed, otherwise 15 Feb of next year</td>
+	</tr>
+	<tr>
+	<td> this mon, mon</td>
+	<td> The Monday that is less than a week away</td>
+	</tr>
+	<tr>
+	<td> next mon</td>
+	<td> The Monday that is more than a week away</td>
+	</tr>
+	<tr>
+	<td> tdy, today</td>
+	<td> Today</td>
+	</tr>
+	<td> tmr, tomorrow</td>
+	<td> Tomorrow</td>
+	</tr>
+	<td> next week</td>
+	<td> 7 days from the current date</td>
+	</tr>
+	<td> 3 days</td>
+	<td> 3 days from the current date</td>
+	</tr>
+	<td> 2 wk, 2 week, 2 weeks</td>
+	<td> 2 weeks from the current date</td>
+	</tr>
+	</table>
+	<br>
+	
+	<table border="1">
+	<tr>
+	<td> Time Examples</td>
+	<td> Interpretation</td>
+	</tr>
+	<tr>
+	<td> 10.30pm, 10.30 pm, 10:30pm, 10:30 pm, 22:30</td>
+	<td> 10.30pm</td>
+	</tr>
+	<tr>
+	<td> 10.30am, 10.30 am, 10:30am, 10:30 am, 10:30</td>
+	<td> 10.30am</td>
+	</tr>
+	<tr>
+	<td> 10am, 10 am, 10:00</td>
+	<td> 10.00am</td>
+	</tr>
+	<tr>
+	<td> 10pm, 10 pm, 22:00</td>
+	<td> 10.00pm</td>
+	</tr>
+	</table>
+	
+	
 
 	<h1>Move task(s) to category</h1>
 	move &lt;task id&gt; &lt;category name&gt;
@@ -41,7 +111,7 @@
 	<br> move &lt;task id&gt;-&lt;task id&gt; &lt;category name&gt;
 	<br>
 
-	<h1>Unmove task(remove task from category)</h1>
+	<h1>Remove task from category</h1>
 	unmove &lt;task id&gt;
 	<br>
 

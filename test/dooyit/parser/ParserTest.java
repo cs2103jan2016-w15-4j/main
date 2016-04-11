@@ -1347,12 +1347,29 @@ public class ParserTest {
 	}
 	
 	@Test
-	public void editNoNameInvalidDeadline() {
+	public void editNameToDeadlineMarker() {
 		String input = "edit 14 by ";
 		Command command = parser.getCommand(input);
-		String commandErrorMessage = Whitebox.getInternalState(command, "errorMessage");
-		String expectedErrorMessage = ERROR_MESSAGE_INVALID_EDIT_COMMAND;
-		assertEquals(expectedErrorMessage, commandErrorMessage);
+		String newName = Whitebox.getInternalState(command, "taskName");
+		String expectedName = "by";
+		assertEquals(expectedName, newName);
+		
+		int taskId = Whitebox.getInternalState(command, "taskId");
+		int expectedTaskId = 14;
+		assertEquals(expectedTaskId, taskId);
+	}
+	
+	@Test
+	public void editNameToEventMarker() {
+		String input = "edit 14 from to ";
+		Command command = parser.getCommand(input);
+		String newName = Whitebox.getInternalState(command, "taskName");
+		String expectedName = "from to";
+		assertEquals(expectedName, newName);
+		
+		int taskId = Whitebox.getInternalState(command, "taskId");
+		int expectedTaskId = 14;
+		assertEquals(expectedTaskId, taskId);
 	}
 	
 	@Test

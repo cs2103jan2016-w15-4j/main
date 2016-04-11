@@ -22,8 +22,8 @@ public class AddEditTaskParser implements ParserCommons {
 	public static final String MARKER_END_EVENT = " to ";
 	public static final String MARKER_DEADLINE_TASK = " by ";
 	
-	// Logger for AddParser
-	private static Logger logger = Logger.getLogger("AddParser");
+	// Logger for AddEditParser
+	private static Logger logger = Logger.getLogger("AddEditParser");
 	
 	// AddEditTaskParser object attributes
 	public String userInput;

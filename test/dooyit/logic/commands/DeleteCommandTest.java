@@ -1,3 +1,4 @@
+//@@author A0126356E
 package dooyit.logic.commands;
 
 import static org.junit.Assert.assertEquals;
@@ -21,7 +22,7 @@ import dooyit.logic.api.LogicAction;
 import dooyit.logic.api.LogicController;
 
 public class DeleteCommandTest {
-	
+
 	private static final String ACTION = "action";
 
 	LogicController logic;
@@ -182,7 +183,7 @@ public class DeleteCommandTest {
 		LogicAction logicAction = deleteCommand.execute(logic);
 		Action action = Whitebox.getInternalState(logicAction, ACTION);
 		assertEquals(Action.ERROR, action);
-		
+
 	}
 
 	@Test

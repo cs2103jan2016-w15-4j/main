@@ -1,3 +1,4 @@
+//@@author A0126356E
 package dooyit.logic;
 
 import static org.junit.Assert.assertFalse;
@@ -88,7 +89,7 @@ public class CategoryManagerTest {
 		categoryManager.clear();
 		categoryManager.addCategory("school", "darkorange");
 	}
-	
+
 	@Test
 	public void addCategoryWithDifferentLetterCase() {
 		categoryManager.clear();
@@ -113,34 +114,34 @@ public class CategoryManagerTest {
 	}
 
 	@Test
-	public void setDefaultCategories(){
+	public void setDefaultCategories() {
 		categoryManager.clear();
 		categoryManager.setDefaultCategories();
 		categoryManager.find("school");
 		categoryManager.find("entertainment");
 	}
-	
+
 	@Test
-	public void getAllCategories(){
+	public void getAllCategories() {
 		categoryManager.clear();
 		Category addedCat1 = categoryManager.addCategory("school");
-		Category addedCat2 =categoryManager.addCategory("vehicle");
-		
+		Category addedCat2 = categoryManager.addCategory("vehicle");
+
 		ArrayList<Category> categories = categoryManager.getAllCategories();
 		assertTrue(categories.contains(addedCat1));
 		assertTrue(categories.contains(addedCat2));
 	}
-	
+
 	@Test
-	public void loadCategories(){
+	public void loadCategories() {
 		categoryManager.clear();
 		ArrayList<Category> categories = new ArrayList<Category>();
 		categories.add(schoolCat1);
 		categories.add(shoppingCat);
 		categoryManager.load(categories);
-		
+
 		assertTrue(categoryManager.contains(schoolCat1));
 		assertTrue(categoryManager.contains(shoppingCat));
 	}
-	
+
 }

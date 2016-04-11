@@ -16,17 +16,17 @@ import dooyit.logic.api.LogicController;
 
 public class DeleteCategoryCommandTest {
 	private static final String ACTION = "action";
-	
+
 	LogicController logic;
 	DeleteCategoryCommand deleteCatCommand;
-	
+
 	@Before
 	public void setUp() {
 		logic = new LogicController();
 		logic.disableSave();
 		logic.clearTasks();
 	}
-	
+
 	@Test
 	public void execute_ContainsCategory_ExpectedPass() {
 		logic.clearCategory();
@@ -38,7 +38,7 @@ public class DeleteCategoryCommandTest {
 		deleteCatCommand.execute(logic);
 		assertFalse(logic.containsCategory("Personal"));
 	}
-	
+
 	@Test
 	public void execute_MissingCategory_IncorrectInputException() {
 		logic.clearCategory();
@@ -47,6 +47,5 @@ public class DeleteCategoryCommandTest {
 		Action action = Whitebox.getInternalState(logicAction, ACTION);
 		assertEquals(Action.ERROR, action);
 	}
-	
-	
+
 }

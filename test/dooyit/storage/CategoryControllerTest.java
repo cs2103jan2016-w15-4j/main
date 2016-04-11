@@ -15,10 +15,14 @@ import dooyit.common.datatype.CustomColour;
 
 public class CategoryControllerTest extends Constants {
 
-	static final String FOLDER_TEST = CURRENT_DIRECTORY + SEPARATOR_CHAR + "test" + SEPARATOR_CHAR + "dooyit"
-			+ SEPARATOR_CHAR;
-	static final String FOLDER_TEST_STORAGE = FOLDER_TEST + "storage" + SEPARATOR_CHAR;
+	static final String FOLDER_TEST = CURRENT_DIRECTORY + SEPARATOR_CHAR 
+									+ "test" + SEPARATOR_CHAR + "dooyit"
+									+ SEPARATOR_CHAR;
 	
+	static final String FOLDER_TEST_STORAGE = FOLDER_TEST + "storage" + SEPARATOR_CHAR;
+	static final String FILE_NAME_EXPECTED_CAT = "expectedSaveCat.txt";
+	static final String FILE_NAME_SAVE_CAT = "testSaveCat.txt";
+
 	private static final String BLACK = "black";
 	private static final String BLUE = "blue";
 	private static final String CYAN = "cyan";
@@ -29,63 +33,63 @@ public class CategoryControllerTest extends Constants {
 	private static final String YELLOW = "yellow";
 	private static final String RED = "red";
 	private static final String PINK = "pink";
-	
+
 	@Test
 	public void Save_ContentComparison_ExpectedPass() throws IOException {
-		CategoryController categoryController = new CategoryController(FOLDER_TEST_STORAGE + "testSaveCat.txt");
+		CategoryController categoryController = new CategoryController(FOLDER_TEST_STORAGE + FILE_NAME_SAVE_CAT);
 		ArrayList<CategoryData> categories = new ArrayList<CategoryData>();
 		categories.add(new CategoryData("A", BLUE));
 		categories.add(new CategoryData("B", RED));
 		categories.add(new CategoryData("C", PINK));
 		categories.add(new CategoryData("D", YELLOW));
-		
+
 		Assert.assertTrue(categoryController.save(categories));
 
 		String expected = "", saved = "";
-		BufferedReader bReader = new BufferedReader(new FileReader(FOLDER_TEST_STORAGE + "expectedSaveCat.txt"));
+		BufferedReader bReader = new BufferedReader(new FileReader(FOLDER_TEST_STORAGE + FILE_NAME_EXPECTED_CAT));
 		String categoryInfo = bReader.readLine();
 		while (categoryInfo != null) {
 			expected += categoryInfo;
 			categoryInfo = bReader.readLine();
 		}
 		bReader.close();
-		
-		bReader = new BufferedReader(new FileReader(FOLDER_TEST_STORAGE + "testSaveCat.txt"));
+
+		bReader = new BufferedReader(new FileReader(FOLDER_TEST_STORAGE + FILE_NAME_SAVE_CAT));
 		categoryInfo = bReader.readLine();
 		while (categoryInfo != null) {
 			saved += categoryInfo;
 			categoryInfo = bReader.readLine();
 		}
 		bReader.close();
-		
+
 		Assert.assertEquals(expected, saved);
 	}
-	
+
 	@Test
 	public void Load_ContentComparison_ExpectedPass() throws IOException {
-		CategoryController categoryController = new CategoryController(FOLDER_TEST_STORAGE + "testSaveCat.txt");
+		CategoryController categoryController = new CategoryController(FOLDER_TEST_STORAGE + FILE_NAME_EXPECTED_CAT);
 		ArrayList<Category> categories = new ArrayList<Category>();
 
 		categories.add(new Category("A", CustomColour.BLUE));
 		categories.add(new Category("B", CustomColour.RED));
 		categories.add(new Category("C", CustomColour.PINK));
 		categories.add(new Category("D", CustomColour.YELLOW));
-		
+
 		ArrayList<CategoryData> loaded = categoryController.load();
-		ArrayList<Category> existingCat = new ArrayList<Category> ();
-		for(CategoryData data: loaded) {
+		ArrayList<Category> existingCat = new ArrayList<Category>();
+		for (CategoryData data : loaded) {
 			Category existing = new Category(data.getName(), resolveColor(data.getColor()));
 			existingCat.add(existing);
 		}
 		Assert.assertTrue(categories.equals(existingCat));
 	}
-	
-	//Referenced from CustomColor class
+
+	// Referenced from CustomColor class
 	private CustomColour resolveColor(String colorName) {
 		CustomColour color;
 		String name = colorName.toLowerCase();
-		
-		if(name.equals(BLACK)) {
+
+		if (name.equals(BLACK)) {
 			color = CustomColour.BLACK;
 		} else if (name.equals(BLUE)) {
 			color = CustomColour.BLUE;
@@ -97,7 +101,7 @@ public class CategoryControllerTest extends Constants {
 			color = CustomColour.GREEN;
 		} else if (name.equals(MAGENTA)) {
 			color = CustomColour.MAGENTA;
-		} else if (name.equals(PINK)){
+		} else if (name.equals(PINK)) {
 			color = CustomColour.PINK;
 		} else if (name.equals(RED)) {
 			color = CustomColour.RED;
@@ -106,7 +110,7 @@ public class CategoryControllerTest extends Constants {
 		} else if (name.equals(WHITE)) {
 			color = CustomColour.WHITE;
 		} else {
-			//Random color generated but assume blue
+			// Random color generated but assume blue
 			color = CustomColour.BLUE;
 		}
 

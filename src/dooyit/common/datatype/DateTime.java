@@ -997,7 +997,7 @@ public class DateTime {
 	 * Calculates the day of the week that the date falls on. 
 	 * Eg. Given 17/2/2016, method will return 3 indicating wed
 	 * 
-	 * @return day of the week in int form
+	 * @return day of the week in int formg
 	 */
 	private int getDayOfWeekFromADate() {
 		int[] dayTable = new int[] { 7, 1, 2, 3, 4, 5, 6 };

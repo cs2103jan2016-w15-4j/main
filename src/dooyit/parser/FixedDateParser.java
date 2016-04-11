@@ -8,6 +8,8 @@ import dooyit.common.datatype.DateTime;
 import dooyit.common.exception.IncorrectInputException;
 
 /**
+ * FixedDateParser takes in a word input and returns an integer array [DD, MM, YY] that indicates
+ * the date. It parses fixed date user inputs like "18/2/2016" or "18 May 2016".
  * 
  * @author Annabel
  *
@@ -240,7 +242,7 @@ public class FixedDateParser implements DateTimeParserCommons {
 	 * @throws IncorrectInputException
 	 */
 	private int[] setDayAndYearValues(int[] dateAdvanceIntArray, int currInt) throws IncorrectInputException {
-		if (currInt <= MAX_NUM_OF_DAYS_IN_A_MONTH
+		if (currInt <= NUMBER_OF_DAYS_IN_A_MONTH_MAXIMUM
 				&& !ParserCommons.isInitialized(dateAdvanceIntArray, DATE_INDEX_OF_DD)) {
 			dateAdvanceIntArray[DATE_INDEX_OF_DD] = currInt;
 

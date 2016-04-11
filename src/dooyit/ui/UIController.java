@@ -566,6 +566,7 @@ public class UIController {
 			case UNDO:
 			case REDO:
 				refreshCategoryMenuView();
+			case SET_STORAGE_PATH:
 			case DELETE_TASK:
 			case SET_CATEGORY:
 			case CLEAR_TASK:
@@ -595,8 +596,6 @@ public class UIController {
 				break;
 			case CHANGE_THEME_CUSTOM:
 				changeTheme(UITheme.CUSTOM);
-				break;
-			case SET_STORAGE_PATH:
 				break;
 			case ERROR:
 				displayMessage(logicAction.getMessage(), UIMessageType.ERROR);

@@ -63,13 +63,13 @@ public class TaskGroupTest {
 
 	@Test
 	public void getTitle() {
-		assertEquals(taskGroup.getTitle(), "Today, 22 Feb");
+		assertEquals(taskGroup.getTitle(), "Today, 22 Feb 2016");
 	}
 
 	@Test
 	public void setTitle() {
 		taskGroup.setTitle("This day");
-		assertEquals(taskGroup.getTitle(), "This day, 22 Feb");
+		assertEquals(taskGroup.getTitle(), "This day, 22 Feb 2016");
 	}
 
 	@Test

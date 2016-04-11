@@ -1808,85 +1808,85 @@ public class DateTimeParserTest {
 	}
 	
 	@Test(expected = IncorrectInputException.class) 
-	public void parseInvalid24HTime1() {
+	public void parseInvalid24HTimeExceedHour() {
 		String time = "24:30";
 		dateTimeParser.parse(time);
 	}
 	
 	@Test(expected = IncorrectInputException.class) 
-	public void parseInvalid24HTime2() {
+	public void parseInvalid24HTimeExceedMinute() {
 		String time = "2:60";
 		dateTimeParser.parse(time);
 	}
 	
 	@Test(expected = IncorrectInputException.class) 
-	public void parseInvalid24HTime3() {
+	public void parseInvalid24HTimeExceedHourAndMinute() {
 		String time = "24:60";
 		dateTimeParser.parse(time);
 	}
 	
 	@Test(expected = IncorrectInputException.class) 
-	public void parseInvalid24HTime4() {
+	public void parseInvalid24HTimeNegativeMinute() {
 		String time = "1:-60";
 		dateTimeParser.parse(time);
 	}
 	
 	@Test(expected = IncorrectInputException.class) 
-	public void parseInvalid24HTime5() {
+	public void parseInvalid24HTimeNegativeHour() {
 		String time = "-1:50";
 		dateTimeParser.parse(time);
 	}
 	
 	@Test(expected = IncorrectInputException.class) 
-	public void parseInvalid24HTime6() {
+	public void parseInvalid24HTimeNegativeHourAndMinute() {
 		String time = "-1:-50";
 		dateTimeParser.parse(time);
 	}
 	
 	@Test(expected = IncorrectInputException.class) 
-	public void parseNestedTimeIndicator1() {
+	public void parseNestedTimeIndicatorNestedPmTwoWords() {
 		String time = "1.40 pmer";
 		dateTimeParser.parse(time);
 	}
 	
 	@Test(expected = IncorrectInputException.class) 
-	public void parseNestedTimeIndicator2() {
+	public void parseNestedTimeIndicatorAmTwoWords() {
 		String time = "1.40 amer";
 		dateTimeParser.parse(time);
 	}
 	
 	@Test(expected = IncorrectInputException.class) 
-	public void parseNestedTimeIndicator3() {
+	public void parseNestedTimeIndicatorPmOneWords() {
 		String time = "1.40pmer";
 		dateTimeParser.parse(time);
 	}
 	
 	@Test(expected = IncorrectInputException.class) 
-	public void parseNestedTimeIndicator4() {
+	public void parseNestedTimeIndicatorAmOneWords() {
 		String time = "1.40amer";
 		dateTimeParser.parse(time);
 	}
 	
 	@Test(expected = IncorrectInputException.class) 
-	public void parseTimeAmAndPm1() {
+	public void parseTimeAmAndPm() {
 		String time = "1.40ampm";
 		dateTimeParser.parse(time);
 	}
 	
 	@Test(expected = IncorrectInputException.class) 
-	public void parseTimeAmAndPm2() {
+	public void parseTimePmAndAm() {
 		String time = "1.40pmam";
 		dateTimeParser.parse(time);
 	}
 	
 	@Test(expected = IncorrectInputException.class) 
-	public void parseTimeAmAndPm3() {
+	public void parseTimePmAndAmTwoWords() {
 		String time = "1.40 pmam";
 		dateTimeParser.parse(time);
 	}
 	
 	@Test(expected = IncorrectInputException.class) 
-	public void parseTimeAmAndPm4() {
+	public void parseTimeAmAndPmTwoWords() {
 		String time = "1.40 ampm";
 		dateTimeParser.parse(time);
 	}

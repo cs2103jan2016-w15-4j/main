@@ -9,18 +9,21 @@ import java.util.logging.Logger;
 import dooyit.common.utils.CommandUtils;
 
 /**
- * The ParserController class takes in the userInput and returns 
- * a Command object. For straightforward commands like help and exit,
- * ParserController will directly parse and return the correct Command
- * objects. For more complicated cases, ParserController will call the 
- * getCommand methods of the relevant parser objects. 
+ * The ParserController class takes in the userInput and returns a Command object. 
+ * For straightforward commands like help and exit, ParserController will directly 
+ * parse and return the correct Command objects. For more complicated cases, 
+ * ParserController will call the getCommand methods of the relevant parser objects. 
+ * It implments the interface ParserCommons to use the shared constants and methods.
  * 
  * @author Annabel
  *
  */
-public class ParserController {
+public class ParserController implements ParserCommons {
 	// Error message
 	private static final String ERROR_MESSAGE_INVALID_COMMAND = "Invalid Command: ";
+	
+	// Index of command string in the user input string array
+	private static final int INDEX_OF_COMMAND_STRING = 0;
 	
 	// Types of commands
 	public static final String COMMAND_ADD = "add";
@@ -115,8 +118,8 @@ public class ParserController {
 		input = input.trim();
 		
 		//Splits the userInput into a 2-element String array
-		String[] splittedInput = input.split("\\s+", 2);
-		return splittedInput[0].toLowerCase();
+		String[] splittedInput = input.split("\\s+", SPLIT_INPUT_INTO_TWO_PARTS);
+		return splittedInput[INDEX_OF_COMMAND_STRING].toLowerCase();
 	}
 
 	/**

@@ -45,6 +45,8 @@ public class UIController {
 	private static final String PATH_WEB_CSS = "resrc/doc/guide.css";
 	private static final String LOG_MSG_INIT_SUCCESS = "Initialization of UIController successful";
 	private static final String LOG_MSG_SEC_STAGE_SHOWN = "Secondary stage is shown.";
+	private static final String SCRIPT_WEBVIEW_SCROLL_UP = "window.scrollTo(window.scrollX, window.scrollY - 70)";
+	private static final String SCRIPT_WEBVIEW_SCROLL_DOWN = "window.scrollTo(window.scrollX, window.scrollY + 70)";
 
 	private String urlCssCommon;
 	private String urlCssThemeLight;
@@ -272,6 +274,7 @@ public class UIController {
 		this.webView = new WebView();
 		this.webView.getEngine().load(this.urlWebGuide);
 		this.webView.getEngine().setUserStyleSheetLocation(this.urlWebCss);
+		this.webView.getEngine().setJavaScriptEnabled(true);
 		this.secondaryScene = new Scene(webView);
 		this.secondaryStage.setScene(this.secondaryScene);
 	}
@@ -443,10 +446,36 @@ public class UIController {
 	 */
 	private void processKeyEventForSecondaryScene(final KeyEvent keyEvent) {
 		KeyCode key = keyEvent.getCode();
-		if (key == KeyCode.ESCAPE){
-			this.secondaryStage.close();
+		switch(key){
+			case ESCAPE:
+				this.secondaryStage.close();
+				break;
+			case UP:
+				scrollUpWebView();
+				break;
+			case DOWN:
+				scrollDownWebView();
+				break;
+			default:
+				break;
 		}
 		keyEvent.consume();
+	}
+	
+	/**
+	 * This method is used to scroll up the web view for help.
+	 * It is used by the <tt>processKeyEventForSecondaryScene</tt> method.
+	 */
+	private void scrollUpWebView() {
+		this.webView.getEngine().executeScript(SCRIPT_WEBVIEW_SCROLL_UP);
+	}
+	
+	/**
+	 * This method is used to scroll down the web view for help.
+	 * It is used by the <tt>processKeyEventForSecondaryScene</tt> method.
+	 */
+	private void scrollDownWebView() {
+		this.webView.getEngine().executeScript(SCRIPT_WEBVIEW_SCROLL_DOWN);
 	}
 	
 	/**

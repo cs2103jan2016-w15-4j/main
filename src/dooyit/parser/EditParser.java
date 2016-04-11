@@ -10,52 +10,73 @@ import dooyit.common.utils.CommandUtils;
 import dooyit.logic.commands.Command;
 
 /**
+ * EditParser takes in "edit" commands and returns a Command object.
+ * It is needed to edit the name, deadline and event timings of tasks.
  * 
  * @author Annabel
  *
  */
-public class EditParser implements ParserCommons {
+public class EditParser extends AddEditTaskParser {
+	private static final String MARKER_FOR_NAME = " ";
+
 	// Error message
 	private static final String ERROR_MESSAGE_INVALID_EDIT_COMMAND = "Invalid edit Command!";
 
-	// Index constant of task ID
+	// Index of task ID in user input string array
 	private static final int INDEX_OF_TASK_ID = 0;
+
+	private static final int INDEX_OF_INPUT_WITHOUT_TASK_ID = 1;
+
+	private static final int INSUFFICIENT_LENGTH = 1;
 	
 	// Logger for EditParser
 	private static Logger logger = Logger.getLogger("EditParser");
 	
 	// EditParser object attributes
-	private String userInput;
-	private String taskName;
 	private int taskId;
-	private DateTime start;
-	private DateTime end;
-	private DateTime deadline;
-	Command command;
 
 	/** Possible types of edits */
 	private enum EditType {
-		NAME, DEADLINE, TIME_START_END, TIME_START, TIME_END, NAME_TIME_START_END, 
-		NAME_TIME_START, NAME_TIME_END, NAME_DEADLINE, INVALID
+		NAME, DEADLINE, TIME_START_END, NAME_TIME_START_END, NAME_DEADLINE, INVALID
 	};
 
-	/** */
+	/** Initializes a new EditParser object */
 	public EditParser() {
-		taskId = UNINITIALIZED_INT;
-		start = null;
-		end = null;
-		deadline = null;
 		logger.log(Level.INFO, "Initialised EditParser object");
+	}
+
+	/**
+	 * Parses user input and returns a command object.
+	 * 
+	 * @param input
+	 * 		  The user input.
+	 * 
+	 * @return a Command object
+	 */
+	public Command getCommand(String input) {
+		setAttributes(input);
+		setCommandAttribute();
+		return command;
+	}
+
+	/**
+	 * 
+	 */
+	private void setCommandAttribute() {
+		if (command == null) {
+			setToCorrectEditCommand();
+		}
 	}
 
 	/**
 	 * 
 	 * @param input
-	 * @return
 	 */
-	public Command getCommand(String input) {
-		userInput = input.trim();
-		command = null;
+	private void setAttributes(String input) {
+		taskId = UNINITIALIZED_INT;
+
+		setUserInput(input);
+
 		String taskIdString = userInput.split("\\s+")[INDEX_OF_TASK_ID];
 		if (ParserCommons.isNumber(taskIdString)) {
 			try {
@@ -64,12 +85,6 @@ public class EditParser implements ParserCommons {
 				setInvalidCommand(ERROR_MESSAGE_INTEGER_OVERFLOW);
 			}
 		}
-
-		if (command == null) {
-			setToCorrectEditCommand();
-		}
-
-		return command;
 	}
 
 	/**
@@ -83,42 +98,22 @@ public class EditParser implements ParserCommons {
 			break;
 
 		case DEADLINE:
-			try {
-				parseDeadline();
-			} catch (IncorrectInputException e) {
-				setInvalidCommand(e.getMessage());
-				break;
-			}
+			parseDeadline();
 			setEditDeadlineCommand();
 			break;
 
 		case TIME_START_END:
-			try {
-				parseTimeStartEnd();
-			} catch (IncorrectInputException e) {
-				setInvalidCommand(e.getMessage());
-				break;
-			}
+			parseEventDateTime();
 			setEditEventCommand();
 			break;
 
 		case NAME_TIME_START_END:
-			try {
-				parseNameTimeStartEndType();
-			} catch (IncorrectInputException e) {
-				setInvalidCommand(e.getMessage());
-				break;
-			}
+			parseNameAndEventType();
 			setEditNameAndEventCommand();
 			break;
 
 		case NAME_DEADLINE:
-			try {
-				parseNameDeadline();
-			} catch (IncorrectInputException e) {
-				setInvalidCommand(e.getMessage());
-				break;
-			}
+			parseNameDeadline();
 			setEditNameAndDeadlineCommand();
 			break;
 
@@ -200,20 +195,15 @@ public class EditParser implements ParserCommons {
 	 * @return
 	 */
 	private int getIndexOfName() {
-		return userInput.indexOf(" ") + 1;
+		return userInput.indexOf(MARKER_FOR_NAME) + 1;
 	}
 
 	/**
 	 * 
-	 * @throws IncorrectInputException
 	 */
-	private void parseNameTimeStartEndType() throws IncorrectInputException {
+	private void parseNameAndEventType() {
 		parseNameForTimeStartEnd();
-		try {
-			parseTimeStartEnd();
-		} catch (IncorrectInputException e) {
-			throw e;
-		}
+		parseEventDateTime();
 
 		if (end.compareTo(start) == BEFORE) {
 			end.setDate(start);
@@ -249,20 +239,16 @@ public class EditParser implements ParserCommons {
 
 	/**
 	 * 
-	 * @throws IncorrectInputException
 	 */
-	private void parseTimeStartEnd() throws IncorrectInputException {
+	private void parseEventDateTime() {
 		DateTimeParser dateTimeParser = new DateTimeParser();
+		
 		int indexFrom = getIndexOfMarker(MARKER_START_EVENT);
 		int indexTo = getIndexOfMarker(MARKER_END_EVENT);
-		String startTimeString = ParserCommons.getStartDateTimeString(userInput, indexFrom, indexTo);
-		String endTimeString = ParserCommons.getEndDateTimeString(userInput, indexFrom, indexTo);
-		try {
-			start = dateTimeParser.parse(startTimeString);
-			end = dateTimeParser.parse(endTimeString);
-		} catch (IncorrectInputException e) {
-			throw e;
-		}
+		String startTimeString = getStartDateTimeString(indexFrom, indexTo);
+		String endTimeString =getEndDateTimeString(indexFrom, indexTo);
+		start = dateTimeParser.parse(startTimeString);
+		end = dateTimeParser.parse(endTimeString);
 
 		if (end.compareTo(start) == BEFORE) {
 			end.setDate(start);
@@ -277,15 +263,11 @@ public class EditParser implements ParserCommons {
 	 * 
 	 * @throws IncorrectInputException
 	 */
-	private void parseDeadline() throws IncorrectInputException {
+	private void parseDeadline() {
 		DateTimeParser dateTimeParser = new DateTimeParser();
 		int indexDeadline = getIndexOfMarker(MARKER_DEADLINE_TASK);
 		String deadlineString = getTimeString(indexDeadline, MARKER_DEADLINE_TASK);
-		try {
-			deadline = dateTimeParser.parse(deadlineString);
-		} catch (IncorrectInputException e) {
-			throw e;
-		}
+		deadline = dateTimeParser.parse(deadlineString);
 	}
 
 	/**
@@ -316,47 +298,47 @@ public class EditParser implements ParserCommons {
 			type = EditType.INVALID;
 		} else if (!hasTaskId(userInput)) {
 			type = EditType.INVALID;
+		} else if (hasInsufficientWords()) {
+			type = EditType.INVALID;
 		} else if (hasName()) {
-			if (!hasStart() && !hasEnd() && !hasDeadline()) {
+			if (!isEvent() && !isDeadlineTask()) {
 				type = EditType.NAME;
-			} else if (hasStart() && hasEnd() && !hasDeadline()) {
+			} else if (isEvent() && !isDeadlineTask()) {
 				type = EditType.NAME_TIME_START_END;
-			} else if (hasStart() && !hasEnd() && !hasDeadline()) {
-				type = EditType.NAME_TIME_START;
-			} else if (!hasStart() && hasEnd() && !hasDeadline()) {
-				type = EditType.NAME_TIME_END;
-			} else if (!hasStart() && !hasEnd() && hasDeadline()) {
+			} else if (!isEvent() && isDeadlineTask()) {
 				type = EditType.NAME_DEADLINE;
 			} else {
 				type = EditType.INVALID;
 			}
 
-		} else if (hasDeadline() && !hasStart() && !hasEnd()) {
+		} else if (isDeadlineTask() && !isEvent()) {
 			type = EditType.DEADLINE;
 
-		} else if (hasStart() || hasEnd()) {
-			if (hasStart() && hasEnd()) {
-				type = EditType.TIME_START_END;
-			} else if (hasStart() && !hasEnd()) {
-				type = EditType.TIME_START;
-			} else { // !hasStart() && hasEnd()
-				type = EditType.TIME_END;
-			}
+		} else if (isEvent()) {
+			type = EditType.TIME_START_END;
 
 		} else {
 			type = EditType.INVALID;
 		}
+		System.out.println("type is " + type);
 		return type;
+	}
+
+	private boolean hasInsufficientWords() {
+		String[] split = userInput.split("\\s+");
+		return split.length == INSUFFICIENT_LENGTH;
 	}
 
 	/**
 	 * 
-	 * @param userInput2
+	 * @param input
+	 * 		  The user input
+	 * 
 	 * @return
 	 */
-	private boolean hasTaskId(String userInput2) {
-		String[] splittedInput = userInput.split("\\s+", 2);
-		String taskId = splittedInput[0].toLowerCase();
+	private boolean hasTaskId(String input) {
+		String[] splittedInput = userInput.split("\\s+", SPLIT_INPUT_INTO_TWO_PARTS);
+		String taskId = splittedInput[INDEX_OF_TASK_ID].toLowerCase();
 		return ParserCommons.isNumber(taskId);
 	}
 
@@ -365,38 +347,24 @@ public class EditParser implements ParserCommons {
 	 * @return
 	 */
 	private boolean hasName() {
-		boolean ans = false;
-		String[] splitUserInput = userInput.split("\\s+");
-		if (splitUserInput.length > 1) {
-			String mayBeName = userInput.split("\\s+")[1];
-			// This means that the names cannot be "by", "to" or "from"
-			ans = !mayBeName.equals(MARKER_DEADLINE_TASK.trim()) && !mayBeName.equals(MARKER_END_EVENT.trim())
-					&& !mayBeName.equals(MARKER_START_EVENT.trim());
+		boolean ans;
+		String[] inputWithoutTaskIdArray = userInput.split(MARKER_FOR_NAME, SPLIT_INPUT_INTO_TWO_PARTS);
+		String inputWithoutTaskId = inputWithoutTaskIdArray[INDEX_OF_INPUT_WITHOUT_TASK_ID];
+		if (isDeadlineTask())  {
+			int indexBy = inputWithoutTaskId.lastIndexOf(MARKER_DEADLINE_TASK.trim());
+			ans = indexBy != START_OF_STRING;
+			
+		} else if (isEvent()) {
+			int indexFrom = inputWithoutTaskId.lastIndexOf(MARKER_START_EVENT.trim());
+			int indexTo = inputWithoutTaskId.lastIndexOf(MARKER_END_EVENT.trim());
+			if (indexTo < indexFrom) {
+				ans = indexTo != START_OF_STRING;
+			} else {
+				ans = indexFrom != START_OF_STRING;
+			}
+		} else {
+			ans = !inputWithoutTaskId.equals(EMPTY_STRING);
 		}
 		return ans;
-	}
-
-	/**
-	 * 
-	 * @return
-	 */
-	private boolean hasStart() {
-		return ParserCommons.isInitialized(getIndexOfMarker(MARKER_START_EVENT));
-	}
-
-	/**
-	 * 
-	 * @return
-	 */
-	private boolean hasEnd() {
-		return ParserCommons.isInitialized(getIndexOfMarker(MARKER_END_EVENT));
-	}
-
-	/**
-	 * 
-	 * @return
-	 */
-	private boolean hasDeadline() {
-		return ParserCommons.isInitialized(getIndexOfMarker(MARKER_DEADLINE_TASK));
 	}
 }

@@ -117,6 +117,22 @@ public class DateTimeParser implements DateTimeParserCommons {
 		return temp;
 	}
 
+	/**
+	 * Converts the user input string array into an int array.
+	 * 
+	 * @param splitInput
+	 * 		  The user input string array
+	 * 
+	 * @param combined
+	 *        An int array that contains the day int, time int, date (DD,
+	 *        MM, YY) and the current index in the user input string array.
+	 *        
+	 * @return combined int array with the updated values from user input 
+	 * 		   String array. 
+	 * 
+	 * @throws IncorrectInputException if the user input has an invalid date 
+	 * 		   and time.
+	 */
 	private int[] setCombinedArray(String[] splitInput, int[] combined) throws IncorrectInputException {
 		for (int i = 0; i < splitInput.length; i++) {
 			combined[COMBINED_INDEX_COUNTER] = i;
@@ -160,7 +176,7 @@ public class DateTimeParser implements DateTimeParserCommons {
 	}
 
 	/** 
-	 * 
+	 * Resets the object boolean values to false.
 	 */
 	private void resetBooleanValues() {
 		hasTime = false;
@@ -168,8 +184,11 @@ public class DateTimeParser implements DateTimeParserCommons {
 	}
 
 	/**
+	 * Checks if the user input has more than one time input. Sets the
+	 * hasTime attribute to true if it is false.
 	 * 
 	 * @throws IncorrectInputException
+	 *         if the user input has more than one time string.
 	 */
 	private void setHasTimeBoolean() throws IncorrectInputException {
 		if (!hasTime) {
@@ -180,9 +199,12 @@ public class DateTimeParser implements DateTimeParserCommons {
 	}
 
 	/**
+	 * Checks if the user input has more than one date input. Sets the 
+	 * hasDate attribute to true if it is false.
 	 * 
 	 * @throws IncorrectInputException
-	 */
+	 * 		   if the user input has more than one date string.
+	 */		   
 	private void setHasDateBoolean() throws IncorrectInputException {
 		if (!hasDate) {
 			hasDate = true;
@@ -192,11 +214,19 @@ public class DateTimeParser implements DateTimeParserCommons {
 	}
 
 	/**
+	 * Checks the current word to see which DateTimeType it is. 
 	 * 
 	 * @param currWord
+	 * 		  Current word in the user input string array.
+	 * 
 	 * @param splitUserInput
+	 * 		  The user input String array.
+	 * 
 	 * @param index
-	 * @return
+	 *        The array index of the current word in the user input
+	 *        String array.
+	 *        
+	 * @return DateTimeFormat type.
 	 */
 	private DateTimeFormat getDateTimeType(String currWord, String[] splitUserInput, int index) {
 		DateTimeFormat type;
@@ -215,10 +245,13 @@ public class DateTimeParser implements DateTimeParserCommons {
 		return type;
 	}
 
-	// This method converts the combined array into a DateTime object
 	/**
+	 * This method converts the combined array into a DateTime object.
 	 * 
 	 * @param combined
+	 *        An int array that contains the day int, time int, date (DD,
+	 *        MM, YY) and the current index in the user input string array.
+	 *        
 	 * @return
 	 * @throws IncorrectInputException
 	 */
@@ -239,19 +272,27 @@ public class DateTimeParser implements DateTimeParserCommons {
 	}
 
 	/**
+	 * Checks if the input time is over relative to the present time.
 	 * 
 	 * @param inputTime
+	 * 		  The time string from the user input.
+	 * 
 	 * @param date
-	 * @return
+	 *        An int array containing a date in the form of DD, MM and YY.
+	 *        
+	 * @return true if the current time is after the present time.
 	 */
 	private boolean inputTimeIsOverToday(int inputTime, int[] date) {
 		return currTime > inputTime && inputDateIsToday(date) && inputTime != UNINITIALIZED_INT;
 	}
 
 	/**
+	 * Checks if the date string from the user input is today.
 	 * 
 	 * @param date
-	 * @return
+	 *        An int array containing a date in the form of DD, MM and YY.
+	 *        
+	 * @return true if the user input is today and false otherwise.
 	 */
 	private boolean inputDateIsToday(int[] date) {
 		return date[DATE_INDEX_OF_DD] == currDD && date[DATE_INDEX_OF_MM] == currMM 

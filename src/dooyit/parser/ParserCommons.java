@@ -23,10 +23,11 @@ public interface ParserCommons {
 	// Constant for replacing words in a string
 	public static final String EMPTY_STRING = "";
 	
-	// Markers for event and deadline tasks
-	public static final String MARKER_START_EVENT = " from ";
-	public static final String MARKER_END_EVENT = " to ";
-	public static final String MARKER_DEADLINE_TASK = " by ";
+	// For splitting a String into a 2-element String array
+	public static final int SPLIT_INPUT_INTO_TWO_PARTS = 2;
+	
+	// To get substring from the start of a string
+	public static final int START_OF_STRING = 0;
 	
 	/**
 	 * Checks if the input is a valid number
@@ -41,84 +42,6 @@ public interface ParserCommons {
 		return currWord.matches("[0-9]+");
 	}
 	
-	/**
-	 * Gets the End date time string of an event user input
-	 * 
-	 * @param userInput
-	 * 		  The event string input from the user
-	 * 
-	 * @param indexFrom
-	 * 		  The integer index position of the word "from"
-	 * 
-	 * @param indexTo
-	 * 		  The integer index position of the word "to"
-	 * 
-	 * @return the string containing the end DateTime
-	 */
-	static String getEndDateTimeString(String userInput, int indexFrom, int indexTo) {
-		String endTimeString;
-		if (indexFrom > indexTo) {
-			// For the case where user keys in "To" before "From"
-			endTimeString = userInput.substring(indexTo, indexFrom).replace(MARKER_END_EVENT, EMPTY_STRING).trim();
-		} else {
-			// For the case where the user keys in "From" before "To"
-			endTimeString = userInput.substring(indexTo).replace(MARKER_END_EVENT, EMPTY_STRING).trim();
-		}
-		return endTimeString;
-	}
-
-	/**
-	 * Gets the Start date time string of an event user input
-	 * 
-	 * @param userInput
-	 * 		  The event string input from the user
-	 * 
-	 * @param indexFrom
-	 * 		  The integer index position of the word "from"
-	 * 
-	 * @param indexTo
-	 * 		  The integer index position of the word "to"
-	 * 
-	 * @return the string containing the end DateTime
-	 */
-	static String getStartDateTimeString(String userInput, int indexFrom, int indexTo) {
-		String startTimeString;
-		if (indexFrom > indexTo) {
-			// For the case where user keys in "To" before "From"
-			startTimeString = userInput.substring(indexFrom).replace(MARKER_START_EVENT, EMPTY_STRING).trim();
-		} else {
-			// For the case where the user keys in "From" before "To"
-			startTimeString = userInput.substring(indexFrom, indexTo).replace(MARKER_START_EVENT, EMPTY_STRING).trim();
-		}
-		return startTimeString;
-	}
-	
-
-	/**
-	 * Gets the task name from an event user input
-	 * 
-	 * @param userInput
-	 * 		  The event string input from the user
-	 * 
-	 * @param indexFrom
-	 * 		  The integer index position of the word "from"
-	 * 
-	 * @param indexTo
-	 * 		  The integer index position of the word "to"
-	 * 
-	 * @return the string containing the end DateTime
-	 */
-	static String getTaskName(String userInput, int indexFrom, int indexTo) {
-		String name;
-		if (indexFrom < indexTo) {
-			// For the case where user keys in "To" before "From"
-			name = userInput.substring(0, indexFrom);
-		} else {
-			// For the case where the user keys in "From" before "To"
-			name = userInput.substring(0, indexTo);
-		}
-		return name;
-	}
 
 	/**
 	 * Checks if the input has been initialized.
@@ -132,6 +55,7 @@ public interface ParserCommons {
 	static boolean isInitialized(int number) {
 		return number != UNINITIALIZED_INT;
 	}
+	
 
 	/**
 	 * Checks if the integer in the specified position of the array 

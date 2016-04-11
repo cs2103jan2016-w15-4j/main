@@ -4,7 +4,6 @@ package dooyit.parser;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import dooyit.common.datatype.DateTime;
 import dooyit.common.exception.IncorrectInputException;
 import dooyit.common.utils.CommandUtils;
 import dooyit.logic.commands.Command;
@@ -18,17 +17,9 @@ import dooyit.logic.commands.Command;
  * @author Annabel
  *
  */
-public class AddParser implements ParserCommons {
+public class AddParser extends AddEditTaskParser {
 	// Error message
 	private static final String ERROR_MESSAGE_INVALID_ADD_COMMAND = "Invalid add command!";
-
-	// AddParser object attributes
-	private String userInput;
-	private String taskName;
-	private DateTime start;
-	private DateTime end;
-	private DateTime deadline;
-	private Command command;
 
 	// Logger for AddParser
 	private static Logger logger = Logger.getLogger("AddParser");
@@ -40,6 +31,7 @@ public class AddParser implements ParserCommons {
 
 	/** Initializes a new AddParser object */
 	public AddParser() {
+		super();
 		logger.log(Level.INFO, "Initialised AddParser object");
 	}
 
@@ -55,22 +47,13 @@ public class AddParser implements ParserCommons {
 	 */
 	public Command getCommand(String input) {
 		logger.log(Level.INFO, "Getting command object from AddParser");
+		resetAttributes();
 		setUserInput(input);
 
 		// Sets the command attribute to the correct command object
 		setToAddCommand();
 
 		return command;
-	}
-
-	/**
-	 * Sets the userInput attribute to the string input.
-	 * 
-	 * @param input
-	 * 		  The add command input from the user
-	 */
-	private void setUserInput(String input) {
-		userInput = input.trim();
 	}
 
 	/**
@@ -149,11 +132,11 @@ public class AddParser implements ParserCommons {
 
 		// Sets the taskName attribute by excluding the event markers and start
 		// and end date time inputs
-		taskName = ParserCommons.getTaskName(userInput, indexFrom, indexTo);
+		taskName = getTaskName(indexFrom, indexTo);
 
 		// Gets the start and end date time string inputs
-		String startDateTimeString = ParserCommons.getStartDateTimeString(userInput, indexFrom, indexTo);
-		String endDateTimeString = ParserCommons.getEndDateTimeString(userInput, indexFrom, indexTo);
+		String startDateTimeString = getStartDateTimeString(indexFrom, indexTo);
+		String endDateTimeString = getEndDateTimeString(indexFrom, indexTo);
 
 		// Sets the start and end DateTime objects
 		start = dateTimeParser.parse(startDateTimeString);
@@ -162,12 +145,12 @@ public class AddParser implements ParserCommons {
 		// Check if end DateTime object is before start DateTime object
 		if (end.compareTo(start) == BEFORE) {
 			// Set date of end DateTime object to the date of start DateTime
-			// object. Note that timing of end DateTime object may still be 
-			// before timing of start DateTime object.
+			// object. 
 			end.setDate(start);
 		}
 		
 		// Check if end DateTime object is before start DateTime object
+		// Timing of end DateTime object may be before timing of start DateTime object.
 		if (end.compareTo(start) == BEFORE) {
 			throw new IncorrectInputException(ERROR_MESSAGE_END_BEFORE_START);
 		}
@@ -194,7 +177,7 @@ public class AddParser implements ParserCommons {
 	private void parseDeadlineTask() {
 		DateTimeParser dateTimeParser = new DateTimeParser();
 		int indexBy = userInput.lastIndexOf(MARKER_DEADLINE_TASK);
-		taskName = userInput.substring(0, indexBy);
+		taskName = userInput.substring(START_OF_STRING, indexBy);
 		String deadlineString = userInput.substring(indexBy).replace(MARKER_DEADLINE_TASK, EMPTY_STRING).trim();
 		deadline = dateTimeParser.parse(deadlineString);
 	}
@@ -235,88 +218,7 @@ public class AddParser implements ParserCommons {
 	 * @return true if input is a floating task and false if it isn't.
 	 */
 	private boolean isFloating() {
-		return !userInput.equals(EMPTY_STRING) && !isEvent() && !isDeadlineTask();
-	}
-
-	/**
-	 * Checks if the userInput is an event task by checking if input has 
-	 * BOTH the event markers "from" and "to" and checking if the words 
-	 * after the respective markers are valid DateTime inputs.
-	 * 
-	 * @return true if input is an event task and false if it isn't
-	 */
-	private boolean isEvent() {
-		boolean ans = false;
-		if (ParserCommons.isInitialized(userInput.lastIndexOf(MARKER_START_EVENT))
-				&& ParserCommons.isInitialized(userInput.lastIndexOf(MARKER_END_EVENT))) {
-			ans = hasAValidDateTimeAfterEventMarkers();
-		}
-		return ans;
-	}
-
-	/**
-	 * Checks if the string inputs after the event markers "from" and "to" are valid
-	 * DateTime inputs.
-	 * 
-	 * @return true if both strings are valid DateTime inputs and false otherwise.
-	 */
-	private boolean hasAValidDateTimeAfterEventMarkers() {
-		DateTimeParser dateTimeParser = new DateTimeParser();
-		
-		// Get the position indices of the event markers
-		int indexFrom = userInput.lastIndexOf(MARKER_START_EVENT);
-		int indexTo = userInput.lastIndexOf(MARKER_END_EVENT);
-		
-		// Get the start and end strings inputs 
-		boolean ans = true;
-		String startDateTimeString = ParserCommons.getStartDateTimeString(userInput, indexFrom, indexTo);
-		String endDateTimeString = ParserCommons.getEndDateTimeString(userInput, indexFrom, indexTo);
-
-		// Check if the start and end strings are valid DateTime inputs
-		try {
-			dateTimeParser.parse(startDateTimeString);
-			dateTimeParser.parse(endDateTimeString);
-		} catch (IncorrectInputException e) {
-			ans = false;
-		}
-		return ans;
-	}
-
-	/**
-	 * Checks if the userInput is a deadline task by checking if the input
-	 * has the deadline marker "by" and checking if the words after the marker
-	 * "by" are valid DateTime inputs.
-	 * 
-	 * @return true if the input is a deadline task and false otherwise.
-	 */
-	private boolean isDeadlineTask() {
-		boolean ans = false;
-		
-		// Checks if the deadline input is a valid DateTime input
-		if (ParserCommons.isInitialized(userInput.lastIndexOf(MARKER_DEADLINE_TASK))) {
-			ans = hasAValidDateTimeAfterWorkMarker();
-		}
-		return ans;
-	}
-
-	/**
-	 * Checks if the string input after the Deadline marker "by" is a valid
-	 * DateTime input.
-	 * 
-	 * @return true if the string is a valid DateTime input and false otherwise.
-	 */
-	private boolean hasAValidDateTimeAfterWorkMarker() {
-		DateTimeParser dateTimeParser = new DateTimeParser();
-		int indexBy = userInput.lastIndexOf(MARKER_DEADLINE_TASK);
-		String timeString = userInput.substring(indexBy).replace(MARKER_DEADLINE_TASK, EMPTY_STRING).trim();
-		boolean ans = true;
-		
-		// Check if timeString is a valid DateTime input
-		try {
-			dateTimeParser.parse(timeString);
-		} catch (IncorrectInputException e) {
-			ans = false;
-		}
-		return ans;
+		return !userInput.equals(EMPTY_STRING) && !isEvent()
+				&& !isDeadlineTask();
 	}
 }

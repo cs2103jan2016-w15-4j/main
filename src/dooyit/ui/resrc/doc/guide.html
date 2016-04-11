@@ -1,89 +1,111 @@
 <html>
 <head></head>
 <body>
-	<h1>Add task or event</h1>
-	add &lt;task name&gt;<br> 
-	add &lt;task name&gt; by &lt;datetime&gt;<br>
+	<h1>Add task</h1>
+	add &lt;task name&gt;
+	<br> add &lt;task name&gt; by &lt;datetime&gt;
+	<br> add &lt;task name&gt; from &lt;datetime&gt to &lt;datetime&gt;
+	<br>
+
+	<h1>Delete task</h1>
+	delete &lt;task id&gt;
+	<br> delete &lt;task id&gt; &lt;task id&gt; &lt;task id&gt;
+	<br> delete &lt;task id&gt; - &lt;task id&gt;
+	<br>
+
+	<h1>Edit task</h1>
+	edit &lt;task id&gt; by &lt;datetime&gt;
+	<br> edit &lt;task id&gt; &lt;new task name&gt; by &lt;datetime&gt;
+	<br> edit &lt;task id&gt; from &lt;datetime&gt; to &lt;datetime&gt;
+	<br> edit &lt;task id&gt; &lt;new event name&gt; from &lt;datetime&gt; to &lt;datetime&gt;
+	<br> edittofloat &lt;task id&gt;
+	<br> float &lt;task id&gt;
+	<br> float &lt;task id&gt; &lt;task id&gt; &lt;task id&gt;
+	<br> float &lt;task id&gt; - &lt;task id&gt;
+	<br>
+
+	<h1>Mark Task</h1>
+	mark &lt;task id&gt;
+	<br> mark &lt;task id&gt; &lt;task id&gt; &lt;task id&gt;
+	<br> mark &lt;task id&gt; - &lt;task id&gt;
+	<br>
+
+	<h1>Unmark Task</h1>
+	unmark &lt;task id&gt;
+	<br> unmark &lt;task id&gt;-&lt;task id&gt;
+	<br> unmark &lt;task id&gt; &lt;task id&gt;
+	<br>
+
+	<h1>Move task(s) to category</h1>
+	move &lt;task id&gt; &lt;category name&gt;
+	<br> move &lt;task id&gt; &lt;task id&gt; &lt;task id&gt; &lt;category name&gt;
+	<br> move &lt;task id&gt;-&lt;task id&gt; &lt;category name&gt;
+	<br>
+
+	<h1>Unmove (remove task from category)</h1>
+	unmove &lt;task id&gt;
+	<br>
 
 	<h1>Add category</h1>
-	addcat &lt;category name&gt;<br>
-	addcat &lt;category name&gt; &lt;color&gt;<br>
-	Note: The name of a category can only be a single word.<br>
-	Valid colors: black, blue, cyan, grey, green, magenta, pink, red, yellow, white<br>
+	addcat &lt;category name&gt;
+	<br> addcat &lt;category name&gt; &lt;color&gt;
+	<br> Note: The name of a category can only be a single word.
+	<br> Valid colors: black, blue, cyan, grey, green, magenta, pink, red, yellow, white, orange
+	<br>
 
-	<h1>Clear</h1>
-	clear<br>
-	
-	<h1>Delete</h1>
-	delete &lt;task id&gt;<br>
-	delete &lt;task id&gt; &lt;task id&gt;<br>
-	delete &lt;task id&gt;-&lt;task id&gt;<br>
-	
 	<h1>Delete category</h1>
-	deletecat &lt;category name&gt;<br>
-
-	<h1>Edit task or event</h1>
-	edit &lt;task/event id&gt; &lt;new task name&gt; by &lt;datetime&gt;<br>
-	edit &lt;task/event id&gt; &lt;new event name&gt; from &lt;datetime&gt; to &lt;datetime&gt;<br>
-	edit &lt;task/event id&gt; by &lt;datetime&gt;<br>
-	edit &lt;task/event id&gt; from &lt;datetime&gt; to &lt;datetime&gt;<br>
+	deletecat &lt;category name&gt;
+	<br>
 
 	<h1>Edit category</h1>
-	editcat &lt;old category name&gt; &lt;new category name&gt; to &lt;color&gt;<br>
-	editcat &lt;old category name&gt; &lt;new category name&gt;<br>
-	editcat &lt;category name&gt; to &lt;new color&gt;<br>
-
-	<h1>Exit</h1>
-	exit<br>
-
-	<h1>Float</h1>
-	float &lt;task id&gt;<br>
-	float &lt;task id&gt;-&lt;task id&gt;<br>
-	float &lt;task id&gt; &lt;task id&gt;<br>
-
-	<h1>Mark</h1>
-	mark &lt;task id&gt;<br>
-	mark &lt;task id&gt;-&lt;task id&gt;<br>
-	mark &lt;task id&gt; &lt;task id&gt;<br>
-
-	<h1>Move</h1>
-	move &lt;task id&gt; &lt;category name&gt;<br>
-	move &lt;task id&gt;-&lt;task id&gt; &lt;category name&gt;<br>
-	move &lt;task id&gt; &lt;task id&gt; &lt;category name&gt;<br>
-
-	<h1>Redo</h1>
-	redo<br>
+	editcat &lt;current category name&gt; &lt;new category name&gt;
+	<br> editcat &lt;category name&gt; to &lt;new color&gt;
+	<br> editcat &lt;current category name&gt; &lt;new category name&gt; to &lt;new color&gt;
+	<br>
 
 	<h1>Undo</h1>
-	undo<br>
+	undo
+	<br>
 
-	<h1>Unmark</h1>
-	unmark &lt;task id&gt;<br>
-	unmark &lt;task id&gt;-&lt;task id&gt;<br>
-	unmark &lt;task id&gt; &lt;task id&gt;<br>
+	<h1>Redo</h1>
+	redo
+	<br>
 
 	<h1>Show</h1>
-	show today<br>
-	show next7<br>
-	show all<br>
-	show float<br>
-	show completed<br>
+	show today
+	<br> show next7
+	<br> show all
+	<br> show float
+	<br> show completed
+	<br>
 
 	<h1>Show category</h1>
-	showcat &lt;category name&gt;<br>
+	showcat &lt;category name&gt;
+	<br>
+
+	<h1>Clear</h1>
+	clear
+	<br>
 
 	<h1>Search</h1>
-	search &lt;task name&gt;<br>
-	search &lt;datetime&gt;<br>
-	search &lt;month&gt;<br>
+	search &lt;task name&gt;
+	<br> search &lt;datetime&gt;
+	<br> search &lt;month&gt;
+	<br>
 
 	<h1>Skin</h1>
-	skin light<br>
-	skin dark<br>
-	skin aqua<br>
-	skin custom<br>
+	skin light
+	<br> skin dark
+	<br> skin aqua
+	<br> skin custom
+	<br>
 
 	<h1>Storage</h1>
-	storage &lt;filepath&gt;<br>
+	storage &lt;filepath&gt;
+	<br>
+
+	<h1>Exit</h1>
+	exit
+	<br>
 </body>
 </html>

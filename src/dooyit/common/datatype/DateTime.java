@@ -6,46 +6,66 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.TimeZone;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /** 
+ * DateTime is the date structure for date and and time
  * 
  * @author Annabel
  *
  */
 public class DateTime {
+	// For to string method
 	private static final String FORMAT_SPACE = " ";
+	
+	// Time indicators
 	private static final String TIME_SEPARATOR_COLON = ":";
 	private static final String PM = "pm";
 	private static final String AM = "am";
-	private static final String DUMMY_STR = "Dummy_Str";
+
+	// Calendar for date format and time zone
 	private static final String CALENDAR_DATE_FORMAT = "dd MM yyyy HH:mm E u";
 	private static final String CALENDAR_DEFAULT_TIME_ZONE = "UTC+08:00"; // Singapore Time Zone
-	private static final String UNINITIALIZED_STRING = "-1";
 	
+	// Uninitialized strings and integers
+	private static final int UNINITIALIZED_INT = -1;
+	private static final String UNINITIALIZED_STRING = "-1";
+	private static final String DUMMY_STR = "Dummy_Str";
+	
+	// Index of DD, MM, YY and timeInt in the date int array input
 	private static final int INDEX_DD = 0;
 	private static final int INDEX_MM = 1;
 	private static final int INDEX_YY = 2;
 	private static final int INDEX_TIME_INT = 3;
+	
+	// Constants for comparison of DateTime objects
 	private static final int COMPARISON_FIRST_IS_BEFORE_SECOND = -1;
 	private static final int COMPARISON_FIRST_EQUALS_SECOND = 0;
 	private static final int COMPARISON_FIRST_IS_AFTER_SECOND = 1;
+	
+	// Number of months in a year and week
 	private static final int NUM_MONTHS_IN_A_YEAR = 12;
 	private static final int NUMBER_OF_DAYS_IN_WEEK = 7;
-	private static final int UNINITIALIZED_INT = -1;
+
+	// Constants for midnight and before midnight
 	private static final int MIDNIGHT_INT = 0;
 	private static final int RIGHT_BEFORE_MIDNIGHT_INT = 2359;
+	
+	// String constants for midnight and before midnight
 	private static final String RIGHT_BEFORE_MIDNIGHT_STRING = "23:59";
 	private static final String MIDNIGHT_STRING ="00:00";
 	
-	public static final int MONDAY = 1;
-	public static final int TUESDAY = 2;
-	public static final int WEDNESDAY = 3;
-	public static final int THURSDAY = 4;
-	public static final int FRIDAY = 5;
-	public static final int SATURDAY = 6;
-	public static final int SUNDAY = 7;
+	// Int constants for the days of the week
+	public static final int INT_MONDAY = 1;
+	public static final int INT_TUESDAY = 2;
+	public static final int INT_WEDNESDAY = 3;
+	public static final int INT_THURSDAY = 4;
+	public static final int INT_FRIDAY = 5;
+	public static final int INT_SATURDAY = 6;
+	public static final int INT_SUNDAY = 7;
 	
+	// Short form of the days of the week
 	private static final String DAY_MON = "mon";
 	private static final String DAY_TUE = "tue";
 	private static final String DAY_WED = "wed";
@@ -54,6 +74,7 @@ public class DateTime {
 	private static final String DAY_SAT = "sat";
 	private static final String DAY_SUN = "sun";
 	
+	// Short form of the months in a year
 	private static final String MONTH_JAN = "jan";
 	private static final String MONTH_FEB = "feb";
 	private static final String MONTH_MARCH = "mar";
@@ -67,27 +88,30 @@ public class DateTime {
 	private static final String MONTH_NOV = "nov";
 	private static final String MONTH_DEC = "dec";
 	
+	// For the formatting of time string
 	private static final String FORMAT_12H = "%d.%02d %s";
 	private static final String FORMAT_24H = "%02d:%02d";
 	
-	private static String[] months = new String[] { DUMMY_STR, "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
-	private static String[] daysInWeek = new String[] { DUMMY_STR, "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
-	private static int[] daysInMonth = new int[] { UNINITIALIZED_INT, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+	// Array constants
+	private static final String[] months = new String[] { DUMMY_STR, "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
+	private static final String[] daysInWeek = new String[] { DUMMY_STR, "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
+	private static final int[] daysInMonth = new int[] { UNINITIALIZED_INT, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 
-	private int dd; // 8
-	private int mm;	// 2
-	private int yy; // 2016
+	// DateTime object attributes
+	private int dd; 
+	private int mm;	
+	private int yy; 
 	private int timeInt;
 	
 	// Logger for DateTime class
 	private static Logger logger = Logger.getLogger("DateTime");
 	
-	/** */
+	/** Types of day of the week */
 	public enum Day {
 		MON, TUE, WED, THU, FRI, SAT, SUN, INVALID;
 	}
 
-	/** */
+	/** Types of month of the year */
 	public enum Month {
 		JAN, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, NOV, DEC, INVALID
 	}
@@ -95,31 +119,46 @@ public class DateTime {
 	//********************************************
 	//************* Constructors *****************
 	//********************************************
-	/** */
+	/** 
+	 * Initialize a DateTime object with the same attributes as the
+	 * DateTime object passed into the method
+	 */
 	public DateTime(DateTime dt) {
 		this.dd = dt.getDD();
 		this.mm = dt.getMM();
 		this.yy = dt.getYY();
 		this.timeInt = dt.getTimeInt();
+		logger.log(Level.INFO, "Initialised DateTime object");
 	}
 	
-	/** */
+	/** 
+	 * Initialize a DateTime object with the same date as the 
+	 * int array passed into the method
+	 */
 	public DateTime(int[] date) {
 		this.dd = date[INDEX_DD];
 		this.mm = date[INDEX_MM];
 		this.yy = date[INDEX_YY];
 		this.timeInt = UNINITIALIZED_INT;
+		logger.log(Level.INFO, "Initialised DateTime object");
 	}
 	
-	/** */
+	/** 
+	 * Initialize a DateTime object with the same date as the 
+	 * int array and the same time int passed into the method
+	 */
 	public DateTime(int[] date, int time) {
 		this.dd = date[INDEX_DD];
 		this.mm = date[INDEX_MM];
 		this.yy = date[INDEX_YY];
 		this.timeInt = time;
+		logger.log(Level.INFO, "Initialised DateTime object");
 	}
 
-	/** */
+	/**
+	 * Initialize a DateTime object with the date and time that
+	 * the object is initialized. 
+	 */
 	public DateTime() {
 		Calendar cal = Calendar.getInstance(TimeZone.getTimeZone(CALENDAR_DEFAULT_TIME_ZONE));
 		DateFormat dateFormat = new SimpleDateFormat(CALENDAR_DATE_FORMAT);
@@ -131,38 +170,39 @@ public class DateTime {
 		this.mm = Integer.parseInt(splitDate[INDEX_MM]);
 		this.yy = Integer.parseInt(splitDate[INDEX_YY]);
 		this.timeInt = Integer.parseInt(splitDate[INDEX_TIME_INT].replace(TIME_SEPARATOR_COLON, ""));
+		logger.log(Level.INFO, "Initialised DateTime object");
 	}
 	
 	//********************************************
 	//** Methods to retrieve object attributes ***
 	//********************************************
 	/** 
-	 * 
-	 * @return
+	 * Gets the string of the day of the week like wed and thur
+	 * @return day of the week in string
 	 */
 	public String getDayStr() {
 		return daysInWeek[this.getDayInt()];
 	}
  
 	/** 
-	 * 
-	 * @return
+	 * Gets the int of the day of the week like 3 for wed
+	 * @return day of the week in int form
 	 */
 	public int getDayInt() {
 		return getDayOfWeekFromADate();
 	}
 
 	/** 
-	 * 
-	 * @return
+	 * Get the string format of the date.
+	 * @return string format of the date.
 	 */
 	public String getDate() {
 		return this.dd + FORMAT_SPACE + months[this.mm] + FORMAT_SPACE + this.yy;
 	}
 
 	/** 
-	 * 
-	 * @return
+	 * Get the 24h time string
+	 * @return 24h time string
 	 */
 	public String getTime24hStr() {
 		String timeString24H;
@@ -177,8 +217,8 @@ public class DateTime {
 	}
 
 	/** 
-	 * 
-	 * @return
+	 * Get the 12h time string
+	 * @return 12h time string
 	 */
 	public String getTime12hStr() {
 		int hour = getHourNumeral(this.timeInt);
@@ -201,32 +241,32 @@ public class DateTime {
 	}
 	
 	/** 
-	 * 
-	 * @return
+	 * Get the 24h time int of the object
+	 * @return the 24h time int.
 	 */
 	public int getTimeInt() {
 		return this.timeInt;
 	}
 
 	/** 
-	 * 
-	 * @return
+	 * Get the DD of the object.
+	 * @return DD of the date.
 	 */
 	public int getDD() {
 		return this.dd;
 	}
 
 	/** 
-	 * 
-	 * @return
+	 * Get the MM attribute of the object
+	 * @return MM of the date.
 	 */
 	public int getMM() {
 		return this.mm;
 	}
 
 	/** 
-	 * 
-	 * @return
+	 * Get the YY attribute of the object
+	 * @return YY of the date.
 	 */
 	public int getYY() {
 		return this.yy;
@@ -236,29 +276,38 @@ public class DateTime {
 	//****** Methods to compare 2 DateTime objects *******
 	//****************************************************
 	
-	// Returns 0 if this DateTime object has the same date and time as the DateTime object passed in as argument
-	// Returns 1 if this DateTime object lies after DateTime object passed in as argument
-	// Returns -1 if this DateTime object lies before DateTime object passed in as argument
+
 	/** 
+	 * Check if one date time object is before, equal or after another date time object.
 	 * 
-	 * @param dateTime
-	 * @return
+	 * @param DateTime
+	 *        The DateTime object passed in for comparison
+	 *        
+	 * @return	Returns 0 if this DateTime object has the same date and time as the DateTime object passed in as argument
+	 *			Returns 1 if this DateTime object lies after DateTime object passed in as argument
+	 *			Returns -1 if this DateTime object lies before DateTime object passed in as argument
 	 */
-	public int compareTo(DateTime dateTime) {
+	public int compareTo(DateTime DateTime) {
 		int comparison = COMPARISON_FIRST_EQUALS_SECOND;
-		if(!this.equals(dateTime)) {
-			int dateComparison = compareDates(this, dateTime);
-			int timeComparison = compareTime(this, dateTime);
+		if(!this.equals(DateTime)) {
+			int dateComparison = compareDates(this, DateTime);
+			int timeComparison = compareTime(this, DateTime);
 			comparison = getComparison(dateComparison, timeComparison);
 		}
 		return comparison;
 	}
 	
 	/** 
+	 * Compares the comparison values for date and time.
 	 * 
 	 * @param dateComparison
+	 *        Possible values are -1, 0, and 1
+	 *        
 	 * @param timeComparison
-	 * @return
+	 *        Possible values are -1, 0, and 1
+	 *        
+	 * @return -1, 0, and 1 depending on whether the DateTime object if before
+	 * 			equals to or after the other DateTime object.
 	 */
 	private static int getComparison(int dateComparison, int timeComparison) {
 		int comparison;
@@ -271,10 +320,15 @@ public class DateTime {
 	}
 
 	/** 
+	 * Compares the time int of 2 DateTime objects.
 	 * 
 	 * @param first
+	 * 		  First DateTime object passed in.
+	 * 
 	 * @param second
-	 * @return
+	 *        Second DateTime object passed in.
+	 *        
+	 * @return -1, 0, 1 if first timing is before, equals to or after second timing.
 	 */
 	private static int compareTime(DateTime first, DateTime second) {
 		int comparison = COMPARISON_FIRST_EQUALS_SECOND;
@@ -293,10 +347,16 @@ public class DateTime {
 	}
 
 	/** 
+	 * Checks if the first timeint is uninitialized before comparing the timings.
+	 * This is when the first and second timings cannot be equal to each other.
 	 * 
 	 * @param firstTimeInt
+	 *        TimeInt of the first DateTime object.
+	 *        
 	 * @param secondTimeInt
-	 * @return
+	 *        TimeInt of the second dadtetime object.
+	 *        
+	 * @return -1, 1 when first timing is before or after second timing.
 	 */
 	private static int compareAgainstUninitializedTime(int firstTimeInt, int secondTimeInt) {
 		int comparison;
@@ -309,10 +369,15 @@ public class DateTime {
 	}
 
 	/** 
+	 * Compares just the dates of 2 DateTime objects.
 	 * 
 	 * @param first
+	 * 		  First DateTime object input
+	 * 
 	 * @param second
-	 * @return
+	 * 		  Second DateTime object input
+	 * 
+	 * @return -1, 0, 1 if first date is before, equals to or after second date.
 	 */
 	private static int compareDates(DateTime first, DateTime second) {
 		boolean isSameDate = compareDateStrings(first, second);
@@ -327,15 +392,21 @@ public class DateTime {
 		}
 		
 		return comparison;
-			
 	}
 	
 	/** 
+	 * Compare the comparison values of day, month and year.
 	 * 
 	 * @param yearComparison
+	 * 		  Possible values are -1, 0, 1
+	 * 
 	 * @param monthComparison
+	 * 		  Possible values are -1, 0, 1
+	 * 
 	 * @param dayComparison
-	 * @return
+	 *        Possible values are -1, 0, 1
+	 *        
+	 * @return -1, 0, 1 after taking into account the year, month and day comparisons.
 	 */
 	private static int compareYearMonthDay(int yearComparison, int monthComparison, int dayComparison) {
 		int comparison;
@@ -348,10 +419,15 @@ public class DateTime {
 	}
 
 	/** 
+	 * Compare the comparison values of day and month.
 	 * 
 	 * @param monthComparison
+	 * 		  Possible values are -1, 0, 1
+	 * 
 	 * @param dayComparison
-	 * @return
+	 *        Possible values are -1, 0, 1
+	 *        
+	 * @return -1, 0, 1 after taking into account the month and day comparisons.
 	 */
 	private static int compareMonthDay(int monthComparison, int dayComparison) {
 		int comparison;
@@ -363,29 +439,40 @@ public class DateTime {
 		return comparison; 
 	}
 
-	/** 
+	/**
+	 * Checks if monthComparison value is 0
 	 * 
 	 * @param monthComparison
-	 * @return
+	 * 		  Possible values are -1, 0, 1
+	 *        
+	 * @return true if is 0 and false otherwise.
 	 */
 	private static boolean isSameMonth(int monthComparison) {
 		return monthComparison == COMPARISON_FIRST_EQUALS_SECOND;
 	}
 	
-	/** 
+	/**
+	 * Checks if yearComparison value is 0
 	 * 
 	 * @param yearComparison
-	 * @return
+	 * 		  Possible values are -1, 0, 1
+	 *        
+	 * @return true if is 0 and false otherwise.
 	 */
 	private static boolean isSameYear(int yearComparison) {
 		return yearComparison == COMPARISON_FIRST_EQUALS_SECOND;
 	}
 
 	/** 
+	 * Compares the days of 2 DateTime objects.
 	 * 
 	 * @param first
+	 * 		  First DateTime object input
+	 * 
 	 * @param second
-	 * @return
+	 * 		  Second DateTime object input
+	 * 
+	 * @return -1, 0, 1 if first day is before, equals to or after second day.
 	 */
 	private static int compareDay(DateTime first, DateTime second) {
 		int comparison = COMPARISON_FIRST_EQUALS_SECOND;
@@ -402,10 +489,15 @@ public class DateTime {
 	}
 
 	/** 
+	 * Compares the months of 2 DateTime objects.
 	 * 
 	 * @param first
+	 * 		  First DateTime object input
+	 * 
 	 * @param second
-	 * @return
+	 * 		  Second DateTime object input
+	 * 
+	 * @return -1, 0, 1 if first month is before, equals to or after second month.
 	 */
 	private static int compareMonth(DateTime first, DateTime second) {
 		int comparison = COMPARISON_FIRST_EQUALS_SECOND;
@@ -422,10 +514,15 @@ public class DateTime {
 	}
 
 	/** 
+	 * Compares the months of 2 DateTime objects
 	 * 
 	 * @param first
+	 * 		  First DateTime object input
+	 * 
 	 * @param second
-	 * @return
+	 * 		  Second DateTime object input
+	 * 
+	 * @return -1, 0, 1 if first year is before, equals to or after second year.
 	 */
 	private static int compareYear(DateTime first, DateTime second) {
 		int comparison = COMPARISON_FIRST_EQUALS_SECOND;
@@ -442,21 +539,33 @@ public class DateTime {
 	}
 
 	/** 
+	 * Compares the date strings of 2 DateTime objects
 	 * 
 	 * @param first
+	 * 		  First DateTime object input
+	 * 
 	 * @param second
-	 * @return
+	 * 		  Second DateTime object input
+	 * 
+	 * @return true if the date strings are equal and false otherwise.
 	 */
 	private static boolean compareDateStrings(DateTime first, DateTime second) {
 		return first.getDate().equals(second.getDate());
 	}
 	
 	/** 
+	 * Checks if the stated day is between the start and end DateTime objects
 	 * 
 	 * @param day
-	 * @param start
-	 * @param end
-	 * @return
+	 * 		  Day Enum
+	 * 
+	 * @param first
+	 * 		  First DateTime object input
+	 * 
+	 * @param second
+	 * 		  Second DateTime object input
+	 * 
+	 * @return true if it lies between the start and end and false otherwise.
 	 */
 	public static boolean isWithinDay(Day day, DateTime start, DateTime end) {
 		int startDayInt = start.getDayInt();
@@ -467,29 +576,15 @@ public class DateTime {
 		boolean isBeforeEnd = dayEnumInt <= endDayInt;
 		return isAfterStart && isBeforeEnd;
 	}
-	
-	/** 
-	 * 
-	 * @param day
-	 * @return
-	 */
-	private static int convertDayEnumToInt(Day day) {
-		String dayEnumString = day.toString().toLowerCase();
-		int dayEnumInt = UNINITIALIZED_INT;
-		for (int i = 1; i < daysInWeek.length; i++) {
-			String daysInWeekString = daysInWeek[i].toLowerCase();
-			if (daysInWeekString.contains(dayEnumString)) {
-				dayEnumInt = i;
-				break;
-			}
-		}
-		return dayEnumInt;
-	}
 
 	/** 
+	 * Checks if this DateTime object is equal to the DateTime object passed 
+	 * into the method.
 	 * 
 	 * @param dateTime
-	 * @return
+	 * 		  A DateTim object
+	 * 
+	 * @return true if the two object have the same attributes and false otherwise.
 	 */
 	public boolean equals(DateTime dateTime) {
 		boolean hasEqualDateString = this.getDate().equals(dateTime.getDate());
@@ -505,7 +600,7 @@ public class DateTime {
 	//**********************************************
 
 	/**
-	 * 
+	 * Converts a DateTime object to string format
 	 */
 	public String toString() {
 		String ans = this.getDate() + FORMAT_SPACE + this.getDayStr() + FORMAT_SPACE + this.getTime24hStr() + FORMAT_SPACE + this.getTime12hStr();
@@ -513,24 +608,29 @@ public class DateTime {
 	}
 
 	/** 
+	 * Checks if the time field is initialised in this DateTime object
 	 * 
-	 * @return
+	 * @return true is initialized and false otherwise.
 	 */
 	public boolean hasTime() {
 		return this.getTimeInt() != UNINITIALIZED_INT;
 	}
 
 	/** 
+	 * Checks if this DateTime object has the same date as the DateTime
+	 * object passed into the method.
 	 * 
 	 * @param obj
-	 * @return
+	 *        A DateTime object
+	 *        
+	 * @return true if the 2 DateTime objects have the same date and false otherwise.
 	 */
 	public boolean isTheSameDateAs(DateTime obj) {
 		return this.getDD() == obj.getDD() && this.getMM() == obj.getMM() && this.getYY() == obj.getYY();
 	}
 
 	/** 
-	 * 
+	 * Increase the DD in the date field by one
 	 */
 	public void increaseByOneDay() {
 		this.dd += 1;
@@ -545,60 +645,25 @@ public class DateTime {
 	}
 
 	/** 
-	 * 
-	 * @return
+	 * Converts the DateTime object into string format for saving into task list
+	 * @return string of DateTime object
 	 */
 	public String convertToSavableString() {
-		String dateTimeString = "";
-		dateTimeString += String.valueOf(dd) + FORMAT_SPACE;
-		dateTimeString += String.valueOf(mm) + FORMAT_SPACE;
-		dateTimeString += String.valueOf(yy) + FORMAT_SPACE;
-		return dateTimeString;
+		String DateTimeString = "";
+		DateTimeString += String.valueOf(dd) + FORMAT_SPACE;
+		DateTimeString += String.valueOf(mm) + FORMAT_SPACE;
+		DateTimeString += String.valueOf(yy) + FORMAT_SPACE;
+		return DateTimeString;
 	}
 	
-	//**********************************************
-	//************** Private Methods ***************
-	//**********************************************
-	/** 
-	 * 
-	 * @param time
-	 * @return
-	 */
-	private int getHourNumeral(int time) {
-		return time / 100;
-	}
 	
 	/** 
-	 * 
-	 * @param time
-	 * @return
-	 */
-	private int getMinutesNumeral(int time) {
-		return time % 100;
-	}
-
-	// This method calculates that day of the week that the date falls on
-	/** 
-	 * 
-	 * @return
-	 */
-	private int getDayOfWeekFromADate() {
-		int[] dayTable = new int[] { 7, 1, 2, 3, 4, 5, 6 };
-		int[] monthTable = new int[] {UNINITIALIZED_INT, 6, 2, 2, 5, 0, 3, 5, 1, 4, 6, 2, 4};
-		
-		int lastTwoDigitsOfYear = this.yy % 1000;
-		int divideLastTwoDigitsOfYearByFour = lastTwoDigitsOfYear / 4;
-		int sum = lastTwoDigitsOfYear + divideLastTwoDigitsOfYearByFour + this.dd + monthTable[this.mm];
-		if(DateTime.isLeapYear(this.yy) && this.mm <= 2 && this.dd <= 31) {
-			sum--;
-		}
-		return dayTable[sum % NUMBER_OF_DAYS_IN_WEEK];
-	}
-	
-	/** 
+	 * Checks if a year is an input year
 	 * 
 	 * @param year
-	 * @return
+	 * 		  Input year integer
+	 * 
+	 * @return true if it is leap year and false otherwise.
 	 */
 	public static boolean isLeapYear(int year) {
 		int[] listOfLeapYears = new int[] { 2016, 2020, 2024, 2028, 2032, 2036, 2040, 2044, 2048, 2052, 2056, 2060, 2064, 2068, 2072, 2076, 2080, 2084, 2088, 2092, 2096 };
@@ -617,10 +682,16 @@ public class DateTime {
 	}
 	
 	/** 
+	 * Converts the start and end timings of a multi-day event into an
+	 * ArrayList of time strings.
 	 * 
 	 * @param start
+	 * 		  A DateTime object.
+	 * 
 	 * @param end
-	 * @return
+	 * 		  A DateTime object.
+	 * 
+	 * @return an ArrayList of 24h format time string
 	 */
 	public static ArrayList<String> getMultiDayString(DateTime start, DateTime end) {
 		assert start.compareTo(end) == COMPARISON_FIRST_IS_BEFORE_SECOND;
@@ -645,21 +716,34 @@ public class DateTime {
 	}
 	
 	/** 
+	 * Checks if 2 DateTime object falls on the same date to determine if an event
+	 * task spans across multiple days or not.
 	 * 
 	 * @param start
+	 * 		  A DateTime object.
+	 * 
 	 * @param end
-	 * @return
+	 * 		  A DateTime object.
+	 * 
+	 * @return true if the 2 DateTime objects have different dates and false otherwise.
 	 */
 	public static boolean hasMultiDay(DateTime start, DateTime end) {
 		return !start.isTheSameDateAs(end);
 	}
 	
 	/** 
+	 * Checks if a DateTime object lies between a start and end DateTime objects.
 	 * 
 	 * @param dt
+	 * 		  A DateTime object.
+	 * 
 	 * @param start
+	 * 		  A DateTime object.
+	 * 
 	 * @param end
-	 * @return
+	 * 		  A DateTime object.
+	 * 
+	 * @return true is dt is between the start and the end
 	 */
 	public static boolean isWithin(DateTime dt, DateTime start, DateTime end) {
 		boolean dtIsAfterStart = dt.compareTo(start) != COMPARISON_FIRST_IS_BEFORE_SECOND;
@@ -668,31 +752,43 @@ public class DateTime {
 	}
 	
 	/** 
+	 * Checks if a DateTime object has the same month as the specified month.
 	 * 
 	 * @param month
-	 * @return
+	 * 		  Month enum
+	 * 
+	 * @return true if the date lies on the same month and false otherwise.
 	 */
 	public boolean isMonth(Month month) {
 		String monthString = month.name();
-		String dateTimeMonth = months[this.getMM()];
-		return monthString.equalsIgnoreCase(dateTimeMonth);
+		String DateTimeMonth = months[this.getMM()];
+		return monthString.equalsIgnoreCase(DateTimeMonth);
 	}
 	
 	/** 
+	 * Checks if a DateTime object has the same month as the specified month.
 	 * 
 	 * @param day
-	 * @return
+	 * 		  Day enum for day of the week
+	 * 
+	 * @return true if the date lies on the same day of the week and false otherwise.
 	 */
 	public boolean isDay(Day day) {
 		String dayString = day.name();
-		String dateTimeDay = daysInWeek[this.getDayInt()].substring(0, 3);
-		return dayString.equalsIgnoreCase(dateTimeDay);
+		
+		// Get the first 3 letters of the day of the week
+		String DateTimeDay = daysInWeek[this.getDayInt()].substring(0, 3);
+		
+		return dayString.equalsIgnoreCase(DateTimeDay);
 	}
 	
 	/** 
+	 * Converts day of the week string to Day enum
 	 * 
 	 * @param input
-	 * @return
+	 * 		  Day of the week string
+	 * 
+	 * @return the respective Day Enum
 	 */
 	public static Day getDayType(String input) {
 		Day type;
@@ -717,9 +813,12 @@ public class DateTime {
 	}
 	
 	/** 
+	 * Converts month of the year string to Month enum
 	 * 
 	 * @param input
-	 * @return
+	 * 		  Month of the year string
+	 * 
+	 * @return the respective Month Enum
 	 */
 	public static Month getMonthType(String input) {
 		Month type;
@@ -754,8 +853,10 @@ public class DateTime {
 	}
 	
 	/** 
+	 * Sets date of this DateTime object to the same date as the DateTime object
 	 * 
 	 * @param start
+	 * 		  A DateTime object
 	 */
 	public void setDate(DateTime start) {
 		this.dd = start.getDD();
@@ -764,26 +865,36 @@ public class DateTime {
 	}
 
 	/** 
-	 * 
+	 * Sets time of this DateTime object to the same time as the DateTime object
 	 */
 	public void setTimeToMidnight() {
 		this.timeInt = MIDNIGHT_INT;
 	}
 
 	/** 
-	 * 
+	 * Sets time of this DateTime object to right before midnight
 	 */
 	public void setTimeToRightBeforeMidnight() {
 		this.timeInt = RIGHT_BEFORE_MIDNIGHT_INT;
 	}
 	
 	/** 
+	 * Checks if there is an overlap between the first start and end date and timings and the
+	 * second start and end timings. This is to check if 2 events overlap.
 	 * 
 	 * @param startOne
+	 * 		  A DateTime object
+	 * 
 	 * @param endOne
+	 *  	  A DateTime object
+	 *  
 	 * @param startTwo
+	 *        A DateTime object
+	 *        
 	 * @param endTwo
-	 * @return
+	 *        A DateTime object
+	 *        
+	 * @return true if there is an overlap and false otherwise.
 	 */
 	public static boolean isOverlap(DateTime startOne, DateTime endOne, DateTime startTwo, DateTime endTwo) {
 		boolean startOneIsBeforeEndTwo = startOne.compareTo(endTwo) == COMPARISON_FIRST_IS_BEFORE_SECOND;
@@ -799,11 +910,18 @@ public class DateTime {
 	}
 	
 	/** 
+	 * Checks if the deadline lies within the event start and end date and timings.
 	 * 
 	 * @param deadline
+	 * 	      A DateTime object
+	 * 
 	 * @param start
+	 * 	      A DateTime object
+	 * 
 	 * @param end
-	 * @return
+	 * 	      A DateTime object
+	 * 
+	 * @return true if there is an overlap and false otherwise.
 	 */
 	public static boolean isOverlap(DateTime deadline, DateTime start, DateTime end) {
 		boolean deadlineIsBeforeStart = deadline.compareTo(start) == COMPARISON_FIRST_IS_BEFORE_SECOND;
@@ -812,12 +930,85 @@ public class DateTime {
 	}
 	
 	/** 
+	 * Checks if the DateTime object passed in has the specified day of the week int passed in
 	 * 
 	 * @param dateTime
+	 * 		  A DateTime object
+	 * 
 	 * @param day
-	 * @return
+	 * 		  Day of the week in int form
+	 * 
+	 * @return true if the DateTime object lies on the same day as the day int passed in.
 	 */
 	public static boolean isSpecifiedDay(DateTime dateTime, int day) {
 		return dateTime.getDayInt() == day;
+	}
+	
+	//**********************************************
+	//************** Private Methods ***************
+	//**********************************************
+	
+	/** 
+	 * Converts Day enum to respective day int.
+	 * 
+	 * @param day
+	 * 		  Day of the week in int form.
+	 * 
+	 * @return the day of the week in int form.
+	 */
+	private static int convertDayEnumToInt(Day day) {
+		String dayEnumString = day.toString().toLowerCase();
+		int dayEnumInt = UNINITIALIZED_INT;
+		for (int i = 1; i < daysInWeek.length; i++) {
+			String daysInWeekString = daysInWeek[i].toLowerCase();
+			if (daysInWeekString.contains(dayEnumString)) {
+				dayEnumInt = i;
+				break;
+			}
+		}
+		return dayEnumInt;
+	}
+	
+	/** 
+	 * Gets the hour value of a timeInt
+	 * 
+	 * @param time
+	 * 		  24h time int
+	 * 
+	 * @return returns the hour time value.
+	 */
+	private int getHourNumeral(int time) {
+		return time / 100;
+	}
+	
+	/** 
+	 * Gets the minutes value of a time int
+	 * 
+	 * @param time
+	 * 		  24h time int
+	 * 
+	 * @return the minute time value.
+	 */
+	private int getMinutesNumeral(int time) {
+		return time % 100;
+	}
+
+	/** 
+	 * Calculates the day of the week that the date falls on. 
+	 * Eg. Given 17/2/2016, method will return 3 indicating wed
+	 * 
+	 * @return day of the week in int form
+	 */
+	private int getDayOfWeekFromADate() {
+		int[] dayTable = new int[] { 7, 1, 2, 3, 4, 5, 6 };
+		int[] monthTable = new int[] {UNINITIALIZED_INT, 6, 2, 2, 5, 0, 3, 5, 1, 4, 6, 2, 4};
+		
+		int lastTwoDigitsOfYear = this.yy % 1000;
+		int divideLastTwoDigitsOfYearByFour = lastTwoDigitsOfYear / 4;
+		int sum = lastTwoDigitsOfYear + divideLastTwoDigitsOfYearByFour + this.dd + monthTable[this.mm];
+		if(DateTime.isLeapYear(this.yy) && this.mm <= 2 && this.dd <= 31) {
+			sum--;
+		}
+		return dayTable[sum % NUMBER_OF_DAYS_IN_WEEK];
 	}
 }

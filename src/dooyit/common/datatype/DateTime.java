@@ -67,6 +67,9 @@ public class DateTime {
 	private static final String MONTH_NOV = "nov";
 	private static final String MONTH_DEC = "dec";
 	
+	private static final String FORMAT_12H = "%d.%02d %s";
+	private static final String FORMAT_24H = "%02d:%02d";
+	
 	private static String[] months = new String[] { DUMMY_STR, "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
 	private static String[] daysInWeek = new String[] { DUMMY_STR, "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
 	private static int[] daysInMonth = new int[] { UNINITIALIZED_INT, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
@@ -168,7 +171,7 @@ public class DateTime {
 		} else {
 			int hour = getHourNumeral(this.timeInt);
 			int minute = getMinutesNumeral(this.timeInt);
-			timeString24H = String.format("%02d:%02d", hour, minute);
+			timeString24H = String.format(FORMAT_24H, hour, minute);
 		}
 		return timeString24H;
 	}
@@ -185,14 +188,14 @@ public class DateTime {
 			timeString12H = UNINITIALIZED_STRING;
 		} else if(hour == 0) {
 			hour += 12;
-			timeString12H = String.format("%d.%02d %s", hour, minute, AM);
+			timeString12H = String.format(FORMAT_12H, hour, minute, AM);
 		} else if(hour < 12) {
-			timeString12H = String.format("%d.%02d %s", hour, minute, AM);
+			timeString12H = String.format(FORMAT_12H, hour, minute, AM);
 		} else if(hour == 12) {
-			timeString12H = String.format("%d.%02d %s", hour, minute, PM);
+			timeString12H = String.format(FORMAT_12H, hour, minute, PM);
 		} else {
 			hour -= 12;
-			timeString12H = String.format("%d.%02d %s", hour, minute, PM);
+			timeString12H = String.format(FORMAT_12H, hour, minute, PM);
 		}
 		return timeString12H;
 	}
